@@ -1,0 +1,13 @@
+<app-menu></app-menu>
+
+<h1>Bienvenido {{ users[0].firstName }}</h1>
+
+<div style="display:inline-flex">
+    <div style="height: 500px; width: 500px; background: red; color: white; margin: 10px;cursor:pointer;text-align: center;" (click)="goToSubscription()">
+        Suscripción
+    </div>
+
+    <div style="height: 500px; width: 500px; background: blue; color: white ; margin: 10px;cursor:pointer;text-align: center;" (click)="goToContactBook()">
+        Contactos
+    </div>
+</div>

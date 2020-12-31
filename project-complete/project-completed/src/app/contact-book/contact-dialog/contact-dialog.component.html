@@ -1,0 +1,33 @@
+<form (submit)="submit()" class="form" [formGroup]="form">
+    <div class="form-group">
+        <label for="name-input">Username:</label>
+        <input id="name-input" type="text" class="form-control" formControlName="username" />
+    </div>
+
+    <div class="form-group">
+        <label for="name-input">Nombre:</label>
+        <input id="name-input" type="text" class="form-control" formControlName="first_name" />
+    </div>
+    <div class="form-group">
+        <label for="name-input">Apellido:</label>
+        <input id="name-input" type="text" class="form-control" formControlName="last_name" />
+    </div>
+    <div class="form-group">
+        <label for="email-input">Email:</label>
+        <input id="email-input" type="text" class="form-control" formControlName="email" />
+    </div>
+
+    <div class="form-group">
+        <label for="phone-input">Phone:</label>
+        <input id="phone-input" type="tel" class="form-control" formControlName="phone_number" />
+    </div>
+    <div class="form-group">
+        <label for="phone-input">business:</label>
+        <input id="phone-input" type="tel" class="form-control" formControlName="business" />
+    </div>
+    <div class="form-group">
+        <button type="submit" [disabled]="!form.valid" class="btn btn-success float-right">
+      Submit
+    </button>
+    </div>
+</form>
