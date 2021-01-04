@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,11 +23,11 @@
     "@angular/router": "~10.2.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@types/lodash": "^4.14.166",
-    "agube-rest-api-lib": "file:../../agube-rest-api/agube-rest-api/dist/agube-rest-api-lib/agube-rest-api-lib-1.0.0.tgz",
-    "contact-book-rest-api": "file:../../contact-book-rest-api/contact-book-rest-api/dist/contact-book-rest-api/contact-book-rest-api-0.0.1.tgz",
+    "contact-book-rest-api": "file:../../../../../contact-book/api/contact-book-rest-api/contact-book-rest-api/dist/contact-book-rest-api-lib/contact-book-rest-api-0.0.1.tgz",
     "fontawesome": "^5.6.3",
     "lodash": "^4.17.20",
     "rxjs": "~6.6.0",
+    "subscription-rest-api-lib": "file:../../../../../subscription/api/subscription-rest-api/subscription-rest-api/dist/subscription-rest-api-lib/subscription-rest-api-lib-0.0.1.tgz",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

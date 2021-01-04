@@ -5,7 +5,7 @@ import {
   SubscriptionclientService,
   SubscriptionpaymentTypesService,
   SubscriptionService,
-} from 'agube-rest-api-lib';
+} from 'subscription-rest-api-lib';
 
 @Component({
   selector: 'app-generic-forms',
@@ -69,8 +69,8 @@ export class GenericFormsComponent implements OnInit {
           client: {
             user: {
               username: this.registerForm.value.username,
-              firstName: this.registerForm.value.firstName,
-              lastName: this.registerForm.value.lastName,
+              first_name: this.registerForm.value.firstName,
+              last_name: this.registerForm.value.lastName,
               email: this.registerForm.value.email,
             },
             community_name: this.registerForm.value.community_name,

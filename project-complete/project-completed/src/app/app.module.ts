@@ -6,7 +6,7 @@ import {
   SubscriptionclientService,
   SubscriptionpaymentTypesService,
   SubscriptionService,
-} from 'agube-rest-api-lib';
+} from 'subscription-rest-api-lib';
 import { ContactService, TagService } from 'contact-book-rest-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
