@@ -1,0 +1,16 @@
+#docs
+doc
+docs
+README.md
+
+#environments
+env
+venv
+
+#git
+.git
+.gitignore
+
+#docker
+.dockerignore
+Dockerfile
