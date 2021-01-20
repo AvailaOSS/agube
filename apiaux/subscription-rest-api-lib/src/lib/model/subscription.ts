@@ -17,6 +17,6 @@ export interface Subscription {
     name: string;
     description: string;
     price: string;
-    pricePerDay: string;
+    price_per_day: string;
     type?: SubscriptionType;
 }

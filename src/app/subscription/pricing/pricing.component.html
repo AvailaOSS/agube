@@ -1,13 +1,26 @@
 <div class="container-center">
-    <div class="columns" *ngFor="let item of subscription; let i=index">
-        <ul class="price">
-            <li class="header">{{item.name}}</li>
-            <li class="grey">{{item.price}} €</li>
-            <li>Precio por día: {{item.price_per_day}} €</li>
-            <li>{{item.description}}</li>
-            <li class="grey">
-                <button (click)="sendUrl(item.id)" class="button">Sign Up</button>
-            </li>
-        </ul>
-    </div>
-    <div>
+  <div class="columns" *ngFor="let item of subscriptions; let i = index">
+    <ul class="price">
+      <li class="header">{{ item.subscription.name }}</li>
+      <li class="grey">{{ item.subscription.price }} €</li>
+      <li>Precio por día: {{ item.subscription.price_per_day }} €</li>
+      <li>{{ item.subscription.description }}</li>
+      <li class="grey">
+        <button (click)="sendUrl(item.subscription.id)" class="button">
+          Buy!
+        </button>
+      </li>
+    </ul>
+
+    <table mat-table [dataSource]="item.permissions" class="mat-elevation-z8">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Contenido del plan</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="permissionColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: permissionColumns;"></tr>
+    </table>
+  </div>
+</div>
