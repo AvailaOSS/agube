@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Contact, ContactService } from 'contact-book-rest-api';
+import { ContactService } from 'apiaux/contact-book-rest-api-lib/src/public-api';
 import { isNull, isUndefined } from 'lodash';
 
 @Component({

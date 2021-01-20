@@ -3,11 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {
-  SubscriptionclientService,
-  SubscriptionpaymentTypesService,
-  SubscriptionService,
-} from 'subscription-rest-api-lib';
-import { ContactService, TagService } from 'contact-book-rest-api';
+  SubscriptionApiModule
+} from '../../apiaux/subscription-rest-api-lib/src/lib/subscription.api.module';
+import { ContactBookApiModule } from '../../apiaux/contact-book-rest-api-lib/src/lib/contact.book.api.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
@@ -33,7 +31,9 @@ import { PrincipalModule } from './principal/principal.module';
     SubscriptionModule,
     ContactBookModule,
     BrowserAnimationsModule,
-    PrincipalModule
+    PrincipalModule,
+    SubscriptionApiModule,
+    ContactBookApiModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -41,12 +41,7 @@ import { PrincipalModule } from './principal/principal.module';
 
     // provider used to create fake backend
     fakeBackendProvider,
-    SubscriptionService,
-    SubscriptionclientService,
-    SubscriptionpaymentTypesService,
-    ContactService,
-    TagService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

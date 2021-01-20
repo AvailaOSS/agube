@@ -1,6 +1,6 @@
-import { SubscriptionService } from 'subscription-rest-api-lib';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SubscriptionService } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { Subscription } from 'rxjs';
 
 @Component({
