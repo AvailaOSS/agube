@@ -1,60 +1,51 @@
-* {
-    box-sizing: border-box;
+/**
+FIXME: Import colors from Styles.scss
+**/
+
+.welcome {
+  margin-top: 2%;
 }
 
-.container-center {
-    margin: 0 auto;
-    display: table;
+.welcome .w-title {
+  font-size: xx-large;
+  margin-bottom: 2%;
 }
 
-.columns {
-    float: left;
-    width: 20%;
-    padding: 8px;
+.welcome .w-content {
+  max-width: 80%;
 }
 
-.price {
-    list-style-type: none;
-    border: 1px solid #eee;
-    margin: 0;
-    padding: 0;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+.subscription-card {
+  /**
+  FIXME: fix width & height and do not use px for responsive compatibilty
+  **/
+  max-width: 650px;
+  height: 300px;
+  margin: 5%;
 }
 
-.price:hover {
-    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+.subscription-card:hover {
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
-.price .header {
-    background-color: #35b4ff;
-    color: white;
-    font-size: 25px;
+.card-title {
+  color: #35b4ff;
+  font-style: italic;
 }
 
-.price li {
-    border-bottom: 1px solid #eee;
-    padding: 20px;
-    text-align: center;
+.card-subtitle {
+  padding: 5%;
+  font-size: 200%;
+  font-weight: bold;
+  color: #35b4ff;
 }
 
-.price .grey {
-    background-color: #eee;
-    font-size: 20px;
-}
-
-.button {
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-@media only screen and (max-width: 600px) {
-    .columns {
-        width: 100%;
-    }
+.buy-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
 }

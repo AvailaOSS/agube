@@ -17,7 +17,6 @@ export interface SubscriptionPermissions {
   styleUrls: ['./pricing.component.scss'],
 })
 export class PricingComponent implements OnInit {
-
   public subscriptions: SubscriptionPermissions[];
 
   public permissionColumns: string[];
@@ -33,14 +32,18 @@ export class PricingComponent implements OnInit {
   public ngOnInit(): void {
     this.subscriptionService.subscriptionList().subscribe((subscriptions) => {
       // FIXME: it should be ordederd by backend
-      subscriptions.sort((s1,s2)=> (s1.id > s2.id ? 1 : -1));
-      subscriptions.forEach((subscription) =>
-        this.subscriptionService
-          .subscriptionPermissionsList(subscription.id)
-          .subscribe((permissions) => {
-            this.subscriptions.push({subscription: subscription, permissions: permissions});
-          })
-      );
+      subscriptions
+        .sort((s1, s2) => (s1.id > s2.id ? 1 : -1))
+        .forEach((subscription) =>
+          this.subscriptionService
+            .subscriptionPermissionsList(subscription.id)
+            .subscribe((permissions) => {
+              this.subscriptions.push({
+                subscription: subscription,
+                permissions: permissions,
+              });
+            })
+        );
     });
   }
 
