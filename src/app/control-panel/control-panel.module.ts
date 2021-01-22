@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrincipalComponent } from './principal.component';
+import { ControlPanelComponent } from './control-panel.component';
 import { MenuModule } from '../menu/menu.module';
 
 
 
 @NgModule({
-  declarations: [PrincipalComponent],
+  declarations: [ControlPanelComponent],
   imports: [
     CommonModule,
     MenuModule
   ],
   exports: [
-    PrincipalComponent
+    ControlPanelComponent
 ],
 })
-export class PrincipalModule { }
+export class ControlPanelModule { }

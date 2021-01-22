@@ -5,19 +5,20 @@ import { RegisterComponent } from './login/register.component';
 import { GenericFormsComponent } from './subscription/generic-forms/generic-forms.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
-import { PrincipalComponent } from './principal/principal.component';
+import { ControlPanelComponent } from './control-panel/control-panel.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'principal', component: PrincipalComponent },
+  { path: 'control-panel', component: ControlPanelComponent },
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },
-  { path: 'forms', component: GenericFormsComponent }
+  { path: 'forms', component: GenericFormsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
