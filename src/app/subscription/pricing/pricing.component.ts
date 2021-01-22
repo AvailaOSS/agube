@@ -50,4 +50,8 @@ export class PricingComponent implements OnInit {
   public sendUrl(url: string): void {
     this.router.navigate(['/forms', { id: url }]);
   }
+
+  public goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 }
