@@ -13,11 +13,4 @@ export class ControlPanelComponent implements OnInit {
   public ngOnInit(): void {
     this.users = JSON.parse(localStorage.getItem('users')) || [];
   }
-
-  public goToSubscription(): void {
-    this.route.navigate(['../subscription']);
-  }
-  public goToContactBook(): void {
-    this.route.navigate(['../contact-book']);
-  }
 }
