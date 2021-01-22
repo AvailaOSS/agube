@@ -1,6 +1,4 @@
-/**
-FIXME: Import colors from Styles.scss
-**/
+@import "../../../styles.scss";
 
 .welcome {
   margin-top: 2%;
@@ -29,7 +27,7 @@ FIXME: Import colors from Styles.scss
 }
 
 .card-title {
-  color: #35b4ff;
+  color: $primary;
   font-style: italic;
 }
 
@@ -37,15 +35,19 @@ FIXME: Import colors from Styles.scss
   padding: 5%;
   font-size: 200%;
   font-weight: bold;
-  color: #35b4ff;
+  color: $primary;
+}
+
+.actions {
+  margin-top: 20%;
 }
 
 .buy-button {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 10px 25px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 18px;
+  width: 50% !important;
+  font-size: larger;
+}
+
+.log-in-button {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
