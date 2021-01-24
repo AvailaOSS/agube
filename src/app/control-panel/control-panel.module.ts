@@ -10,6 +10,7 @@ import { ClientDetailsCardComponent } from './client-details-card/client-details
 import { PresdentDetailsCardComponent } from './presdent-details-card/presdent-details-card.component';
 import { ControlPanelButtonComponent } from './control-panel-button/control-panel-button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ControlPanelGroupComponent } from './control-panel-group/control-panel-group.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
     ClientDetailsCardComponent,
     PresdentDetailsCardComponent,
     ControlPanelButtonComponent,
+    ControlPanelGroupComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ControlPanelButton } from './control-panel-button';
 
 @Component({
   selector: 'app-control-panel-button',
@@ -7,15 +8,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./control-panel-button.component.scss'],
 })
 export class ControlPanelButtonComponent implements OnInit {
-  @Input() name: string; // FIXME: do this required
-  @Input() redirect: string; // FIXME: do this required
-  @Input() icon: string = ''; // FIXME: do this optional
+  @Input() buttonConfig: ControlPanelButton;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {}
 
-  goTo() {
-    this.router.navigate([this.redirect], { relativeTo: this.route });
+  public goTo() {
+    this.router.navigate([this.buttonConfig.redirect], {
+      relativeTo: this.route,
+    });
   }
 }

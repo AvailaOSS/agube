@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-card-title>{{ groupConfig.name }}</mat-card-title>
+  <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
+    <div *ngFor="let button of groupConfig.buttons">
+      <app-control-panel-button [buttonConfig]="button">
+      </app-control-panel-button>
+    </div>
+  </mat-card-content>
+</mat-card>
