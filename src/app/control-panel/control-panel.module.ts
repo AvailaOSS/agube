@@ -6,9 +6,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
+import { ClientDetailsCardComponent } from './client-details-card/client-details-card.component';
 
 @NgModule({
-  declarations: [ControlPanelComponent],
+  declarations: [ControlPanelComponent, ClientDetailsCardComponent],
   imports: [
     CommonModule,
     MenuModule,

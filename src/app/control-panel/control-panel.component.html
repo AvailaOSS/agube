@@ -2,19 +2,7 @@
 
 <div fxLayout="row" fxLayoutAlign="space-around center">
   <div class="column1">
-    <mat-card>
-      <mat-card-title>{{ clientDetails.name }}</mat-card-title>
-      <mat-card-subtitle>Datos de la comunidad</mat-card-subtitle>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item><b>NIF</b>{{ clientDetails.nif }}</mat-list-item>
-          <mat-list-item><b>Fecha Alta</b>
-            {{ clientDetails.subscription_date }}</mat-list-item>
-          <mat-list-item><b>Dirección</b> {{ clientDetails.address }}</mat-list-item>
-          <mat-list-item><b>Plan</b> {{ clientDetails.plan }}</mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+    <app-client-details-card></app-client-details-card>
     <mat-card>
       <mat-card-title>Presidente</mat-card-title>
       <mat-card-content>
@@ -36,7 +24,6 @@
         <button mat-stroked-button>Agenda</button>
       </mat-card-content>
     </mat-card>
-
   </div>
   <div class="column2">
     <mat-card>
@@ -49,7 +36,6 @@
         <button mat-stroked-button>Calendario</button>
       </mat-card-content>
     </mat-card>
-
   </div>
   <div class="column3">
     <mat-card>
