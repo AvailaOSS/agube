@@ -6,8 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
-import { ClientDetailsCardComponent } from './client-details-card/client-details-card.component';
-import { PresdentDetailsCardComponent } from './presdent-details-card/presdent-details-card.component';
+import { ClientDetailsCardComponent } from './detail-cards/client-details-card/client-details-card.component';
+import { PresidentDetailsCardComponent } from './detail-cards/president-details-card/president-details-card.component';
 import { ControlPanelButtonComponent } from './control-panel-group/control-panel-button/control-panel-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ControlPanelGroupComponent } from './control-panel-group/control-panel-group.component';
@@ -16,7 +16,7 @@ import { ControlPanelGroupComponent } from './control-panel-group/control-panel-
   declarations: [
     ControlPanelComponent,
     ClientDetailsCardComponent,
-    PresdentDetailsCardComponent,
+    PresidentDetailsCardComponent,
     ControlPanelButtonComponent,
     ControlPanelGroupComponent,
   ],
@@ -29,6 +29,10 @@ import { ControlPanelGroupComponent } from './control-panel-group/control-panel-
     MatListModule,
     MatIconModule,
   ],
-  exports: [ControlPanelComponent],
+  exports: [
+    ControlPanelComponent,
+    ClientDetailsCardComponent,
+    PresidentDetailsCardComponent,
+  ],
 })
 export class ControlPanelModule {}
