@@ -8,7 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { ClientDetailsCardComponent } from './client-details-card/client-details-card.component';
 import { PresdentDetailsCardComponent } from './presdent-details-card/presdent-details-card.component';
-import { ControlPanelButtonComponent } from './control-panel-button/control-panel-button.component';
+import { ControlPanelButtonComponent } from './control-panel-group/control-panel-button/control-panel-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ControlPanelGroupComponent } from './control-panel-group/control-panel-group.component';
 
