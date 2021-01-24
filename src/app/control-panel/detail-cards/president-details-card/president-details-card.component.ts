@@ -8,11 +8,11 @@ export interface PresidentDetails {
 }
 
 @Component({
-  selector: 'app-presdent-details-card',
-  templateUrl: './presdent-details-card.component.html',
-  styleUrls: ['./presdent-details-card.component.scss'],
+  selector: 'app-president-details-card',
+  templateUrl: './president-details-card.component.html',
+  styleUrls: ['./president-details-card.component.scss'],
 })
-export class PresdentDetailsCardComponent implements OnInit {
+export class PresidentDetailsCardComponent implements OnInit {
   public president: PresidentDetails;
   constructor() {}
 
