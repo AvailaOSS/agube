@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 
-<div fxLayout="row" fxLayoutAlign="space-around center">
+<div fxLayout="row" fxLayoutAlign="space-around start">
   <div class="column1">
     <app-client-details-card></app-client-details-card>
     <app-presdent-details-card></app-presdent-details-card>
@@ -9,9 +9,12 @@
     <mat-card>
       <mat-card-title>Gestión</mat-card-title>
       <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
-        <button mat-stroked-button>Viviendas</button>
-        <button mat-stroked-button>Contactos</button>
-        <button mat-stroked-button>Agenda</button>
+        <app-control-panel-button name="Viviendas" redirect="" icon="fas fa-home">
+        </app-control-panel-button>
+        <app-control-panel-button name="Contactos" redirect="" icon="fas fa-users">
+        </app-control-panel-button>
+        <app-control-panel-button name="Agenda" redirect="" icon="fas fa-address-book">
+        </app-control-panel-button>
       </mat-card-content>
     </mat-card>
   </div>
@@ -19,11 +22,16 @@
     <mat-card>
       <mat-card-title>Planificación</mat-card-title>
       <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
-        <button mat-stroked-button>Lectura Contador</button>
-        <button mat-stroked-button>Incidencias</button>
-        <button mat-stroked-button>Facturas</button>
-        <button mat-stroked-button>Correos</button>
-        <button mat-stroked-button>Calendario</button>
+        <app-control-panel-button name="Lectura Contador" redirect="" icon="fas fa-faucet">
+        </app-control-panel-button>
+        <app-control-panel-button name="Incidencias" redirect="" icon="fas fa-tasks">
+        </app-control-panel-button>
+        <app-control-panel-button name="Facturas" redirect="" icon="fas fa-file-invoice">
+        </app-control-panel-button>
+        <app-control-panel-button name="Correos" redirect="" icon="fas fa-envelope">
+        </app-control-panel-button>
+        <app-control-panel-button name="Calendario" redirect="" icon="fas fa-calendar-alt">
+        </app-control-panel-button>
       </mat-card-content>
     </mat-card>
   </div>
@@ -31,8 +39,10 @@
     <mat-card>
       <mat-card-title>Configuración</mat-card-title>
       <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
-        <button mat-stroked-button>Depósito</button>
-        <button mat-stroked-button>General</button>
+        <app-control-panel-button name="Depósito" redirect="" icon="fas fa-swimming-pool">
+        </app-control-panel-button>
+        <app-control-panel-button name="General" redirect="" icon="fas fa-tools">
+        </app-control-panel-button>
       </mat-card-content>
     </mat-card>
   </div>

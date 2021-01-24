@@ -8,9 +8,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { ClientDetailsCardComponent } from './client-details-card/client-details-card.component';
 import { PresdentDetailsCardComponent } from './presdent-details-card/presdent-details-card.component';
+import { ControlPanelButtonComponent } from './control-panel-button/control-panel-button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [ControlPanelComponent, ClientDetailsCardComponent, PresdentDetailsCardComponent],
+  declarations: [
+    ControlPanelComponent,
+    ClientDetailsCardComponent,
+    PresdentDetailsCardComponent,
+    ControlPanelButtonComponent,
+  ],
   imports: [
     CommonModule,
     MenuModule,
@@ -18,6 +25,7 @@ import { PresdentDetailsCardComponent } from './presdent-details-card/presdent-d
     MatButtonModule,
     FlexLayoutModule,
     MatListModule,
+    MatIconModule,
   ],
   exports: [ControlPanelComponent],
 })
