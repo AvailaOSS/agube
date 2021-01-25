@@ -18,9 +18,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { LivingPlaceModule } from './living-place/living-place.module';
 import { ToolbarModule } from './menu/toolbar.module';
+import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, WorkInProgressComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,7 +37,7 @@ import { ToolbarModule } from './menu/toolbar.module';
     SubscriptionApiModule,
     ContactBookApiModule,
     LivingPlaceModule
-    
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -15,8 +15,6 @@ export class ControlPanelButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   public goTo() {
-    this.router.navigate([this.buttonConfig.redirect], {
-      relativeTo: this.route,
-    });
+    this.router.navigate([this.buttonConfig.redirect]);
   }
 }
