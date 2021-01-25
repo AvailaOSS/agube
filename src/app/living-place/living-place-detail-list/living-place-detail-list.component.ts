@@ -10,6 +10,8 @@ import { LivingPlace } from '../living-place.component';
 export class LivingPlaceDetailListComponent implements OnInit {
   @Output() selected = new EventEmitter<LivingPlace>();
 
+  public selectedRowIndex: string = '';
+
   public displayedColumns: string[] = [
     'address',
     'water_meter',
@@ -62,5 +64,6 @@ export class LivingPlaceDetailListComponent implements OnInit {
 
   public selectRow(row: LivingPlace) {
     this.selected.emit(row);
+    this.selectedRowIndex = row.address;
   }
 }

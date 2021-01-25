@@ -24,6 +24,6 @@
     <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRow(row)">
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'highlight': selectedRowIndex == row.address }" (click)="selectRow(row)">
   </tr>
 </table>
