@@ -11,5 +11,8 @@ export class LivingPlaceDetailCardComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // FIXME: read from EventEmitter into LivingPlaceDetailListComponent
+    console.log(this.livingPlace);
+  }
 }

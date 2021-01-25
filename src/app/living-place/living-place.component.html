@@ -1,8 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="space-around">
   <div class="detail-table-group">
-    <app-living-place-detail-list> </app-living-place-detail-list>
+    <app-living-place-detail-list (selected)="selectItem($event)"> </app-living-place-detail-list>
   </div>
   <div class="detail-living-place-card">
-    <app-living-place-detail-card [livingPlace]="selected"> </app-living-place-detail-card>
+    <app-living-place-detail-card [livingPlace]="livingPlace"> </app-living-place-detail-card>
   </div>
 </div>

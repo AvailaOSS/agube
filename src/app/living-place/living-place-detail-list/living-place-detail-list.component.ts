@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Output } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { LivingPlace } from '../living-place.component';
 
 @Component({
   selector: 'app-living-place-detail-list',
   templateUrl: './living-place-detail-list.component.html',
-  styleUrls: ['./living-place-detail-list.component.scss']
+  styleUrls: ['./living-place-detail-list.component.scss'],
 })
 export class LivingPlaceDetailListComponent implements OnInit {
-  public displayedColumns: string[] = ['address', 'water_meter', 'resident_name', 'phone'];
-  public dataSource: LivingPlace[];
-  public selected: LivingPlace;
+  @Output() selected = new EventEmitter<LivingPlace>();
 
-  constructor() { }
+  public displayedColumns: string[] = [
+    'address',
+    'water_meter',
+    'resident_name',
+    'phone',
+  ];
+  public dataSource: LivingPlace[];
+
+  constructor() {}
 
   ngOnInit(): void {
     this.dataSource = [
@@ -50,7 +57,10 @@ export class LivingPlaceDetailListComponent implements OnInit {
         resident_name: 'Robert Baratheon',
         phone: '666666666',
       },
-    ]
+    ];
   }
 
+  public selectRow(row: LivingPlace) {
+    this.selected.emit(row);
+  }
 }
