@@ -6,8 +6,10 @@ import { MatTableModule } from '@angular/material/table';
 import { ControlPanelModule } from '../control-panel/control-panel.module';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LivingPlaceDetailListComponent } from './living-place-detail-list/living-place-detail-list.component';
 
 @NgModule({
+  declarations: [LivingPlaceComponent, LivingPlaceDetailListComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -17,6 +19,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ControlPanelModule,
     MatCardModule,
   ],
-  declarations: [LivingPlaceComponent],
+  exports: [LivingPlaceComponent],
 })
 export class LivingPlaceModule {}
