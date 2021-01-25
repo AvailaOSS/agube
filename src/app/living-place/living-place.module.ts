@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LivingPlaceDetailListComponent } from './living-place-detail-list/living-place-detail-list.component';
 import { LivingPlaceDetailCardComponent } from './living-place-detail-card/living-place-detail-card.component';
 import { LivingPlaceManagementComponent } from './living-place-detail-card/living-place-management/living-place-management.component';
+import { LivingPlaceWaterMeterReadingsComponent } from './living-place-detail-card/living-place-water-meter-readings/living-place-water-meter-readings.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { LivingPlaceManagementComponent } from './living-place-detail-card/livin
     LivingPlaceDetailListComponent,
     LivingPlaceDetailCardComponent,
     LivingPlaceManagementComponent,
+    LivingPlaceWaterMeterReadingsComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Lecturas Recientes</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 detail-table">
+      <!-- reading Column -->
+      <ng-container matColumnDef="reading">
+        <th mat-header-cell *matHeaderCellDef>Lectura</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.reading }}
+        </td>
+      </ng-container>
+      <!-- water_meter Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns">
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
