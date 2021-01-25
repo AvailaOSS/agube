@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './login/register.component';
+import { RegisterComponent } from './login/register/register.component';
 import { GenericFormsComponent } from './subscription/generic-forms/generic-forms.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';

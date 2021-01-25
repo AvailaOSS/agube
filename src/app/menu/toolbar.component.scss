@@ -1,0 +1,17 @@
+@import "../../styles.scss";
+
+.toolbar {
+  background-color: $primary;
+  padding: 0.5%;
+}
+
+.toolbar .title {
+  // FIXME: fix component to middle
+  color: white;
+  font-size: 150%;
+}
+
+.user-button{
+  // FIXME: fix this without margin-right
+  margin-right: 4%;
+}

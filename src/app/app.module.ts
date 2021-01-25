@@ -17,6 +17,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { LivingPlaceModule } from './living-place/living-place.module';
+import { ToolbarModule } from './menu/toolbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { LivingPlaceModule } from './living-place/living-place.module';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    ToolbarModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
