@@ -12,7 +12,7 @@ import { LivingPlaceDetailListComponent } from './living-place-detail-list/livin
 import { LivingPlaceDetailCardComponent } from './living-place-detail-card/living-place-detail-card.component';
 import { LivingPlaceManagementComponent } from './living-place-detail-card/living-place-management/living-place-management.component';
 import { LivingPlaceWaterMeterReadingsComponent } from './living-place-detail-card/living-place-water-meter-readings/living-place-water-meter-readings.component';
-import { WaterMeterDetailCardComponent } from './living-place-detail-card/water-meter-detail-card/water-meter-detail-card.component';
+import { WaterMeterDetailCardComponent } from './living-place-detail-card/living-place-management/water-meter-detail-card/water-meter-detail-card.component';
 
 @NgModule({
   declarations: [
