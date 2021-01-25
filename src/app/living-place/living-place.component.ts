@@ -1,32 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+
+export interface LivingPlace {
+  id: string;
+  address: string;
+  water_meter: string;
+  resident_name: string;
+  phone: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 @Component({
   selector: 'app-living-place',
   templateUrl: './living-place.component.html',
   styleUrls: ['./living-place.component.scss'],
 })
 export class LivingPlaceComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  public displayedColumns: string[] = ['address', 'water_meter', 'resident_name', 'phone'];
+  public dataSource: LivingPlace[];
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = [
+      {
+        id: '1',
+        address: 'Invernalia, 5º 1A',
+        water_meter: '0000001',
+        resident_name: 'John Snow',
+        phone: '666666666',
+      },
+      {
+        id: '2',
+        address: 'Invernalia, 1º 1C',
+        water_meter: '0000002',
+        resident_name: 'Eddard Stark',
+        phone: '666666666',
+      },
+      {
+        id: '3',
+        address: 'Roca Dragón, 1 bajo',
+        water_meter: '0000003',
+        resident_name: 'Daenerys Targaryen',
+        phone: '666666666',
+      },
+      {
+        id: '4',
+        address: 'Pentos, 99',
+        water_meter: '0000004',
+        resident_name: 'Khal Drogo',
+        phone: '666666666',
+      },
+      {
+        id: '5',
+        address: 'Desembarco del Rey, 1',
+        water_meter: '0000005',
+        resident_name: 'Robert Baratheon',
+        phone: '666666666',
+      },
+    ]
+  }
 }
