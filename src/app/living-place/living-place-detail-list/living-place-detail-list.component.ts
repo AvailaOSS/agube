@@ -9,6 +9,7 @@ import { LivingPlace } from '../living-place.component';
 export class LivingPlaceDetailListComponent implements OnInit {
   public displayedColumns: string[] = ['address', 'water_meter', 'resident_name', 'phone'];
   public dataSource: LivingPlace[];
+  public selected: LivingPlace;
 
   constructor() { }
 

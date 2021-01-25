@@ -7,9 +7,10 @@ import { ControlPanelModule } from '../control-panel/control-panel.module';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LivingPlaceDetailListComponent } from './living-place-detail-list/living-place-detail-list.component';
+import { LivingPlaceDetailCardComponent } from './living-place-detail-card/living-place-detail-card.component';
 
 @NgModule({
-  declarations: [LivingPlaceComponent, LivingPlaceDetailListComponent],
+  declarations: [LivingPlaceComponent, LivingPlaceDetailListComponent, LivingPlaceDetailCardComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
