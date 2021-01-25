@@ -5,9 +5,10 @@
   <mat-card-content>
     <div>
       Dirección
-      <p>{{ livingPlace.address }}</p>
+      <p *ngIf="livingPlace != undefined">{{ livingPlace.address }}</p>
     </div>
     <app-president-details-card></app-president-details-card>
+    <app-water-meter-detail-card></app-water-meter-detail-card>
     <app-living-place-management></app-living-place-management>
     <app-living-place-water-meter-readings></app-living-place-water-meter-readings>
   </mat-card-content>

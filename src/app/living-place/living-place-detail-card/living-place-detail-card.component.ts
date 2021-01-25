@@ -7,7 +7,7 @@ import { LivingPlace } from '../living-place.component';
   styleUrls: ['./living-place-detail-card.component.scss'],
 })
 export class LivingPlaceDetailCardComponent implements OnInit {
-  @Input() livingPlace: LivingPlace;
+  @Input() livingPlace: LivingPlace | undefined;
 
   constructor() {}
 
