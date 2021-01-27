@@ -61,7 +61,7 @@ services:
     ports:
       - 8002:8002
     volumes:
-      - .:/availa
+      - .:/availa-agube
     env_file:
       - ./docker/prod/.env.be.prod
     depends_on:
