@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubscriptionclientService, SubscriptionpaymentTypesService, SubscriptionService } from 'apiaux/subscription-rest-api-lib/src/public-api';
+import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
+import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
+import { SubscriptionService } from 'apiaux/subscription-rest-api-lib/src/public-api';
 
 
 @Component({
@@ -22,9 +24,9 @@ export class GenericFormsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly subscriptionclientService: SubscriptionclientService,
+    private readonly subscriptionclientService: ClientService,
     private readonly subscription: SubscriptionService,
-    private readonly subscriptionpaymentTypesService: SubscriptionpaymentTypesService
+    private readonly paymentTypesService: PaymentTypesService
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.formIdentification = params.id;
@@ -48,8 +50,8 @@ export class GenericFormsComponent implements OnInit {
     return this.registerForm.controls;
   }
   public sendPayUrl(id: string): any {
-    this.subscriptionpaymentTypesService
-      .subscriptionpaymentTypesList()
+    this.paymentTypesService
+      .paymentTypesList()
       .subscribe((typePay) => {
         typePay.map((type) => {
           if (type.description === id) {
@@ -62,7 +64,7 @@ export class GenericFormsComponent implements OnInit {
     this.submitted = true;
     if (!this.registerForm.invalid) {
       this.subscriptionclientService
-        .subscriptionclientCreate({
+        .clientCreate({
           client: {
             user: {
               username: this.registerForm.value.username,

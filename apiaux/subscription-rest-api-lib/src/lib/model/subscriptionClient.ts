@@ -16,7 +16,7 @@ export interface SubscriptionClient {
     readonly id?: string;
     client: Client;
     subscription: number;
-    readonly expirationDate?: Date;
+    readonly expiration_date?: Date;
     readonly enabled?: boolean;
     readonly cancelled?: boolean;
 }

@@ -11,7 +11,6 @@
  */
 import { Tag } from './tag';
 
-
 export interface Tags {
-    tags: Array<Tag>;
+  tags: Array<Tag>;
 }

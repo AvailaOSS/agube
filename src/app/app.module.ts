@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SubscriptionApiModule } from '../../apiaux/subscription-rest-api-lib/src/lib/subscription.api.module';
 import { ContactBookApiModule } from '../../apiaux/contact-book-rest-api-lib/src/lib/contact.book.api.module';
+import { AgubeApiModule } from '../../apiaux/agube-rest-api-lib/src/lib/agube.api.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
@@ -38,6 +39,7 @@ import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
     ControlPanelModule,
     SubscriptionApiModule,
     ContactBookApiModule,
+    AgubeApiModule,
     LivingPlaceModule,
     ContactPanelModule,
     DepositPanelModule

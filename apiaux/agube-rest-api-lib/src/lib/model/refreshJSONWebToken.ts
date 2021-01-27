@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Agube API
+ * Agube API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-export interface Permission {
-  readonly id?: string;
-  name: string;
+export interface RefreshJSONWebToken {
+  token: string;
 }

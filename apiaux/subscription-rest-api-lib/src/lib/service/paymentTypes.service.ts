@@ -26,9 +26,9 @@ import { Configuration } from '../configuration';
 
 
 @Injectable()
-export class SubscriptionpaymentTypesService {
+export class PaymentTypesService {
 
-    protected basePath = 'http://localhost:8000/api/v1';
+    protected basePath = 'http://localhost:8000/api/v1/subscription';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -43,30 +43,15 @@ export class SubscriptionpaymentTypesService {
     }
 
     /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
      *
      * Endpoint that show list of PaymentTypes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public subscriptionpaymentTypesList(observe?: 'body', reportProgress?: boolean): Observable<Array<PaymentType>>;
-    public subscriptionpaymentTypesList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PaymentType>>>;
-    public subscriptionpaymentTypesList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PaymentType>>>;
-    public subscriptionpaymentTypesList(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public paymentTypesList(observe?: 'body', reportProgress?: boolean): Observable<Array<PaymentType>>;
+    public paymentTypesList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PaymentType>>>;
+    public paymentTypesList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PaymentType>>>;
+    public paymentTypesList(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -89,7 +74,7 @@ export class SubscriptionpaymentTypesService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<PaymentType>>(`${this.basePath}/subscriptionpayment-types`,
+        return this.httpClient.get<Array<PaymentType>>(`${this.basePath}/payment-types`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
