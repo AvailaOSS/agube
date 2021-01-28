@@ -2,14 +2,14 @@ version: "3.8"
 
 services:
   # Postgres Database
-  #db:
-    #image: postgres
-    #ports:
-    #  - 5432:5432
-    #env_file:
-    #  - ./docker/dev/.env.db.dev
-    #networks:
-    #  - backend
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - ./docker/dev/.env.db.dev
+    networks:
+      - backend
 
   # RabbitMQ - queue
   rabbitmq:
@@ -33,9 +33,9 @@ services:
     volumes:
       - .:/availa
     env_file:
-      - ./docker/prod/.env.be.prod
+      - ./docker/dev/.env.be.dev
     depends_on:
-    #  - db
+      - db
       - rabbitmq
     networks:
       - backend
@@ -47,9 +47,9 @@ services:
     volumes:
       - .:/availa
     env_file:
-      - ./docker/prod/.env.be.prod
+      - ./docker/dev/.env.be.dev
     depends_on:
-    #  - db
+      - db
       - rabbitmq
     networks:
       - backend
@@ -63,12 +63,10 @@ services:
     volumes:
       - .:/availa-agube
     env_file:
-      - ./docker/prod/.env.be.prod
+      - ./docker/dev/.env.be.dev
     depends_on:
-    #  - db
+      - db
       - rabbitmq
-      - subscription-backend
-      - contact-book-backend
     networks:
       - backend
 
