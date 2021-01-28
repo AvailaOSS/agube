@@ -14,6 +14,7 @@ itypes==1.2.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 packaging==20.8
+psycopg2==2.8.6
 PyJWT==1.7.1
 pyparsing==2.4.7
 pytz==2020.5
