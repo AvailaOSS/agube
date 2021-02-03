@@ -13,7 +13,7 @@ import { User } from './user';
 
 export interface Contact {
   readonly id?: string;
-  business?: string;
+  business_name?: string;
   phone_number: string;
   user: User;
 }
