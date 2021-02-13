@@ -1,11 +1,19 @@
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
-from rest_framework import permissions
+
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+from rest_framework import permissions
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+
+from login.urls import urlpatterns as urls_user
+from address.urls import urlpatterns as urls_address
+from dwelling.urls import urlpatterns as urls_dwelling
+from phone.urls import urlpatterns as urls_phone
+from watermeter.urls import urlpatterns as urls_water_meter
 
 current_version = 'v1'
 module_name = 'agube'
@@ -25,8 +33,13 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path(r'token/auth', obtain_jwt_token),
-    path(r'token/refresh', refresh_jwt_token),
+    path(base_url, include(urls_address)),
+    path(base_url, include(urls_dwelling)),
+    path(base_url, include(urls_phone)),
+    path(base_url, include(urls_water_meter)),
+    path(base_url, include(urls_user)),
+    path(base_url + 'token/auth', obtain_jwt_token),
+    path(base_url + 'token/refresh', refresh_jwt_token),
 ]
 
 if settings.DEBUG:

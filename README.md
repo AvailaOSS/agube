@@ -16,3 +16,7 @@ Agube
 > python manage.py makemigrations --name [your-name] --empty [your-app]
 > python manage.py migrate
 > python manage.py startapp [your-app-name]
+
+# execute tests with coverage
+
+> pytest --cov --cov-report=html

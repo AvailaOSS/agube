@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'drf_yasg',
     'login',
+    'address',
+    'phone',
+    'watermeter',
+    'dwelling',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +92,7 @@ DATABASES = {
         'PASSWORD': os.environ.get("SQL_PASSWORD"),
         'HOST': os.environ.get("SQL_HOST"),
         'PORT': os.environ.get("SQL_PORT"),
+        'ATOMIC_REQUESTS': True,
     }
 }
 

@@ -1,0 +1,63 @@
+from address.serializers import FullAddressSerializer
+from django.contrib.auth.models import User
+from phone.serializers import PhoneSerializer
+from rest_framework.fields import ReadOnlyField, CharField, BooleanField
+from rest_framework.serializers import ModelSerializer, Serializer
+
+
+class UserSerializer(ModelSerializer):
+    """
+    User ModelSerializer
+    """
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email',)
+
+
+class UserDetailSerializer(UserSerializer):
+    """
+    User Detail, phone + address ModelSerializer
+    """
+    id = ReadOnlyField()
+    phones = PhoneSerializer(many=True, read_only=False)
+    address = FullAddressSerializer(many=True, read_only=False)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name',
+                  'last_name', 'email', 'phones', 'address',)
+
+
+class UserCustomDetailSerializer(Serializer):
+    """
+    User Custom Detail ModelSerializer
+    """
+    id = ReadOnlyField()
+    first_name = CharField(
+        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    last_name = CharField(
+        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    phone = CharField(
+        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    email = CharField(
+        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    street = CharField(max_length=None, min_length=None,
+                       allow_blank=False, trim_whitespace=True)
+    number = CharField(max_length=None, min_length=None,
+                       allow_blank=False, trim_whitespace=True)
+    flat = CharField(max_length=None, min_length=None,
+                     allow_blank=False, trim_whitespace=True)
+    gate = CharField(max_length=None, min_length=None,
+                     allow_blank=False, trim_whitespace=True)
+    town = CharField(max_length=None, min_length=None,
+                     allow_blank=False, trim_whitespace=True)
+
+
+class UserUpdatePhoneSerializer(Serializer):
+    """
+    User update phone
+    """
+    phone = CharField(
+        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    main = BooleanField()
