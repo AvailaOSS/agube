@@ -46,16 +46,14 @@ import { UtilsModule } from './living-place/living-place-detail-card/management-
     ContactPanelModule,
     AddWellingModule,
     DepositPanelModule,
-    UtilsModule
-
+    UtilsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
     // provider used to create fake backend
     fakeBackendProvider,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

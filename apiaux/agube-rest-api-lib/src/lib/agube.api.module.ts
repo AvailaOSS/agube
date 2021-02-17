@@ -12,7 +12,6 @@ import { PhoneService } from './service/phone.service';
 import { TokenService } from './service/token.service';
 import { UserService } from './service/user.service';
 import { WaterMeterService } from './service/waterMeter.service';
-import { AuthService } from './service/auth.service';
 import { RefreshService } from './service/refresh.service';
 
 
@@ -22,7 +21,6 @@ import { RefreshService } from './service/refresh.service';
   declarations: [],
   exports: [],
   providers: [
-    AuthService,
     RefreshService,
     AddressService,
     DwellingService,
