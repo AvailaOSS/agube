@@ -95,7 +95,13 @@ class DwellingResident(models.Model):
         self.__add_main_address()
 
     def __add_main_address(self):
-        """resident add main address"""
+        """resident add main address and set others as not main"""
+        try:
+            for older in UserFullAddress.objects.filter(user=self.user):
+                older.main = False
+                older.save()
+        except ObjectDoesNotExist:
+            pass
         UserFullAddress.objects.create(
             user=self.user, full_address=self.dwelling.full_address, main=True)
 
