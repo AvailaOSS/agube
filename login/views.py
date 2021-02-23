@@ -1,14 +1,17 @@
+from dwelling.models import DwellingOwner, DwellingResident
 from address.models import UserFullAddress
-from phone.models import Phone, UserPhone
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from dwelling.serializers import DwellingDetailSerializer
+from phone.models import Phone, UserPhone
 from rest_framework.permissions import AllowAny
-from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.response import Response
+from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from login.serializers import UserCustomDetailSerializer, UserUpdatePhoneSerializer
+from login.serializers import (UserCustomDetailSerializer,
+                               UserUpdatePhoneSerializer)
 
 TAG = 'user'
 
@@ -52,6 +55,52 @@ class UserCustomDetailListView(APIView):
             }
             list_of_serialized.append(
                 UserCustomDetailSerializer(data, many=False).data)
+
+        return Response(list_of_serialized)
+
+
+class UserDwellingDetailView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        responses={200: DwellingDetailSerializer(many=True)},
+        tags=[TAG],
+    )
+    def get(self, request, pk):
+        """
+        Return list of user Dwelling
+        """
+        attrList = []
+        attrList.extend(list(map(lambda x: x.dwelling, DwellingOwner.objects.filter(user__id=pk))))
+        attrList.extend(list(map(lambda x: x.dwelling, DwellingResident.objects.filter(user__id=pk))))
+
+        list_of_serialized = []
+        for dwelling in attrList:
+            user = dwelling.get_resident().user
+
+            user_full_address = UserFullAddress.objects.get(
+                user=user, main=True).full_address
+
+            user_phone_number = ''
+            try:
+                user_phone = UserPhone.objects.get(user=user, main=True)
+                if user_phone:
+                    user_phone_number = user_phone.phone.phone_number
+            except ObjectDoesNotExist:
+                pass
+
+            data = {
+                'id': dwelling.id,
+                'street': user_full_address.address.street,
+                'number': user_full_address.number,
+                'flat': user_full_address.flat,
+                'gate': user_full_address.gate,
+                'town': user_full_address.town,
+                'resident_first_name': user.first_name,
+                'resident_phone': user_phone_number,
+            }
+            list_of_serialized.append(
+                DwellingDetailSerializer(data, many=False).data)
 
         return Response(list_of_serialized)
 
