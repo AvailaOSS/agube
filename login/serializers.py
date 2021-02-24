@@ -56,8 +56,18 @@ class UserCustomDetailSerializer(Serializer):
 
 class UserUpdatePhoneSerializer(Serializer):
     """
+    FIXME: Rename to UserPhoneUpdateSerializer
     User update phone
     """
     phone = CharField(
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    main = BooleanField()
+
+
+class UserAddressUpdateSerializer(Serializer):
+    """
+    User Address ModelSerializer
+    """
+    id = ReadOnlyField()
+    full_address = FullAddressSerializer(many=False, read_only=False)
     main = BooleanField()
