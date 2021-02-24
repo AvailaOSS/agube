@@ -167,6 +167,7 @@ class UserCreatePhoneView(APIView):
 
 
 class UserUpdateDeletePhoneView(APIView):
+    # FIXME: Rename to UserPhoneUpdateDeleteView
     permission_classes = [AllowAny]
 
     @ swagger_auto_schema(
@@ -310,3 +311,60 @@ class UserCreateAddressView(APIView):
         """
         user = User.objects.get(id=pk)
         return get_all_user_full_address_serialized(user)
+
+
+class UserAddressUpdateDeleteView(APIView):
+    permission_classes = [AllowAny]
+
+    @ swagger_auto_schema(
+        request_body=UserAddressUpdateSerializer,
+        responses={200: UserAddressUpdateSerializer(many=True)},
+        tags=[TAG],
+    )
+    def put(self, request, pk, full_address_id):
+        """
+        Update user address
+        """
+        user = User.objects.get(id=pk)
+        # extract data
+        full_address = request.data.pop('full_address')
+        main = request.data.pop('main')
+        # if new is main change others as not main
+        if main:
+            update_all_user_full_address_to_not_main(pk)
+        # update phone with new data
+        user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        address = full_address.pop('address')
+        user_address.full_address.address.street = address.pop('street')
+        user_address.full_address.address.is_external = address.pop('is_external')
+        user_address.full_address.address.save()
+        user_address.full_address.number = full_address.pop('number')
+        user_address.full_address.flat = full_address.pop('flat')
+        user_address.full_address.gate = full_address.pop('gate')
+        user_address.full_address.town = full_address.pop('town')
+        user_address.full_address.save()
+        user_address.main = main
+        user_address.save()
+
+        return get_all_user_full_address_serialized(user)
+
+    @swagger_auto_schema(
+        tags=[TAG],
+    )
+    def delete(self, request, pk, full_address_id):
+        """
+        Delete User address
+        """
+        try:
+            user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user full address'}, status=HTTP_404_NOT_FOUND)
+        user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        if user_address.main:
+            return Response({'status': 'cannot delete main address'}, status=HTTP_404_NOT_FOUND)
+        full_address = user_address.full_address
+        user_address.delete()
+        if full_address.address.is_external:
+            full_address.delete()
+            full_address.address.delete()
+        return Response({'status': 'delete successfull!'})
