@@ -1,4 +1,4 @@
-from address.models import UserFullAddress
+from login.models import UserFullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema

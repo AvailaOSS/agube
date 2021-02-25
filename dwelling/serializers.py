@@ -1,4 +1,5 @@
-from address.models import Address, FullAddress, UserFullAddress
+from address.models import Address, FullAddress
+from login.models import UserFullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from login.serializers import UserDetailSerializer, UserSerializer

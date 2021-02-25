@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
+from login.models import UserFullAddress
 
-from address.models import FullAddress, UserFullAddress
+from address.models import FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models

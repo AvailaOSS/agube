@@ -21,14 +21,3 @@ class FullAddress(models.Model):
     class Meta:
         ordering = ["address__town", "address__street", "number"]
         db_table = 'dwelling_full_address'
-
-
-class UserFullAddress(models.Model):
-    # TODO: move this to login app
-    """A class used to represent an User Full Address"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    full_address = models.ForeignKey(FullAddress, on_delete=models.CASCADE)
-    main = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = 'dwelling_user_full_address'
