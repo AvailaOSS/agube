@@ -23,6 +23,7 @@ class DwellingSerializer(ModelSerializer):
     full_address = FullAddressSerializer(many=False, read_only=False)
 
     class Meta:
+        ref_name = 'Dwelling'
         model = Dwelling
         fields = ('id', 'full_address', 'release_date', 'discharge_date',)
 
@@ -40,6 +41,7 @@ class DwellingCreateSerializer(ModelSerializer):
         many=False, read_only=False, write_only=True)
 
     class Meta:
+        ref_name = 'DwellingCreate'
         model = Dwelling
         fields = ('id', 'full_address', 'owner', 'resident', 'water_meter',)
 
@@ -125,6 +127,7 @@ class DwellingOwnerSerializer(ModelSerializer):
     discharge_date = ReadOnlyField()
 
     class Meta:
+        ref_name = 'Owner'
         model = DwellingOwner
         fields = ('id', 'dwelling_id', 'user',
                   'release_date', 'discharge_date',)
@@ -141,6 +144,7 @@ class DwellingResidentSerializer(ModelSerializer):
     discharge_date = ReadOnlyField()
 
     class Meta:
+        ref_name = 'Resident'
         model = DwellingResident
         fields = ('id', 'dwelling_id', 'user',
                   'release_date', 'discharge_date',)
@@ -165,3 +169,6 @@ class DwellingDetailSerializer(Serializer):
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
     resident_phone = CharField(
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+
+    class Meta:
+        ref_name = 'DwellingDetail'

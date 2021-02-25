@@ -12,6 +12,7 @@ class UserSerializer(ModelSerializer):
     id = ReadOnlyField()
 
     class Meta:
+        ref_name = 'User'
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email',)
 
@@ -25,6 +26,7 @@ class UserDetailSerializer(UserSerializer):
     address = FullAddressSerializer(many=True, read_only=False)
 
     class Meta:
+        ref_name = 'UserDetail'
         model = User
         fields = ('id', 'username', 'first_name',
                   'last_name', 'email', 'phones', 'address',)
@@ -54,6 +56,8 @@ class UserCustomDetailSerializer(Serializer):
     gate = CharField(max_length=None, min_length=None,
                      allow_blank=False, trim_whitespace=True)
 
+    class Meta:
+        ref_name = 'UserDetailCustom'
 
 class UserUpdatePhoneSerializer(Serializer):
     """
@@ -64,6 +68,8 @@ class UserUpdatePhoneSerializer(Serializer):
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
     main = BooleanField()
 
+    class Meta:
+        ref_name = 'UserPhone'
 
 class UserAddressUpdateSerializer(Serializer):
     """
@@ -72,3 +78,6 @@ class UserAddressUpdateSerializer(Serializer):
     id = ReadOnlyField()
     full_address = FullAddressSerializer(many=False, read_only=False)
     main = BooleanField()
+
+    class Meta:
+        ref_name = 'UserAddress'

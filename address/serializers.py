@@ -10,6 +10,7 @@ class AddressSerializer(ModelSerializer):
     id = ReadOnlyField()
 
     class Meta:
+        ref_name = 'Address'
         model = Address
         fields = ('id', 'town', 'street', 'is_external',)
 
@@ -22,6 +23,7 @@ class FullAddressSerializer(ModelSerializer):
     address = AddressSerializer(many=False, read_only=False)
 
     class Meta:
+        ref_name = 'FullAddress'
         model = FullAddress
         fields = ('id', 'address', 'number', 'flat', 'gate',)
 
