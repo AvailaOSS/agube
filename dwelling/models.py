@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from login.models import UserFullAddress
+from login.models import UserAddress
 
 from address.models import FullAddress
 from django.contrib.auth.models import User
@@ -98,12 +98,12 @@ class DwellingResident(models.Model):
     def __add_main_address(self):
         """resident add main address and set others as not main"""
         try:
-            for older in UserFullAddress.objects.filter(user=self.user):
+            for older in UserAddress.objects.filter(user=self.user):
                 older.main = False
                 older.save()
         except ObjectDoesNotExist:
             pass
-        UserFullAddress.objects.create(
+        UserAddress.objects.create(
             user=self.user, full_address=self.dwelling.full_address, main=True)
 
     def discharge(self):

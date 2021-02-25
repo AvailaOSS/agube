@@ -1,4 +1,4 @@
-from login.models import UserFullAddress, UserPhone
+from login.models import UserAddress, UserPhone
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
@@ -39,7 +39,7 @@ class DwellingListView(APIView):
         for house in dwelling:
             user = house.get_resident().user
 
-            user_full_address = UserFullAddress.objects.get(
+            user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
 
             user_phone_number = ''
@@ -52,11 +52,11 @@ class DwellingListView(APIView):
 
             data = {
                 'id': house.id,
-                'town': user_full_address.address.town,
-                'street': user_full_address.address.street,
-                'number': user_full_address.number,
-                'flat': user_full_address.flat,
-                'gate': user_full_address.gate,
+                'town': user_address.address.town,
+                'street': user_address.address.street,
+                'number': user_address.number,
+                'flat': user_address.flat,
+                'gate': user_address.gate,
                 'resident_first_name': user.first_name,
                 'resident_phone': user_phone_number,
             }

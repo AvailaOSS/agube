@@ -1,5 +1,5 @@
 from address.models import Address, FullAddress
-from login.models import UserFullAddress, UserPhone
+from login.models import UserAddress, UserPhone
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from login.serializers import UserDetailSerializer, UserSerializer
@@ -106,7 +106,7 @@ class DwellingCreateSerializer(ModelSerializer):
         full_address = FullAddress.objects.create(address=new_address, number=validated_data.pop(
             'number'), flat=validated_data.pop('flat'), gate=validated_data.pop('gate'))
         # create user address
-        UserFullAddress.objects.create(
+        UserAddress.objects.create(
             user=user, full_address=full_address, main=main)
 
     @classmethod

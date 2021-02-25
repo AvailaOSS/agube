@@ -1,6 +1,6 @@
 from dwelling.models import DwellingOwner, DwellingResident
 from address.models import Address, FullAddress
-from login.models import UserFullAddress, UserPhone
+from login.models import UserAddress, UserPhone
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
@@ -31,7 +31,7 @@ class UserCustomDetailListView(APIView):
         list_of_serialized = []
         for user in User.objects.all():
 
-            user_full_address = UserFullAddress.objects.get(
+            user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
 
             user_phone_number = ''
@@ -48,11 +48,11 @@ class UserCustomDetailListView(APIView):
                 "last_name": user.last_name,
                 "phone": user_phone_number,
                 "email": user.email,
-                "town": user_full_address.address.town,
-                "street": user_full_address.address.street,
-                "number": user_full_address.number,
-                "flat": user_full_address.flat,
-                "gate": user_full_address.gate
+                "town": user_address.address.town,
+                "street": user_address.address.street,
+                "number": user_address.number,
+                "flat": user_address.flat,
+                "gate": user_address.gate
             }
             list_of_serialized.append(
                 UserCustomDetailSerializer(data, many=False).data)
@@ -81,7 +81,7 @@ class UserDwellingDetailView(APIView):
         for dwelling in attrList:
             user = dwelling.get_resident().user
 
-            user_full_address = UserFullAddress.objects.get(
+            user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
 
             user_phone_number = ''
@@ -94,11 +94,11 @@ class UserDwellingDetailView(APIView):
 
             data = {
                 'id': dwelling.id,
-                'town': user_full_address.address.town,
-                'street': user_full_address.address.street,
-                'number': user_full_address.number,
-                'flat': user_full_address.flat,
-                'gate': user_full_address.gate,
+                'town': user_address.address.town,
+                'street': user_address.address.street,
+                'number': user_address.number,
+                'flat': user_address.flat,
+                'gate': user_address.gate,
                 'resident_first_name': user.first_name,
                 'resident_phone': user_phone_number,
             }
@@ -224,18 +224,18 @@ class UserUpdateDeletePhoneView(APIView):
         return Response({'status': 'delete successfull!'})
 
 
-def update_all_user_full_address_to_not_main(user_id):
+def update_all_user_address_to_not_main(user_id):
     try:
-        user_address = UserFullAddress.objects.get(user__id=user_id, main=True)
+        user_address = UserAddress.objects.get(user__id=user_id, main=True)
         user_address.main = False
         user_address.save()
     except ObjectDoesNotExist:
         pass
 
 
-def get_all_user_full_address_serialized(user):
+def get_all_user_address_serialized(user):
     list_of_serialized = []
-    for address_iteration in UserFullAddress.objects.filter(user=user):
+    for address_iteration in UserAddress.objects.filter(user=user):
         full_address = address_iteration.full_address
         data =   {
             "id": address_iteration.id,
@@ -280,11 +280,11 @@ class UserCreateAddressView(APIView):
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
-            update_all_user_full_address_to_not_main(pk)
+            update_all_user_address_to_not_main(pk)
         # create a new full address
         self.create_address(user, full_address, main)
 
-        return get_all_user_full_address_serialized(user)
+        return get_all_user_address_serialized(user)
 
     @classmethod
     def create_address(cls, user, validated_data, main):
@@ -308,7 +308,7 @@ class UserCreateAddressView(APIView):
             address=new_address, number=number, flat=flat, gate=gate)
 
         # Create User Full Address
-        UserFullAddress.objects.create(
+        UserAddress.objects.create(
             user=user, full_address=new_full_address, main=main)
 
     @swagger_auto_schema(
@@ -323,7 +323,7 @@ class UserCreateAddressView(APIView):
             user = User.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
-        return get_all_user_full_address_serialized(user)
+        return get_all_user_address_serialized(user)
 
 
 class UserAddressUpdateDeleteView(APIView):
@@ -347,10 +347,10 @@ class UserAddressUpdateDeleteView(APIView):
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
-            update_all_user_full_address_to_not_main(pk)
+            update_all_user_address_to_not_main(pk)
         # update phone with new data
         try:
-            user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+            user_address = UserAddress.objects.get(user__id=pk, full_address__id=full_address_id)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user full address'}, status=HTTP_404_NOT_FOUND)
         address = full_address.pop('address')
@@ -365,7 +365,7 @@ class UserAddressUpdateDeleteView(APIView):
         user_address.main = main
         user_address.save()
 
-        return get_all_user_full_address_serialized(user)
+        return get_all_user_address_serialized(user)
 
     @swagger_auto_schema(
         tags=[TAG],
@@ -375,10 +375,10 @@ class UserAddressUpdateDeleteView(APIView):
         Delete User address
         """
         try:
-            user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+            user_address = UserAddress.objects.get(user__id=pk, full_address__id=full_address_id)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user full address'}, status=HTTP_404_NOT_FOUND)
-        user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        user_address = UserAddress.objects.get(user__id=pk, full_address__id=full_address_id)
         if user_address.main:
             return Response({'status': 'cannot delete main address'}, status=HTTP_404_NOT_FOUND)
         full_address = user_address.full_address
