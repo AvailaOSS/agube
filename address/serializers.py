@@ -11,7 +11,7 @@ class AddressSerializer(ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ('id', 'street', 'is_external',)
+        fields = ('id', 'town', 'street', 'is_external',)
 
 
 class FullAddressSerializer(ModelSerializer):
@@ -23,7 +23,7 @@ class FullAddressSerializer(ModelSerializer):
 
     class Meta:
         model = FullAddress
-        fields = ('id', 'address', 'number', 'flat', 'gate', 'town',)
+        fields = ('id', 'address', 'number', 'flat', 'gate',)
 
     def create(self, validated_data):
         validated_data['address'] = self.__create_address(

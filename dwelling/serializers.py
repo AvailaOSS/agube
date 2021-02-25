@@ -61,9 +61,11 @@ class DwellingCreateSerializer(ModelSerializer):
 
     @classmethod
     def create_dwelling_address(cls, validated_data):
-        street = validated_data.pop('address').pop('street')
+        address_data = validated_data.pop('address')
+        town = address_data.pop('town')
+        street = address_data.pop('street')
         validated_data['address'] = Address.objects.create(
-            street=street, is_external=False)
+            town=town, street=street, is_external=False)
         return FullAddress.objects.create(**validated_data)
 
     @classmethod
@@ -94,10 +96,15 @@ class DwellingCreateSerializer(ModelSerializer):
 
     @classmethod
     def create_address(cls, user, validated_data, main):
-        new_address = Address.objects.create(
-            street=validated_data.pop('address')['street'], is_external=False)
-        full_address = FullAddress.objects.create(
-            address=new_address, number=validated_data.pop('number'), flat=validated_data.pop('flat'), gate=validated_data.pop('gate'), town=validated_data.pop('town'))
+        # extract address_data
+        address_data = validated_data.pop('address')
+        # create addres
+        new_address = Address.objects.create(town=address_data.pop(
+            'town'), street=address_data.pop('street'), is_external=address_data.pop('is_external'))
+        # create full address
+        full_address = FullAddress.objects.create(address=new_address, number=validated_data.pop(
+            'number'), flat=validated_data.pop('flat'), gate=validated_data.pop('gate'))
+        # create user address
         UserFullAddress.objects.create(
             user=user, full_address=full_address, main=main)
 

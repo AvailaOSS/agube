@@ -2,7 +2,6 @@ from django.test import TestCase
 
 from address.models import Address, FullAddress
 from dwelling.models import Dwelling, DwellingOwner
-from owner.models import Owner
 
 
 class DwellingTestCase(TestCase):

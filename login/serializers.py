@@ -42,6 +42,8 @@ class UserCustomDetailSerializer(Serializer):
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
     email = CharField(
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    town = CharField(max_length=None, min_length=None,
+                     allow_blank=False, trim_whitespace=True)
     street = CharField(max_length=None, min_length=None,
                        allow_blank=False, trim_whitespace=True)
     number = CharField(max_length=None, min_length=None,
@@ -49,8 +51,6 @@ class UserCustomDetailSerializer(Serializer):
     flat = CharField(max_length=None, min_length=None,
                      allow_blank=False, trim_whitespace=True)
     gate = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
-    town = CharField(max_length=None, min_length=None,
                      allow_blank=False, trim_whitespace=True)
 
 
