@@ -1,9 +1,11 @@
-from django.test import TestCase
+from datetime import timedelta
 
 from address.models import Address, FullAddress
+from django.test import TestCase
+from django.utils import timezone
 from dwelling.models import Dwelling
+
 from watermeter.models import WaterMeter, WaterMeterMeasurement
-from datetime import datetime, timezone
 
 
 class WaterMeterTestCase(TestCase):
@@ -14,7 +16,7 @@ class WaterMeterTestCase(TestCase):
         full_address = FullAddress.objects.create(address=address, number=25, flat='1', gate='1A', town='EE UU')
         # create a dwelling
         dwelling = Dwelling.objects.create(full_address=full_address,
-                                           release_date=datetime.now().replace(tzinfo=timezone.utc))
+                                           release_date=timezone.now())
         # create a water meter
         WaterMeter.objects.create(dwelling=dwelling, code='water_meter_tony_stark')
 
@@ -23,7 +25,7 @@ class WaterMeterTestCase(TestCase):
         water_meter = WaterMeter.objects.get(id=1)
         self.assertEqual(water_meter, WaterMeter.objects.get(code='water_meter_tony_stark'))
         self.assertEqual(water_meter.code, 'water_meter_tony_stark')
-        self.assertLessEqual(water_meter.release_date, datetime.now().replace(tzinfo=timezone.utc))
+        self.assertLessEqual(water_meter.release_date, timezone.now())
         self.assertEqual(water_meter.discharge_date, None)
 
     def test_add_measurement(self):
@@ -34,7 +36,7 @@ class WaterMeterTestCase(TestCase):
         water_meter.add_measurement(1.0)
         self.assertEqual(WaterMeterMeasurement.objects.filter().all().count(), 1)
         # add measurement
-        tomorrow = datetime.today().replace(tzinfo=timezone.utc) + timedelta(days=1)
+        tomorrow = timezone.now() + timedelta(days=1)
         water_meter.add_measurement(1.2, date=tomorrow)
         self.assertEqual(WaterMeterMeasurement.objects.filter().all().count(), 2)
         # get measurements

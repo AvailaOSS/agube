@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from django.utils import timezone
 
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
@@ -55,7 +55,7 @@ class WaterMeterCreateMeasurementView(APIView):
         if 'date' in request.data:
             date = request.data.pop('date')
         else:
-            date = datetime.now().replace(tzinfo=timezone.utc)
+            date = timezone.now()
         # Add Water Meter
         water_meter_measurement = water_meter.add_measurement(
             measurement, date=date)

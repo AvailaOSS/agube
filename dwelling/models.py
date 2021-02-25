@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from django.utils import timezone
 
 from address.models import FullAddress
 from django.contrib.auth.models import User
@@ -19,7 +19,7 @@ class Dwelling(models.Model):
 
     def save(self, *args, **kwargs):
         """save the dwelling and save release_date datetime.now()"""
-        self.release_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.release_date = timezone.now()
         super(Dwelling, self).save(*args, **kwargs)
 
     def add_owner(self, user):
@@ -70,12 +70,12 @@ class DwellingOwner(models.Model):
 
     def save(self, *args, **kwargs):
         """save the DwellingOwner, save release_date datetime.now()"""
-        self.release_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.release_date = timezone.now()
         super(DwellingOwner, self).save(*args, **kwargs)
 
     def discharge(self):
         """discharge this resident"""
-        self.discharge_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.discharge_date = timezone.now()
         self.save()
 
     class Meta:
@@ -91,7 +91,7 @@ class DwellingResident(models.Model):
 
     def save(self, *args, **kwargs):
         """save the DwellingOwner, save release_date datetime.now()"""
-        self.release_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.release_date = timezone.now()
         super(DwellingResident, self).save(*args, **kwargs)
         self.__add_main_address()
 
@@ -108,7 +108,7 @@ class DwellingResident(models.Model):
 
     def discharge(self):
         """discharge this resident"""
-        self.discharge_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.discharge_date = timezone.now()
         self.save()
 
     class Meta:
