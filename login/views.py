@@ -141,7 +141,10 @@ class UserCreatePhoneView(APIView):
         """
         Add new Phone to User
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         # extract data
         new_phone = request.data.pop('phone')
         main = request.data.pop('main')
@@ -162,7 +165,10 @@ class UserCreatePhoneView(APIView):
         """
         Return list of user Phones
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         return get_all_user_phones_serialized(user)
 
 
@@ -264,7 +270,10 @@ class UserCreateAddressView(APIView):
         """
         Add new User Full Address
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         # extract data
         full_address = request.data.pop('full_address')
         main = request.data.pop('main')
@@ -309,7 +318,10 @@ class UserCreateAddressView(APIView):
         """
         Return list of User Full Address
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         return get_all_user_full_address_serialized(user)
 
 
@@ -325,7 +337,10 @@ class UserAddressUpdateDeleteView(APIView):
         """
         Update user address
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         # extract data
         full_address = request.data.pop('full_address')
         main = request.data.pop('main')
@@ -333,7 +348,10 @@ class UserAddressUpdateDeleteView(APIView):
         if main:
             update_all_user_full_address_to_not_main(pk)
         # update phone with new data
-        user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        try:
+            user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user full address'}, status=HTTP_404_NOT_FOUND)
         address = full_address.pop('address')
         user_address.full_address.address.town = address.pop('town')
         user_address.full_address.address.street = address.pop('street')
