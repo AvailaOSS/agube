@@ -59,9 +59,8 @@ class UserCustomDetailSerializer(Serializer):
     class Meta:
         ref_name = 'UserDetailCustom'
 
-class UserUpdatePhoneSerializer(Serializer):
+class UserPhoneUpdateSerializer(Serializer):
     """
-    FIXME: Rename to UserPhoneUpdateSerializer
     User update phone
     """
     phone = CharField(

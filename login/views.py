@@ -12,7 +12,7 @@ from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
 from login.serializers import (UserAddressUpdateSerializer, UserCustomDetailSerializer,
-                               UserUpdatePhoneSerializer)
+                               UserPhoneUpdateSerializer)
 
 TAG = 'user'
 
@@ -125,7 +125,7 @@ def get_all_user_phones_serialized(user):
             "main": phone_iteration.main,
         }
         list_of_serialized.append(
-            UserUpdatePhoneSerializer(data, many=False).data)
+            UserPhoneUpdateSerializer(data, many=False).data)
 
     return Response(list_of_serialized)
 
@@ -134,8 +134,8 @@ class UserCreatePhoneView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        request_body=UserUpdatePhoneSerializer,
-        responses={200: UserUpdatePhoneSerializer(many=True)},
+        request_body=UserPhoneUpdateSerializer,
+        responses={200: UserPhoneUpdateSerializer(many=True)},
         tags=[TAG],
     )
     def post(self, request, pk):
@@ -159,7 +159,7 @@ class UserCreatePhoneView(APIView):
         return get_all_user_phones_serialized(user)
 
     @swagger_auto_schema(
-        responses={200: UserUpdatePhoneSerializer(many=True)},
+        responses={200: UserPhoneUpdateSerializer(many=True)},
         tags=[TAG],
     )
     def get(self, request, pk):
@@ -173,13 +173,12 @@ class UserCreatePhoneView(APIView):
         return get_all_user_phones_serialized(user)
 
 
-class UserUpdateDeletePhoneView(APIView):
-    # FIXME: Rename to UserPhoneUpdateDeleteView
+class UserPhoneUpdateDeleteView(APIView):
     permission_classes = [AllowAny]
 
     @ swagger_auto_schema(
-        request_body=UserUpdatePhoneSerializer,
-        responses={200: UserUpdatePhoneSerializer(many=True)},
+        request_body=UserPhoneUpdateSerializer,
+        responses={200: UserPhoneUpdateSerializer(many=True)},
         tags=[TAG],
     )
     def put(self, request, pk, phone_id):
@@ -207,7 +206,7 @@ class UserUpdateDeletePhoneView(APIView):
         }
 
         return Response(
-            UserUpdatePhoneSerializer(data, many=False).data)
+            UserPhoneUpdateSerializer(data, many=False).data)
 
     @swagger_auto_schema(
         tags=[TAG],
