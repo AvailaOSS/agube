@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 
 from django.db import models
-
 from dwelling.models import Dwelling
 
 

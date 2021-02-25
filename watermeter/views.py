@@ -7,8 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from watermeter.models import WaterMeter, WaterMeterMeasurement
-from watermeter.serializers import (WaterMeterDetailSerializer,
-                                    WaterMeterMeasurementSerializer)
+from watermeter.serializers import WaterMeterMeasurementSerializer
 
 TAG = 'water-meter'
 

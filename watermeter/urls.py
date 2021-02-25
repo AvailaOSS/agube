@@ -1,5 +1,8 @@
-from watermeter.views import WaterMeterMeasurementView, WaterMeterMeasurementChunkView, WaterMeterCreateMeasurementView
-from django.urls import path, include
+from django.urls import include, path
+
+from watermeter.views import (WaterMeterCreateMeasurementView,
+                              WaterMeterMeasurementChunkView,
+                              WaterMeterMeasurementView)
 
 __url_water_meter = [
     path('/measures', WaterMeterMeasurementView.as_view()),

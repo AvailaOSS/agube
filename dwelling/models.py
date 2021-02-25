@@ -1,10 +1,10 @@
 from datetime import datetime, timezone
-from login.models import UserAddress
 
 from address.models import FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from login.models import UserAddress
 
 
 # TODO: move the responsibility to View instead of here

@@ -1,7 +1,7 @@
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from phone.serializers import PhoneSerializer
-from rest_framework.fields import ReadOnlyField, CharField, BooleanField
+from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
 
 

@@ -1,7 +1,8 @@
-from phone.models import Phone
 from address.models import FullAddress
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from phone.models import Phone
+
 
 class UserAddress(models.Model):
     """A class used to represent an User Full Address"""

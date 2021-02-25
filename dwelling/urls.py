@@ -1,6 +1,9 @@
-from django.urls import path, include
+from django.urls import include, path
 
-from dwelling.views import DwellingListView, DwellingCreateView, DwellingOwnerView, DwellingResidentView, DwellingWaterMeterView, DwellingWaterMeterDetailView
+from dwelling.views import (DwellingCreateView, DwellingListView,
+                            DwellingOwnerView, DwellingResidentView,
+                            DwellingWaterMeterDetailView,
+                            DwellingWaterMeterView)
 
 __url_dwelling = [
     path('', DwellingListView.as_view()),

@@ -1,9 +1,8 @@
-from dwelling.models import DwellingOwner, DwellingResident
 from address.models import Address, FullAddress
-from login.models import UserAddress, UserPhone
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.serializers import DwellingDetailSerializer
 from phone.models import Phone
 from rest_framework.permissions import AllowAny
@@ -11,7 +10,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from login.serializers import (UserAddressUpdateSerializer, UserCustomDetailSerializer,
+from login.models import UserAddress, UserPhone
+from login.serializers import (UserAddressUpdateSerializer,
+                               UserCustomDetailSerializer,
                                UserPhoneUpdateSerializer)
 
 TAG = 'user'

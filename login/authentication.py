@@ -2,8 +2,9 @@
 Authentication middleware
 """
 
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication, jwt_decode_handler
 from django.utils import timezone
+from rest_framework_jwt.authentication import (JSONWebTokenAuthentication,
+                                               jwt_decode_handler)
 
 
 class ApiJSONWebTokenAuthentication(JSONWebTokenAuthentication):
