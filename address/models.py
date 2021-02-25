@@ -8,7 +8,7 @@ class Address(models.Model):
 
     class Meta:
         ordering = ["town", "street"]
-        db_table = 'dwelling_address'
+        db_table = 'address'
 
 
 class FullAddress(models.Model):
@@ -19,4 +19,4 @@ class FullAddress(models.Model):
 
     class Meta:
         ordering = ["address__town", "address__street", "number"]
-        db_table = 'dwelling_full_address'
+        db_table = 'full_address'

@@ -14,7 +14,7 @@ class WaterMeter(models.Model):
 
     class Meta:
         ordering = ["release_date"]
-        db_table = 'dwelling_water_meter'
+        db_table = 'water_meter'
 
     def save(self, *args, **kwargs):
         """save the water meter and save release_date datetime.now()"""
@@ -54,4 +54,4 @@ class WaterMeterMeasurement(models.Model):
 
     class Meta:
         ordering = ["-date"]
-        db_table = 'dwelling_water_meter_measurement'
+        db_table = 'water_meter_measurement'

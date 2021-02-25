@@ -10,7 +10,7 @@ class UserFullAddress(models.Model):
     main = models.BooleanField(default=False)
 
     class Meta:
-        db_table = 'dwelling_user_full_address'
+        db_table = 'user_full_address'
 
 class UserPhone(models.Model):
     """A class used to represent an User Phone"""
@@ -19,4 +19,4 @@ class UserPhone(models.Model):
     main = models.BooleanField(default=False)
 
     class Meta:
-        db_table = 'dwelling_user_phone'
+        db_table = 'user_phone'

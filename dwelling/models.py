@@ -79,7 +79,7 @@ class DwellingOwner(models.Model):
         self.save()
 
     class Meta:
-        db_table = 'dwelling_owner'
+        db_table = 'owner'
 
 
 class DwellingResident(models.Model):
@@ -112,4 +112,4 @@ class DwellingResident(models.Model):
         self.save()
 
     class Meta:
-        db_table = 'dwelling_resident'
+        db_table = 'resident'
