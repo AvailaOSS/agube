@@ -52,11 +52,11 @@ class DwellingListView(APIView):
 
             data = {
                 'id': house.id,
+                'town': user_full_address.address.town,
                 'street': user_full_address.address.street,
                 'number': user_full_address.number,
                 'flat': user_full_address.flat,
                 'gate': user_full_address.gate,
-                'town': user_full_address.town,
                 'resident_first_name': user.first_name,
                 'resident_phone': user_phone_number,
             }

@@ -47,11 +47,11 @@ class UserCustomDetailListView(APIView):
                 "last_name": user.last_name,
                 "phone": user_phone_number,
                 "email": user.email,
+                "town": user_full_address.address.town,
                 "street": user_full_address.address.street,
                 "number": user_full_address.number,
                 "flat": user_full_address.flat,
-                "gate": user_full_address.gate,
-                "town": user_full_address.town
+                "gate": user_full_address.gate
             }
             list_of_serialized.append(
                 UserCustomDetailSerializer(data, many=False).data)
@@ -93,11 +93,11 @@ class UserDwellingDetailView(APIView):
 
             data = {
                 'id': dwelling.id,
+                'town': user_full_address.address.town,
                 'street': user_full_address.address.street,
                 'number': user_full_address.number,
                 'flat': user_full_address.flat,
                 'gate': user_full_address.gate,
-                'town': user_full_address.town,
                 'resident_first_name': user.first_name,
                 'resident_phone': user_phone_number,
             }
@@ -141,7 +141,10 @@ class UserCreatePhoneView(APIView):
         """
         Add new Phone to User
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         # extract data
         new_phone = request.data.pop('phone')
         main = request.data.pop('main')
@@ -162,7 +165,10 @@ class UserCreatePhoneView(APIView):
         """
         Return list of user Phones
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         return get_all_user_phones_serialized(user)
 
 
@@ -235,6 +241,7 @@ def get_all_user_full_address_serialized(user):
             "full_address": {
                 "address": {
                     "id": full_address.address.id,
+                    "town": full_address.address.town,
                     "street": full_address.address.street,
                     "is_external": full_address.address.is_external
                 },
@@ -242,7 +249,6 @@ def get_all_user_full_address_serialized(user):
                 "number": full_address.number,
                 "flat": full_address.flat,
                 "gate": full_address.gate,
-                "town": full_address.town,
             },
             "main": address_iteration.main
         }
@@ -264,7 +270,10 @@ class UserCreateAddressView(APIView):
         """
         Add new User Full Address
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         # extract data
         full_address = request.data.pop('full_address')
         main = request.data.pop('main')
@@ -280,22 +289,22 @@ class UserCreateAddressView(APIView):
     def create_address(cls, user, validated_data, main):
         # Extract Address data
         address_data = validated_data.pop('address')
+        town = address_data.pop('town')
         street = address_data.pop('street')
         is_external = address_data.pop('is_external')
 
         # Create Address
         new_address = Address.objects.create(
-            street=street, is_external=is_external)
+            town=town, street=street, is_external=is_external)
 
         # Extract Full Address data
         number = validated_data.pop('number')
         flat = validated_data.pop('flat')
         gate = validated_data.pop('gate')
-        town = validated_data.pop('town')
 
         # Create Full Address
         new_full_address = FullAddress.objects.create(
-            address=new_address, number=number, flat=flat, gate=gate, town=town)
+            address=new_address, number=number, flat=flat, gate=gate)
 
         # Create User Full Address
         UserFullAddress.objects.create(
@@ -309,7 +318,10 @@ class UserCreateAddressView(APIView):
         """
         Return list of User Full Address
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         return get_all_user_full_address_serialized(user)
 
 
@@ -325,7 +337,10 @@ class UserAddressUpdateDeleteView(APIView):
         """
         Update user address
         """
-        user = User.objects.get(id=pk)
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
         # extract data
         full_address = request.data.pop('full_address')
         main = request.data.pop('main')
@@ -333,15 +348,18 @@ class UserAddressUpdateDeleteView(APIView):
         if main:
             update_all_user_full_address_to_not_main(pk)
         # update phone with new data
-        user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        try:
+            user_address = UserFullAddress.objects.get(user__id=pk, full_address__id=full_address_id)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user full address'}, status=HTTP_404_NOT_FOUND)
         address = full_address.pop('address')
+        user_address.full_address.address.town = address.pop('town')
         user_address.full_address.address.street = address.pop('street')
         user_address.full_address.address.is_external = address.pop('is_external')
         user_address.full_address.address.save()
         user_address.full_address.number = full_address.pop('number')
         user_address.full_address.flat = full_address.pop('flat')
         user_address.full_address.gate = full_address.pop('gate')
-        user_address.full_address.town = full_address.pop('town')
         user_address.full_address.save()
         user_address.main = main
         user_address.save()
