@@ -34,6 +34,7 @@ class WaterMeterDetailSerializer(Serializer):
     WaterMeter Detail ModelSerializer
     """
     id = ReadOnlyField()
+    code = ReadOnlyField()
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
     water_meter = WaterMeterMeasurementSerializer(many=True, read_only=False)

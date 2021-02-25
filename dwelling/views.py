@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from watermeter.models import WaterMeter
+from rest_framework.status import HTTP_404_NOT_FOUND
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
@@ -81,14 +82,20 @@ class DwellingOwnerView(generics.GenericAPIView):
         """
         Get Current Owner
         """
-        dwelling = Dwelling.objects.get(id=pk)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         return Response(self.get_serializer(DwellingOwner.objects.get(dwelling=dwelling, discharge_date=None)).data)
 
     def put(self, request, pk):
         """
         Create a new user owner and discharge the old owner
         """
-        dwelling = Dwelling.objects.get(id=pk)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         data = request.data['user']
         new_user = User.objects.create(
             username=data['username'],
@@ -112,14 +119,20 @@ class DwellingResidentView(generics.GenericAPIView):
         """
         Get current Resident
         """
-        dwelling = Dwelling.objects.get(id=pk)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         return Response(self.get_serializer(DwellingResident.objects.get(dwelling=dwelling, discharge_date=None)).data)
 
     def put(self, request, pk):
         """
         Create a new user resident and discharge the old resident
         """
-        dwelling = Dwelling.objects.get(id=pk)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         data = request.data['user']
         new_user = User.objects.create(
             username=data['username'],
@@ -152,7 +165,10 @@ class DwellingWaterMeterView(generics.GenericAPIView):
             dwelling__id=pk, discharge_date=None)
         water_meter.discharge()
         # get Dwelling
-        dwelling = Dwelling.objects.get(id=pk)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         # create new Water Meter
         new_water_meter = WaterMeter.objects.create(
             dwelling=dwelling, code=request.data['code'])
@@ -171,7 +187,10 @@ class DwellingWaterMeterDetailView(APIView):
         Return the current Water Meter with measurements.
         """
         # Get Dwelling
-        dwelling = Dwelling.objects.get(id=pk)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         water_meter = WaterMeter.objects.get(
             dwelling=dwelling, discharge_date=None)
 
@@ -188,6 +207,7 @@ class DwellingWaterMeterDetailView(APIView):
 
         data = {
             'id': water_meter.id,
+            'code': water_meter.code,
             'release_date': water_meter.release_date,
             'discharge_date': water_meter.discharge_date,
             'water_meter': list_of_water_meter_serialized,
