@@ -1,11 +1,11 @@
 from dwelling.models import DwellingOwner, DwellingResident
 from address.models import Address, FullAddress
-from login.models import UserFullAddress
+from login.models import UserFullAddress, UserPhone
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.serializers import DwellingDetailSerializer
-from phone.models import Phone, UserPhone
+from phone.models import Phone
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND

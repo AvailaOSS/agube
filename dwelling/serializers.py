@@ -1,5 +1,5 @@
 from address.models import Address, FullAddress
-from login.models import UserFullAddress
+from login.models import UserFullAddress, UserPhone
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from login.serializers import UserDetailSerializer, UserSerializer
@@ -7,7 +7,7 @@ from rest_framework.fields import ReadOnlyField, CharField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.models import WaterMeter
-from phone.models import Phone, UserPhone
+from phone.models import Phone
 from watermeter.serializers import WaterMeterSerializer
 
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
