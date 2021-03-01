@@ -1,11 +1,12 @@
 from django.utils import timezone
-
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
+from watermeter.exceptions import WaterMeterDisabledError
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import WaterMeterMeasurementSerializer
 
@@ -40,7 +41,7 @@ class WaterMeterMeasurementView(APIView):
         return Response((WaterMeterMeasurementSerializer(measurements, many=True).data))
 
     @swagger_auto_schema(
-        operation_id="addNewWaterMeterMeasure",
+        operation_id="addWaterMeterMeasure",
         request_body=WaterMeterMeasurementSerializer,
         responses={200: WaterMeterMeasurementSerializer(many=False)},
         tags=[TAG],
@@ -59,6 +60,9 @@ class WaterMeterMeasurementView(APIView):
         else:
             date = timezone.now()
         # Add Water Meter
-        water_meter_measurement = water_meter.add_measurement(
-            measurement, date=date)
+        try:
+            water_meter_measurement = water_meter.add_measurement(
+                measurement, date=date)
+        except WaterMeterDisabledError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
         return Response((WaterMeterMeasurementSerializer(water_meter_measurement, many=False).data))

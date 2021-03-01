@@ -1,7 +1,9 @@
-from django.utils import timezone
-
+from watermeter.exceptions import WaterMeterDisabledError
 from django.db import models
+from django.utils import timezone
 from dwelling.models import Dwelling
+from rest_framework.response import Response
+from rest_framework.status import HTTP_404_NOT_FOUND
 
 
 class WaterMeter(models.Model):
@@ -29,6 +31,8 @@ class WaterMeter(models.Model):
             measurement read from the water meter
         date : datetime
             date of read measurement"""
+        if self.discharge_date:
+            raise WaterMeterDisabledError()
         return WaterMeterMeasurement.objects.create(water_meter=self, measurement=measurement, date=date)
 
     def get_measurements_chunk(self, chunk=5):
