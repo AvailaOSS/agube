@@ -22,6 +22,7 @@ class UserCustomDetailListView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="getUsersDetails",
         responses={200: UserCustomDetailSerializer(many=True)},
         tags=[TAG],
     )
@@ -65,6 +66,7 @@ class UserDwellingDetailView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="getDwellingDetail",
         responses={200: DwellingDetailSerializer(many=True)},
         tags=[TAG],
     )
@@ -135,6 +137,7 @@ class UserCreatePhoneView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="addUserPhone",
         request_body=UserPhoneUpdateSerializer,
         responses={200: UserPhoneUpdateSerializer(many=True)},
         tags=[TAG],
@@ -160,6 +163,7 @@ class UserCreatePhoneView(APIView):
         return get_all_user_phones_serialized(user)
 
     @swagger_auto_schema(
+        operation_id="getUserPhone",
         responses={200: UserPhoneUpdateSerializer(many=True)},
         tags=[TAG],
     )
@@ -178,6 +182,7 @@ class UserPhoneUpdateDeleteView(APIView):
     permission_classes = [AllowAny]
 
     @ swagger_auto_schema(
+        operation_id="updateUserPhone",
         request_body=UserPhoneUpdateSerializer,
         responses={200: UserPhoneUpdateSerializer(many=True)},
         tags=[TAG],
@@ -210,6 +215,7 @@ class UserPhoneUpdateDeleteView(APIView):
             UserPhoneUpdateSerializer(data, many=False).data)
 
     @swagger_auto_schema(
+        operation_id="deleteUserPhone",
         tags=[TAG],
     )
     def delete(self, request, pk, phone_id):
@@ -263,6 +269,7 @@ class UserCreateAddressView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="addUserAddress",
         request_body=UserAddressUpdateSerializer,
         responses={200: UserAddressUpdateSerializer(many=True)},
         tags=[TAG],
@@ -312,6 +319,7 @@ class UserCreateAddressView(APIView):
             user=user, full_address=new_full_address, main=main)
 
     @swagger_auto_schema(
+        operation_id="getUserAddress",
         responses={200: UserAddressUpdateSerializer(many=True)},
         tags=[TAG],
     )
@@ -330,6 +338,7 @@ class UserAddressUpdateDeleteView(APIView):
     permission_classes = [AllowAny]
 
     @ swagger_auto_schema(
+        operation_id="updateUserAddress",
         request_body=UserAddressUpdateSerializer,
         responses={200: UserAddressUpdateSerializer(many=True)},
         tags=[TAG],
@@ -368,6 +377,7 @@ class UserAddressUpdateDeleteView(APIView):
         return get_all_user_address_serialized(user)
 
     @swagger_auto_schema(
+        operation_id="deleteUserAddress",
         tags=[TAG],
     )
     def delete(self, request, pk, full_address_id):

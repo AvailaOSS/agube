@@ -17,11 +17,15 @@ class WaterMeterMeasurementView(generics.ListAPIView):
     serializer_class = WaterMeterMeasurementSerializer
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(operation_id="getTotalMeasures", operation_description="get all Measures saved")
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 class WaterMeterMeasurementChunkView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="getWaterMeterMeasuresChunk",
         responses={200: WaterMeterMeasurementSerializer(many=True)},
         tags=[TAG],
     )
@@ -39,6 +43,7 @@ class WaterMeterCreateMeasurementView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="addNewWaterMeterMeasure",
         request_body=WaterMeterMeasurementSerializer,
         responses={200: WaterMeterMeasurementSerializer(many=False)},
         tags=[TAG],

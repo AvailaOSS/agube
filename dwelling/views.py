@@ -25,6 +25,7 @@ class DwellingListView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_id="getDwellings",
         responses={200: DwellingDetailSerializer(many=True)},
         tags=[TAG],
     )
@@ -71,12 +72,17 @@ class DwellingCreateView(generics.CreateAPIView):
     serializer_class = DwellingCreateSerializer
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(operation_id="createDwelling", operation_description="create a new Dwelling")
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingOwnerSerializer
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(operation_id="getCurrentOwner")
     def get(self, request, pk):
         """
         Get Current Owner
@@ -87,6 +93,7 @@ class DwellingOwnerView(generics.GenericAPIView):
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         return Response(self.get_serializer(DwellingOwner.objects.get(dwelling=dwelling, discharge_date=None)).data)
 
+    @swagger_auto_schema(operation_id="changeCurrentOwner")
     def put(self, request, pk):
         """
         Create a new user owner and discharge the old owner
@@ -114,6 +121,10 @@ class DwellingResidentView(generics.GenericAPIView):
     serializer_class = DwellingResidentSerializer
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_id="getCurrentResident",
+        responses={200: DwellingResidentSerializer(many=False)}
+    )
     def get(self, request, pk):
         """
         Get current Resident
@@ -124,6 +135,7 @@ class DwellingResidentView(generics.GenericAPIView):
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         return Response(self.get_serializer(DwellingResident.objects.get(dwelling=dwelling, discharge_date=None)).data)
 
+    @swagger_auto_schema(operation_id="changeCurrentResident")
     def put(self, request, pk):
         """
         Create a new user resident and discharge the old resident
@@ -147,6 +159,10 @@ class DwellingWaterMeterView(generics.GenericAPIView):
     serializer_class = WaterMeterSerializer
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_id="getCurrentWaterMeter",
+        responses={200: WaterMeterSerializer(many=False)},
+    )
     def get(self, request, pk):
         """
         Get current Water Meter
@@ -155,6 +171,7 @@ class DwellingWaterMeterView(generics.GenericAPIView):
             dwelling__id=pk, discharge_date=None)
         return Response(self.get_serializer(water_meter).data)
 
+    @swagger_auto_schema(operation_id="changeCurrentWaterMeter")
     def put(self, request, pk):
         """
         Create a new Water Meter and discharge the old Water Meter
@@ -178,7 +195,8 @@ class DwellingWaterMeterDetailView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        responses={200: WaterMeterDetailSerializer(many=True)},
+        operation_id="getCurrentWaterMeterDetail",
+        responses={200: WaterMeterDetailSerializer(many=False)},
         tags=[TAG],
     )
     def get(self, request, pk):
