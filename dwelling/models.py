@@ -7,7 +7,6 @@ from django.db import models
 from login.models import UserAddress
 
 
-# TODO: move the responsibility to View instead of here
 class Dwelling(models.Model):
     """A class used to represent an Owner Dwelling"""
     full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
@@ -22,41 +21,67 @@ class Dwelling(models.Model):
         self.release_date = timezone.now()
         super(Dwelling, self).save(*args, **kwargs)
 
-    def add_owner(self, user):
+    def change_current_owner(self, username, first_name, last_name, email):
         """dwelling add owner
 
         Parameters
         ----------
         user : django.contrib.auth.models.User
             user saved in database"""
-        owner = self.get_owner()
+        owner = self.get_current_owner()
         if owner:
             owner.discharge()
-        DwellingOwner.objects.create(user=user, dwelling=self)
+        new_user_owner = User.objects.create(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email)
+        DwellingOwner.objects.create(user=new_user_owner, dwelling=self)
 
-    def add_resident(self, user):
+    def get_current_owner(self):
+        """returns the current owner in the dwelling"""
+        try:
+            return DwellingOwner.objects.get(dwelling=self, discharge_date=None)
+        except ObjectDoesNotExist:
+            return None
+
+    def change_current_resident(self, username, first_name, last_name, email):
         """dwelling add resident and discharge the others
 
         Parameters
         ----------
         user : django.contrib.auth.models.User
             user saved in database"""
-        resident = self.get_resident()
+        resident = self.get_current_resident()
         if resident:
             resident.discharge()
-        DwellingResident.objects.create(user=user, dwelling=self)
+        new_user_resident = User.objects.create(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email)
+        DwellingResident.objects.create(user=new_user_resident, dwelling=self)
 
-    def get_owner(self):
-        """returns the current resident in the dwelling"""
-        try:
-            return DwellingOwner.objects.get(dwelling=self, discharge_date=None)
-        except ObjectDoesNotExist:
-            return None
-
-    def get_resident(self):
+    def get_current_resident(self):
         """returns the current resident in the dwelling"""
         try:
             return DwellingResident.objects.get(dwelling=self, discharge_date=None)
+        except ObjectDoesNotExist:
+            return None
+
+    def change_current_water_meter(self, code):
+        from watermeter.models import WaterMeter
+        # discharge current Water Meter
+        current = self.get_current_water_meter()
+        if current:
+            current.discharge()
+        # create new current Water Meter
+        WaterMeter.objects.create(dwelling=self, code=code)
+
+    def get_current_water_meter(self):
+        from watermeter.models import WaterMeter
+        try:
+            return WaterMeter.objects.get(dwelling=self, discharge_date=None)
         except ObjectDoesNotExist:
             return None
 

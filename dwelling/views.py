@@ -12,7 +12,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident
+from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
@@ -39,11 +39,10 @@ class DwellingListView(APIView):
         list_of_serialized = []
         for house in dwelling:
             user = house.get_resident().user
-
             user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
-
             user_phone_number = ''
+
             try:
                 user_phone = UserPhone.objects.get(user=user, main=True)
                 if user_phone:
@@ -91,7 +90,8 @@ class DwellingOwnerView(generics.GenericAPIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        return Response(self.get_serializer(DwellingOwner.objects.get(dwelling=dwelling, discharge_date=None)).data)
+        owner = dwelling.get_current_owner()
+        return Response(self.get_serializer(owner).data)
 
     @swagger_auto_schema(operation_id="changeCurrentOwner")
     def put(self, request, pk):
@@ -103,17 +103,10 @@ class DwellingOwnerView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         data = request.data['user']
-        new_user = User.objects.create(
-            username=data['username'],
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            email=data['email'])
-        dwelling.add_owner(new_user)
-        dwelling_owner = DwellingOwner.objects.get(
-            dwelling=dwelling, discharge_date=None)
-        print("dwelling_owner")
-        print(dwelling_owner)
-        return Response(self.get_serializer(dwelling_owner).data)
+        dwelling.change_current_owner(
+            username=data['username'], first_name=data['first_name'], last_name=data['last_name'], email=data['email'])
+        owner = dwelling.get_current_owner()
+        return Response(self.get_serializer(owner).data)
 
 
 class DwellingResidentView(generics.GenericAPIView):
@@ -133,7 +126,8 @@ class DwellingResidentView(generics.GenericAPIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        return Response(self.get_serializer(DwellingResident.objects.get(dwelling=dwelling, discharge_date=None)).data)
+        resident = dwelling.get_current_resident()
+        return Response(self.get_serializer(resident).data)
 
     @swagger_auto_schema(operation_id="changeCurrentResident")
     def put(self, request, pk):
@@ -145,13 +139,10 @@ class DwellingResidentView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         data = request.data['user']
-        new_user = User.objects.create(
-            username=data['username'],
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            email=data['email'])
-        dwelling.add_resident(new_user)
-        return Response(self.get_serializer(DwellingResident.objects.get(dwelling=dwelling, discharge_date=None)).data)
+        dwelling.change_current_resident(
+            username=data['username'], first_name=data['first_name'], last_name=data['last_name'], email=data['email'])
+        resident = dwelling.get_current_resident()
+        return Response(self.get_serializer(resident).data)
 
 
 class DwellingWaterMeterView(generics.GenericAPIView):
@@ -167,8 +158,11 @@ class DwellingWaterMeterView(generics.GenericAPIView):
         """
         Get current Water Meter
         """
-        water_meter = WaterMeter.objects.get(
-            dwelling__id=pk, discharge_date=None)
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+        water_meter = dwelling.get_current_water_meter()
         return Response(self.get_serializer(water_meter).data)
 
     @swagger_auto_schema(operation_id="changeCurrentWaterMeter")
@@ -176,18 +170,14 @@ class DwellingWaterMeterView(generics.GenericAPIView):
         """
         Create a new Water Meter and discharge the old Water Meter
         """
-        # discharge current Water Meter
-        water_meter = WaterMeter.objects.get(
-            dwelling__id=pk, discharge_date=None)
-        water_meter.discharge()
         # get Dwelling
         try:
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         # create new Water Meter
-        new_water_meter = WaterMeter.objects.create(
-            dwelling=dwelling, code=request.data['code'])
+        dwelling.change_current_water_meter(request.data['code'])
+        new_water_meter = dwelling.get_current_water_meter()
         return Response(self.get_serializer(new_water_meter).data)
 
 
@@ -208,8 +198,7 @@ class DwellingWaterMeterDetailView(APIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        water_meter = WaterMeter.objects.get(
-            dwelling=dwelling, discharge_date=None)
+        water_meter = dwelling.get_current_water_meter()
 
         list_of_water_meter_serialized = []
         for measurement in water_meter.get_measurements():

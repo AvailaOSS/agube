@@ -58,8 +58,8 @@ class DwellingCreateSerializer(ModelSerializer):
         dwelling = Dwelling.objects.create(**validated_data)
         self.create_water_meter(dwelling, water_meter_data)
         # Add users to Dwelling
-        dwelling.add_owner(owner)
-        dwelling.add_resident(resident)
+        dwelling.change_current_owner(owner)
+        dwelling.change_current_resident(resident)
         return dwelling
 
     @classmethod
