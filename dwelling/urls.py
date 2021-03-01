@@ -2,7 +2,7 @@ from django.urls import include, path
 
 from dwelling.views import (DwellingCreateView, DwellingListView,
                             DwellingOwnerView, DwellingResidentView,
-                            DwellingWaterMeterDetailView,
+                            DwellingWaterMeterChunkView,
                             DwellingWaterMeterView)
 
 __url_dwelling = [
@@ -11,7 +11,7 @@ __url_dwelling = [
     path('/<int:pk>/owner', DwellingOwnerView.as_view()),
     path('/<int:pk>/resident', DwellingResidentView.as_view()),
     path('/<int:pk>/water-meter', DwellingWaterMeterView.as_view()),
-    path('/<int:pk>/water-meter/detail', DwellingWaterMeterDetailView.as_view()),
+    path('/<int:pk>/water-meter/<int:chunk>', DwellingWaterMeterChunkView.as_view()),
 ]
 
 urlpatterns = [

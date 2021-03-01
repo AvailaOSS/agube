@@ -12,7 +12,7 @@ from watermeter.serializers import WaterMeterMeasurementSerializer
 TAG = 'water-meter'
 
 
-class WaterMeterMeasurementView(generics.ListAPIView):
+class WaterMeterTotalMeasurementView(generics.ListAPIView):
     queryset = WaterMeterMeasurement.objects.all()
     serializer_class = WaterMeterMeasurementSerializer
     permission_classes = [AllowAny]
@@ -21,26 +21,23 @@ class WaterMeterMeasurementView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
-class WaterMeterMeasurementChunkView(APIView):
+
+class WaterMeterMeasurementView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        operation_id="getWaterMeterMeasuresChunk",
+        operation_id="getWaterMeterMeasures",
         responses={200: WaterMeterMeasurementSerializer(many=True)},
         tags=[TAG],
     )
-    def get(self, request, pk, chunk):
+    def get(self, request, pk):
         """
-        Return a list of chunk water meter measures.
+        Return a list of water meter measures.
         """
         # Get Dwelling
         water_meter = WaterMeter.objects.get(id=pk)
-        measurements = water_meter.get_measurements_chunk(chunk)
+        measurements = water_meter.get_measurements()
         return Response((WaterMeterMeasurementSerializer(measurements, many=True).data))
-
-
-class WaterMeterCreateMeasurementView(APIView):
-    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         operation_id="addNewWaterMeterMeasure",

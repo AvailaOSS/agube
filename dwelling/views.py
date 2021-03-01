@@ -181,17 +181,17 @@ class DwellingWaterMeterView(generics.GenericAPIView):
         return Response(self.get_serializer(new_water_meter).data)
 
 
-class DwellingWaterMeterDetailView(APIView):
+class DwellingWaterMeterChunkView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        operation_id="getCurrentWaterMeterDetail",
+        operation_id="getCurrentWaterMeterMeasuresChunk",
         responses={200: WaterMeterDetailSerializer(many=False)},
         tags=[TAG],
     )
-    def get(self, request, pk):
+    def get(self, request, pk, chunk):
         """
-        Return the current Water Meter with measurements.
+        Return the current Water Meter with measurements chunk.
         """
         # Get Dwelling
         try:
@@ -201,7 +201,7 @@ class DwellingWaterMeterDetailView(APIView):
         water_meter = dwelling.get_current_water_meter()
 
         list_of_water_meter_serialized = []
-        for measurement in water_meter.get_measurements():
+        for measurement in water_meter.get_measurements_chunk(chunk):
 
             data = {
                 'id': measurement.id,
