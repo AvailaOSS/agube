@@ -9,9 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { FullAddress } from './fullAddress';
 
 
-export interface JSONWebToken {
-    username: string;
-    password: string;
+export interface UserAddress {
+    readonly id?: string;
+    full_address: FullAddress;
+    main: boolean;
 }

@@ -11,7 +11,9 @@
  */
 
 
-export interface JSONWebToken {
-    username: string;
-    password: string;
+export interface WaterMeter {
+    readonly id?: string;
+    code: string;
+    readonly release_date?: string;
+    readonly discharge_date?: string;
 }

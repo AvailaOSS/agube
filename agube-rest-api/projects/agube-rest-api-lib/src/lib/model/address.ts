@@ -11,7 +11,9 @@
  */
 
 
-export interface JSONWebToken {
-    username: string;
-    password: string;
+export interface Address {
+    readonly id?: string;
+    town: string;
+    street: string;
+    is_external?: boolean;
 }

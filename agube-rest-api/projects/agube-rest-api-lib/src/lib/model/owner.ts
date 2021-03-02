@@ -9,9 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { User } from './user';
 
 
-export interface JSONWebToken {
-    username: string;
-    password: string;
+export interface Owner {
+    readonly id?: string;
+    readonly dwelling_id?: number;
+    user: User;
+    readonly release_date?: string;
+    readonly discharge_date?: string;
 }

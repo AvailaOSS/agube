@@ -11,7 +11,13 @@
  */
 
 
-export interface JSONWebToken {
+export interface User {
+    readonly id?: string;
+    /**
+     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+     */
     username: string;
-    password: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
 }
