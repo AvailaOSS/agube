@@ -1,8 +1,10 @@
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from phone.serializers import PhoneSerializer
-from rest_framework.fields import ReadOnlyField, CharField, BooleanField
+from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
+
+from login.models import UserAddress, UserPhone
 
 
 class UserSerializer(ModelSerializer):
@@ -12,6 +14,7 @@ class UserSerializer(ModelSerializer):
     id = ReadOnlyField()
 
     class Meta:
+        ref_name = 'User'
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email',)
 
@@ -25,6 +28,7 @@ class UserDetailSerializer(UserSerializer):
     address = FullAddressSerializer(many=True, read_only=False)
 
     class Meta:
+        ref_name = 'UserDetail'
         model = User
         fields = ('id', 'username', 'first_name',
                   'last_name', 'email', 'phones', 'address',)
@@ -54,15 +58,20 @@ class UserCustomDetailSerializer(Serializer):
     gate = CharField(max_length=None, min_length=None,
                      allow_blank=False, trim_whitespace=True)
 
+    class Meta:
+        ref_name = 'UserDetailCustom'
 
-class UserUpdatePhoneSerializer(Serializer):
+
+class UserPhoneUpdateSerializer(Serializer):
     """
-    FIXME: Rename to UserPhoneUpdateSerializer
     User update phone
     """
     phone = CharField(
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
     main = BooleanField()
+
+    class Meta:
+        ref_name = 'UserPhone'
 
 
 class UserAddressUpdateSerializer(Serializer):
@@ -72,3 +81,45 @@ class UserAddressUpdateSerializer(Serializer):
     id = ReadOnlyField()
     full_address = FullAddressSerializer(many=False, read_only=False)
     main = BooleanField()
+
+    class Meta:
+        ref_name = 'UserAddress'
+
+
+def get_all_user_address_serialized(user):
+    list_of_serialized = []
+    for address_iteration in UserAddress.objects.filter(user=user):
+        full_address = address_iteration.full_address
+        data = {
+            "id": address_iteration.id,
+            "full_address": {
+                "address": {
+                    "id": full_address.address.id,
+                    "town": full_address.address.town,
+                    "street": full_address.address.street,
+                    "is_external": full_address.address.is_external
+                },
+                "id": full_address.id,
+                "number": full_address.number,
+                "flat": full_address.flat,
+                "gate": full_address.gate,
+            },
+            "main": address_iteration.main
+        }
+        list_of_serialized.append(
+            UserAddressUpdateSerializer(data, many=False).data)
+
+    return list_of_serialized
+
+
+def get_all_user_phones_serialized(user):
+    list_of_serialized = []
+    for phone_iteration in UserPhone.objects.filter(user=user):
+        data = {
+            "phone": phone_iteration.phone.phone_number,
+            "main": phone_iteration.main,
+        }
+        list_of_serialized.append(
+            UserPhoneUpdateSerializer(data, many=False).data)
+
+    return list_of_serialized

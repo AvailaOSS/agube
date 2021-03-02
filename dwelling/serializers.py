@@ -1,12 +1,13 @@
-from address.models import Address, FullAddress, UserFullAddress
+from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
+from login.models import UserAddress, UserPhone
 from login.serializers import UserDetailSerializer, UserSerializer
-from rest_framework.fields import ReadOnlyField, CharField
+from phone.models import Phone
+from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.models import WaterMeter
-from phone.models import Phone, UserPhone
 from watermeter.serializers import WaterMeterSerializer
 
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
@@ -22,6 +23,7 @@ class DwellingSerializer(ModelSerializer):
     full_address = FullAddressSerializer(many=False, read_only=False)
 
     class Meta:
+        ref_name = 'Dwelling'
         model = Dwelling
         fields = ('id', 'full_address', 'release_date', 'discharge_date',)
 
@@ -39,6 +41,7 @@ class DwellingCreateSerializer(ModelSerializer):
         many=False, read_only=False, write_only=True)
 
     class Meta:
+        ref_name = 'DwellingCreate'
         model = Dwelling
         fields = ('id', 'full_address', 'owner', 'resident', 'water_meter',)
 
@@ -55,8 +58,8 @@ class DwellingCreateSerializer(ModelSerializer):
         dwelling = Dwelling.objects.create(**validated_data)
         self.create_water_meter(dwelling, water_meter_data)
         # Add users to Dwelling
-        dwelling.add_owner(owner)
-        dwelling.add_resident(resident)
+        dwelling.change_current_owner(owner)
+        dwelling.change_current_resident(resident)
         return dwelling
 
     @classmethod
@@ -105,7 +108,7 @@ class DwellingCreateSerializer(ModelSerializer):
         full_address = FullAddress.objects.create(address=new_address, number=validated_data.pop(
             'number'), flat=validated_data.pop('flat'), gate=validated_data.pop('gate'))
         # create user address
-        UserFullAddress.objects.create(
+        UserAddress.objects.create(
             user=user, full_address=full_address, main=main)
 
     @classmethod
@@ -124,6 +127,7 @@ class DwellingOwnerSerializer(ModelSerializer):
     discharge_date = ReadOnlyField()
 
     class Meta:
+        ref_name = 'Owner'
         model = DwellingOwner
         fields = ('id', 'dwelling_id', 'user',
                   'release_date', 'discharge_date',)
@@ -140,6 +144,7 @@ class DwellingResidentSerializer(ModelSerializer):
     discharge_date = ReadOnlyField()
 
     class Meta:
+        ref_name = 'Resident'
         model = DwellingResident
         fields = ('id', 'dwelling_id', 'user',
                   'release_date', 'discharge_date',)
@@ -164,3 +169,6 @@ class DwellingDetailSerializer(Serializer):
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
     resident_phone = CharField(
         max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+
+    class Meta:
+        ref_name = 'DwellingDetail'

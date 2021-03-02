@@ -1,8 +1,9 @@
-from datetime import datetime, timezone
-
+from watermeter.exceptions import WaterMeterDisabledError
 from django.db import models
-
+from django.utils import timezone
 from dwelling.models import Dwelling
+from rest_framework.response import Response
+from rest_framework.status import HTTP_404_NOT_FOUND
 
 
 class WaterMeter(models.Model):
@@ -14,14 +15,14 @@ class WaterMeter(models.Model):
 
     class Meta:
         ordering = ["release_date"]
-        db_table = 'dwelling_water_meter'
+        db_table = 'water_meter'
 
     def save(self, *args, **kwargs):
         """save the water meter and save release_date datetime.now()"""
-        self.release_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.release_date = timezone.now()
         super(WaterMeter, self).save(*args, **kwargs)
 
-    def add_measurement(self, measurement, date=datetime.now().replace(tzinfo=timezone.utc)):
+    def add_measurement(self, measurement, date=timezone.now()):
         """water meter add measurement
 
         Parameters
@@ -30,6 +31,8 @@ class WaterMeter(models.Model):
             measurement read from the water meter
         date : datetime
             date of read measurement"""
+        if self.discharge_date:
+            raise WaterMeterDisabledError()
         return WaterMeterMeasurement.objects.create(water_meter=self, measurement=measurement, date=date)
 
     def get_measurements_chunk(self, chunk=5):
@@ -42,7 +45,7 @@ class WaterMeter(models.Model):
 
     def discharge(self):
         """discharge this water meter"""
-        self.discharge_date = datetime.now().replace(tzinfo=timezone.utc)
+        self.discharge_date = timezone.now()
         self.save()
 
 
@@ -54,4 +57,4 @@ class WaterMeterMeasurement(models.Model):
 
     class Meta:
         ordering = ["-date"]
-        db_table = 'dwelling_water_meter_measurement'
+        db_table = 'water_meter_measurement'

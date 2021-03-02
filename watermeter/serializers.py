@@ -13,6 +13,7 @@ class WaterMeterSerializer(ModelSerializer):
     discharge_date = ReadOnlyField()
 
     class Meta:
+        ref_name = 'WaterMeter'
         model = WaterMeter
         fields = ('id', 'code', 'release_date', 'discharge_date',)
 
@@ -25,6 +26,7 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
     date = DateTimeField(required=False)
 
     class Meta:
+        ref_name = 'WaterMeterMeasurement'
         model = WaterMeterMeasurement
         fields = ('id', 'measurement', 'date',)
 
@@ -38,3 +40,6 @@ class WaterMeterDetailSerializer(Serializer):
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
     water_meter = WaterMeterMeasurementSerializer(many=True, read_only=False)
+
+    class Meta:
+        ref_name = 'WaterMeterWithMeasurements'

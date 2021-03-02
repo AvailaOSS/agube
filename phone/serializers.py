@@ -11,5 +11,6 @@ class PhoneSerializer(ModelSerializer):
     id = ReadOnlyField()
 
     class Meta:
+        ref_name = 'Phone'
         model = Phone
         fields = ('id', 'phone_number',)
