@@ -11,7 +11,13 @@
  */
 
 
-export interface JSONWebToken {
-    username: string;
-    password: string;
+export interface DwellingDetail {
+    readonly id?: string;
+    street: string;
+    number: string;
+    flat: string;
+    gate: string;
+    town: string;
+    resident_first_name: string;
+    resident_phone: string;
 }

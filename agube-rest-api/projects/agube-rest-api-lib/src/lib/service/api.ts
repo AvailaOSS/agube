@@ -1,5 +1,13 @@
-export * from './auth.service';
-import { AuthService } from './auth.service';
-export * from './refresh.service';
-import { RefreshService } from './refresh.service';
-export const APIS = [AuthService, RefreshService];
+export * from './address.service';
+import { AddressService } from './address.service';
+export * from './dwelling.service';
+import { DwellingService } from './dwelling.service';
+export * from './phone.service';
+import { PhoneService } from './phone.service';
+export * from './token.service';
+import { TokenService } from './token.service';
+export * from './user.service';
+import { UserService } from './user.service';
+export * from './waterMeter.service';
+import { WaterMeterService } from './waterMeter.service';
+export const APIS = [AddressService, DwellingService, PhoneService, TokenService, UserService, WaterMeterService];

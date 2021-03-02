@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+
 export interface RefreshJSONWebToken {
-  token: string;
+    token: string;
 }

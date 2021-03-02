@@ -11,7 +11,7 @@
  */
 
 
-export interface JSONWebToken {
-    username: string;
-    password: string;
+export interface Phone {
+    readonly id?: string;
+    phone_number: string;
 }
