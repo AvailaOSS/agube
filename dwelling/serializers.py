@@ -1,3 +1,4 @@
+from dwelling.exceptions import IncompatibleUsernameError
 from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
@@ -10,7 +11,21 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterSerializer
 
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident
+from dwelling.models import Dwelling, DwellingOwner, DwellingResident, Payment
+
+
+class PaymentSerializer(ModelSerializer):
+    """
+    Payment ModelSerializer
+    """
+    id = ReadOnlyField()
+    username = CharField(max_length=None, min_length=None,
+                         allow_blank=False, trim_whitespace=True)
+
+    class Meta:
+        ref_name = 'Payment'
+        model = Payment
+        fields = ('id', 'payment_type', 'iban', 'username',)
 
 
 class DwellingSerializer(ModelSerializer):
@@ -34,6 +49,7 @@ class DwellingCreateSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     full_address = FullAddressSerializer(many=False, read_only=False)
+    payment = PaymentSerializer(many=False, read_only=False, write_only=True)
     owner = UserDetailSerializer(many=False, read_only=False, write_only=True)
     resident = UserDetailSerializer(
         many=False, read_only=False, write_only=True)
@@ -43,7 +59,8 @@ class DwellingCreateSerializer(ModelSerializer):
     class Meta:
         ref_name = 'DwellingCreate'
         model = Dwelling
-        fields = ('id', 'full_address', 'owner', 'resident', 'water_meter',)
+        fields = ('id', 'full_address', 'payment',
+                  'owner', 'resident', 'water_meter',)
 
     def create(self, validated_data):
         # Create address
@@ -53,14 +70,33 @@ class DwellingCreateSerializer(ModelSerializer):
         owner = self.create_user(validated_data.pop('owner'))
         # Create Resident
         resident = self.create_user(validated_data.pop('resident'))
+        # Create water meter
         water_meter_data = validated_data.pop('water_meter')
+        # Create payment
+        validated_data['payment'] = self.create_payment(
+            validated_data.pop('payment'), owner, resident)
         # Create dwelling
         dwelling = Dwelling.objects.create(**validated_data)
         self.create_water_meter(dwelling, water_meter_data)
         # Add users to Dwelling
-        dwelling.change_current_owner(owner)
-        dwelling.change_current_resident(resident)
+        dwelling.change_current_owner_user(owner)
+        dwelling.change_current_resident_user(resident)
         return dwelling
+
+    @classmethod
+    def create_payment(cls, validated_data, owner, resident):
+        payment_type = validated_data.pop('payment_type')
+        iban = validated_data.pop('iban')
+        username = validated_data.pop('username')
+        paymaster = None
+        if owner.username == username:
+            paymaster = owner
+        elif resident.username == username:
+            paymaster = resident
+        else:
+            raise IncompatibleUsernameError(username)
+        return Payment.objects.create(
+            payment_type=payment_type, iban=iban, user=paymaster)
 
     @classmethod
     def create_dwelling_address(cls, validated_data):
