@@ -90,7 +90,7 @@ export class DwellingService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<Owner>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
+        return this.httpClient.post<Owner>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -147,7 +147,7 @@ export class DwellingService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<Resident>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
+        return this.httpClient.post<Resident>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -204,7 +204,7 @@ export class DwellingService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<WaterMeter>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
+        return this.httpClient.post<WaterMeter>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
