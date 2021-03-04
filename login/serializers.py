@@ -102,7 +102,7 @@ def get_all_user_address_serialized(user):
                 "id": full_address.id,
                 "number": full_address.number,
                 "flat": full_address.flat,
-                "gate": full_address.gate,
+                "gate": full_address.gate
             },
             "main": address_iteration.main
         }

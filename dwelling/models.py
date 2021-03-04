@@ -47,7 +47,8 @@ class Dwelling(models.Model):
         self.release_date = timezone.now()
         super(Dwelling, self).save(*args, **kwargs)
 
-    def change_current_owner_user(self, user):
+    def change_current_owner(self, user):
+        # FIXME: user: DwellingOwner
         """dwelling add owner
 
         Parameters
@@ -59,23 +60,6 @@ class Dwelling(models.Model):
             owner.discharge()
         DwellingOwner.objects.create(user=user, dwelling=self)
 
-    def change_current_owner(self, username, first_name, last_name, email):
-        """dwelling add owner
-
-        Parameters
-        ----------
-        user : django.contrib.auth.models.User
-            user saved in database"""
-        owner = self.get_current_owner()
-        if owner:
-            owner.discharge()
-        new_user_owner = User.objects.create(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email)
-        DwellingOwner.objects.create(user=new_user_owner, dwelling=self)
-
     def get_current_owner(self):
         """returns the current owner in the dwelling"""
         try:
@@ -83,7 +67,8 @@ class Dwelling(models.Model):
         except ObjectDoesNotExist:
             return None
 
-    def change_current_resident_user(self, user):
+    def change_current_resident(self, user):
+        # FIXME: user: DwellingResident
         """dwelling add resident and discharge the others
 
         Parameters
@@ -94,23 +79,6 @@ class Dwelling(models.Model):
         if resident:
             resident.discharge()
         DwellingResident.objects.create(user=user, dwelling=self)
-
-    def change_current_resident(self, username, first_name, last_name, email):
-        """dwelling add resident and discharge the others
-
-        Parameters
-        ----------
-        user : django.contrib.auth.models.User
-            user saved in database"""
-        resident = self.get_current_resident()
-        if resident:
-            resident.discharge()
-        new_user_resident = User.objects.create(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email)
-        DwellingResident.objects.create(user=new_user_resident, dwelling=self)
 
     def get_current_resident(self):
         """returns the current resident in the dwelling"""

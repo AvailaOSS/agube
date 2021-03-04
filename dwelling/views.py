@@ -16,7 +16,9 @@ from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
-                                  DwellingResidentSerializer)
+                                  DwellingResidentSerializer, create_user,
+                                  get_dwelling_owner_serialized,
+                                  get_dwelling_resident_serialized)
 
 TAG = 'dwelling'
 
@@ -91,10 +93,10 @@ class DwellingOwnerView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         owner = dwelling.get_current_owner()
-        return Response(self.get_serializer(owner).data)
+        return Response(get_dwelling_owner_serialized(owner))
 
     @swagger_auto_schema(operation_id="changeCurrentOwner")
-    def put(self, request, pk):
+    def post(self, request, pk):
         """
         Create a new user owner and discharge the old owner
         """
@@ -102,11 +104,10 @@ class DwellingOwnerView(generics.GenericAPIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        data = request.data['user']
-        dwelling.change_current_owner(
-            username=data['username'], first_name=data['first_name'], last_name=data['last_name'], email=data['email'])
+        user = create_user(request.data['user'])
+        dwelling.change_current_owner(user)
         owner = dwelling.get_current_owner()
-        return Response(self.get_serializer(owner).data)
+        return Response(get_dwelling_owner_serialized(owner))
 
 
 class DwellingResidentView(generics.GenericAPIView):
@@ -127,10 +128,10 @@ class DwellingResidentView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         resident = dwelling.get_current_resident()
-        return Response(self.get_serializer(resident).data)
+        return Response(get_dwelling_resident_serialized(resident))
 
     @swagger_auto_schema(operation_id="changeCurrentResident")
-    def put(self, request, pk):
+    def post(self, request, pk):
         """
         Create a new user resident and discharge the old resident
         """
@@ -138,11 +139,10 @@ class DwellingResidentView(generics.GenericAPIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        data = request.data['user']
-        dwelling.change_current_resident(
-            username=data['username'], first_name=data['first_name'], last_name=data['last_name'], email=data['email'])
+        user = create_user(request.data['user'])
+        dwelling.change_current_resident(user)
         resident = dwelling.get_current_resident()
-        return Response(self.get_serializer(resident).data)
+        return Response(get_dwelling_resident_serialized(resident))
 
 
 class DwellingWaterMeterView(generics.GenericAPIView):
@@ -166,7 +166,7 @@ class DwellingWaterMeterView(generics.GenericAPIView):
         return Response(self.get_serializer(water_meter).data)
 
     @swagger_auto_schema(operation_id="changeCurrentWaterMeter")
-    def put(self, request, pk):
+    def post(self, request, pk):
         """
         Create a new Water Meter and discharge the old Water Meter
         """
