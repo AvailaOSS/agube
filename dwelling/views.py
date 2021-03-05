@@ -40,7 +40,7 @@ class DwellingListView(APIView):
 
         list_of_serialized = []
         for house in dwelling:
-            user = house.get_resident().user
+            user = house.get_current_resident().user
             user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
             user_phone_number = ''
