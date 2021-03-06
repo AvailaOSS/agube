@@ -28,6 +28,10 @@ class Payment(models.Model):
                 raise NullIbanError(Payment.PaymentType.BANK)
         super(Payment, self).save(*args, **kwargs)
 
+    @property
+    def username(self):
+        return self.user.username
+
     class Meta:
         db_table = 'payment'
 
@@ -48,7 +52,6 @@ class Dwelling(models.Model):
         super(Dwelling, self).save(*args, **kwargs)
 
     def change_current_owner(self, user):
-        # FIXME: user: DwellingOwner
         """dwelling add owner
 
         Parameters
@@ -68,7 +71,6 @@ class Dwelling(models.Model):
             return None
 
     def change_current_resident(self, user):
-        # FIXME: user: DwellingResident
         """dwelling add resident and discharge the others
 
         Parameters

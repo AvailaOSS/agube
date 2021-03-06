@@ -16,7 +16,8 @@ from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
-                                  DwellingResidentSerializer, create_user,
+                                  DwellingResidentSerializer,
+                                  PaymentSerializer, create_user,
                                   get_dwelling_owner_serialized,
                                   get_dwelling_resident_serialized)
 
@@ -220,3 +221,23 @@ class DwellingWaterMeterChunkView(APIView):
         }
 
         return Response(WaterMeterDetailSerializer(data, many=False).data)
+
+
+class DwellingPaymasterView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_id="getPaymaster",
+        responses={200: PaymentSerializer(many=False)},
+        tags=[TAG],
+    )
+    def get(self, request, pk):
+        """
+        Return Paymaster info
+        """
+        # Get Dwelling
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+        return Response(PaymentSerializer(dwelling.payment, many=False).data)
