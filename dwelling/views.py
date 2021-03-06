@@ -1,3 +1,4 @@
+from dwelling.exceptions import IncompatibleUsernameError
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
@@ -12,7 +13,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from dwelling.models import Dwelling
+from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
@@ -241,3 +242,43 @@ class DwellingPaymasterView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         return Response(PaymentSerializer(dwelling.payment, many=False).data)
+
+    @swagger_auto_schema(
+        operation_id="updatePaymaster",
+        request_body=PaymentSerializer,
+        responses={200: PaymentSerializer(many=False)},
+        tags=[TAG],
+    )
+    def put(self, request, pk):
+        """
+        Update Paymaster info
+        """
+        # Get Dwelling
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+        # extract data
+        current_paymaster = dwelling.payment
+        current_paymaster.payment_type = request.data['payment_type']
+        current_paymaster.iban = request.data['iban']
+        username = request.data['username']
+        # get owner
+        try:
+            owner = DwellingOwner.objects.get(
+                dwelling=dwelling, user__username=username, discharge_date=None)
+        except ObjectDoesNotExist:
+            return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
+        if owner:
+            current_paymaster.user = owner.user
+        else:
+            # get resident
+            try:
+                resident = DwellingResident.objects.get(
+                    dwelling=dwelling, user__username=username, discharge_date=None)
+                current_paymaster.user = resident.user
+            except ObjectDoesNotExist:
+                return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
+        # all ok then save
+        current_paymaster.save()
+        return Response(PaymentSerializer(current_paymaster, many=False).data)
