@@ -90,7 +90,8 @@ class DwellingCreateSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     full_address = FullAddressSerializer(many=False, read_only=False)
-    paymaster = PaymasterSerializer(many=False, read_only=False, write_only=True)
+    paymaster = PaymasterSerializer(
+        many=False, read_only=False, write_only=True)
     owner = UserDetailSerializer(many=False, read_only=False, write_only=True)
     resident = UserDetailSerializer(
         many=False, read_only=False, write_only=True)
@@ -113,31 +114,30 @@ class DwellingCreateSerializer(ModelSerializer):
         resident = create_user(validated_data.pop('resident'))
         # Create water meter
         water_meter_data = validated_data.pop('water_meter')
-        # Create paymaster
-        validated_data['paymaster'] = self.create_paymaster(
-            validated_data.pop('paymaster'), owner, resident)
         # Create dwelling
         dwelling = Dwelling.objects.create(**validated_data)
         self.create_water_meter(dwelling, water_meter_data)
         # Add users to Dwelling
         dwelling.change_current_owner(owner)
         dwelling.change_current_resident(resident)
+        # Create paymaster
+        validated_data['paymaster'] = self.create_paymaster(
+            validated_data.pop('paymaster'), dwelling,  owner, resident)
         return dwelling
 
     @classmethod
-    def create_paymaster(cls, validated_data, owner, resident):
+    def create_paymaster(cls, validated_data, dwelling, owner, resident):
         payment_type = validated_data.pop('payment_type')
         iban = validated_data.pop('iban')
         username = validated_data.pop('username')
-        paymaster = None
+        user_paymaster = None
         if owner.username == username:
-            paymaster = owner
+            user_paymaster = owner
         elif resident.username == username:
-            paymaster = resident
+            user_paymaster = resident
         else:
             raise IncompatibleUsernameError(username)
-        return Paymaster.objects.create(
-            payment_type=payment_type, iban=iban, user=paymaster)
+        return dwelling.add_paymaster(payment_type, iban, user_paymaster)
 
     @classmethod
     def create_dwelling_address(cls, validated_data):

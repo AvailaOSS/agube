@@ -241,7 +241,7 @@ class DwellingPaymasterView(APIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        return Response(PaymasterSerializer(dwelling.paymaster, many=False).data)
+        return Response(PaymasterSerializer(dwelling.get_current_paymaster(), many=False).data)
 
     @swagger_auto_schema(
         operation_id="updatePaymaster",
@@ -259,7 +259,7 @@ class DwellingPaymasterView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         # extract data
-        current_paymaster = dwelling.paymaster
+        current_paymaster = dwelling.get_current_paymaster()
         current_paymaster.payment_type = request.data['payment_type']
         current_paymaster.iban = request.data['iban']
         username = request.data['username']
@@ -268,7 +268,9 @@ class DwellingPaymasterView(APIView):
             owner = DwellingOwner.objects.get(
                 dwelling=dwelling, user__username=username, discharge_date=None)
         except ObjectDoesNotExist:
-            return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
+            # return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
+            owner = None
+            pass
         if owner:
             current_paymaster.user = owner.user
         else:

@@ -8,38 +8,9 @@ from login.models import UserAddress
 from dwelling.exceptions import NullIbanError
 
 
-class Paymaster(models.Model):
-    class PaymentType(models.TextChoices):
-        BANK = "BANK"
-        CASH = "CASH"
-        EXEMPT = "EXEMPT"
-
-    payment_type = models.TextField(
-        choices=PaymentType.choices,
-        default=PaymentType.BANK
-    )
-    iban = models.TextField(null=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-
-    def save(self, *args, **kwargs):
-        """save the paymaster and check if type is bank iban cannot be null"""
-        if self.payment_type == Paymaster.PaymentType.BANK:
-            if not self.iban:
-                raise NullIbanError(Paymaster.PaymentType.BANK)
-        super(Paymaster, self).save(*args, **kwargs)
-
-    @property
-    def username(self):
-        return self.user.username
-
-    class Meta:
-        db_table = 'paymaster'
-
-
 class Dwelling(models.Model):
     """A class used to represent an Owner Dwelling"""
     full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
-    paymaster = models.ForeignKey(Paymaster, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -105,6 +76,48 @@ class Dwelling(models.Model):
             return WaterMeter.objects.get(dwelling=self, discharge_date=None)
         except ObjectDoesNotExist:
             return None
+
+    def add_paymaster(self, payment_type, iban, user_paymaster):
+        return Paymaster.objects.create(
+            dwelling=self, payment_type=payment_type, iban=iban, user=user_paymaster)
+
+    def get_current_paymaster(self):
+        try:
+            return Paymaster.objects.get(dwelling=self, discharge_date=None)
+        except ObjectDoesNotExist:
+            return None
+
+
+class Paymaster(models.Model):
+    class PaymentType(models.TextChoices):
+        BANK = "BANK"
+        CASH = "CASH"
+        EXEMPT = "EXEMPT"
+
+    payment_type = models.TextField(
+        choices=PaymentType.choices,
+        default=PaymentType.BANK
+    )
+    iban = models.TextField(null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
+    release_date = models.DateTimeField()
+    discharge_date = models.DateTimeField(null=True)
+
+    def save(self, *args, **kwargs):
+        """save the paymaster and check if type is bank iban cannot be null"""
+        self.release_date = timezone.now()
+        if self.payment_type == Paymaster.PaymentType.BANK:
+            if not self.iban:
+                raise NullIbanError(Paymaster.PaymentType.BANK)
+        super(Paymaster, self).save(*args, **kwargs)
+
+    @property
+    def username(self):
+        return self.user.username
+
+    class Meta:
+        db_table = 'paymaster'
 
 
 class DwellingOwner(models.Model):
