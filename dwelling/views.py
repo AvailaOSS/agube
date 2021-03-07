@@ -18,7 +18,7 @@ from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
                                   DwellingResidentSerializer,
-                                  PaymentSerializer, create_user,
+                                  PaymasterSerializer, create_user,
                                   get_dwelling_owner_serialized,
                                   get_dwelling_resident_serialized)
 
@@ -229,7 +229,7 @@ class DwellingPaymasterView(APIView):
 
     @swagger_auto_schema(
         operation_id="getPaymaster",
-        responses={200: PaymentSerializer(many=False)},
+        responses={200: PaymasterSerializer(many=False)},
         tags=[TAG],
     )
     def get(self, request, pk):
@@ -241,12 +241,12 @@ class DwellingPaymasterView(APIView):
             dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        return Response(PaymentSerializer(dwelling.payment, many=False).data)
+        return Response(PaymasterSerializer(dwelling.paymaster, many=False).data)
 
     @swagger_auto_schema(
         operation_id="updatePaymaster",
-        request_body=PaymentSerializer,
-        responses={200: PaymentSerializer(many=False)},
+        request_body=PaymasterSerializer,
+        responses={200: PaymasterSerializer(many=False)},
         tags=[TAG],
     )
     def put(self, request, pk):
@@ -259,7 +259,7 @@ class DwellingPaymasterView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         # extract data
-        current_paymaster = dwelling.payment
+        current_paymaster = dwelling.paymaster
         current_paymaster.payment_type = request.data['payment_type']
         current_paymaster.iban = request.data['iban']
         username = request.data['username']
@@ -281,4 +281,4 @@ class DwellingPaymasterView(APIView):
                 return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
         # all ok then save
         current_paymaster.save()
-        return Response(PaymentSerializer(current_paymaster, many=False).data)
+        return Response(PaymasterSerializer(current_paymaster, many=False).data)

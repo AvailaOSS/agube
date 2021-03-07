@@ -8,7 +8,7 @@ from login.models import UserAddress
 from dwelling.exceptions import NullIbanError
 
 
-class Payment(models.Model):
+class Paymaster(models.Model):
     class PaymentType(models.TextChoices):
         BANK = "BANK"
         CASH = "CASH"
@@ -22,24 +22,24 @@ class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def save(self, *args, **kwargs):
-        """save the payment and check if type is bank iban cannot be null"""
-        if self.payment_type == Payment.PaymentType.BANK:
+        """save the paymaster and check if type is bank iban cannot be null"""
+        if self.payment_type == Paymaster.PaymentType.BANK:
             if not self.iban:
-                raise NullIbanError(Payment.PaymentType.BANK)
-        super(Payment, self).save(*args, **kwargs)
+                raise NullIbanError(Paymaster.PaymentType.BANK)
+        super(Paymaster, self).save(*args, **kwargs)
 
     @property
     def username(self):
         return self.user.username
 
     class Meta:
-        db_table = 'payment'
+        db_table = 'paymaster'
 
 
 class Dwelling(models.Model):
     """A class used to represent an Owner Dwelling"""
     full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
-    payment = models.ForeignKey(Payment, on_delete=models.PROTECT)
+    paymaster = models.ForeignKey(Paymaster, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
