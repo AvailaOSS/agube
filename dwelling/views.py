@@ -1,4 +1,4 @@
-from dwelling.exceptions import IncompatibleUsernameError
+from dwelling.exceptions import IncompatibleUsernameError, PaymasterError
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
@@ -107,7 +107,10 @@ class DwellingOwnerView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         user = create_user(request.data['user'])
-        dwelling.change_current_owner(user)
+        try:
+            dwelling.change_current_owner(user)
+        except PaymasterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
         owner = dwelling.get_current_owner()
         return Response(get_dwelling_owner_serialized(owner))
 
@@ -142,7 +145,10 @@ class DwellingResidentView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         user = create_user(request.data['user'])
-        dwelling.change_current_resident(user)
+        try:
+            dwelling.change_current_resident(user)
+        except PaymasterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
         resident = dwelling.get_current_resident()
         return Response(get_dwelling_resident_serialized(resident))
 
@@ -244,14 +250,14 @@ class DwellingPaymasterView(APIView):
         return Response(PaymasterSerializer(dwelling.get_current_paymaster(), many=False).data)
 
     @swagger_auto_schema(
-        operation_id="updatePaymaster",
+        operation_id="changePaymaster",
         request_body=PaymasterSerializer,
         responses={200: PaymasterSerializer(many=False)},
         tags=[TAG],
     )
-    def put(self, request, pk):
+    def post(self, request, pk):
         """
-        Update Paymaster info
+        change Paymaster info
         """
         # Get Dwelling
         try:
@@ -259,28 +265,18 @@ class DwellingPaymasterView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
         # extract data
-        current_paymaster = dwelling.get_current_paymaster()
-        current_paymaster.payment_type = request.data['payment_type']
-        current_paymaster.iban = request.data['iban']
+        payment_type = request.data['payment_type']
+        iban = request.data['iban']
         username = request.data['username']
-        # get owner
+        # extract user
         try:
-            owner = DwellingOwner.objects.get(
-                dwelling=dwelling, user__username=username, discharge_date=None)
-        except ObjectDoesNotExist:
-            # return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
-            owner = None
-            pass
-        if owner:
-            current_paymaster.user = owner.user
-        else:
-            # get resident
-            try:
-                resident = DwellingResident.objects.get(
-                    dwelling=dwelling, user__username=username, discharge_date=None)
-                current_paymaster.user = resident.user
-            except ObjectDoesNotExist:
-                return Response({'status':  IncompatibleUsernameError(username).message}, status=HTTP_404_NOT_FOUND)
-        # all ok then save
-        current_paymaster.save()
+            user = User.objects.get(username=username)
+        except ObjectDoesNotExist as e:
+            return Response({'status':  'cannot find user'}, status=HTTP_404_NOT_FOUND)
+        # change paymaster
+        try:
+            current_paymaster = dwelling.change_paymaster(
+                payment_type, iban, user)
+        except IncompatibleUsernameError as e:
+            return Response({'status':  e.message}, status=HTTP_404_NOT_FOUND)
         return Response(PaymasterSerializer(current_paymaster, many=False).data)

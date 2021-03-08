@@ -137,7 +137,7 @@ class DwellingCreateSerializer(ModelSerializer):
             user_paymaster = resident
         else:
             raise IncompatibleUsernameError(username)
-        return dwelling.add_paymaster(payment_type, iban, user_paymaster)
+        return dwelling.create_paymaster(payment_type, iban, user_paymaster)
 
     @classmethod
     def create_dwelling_address(cls, validated_data):

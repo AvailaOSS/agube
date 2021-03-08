@@ -14,3 +14,11 @@ class IncompatibleUsernameError(Exception):
     def __init__(self, username):
         self.message = "username " + username + " not equal to owner or resident"
         super().__init__(self.message)
+
+class PaymasterError(Exception):
+    """Exception raised when user is paymaster.
+    """
+
+    def __init__(self, username):
+        self.message = "user " + username + " is paymaster."
+        super().__init__(self.message)
