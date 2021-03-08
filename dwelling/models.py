@@ -5,37 +5,13 @@ from django.db import models
 from django.utils import timezone
 from login.models import UserAddress
 
-from dwelling.exceptions import NullIbanError
-
-
-class Payment(models.Model):
-    class PaymentType(models.TextChoices):
-        BANK = "BANK"
-        CASH = "CASH"
-        EXEMPT = "EXEMPT"
-
-    payment_type = models.TextField(
-        choices=PaymentType.choices,
-        default=PaymentType.BANK
-    )
-    iban = models.TextField(null=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-
-    def save(self, *args, **kwargs):
-        """save the payment and check if type is bank iban cannot be null"""
-        if self.payment_type == Payment.PaymentType.BANK:
-            if not self.iban:
-                raise NullIbanError(Payment.PaymentType.BANK)
-        super(Payment, self).save(*args, **kwargs)
-
-    class Meta:
-        db_table = 'payment'
+from dwelling.exceptions import (IncompatibleUsernameError, NullIbanError,
+                                 PaymasterError)
 
 
 class Dwelling(models.Model):
     """A class used to represent an Owner Dwelling"""
     full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
-    payment = models.ForeignKey(Payment, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -48,7 +24,6 @@ class Dwelling(models.Model):
         super(Dwelling, self).save(*args, **kwargs)
 
     def change_current_owner(self, user):
-        # FIXME: user: DwellingOwner
         """dwelling add owner
 
         Parameters
@@ -56,6 +31,8 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         owner = self.get_current_owner()
+        if self.is_paymaster(owner.user):
+            raise PaymasterError(owner.user.username)
         if owner:
             owner.discharge()
         DwellingOwner.objects.create(user=user, dwelling=self)
@@ -68,7 +45,6 @@ class Dwelling(models.Model):
             return None
 
     def change_current_resident(self, user):
-        # FIXME: user: DwellingResident
         """dwelling add resident and discharge the others
 
         Parameters
@@ -76,6 +52,8 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         resident = self.get_current_resident()
+        if self.is_paymaster(resident.user):
+            raise PaymasterError(resident.user.username)
         if resident:
             resident.discharge()
         DwellingResident.objects.create(user=user, dwelling=self)
@@ -103,6 +81,75 @@ class Dwelling(models.Model):
             return WaterMeter.objects.get(dwelling=self, discharge_date=None)
         except ObjectDoesNotExist:
             return None
+
+    def create_paymaster(self, payment_type, iban, user_paymaster):
+        # discharge current Paymaster
+        current = self.get_current_paymaster()
+        if current:
+            current.discharge()
+        # create paymaster user
+        return Paymaster.objects.create(
+            dwelling=self, payment_type=payment_type, iban=iban, user=user_paymaster)
+
+    def change_paymaster(self, payment_type, iban, user):
+        # check if user_paymaster is valid
+        owner = self.get_current_owner()
+        if owner and owner.user == user:
+            # create paymaster user
+            return self.create_paymaster(payment_type, iban, user)
+        else:
+            resident = self.get_current_resident()
+            if resident and resident.user == user:
+                # create paymaster user
+                return self.create_paymaster(payment_type, iban, user)
+            else:
+                raise IncompatibleUsernameError(user.username)
+
+    def get_current_paymaster(self):
+        try:
+            return Paymaster.objects.get(dwelling=self, discharge_date=None)
+        except ObjectDoesNotExist:
+            return None
+
+    def is_paymaster(self, user):
+        return user == self.get_current_paymaster().user
+
+
+class Paymaster(models.Model):
+    class PaymentType(models.TextChoices):
+        BANK = "BANK"
+        CASH = "CASH"
+        EXEMPT = "EXEMPT"
+
+    payment_type = models.TextField(
+        choices=PaymentType.choices,
+        default=PaymentType.BANK
+    )
+    iban = models.TextField(null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
+    release_date = models.DateTimeField()
+    discharge_date = models.DateTimeField(null=True)
+
+    def save(self, *args, **kwargs):
+        """save the paymaster and check if type is bank iban cannot be null"""
+        self.release_date = timezone.now()
+        if self.payment_type == Paymaster.PaymentType.BANK:
+            if not self.iban:
+                raise NullIbanError(Paymaster.PaymentType.BANK)
+        super(Paymaster, self).save(*args, **kwargs)
+
+    def discharge(self):
+        """discharge this Paymaster"""
+        self.discharge_date = timezone.now()
+        self.save()
+
+    @property
+    def username(self):
+        return self.user.username
+
+    class Meta:
+        db_table = 'paymaster'
 
 
 class DwellingOwner(models.Model):
