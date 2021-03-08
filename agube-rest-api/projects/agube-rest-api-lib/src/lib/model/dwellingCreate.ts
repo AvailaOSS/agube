@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { FullAddress } from './fullAddress';
+import { Paymaster } from './paymaster';
 import { UserDetail } from './userDetail';
 import { WaterMeter } from './waterMeter';
 
@@ -17,6 +18,7 @@ import { WaterMeter } from './waterMeter';
 export interface DwellingCreate {
     readonly id?: string;
     full_address: FullAddress;
+    paymaster: Paymaster;
     owner: UserDetail;
     resident: UserDetail;
     water_meter: WaterMeter;

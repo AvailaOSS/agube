@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { Owner } from '../model/owner';
+import { Paymaster } from '../model/paymaster';
 import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
@@ -205,6 +206,63 @@ export class DwellingService {
         }
 
         return this.httpClient.post<WaterMeter>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     *
+     * change Paymaster info
+     * @param id
+     * @param data
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public changePaymaster(id: string, data: Paymaster, observe?: 'body', reportProgress?: boolean): Observable<Paymaster>;
+    public changePaymaster(id: string, data: Paymaster, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Paymaster>>;
+    public changePaymaster(id: string, data: Paymaster, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Paymaster>>;
+    public changePaymaster(id: string, data: Paymaster, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling changePaymaster.');
+        }
+
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling changePaymaster.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Basic) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Paymaster>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -493,6 +551,48 @@ export class DwellingService {
         ];
 
         return this.httpClient.get<Array<DwellingDetail>>(`${this.basePath}/dwelling`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     *
+     * Return Paymaster info
+     * @param id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPaymaster(id: string, observe?: 'body', reportProgress?: boolean): Observable<Paymaster>;
+    public getPaymaster(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Paymaster>>;
+    public getPaymaster(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Paymaster>>;
+    public getPaymaster(id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getPaymaster.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Basic) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        return this.httpClient.get<Paymaster>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
