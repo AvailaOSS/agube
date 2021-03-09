@@ -31,7 +31,7 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         owner = self.get_current_owner()
-        if self.is_paymaster(owner.user):
+        if owner and self.is_paymaster(owner.user):
             raise PaymasterError(owner.user.username)
         if owner:
             owner.discharge()
@@ -52,7 +52,7 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         resident = self.get_current_resident()
-        if self.is_paymaster(resident.user):
+        if resident and self.is_paymaster(resident.user):
             raise PaymasterError(resident.user.username)
         if resident:
             resident.discharge()
