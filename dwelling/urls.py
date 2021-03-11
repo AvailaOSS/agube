@@ -2,12 +2,14 @@ from django.urls import include, path
 
 from dwelling.views import (DwellingCreateView, DwellingListView,
                             DwellingOwnerView, DwellingPaymasterView,
-                            DwellingResidentView, DwellingWaterMeterChunkView,
+                            DwellingResidentView, DwellingView,
+                            DwellingWaterMeterChunkView,
                             DwellingWaterMeterView)
 
 __url_dwelling = [
     path('', DwellingListView.as_view()),
     path('/create', DwellingCreateView.as_view()),
+    path('/<int:pk>', DwellingView.as_view()),
     path('/<int:pk>/owner', DwellingOwnerView.as_view()),
     path('/<int:pk>/paymaster', DwellingPaymasterView.as_view()),
     path('/<int:pk>/resident', DwellingResidentView.as_view()),
