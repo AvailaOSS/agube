@@ -54,6 +54,7 @@ class DwellingListView(APIView):
             except ObjectDoesNotExist:
                 pass
 
+            # FIXME: user_addresss is incorrect should be Dwelling FullAddress
             data = {
                 'id': house.id,
                 'town': user_address.address.town,

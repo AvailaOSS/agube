@@ -86,7 +86,7 @@ class UserAddressUpdateSerializer(Serializer):
         ref_name = 'UserAddress'
 
 
-def get_all_user_address_serialized(user):
+def get_all_user_full_address_serialized(user):
     list_of_serialized = []
     for address_iteration in UserAddress.objects.filter(user=user):
         full_address = address_iteration.full_address

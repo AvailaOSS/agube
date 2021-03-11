@@ -112,17 +112,18 @@ class DwellingCreateSerializer(ModelSerializer):
         owner = create_user(validated_data.pop('owner'))
         # Create Resident
         resident = create_user(validated_data.pop('resident'))
-        # Create water meter
-        water_meter_data = validated_data.pop('water_meter')
+        # Extract water_meter_code
+        water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling
         dwelling = Dwelling.objects.create(**validated_data)
-        self.create_water_meter(dwelling, water_meter_data)
         # Add users to Dwelling
         dwelling.change_current_owner(owner)
         dwelling.change_current_resident(resident)
+        # Create water meter
+        dwelling.change_current_water_meter(water_meter_code)
         # Create paymaster
-        validated_data['paymaster'] = self.create_paymaster(
-            validated_data.pop('paymaster'), dwelling,  owner, resident)
+        self.create_paymaster(validated_data.pop(
+            'paymaster'), dwelling,  owner, resident)
         return dwelling
 
     @classmethod
