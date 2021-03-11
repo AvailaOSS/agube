@@ -80,6 +80,23 @@ class DwellingCreateView(generics.CreateAPIView):
         return super().post(request, *args, **kwargs)
 
 
+class DwellingView(generics.GenericAPIView):
+    queryset = Dwelling.objects.all()
+    serializer_class = DwellingCreateSerializer
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(operation_id="getDwelling")
+    def get(self, request, pk):
+        """
+        Get Dwelling by id
+        """
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+        return Response(DwellingCreateSerializer(dwelling, many=False).data)
+
+
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingOwnerSerializer
