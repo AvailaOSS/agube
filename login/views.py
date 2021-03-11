@@ -13,7 +13,7 @@ from rest_framework.views import APIView
 from login.models import UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
 from login.serializers import (UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
-                               UserPhoneUpdateSerializer, get_all_user_address_serialized, get_all_user_phones_serialized)
+                               UserPhoneUpdateSerializer, get_all_user_full_address_serialized, get_all_user_phones_serialized)
 
 TAG = 'user'
 
@@ -234,7 +234,7 @@ class UserCreateAddressView(APIView):
         # create a new full address
         self.create_address(user, full_address, main)
 
-        return Response(get_all_user_address_serialized(user))
+        return Response(get_all_user_full_address_serialized(user))
 
     @classmethod
     def create_address(cls, user, validated_data, main):
@@ -274,7 +274,7 @@ class UserCreateAddressView(APIView):
             user = User.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
-        return  Response(get_all_user_address_serialized(user))
+        return  Response(get_all_user_full_address_serialized(user))
 
 
 class UserAddressUpdateDeleteView(APIView):
@@ -319,7 +319,7 @@ class UserAddressUpdateDeleteView(APIView):
         user_address.main = main
         user_address.save()
 
-        return  Response(get_all_user_address_serialized(user))
+        return  Response(get_all_user_full_address_serialized(user))
 
     @swagger_auto_schema(
         operation_id="deleteUserAddress",

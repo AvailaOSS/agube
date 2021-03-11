@@ -8,6 +8,7 @@ from drf_yasg.views import get_schema_view
 from dwelling.urls import urlpatterns as urls_dwelling
 from login.urls import urlpatterns as urls_user
 from phone.urls import urlpatterns as urls_phone
+from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from watermeter.urls import urlpatterns as urls_water_meter
@@ -32,6 +33,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path(base_url, include(urls_address)),
     path(base_url, include(urls_dwelling)),
+    path(base_url, include(urls_reservoir)),
     path(base_url, include(urls_phone)),
     path(base_url, include(urls_water_meter)),
     path(base_url, include(urls_user)),

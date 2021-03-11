@@ -1,3 +1,4 @@
+from watermeter.models import WaterMeter
 from address.models import FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,7 +11,7 @@ from dwelling.exceptions import (IncompatibleUsernameError, NullIbanError,
 
 
 class Dwelling(models.Model):
-    """A class used to represent an Owner Dwelling"""
+    """A class used to represent an Dwelling"""
     full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
@@ -19,7 +20,7 @@ class Dwelling(models.Model):
         db_table = 'dwelling'
 
     def save(self, *args, **kwargs):
-        """save the dwelling and save release_date datetime.now()"""
+        """save the dwelling and save release_date timezone.now()"""
         self.release_date = timezone.now()
         super(Dwelling, self).save(*args, **kwargs)
 
@@ -66,19 +67,18 @@ class Dwelling(models.Model):
             return None
 
     def change_current_water_meter(self, code):
-        from watermeter.models import WaterMeter
-
         # discharge current Water Meter
         current = self.get_current_water_meter()
         if current:
             current.discharge()
         # create new current Water Meter
-        WaterMeter.objects.create(dwelling=self, code=code)
+        water_meter = WaterMeter.objects.create(code=code)
+        DwellingWaterMeter.objects.create(
+            dwelling=self, water_meter=water_meter)
 
     def get_current_water_meter(self):
-        from watermeter.models import WaterMeter
         try:
-            return WaterMeter.objects.get(dwelling=self, discharge_date=None)
+            return DwellingWaterMeter.objects.get(dwelling=self, water_meter__discharge_date=None).water_meter
         except ObjectDoesNotExist:
             return None
 
@@ -114,8 +114,14 @@ class Dwelling(models.Model):
     def is_paymaster(self, user):
         return user == self.get_current_paymaster().user
 
+    def discharge(self):
+        """discharge this Dwelling"""
+        self.discharge_date = timezone.now()
+        self.save()
+
 
 class Paymaster(models.Model):
+    """A class used to represent an Paymaster"""
     class PaymentType(models.TextChoices):
         BANK = "BANK"
         CASH = "CASH"
@@ -130,6 +136,9 @@ class Paymaster(models.Model):
     dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
+
+    class Meta:
+        db_table = 'paymaster'
 
     def save(self, *args, **kwargs):
         """save the paymaster and check if type is bank iban cannot be null"""
@@ -148,9 +157,6 @@ class Paymaster(models.Model):
     def username(self):
         return self.user.username
 
-    class Meta:
-        db_table = 'paymaster'
-
 
 class DwellingOwner(models.Model):
     """A class used to represent an Owner-Dwelling ManyToMany"""
@@ -159,29 +165,32 @@ class DwellingOwner(models.Model):
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
+    class Meta:
+        db_table = 'owner'
+
     def save(self, *args, **kwargs):
-        """save the DwellingOwner, save release_date datetime.now()"""
+        """save the DwellingOwner, save release_date timezone.now()"""
         self.release_date = timezone.now()
         super(DwellingOwner, self).save(*args, **kwargs)
 
     def discharge(self):
-        """discharge this resident"""
+        """discharge this owner"""
         self.discharge_date = timezone.now()
         self.save()
 
-    class Meta:
-        db_table = 'owner'
-
 
 class DwellingResident(models.Model):
-    """A class used to represent an Owner-Dwelling ManyToMany"""
+    """A class used to represent an Resident-Dwelling ManyToMany"""
     dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
+    class Meta:
+        db_table = 'resident'
+
     def save(self, *args, **kwargs):
-        """save the DwellingOwner, save release_date datetime.now()"""
+        """save the DwellingResident, save release_date timezone.now()"""
         self.release_date = timezone.now()
         super(DwellingResident, self).save(*args, **kwargs)
         self.__add_main_address()
@@ -202,5 +211,12 @@ class DwellingResident(models.Model):
         self.discharge_date = timezone.now()
         self.save()
 
+
+class DwellingWaterMeter(models.Model):
+    """A class used to represent an Dwelling Water Meter"""
+    dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
+    water_meter = models.ForeignKey(WaterMeter, on_delete=models.RESTRICT)
+
     class Meta:
-        db_table = 'resident'
+        ordering = ["water_meter__release_date"]
+        db_table = 'dwelling_water_meter'

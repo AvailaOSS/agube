@@ -18,7 +18,7 @@ class WaterMeterTestCase(TestCase):
         dwelling = Dwelling.objects.create(full_address=full_address,
                                            release_date=timezone.now())
         # create a water meter
-        WaterMeter.objects.create(dwelling=dwelling, code='water_meter_tony_stark')
+        WaterMeter.objects.create(code='water_meter_tony_stark')
 
     def test_get_water_meter(self):
         """test water_meter obtains correctly"""

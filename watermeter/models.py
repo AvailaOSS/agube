@@ -1,14 +1,10 @@
 from watermeter.exceptions import WaterMeterDisabledError
 from django.db import models
 from django.utils import timezone
-from dwelling.models import Dwelling
-from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND
 
 
 class WaterMeter(models.Model):
     """A class used to represent an Water Meter"""
-    dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
     code = models.TextField()
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)

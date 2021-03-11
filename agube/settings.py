@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'phone',
     'watermeter',
     'dwelling',
+    'reservoir',
 ]
 
 MIDDLEWARE = [
