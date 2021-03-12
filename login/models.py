@@ -6,7 +6,7 @@ from phone.models import Phone
 
 
 class Manager(models.Model):
-    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.RESTRICT)
 
     class Meta:
         db_table = 'manager'
