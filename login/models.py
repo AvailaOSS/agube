@@ -5,6 +5,41 @@ from django.db import models
 from phone.models import Phone
 
 
+class Manager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+
+    class Meta:
+        db_table = 'manager'
+
+
+class ManagerConfiguration(models.Model):
+    manager = models.OneToOneField(Manager, on_delete=models.RESTRICT)
+    max_daily_consumption = models.DecimalField(decimal_places=3, max_digits=8)
+    hook_price = models.DecimalField(decimal_places=2, max_digits=8)
+
+    class Meta:
+        db_table = 'manager_configuration'
+
+
+class HookPrice(models.Model):
+    manager_configuration = models.ForeignKey(
+        ManagerConfiguration, on_delete=models.RESTRICT)
+    hook_price = models.DecimalField(decimal_places=2, max_digits=8)
+    date = models.DateTimeField()
+    enabled = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'hook_price'
+
+
+class Person(models.Model):
+    manager = models.ForeignKey(Manager, on_delete=models.RESTRICT)
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+
+    class Meta:
+        db_table = 'person'
+
+
 class UserAddress(models.Model):
     """A class used to represent an User Full Address"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
