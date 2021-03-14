@@ -1,8 +1,12 @@
 from django.urls import include, path
 
-from login.views import (UserAddressUpdateDeleteView, UserCreateAddressView,
+from login.views import (ManagerConfigurationView, UserAddressUpdateDeleteView, UserCreateAddressView,
                          UserCreatePhoneView, UserCustomDetailListView,
                          UserDwellingDetailView, UserPhoneUpdateDeleteView)
+
+__url_manager = [
+    path('/<int:pk>', ManagerConfigurationView.as_view()),
+]
 
 __url_user = [
     path('', UserCustomDetailListView.as_view()),
@@ -12,7 +16,10 @@ __url_user = [
          UserAddressUpdateDeleteView.as_view()),
     path('/<int:pk>/phone', UserCreatePhoneView.as_view()),
     path('/<int:pk>/phone/<int:phone_id>', UserPhoneUpdateDeleteView.as_view()),
-    # path('/<int:pk>/address', UserChangeAddressView.as_view()),
+]
+
+urlpatterns_manager = [
+    path('manager', include(__url_manager)),
 ]
 
 urlpatterns = [

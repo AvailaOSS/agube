@@ -6,7 +6,7 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from dwelling.urls import urlpatterns as urls_dwelling
-from login.urls import urlpatterns as urls_user
+from login.urls import urlpatterns as urls_user, urlpatterns_manager as urls_manager
 from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions
@@ -36,6 +36,7 @@ urlpatterns = [
     path(base_url, include(urls_reservoir)),
     path(base_url, include(urls_phone)),
     path(base_url, include(urls_water_meter)),
+    path(base_url, include(urls_manager)),
     path(base_url, include(urls_user)),
     path(base_url + 'token/auth', obtain_jwt_token),
     path(base_url + 'token/refresh', refresh_jwt_token),

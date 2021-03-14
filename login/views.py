@@ -10,12 +10,47 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from login.models import UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
-from login.serializers import (UserAddressUpdateSerializer,
+from login.models import ManagerConfiguration, UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
+from login.serializers import (ManagerConfigurationSerializer, UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
                                UserPhoneUpdateSerializer, get_all_user_full_address_serialized, get_all_user_phones_serialized)
 
-TAG = 'user'
+TAG_USER = 'user'
+TAG_MANAGER = 'manager'
+
+
+class ManagerConfigurationView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_id="getManagerConfiguration",
+        responses={200: ManagerConfigurationSerializer(many=False)},
+        tags=[TAG_MANAGER],
+    )
+    def get(self, request, pk):
+        """
+        Get Manager Configuration
+        """
+        configuration = ManagerConfiguration.objects.get(manager__user_id=pk)
+        return Response(
+            ManagerConfigurationSerializer(configuration, many=False).data)
+
+    @ swagger_auto_schema(
+        operation_id="updateManagerConfiguration",
+        request_body=ManagerConfigurationSerializer,
+        responses={200: ManagerConfigurationSerializer(many=False)},
+        tags=[TAG_MANAGER],
+    )
+    def post(self, request, pk):
+        """
+        Update manager configuration
+        """
+        configuration = ManagerConfiguration.objects.get(manager__user_id=pk)
+        configuration.max_daily_consumption = request.data.pop('max_daily_consumption')
+        configuration.save()
+        configuration.create_hook(request.data.pop('hook_price')['hook_price'])
+        return Response(
+            ManagerConfigurationSerializer(configuration, many=False).data)
 
 
 class UserCustomDetailListView(APIView):
@@ -24,7 +59,7 @@ class UserCustomDetailListView(APIView):
     @swagger_auto_schema(
         operation_id="getUsersDetails",
         responses={200: UserCustomDetailSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def get(self, request):
         """
@@ -68,7 +103,7 @@ class UserDwellingDetailView(APIView):
     @swagger_auto_schema(
         operation_id="getDwellingDetail",
         responses={200: DwellingDetailSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def get(self, request, pk):
         """
@@ -118,7 +153,7 @@ class UserCreatePhoneView(APIView):
         operation_id="addUserPhone",
         request_body=UserPhoneUpdateSerializer,
         responses={200: UserPhoneUpdateSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def post(self, request, pk):
         """
@@ -143,7 +178,7 @@ class UserCreatePhoneView(APIView):
     @swagger_auto_schema(
         operation_id="getUserPhone",
         responses={200: UserPhoneUpdateSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def get(self, request, pk):
         """
@@ -163,7 +198,7 @@ class UserPhoneUpdateDeleteView(APIView):
         operation_id="updateUserPhone",
         request_body=UserPhoneUpdateSerializer,
         responses={200: UserPhoneUpdateSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def put(self, request, pk, phone_id):
         """
@@ -194,7 +229,7 @@ class UserPhoneUpdateDeleteView(APIView):
 
     @swagger_auto_schema(
         operation_id="deleteUserPhone",
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def delete(self, request, pk, phone_id):
         """
@@ -215,7 +250,7 @@ class UserCreateAddressView(APIView):
         operation_id="addUserAddress",
         request_body=UserAddressUpdateSerializer,
         responses={200: UserAddressUpdateSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def post(self, request, pk):
         """
@@ -264,7 +299,7 @@ class UserCreateAddressView(APIView):
     @swagger_auto_schema(
         operation_id="getUserAddress",
         responses={200: UserAddressUpdateSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def get(self, request, pk):
         """
@@ -274,7 +309,7 @@ class UserCreateAddressView(APIView):
             user = User.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
-        return  Response(get_all_user_full_address_serialized(user))
+        return Response(get_all_user_full_address_serialized(user))
 
 
 class UserAddressUpdateDeleteView(APIView):
@@ -284,7 +319,7 @@ class UserAddressUpdateDeleteView(APIView):
         operation_id="updateUserAddress",
         request_body=UserAddressUpdateSerializer,
         responses={200: UserAddressUpdateSerializer(many=True)},
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def put(self, request, pk, full_address_id):
         """
@@ -319,11 +354,11 @@ class UserAddressUpdateDeleteView(APIView):
         user_address.main = main
         user_address.save()
 
-        return  Response(get_all_user_full_address_serialized(user))
+        return Response(get_all_user_full_address_serialized(user))
 
     @swagger_auto_schema(
         operation_id="deleteUserAddress",
-        tags=[TAG],
+        tags=[TAG_USER],
     )
     def delete(self, request, pk, full_address_id):
         """
