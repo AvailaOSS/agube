@@ -17,6 +17,9 @@ Agube
 > python manage.py migrate
 > python manage.py startapp [your-app-name]
 
+# run celery
+> celery -A agube.celery worker --loglevel=info
+
 # execute tests with coverage
 
 > pytest --cov --cov-report=html

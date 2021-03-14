@@ -1,18 +1,21 @@
-from phone.serializers import PhoneSerializer
-from dwelling.exceptions import IncompatibleUsernameError
 from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
-from login.models import UserAddress, UserPhone
+from django.core.exceptions import ObjectDoesNotExist
+from login.models import Manager, UserAddress, UserPhone
 from login.serializers import UserDetailSerializer
 from phone.models import Phone
+from phone.serializers import PhoneSerializer
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterSerializer
 
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident, Paymaster
+from dwelling.exceptions import (IncompatibleUsernameError,
+                                 UserManagerRequiredError)
+from dwelling.models import (Dwelling, DwellingOwner, DwellingResident,
+                             Paymaster)
 
 
 def create_phone(user, validated_data, main):
@@ -105,6 +108,11 @@ class DwellingCreateSerializer(ModelSerializer):
                   'owner', 'resident', 'water_meter',)
 
     def create(self, validated_data):
+        user = self.context.get("request").user
+        try:
+            manager = Manager.objects.get(user_id=user.id)
+        except ObjectDoesNotExist:
+            raise UserManagerRequiredError()
         # Create address
         validated_data['full_address'] = self.create_dwelling_address(
             validated_data.pop('full_address'))
@@ -115,7 +123,7 @@ class DwellingCreateSerializer(ModelSerializer):
         # Extract water_meter_code
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling
-        dwelling = Dwelling.objects.create(**validated_data)
+        dwelling = Dwelling.objects.create(manager=manager, **validated_data)
         # Add users to Dwelling
         dwelling.change_current_owner(owner)
         dwelling.change_current_resident(resident)

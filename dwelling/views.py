@@ -1,10 +1,10 @@
-from dwelling.exceptions import IncompatibleUsernameError, PaymasterError
+from login.permissions import IsManagerAuthenticated
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from login.models import UserAddress, UserPhone
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
@@ -13,7 +13,9 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident
+from dwelling.exceptions import (IncompatibleUsernameError, PaymasterError,
+                                 UserManagerRequiredError)
+from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
@@ -26,7 +28,7 @@ TAG = 'dwelling'
 
 
 class DwellingListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getDwellings",
@@ -38,7 +40,8 @@ class DwellingListView(APIView):
         Return a list of all Dwelling Detail.
         """
         # Get Dwelling
-        dwelling = Dwelling.objects.all()
+        manager_id = self.request.user.id
+        dwelling = Dwelling.objects.filter(manager__user_id=manager_id)
 
         list_of_serialized = []
         for house in dwelling:
@@ -54,7 +57,6 @@ class DwellingListView(APIView):
             except ObjectDoesNotExist:
                 pass
 
-            # FIXME: user_addresss is incorrect should be Dwelling FullAddress
             data = {
                 'id': house.id,
                 'town': user_address.address.town,
@@ -74,11 +76,14 @@ class DwellingListView(APIView):
 class DwellingCreateView(generics.CreateAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingCreateSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(operation_id="createDwelling", operation_description="create a new Dwelling")
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        try:
+            return super().post(request, *args, **kwargs)
+        except UserManagerRequiredError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
 class DwellingView(generics.GenericAPIView):
@@ -101,7 +106,7 @@ class DwellingView(generics.GenericAPIView):
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingOwnerSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(operation_id="getCurrentOwner")
     def get(self, request, pk):
@@ -136,7 +141,7 @@ class DwellingOwnerView(generics.GenericAPIView):
 class DwellingResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingResidentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentResident",
@@ -174,7 +179,7 @@ class DwellingResidentView(generics.GenericAPIView):
 class DwellingWaterMeterView(generics.GenericAPIView):
     queryset = WaterMeter.objects.all()
     serializer_class = WaterMeterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentWaterMeter",
@@ -249,7 +254,7 @@ class DwellingWaterMeterChunkView(APIView):
 
 
 class DwellingPaymasterView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getPaymaster",

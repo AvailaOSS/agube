@@ -1,3 +1,4 @@
+from login.permissions import IsManagerAuthenticated
 from django.utils import timezone
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
@@ -24,7 +25,7 @@ class WaterMeterTotalMeasurementView(generics.ListAPIView):
 
 
 class WaterMeterMeasurementView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getWaterMeterMeasures",
