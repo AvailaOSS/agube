@@ -106,7 +106,7 @@ class DwellingView(generics.GenericAPIView):
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingOwnerSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(operation_id="getCurrentOwner")
     def get(self, request, pk):
@@ -141,7 +141,7 @@ class DwellingOwnerView(generics.GenericAPIView):
 class DwellingResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingResidentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentResident",
@@ -179,7 +179,7 @@ class DwellingResidentView(generics.GenericAPIView):
 class DwellingWaterMeterView(generics.GenericAPIView):
     queryset = WaterMeter.objects.all()
     serializer_class = WaterMeterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentWaterMeter",
@@ -254,7 +254,7 @@ class DwellingWaterMeterChunkView(APIView):
 
 
 class DwellingPaymasterView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getPaymaster",

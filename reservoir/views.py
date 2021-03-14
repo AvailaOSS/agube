@@ -1,16 +1,18 @@
-from watermeter.serializers import WaterMeterSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from login.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
+from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirWaterMeter
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
-                                   ReservoirOwnerSerializer, get_reservoir_owner_serialized)
+                                   ReservoirOwnerSerializer,
+                                   get_reservoir_owner_serialized)
 
 TAG = 'reservoir'
 
@@ -52,7 +54,7 @@ class ReservoirListView(APIView):
 class ReservoirCreateView(generics.CreateAPIView):
     queryset = Reservoir.objects.all()
     serializer_class = ReservoirCreateSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(operation_id="createReservoir", operation_description="create a new Reservoir")
     def post(self, request, *args, **kwargs):
@@ -97,7 +99,7 @@ class ReservoirOwnerView(generics.GenericAPIView):
 class ReservoirWaterMeterView(generics.GenericAPIView):
     queryset = ReservoirWaterMeter.objects.all()
     serializer_class = WaterMeterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentWaterMeter",
