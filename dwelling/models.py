@@ -12,7 +12,6 @@ from dwelling.exceptions import (IncompatibleUsernameError, NullIbanError,
 
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
-    # FIXME: save manager when create/save new dwelling
     manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
     full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
     release_date = models.DateTimeField()

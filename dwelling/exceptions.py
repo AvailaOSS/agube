@@ -1,3 +1,11 @@
+class UserManagerRequiredError(Exception):
+    """Exception raised when User Manager is Invalid.
+    """
+
+    def __init__(self):
+        self.message = "User Manager required for this operation"
+        super().__init__(self.message)
+
 class NullIbanError(Exception):
     """Exception raised when iban is null.
     """
