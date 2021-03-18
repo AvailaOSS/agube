@@ -47,6 +47,7 @@ export class GenericFormsComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      nif: ['', [Validators.required]],
       business_name: ['', Validators.required],
       phone_number: ['', Validators.required],
       payment_type: ['', Validators.required],
@@ -80,6 +81,7 @@ export class GenericFormsComponent implements OnInit {
               last_name: this.registerForm.value.lastName,
               email: this.registerForm.value.email,
             },
+            nif: this.registerForm.value.nif,
             business_name: this.registerForm.value.business_name,
             phone_number: this.registerForm.value.phone_number,
             payment_type: +this.registerForm.value.payment_type.id,
@@ -88,7 +90,7 @@ export class GenericFormsComponent implements OnInit {
         })
         .subscribe((value) => {
           console.log(value);
-          
+
           this.router.navigate(['/login'])
         },(error)=>{
           console.log(error)

@@ -15,6 +15,7 @@ export interface Client {
   readonly id?: string;
   user: User;
   business_name: string;
-  phone_number?: string;
+  nif: string;
+  phone_number: string;
   payment_type: number;
 }

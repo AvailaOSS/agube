@@ -34,6 +34,14 @@
         </div>
     </div>
     <div class="col-md-6 mb-1">
+      <label for="nif">nif</label>
+      <input type="nif" formControlName="nif" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nif.errors }" />
+      <div *ngIf="submitted && f.nif.errors" class="invalid-feedback">
+          <div *ngIf="f.nif.errors.required">nif is required</div>
+
+      </div>
+  </div>
+    <div class="col-md-6 mb-1">
         <label for="email">email</label>
         <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">

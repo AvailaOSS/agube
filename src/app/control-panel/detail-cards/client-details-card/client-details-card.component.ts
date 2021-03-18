@@ -21,9 +21,7 @@ export class ClientDetailsCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.svcClientService.clientList().subscribe(value=>{
-      console.log(value)
-    })
+
     this.clientDetails = {
       name: 'Juego de Tronos',
       nif: '999999999999999A',

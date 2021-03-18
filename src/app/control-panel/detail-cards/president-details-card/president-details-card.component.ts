@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/service/client.service';
+import { Subscription } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
+import { SubscriptionService } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/service/subscription.service';
 
 export interface PresidentDetails {
   name: string;
@@ -18,30 +20,10 @@ export class PresidentDetailsCardComponent implements OnInit {
 
   constructor(private readonly svcClientService: ClientService) {
 
-    this.svcClientService.clientList().subscribe((client) => {
-      this.president = {
-        name:
-          client[0].client.user.first_name +
-          ' ' +
-          client[0].client.user.last_name,
-        phone: client[0].client.phone_number,
-        address: client[0].client.business_name,
-        email: client[0].client.user.email,
-      };
-    });
+
   }
 
   ngOnInit(): void {
-    this.svcClientService.clientList().subscribe((client) => {
-      this.president = {
-        name:
-          client[0].client.user.first_name +
-          ' ' +
-          client[0].client.user.last_name,
-        phone: client[0].client.phone_number,
-        address: client[0].client.business_name,
-        email: client[0].client.user.email,
-      };
-    });
+
   }
 }

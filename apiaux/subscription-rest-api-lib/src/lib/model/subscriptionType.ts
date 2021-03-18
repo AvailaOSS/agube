@@ -11,7 +11,7 @@
  */
 
 
-export interface SubscriptionType {
+export interface SubscriptionType { 
     readonly id?: string;
     description: string;
     days: number;
