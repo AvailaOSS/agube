@@ -34,13 +34,21 @@ export class PresidentDetailsCardComponent implements OnInit {
     private readonly svcClientService: ClientService,
     private readonly svcAccountService: AccountService
   ) {
+    // TODO_: FIX ME MANAGER API!!!!!!!!!!
     this.svcAccountService.user.subscribe(
       (user) => {
         this.currentUser = jwt_decode(user.token);
-        console.log(this.currentUser)
-        this.svcClientService.getClient(this.currentUser.user_id).subscribe(client => {
-          console.log(client)
-        })
+        this.svcClientService
+          .getClient(this.currentUser.user_id)
+          .subscribe((client) => {
+            this.president.name =
+              client['client'].user.first_name +
+              ' ' +
+              client['client'].user.last_name;
+            this.president.address = client['client'].business_name;
+            this.president.phone = client['client'].phone_number;
+            this.president.email = client['client'].user.email;
+          });
       },
       (error) => {
         this.svcAccountService.refresh();
