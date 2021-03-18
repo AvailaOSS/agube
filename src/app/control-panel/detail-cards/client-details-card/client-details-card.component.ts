@@ -32,19 +32,19 @@ export class ClientDetailsCardComponent implements OnInit {
     this.svcAccountService.user.subscribe(
       (user) => {
         this.currentUser = jwt_decode(user.token);
-        console.log(this.currentUser);
         this.svcSubscription.subscriptionList().subscribe((subs) => {
-          console.log(subs);
           this.subs = subs;
         });
         this.svcClientService
           .getClient(this.currentUser.user_id)
           .subscribe((client) => {
-            console.log(client);
             this.clientDetails.name = client['client'].business_name;
             this.clientDetails.address = client['client'].business_name;
             this.clientDetails.nif = client['client'].nif;
             this.clientDetails.plan = this.subs[client['subscription']].name;
+            this.clientDetails.subscription_date = client[
+              'expiration_date'
+            ].split('T')[0];
           });
       },
       (error) => {
@@ -59,7 +59,7 @@ export class ClientDetailsCardComponent implements OnInit {
       name: 'Juego de Tronos',
       nif: '999999999999999A',
       address: 'Invernalia, 5, Piso 1',
-      subscription_date: 'Fecha Alta: 17 de abril de 2011',
+      subscription_date: '',
       plan: 'Expert',
     };
   }
