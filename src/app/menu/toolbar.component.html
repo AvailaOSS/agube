@@ -1,17 +1,10 @@
 <div class="toolbar" fxLayout="row" fxLayoutAlign="space-between stretch">
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-    (click)="goToControlPanel()">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="goToControlPanel()">
     <mat-icon>menu</mat-icon>
   </button>
-  <div class="title">{{ title }}</div>
-  <button
-    mat-icon-button
-    class="example-icon user-button"
-    aria-label="Example icon-button with share icon">
-    {{ username }}
+    <div class="title">{{ title }}</div>
+    <button mat-icon-button class="example-icon user-button" aria-label="Example icon-button with share icon">
+    {{ username['username'] }}
     <mat-icon>account_circle</mat-icon>
   </button>
 </div>

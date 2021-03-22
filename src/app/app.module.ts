@@ -19,6 +19,8 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
 import { LivingPlaceModule } from './living-place/living-place.module';
 import { ToolbarModule } from './menu/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
+import { ContactPanelModule } from './contact-panel/contact-panel.module';
+import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent],
@@ -36,7 +38,9 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     ControlPanelModule,
     SubscriptionApiModule,
     ContactBookApiModule,
-    LivingPlaceModule
+    LivingPlaceModule,
+    ContactPanelModule,
+    DepositPanelModule
 
   ],
   providers: [
