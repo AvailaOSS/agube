@@ -21,11 +21,16 @@ export class ChangePayComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.changePayId = params.data;
     });
-    this.svcChangePay
-      .getCurrentOwner(+this.changePayId)
-      .subscribe((value) => {
-        this.formConfigurationData.emit(value);
-      });
+    // this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
+    //   this.formConfigurationData.emit(value);
+    // });
+    // this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((value) => {
+    //   this.formConfigurationData.emit(value);
+    // });
+
+    this.svcChangePay.getCurrentResident(+this.changePayId).subscribe((value) => {
+      this.formConfigurationData.emit(value);
+    });
   }
 
   public ngOnInit(): void {}

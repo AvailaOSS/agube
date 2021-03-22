@@ -175,6 +175,19 @@
         <div *ngIf="f.phones.errors.required">phone_number is required</div>
       </div>
     </div>
+    <div class="col-md-6 mb-1">
+      <label for="addressOwner">Dirección del Residente</label>
+      <input
+        type="text"
+        formControlName="addressOwner"
+        class="form-control"
+        [(ngModel)]="addressOwner"
+        [ngClass]="{ 'is-invalid': submitted && f.addressOwner.errors }"
+      />
+      <div *ngIf="submitted && f.addressOwner.errors" class="invalid-feedback">
+        <div *ngIf="f.addressOwner.errors.required">Dirección is required</div>
+      </div>
+    </div>
   </mat-card>
 
   <mat-card [hidden]="isHiddenResident" style="margin: 15px; float: left; width: 50%">
@@ -241,6 +254,19 @@
       />
       <div *ngIf="submitted && f.phonesRes.errors" class="invalid-feedback">
         <div *ngIf="f.phonesRes.errors.required">phone_number is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="addressRes">Dirección Residente</label>
+      <input
+        type="text"
+        formControlName="addressRes"
+        class="form-control"
+        [(ngModel)]="addressRes"
+        [ngClass]="{ 'is-invalid': submitted && f.addressRes.errors }"
+      />
+      <div *ngIf="submitted && f.addressRes.errors" class="invalid-feedback">
+        <div *ngIf="f.addressRes.errors.required">addressRes is required</div>
       </div>
     </div>
   </mat-card>

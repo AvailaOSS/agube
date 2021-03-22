@@ -62,6 +62,28 @@ export class UtilsComponent implements OnInit {
   public pagador = false;
   public residente = false;
   public isAllSave = false;
+<<<<<<< HEAD
+=======
+  public email: string;
+  public address: string;
+  public number: string;
+  public flat: string;
+  public gate: string;
+  public town: string;
+  public numberBank: string;
+  public username: string;
+  public first_name: string;
+  public last_name: string;
+  public phones: string;
+  public addressOwner: string;
+  public code: string;
+  public usernameRes: string;
+  public first_nameRes: string;
+  public last_nameRes: string;
+  public emailRes: string;
+  public phonesRes: string;
+  public addressRes: string;
+>>>>>>> f1e30c2... fix: add new address in forms
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -88,7 +110,7 @@ export class UtilsComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', Validators.required],
       phones: ['', Validators.required],
-      address2: ['', Validators.required],
+      addressOwner: ['', Validators.required],
       code: ['', Validators.required],
       pagador: [''],
       residente: [''],
@@ -104,24 +126,29 @@ export class UtilsComponent implements OnInit {
 =======
 
     this.formDataConfiguration.subscribe((value) => {
-
+      console.log(value);
+      this.numberBank = value.iban;
       if (!isUndefined(value) && value !== 5) {
         this.code = value.code;
-        this.address = value.user.address[0].address.street || '';
+
         this.number = value.user.address[0].number;
         this.flat = value.user.address[0].flat;
         this.gate = value.user.address[0].gate;
         this.town = value.user.address[0].address.town;
+
         this.email = value.user.email;
         this.username = value.user.username;
         this.first_name = value.user.first_name;
         this.last_name = value.user.last_name;
         this.phones = value.user.phones[0].phone_number;
+
         this.usernameRes = value.user.username;
         this.first_nameRes = value.user.first_name;
         this.last_nameRes = value.user.last_name;
         this.phonesRes = value.user.phones[0].phone_number;
         this.emailRes = value.user.email;
+        this.addressRes = value.user.address[0].address.street || '';
+        this.addressOwner = value.user.address[0].address.street || '';
       }
     });
 >>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
@@ -137,9 +164,11 @@ export class UtilsComponent implements OnInit {
     console.log(this.registerForm.value);
 =======
 
+<<<<<<< HEAD
 
 >>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
+=======
+>>>>>>> f1e30c2... fix: add new address in forms
     this.sendForm.emit(this.registerForm.value);
-
   }
 }

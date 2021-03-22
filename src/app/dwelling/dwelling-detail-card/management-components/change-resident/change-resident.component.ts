@@ -35,7 +35,7 @@ export class ChangeResidentComponent implements OnInit {
           address: [
             {
               address: {
-                street: event.address,
+                street: event.addressRes,
                 town: event.town,
                 is_external: true,
               },

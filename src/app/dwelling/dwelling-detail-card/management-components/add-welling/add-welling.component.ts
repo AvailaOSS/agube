@@ -48,7 +48,7 @@ export class AdDWellingComponent implements OnInit {
           flat: event.flat,
           gate: event.gate,
         },
-        payment: {
+        paymaster: {
           username: event.username,
           iban: event.numberBank,
           payment_type: 'BANK',
@@ -67,7 +67,7 @@ export class AdDWellingComponent implements OnInit {
                 isExternal: true,
 =======
                 town: event.town,
-                street: event.address,
+                street: event.addressOwner,
                 is_external: true,
 >>>>>>> dedf782... fix: update new apis
               },
@@ -97,7 +97,7 @@ export class AdDWellingComponent implements OnInit {
                 isExternal: true,
 =======
                 town: event.town,
-                street: event.address,
+                street: event.addressRes,
                 is_external: true,
 >>>>>>> dedf782... fix: update new apis
               },

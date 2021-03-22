@@ -51,6 +51,8 @@ export class DWellingManagementComponent implements OnInit {
     });
   }
   public changePay(): void {
-    this.svcRouter.navigate(['/vivienda/cambio/pagador']);
+    this.svcRouter.navigate(['/vivienda/cambio/pagador'], {
+      queryParams: { data: this.DWelling.id },
+    });
   }
 }
