@@ -14,6 +14,10 @@ import { LivingPlaceManagementComponent } from './living-place-detail-card/livin
 import { LivingPlaceWaterMeterReadingsComponent } from './living-place-detail-card/living-place-water-meter-readings/living-place-water-meter-readings.component';
 import { WaterMeterDetailCardComponent } from './living-place-detail-card/living-place-management/water-meter-detail-card/water-meter-detail-card.component';
 import { ToolbarModule } from '../menu/toolbar.module';
+import { AddWellingModule } from './living-place-detail-card/management-components/add-welling/add-welling.module';
+import { UtilsModule } from './living-place-detail-card/management-components/add-welling/utils/utils.module';
+import { ChangePayModule } from './living-place-detail-card/management-components/change-pay/change-pay.module';
+import { ChangeCountModule } from './living-place-detail-card/management-components/change-count/change-count.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { ToolbarModule } from '../menu/toolbar.module';
     MatListModule,
     ControlPanelModule,
     MatCardModule,
-    ToolbarModule
+    AddWellingModule,
+    ChangePayModule,
+    ChangeCountModule,
+    ToolbarModule,
+    UtilsModule
   ],
   exports: [LivingPlaceComponent],
 })

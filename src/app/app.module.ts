@@ -22,6 +22,8 @@ import { ToolbarModule } from './menu/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
+import { AddWellingModule } from './living-place/living-place-detail-card/management-components/add-welling/add-welling.module';
+import { UtilsModule } from './living-place/living-place-detail-card/management-components/add-welling/utils/utils.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent],
@@ -42,7 +44,9 @@ import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
     AgubeApiModule,
     LivingPlaceModule,
     ContactPanelModule,
-    DepositPanelModule
+    AddWellingModule,
+    DepositPanelModule,
+    UtilsModule
 
   ],
   providers: [

@@ -1,0 +1,248 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <mat-card style="margin: 15px">
+    <mat-card-title>{{titleCard}}</mat-card-title>
+    <mat-card-subtitle>Dirección</mat-card-subtitle>
+    <div style="display: flex">
+      <div class="col-md-3 mb-1">
+        <label for="address">Calle</label>
+        <input
+          type="text"
+          formControlName="address"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+        />
+        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+          <div *ngIf="f.address.errors.required">address is required</div>
+        </div>
+      </div>
+      <div class="col-md-2 mb-1">
+        <label for="number">number</label>
+        <input
+          type="text"
+          formControlName="number"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
+        />
+        <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+          <div *ngIf="f.number.errors.required">number is required</div>
+        </div>
+      </div>
+      <div class="col-md-2 mb-1">
+        <label for="flat">flat</label>
+        <input
+          type="text"
+          formControlName="flat"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
+        />
+        <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
+          <div *ngIf="f.flat.errors.required">flat is required</div>
+        </div>
+      </div>
+      <div class="col-md-2 mb-1">
+        <label for="gate">gate</label>
+        <input
+          type="text"
+          formControlName="gate"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
+        />
+        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
+          <div *ngIf="f.gate.errors.required">gate is required</div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-1">
+        <label for="town">town</label>
+        <input
+          type="text"
+          formControlName="town"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.town.errors }"
+        />
+        <div *ngIf="submitted && f.town.errors" class="invalid-feedback">
+          <div *ngIf="f.town.errors.required">town is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="town">Número de contador</label>
+      <input
+        type="text"
+        formControlName="code"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.code.errors }"
+      />
+      <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+        <div *ngIf="f.code.errors.required">code is required</div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card style="margin: 15px">
+    <mat-card-title>Numero de cuenta</mat-card-title>
+    <div class="col-md-6 mb-1">
+      <input
+        type="text"
+        formControlName="numberBank"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.numberBank.errors }"
+      />
+      <div *ngIf="submitted && f.numberBank.errors" class="invalid-feedback">
+        <div *ngIf="f.numberBank.errors.required">numberBank is required</div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card style="margin: 15px; float: left; width: 46%">
+    <mat-card-title>Alta Propietario</mat-card-title>
+    <mat-checkbox formControlName="pagador" [(ngModel)]="pagador"
+      >Pagador</mat-checkbox
+    >
+    <mat-checkbox
+      formControlName="residente"
+      [(ngModel)]="residente"
+      (click)="toggle()"
+      >Residente</mat-checkbox
+    >
+    <div class="col-md-6 mb-1">
+      <label for="first_name">Nombre</label>
+      <input
+        type="text"
+        formControlName="first_name"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
+      />
+      <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+        <div *ngIf="f.first_name.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="last_name">Apellido</label>
+      <input
+        type="text"
+        formControlName="last_name"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
+      />
+      <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+        <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="username">Usuario</label>
+      <input
+        type="text"
+        formControlName="username"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+      />
+      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <div *ngIf="f.username.errors.required">Username is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="email">email</label>
+      <input
+        type="text"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+      />
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">email is required</div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-1">
+      <label for="phones">Número de teléfono</label>
+      <input
+        type="text"
+        formControlName="phones"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.phones.errors }"
+      />
+      <div *ngIf="submitted && f.phones.errors" class="invalid-feedback">
+        <div *ngIf="f.phones.errors.required">phone_number is required</div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card [hidden]="isHidden" style="margin: 15px; float: left; width: 50%">
+    <mat-card-title>Alta Residente</mat-card-title>
+    <mat-checkbox formControlName="pagadorResidente" [(ngModel)]="pagador"
+      >Pagador</mat-checkbox
+    >
+    <div class="col-md-6 mb-1">
+      <label for="first_name">Nombre</label>
+      <input
+        type="text"
+        formControlName="first_nameRes"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
+      />
+      <div *ngIf="submitted && f.first_nameRes.errors" class="invalid-feedback">
+        <div *ngIf="f.first_nameRes.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="last_nameRes">Apellido</label>
+      <input
+        type="text"
+        formControlName="last_nameRes"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
+      />
+      <div *ngIf="submitted && f.last_nameRes.errors" class="invalid-feedback">
+        <div *ngIf="f.last_nameRes.errors.required">Last Name is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="usernameRes">Usuario</label>
+      <input
+        type="text"
+        formControlName="usernameRes"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
+      />
+      <div *ngIf="submitted && f.usernameRes.errors" class="invalid-feedback">
+        <div *ngIf="f.usernameRes.errors.required">Username is required</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label for="emailRes">email</label>
+      <input
+        type="text"
+        formControlName="emailRes"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
+      />
+      <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
+        <div *ngIf="f.emailRes.errors.required">email is required</div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-1">
+      <label for="phonesRes">Número de teléfono</label>
+      <input
+        type="text"
+        formControlName="phonesRes"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.phonesRes.errors }"
+      />
+      <div *ngIf="submitted && f.phonesRes.errors" class="invalid-feedback">
+        <div *ngIf="f.phonesRes.errors.required">phone_number is required</div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card style="display: flex;width:100%">
+    <div class="col-md-6 mb-3">
+        <button [disabled]="loading" class="btn btn-primary">
+          {{titleCard}}
+        </button>
+        <img
+          *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
+        <a href=" /viviendas " class="btn btn-link">Cancel</a>
+      </div>
+  </mat-card>
+  
+</form>

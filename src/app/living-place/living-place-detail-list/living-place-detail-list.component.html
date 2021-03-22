@@ -1,6 +1,14 @@
 <h1>Viviendas de la Comunidad</h1>
+
+<button mat-stroked-button color="primary" (click)="addNewWelling()">
+  Agregar viviendas
+</button>
 <hr />
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 detail-table">
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 detail-table"
+>
   <!-- address Column -->
   <ng-container matColumnDef="address">
     <th mat-header-cell *matHeaderCellDef>Dirección</th>
@@ -24,6 +32,10 @@
     <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'highlight': selectedRowIndex == row.address }" (click)="selectRow(row)">
-  </tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    [ngClass]="{ highlight: selectedRowIndex == row.address }"
+    (click)="selectRow(row)"
+  ></tr>
 </table>

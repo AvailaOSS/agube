@@ -1,6 +1,7 @@
 import { Output } from '@angular/core';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { LivingPlace } from '../living-place.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-living-place-detail-list',
@@ -20,7 +21,11 @@ export class LivingPlaceDetailListComponent implements OnInit {
   ];
   public dataSource: LivingPlace[];
 
-  constructor() {}
+  constructor(private svcRouter: Router) {}
+
+  public addNewWelling(): void {
+    this.svcRouter.navigate(['viviendas/alta/vivienda']);
+  }
 
   ngOnInit(): void {
     this.dataSource = [
