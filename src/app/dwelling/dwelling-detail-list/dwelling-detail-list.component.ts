@@ -4,6 +4,12 @@ import { DWelling } from '../dwelling.component';
 import { Router } from '@angular/router';
 import { AgubeApiModule } from '../../../../apiaux/agube-rest-api-lib/src/lib/agube.api.module';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { User } from 'apiaux/contact-book-rest-api-lib/src/public-api';
+import { AccountService } from 'src/app/login/service/account.service';
+
+import { DwellingDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
+import { ManagerService } from '../../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-dwelling-detail-list',
@@ -21,15 +27,18 @@ export class DWellingDetailListComponent implements OnInit {
     'resident_name',
     'phone',
   ];
-  public dataSource: DWelling[];
+  public dataSource: DwellingDetail[];
+  public currentUser: User;
 
   constructor(
     private svcRouter: Router,
-    private readonly svcCreateNewDWelling: DwellingService
+    private readonly svcCreateNewDWelling: DwellingService,
+    private readonly svcManagerService: ManagerService,
+    private readonly svcAccountService: AccountService
   )
   {
-    console.log(JSON.parse(localStorage.getItem('currentUser')))
     this.users = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.users)
    }
 
   public addNewWelling(): void {
@@ -80,6 +89,7 @@ export class DWellingDetailListComponent implements OnInit {
     ];
 =======
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
+      console.log(value)
       this.dataSource = value;
     });
 >>>>>>> dedf782... fix: update new apis
