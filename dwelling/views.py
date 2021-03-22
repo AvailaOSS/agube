@@ -1,4 +1,4 @@
-from login.permissions import IsManagerAuthenticated
+from manager.permissions import IsManagerAuthenticated
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema

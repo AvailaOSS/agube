@@ -10,47 +10,12 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from login.models import ManagerConfiguration, UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
-from login.serializers import (ManagerConfigurationSerializer, UserAddressUpdateSerializer,
+from login.models import UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
+from login.serializers import (UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
                                UserPhoneUpdateSerializer, get_all_user_full_address_serialized, get_all_user_phones_serialized)
 
 TAG_USER = 'user'
-TAG_MANAGER = 'manager'
-
-
-class ManagerConfigurationView(APIView):
-    permission_classes = [AllowAny]
-
-    @swagger_auto_schema(
-        operation_id="getManagerConfiguration",
-        responses={200: ManagerConfigurationSerializer(many=False)},
-        tags=[TAG_MANAGER],
-    )
-    def get(self, request, pk):
-        """
-        Get Manager Configuration
-        """
-        configuration = ManagerConfiguration.objects.get(manager__user_id=pk)
-        return Response(
-            ManagerConfigurationSerializer(configuration, many=False).data)
-
-    @ swagger_auto_schema(
-        operation_id="updateManagerConfiguration",
-        request_body=ManagerConfigurationSerializer,
-        responses={200: ManagerConfigurationSerializer(many=False)},
-        tags=[TAG_MANAGER],
-    )
-    def post(self, request, pk):
-        """
-        Update manager configuration
-        """
-        configuration = ManagerConfiguration.objects.get(manager__user_id=pk)
-        configuration.max_daily_consumption = request.data.pop('max_daily_consumption')
-        configuration.save()
-        configuration.create_hook(request.data.pop('hook_price')['hook_price'])
-        return Response(
-            ManagerConfigurationSerializer(configuration, many=False).data)
 
 
 class UserCustomDetailListView(APIView):

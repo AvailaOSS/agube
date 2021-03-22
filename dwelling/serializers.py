@@ -2,7 +2,8 @@ from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from login.models import Manager, UserAddress, UserPhone
+from login.models import UserAddress, UserPhone
+from manager.models import Manager
 from login.serializers import UserDetailSerializer
 from phone.models import Phone
 from phone.serializers import PhoneSerializer

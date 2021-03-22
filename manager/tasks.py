@@ -1,4 +1,4 @@
-from login.models import Manager
+from manager.models import Manager
 from celery import shared_task
 from celery.decorators import task
 from django.contrib.auth.models import User

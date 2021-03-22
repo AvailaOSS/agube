@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'drf_yasg',
     'login',
+    'manager',
     'address',
     'phone',
     'watermeter',
