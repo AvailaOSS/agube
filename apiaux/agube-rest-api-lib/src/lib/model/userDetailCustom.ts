@@ -11,10 +11,10 @@
  */
 
 
-export interface UserDetailCustom {
+export interface UserDetailCustom { 
     readonly id?: string;
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     phone: string;
     email: string;
     town: string;

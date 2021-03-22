@@ -9,10 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HookPrice } from './hookPrice';
 
 
-export interface WaterMeterMeasurement { 
+export interface ManagerConfiguration { 
     readonly id?: string;
-    measurement: string;
-    date?: Date;
+    maxDailyConsumption: string;
+    hookPrice: HookPrice;
 }

@@ -11,8 +11,14 @@
  */
 
 
-export interface WaterMeterMeasurement { 
+export interface ReservoirDetail { 
     readonly id?: string;
-    measurement: string;
-    date?: Date;
+    street: string;
+    number: string;
+    flat: string;
+    gate: string;
+    town: string;
+    capacity: string;
+    inletFlow: string;
+    outletFlow: string;
 }

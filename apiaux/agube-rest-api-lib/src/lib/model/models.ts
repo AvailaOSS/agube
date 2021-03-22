@@ -4,17 +4,15 @@ export * from './dwellingDetail';
 export * from './dwellingOwner';
 export * from './dwellingResident';
 export * from './fullAddress';
+export * from './hookPrice';
 export * from './jSONWebToken';
-<<<<<<< HEAD
-export * from './phone';
-export * from './refreshJSONWebToken';
-export * from './user';
-export * from './userCustomDetail';
-=======
+export * from './managerConfiguration';
 export * from './owner';
 export * from './paymaster';
 export * from './phone';
 export * from './refreshJSONWebToken';
+export * from './reservoirCreate';
+export * from './reservoirDetail';
 export * from './resident';
 export * from './userAddress';
 >>>>>>> dedf782... fix: update new apis

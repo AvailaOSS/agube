@@ -12,10 +12,10 @@
 import { UserDetail } from './userDetail';
 
 
-export interface Owner {
+export interface Owner { 
     readonly id?: string;
-    readonly dwelling_id?: number;
+    readonly dwellingId?: number;
     user: UserDetail;
-    readonly release_date?: string;
-    readonly discharge_date?: string;
+    readonly releaseDate?: string;
+    readonly dischargeDate?: string;
 }

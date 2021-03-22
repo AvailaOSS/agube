@@ -11,8 +11,9 @@
  */
 
 
-export interface WaterMeterMeasurement { 
+export interface HookPrice { 
     readonly id?: string;
-    measurement: string;
-    date?: Date;
+    hookPrice: string;
+    readonly releaseDate?: string;
+    readonly dischargeDate?: string;
 }
