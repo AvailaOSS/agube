@@ -8,7 +8,8 @@
 
 // Define an default dark theme.
 $candy-app-primary: mat-palette($mat-light-blue);
-$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-secondary: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-accent: mat-palette($mat-light-green);
 $candy-app-warn: mat-palette($mat-red);
 $candy-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
 
@@ -17,6 +18,7 @@ $candy-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-
 
 // Export theme colors
 $primary: mat-color($candy-app-primary);
+$secondary: mat-color($candy-app-secondary);
 $accent: mat-color($candy-app-accent);
 $warn: mat-color($candy-app-warn);
 

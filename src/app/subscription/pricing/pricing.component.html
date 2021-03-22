@@ -26,8 +26,16 @@
     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
   </p>
+  <button
+    class="log-in-button"
+    mat-raised-button
+    color="primary"
+    (click)="goToLogin()"
+  >
+    I already have a subscription!
+  </button>
 </div>
-
+<hr />
 <div fxLayout="row" fxLayoutAlign="space-around stretch">
   <div *ngFor="let item of subscriptions; let i = index">
     <mat-card class="subscription-card">
@@ -43,14 +51,17 @@
       >
         <p class="card-subtitle">{{ item.subscription.price }} €</p>
         <ul>
-          <li>Precio por día: <b>{{ item.subscription.price_per_day }} €</b></li>
+          <li>
+            Precio por día: <b>{{ item.subscription.price_per_day }} €</b>
+          </li>
           <li>{{ item.subscription.description }}</li>
         </ul>
       </mat-card-content>
       <!-- FIXME: fix button to bottom-->
-      <mat-card-actions fxLayout="row" fxLayoutAlign="center end">
+      <mat-card-actions fxLayout="row" fxLayoutAlign="center end" class="actions">
         <button
-          mat-button
+          mat-raised-button
+          color="accent"
           class="buy-button"
           (click)="sendUrl(item.subscription.id)"
         >
