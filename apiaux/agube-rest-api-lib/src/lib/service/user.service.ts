@@ -23,8 +23,10 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
-import { UserCustomDetail } from '../model/userCustomDetail';
-import { UserUpdatePhone } from '../model/userUpdatePhone';
+import { DwellingDetail } from '../model/dwellingDetail';
+import { UserAddress } from '../model/userAddress';
+import { UserDetailCustom } from '../model/userDetailCustom';
+import { UserPhone } from '../model/userPhone';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';

@@ -1,24 +1,9 @@
-<<<<<<< HEAD
-<div  [hidden]="!isAllSave" class="alert alert-primary" role="alert">
- Todo Guardado! 
-</div>
-
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-<<<<<<< HEAD
-  <mat-card style="margin: 15px">
-    <mat-card-title>{{titleCard}}</mat-card-title>
-=======
-  <mat-card [hidden]="isHiddenAddress" style="margin: 15px">
-    <mat-card-title>{{ titleCard }}</mat-card-title>
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
-=======
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
   <mat-card [hidden]="isHiddenAddress" style="display: flex; justify-content: start; flex-direction: column; flex-wrap: wrap;  border:1px solid;margin-top:3px">
     <mat-card-title style="background-color: #03a9f4;
     color: white;
     padding: 5px;">{{ titleCard }}</mat-card-title>
->>>>>>> 8ebd8ef... change scss and design forms
     <mat-card-subtitle>Dirección</mat-card-subtitle>
     <div style="display: flex">
       <div class="col-md-3 ">
@@ -27,6 +12,7 @@
           type="text"
           formControlName="address"
           class="form-control"
+          [(ngModel)]="address"
           [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
         />
         <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
@@ -39,6 +25,7 @@
           type="number"
           formControlName="number"
           class="form-control"
+          [(ngModel)]="number"
           [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
         />
         <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
@@ -51,6 +38,7 @@
           type="text"
           formControlName="flat"
           class="form-control"
+          [(ngModel)]="flat"
           [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
         />
         <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
@@ -63,6 +51,7 @@
           type="text"
           formControlName="gate"
           class="form-control"
+          [(ngModel)]="gate"
           [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
         />
         <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
@@ -75,6 +64,7 @@
           type="text"
           formControlName="town"
           class="form-control"
+          [(ngModel)]="town"
           [ngClass]="{ 'is-invalid': submitted && f.town.errors }"
         />
         <div *ngIf="submitted && f.town.errors" class="invalid-feedback">
@@ -82,18 +72,6 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    <div class="col-md-6 mb-1">
-      <label for="town">Número de contador</label>
-      <input
-        type="text"
-        formControlName="code"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.code.errors }"
-      />
-      <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
-        <div *ngIf="f.code.errors.required">code is required</div>
-=======
 
   </mat-card>
 
@@ -112,7 +90,6 @@
         <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
           <div *ngIf="f.code.errors.required">code is required</div>
         </div>
->>>>>>> 8ebd8ef... change scss and design forms
       </div>
   </mat-card>
 
@@ -125,6 +102,7 @@
         type="bank"
         formControlName="numberBank"
         class="form-control"
+        [(ngModel)]="numberBank"
         [ngClass]="{ 'is-invalid': submitted && f.numberBank.errors }"
       />
       <div *ngIf="submitted && f.numberBank.errors" class="invalid-feedback">
@@ -152,6 +130,7 @@
         type="text"
         formControlName="first_name"
         class="form-control"
+        [(ngModel)]="first_name"
         [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
       />
       <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
@@ -162,7 +141,8 @@
       <label for="last_name">Apellido</label>
       <input
         type="text"
-        formControlName="last_name"
+        [formControlName]="'last_name'"
+        [(ngModel)]="last_name"
         class="form-control"
         [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
       />
@@ -175,6 +155,7 @@
       <input
         type="text"
         formControlName="username"
+        [(ngModel)]="username"
         class="form-control"
         [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
       />
@@ -188,6 +169,7 @@
         type="text"
         formControlName="email"
         class="form-control"
+        [(ngModel)]="email"
         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
       />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -201,6 +183,7 @@
         type="text"
         formControlName="phones"
         class="form-control"
+        [(ngModel)]="phones"
         [ngClass]="{ 'is-invalid': submitted && f.phones.errors }"
       />
       <div *ngIf="submitted && f.phones.errors" class="invalid-feedback">
@@ -235,10 +218,13 @@
         type="text"
         formControlName="first_nameRes"
         class="form-control"
+        [(ngModel)]="first_nameRes"
         [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
       />
       <div *ngIf="submitted && f.first_nameRes.errors" class="invalid-feedback">
-        <div *ngIf="f.first_nameRes.errors.required">First Name is required</div>
+        <div *ngIf="f.first_nameRes.errors.required">
+          First Name is required
+        </div>
       </div>
     </div>
     <div class="col-md-6 ">
@@ -247,6 +233,7 @@
         type="text"
         formControlName="last_nameRes"
         class="form-control"
+        [(ngModel)]="last_nameRes"
         [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
       />
       <div *ngIf="submitted && f.last_nameRes.errors" class="invalid-feedback">
@@ -259,6 +246,7 @@
         type="text"
         formControlName="usernameRes"
         class="form-control"
+        [(ngModel)]="usernameRes"
         [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
       />
       <div *ngIf="submitted && f.usernameRes.errors" class="invalid-feedback">
@@ -271,6 +259,7 @@
         type="text"
         formControlName="emailRes"
         class="form-control"
+        [(ngModel)]="emailRes"
         [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
       />
       <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
@@ -284,6 +273,7 @@
         type="text"
         formControlName="phonesRes"
         class="form-control"
+        [(ngModel)]="phonesRes"
         [ngClass]="{ 'is-invalid': submitted && f.phonesRes.errors }"
       />
       <div *ngIf="submitted && f.phonesRes.errors" class="invalid-feedback">
@@ -319,5 +309,4 @@
         </mat-card-actions>
       </mat-card>
 
->>>>>>> 8ebd8ef... change scss and design forms
 </form>

@@ -1,24 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
   selector: 'app-change-pay',
   templateUrl: './change-pay.component.html',
-  styleUrls: ['./change-pay.component.scss']
+  styleUrls: ['./change-pay.component.scss'],
 })
 export class ChangePayComponent implements OnInit {
-<<<<<<< HEAD
-=======
   public addNewWelling: FormGroup;
   public formIdentification: number;
   public changePayId: string;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
->>>>>>> 8ebd8ef... change scss and design forms
 
-<<<<<<< HEAD
-  constructor() { }
-
-  ngOnInit(): void {
-=======
   constructor(
     private route: ActivatedRoute,
     private readonly svcChangePay: DwellingService
@@ -53,7 +48,5 @@ export class ChangePayComponent implements OnInit {
     //   .subscribe((value) => {
     //     console.log(value);
     //   });
->>>>>>> dedf782... fix: update new apis
   }
-
 }

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-=======
 import {
   Component,
   Input,
@@ -8,28 +5,26 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
 import { Router } from '@angular/router';
+import { DwellingDetail } from '../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
 
 @Component({
   selector: 'app-dwelling-management',
   templateUrl: './dwelling-management.component.html',
   styleUrls: ['./dwelling-management.component.scss'],
 })
-export class DWellingManagementComponent implements OnInit {
+export class DWellingManagementComponent implements OnInit, OnChanges {
+  @Input() DWelling: DwellingDetail;
+  @Input() waterMeter: string;
   constructor(private readonly svcRouter: Router) {}
 
   ngOnInit(): void {}
-<<<<<<< HEAD
-=======
   public ngOnChanges(): void {
     console.log(this.DWelling);
     console.log(this.waterMeter);
   }
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
 
   public seeAllBills(): void {
-    console.log('hola');
     this.svcRouter.navigate(['vivienda/facturas']);
   }
   public seeBills(): void {

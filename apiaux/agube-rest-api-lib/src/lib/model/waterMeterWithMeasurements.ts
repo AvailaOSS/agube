@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Address } from './address';
+import { WaterMeterMeasurement } from './waterMeterMeasurement';
 
 
-export interface FullAddress { 
+export interface WaterMeterWithMeasurements { 
     readonly id?: string;
-    address: Address;
-    number: number;
-    flat?: string;
-    gate?: string;
+    readonly code?: string;
+    readonly releaseDate?: string;
+    readonly dischargeDate?: string;
+    waterMeter: Array<WaterMeterMeasurement>;
 }

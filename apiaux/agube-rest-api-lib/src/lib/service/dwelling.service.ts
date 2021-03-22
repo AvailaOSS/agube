@@ -25,16 +25,11 @@ import { Observable } from 'rxjs';
 
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingDetail } from '../model/dwellingDetail';
-<<<<<<< HEAD
-import { DwellingOwner } from '../model/dwellingOwner';
-import { DwellingResident } from '../model/dwellingResident';
-=======
 import { Owner } from '../model/owner';
 import { Paymaster } from '../model/paymaster';
 import { Resident } from '../model/resident';
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
 import { WaterMeter } from '../model/waterMeter';
-import { WaterMeterDetail } from '../model/waterMeterDetail';
+import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';

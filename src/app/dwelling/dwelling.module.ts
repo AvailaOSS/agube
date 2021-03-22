@@ -14,22 +14,12 @@ import { DWellingManagementComponent } from './dwelling-detail-card/dwelling-man
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/dwelling-water-meter-readings/dwelling-water-meter-readings.component';
 import { WaterMeterDetailCardComponent } from './dwelling-detail-card/dwelling-management/water-meter-detail-card/water-meter-detail-card.component';
 import { ToolbarModule } from '../menu/toolbar.module';
-<<<<<<< HEAD:src/app/living-place/living-place.module.ts
-import { AddWellingModule } from './living-place-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './living-place-detail-card/management-components/add-welling/utils/utils.module';
-import { ChangePayModule } from './living-place-detail-card/management-components/change-pay/change-pay.module';
-import { ChangeCountModule } from './living-place-detail-card/management-components/change-count/change-count.module';
-=======
 import { AdDWellingModule } from './dwelling-detail-card/management-components/add-welling/add-welling.module';
 import { UtilsModule } from './dwelling-detail-card/management-components/utils/utils.module';
 import { ChangePayModule } from './dwelling-detail-card/management-components/change-pay/change-pay.module';
 import { ChangeCountModule } from './dwelling-detail-card/management-components/change-count/change-count.module';
-<<<<<<< HEAD
->>>>>>> 969aab6... fix: update new name dwelling:src/app/dwelling/dwelling.module.ts
-=======
 import { ChangeOwnerModule } from './dwelling-detail-card/management-components/change-owner/change-owner.module';
 import { ChangeResidentModule } from './dwelling-detail-card/management-components/change-resident/change-resident.module';
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
 
 @NgModule({
   declarations: [

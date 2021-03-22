@@ -36,7 +36,6 @@ export class ContactPanelDetailListComponent implements OnInit {
   public ngOnInit(): void {
     this.contactService.contactList().subscribe((value) => {
       this.dataSource = value;
-      console.log(this.dataSource);
     });
   }
 

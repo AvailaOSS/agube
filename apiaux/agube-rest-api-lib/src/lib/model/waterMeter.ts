@@ -10,32 +10,10 @@
  * Do not edit the class manually.
  */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-export interface WaterMeter { 
-    readonly id?: string;
-    code: string;
-    readonly releaseDate?: string;
-    readonly dischargeDate?: string;
-=======
-export interface WaterMeter {
-  readonly id?: string;
-  code: string;
-<<<<<<< HEAD
-  readonly releaseDate?: string;
-  readonly dischargeDate?: string;
->>>>>>> dedf782... fix: update new apis
-=======
-  readonly release_date?: string;
-  readonly discharge_date?: string;
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
-=======
 
 export interface WaterMeter {
     readonly id?: string;
     code: string;
     readonly release_date?: string;
     readonly discharge_date?: string;
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
 }

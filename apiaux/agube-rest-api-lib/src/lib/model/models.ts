@@ -1,8 +1,6 @@
 export * from './address';
 export * from './dwellingCreate';
 export * from './dwellingDetail';
-export * from './dwellingOwner';
-export * from './dwellingResident';
 export * from './fullAddress';
 export * from './hookPrice';
 export * from './jSONWebToken';
@@ -15,9 +13,9 @@ export * from './reservoirCreate';
 export * from './reservoirDetail';
 export * from './resident';
 export * from './userAddress';
->>>>>>> dedf782... fix: update new apis
 export * from './userDetail';
-export * from './userUpdatePhone';
+export * from './userDetailCustom';
+export * from './userPhone';
 export * from './waterMeter';
-export * from './waterMeterDetail';
 export * from './waterMeterMeasurement';
+export * from './waterMeterWithMeasurements';
