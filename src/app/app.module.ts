@@ -16,6 +16,7 @@ import { LoginModule } from './login/login.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlPanelModule } from './control-panel/control-panel.module';
+import { LivingPlaceModule } from './living-place/living-place.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,8 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
     ControlPanelModule,
     SubscriptionApiModule,
     ContactBookApiModule,
+    LivingPlaceModule
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -21,7 +21,7 @@ export class ControlPanelComponent implements OnInit {
       buttons: [
         {
           name: 'Viviendas',
-          redirect: '',
+          redirect: 'viviendas',
           icon: 'fas fa-home',
         },
         {
