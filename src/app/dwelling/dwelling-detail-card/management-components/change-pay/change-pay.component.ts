@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./change-pay.component.scss']
 })
 export class ChangePayComponent implements OnInit {
+<<<<<<< HEAD
+=======
+  public addNewWelling: FormGroup;
+  public formIdentification: number;
+  public changePayId: string;
+  public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
+>>>>>>> 8ebd8ef... change scss and design forms
 
 <<<<<<< HEAD
   constructor() { }
@@ -13,24 +20,24 @@ export class ChangePayComponent implements OnInit {
   ngOnInit(): void {
 =======
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
     private readonly svcChangePay: DwellingService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.changePayId = params.data;
     });
-    // this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
-    //   this.formConfigurationData.emit(value);
-    // });
-    // this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((value) => {
-    //   this.formConfigurationData.emit(value);
-    // });
-
-    this.svcChangePay.getCurrentResident(+this.changePayId).subscribe((value) => {
+    this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
       this.formConfigurationData.emit(value);
     });
+    this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
+      console.log(owner);
+    });
+
+    this.svcChangePay
+      .getCurrentResident(+this.changePayId)
+      .subscribe((value) => {
+        console.log('residente', value);
+      });
   }
 
   public ngOnInit(): void {}

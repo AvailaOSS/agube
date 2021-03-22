@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div  [hidden]="!isAllSave" class="alert alert-primary" role="alert">
  Todo Guardado! 
 </div>
@@ -10,9 +11,17 @@
   <mat-card [hidden]="isHiddenAddress" style="margin: 15px">
     <mat-card-title>{{ titleCard }}</mat-card-title>
 >>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
+=======
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+  <mat-card [hidden]="isHiddenAddress" style="display: flex; justify-content: start; flex-direction: column; flex-wrap: wrap;  border:1px solid;margin-top:3px">
+    <mat-card-title style="background-color: #03a9f4;
+    color: white;
+    padding: 5px;">{{ titleCard }}</mat-card-title>
+>>>>>>> 8ebd8ef... change scss and design forms
     <mat-card-subtitle>Dirección</mat-card-subtitle>
     <div style="display: flex">
-      <div class="col-md-3 mb-1">
+      <div class="col-md-3 ">
         <label for="address">Calle</label>
         <input
           type="text"
@@ -24,10 +33,10 @@
           <div *ngIf="f.address.errors.required">address is required</div>
         </div>
       </div>
-      <div class="col-md-2 mb-1">
-        <label for="number">number</label>
+      <div class="col-md-1 ">
+        <label for="number">Nº</label>
         <input
-          type="text"
+          type="number"
           formControlName="number"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
@@ -36,8 +45,8 @@
           <div *ngIf="f.number.errors.required">number is required</div>
         </div>
       </div>
-      <div class="col-md-2 mb-1">
-        <label for="flat">flat</label>
+      <div class="col-md-1 ">
+        <label for="flat">piso</label>
         <input
           type="text"
           formControlName="flat"
@@ -48,8 +57,8 @@
           <div *ngIf="f.flat.errors.required">flat is required</div>
         </div>
       </div>
-      <div class="col-md-2 mb-1">
-        <label for="gate">gate</label>
+      <div class="col-md-1 ">
+        <label for="gate">Puerta</label>
         <input
           type="text"
           formControlName="gate"
@@ -60,8 +69,8 @@
           <div *ngIf="f.gate.errors.required">gate is required</div>
         </div>
       </div>
-      <div class="col-md-3 mb-1">
-        <label for="town">town</label>
+      <div class="col-md-4 ">
+        <label for="town">Ciudad</label>
         <input
           type="text"
           formControlName="town"
@@ -73,6 +82,7 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     <div class="col-md-6 mb-1">
       <label for="town">Número de contador</label>
       <input
@@ -83,15 +93,36 @@
       />
       <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
         <div *ngIf="f.code.errors.required">code is required</div>
-      </div>
-    </div>
+=======
+
   </mat-card>
 
-  <mat-card  [hidden]="isHiddenBank" style="margin: 15px">
-    <mat-card-title>Numero de cuenta</mat-card-title>
-    <div class="col-md-6 mb-1">
+  <mat-card  [hidden]="isHiddenCount"class="col-md-6 " style="display: inline-block; border:1px solid; justify-content: center; flex-direction: column; flex-wrap: wrap;  ">
+    <mat-card-title style="background-color: #03a9f4;
+    color: white;
+    padding: 5px;">Número de contador</mat-card-title>
+      <div class="col-md-12 ">
+        <input
+          type="text"
+          formControlName="code"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.code.errors }"
+          [(ngModel)]="code"
+        />
+        <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+          <div *ngIf="f.code.errors.required">code is required</div>
+        </div>
+>>>>>>> 8ebd8ef... change scss and design forms
+      </div>
+  </mat-card>
+
+  <mat-card  [hidden]="isHiddenBank"  class="col-md-6 "style="display: inline-block; border:1px solid; justify-content: center; flex-direction: column; flex-wrap: wrap;  ">
+    <mat-card-title style="background-color: #03a9f4;
+    color: white;
+    padding: 5px;">Numero de cuenta</mat-card-title>
+    <div class="col-md-12 ">
       <input
-        type="text"
+        type="bank"
         formControlName="numberBank"
         class="form-control"
         [ngClass]="{ 'is-invalid': submitted && f.numberBank.errors }"
@@ -102,9 +133,10 @@
     </div>
   </mat-card>
 
-
-  <mat-card [hidden]="isHiddenOwner" style="margin: 15px; float: left; width: 46%">
-    <mat-card-title>{{ownerTitle}}</mat-card-title>
+  <mat-card [hidden]="isHiddenOwner" class="col-md-6 "style="display: inline-block; border:1px solid;justify-content: center; flex-direction: column; flex-wrap: wrap; ">
+    <mat-card-title style="background-color: #03a9f4;
+    color: white;
+    padding: 5px;">{{ownerTitle}}</mat-card-title>
     <mat-checkbox formControlName="pagador" [(ngModel)]="pagador"
       >Pagador</mat-checkbox
     >
@@ -114,7 +146,7 @@
       (click)="toggle()"
       >Residente</mat-checkbox
     >
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="first_name">Nombre</label>
       <input
         type="text"
@@ -126,7 +158,7 @@
         <div *ngIf="f.first_name.errors.required">First Name is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="last_name">Apellido</label>
       <input
         type="text"
@@ -138,7 +170,7 @@
         <div *ngIf="f.last_name.errors.required">Last Name is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="username">Usuario</label>
       <input
         type="text"
@@ -150,7 +182,7 @@
         <div *ngIf="f.username.errors.required">Username is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="email">email</label>
       <input
         type="text"
@@ -163,7 +195,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="phones">Número de teléfono</label>
       <input
         type="text"
@@ -175,8 +207,8 @@
         <div *ngIf="f.phones.errors.required">phone_number is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
-      <label for="addressOwner">Dirección del Residente</label>
+    <div class="col-md-6 ">
+      <label for="addressOwner">Dirección del Propietario</label>
       <input
         type="text"
         formControlName="addressOwner"
@@ -190,12 +222,14 @@
     </div>
   </mat-card>
 
-  <mat-card [hidden]="isHiddenResident" style="margin: 15px; float: left; width: 50%">
-    <mat-card-title>{{residentTitle}}</mat-card-title>
+  <mat-card [hidden]="isHiddenResident" class="col-md-6 "style="display: inline-block; border:1px solid; justify-content: center; flex-direction: column; flex-wrap: wrap;  ">
+    <mat-card-title style="background-color: #03a9f4;
+    color: white;
+    padding: 5px;">{{residentTitle}}</mat-card-title>
     <mat-checkbox formControlName="pagadorResidente" [(ngModel)]="pagador"
       >Pagador</mat-checkbox
     >
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="first_name">Nombre</label>
       <input
         type="text"
@@ -207,7 +241,7 @@
         <div *ngIf="f.first_nameRes.errors.required">First Name is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="last_nameRes">Apellido</label>
       <input
         type="text"
@@ -219,7 +253,7 @@
         <div *ngIf="f.last_nameRes.errors.required">Last Name is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="usernameRes">Usuario</label>
       <input
         type="text"
@@ -231,7 +265,7 @@
         <div *ngIf="f.usernameRes.errors.required">Username is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="emailRes">email</label>
       <input
         type="text"
@@ -244,7 +278,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="phonesRes">Número de teléfono</label>
       <input
         type="text"
@@ -256,7 +290,7 @@
         <div *ngIf="f.phonesRes.errors.required">phone_number is required</div>
       </div>
     </div>
-    <div class="col-md-6 mb-1">
+    <div class="col-md-6 ">
       <label for="addressRes">Dirección Residente</label>
       <input
         type="text"
@@ -271,17 +305,19 @@
     </div>
   </mat-card>
 
-  <mat-card style="display: flex;width:100%">
-    <div class="col-md-6 mb-3">
-        <button [disabled]="loading" class="btn btn-primary">
-          {{titleCard}}
-        </button>
-        <img
-          *ngIf="loading"
-          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-        />
-        <a href=" /viviendas " class="btn btn-link">Cancel</a>
-      </div>
-  </mat-card>
-  
+  <mat-card style="position: absolute;
+  bottom: 15px;border:1px solid;width:98%" class="col-md-12">
+    <mat-card-actions class="col-xs-2" style="float: right" >
+          <button [disabled]="loading" class="btn btn-primary">
+            {{ titleCard }}
+          </button>
+          <img
+            *ngIf="loading"
+            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+          />
+          <a href=" /viviendas " class="btn btn-link">Cancel</a>
+        </mat-card-actions>
+      </mat-card>
+
+>>>>>>> 8ebd8ef... change scss and design forms
 </form>

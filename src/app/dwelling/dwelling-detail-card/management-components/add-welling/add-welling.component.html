@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <app-toolbar [title]="'Alta Vivienda'"></app-toolbar>
 <div class="contenedor">
-<app-utils [titleCard]="'Alta Vivienda'" (sendForm)="sendForm($event)"></app-utils>
+  <app-utils
+    [titleCard]="'Alta Vivienda'"
+    [isHiddenAddress]="false"
+    [isHiddenBank]="false"
+    [isHiddenResident]="false"
+    [isHiddenOwner]="false"
+    [isHiddenCount]="false"
+    (sendForm)="sendForm($event)"
+  ></app-utils>
 </div>

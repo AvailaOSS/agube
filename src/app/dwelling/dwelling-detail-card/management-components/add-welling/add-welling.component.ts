@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
-import { DwellingCreate } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingCreate';
 
 @Component({
   selector: 'app-add-welling',
@@ -10,21 +9,11 @@ import { DwellingCreate } from '../../../../../../apiaux/agube-rest-api-lib/src/
   styleUrls: ['./add-welling.component.scss'],
 })
 export class AdDWellingComponent implements OnInit {
-  hide = true;
   public addNewWelling: FormGroup;
   public loading = false;
   public submitted = false;
   public error: string;
-  public formIdentification: number;
-  public payType: string;
-  requestSend: boolean;
-  errorInformation: boolean;
-  public pagador = false;
-  public residente = false;
-  public isHidden = false;
-
   constructor(
-    private formBuilder: FormBuilder,
     private router: Router,
     private readonly svcCreateNewDWelling: DwellingService
   ) {}

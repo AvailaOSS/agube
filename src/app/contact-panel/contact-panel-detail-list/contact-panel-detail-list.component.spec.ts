@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DWellingDetailListComponent } from './dwelling-detail-list.component';
+import { ContactPanelDetailListComponent } from './dwelling-detail-list.component';
 
-describe('DWellingDetailListComponent', () => {
-  let component: DWellingDetailListComponent;
-  let fixture: ComponentFixture<DWellingDetailListComponent>;
+describe('ContactPanelDetailListComponent', () => {
+  let component: ContactPanelDetailListComponent;
+  let fixture: ComponentFixture<ContactPanelDetailListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DWellingDetailListComponent ]
+      declarations: [ ContactPanelDetailListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DWellingDetailListComponent);
+    fixture = TestBed.createComponent(ContactPanelDetailListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
