@@ -1,0 +1,13 @@
+<div class="container-center">
+    <div class="columns" *ngFor="let item of subscription; let i=index">
+        <ul class="price">
+            <li class="header">{{item.name}}</li>
+            <li class="grey">{{item.price}} €</li>
+            <li>Precio por día: {{item.price_per_day}} €</li>
+            <li>{{item.description}}</li>
+            <li class="grey">
+                <button (click)="sendUrl(item.id)" class="button">Sign Up</button>
+            </li>
+        </ul>
+    </div>
+    <div>
