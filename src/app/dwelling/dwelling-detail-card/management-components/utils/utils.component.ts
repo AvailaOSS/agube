@@ -1,21 +1,10 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-} from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
-<<<<<<< HEAD
-=======
-import { BehaviorSubject } from 'rxjs';
 import { isUndefined } from 'lodash';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
+import { BehaviorSubject } from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -40,7 +29,6 @@ export class UtilsComponent implements OnInit {
 <<<<<<< HEAD
 =======
   @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
-
   @Input() isHiddenResident?: boolean = false;
   @Input() isHiddenAddress?: boolean = false;
   @Input() isHiddenBank?: boolean = false;
@@ -87,9 +75,7 @@ export class UtilsComponent implements OnInit {
 >>>>>>> f1e30c2... fix: add new address in forms
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly svcCreateNewDWelling: DwellingService
+    private router: Router
   ) {}
 
   public goToControlPanel(): void {
@@ -127,7 +113,8 @@ export class UtilsComponent implements OnInit {
 =======
 
     this.formDataConfiguration.subscribe((value) => {
-      console.log(value);
+      //Todo: MEJORAR ESTO "!!"
+
       this.numberBank = value.iban;
       if (!isUndefined(value) && value !== 5) {
         this.code = value.code;
@@ -159,11 +146,7 @@ export class UtilsComponent implements OnInit {
     return this.registerForm.controls;
   }
   public onSubmit(): void {
-    this.submitted = true;
-    this.isAllSave = true;
-<<<<<<< HEAD
-    console.log(this.registerForm.value);
-=======
+    //TODO :  Controlar la emisión , cuando es undefined (vacio)
 
 <<<<<<< HEAD
 

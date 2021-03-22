@@ -11,10 +11,10 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
   styleUrls: ['./dwelling-detail-list.component.scss'],
 })
 export class DWellingDetailListComponent implements OnInit {
-  @Output() selected = new EventEmitter<DWelling>();
-
-  public selectedRowIndex: string = '';
-
+  @Output() selected = new EventEmitter<DwellingDetail>();
+  public users: any;
+  public selectedRowIndex = '';
+  public address: string;
   public displayedColumns: string[] = [
     'address',
     'water_meter',
@@ -23,7 +23,14 @@ export class DWellingDetailListComponent implements OnInit {
   ];
   public dataSource: DWelling[];
 
-  constructor(private svcRouter: Router, private readonly svcCreateNewDWelling: DwellingService) {}
+  constructor(
+    private svcRouter: Router,
+    private readonly svcCreateNewDWelling: DwellingService
+  )
+  {
+    console.log(JSON.parse(localStorage.getItem('currentUser')))
+    this.users = JSON.parse(localStorage.getItem('currentUser'));
+   }
 
   public addNewWelling(): void {
     this.svcRouter.navigate(['viviendas/alta/vivienda']);
@@ -73,13 +80,13 @@ export class DWellingDetailListComponent implements OnInit {
     ];
 =======
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
-      console.log(value)
       this.dataSource = value;
     });
 >>>>>>> dedf782... fix: update new apis
   }
 
-  public selectRow(row: DWelling) {
+  public selectRow(row: DwellingDetail): void {
+    this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
     this.selected.emit(row);
     this.selectedRowIndex = row.address;
   }
