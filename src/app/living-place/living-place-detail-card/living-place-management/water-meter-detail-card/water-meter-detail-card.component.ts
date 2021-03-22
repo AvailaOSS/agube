@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WaterMeterDetailCard } from './water-meter-detail-card';
+import { WaterMeterService } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/service/waterMeter.service';
 
 @Component({
   selector: 'app-water-meter-detail-card',
@@ -9,9 +10,10 @@ import { WaterMeterDetailCard } from './water-meter-detail-card';
 export class WaterMeterDetailCardComponent implements OnInit {
   public currentWaterMeter: WaterMeterDetailCard;
 
-  constructor() {}
+  constructor(private readonly svcCountService: WaterMeterService) {}
 
   ngOnInit(): void {
+    
     this.currentWaterMeter = {
       code: '00000001AS',
       activation_date: new Date('2011-04-17'),

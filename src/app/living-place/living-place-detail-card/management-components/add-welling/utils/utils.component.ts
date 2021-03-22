@@ -44,6 +44,7 @@ export class UtilsComponent implements OnInit {
   public pagador = false;
   public residente = false;
   public isHidden = false;
+  public isAllSave = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -89,6 +90,7 @@ export class UtilsComponent implements OnInit {
   }
   public onSubmit(): void {
     this.submitted = true;
+    this.isAllSave = true;
     console.log(this.registerForm.value);
     this.sendForm.emit(this.registerForm.value);
   }

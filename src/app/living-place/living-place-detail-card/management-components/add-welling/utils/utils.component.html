@@ -1,3 +1,7 @@
+<div  [hidden]="!isAllSave" class="alert alert-primary" role="alert">
+ Todo Guardado! 
+</div>
+
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <mat-card style="margin: 15px">
     <mat-card-title>{{titleCard}}</mat-card-title>

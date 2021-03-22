@@ -16,6 +16,8 @@ import { ChangeCountComponent } from './living-place/living-place-detail-card/ma
 import { ChangeResidentComponent } from './living-place/living-place-detail-card/management-components/change-resident/change-resident.component';
 import { ChangeOwnerComponent } from './living-place/living-place-detail-card/management-components/change-owner/change-owner.component';
 import { AddWellingComponent } from './living-place/living-place-detail-card/management-components/add-welling/add-welling.component';
+import { AddNewContactModule } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.module';
+import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'vivienda/residente', component: ChangeResidentComponent },
   { path: 'vivienda/propietario', component: ChangeOwnerComponent },
   { path: 'contactos', component: ContactPanelComponent },
+  { path: 'contactos/alta/contacto', component: AddNewContactComponent },
   { path: 'depositos', component: DepositPanelComponent },
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },

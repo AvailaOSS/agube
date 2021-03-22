@@ -2,6 +2,8 @@ import { Output } from '@angular/core';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { LivingPlace } from '../living-place.component';
 import { Router } from '@angular/router';
+import { AgubeApiModule } from '../../../../apiaux/agube-rest-api-lib/src/lib/agube.api.module';
+import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
   selector: 'app-living-place-detail-list',
@@ -21,13 +23,16 @@ export class LivingPlaceDetailListComponent implements OnInit {
   ];
   public dataSource: LivingPlace[];
 
-  constructor(private svcRouter: Router) {}
+  constructor(private svcRouter: Router, private readonly svcCreateNewdWelling: DwellingService) {}
 
   public addNewWelling(): void {
     this.svcRouter.navigate(['viviendas/alta/vivienda']);
   }
 
   ngOnInit(): void {
+    this.svcCreateNewdWelling.dwellingList().subscribe(value => {
+      console.log(value)
+    })
     this.dataSource = [
       {
         id: '1',

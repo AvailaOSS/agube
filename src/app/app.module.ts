@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import {
   ErrorInterceptor,
-  fakeBackendProvider,
   JwtInterceptor,
 } from './login/helpers';
 import { LoginModule } from './login/login.module';
@@ -51,8 +50,7 @@ import { UtilsModule } from './living-place/living-place-detail-card/management-
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // provider used to create fake backend
-    fakeBackendProvider,
+    
   ],
   bootstrap: [AppComponent],
 })
