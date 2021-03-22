@@ -2,9 +2,9 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="goToControlPanel()">
     <mat-icon>menu</mat-icon>
   </button>
-    <div class="title">{{ title }}</div>
+    <div class="title" style="margin-top: 8px;">{{ title }}</div>
     <button mat-icon-button class="example-icon user-button" aria-label="Example icon-button with share icon">
-    {{ username['username'] }}
+    {{ currentUser.username}}
     <mat-icon>account_circle</mat-icon>
   </button>
 </div>

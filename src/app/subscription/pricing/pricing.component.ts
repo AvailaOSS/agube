@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import {
   Permission,
   Subscription,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
+import { finalize } from 'rxjs/operators';
 
 export interface SubscriptionPermissions {
   subscription: Subscription;
@@ -39,14 +41,13 @@ export class PricingComponent implements OnInit {
             .subscriptionPermissionsList(subscription.id)
             .subscribe((permissions) => {
               this.subscriptions.push({
-                subscription: subscription,
-                permissions: permissions,
+                subscription,
+                permissions,
               });
             })
         );
     });
   }
-
   public sendUrl(url: string): void {
     this.router.navigate(['/forms', { id: url }]);
   }

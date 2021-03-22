@@ -1,143 +1,75 @@
-<div class="col-md-7 order-md-1" style="margin: 10px auto">
-    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <div class="col-md-6 mb-1">
-                <label for="firstName">Nombre *</label>
-                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" id="firstName" required />
-                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required">El Nombre es requerido</div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-1">
-                <label for="lastName">Apellido *</label>
-                <input type="text" formControlName="lastName" class="form-control" id="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" required />
-                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required">El apellido es requerido</div>
-                </div>
-            </div>
-        </div>
-        <div class="mb-1">
-            <label for="username">Username *</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
-                </div>
-                <input type="text" formControlName="username" class="form-control" id="username" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" required />
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">El username es requerido</div>
-                </div>
-            </div>
-        </div>
-        <div class="mb-1">
-            <label for="email">Email *</label>
-            <input type="email" formControlName="email" class="form-control" id="email" placeholder="you@example.com" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required />
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                <div *ngIf="f.email.errors.required">El email es requerido</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="community_name">Comunidad * </label>
-            <input type="text" formControlName="community_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.community_name.errors }" required />
-            <div *ngIf="submitted && f.community_name.errors" class="invalid-feedback">
-                <div *ngIf="f.community_name.errors.required">
-                    El nombre de la comunidad es requerido
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="phone_number">Número de teléfono * </label>
-            <input type="text" formControlName="phone_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" required />
-            <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
-                <div *ngIf="f.phone_number.errors.required">
-                    El número de teléfono es requerido
-                </div>
-            </div>
-        </div>
-        <h4 class="mb-1">Método de Pago</h4>
-
-        <article class="card">
-            <div class="card-body p-5">
-                <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="pill" href="#nav-tab-card" (click)="sendPayUrl('visa')">
-                            <i class="fa fa-credit-card"></i> Credit Card</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal" (click)="sendPayUrl('paypal')">
-                            <i class="fab fa-paypal"></i> Paypal</a>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="nav-tab-card">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="username">Full name (on the card)</label>
-                                <input type="text" class="form-control" name="username" placeholder="" required="" />
-                            </div>
-                            <!-- form-group.// -->
-
-                            <div class="form-group">
-                                <label for="cardNumber">Card number</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="cardNumber" placeholder="" />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text text-muted"> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- form-group.// -->
-
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <label><span class="hidden-xs">Expiration</span> </label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="MM" name="" />
-                                            <input type="number" class="form-control" placeholder="YY" name="" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i
-                    ></label>
-                                        <input type="number" class="form-control" required="" />
-                                    </div>
-                                    <!-- form-group.// -->
-                                </div>
-                            </div>
-                            <!-- row.// -->
-                            <button class="subscribe btn btn-primary btn-block" type="button">
-                Confirm
-              </button>
-                        </form>
-                    </div>
-                    <!-- tab-pane.// -->
-                    <div class="tab-pane fade" id="nav-tab-paypal">
-                        <p>Paypal is easiest way to pay online</p>
-                        <p>
-                            <button type="button" class="btn btn-primary">
-                <i class="fab fa-paypal"></i> Log in my Paypal
-              </button>
-                        </p>
-                        <p>
-                            <strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <hr class="mb-4" />
-        <button [disabled]="loading" class="btn btn-primary">
-      <span
-        *ngIf="loading"
-        class="spinner-border spinner-border-sm mr-1"
-      ></span>
-      Register
-    </button>
-        <a href="../subscription" class="btn btn-link">Cancel</a>
-    </form>
+<div style="text-align: center">
+    <h1>Register</h1>
 </div>
+<form class="row" style="border: 1px solid lightgray; padding: 25px; margin: 15px" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-6 mb-1">
+        <label for="firstName">Nombre</label>
+        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-1">
+        <label for="lastName">Apellido</label>
+        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-1">
+        <label for="username">Usuario</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-1">
+        <label for="password">Contraseña</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">
+                Password must be at least 6 characters
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-1">
+        <label for="email">email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">email is required</div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-1">
+        <label for="business_name">Comunidad</label>
+        <input type="text" formControlName="business_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.business_name.errors }" />
+        <div *ngIf="submitted && f.business_name.errors" class="invalid-feedback">
+            <div *ngIf="f.business_name.errors.required">
+                business_name is required
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-1">
+        <label for="phone_number">Número de teléfono</label>
+        <input type="text" formControlName="phone_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" />
+        <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
+            <div *ngIf="f.phone_number.errors.required">phone_number is required</div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label for="payment_type">Forma de Pago</label>
+        <select class="custom-select" formControlName="payment_type">
+      <option value="" disabled>Pago</option>
+      <option *ngFor="let type of typePay" [ngValue]="type">
+        {{ type.description }}
+      </option>
+    </select>
+    </div>
+    <div class="col-md-6 mb-3">
+        <button [disabled]="loading" class="btn btn-primary">Register</button>
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
+        <a href="/subscription" class="btn btn-link">Cancel</a>
+    </div>
+</form>

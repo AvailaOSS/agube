@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {  ContactPanelComponent } from './contact-panel.component';
 import { ContactPanelDetailCardComponent } from './contact-panel-detail-card/contact-panel-detail-card.component';
 import { ContactPanelManagementComponent } from './contact-panel-detail-card/contact-panel-management/contact-panel-management.component';
+import { ToolbarModule } from '../menu/toolbar.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ContactPanelManagementComponent } from './contact-panel-detail-card/con
     MatListModule,
     ControlPanelModule,
     MatCardModule,
+    ToolbarModule
   ],
   exports: [ContactPanelComponent],
 })

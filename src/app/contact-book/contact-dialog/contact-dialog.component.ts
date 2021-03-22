@@ -64,7 +64,6 @@ export class ContactDialogComponent implements OnInit {
               first_name: this.form.value.email,
               last_name: this.form.value.last_name,
             },
-            business: this.form.value.business,
           })
           .subscribe((value) => {});
       } else {
@@ -77,7 +76,6 @@ export class ContactDialogComponent implements OnInit {
               first_name: this.form.value.email,
               last_name: this.form.value.last_name,
             },
-            business: this.form.value.business,
           })
           .subscribe((value) => {});
       }

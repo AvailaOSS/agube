@@ -22,17 +22,17 @@ export class ControlPanelComponent implements OnInit {
         {
           name: 'Viviendas',
           redirect: 'viviendas',
-          icon: 'fas fa-home',
+          icon: 'fas fa-home fa-2x',
         },
         {
           name: 'Contactos',
           redirect: 'contactos',
-          icon: 'fas fa-users',
+          icon: 'fas fa-users fa-2x',
         },
         {
           name: 'Agenda',
           redirect: 'wip',
-          icon: 'fas fa-address-book',
+          icon: 'fas fa-address-book fa-2x',
         },
       ],
     };
@@ -42,27 +42,27 @@ export class ControlPanelComponent implements OnInit {
         {
           name: 'Lectura Contador',
           redirect: 'wip',
-          icon: 'fas fa-faucet',
+          icon: 'fas fa-faucet fa-2x',
         },
         {
           name: 'Incidencias',
           redirect: 'wip',
-          icon: 'fas fa-tasks',
+          icon: 'fas fa-tasks fa-2x',
         },
         {
           name: 'Facturas',
           redirect: 'wip',
-          icon: 'fas fa-file-invoice',
+          icon: 'fas fa-file-invoice fa-2x',
         },
         {
           name: 'Correos',
           redirect: 'wip',
-          icon: 'fas fa-envelope',
+          icon: 'fas fa-envelope fa-2x',
         },
         {
           name: 'Calendario',
           redirect: 'wip',
-          icon: 'fas fa-calendar-alt',
+          icon: 'fas fa-calendar-alt fa-2x',
         },
       ],
     };
@@ -72,12 +72,12 @@ export class ControlPanelComponent implements OnInit {
         {
           name: 'Depósito',
           redirect: 'depositos',
-          icon: 'fas fa-swimming-pool',
+          icon: 'fas fa-swimming-pool fa-2x',
         },
         {
           name: 'General',
           redirect: 'wip',
-          icon: 'fas fa-tools',
+          icon: 'fas fa-tools fa-2x',
         },
       ],
     };

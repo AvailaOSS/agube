@@ -3,10 +3,22 @@
     <mat-card-subtitle>Datos de la comunidad</mat-card-subtitle>
     <mat-card-content>
         <mat-list>
-            <mat-list-item><b>NIF: </b> {{ clientDetails.nif }}</mat-list-item>
-            <mat-list-item><b>Fecha Alta: </b> {{ clientDetails.subscription_date }}</mat-list-item>
-            <mat-list-item><b>Dirección: </b> {{ clientDetails.address }}</mat-list-item>
-            <mat-list-item><b>Plan: </b> {{ clientDetails.plan }}</mat-list-item>
+            <mat-list-item>
+                <span> <strong>NIF: </strong> {{ clientDetails.nif }} </span>
+            </mat-list-item>
+            <mat-list-item>
+                <span>
+          <strong>Fecha Alta: </strong> {{ clientDetails.subscription_date }}
+        </span>
+            </mat-list-item>
+            <mat-list-item>
+                <span> <strong>Dirección: </strong> {{ clientDetails.address }} </span>
+            </mat-list-item>
+            <mat-list-item>
+                <span>
+                    <strong>Plan: </strong> {{ clientDetails.plan }}
+                </span>
+            </mat-list-item>
         </mat-list>
     </mat-card-content>
 </mat-card>

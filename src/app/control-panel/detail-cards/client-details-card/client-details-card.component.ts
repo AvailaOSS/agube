@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 
 export interface ClientDetails {
   name: string;
@@ -15,9 +16,14 @@ export interface ClientDetails {
 })
 export class ClientDetailsCardComponent implements OnInit {
   public clientDetails: ClientDetails;
-  constructor() {}
+  constructor(private svcClientService: ClientService) {
+
+  }
 
   ngOnInit(): void {
+    this.svcClientService.clientList().subscribe(value=>{
+      console.log(value)
+    })
     this.clientDetails = {
       name: 'Juego de Tronos',
       nif: '999999999999999A',
