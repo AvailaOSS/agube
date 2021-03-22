@@ -11,7 +11,7 @@
  */
 
 
-export interface Phone { 
+export interface Phone {
     readonly id?: string;
     phone_number: string;
 }

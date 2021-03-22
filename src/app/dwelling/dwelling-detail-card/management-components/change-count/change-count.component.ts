@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
@@ -12,7 +12,8 @@ export class ChangeCountComponent implements OnInit {
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private route: ActivatedRoute,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly svcChangeWaterMeter: DwellingService
   ) {
     this.route.queryParams.subscribe((params) => {
@@ -33,7 +34,7 @@ export class ChangeCountComponent implements OnInit {
         code: event.code
       })
       .subscribe((value) => {
-        console.log('exito', value);
+        this.router.navigate(['/viviendas']);
       });
   }
 }

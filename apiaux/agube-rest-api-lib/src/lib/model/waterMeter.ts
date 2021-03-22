@@ -11,6 +11,7 @@
  */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 export interface WaterMeter { 
     readonly id?: string;
@@ -29,4 +30,12 @@ export interface WaterMeter {
   readonly release_date?: string;
   readonly discharge_date?: string;
 >>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
+=======
+
+export interface WaterMeter {
+    readonly id?: string;
+    code: string;
+    readonly release_date?: string;
+    readonly discharge_date?: string;
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
 }

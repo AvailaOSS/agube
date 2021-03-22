@@ -12,7 +12,7 @@ export * from './user';
 export * from './userCustomDetail';
 =======
 export * from './owner';
-export * from './payment';
+export * from './paymaster';
 export * from './phone';
 export * from './refreshJSONWebToken';
 export * from './resident';

@@ -12,24 +12,19 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
-} from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
 import { Address } from '../model/address';
 
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
+
 
 @Injectable()
 export class AddressService {
+<<<<<<< HEAD
   protected basePath = 'http://localhost:8002/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
@@ -120,34 +115,118 @@ export class AddressService {
     }
 
     let headers = this.defaultHeaders;
+=======
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
 
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
+    protected basePath = 'http://localhost:8002/api/v1/agube';
+    public defaultHeaders = new HttpHeaders();
+    public configuration = new Configuration();
+
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+        if (basePath) {
+            this.basePath = basePath;
+        }
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = basePath || configuration.basePath || this.basePath;
+        }
     }
 
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    /**
+     *
+     * create a new Address
+     * @param data
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createAddress(data: Address, observe?: 'body', reportProgress?: boolean): Observable<Address>;
+    public createAddress(data: Address, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Address>>;
+    public createAddress(data: Address, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Address>>;
+    public createAddress(data: Address, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling createAddress.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Basic) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Address>(`${this.basePath}/address`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
+    /**
+     *
+     * get list of address
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAddress(observe?: 'body', reportProgress?: boolean): Observable<Array<Address>>;
+    public getAddress(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Address>>>;
+    public getAddress(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Address>>>;
+    public getAddress(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Basic) required
+        if (this.configuration.username || this.configuration.password) {
+            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Address>>(`${this.basePath}/address`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
+<<<<<<< HEAD
     return this.httpClient.post<Address>(`${this.basePath}/address`, data, {
       withCredentials: this.configuration.withCredentials,
       headers: headers,
@@ -228,4 +307,6 @@ export class AddressService {
       reportProgress: reportProgress,
     });
   }
+=======
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
 }

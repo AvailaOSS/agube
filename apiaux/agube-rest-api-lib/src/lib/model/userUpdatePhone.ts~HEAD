@@ -11,11 +11,15 @@
  */
 
 
+<<<<<<< HEAD:apiaux/agube-rest-api-lib/src/lib/model/userUpdatePhone.ts~HEAD
 <<<<<<< HEAD:apiaux/agube-rest-api-lib/src/lib/model/userUpdatePhone.ts
 export interface UserUpdatePhone { 
 =======
 export interface UserPhone { 
 >>>>>>> dedf782... fix: update new apis:apiaux/agube-rest-api-lib/src/lib/model/userPhone.ts
+=======
+export interface UserPhone {
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop:apiaux/agube-rest-api-lib/src/lib/model/userPhone.ts
     phone: string;
     main: boolean;
 }

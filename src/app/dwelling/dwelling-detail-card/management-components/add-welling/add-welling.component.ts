@@ -111,10 +111,14 @@ export class AdDWellingComponent implements OnInit {
       })
       .subscribe((value) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.router.navigate[('/viviendas')]
 =======
         this.router.navigate['/viviendas'];
 >>>>>>> dedf782... fix: update new apis
+=======
+        this.router.navigate(['/viviendas']);
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
       });
   }
 }
