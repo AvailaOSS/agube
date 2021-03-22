@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.router.navigate(['principal']);
+          this.router.navigate(['control-panel']);
         },
         (error) => {
           this.loading = false;
