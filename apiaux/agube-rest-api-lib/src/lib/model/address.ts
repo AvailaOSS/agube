@@ -13,6 +13,7 @@
 
 export interface Address {
     readonly id?: string;
+    town: string;
     street: string;
-    isExternal?: boolean;
+    is_external?: boolean;
 }

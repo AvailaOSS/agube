@@ -33,19 +33,19 @@ export class PricingComponent implements OnInit {
 
   public ngOnInit(): void {
     this.subscriptionService.subscriptionList().subscribe((subscriptions) => {
-      // FIXME: it should be ordederd by backend
-      subscriptions
-        .sort((s1, s2) => (s1.id > s2.id ? 1 : -1))
-        .forEach((subscription) =>
-          this.subscriptionService
-            .subscriptionPermissionsList(subscription.id)
-            .subscribe((permissions) => {
-              this.subscriptions.push({
-                subscription,
-                permissions,
-              });
-            })
-        );
+      subscriptions.forEach((subscription) => {
+        this.subscriptionService
+          .subscriptionPermissionsList(subscription.id)
+          .subscribe((permissions) => {
+            this.subscriptions.push({
+              subscription,
+              permissions,
+            });
+            this.subscriptions.sort((s1, s2) =>
+              s1.subscription.id > s2.subscription.id ? 1 : -1
+            );
+          });
+      });
     });
   }
   public sendUrl(url: string): void {

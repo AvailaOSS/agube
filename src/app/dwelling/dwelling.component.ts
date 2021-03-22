@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-export interface DWelling {
-  id: string;
-  address: string;
-  water_meter: string;
-  resident_name: string;
-  phone: string;
-}
+import { DwellingDetail } from '../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
 
 @Component({
   selector: 'app-dwelling',
@@ -15,13 +8,13 @@ export interface DWelling {
   styleUrls: ['./dwelling.component.scss'],
 })
 export class DWellingComponent implements OnInit {
-  public DWelling: DWelling;
+  public DWelling: DwellingDetail;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {}
 
-  public selectItem(DWelling: DWelling): void {
+  public selectItem(DWelling: DwellingDetail): void {
     this.DWelling = DWelling;
   }
 

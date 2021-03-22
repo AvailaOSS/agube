@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+
+import { DwellingService } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/service/dwelling.service';
 import { WaterMeterDetailCard } from './water-meter-detail-card';
-import { WaterMeterService } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/service/waterMeter.service';
+import { DwellingDetail } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
 
 @Component({
   selector: 'app-water-meter-detail-card',
   templateUrl: './water-meter-detail-card.component.html',
   styleUrls: ['./water-meter-detail-card.component.scss'],
 })
-export class WaterMeterDetailCardComponent implements OnInit {
+export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
   public currentWaterMeter: WaterMeterDetailCard;
+  @Input() public DWelling: any;
+  @Output() public sendWaterMeter: EventEmitter<WaterMeterDetailCard> = new EventEmitter();
+  constructor(private readonly svcWelling: DwellingService) {}
 
-<<<<<<< HEAD
-  constructor(private readonly svcCountService: WaterMeterService) {}
-
-  ngOnInit(): void {
-    
-=======
   public ngOnChanges(): void {
     this.svcWelling
       .getCurrentWaterMeter(this.DWelling.id)
@@ -28,10 +34,10 @@ export class WaterMeterDetailCardComponent implements OnInit {
       });
   }
   public ngOnInit(): void {
->>>>>>> dedf782... fix: update new apis
     this.currentWaterMeter = {
-      code: '00000001AS',
-      activation_date: new Date('2011-04-17'),
+      code: '',
+      activation_date: '',
     };
   }
+
 }

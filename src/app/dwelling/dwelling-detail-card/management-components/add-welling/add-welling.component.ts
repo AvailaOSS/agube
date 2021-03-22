@@ -24,14 +24,9 @@ export class AdDWellingComponent implements OnInit {
       .createDwelling({
         full_address: {
           address: {
-<<<<<<< HEAD
-            street: '1',
-            isExternal: true,
-=======
             town: event.town,
             street: event.address,
             is_external: true,
->>>>>>> dedf782... fix: update new apis
           },
           number: event.number,
           flat: event.flat,
@@ -51,14 +46,9 @@ export class AdDWellingComponent implements OnInit {
           address: [
             {
               address: {
-<<<<<<< HEAD
-                street: '1',
-                isExternal: true,
-=======
                 town: event.town,
                 street: event.addressOwner,
                 is_external: true,
->>>>>>> dedf782... fix: update new apis
               },
               number: event.number,
               flat: event.flat,
@@ -67,28 +57,17 @@ export class AdDWellingComponent implements OnInit {
           ],
         },
         resident: {
-<<<<<<< HEAD
-          username: 'test',
-          firstName: event.first_nameRes,
-          lastName: event.last_nameRes,
-=======
           username: event.usernameRes,
           first_name: event.first_nameRes,
           last_name: event.last_nameRes,
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
           email: event.emailRes,
           phones: [{ phone_number: event.phonesRes }],
           address: [
             {
               address: {
-<<<<<<< HEAD
-                street: '1',
-                isExternal: true,
-=======
                 town: event.town,
                 street: event.addressRes,
                 is_external: true,
->>>>>>> dedf782... fix: update new apis
               },
               number: event.number,
               flat: event.flat,
@@ -99,15 +78,7 @@ export class AdDWellingComponent implements OnInit {
         water_meter: { code: event.code },
       })
       .subscribe((value) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        this.router.navigate[('/viviendas')]
-=======
-        this.router.navigate['/viviendas'];
->>>>>>> dedf782... fix: update new apis
-=======
         this.router.navigate(['/viviendas']);
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
       });
   }
 }

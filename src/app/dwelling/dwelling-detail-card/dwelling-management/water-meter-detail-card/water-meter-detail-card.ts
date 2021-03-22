@@ -1,4 +1,4 @@
 export interface WaterMeterDetailCard {
   code: string;
-  activation_date: Date;
+  activation_date: string;
 }

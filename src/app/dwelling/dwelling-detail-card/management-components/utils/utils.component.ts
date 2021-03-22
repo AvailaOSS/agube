@@ -26,8 +26,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UtilsComponent implements OnInit {
   @Input() titleCard: string;
-<<<<<<< HEAD
-=======
   @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
   @Input() isHiddenResident?: boolean = false;
   @Input() isHiddenAddress?: boolean = false;
@@ -37,7 +35,6 @@ export class UtilsComponent implements OnInit {
   @Input() ownerTitle?: string = 'Alta Propietario';
   @Input() residentTitle?: string = 'Alta Residente';
 
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
   hide = true;
   public registerForm: FormGroup;
@@ -51,8 +48,6 @@ export class UtilsComponent implements OnInit {
   public pagador = false;
   public residente = false;
   public isAllSave = false;
-<<<<<<< HEAD
-=======
   public email: string;
   public address: string;
   public number: string;
@@ -72,7 +67,6 @@ export class UtilsComponent implements OnInit {
   public emailRes: string;
   public phonesRes: string;
   public addressRes: string;
->>>>>>> f1e30c2... fix: add new address in forms
   constructor(
     private formBuilder: FormBuilder,
     private router: Router
@@ -109,8 +103,6 @@ export class UtilsComponent implements OnInit {
       addressRes: ['', Validators.required],
       pagadorResidente: [''],
     });
-<<<<<<< HEAD
-=======
 
     this.formDataConfiguration.subscribe((value) => {
       //Todo: MEJORAR ESTO "!!"
@@ -139,7 +131,6 @@ export class UtilsComponent implements OnInit {
         this.addressOwner = value.user.address[0].address.street || '';
       }
     });
->>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
   }
   // convenience getter for easy access to form fields
   get f() {
@@ -148,11 +139,6 @@ export class UtilsComponent implements OnInit {
   public onSubmit(): void {
     //TODO :  Controlar la emisión , cuando es undefined (vacio)
 
-<<<<<<< HEAD
-
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
-=======
->>>>>>> f1e30c2... fix: add new address in forms
     this.sendForm.emit(this.registerForm.value);
   }
 }

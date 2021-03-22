@@ -11,8 +11,16 @@
           class="col-sm"
         >
           Dirección
-          <p>{{ DWelling.address }}</p>
-          <app-water-meter-detail-card></app-water-meter-detail-card>
+          <p>
+            {{ DWelling.flat }} {{ DWelling.gate }} - {{ DWelling.street }} -{{
+              DWelling.number
+            }}
+            - {{ DWelling.town }}
+          </p>
+          <app-water-meter-detail-card
+            [DWelling]="DWelling"
+            (sendWaterMeter)="sendWater($event)"
+          ></app-water-meter-detail-card>
         </div>
         <div class="col-sm">
           <app-president-details-card></app-president-details-card>
@@ -24,7 +32,10 @@
           <app-dwelling-water-meter-readings></app-dwelling-water-meter-readings>
         </div>
         <div class="col-sm">
-          <app-dwelling-management></app-dwelling-management>
+          <app-dwelling-management
+            [DWelling]="DWelling"
+            [waterMeter]="sendWaterMeterCode"
+          ></app-dwelling-management>
         </div>
       </div>
     </div>
