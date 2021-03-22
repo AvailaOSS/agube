@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-living-place-management',
-  templateUrl: './living-place-management.component.html',
-  styleUrls: ['./living-place-management.component.scss'],
+  selector: 'app-dwelling-management',
+  templateUrl: './dwelling-management.component.html',
+  styleUrls: ['./dwelling-management.component.scss'],
 })
-export class LivingPlaceManagementComponent implements OnInit {
+export class DWellingManagementComponent implements OnInit {
   constructor(private readonly svcRouter: Router) {}
 
   ngOnInit(): void {}

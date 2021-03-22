@@ -8,7 +8,7 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
   templateUrl: './add-welling.component.html',
   styleUrls: ['./add-welling.component.scss'],
 })
-export class AddWellingComponent implements OnInit {
+export class AdDWellingComponent implements OnInit {
   hide = true;
   public addNewWelling: FormGroup;
   public loading = false;
@@ -25,13 +25,13 @@ export class AddWellingComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private readonly svcCreateNewdWelling: DwellingService
+    private readonly svcCreateNewDWelling: DwellingService
   ) {}
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
     console.log('add-welling', event);
-    this.svcCreateNewdWelling
+    this.svcCreateNewDWelling
       .dwellingCreateCreate({
         full_address: {
           address: {

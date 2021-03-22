@@ -1,4 +1,4 @@
-import { UtilsModule } from './../../../../../living-place/living-place-detail-card/management-components/utils/utils.module';
+import { UtilsModule } from './../../../../../dwelling/dwelling-detail-card/management-components/utils/utils.module';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

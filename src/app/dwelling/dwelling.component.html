@@ -1,12 +1,12 @@
 <app-toolbar [title]="'Vivienda de la Comunidad'"></app-toolbar>
 <div fxLayout="row" fxLayoutAlign="space-around">
   <div class="detail-table-group">
-    <app-living-place-detail-list (selected)="selectItem($event)">
-    </app-living-place-detail-list>
+    <app-dwelling-detail-list (selected)="selectItem($event)">
+    </app-dwelling-detail-list>
   </div>
-  <div class="detail-living-place-card">
-    <app-living-place-detail-card [livingPlace]="livingPlace">
-    </app-living-place-detail-card>
+  <div class="detail-dwelling-card">
+    <app-dwelling-detail-card [DWelling]="DWelling">
+    </app-dwelling-detail-card>
   </div>
 </div>
 <div class="position-button-back">

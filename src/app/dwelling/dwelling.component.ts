@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-export interface LivingPlace {
+export interface DWelling {
   id: string;
   address: string;
   water_meter: string;
@@ -10,19 +10,19 @@ export interface LivingPlace {
 }
 
 @Component({
-  selector: 'app-living-place',
-  templateUrl: './living-place.component.html',
-  styleUrls: ['./living-place.component.scss'],
+  selector: 'app-dwelling',
+  templateUrl: './dwelling.component.html',
+  styleUrls: ['./dwelling.component.scss'],
 })
-export class LivingPlaceComponent implements OnInit {
-  public livingPlace: LivingPlace;
+export class DWellingComponent implements OnInit {
+  public DWelling: DWelling;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {}
 
-  public selectItem(livingPlace: LivingPlace): void {
-    this.livingPlace = livingPlace;
+  public selectItem(DWelling: DWelling): void {
+    this.DWelling = DWelling;
   }
 
   public goToControlPanel(): void {

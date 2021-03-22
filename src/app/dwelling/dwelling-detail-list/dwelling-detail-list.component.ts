@@ -1,17 +1,17 @@
 import { Output } from '@angular/core';
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { LivingPlace } from '../living-place.component';
+import { DWelling } from '../dwelling.component';
 import { Router } from '@angular/router';
 import { AgubeApiModule } from '../../../../apiaux/agube-rest-api-lib/src/lib/agube.api.module';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-living-place-detail-list',
-  templateUrl: './living-place-detail-list.component.html',
-  styleUrls: ['./living-place-detail-list.component.scss'],
+  selector: 'app-dwelling-detail-list',
+  templateUrl: './dwelling-detail-list.component.html',
+  styleUrls: ['./dwelling-detail-list.component.scss'],
 })
-export class LivingPlaceDetailListComponent implements OnInit {
-  @Output() selected = new EventEmitter<LivingPlace>();
+export class DWellingDetailListComponent implements OnInit {
+  @Output() selected = new EventEmitter<DWelling>();
 
   public selectedRowIndex: string = '';
 
@@ -21,16 +21,16 @@ export class LivingPlaceDetailListComponent implements OnInit {
     'resident_name',
     'phone',
   ];
-  public dataSource: LivingPlace[];
+  public dataSource: DWelling[];
 
-  constructor(private svcRouter: Router, private readonly svcCreateNewdWelling: DwellingService) {}
+  constructor(private svcRouter: Router, private readonly svcCreateNewDWelling: DwellingService) {}
 
   public addNewWelling(): void {
     this.svcRouter.navigate(['viviendas/alta/vivienda']);
   }
 
   ngOnInit(): void {
-    this.svcCreateNewdWelling.dwellingList().subscribe(value => {
+    this.svcCreateNewDWelling.dwellingList().subscribe(value => {
       console.log(value)
     })
     this.dataSource = [
@@ -72,7 +72,7 @@ export class LivingPlaceDetailListComponent implements OnInit {
     ];
   }
 
-  public selectRow(row: LivingPlace) {
+  public selectRow(row: DWelling) {
     this.selected.emit(row);
     this.selectedRowIndex = row.address;
   }

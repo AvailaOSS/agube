@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { LivingPlaceWaterMeterReadings } from './living-place-water-meter-readings';
+import { DWellingWaterMeterReadings } from './dwelling-water-meter-readings';
 
 @Component({
-  selector: 'app-living-place-water-meter-readings',
-  templateUrl: './living-place-water-meter-readings.component.html',
-  styleUrls: ['./living-place-water-meter-readings.component.scss'],
+  selector: 'app-dwelling-water-meter-readings',
+  templateUrl: './dwelling-water-meter-readings.component.html',
+  styleUrls: ['./dwelling-water-meter-readings.component.scss'],
 })
-export class LivingPlaceWaterMeterReadingsComponent implements OnInit {
+export class DWellingWaterMeterReadingsComponent implements OnInit {
   public displayedColumns: string[] = [
     'reading',
     'date',
   ];
-  public dataSource: LivingPlaceWaterMeterReadings[];
+  public dataSource: DWellingWaterMeterReadings[];
 
   constructor() {}
 

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LivingPlaceComponent } from './living-place.component';
+import { DWellingManagementComponent } from './dwelling-management.component';
 
-describe('LivinPlaceComponent', () => {
-  let component: LivingPlaceComponent;
-  let fixture: ComponentFixture<LivingPlaceComponent>;
+describe('DWellingManagementComponent', () => {
+  let component: DWellingManagementComponent;
+  let fixture: ComponentFixture<DWellingManagementComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LivingPlaceComponent ]
+      declarations: [ DWellingManagementComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LivingPlaceComponent);
+    fixture = TestBed.createComponent(DWellingManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

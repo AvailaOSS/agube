@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddWellingComponent } from './add-welling.component';
+import { UtilsComponent } from './utils.component';
 
-describe('AddWellingComponent', () => {
-  let component: AddWellingComponent;
-  let fixture: ComponentFixture<AddWellingComponent>;
+describe('UtilsComponent', () => {
+  let component: UtilsComponent;
+  let fixture: ComponentFixture<UtilsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddWellingComponent ]
+      declarations: [ UtilsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddWellingComponent);
+    fixture = TestBed.createComponent(UtilsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

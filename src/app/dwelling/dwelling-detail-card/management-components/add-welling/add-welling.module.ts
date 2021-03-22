@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddWellingComponent } from './add-welling.component';
+import { AdDWellingComponent } from './add-welling.component';
 import { ToolbarModule } from '../../../../menu/toolbar.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UtilsModule } from './utils/utils.module';
 @NgModule({
-  declarations: [AddWellingComponent],
+  declarations: [AdDWellingComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -43,4 +43,4 @@ import { UtilsModule } from './utils/utils.module';
     UtilsModule
   ],
 })
-export class AddWellingModule {}
+export class AdDWellingModule {}
