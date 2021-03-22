@@ -1,7 +1,20 @@
 from rest_framework.fields import ReadOnlyField
 from rest_framework.serializers import ModelSerializer
 
-from manager.models import HookPrice, ManagerConfiguration
+from manager.models import HookPrice, Manager, ManagerConfiguration
+
+
+class ManagerSerializer(ModelSerializer):
+    """
+    Manager ModelSerializer
+    """
+    user_id = ReadOnlyField()
+
+    class Meta:
+        ref_name = 'Manager'
+        model = Manager
+        fields = ('user_id',)
+
 
 
 class HookPriceSerializer(ModelSerializer):

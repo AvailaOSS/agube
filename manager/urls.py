@@ -1,9 +1,10 @@
 from django.urls import include, path
 
-from manager.views import (ManagerConfigurationView)
+from manager.views import (ManagerConfigurationView, ManagerView)
 
 __url_manager = [
-    path('/<int:pk>', ManagerConfigurationView.as_view()),
+    path('/by-user', ManagerView.as_view()),
+    path('/<int:pk>/configuration', ManagerConfigurationView.as_view()),
 ]
 
 urlpatterns = [
