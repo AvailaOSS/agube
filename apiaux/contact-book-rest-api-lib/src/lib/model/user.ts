@@ -14,6 +14,7 @@ export interface User {
   /**
    * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
    */
+  user_id?: string;
   username: string;
   first_name?: string;
   last_name?: string;

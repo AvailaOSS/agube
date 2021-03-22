@@ -12,7 +12,14 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
@@ -29,13 +36,11 @@ import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterDetail } from '../model/waterMeterDetail';
 
-import { BASE_PATH } from '../variables';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
-
 
 @Injectable()
 export class DwellingService {
-<<<<<<< HEAD
   protected basePath = 'http://localhost:8002/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
@@ -70,41 +75,12 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   *
-=======
    * Create a new user owner and discharge the old owner
    * @param id A unique integer value identifying this dwelling.
->>>>>>> dedf782... fix: update new apis
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-<<<<<<< HEAD
-  public dwellingCreateCreate(
-    data: DwellingCreate,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<DwellingCreate>;
-  public dwellingCreateCreate(
-    data: DwellingCreate,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<DwellingCreate>>;
-  public dwellingCreateCreate(
-    data: DwellingCreate,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<DwellingCreate>>;
-  public dwellingCreateCreate(
-    data: DwellingCreate,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling dwellingCreateCreate.'
-=======
   public changeCurrentOwner(
     id: number,
     data: Owner,
@@ -138,13 +114,12 @@ export class DwellingService {
     if (data === null || data === undefined) {
       throw new Error(
         'Required parameter data was null or undefined when calling changeCurrentOwner.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -171,13 +146,8 @@ export class DwellingService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-<<<<<<< HEAD
-    return this.httpClient.post<DwellingCreate>(
-      `${this.basePath}/dwelling/create`,
-=======
     return this.httpClient.post<Owner>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
->>>>>>> dedf782... fix: update new apis
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -190,28 +160,6 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Return a list of all Dwelling Detail.
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public dwellingList(
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<DwellingDetail>>;
-  public dwellingList(
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<DwellingDetail>>>;
-  public dwellingList(
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<DwellingDetail>>>;
-  public dwellingList(
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-=======
    * Create a new user resident and discharge the old resident
    * @param id A unique integer value identifying this dwelling.
    * @param data
@@ -254,10 +202,9 @@ export class DwellingService {
       );
     }
 
->>>>>>> dedf782... fix: update new apis
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -277,11 +224,6 @@ export class DwellingService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-<<<<<<< HEAD
-
-    return this.httpClient.get<Array<DwellingDetail>>(
-      `${this.basePath}/dwelling`,
-=======
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
@@ -292,7 +234,6 @@ export class DwellingService {
     return this.httpClient.post<Resident>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
       data,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -304,30 +245,6 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Get Current Owner
-   * @param id A unique integer value identifying this dwelling.
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public dwellingOwnerList(
-    id: number,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<DwellingOwner>>;
-  public dwellingOwnerList(
-    id: number,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<DwellingOwner>>>;
-  public dwellingOwnerList(
-    id: number,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<DwellingOwner>>>;
-  public dwellingOwnerList(
-    id: number,
-=======
    * Create a new Water Meter and discharge the old Water Meter
    * @param id A unique integer value identifying this water meter.
    * @param data
@@ -355,15 +272,11 @@ export class DwellingService {
   public changeCurrentWaterMeter(
     id: number,
     data: WaterMeter,
->>>>>>> dedf782... fix: update new apis
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-<<<<<<< HEAD
-        'Required parameter id was null or undefined when calling dwellingOwnerList.'
-=======
         'Required parameter id was null or undefined when calling changeCurrentWaterMeter.'
       );
     }
@@ -371,13 +284,12 @@ export class DwellingService {
     if (data === null || data === undefined) {
       throw new Error(
         'Required parameter data was null or undefined when calling changeCurrentWaterMeter.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -397,11 +309,6 @@ export class DwellingService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-<<<<<<< HEAD
-
-    return this.httpClient.get<Array<DwellingOwner>>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
-=======
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
@@ -412,7 +319,6 @@ export class DwellingService {
     return this.httpClient.post<WaterMeter>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
       data,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -424,51 +330,96 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Create a new user owner and discharge the old owner
-   * @param id A unique integer value identifying this dwelling.
-=======
-   * create a new Dwelling
->>>>>>> dedf782... fix: update new apis
+   * change Paymaster info
+   * @param id
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-<<<<<<< HEAD
-  public dwellingOwnerUpdate(
-    id: number,
-    data: DwellingOwner,
+  public changePaymaster(
+    id: string,
+    data: Paymaster,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<DwellingOwner>;
-  public dwellingOwnerUpdate(
-    id: number,
-    data: DwellingOwner,
+  ): Observable<Paymaster>;
+  public changePaymaster(
+    id: string,
+    data: Paymaster,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<DwellingOwner>>;
-  public dwellingOwnerUpdate(
-    id: number,
-    data: DwellingOwner,
+  ): Observable<HttpResponse<Paymaster>>;
+  public changePaymaster(
+    id: string,
+    data: Paymaster,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<DwellingOwner>>;
-  public dwellingOwnerUpdate(
-    id: number,
-    data: DwellingOwner,
+  ): Observable<HttpEvent<Paymaster>>;
+  public changePaymaster(
+    id: string,
+    data: Paymaster,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling dwellingOwnerUpdate.'
+        'Required parameter id was null or undefined when calling changePaymaster.'
       );
     }
 
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling dwellingOwnerUpdate.'
-=======
+        'Required parameter data was null or undefined when calling changePaymaster.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Paymaster>(
+      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * create a new Dwelling
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
   public createDwelling(
     data: DwellingCreate,
     observe?: 'body',
@@ -492,13 +443,12 @@ export class DwellingService {
     if (data === null || data === undefined) {
       throw new Error(
         'Required parameter data was null or undefined when calling createDwelling.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -525,13 +475,8 @@ export class DwellingService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-<<<<<<< HEAD
-    return this.httpClient.put<DwellingOwner>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
-=======
     return this.httpClient.post<DwellingCreate>(
       `${this.basePath}/dwelling/create`,
->>>>>>> dedf782... fix: update new apis
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -544,33 +489,11 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Get current Resident
-=======
    * Get Current Owner
->>>>>>> dedf782... fix: update new apis
    * @param id A unique integer value identifying this dwelling.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-<<<<<<< HEAD
-  public dwellingResidentList(
-    id: number,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<DwellingResident>>;
-  public dwellingResidentList(
-    id: number,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<DwellingResident>>>;
-  public dwellingResidentList(
-    id: number,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<DwellingResident>>>;
-  public dwellingResidentList(
-=======
   public getCurrentOwner(
     id: number,
     observe?: 'body',
@@ -587,24 +510,19 @@ export class DwellingService {
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Owner>>>;
   public getCurrentOwner(
->>>>>>> dedf782... fix: update new apis
     id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-<<<<<<< HEAD
-        'Required parameter id was null or undefined when calling dwellingResidentList.'
-=======
         'Required parameter id was null or undefined when calling getCurrentOwner.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -625,13 +543,8 @@ export class DwellingService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-<<<<<<< HEAD
-    return this.httpClient.get<Array<DwellingResident>>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
-=======
     return this.httpClient.get<Array<Owner>>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -643,35 +556,6 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Create a new user resident and discharge the old resident
-   * @param id A unique integer value identifying this dwelling.
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public dwellingResidentUpdate(
-    id: number,
-    data: DwellingResident,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<DwellingResident>;
-  public dwellingResidentUpdate(
-    id: number,
-    data: DwellingResident,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<DwellingResident>>;
-  public dwellingResidentUpdate(
-    id: number,
-    data: DwellingResident,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<DwellingResident>>;
-  public dwellingResidentUpdate(
-    id: number,
-    data: DwellingResident,
-=======
    * Get current Resident
    * @param id A unique integer value identifying this dwelling.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -694,29 +578,18 @@ export class DwellingService {
   ): Observable<HttpEvent<Resident>>;
   public getCurrentResident(
     id: number,
->>>>>>> dedf782... fix: update new apis
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-<<<<<<< HEAD
-        'Required parameter id was null or undefined when calling dwellingResidentUpdate.'
-      );
-    }
-
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling dwellingResidentUpdate.'
-=======
         'Required parameter id was null or undefined when calling getCurrentResident.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -736,22 +609,9 @@ export class DwellingService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-<<<<<<< HEAD
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.put<DwellingResident>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
-      data,
-=======
 
     return this.httpClient.get<Resident>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -763,30 +623,6 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Return the current Water Meter with measurements.
-   * @param id
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public dwellingWaterMeterDetailList(
-    id: string,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<WaterMeterDetail>>;
-  public dwellingWaterMeterDetailList(
-    id: string,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<WaterMeterDetail>>>;
-  public dwellingWaterMeterDetailList(
-    id: string,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<WaterMeterDetail>>>;
-  public dwellingWaterMeterDetailList(
-    id: string,
-=======
    * Get current Water Meter
    * @param id A unique integer value identifying this water meter.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -809,23 +645,18 @@ export class DwellingService {
   ): Observable<HttpEvent<WaterMeter>>;
   public getCurrentWaterMeter(
     id: number,
->>>>>>> dedf782... fix: update new apis
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-<<<<<<< HEAD
-        'Required parameter id was null or undefined when calling dwellingWaterMeterDetailList.'
-=======
         'Required parameter id was null or undefined when calling getCurrentWaterMeter.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -846,15 +677,8 @@ export class DwellingService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-<<<<<<< HEAD
-    return this.httpClient.get<Array<WaterMeterDetail>>(
-      `${this.basePath}/dwelling/${encodeURIComponent(
-        String(id)
-      )}/water-meter/detail`,
-=======
     return this.httpClient.get<WaterMeter>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -866,36 +690,6 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Get current Water Meter
-   * @param id A unique integer value identifying this water meter.
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public dwellingWaterMeterList(
-    id: number,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<WaterMeter>>;
-  public dwellingWaterMeterList(
-    id: number,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<WaterMeter>>>;
-  public dwellingWaterMeterList(
-    id: number,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<WaterMeter>>>;
-  public dwellingWaterMeterList(
-    id: number,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling dwellingWaterMeterList.'
-=======
    * Return the current Water Meter with measurements chunk.
    * @param chunk
    * @param id
@@ -935,13 +729,12 @@ export class DwellingService {
     if (id === null || id === undefined) {
       throw new Error(
         'Required parameter id was null or undefined when calling getCurrentWaterMeterMeasuresChunk.'
->>>>>>> dedf782... fix: update new apis
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -962,15 +755,10 @@ export class DwellingService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-<<<<<<< HEAD
-    return this.httpClient.get<Array<WaterMeter>>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
-=======
     return this.httpClient.get<WaterMeterWithMeasurements>(
       `${this.basePath}/dwelling/${encodeURIComponent(
         String(id)
       )}/water-meter/${encodeURIComponent(String(chunk))}`,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -982,50 +770,73 @@ export class DwellingService {
 
   /**
    *
-<<<<<<< HEAD
-   * Create a new Water Meter and discharge the old Water Meter
-   * @param id A unique integer value identifying this water meter.
-   * @param data
+   * Get Dwelling by id
+   * @param id A unique integer value identifying this dwelling.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public dwellingWaterMeterUpdate(
+  public getDwelling(
     id: number,
-    data: WaterMeter,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<WaterMeter>;
-  public dwellingWaterMeterUpdate(
+  ): Observable<DwellingCreate>;
+  public getDwelling(
     id: number,
-    data: WaterMeter,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<WaterMeter>>;
-  public dwellingWaterMeterUpdate(
+  ): Observable<HttpResponse<DwellingCreate>>;
+  public getDwelling(
     id: number,
-    data: WaterMeter,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<WaterMeter>>;
-  public dwellingWaterMeterUpdate(
+  ): Observable<HttpEvent<DwellingCreate>>;
+  public getDwelling(
     id: number,
-    data: WaterMeter,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling dwellingWaterMeterUpdate.'
+        'Required parameter id was null or undefined when calling getDwelling.'
       );
     }
 
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling dwellingWaterMeterUpdate.'
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
-=======
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<DwellingCreate>(
+      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
    * Return a list of all Dwelling Detail.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -1046,10 +857,9 @@ export class DwellingService {
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
->>>>>>> dedf782... fix: update new apis
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -1057,7 +867,6 @@ export class DwellingService {
           btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
-<<<<<<< HEAD
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -1070,598 +879,9 @@ export class DwellingService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.put<WaterMeter>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
-      data,
-=======
-=======
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
-
-    protected basePath = 'http://localhost:8002/api/v1/agube';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-
-    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
-    }
-
-    /**
-     *
-     * Create a new user owner and discharge the old owner
-     * @param id A unique integer value identifying this dwelling.
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changeCurrentOwner(id: number, data: Owner, observe?: 'body', reportProgress?: boolean): Observable<Owner>;
-    public changeCurrentOwner(id: number, data: Owner, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Owner>>;
-    public changeCurrentOwner(id: number, data: Owner, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Owner>>;
-    public changeCurrentOwner(id: number, data: Owner, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling changeCurrentOwner.');
-        }
-
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling changeCurrentOwner.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Owner>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Create a new user resident and discharge the old resident
-     * @param id A unique integer value identifying this dwelling.
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changeCurrentResident(id: number, data: Resident, observe?: 'body', reportProgress?: boolean): Observable<Resident>;
-    public changeCurrentResident(id: number, data: Resident, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Resident>>;
-    public changeCurrentResident(id: number, data: Resident, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Resident>>;
-    public changeCurrentResident(id: number, data: Resident, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling changeCurrentResident.');
-        }
-
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling changeCurrentResident.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Resident>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Create a new Water Meter and discharge the old Water Meter
-     * @param id A unique integer value identifying this water meter.
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changeCurrentWaterMeter(id: number, data: WaterMeter, observe?: 'body', reportProgress?: boolean): Observable<WaterMeter>;
-    public changeCurrentWaterMeter(id: number, data: WaterMeter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterMeter>>;
-    public changeCurrentWaterMeter(id: number, data: WaterMeter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterMeter>>;
-    public changeCurrentWaterMeter(id: number, data: WaterMeter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling changeCurrentWaterMeter.');
-        }
-
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling changeCurrentWaterMeter.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<WaterMeter>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * change Paymaster info
-     * @param id
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public changePaymaster(id: string, data: Paymaster, observe?: 'body', reportProgress?: boolean): Observable<Paymaster>;
-    public changePaymaster(id: string, data: Paymaster, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Paymaster>>;
-    public changePaymaster(id: string, data: Paymaster, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Paymaster>>;
-    public changePaymaster(id: string, data: Paymaster, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling changePaymaster.');
-        }
-
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling changePaymaster.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Paymaster>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * create a new Dwelling
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createDwelling(data: DwellingCreate, observe?: 'body', reportProgress?: boolean): Observable<DwellingCreate>;
-    public createDwelling(data: DwellingCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DwellingCreate>>;
-    public createDwelling(data: DwellingCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DwellingCreate>>;
-    public createDwelling(data: DwellingCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling createDwelling.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<DwellingCreate>(`${this.basePath}/dwelling/create`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Get Current Owner
-     * @param id A unique integer value identifying this dwelling.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCurrentOwner(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Owner>>;
-    public getCurrentOwner(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Owner>>>;
-    public getCurrentOwner(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Owner>>>;
-    public getCurrentOwner(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCurrentOwner.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Array<Owner>>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Get current Resident
-     * @param id A unique integer value identifying this dwelling.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCurrentResident(id: number, observe?: 'body', reportProgress?: boolean): Observable<Resident>;
-    public getCurrentResident(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Resident>>;
-    public getCurrentResident(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Resident>>;
-    public getCurrentResident(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCurrentResident.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Resident>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Get current Water Meter
-     * @param id A unique integer value identifying this water meter.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCurrentWaterMeter(id: number, observe?: 'body', reportProgress?: boolean): Observable<WaterMeter>;
-    public getCurrentWaterMeter(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterMeter>>;
-    public getCurrentWaterMeter(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterMeter>>;
-    public getCurrentWaterMeter(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCurrentWaterMeter.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<WaterMeter>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Return the current Water Meter with measurements chunk.
-     * @param chunk
-     * @param id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCurrentWaterMeterMeasuresChunk(chunk: string, id: string, observe?: 'body', reportProgress?: boolean): Observable<WaterMeterWithMeasurements>;
-    public getCurrentWaterMeterMeasuresChunk(chunk: string, id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<WaterMeterWithMeasurements>>;
-    public getCurrentWaterMeterMeasuresChunk(chunk: string, id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<WaterMeterWithMeasurements>>;
-    public getCurrentWaterMeterMeasuresChunk(chunk: string, id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (chunk === null || chunk === undefined) {
-            throw new Error('Required parameter chunk was null or undefined when calling getCurrentWaterMeterMeasuresChunk.');
-        }
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCurrentWaterMeterMeasuresChunk.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<WaterMeterWithMeasurements>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter/${encodeURIComponent(String(chunk))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Return a list of all Dwelling Detail.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getDwellings(observe?: 'body', reportProgress?: boolean): Observable<Array<DwellingDetail>>;
-    public getDwellings(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<DwellingDetail>>>;
-    public getDwellings(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<DwellingDetail>>>;
-    public getDwellings(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Array<DwellingDetail>>(`${this.basePath}/dwelling`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     *
-     * Return Paymaster info
-     * @param id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getPaymaster(id: string, observe?: 'body', reportProgress?: boolean): Observable<Paymaster>;
-    public getPaymaster(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Paymaster>>;
-    public getPaymaster(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Paymaster>>;
-    public getPaymaster(id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getPaymaster.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        return this.httpClient.get<Paymaster>(`${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-<<<<<<< HEAD
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Array<DwellingDetail>>(
       `${this.basePath}/dwelling`,
->>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -1670,6 +890,71 @@ export class DwellingService {
       }
     );
   }
-=======
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
+
+  /**
+   *
+   * Return Paymaster info
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getPaymaster(
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Paymaster>;
+  public getPaymaster(
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Paymaster>>;
+  public getPaymaster(
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Paymaster>>;
+  public getPaymaster(
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getPaymaster.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Paymaster>(
+      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }

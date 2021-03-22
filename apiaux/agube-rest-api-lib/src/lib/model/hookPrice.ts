@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Agube API
+ * Agube API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -11,8 +11,9 @@
  */
 
 
-export interface SubscriptionType { 
+export interface HookPrice { 
     readonly id?: string;
-    description: string;
-    days: number;
+    hookPrice: string;
+    readonly releaseDate?: string;
+    readonly dischargeDate?: string;
 }

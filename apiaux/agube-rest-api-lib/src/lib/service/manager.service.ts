@@ -23,14 +23,13 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
-import { JSONWebToken } from '../model/jSONWebToken';
-import { RefreshJSONWebToken } from '../model/refreshJSONWebToken';
+import { ManagerConfiguration } from '../model/managerConfiguration';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable()
-export class TokenService {
+export class ManagerService {
   protected basePath = 'http://localhost:8002/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
@@ -64,35 +63,35 @@ export class TokenService {
   }
 
   /**
-   * API View that receives a POST with a user&#39;s username and password.
-   * Returns a JSON Web Token that can be used for authenticated requests.
-   * @param data
+   *
+   * Get Manager Configuration
+   * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public tokenAuthCreate(
-    data: JSONWebToken,
+  public getManagerConfiguration(
+    id: string,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<JSONWebToken>;
-  public tokenAuthCreate(
-    data: JSONWebToken,
+  ): Observable<ManagerConfiguration>;
+  public getManagerConfiguration(
+    id: string,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<JSONWebToken>>;
-  public tokenAuthCreate(
-    data: JSONWebToken,
+  ): Observable<HttpResponse<ManagerConfiguration>>;
+  public getManagerConfiguration(
+    id: string,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<JSONWebToken>>;
-  public tokenAuthCreate(
-    data: JSONWebToken,
+  ): Observable<HttpEvent<ManagerConfiguration>>;
+  public getManagerConfiguration(
+    id: string,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
-    if (data === null || data === undefined) {
+    if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling tokenAuthCreate.'
+        'Required parameter id was null or undefined when calling getManagerConfiguration.'
       );
     }
 
@@ -118,16 +117,9 @@ export class TokenService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
 
-    return this.httpClient.post<JSONWebToken>(
-      `${this.basePath}/token/auth`,
-      data,
+    return this.httpClient.get<ManagerConfiguration>(
+      `${this.basePath}/manager/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -138,35 +130,46 @@ export class TokenService {
   }
 
   /**
-   * API View that returns a refreshed token (with new expiration) based on existing token
-   * If &#39;orig_iat&#39; field (original issued-at-time) is found, will first check if it&#39;s within expiration window, then copy it to the new token
+   *
+   * Update manager configuration
+   * @param id
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public tokenRefreshCreate(
-    data: RefreshJSONWebToken,
+  public updateManagerConfiguration(
+    id: string,
+    data: ManagerConfiguration,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<RefreshJSONWebToken>;
-  public tokenRefreshCreate(
-    data: RefreshJSONWebToken,
+  ): Observable<ManagerConfiguration>;
+  public updateManagerConfiguration(
+    id: string,
+    data: ManagerConfiguration,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<RefreshJSONWebToken>>;
-  public tokenRefreshCreate(
-    data: RefreshJSONWebToken,
+  ): Observable<HttpResponse<ManagerConfiguration>>;
+  public updateManagerConfiguration(
+    id: string,
+    data: ManagerConfiguration,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<RefreshJSONWebToken>>;
-  public tokenRefreshCreate(
-    data: RefreshJSONWebToken,
+  ): Observable<HttpEvent<ManagerConfiguration>>;
+  public updateManagerConfiguration(
+    id: string,
+    data: ManagerConfiguration,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling updateManagerConfiguration.'
+      );
+    }
+
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling tokenRefreshCreate.'
+        'Required parameter data was null or undefined when calling updateManagerConfiguration.'
       );
     }
 
@@ -199,8 +202,8 @@ export class TokenService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.post<RefreshJSONWebToken>(
-      `${this.basePath}/token/refresh`,
+    return this.httpClient.post<ManagerConfiguration>(
+      `${this.basePath}/manager/${encodeURIComponent(String(id))}`,
       data,
       {
         withCredentials: this.configuration.withCredentials,

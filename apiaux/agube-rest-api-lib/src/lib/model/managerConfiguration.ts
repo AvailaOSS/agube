@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Agube API
+ * Agube API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -9,10 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HookPrice } from './hookPrice';
 
 
-export interface SubscriptionType { 
+export interface ManagerConfiguration { 
     readonly id?: string;
-    description: string;
-    days: number;
+    maxDailyConsumption: string;
+    hookPrice: HookPrice;
 }

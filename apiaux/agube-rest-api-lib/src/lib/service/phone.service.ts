@@ -12,55 +12,58 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
 import { Phone } from '../model/phone';
 
-import { BASE_PATH } from '../variables';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
-
 
 @Injectable()
 export class PhoneService {
+  protected basePath = 'http://localhost:8002/api/v1/agube';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
 
-    protected basePath = 'http://localhost:8002/api/v1/agube';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-
-    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (basePath) {
+      this.basePath = basePath;
     }
+    if (configuration) {
+      this.configuration = configuration;
+      this.basePath = basePath || configuration.basePath || this.basePath;
+    }
+  }
 
-<<<<<<< HEAD
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data';
+    for (const consume of consumes) {
+      if (form === consume) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**
    *
-<<<<<<< HEAD
-   *
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public phoneList(
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<Phone>>;
-  public phoneList(
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<Phone>>>;
-  public phoneList(
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<Phone>>>;
-  public phoneList(
-=======
    * get list of phones
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -78,53 +81,37 @@ export class PhoneService {
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Phone>>>;
   public getPhones(
->>>>>>> dedf782... fix: update new apis
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
-=======
-    /**
-     *
-     * get list of phones
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getPhones(observe?: 'body', reportProgress?: boolean): Observable<Array<Phone>>;
-    public getPhones(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Phone>>>;
-    public getPhones(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Phone>>>;
-    public getPhones(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
->>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
 
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Array<Phone>>(`${this.basePath}/phone`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
     }
 
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<Phone>>(`${this.basePath}/phone`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
 }

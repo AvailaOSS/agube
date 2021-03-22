@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Agube API
+ * Agube API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -11,8 +11,14 @@
  */
 
 
-export interface SubscriptionType { 
+export interface ReservoirDetail { 
     readonly id?: string;
-    description: string;
-    days: number;
+    street: string;
+    number: string;
+    flat: string;
+    gate: string;
+    town: string;
+    capacity: string;
+    inletFlow: string;
+    outletFlow: string;
 }

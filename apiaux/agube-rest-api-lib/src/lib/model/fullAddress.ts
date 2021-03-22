@@ -12,7 +12,7 @@
 import { Address } from './address';
 
 
-export interface FullAddress {
+export interface FullAddress { 
     readonly id?: string;
     address: Address;
     number: number;

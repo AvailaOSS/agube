@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface PaymentType {
-  readonly id?: string;
-  description: string;
+
+export interface PaymentType { 
+    readonly id?: string;
+    description: string;
 }

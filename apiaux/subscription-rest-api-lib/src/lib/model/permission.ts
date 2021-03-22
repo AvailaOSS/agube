@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface Permission {
-  readonly id?: string;
-  name: string;
+
+export interface Permission { 
+    readonly id?: string;
+    name: string;
 }
