@@ -65,8 +65,6 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - subscription-backend
-      - contact-book-backend
     networks:
       - backend
 

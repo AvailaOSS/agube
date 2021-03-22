@@ -11,10 +11,9 @@
  */
 import { User } from './user';
 
-
 export interface Contact {
-    readonly id?: string;
-    business?: string;
-    phone_number: string;
-    user: User;
+  readonly id?: string;
+  business_name?: string;
+  phone_number: string;
+  user: User;
 }

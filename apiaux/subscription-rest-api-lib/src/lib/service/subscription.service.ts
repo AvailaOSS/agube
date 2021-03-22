@@ -29,7 +29,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class SubscriptionService {
 
-    protected basePath = 'http://localhost:8000/api/v1';
+    protected basePath = 'http://localhost:8000/api/v1/subscription';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -42,21 +42,6 @@ export class SubscriptionService {
             this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
-
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /**
      *
@@ -137,7 +122,7 @@ export class SubscriptionService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Permission>>(`${this.basePath}/subscription//${encodeURIComponent(String(subscriptionId))}/permissions`,
+        return this.httpClient.get<Array<Permission>>(`${this.basePath}/subscription/${encodeURIComponent(String(subscriptionId))}/permissions`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -26,9 +26,9 @@ import { Configuration } from '../configuration';
 
 
 @Injectable()
-export class SubscriptionclientService {
+export class ClientService {
 
-    protected basePath = 'http://localhost:8000/api/v1';
+    protected basePath = 'http://localhost:8000/api/v1/subscription';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -43,31 +43,16 @@ export class SubscriptionclientService {
     }
 
     /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
      *
-     * Endpoint that show list of PaymentTypes
+     * Endpoint that create a SubscriptionClient
      * @param data
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public subscriptionclientCreate(data: SubscriptionClient, observe?: 'body', reportProgress?: boolean): Observable<SubscriptionClient>;
-    public subscriptionclientCreate(data: SubscriptionClient, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SubscriptionClient>>;
-    public subscriptionclientCreate(data: SubscriptionClient, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SubscriptionClient>>;
-    public subscriptionclientCreate(data: SubscriptionClient, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public clientCreate(data: SubscriptionClient, observe?: 'body', reportProgress?: boolean): Observable<SubscriptionClient>;
+    public clientCreate(data: SubscriptionClient, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SubscriptionClient>>;
+    public clientCreate(data: SubscriptionClient, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SubscriptionClient>>;
+    public clientCreate(data: SubscriptionClient, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (data === null || data === undefined) {
             throw new Error('Required parameter data was null or undefined when calling subscriptionclientCreate.');
@@ -98,7 +83,7 @@ export class SubscriptionclientService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<SubscriptionClient>(`${this.basePath}/subscriptionclient`,
+        return this.httpClient.post<SubscriptionClient>(`${this.basePath}/client`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -111,14 +96,14 @@ export class SubscriptionclientService {
 
     /**
      *
-     * Endpoint that show list of PaymentTypes
+     * Endpoint that show list of SubscriptionClient
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public subscriptionclientList(observe?: 'body', reportProgress?: boolean): Observable<Array<SubscriptionClient>>;
-    public subscriptionclientList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SubscriptionClient>>>;
-    public subscriptionclientList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SubscriptionClient>>>;
-    public subscriptionclientList(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public clientList(observe?: 'body', reportProgress?: boolean): Observable<Array<SubscriptionClient>>;
+    public clientList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SubscriptionClient>>>;
+    public clientList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SubscriptionClient>>>;
+    public clientList(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -141,7 +126,7 @@ export class SubscriptionclientService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<SubscriptionClient>>(`${this.basePath}/subscriptionclient`,
+        return this.httpClient.get<Array<SubscriptionClient>>(`${this.basePath}/client`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
