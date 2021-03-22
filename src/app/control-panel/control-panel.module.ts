@@ -10,6 +10,7 @@ import { PresidentDetailsCardComponent } from './detail-cards/president-details-
 import { ControlPanelButtonComponent } from './control-panel-group/control-panel-button/control-panel-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ControlPanelGroupComponent } from './control-panel-group/control-panel-group.component';
+import { ToolbarModule } from '../menu/toolbar.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ControlPanelGroupComponent } from './control-panel-group/control-panel-
     FlexLayoutModule,
     MatListModule,
     MatIconModule,
+    ToolbarModule
   ],
   exports: [
     ControlPanelComponent,

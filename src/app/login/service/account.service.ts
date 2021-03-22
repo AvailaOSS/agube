@@ -25,15 +25,34 @@ export class AccountService {
 
   public login(username, password): any {
     return this.http
-      .post<User>(`${environment.apiUrl}/users/authenticate`, {
+      .post<User>(`${environment.agubeBackendUrl}/token/auth`, {
         username,
         password,
       })
       .pipe(
         map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('user', JSON.stringify(user));
-          this.userSubject.next(user);
+          if (user && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.userSubject.next(user);
+          }
+          return user;
+        })
+      );
+  }
+
+  public refresh(): any {
+    return this.http
+      .post<User>(`${environment.agubeBackendUrl}/token/refresh`, {
+        token: this.userValue.token,
+      })
+      .pipe(
+        map((user) => {
+          if (user && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.userSubject.next(user);
+          }
           return user;
         })
       );

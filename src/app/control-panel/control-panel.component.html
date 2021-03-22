@@ -1,10 +1,14 @@
 <!-- Use Bootstrap grid instead of fxLayout for responsive -->
-<div fxLayout="row" fxLayoutAlign="space-around start">
-  <div fxLayout="column" fxLayoutAlign="space-between">
-    <app-client-details-card></app-client-details-card>
-    <app-president-details-card></app-president-details-card>
-  </div>
-  <app-control-panel-group [groupConfig]="managementButtons"></app-control-panel-group>
-  <app-control-panel-group [groupConfig]="planningButtons"></app-control-panel-group>
-  <app-control-panel-group [groupConfig]="configurationButtons"></app-control-panel-group>
+<div>
+    <app-toolbar></app-toolbar><br/>
+    <div fxLayout="row" fxLayoutAlign="space-around start">
+
+        <div fxLayout="column" fxLayoutAlign="space-between">
+            <app-client-details-card style="margin-bottom: 15px;"></app-client-details-card>
+            <app-president-details-card></app-president-details-card>
+        </div>
+        <app-control-panel-group [groupConfig]="managementButtons"></app-control-panel-group>
+        <app-control-panel-group [groupConfig]="planningButtons"></app-control-panel-group>
+        <app-control-panel-group [groupConfig]="configurationButtons"></app-control-panel-group>
+    </div>
 </div>

@@ -31,10 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log(this.f.username.value)
     this.submitted = true;
-
-    // stop here if form is invalid
+     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
@@ -45,9 +43,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
+          console.log(data)
           this.router.navigate(['control-panel']);
         },
         (error) => {
+          console.log(error)
           this.loading = false;
         }
       );

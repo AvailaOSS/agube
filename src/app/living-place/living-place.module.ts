@@ -13,6 +13,7 @@ import { LivingPlaceDetailCardComponent } from './living-place-detail-card/livin
 import { LivingPlaceManagementComponent } from './living-place-detail-card/living-place-management/living-place-management.component';
 import { LivingPlaceWaterMeterReadingsComponent } from './living-place-detail-card/living-place-water-meter-readings/living-place-water-meter-readings.component';
 import { WaterMeterDetailCardComponent } from './living-place-detail-card/living-place-management/water-meter-detail-card/water-meter-detail-card.component';
+import { ToolbarModule } from '../menu/toolbar.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { WaterMeterDetailCardComponent } from './living-place-detail-card/living
     MatListModule,
     ControlPanelModule,
     MatCardModule,
+    ToolbarModule
   ],
   exports: [LivingPlaceComponent],
 })
