@@ -137,7 +137,7 @@ export class SubscriptionService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Permission>>(`${this.basePath}/subscription/${encodeURIComponent(String(subscriptionId))}/permissions`,
+        return this.httpClient.get<Array<Permission>>(`${this.basePath}/subscription//${encodeURIComponent(String(subscriptionId))}/permissions`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -1,13 +1,73 @@
-<div class="container-center">
-    <div class="columns" *ngFor="let item of subscription; let i=index">
-        <ul class="price">
-            <li class="header">{{item.name}}</li>
-            <li class="grey">{{item.price}} €</li>
-            <li>Precio por día: {{item.price_per_day}} €</li>
-            <li>{{item.description}}</li>
-            <li class="grey">
-                <button (click)="sendUrl(item.id)" class="button">Sign Up</button>
-            </li>
+<div class="welcome" fxLayout="column" fxLayoutAlign="space-around center">
+  <p class="w-title">Welcome to Subscribe!</p>
+  <p class="w-content">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. Lorem Ipsum is simply dummy text of the printing
+    and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    text ever since the 1500s
+  </p>
+  <p class="w-content">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. Lorem Ipsum is simply dummy text of the printing
+    and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    text ever since the 1500s Lorem Ipsum is simply dummy text of the printing
+    and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    text ever since the 1500s, when an unknown printer took a galley of type and
+    scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text
+    of the printing and typesetting industry. Lorem Ipsum has been the
+    industry's standard dummy text ever since the 1500s Lorem Ipsum is simply
+    dummy text of the printing and typesetting industry. Lorem Ipsum has been
+    the industry's standard dummy text ever since the 1500s, when an unknown
+    printer took a galley of type and scrambled it to make a type specimen book.
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+  </p>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-around stretch">
+  <div *ngFor="let item of subscriptions; let i = index">
+    <mat-card class="subscription-card">
+      <mat-card-header>
+        <mat-card-title class="card-title">
+          {{ item.subscription.name }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content
+        class="card-content"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <p class="card-subtitle">{{ item.subscription.price }} €</p>
+        <ul>
+          <li>Precio por día: <b>{{ item.subscription.price_per_day }} €</b></li>
+          <li>{{ item.subscription.description }}</li>
         </ul>
-    </div>
-    <div>
+      </mat-card-content>
+      <!-- FIXME: fix button to bottom-->
+      <mat-card-actions fxLayout="row" fxLayoutAlign="center end">
+        <button
+          mat-button
+          class="buy-button"
+          (click)="sendUrl(item.subscription.id)"
+        >
+          Buy!
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <table mat-table [dataSource]="item.permissions" class="mat-elevation-z8">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Contenido del plan</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="permissionColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: permissionColumns"></tr>
+    </table>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
 import { PrincipalComponent } from './principal/principal.component';
 const routes: Routes = [
+  { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'principal', component: PrincipalComponent },
@@ -19,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
