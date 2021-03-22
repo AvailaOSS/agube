@@ -26,12 +26,12 @@ export class ControlPanelComponent implements OnInit {
         },
         {
           name: 'Contactos',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-users',
         },
         {
           name: 'Agenda',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-address-book',
         },
       ],
@@ -41,27 +41,27 @@ export class ControlPanelComponent implements OnInit {
       buttons: [
         {
           name: 'Lectura Contador',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-faucet',
         },
         {
           name: 'Incidencias',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-tasks',
         },
         {
           name: 'Facturas',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-file-invoice',
         },
         {
           name: 'Correos',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-envelope',
         },
         {
           name: 'Calendario',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-calendar-alt',
         },
       ],
@@ -71,12 +71,12 @@ export class ControlPanelComponent implements OnInit {
       buttons: [
         {
           name: 'Depósito',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-swimming-pool',
         },
         {
           name: 'General',
-          redirect: '',
+          redirect: 'wip',
           icon: 'fas fa-tools',
         },
       ],
