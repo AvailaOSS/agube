@@ -23,6 +23,7 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
+import { Manager } from '../model/manager';
 import { ManagerConfiguration } from '../model/managerConfiguration';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
@@ -60,6 +61,59 @@ export class ManagerService {
       }
     }
     return false;
+  }
+
+  /**
+   *
+   * Get Manager
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getManagerByUser(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Manager>;
+  public getManagerByUser(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Manager>>;
+  public getManagerByUser(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Manager>>;
+  public getManagerByUser(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Manager>(`${this.basePath}/manager/by-user`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -119,7 +173,9 @@ export class ManagerService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<ManagerConfiguration>(
-      `${this.basePath}/manager/${encodeURIComponent(String(id))}`,
+      `${this.basePath}/manager/${encodeURIComponent(
+        String(id)
+      )}/configuration`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -203,7 +259,9 @@ export class ManagerService {
     }
 
     return this.httpClient.post<ManagerConfiguration>(
-      `${this.basePath}/manager/${encodeURIComponent(String(id))}`,
+      `${this.basePath}/manager/${encodeURIComponent(
+        String(id)
+      )}/configuration`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
