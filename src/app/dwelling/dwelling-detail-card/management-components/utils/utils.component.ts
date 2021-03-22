@@ -104,30 +104,24 @@ export class UtilsComponent implements OnInit {
 =======
 
     this.formDataConfiguration.subscribe((value) => {
-      console.log(value);
 
       if (!isUndefined(value) && value !== 5) {
-
-
         this.code = value.code;
         this.address = value.user.address[0].address.street || '';
         this.number = value.user.address[0].number;
         this.flat = value.user.address[0].flat;
         this.gate = value.user.address[0].gate;
         this.town = value.user.address[0].address.town;
-
         this.email = value.user.email;
         this.username = value.user.username;
         this.first_name = value.user.first_name;
         this.last_name = value.user.last_name;
         this.phones = value.user.phones[0].phone_number;
-
         this.usernameRes = value.user.username;
         this.first_nameRes = value.user.first_name;
         this.last_nameRes = value.user.last_name;
         this.phonesRes = value.user.phones[0].phone_number;
         this.emailRes = value.user.email;
-
       }
     });
 >>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
@@ -139,7 +133,13 @@ export class UtilsComponent implements OnInit {
   public onSubmit(): void {
     this.submitted = true;
     this.isAllSave = true;
+<<<<<<< HEAD
     console.log(this.registerForm.value);
+=======
+
+
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop
     this.sendForm.emit(this.registerForm.value);
+
   }
 }

@@ -11,13 +11,13 @@
  */
 
 
-export interface Payment { 
+export interface Paymaster {
     readonly id?: string;
-    payment_type?: Payment.PaymentTypeEnum;
+    payment_type?: Paymaster.PaymentTypeEnum;
     iban?: string;
     username: string;
 }
-export namespace Payment {
+export namespace Paymaster {
     export type PaymentTypeEnum = 'BANK' | 'CASH' | 'EXEMPT';
     export const PaymentTypeEnum = {
         BANK: 'BANK' as PaymentTypeEnum,

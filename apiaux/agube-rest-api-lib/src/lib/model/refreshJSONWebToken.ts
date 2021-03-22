@@ -11,6 +11,6 @@
  */
 
 
-export interface RefreshJSONWebToken { 
+export interface RefreshJSONWebToken {
     token: string;
 }

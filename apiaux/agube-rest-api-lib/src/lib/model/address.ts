@@ -11,7 +11,7 @@
  */
 
 
-export interface Address { 
+export interface Address {
     readonly id?: string;
     street: string;
     isExternal?: boolean;

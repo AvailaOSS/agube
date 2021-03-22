@@ -53,7 +53,7 @@ export class ChangeOwnerComponent implements OnInit {
         last_name: event.last_name
       }
     }).subscribe(value => {
-      console.log('exito',value)
+      this.router.navigate(['/viviendas']);
     })
   }
 

@@ -12,6 +12,7 @@
 import { WaterMeterMeasurement } from './waterMeterMeasurement';
 
 
+<<<<<<< HEAD:apiaux/agube-rest-api-lib/src/lib/model/waterMeterDetail.ts~HEAD
 <<<<<<< HEAD:apiaux/agube-rest-api-lib/src/lib/model/waterMeterDetail.ts
 export interface WaterMeterDetail { 
     readonly id?: string;
@@ -23,4 +24,12 @@ export interface WaterMeterWithMeasurements {
     readonly releaseDate?: string;
     readonly dischargeDate?: string;
     waterMeter: Array<WaterMeterMeasurement>;
+=======
+export interface WaterMeterWithMeasurements {
+    readonly id?: string;
+    readonly code?: string;
+    readonly release_date?: string;
+    readonly discharge_date?: string;
+    water_meter: Array<WaterMeterMeasurement>;
+>>>>>>> f70d71a... Merge branch 'feature/redirection' into develop:apiaux/agube-rest-api-lib/src/lib/model/waterMeterWithMeasurements.ts
 }
