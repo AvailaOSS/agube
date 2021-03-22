@@ -45,6 +45,7 @@ export class UtilsComponent implements OnInit {
   @Input() isHiddenAddress?: boolean = false;
   @Input() isHiddenBank?: boolean = false;
   @Input() isHiddenOwner?: boolean = false;
+  @Input() isHiddenCount?: boolean = false;
   @Input() ownerTitle?: string = 'Alta Propietario';
   @Input() residentTitle?: string = 'Alta Residente';
 
