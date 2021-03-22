@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { DwellingCreate } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingCreate';
 
 @Component({
   selector: 'app-add-welling',
@@ -31,17 +32,29 @@ export class AdDWellingComponent implements OnInit {
   public ngOnInit(): void {}
   public sendForm(event: any): void {
     console.log('add-welling', event);
+
     this.svcCreateNewDWelling
-      .dwellingCreateCreate({
+
+      .createDwelling({
         full_address: {
           address: {
+<<<<<<< HEAD
             street: '1',
             isExternal: true,
+=======
+            town: event.town,
+            street: event.address,
+            is_external: true,
+>>>>>>> dedf782... fix: update new apis
           },
           number: event.number,
-          town: event.town,
           flat: event.flat,
           gate: event.gate,
+        },
+        payment: {
+          username: event.username,
+          iban: event.numberBank,
+          payment_type: 'BANK',
         },
         owner: {
           username: event.username,
@@ -52,11 +65,16 @@ export class AdDWellingComponent implements OnInit {
           address: [
             {
               address: {
+<<<<<<< HEAD
                 street: '1',
                 isExternal: true,
+=======
+                town: event.town,
+                street: event.address,
+                is_external: true,
+>>>>>>> dedf782... fix: update new apis
               },
               number: event.number,
-              town: event.town,
               flat: event.flat,
               gate: event.gate,
             },
@@ -71,11 +89,16 @@ export class AdDWellingComponent implements OnInit {
           address: [
             {
               address: {
+<<<<<<< HEAD
                 street: '1',
                 isExternal: true,
+=======
+                town: event.town,
+                street: event.address,
+                is_external: true,
+>>>>>>> dedf782... fix: update new apis
               },
               number: event.number,
-              town: event.town,
               flat: event.flat,
               gate: event.gate,
             },
@@ -84,7 +107,11 @@ export class AdDWellingComponent implements OnInit {
         water_meter: { code: event.code },
       })
       .subscribe((value) => {
+<<<<<<< HEAD
         this.router.navigate[('/viviendas')]
+=======
+        this.router.navigate['/viviendas'];
+>>>>>>> dedf782... fix: update new apis
       });
   }
 }

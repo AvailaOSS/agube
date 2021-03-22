@@ -9,17 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { UserDetail } from './userDetail';
 
 
-export interface UserCustomDetail { 
+export interface Owner { 
     readonly id?: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-    street: string;
-    number: string;
-    flat: string;
-    gate: string;
-    town: string;
+    readonly dwellingId?: number;
+    user: UserDetail;
+    readonly releaseDate?: string;
+    readonly dischargeDate?: string;
 }

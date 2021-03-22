@@ -30,6 +30,7 @@ export class DWellingDetailListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+<<<<<<< HEAD
     this.svcCreateNewDWelling.dwellingList().subscribe(value => {
       console.log(value)
     })
@@ -70,6 +71,12 @@ export class DWellingDetailListComponent implements OnInit {
         phone: '666666666',
       },
     ];
+=======
+    this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
+      console.log(value)
+      this.dataSource = value;
+    });
+>>>>>>> dedf782... fix: update new apis
   }
 
   public selectRow(row: DWelling) {

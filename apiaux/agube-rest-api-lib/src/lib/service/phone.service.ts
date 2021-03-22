@@ -64,6 +64,7 @@ export class PhoneService {
 
   /**
    *
+<<<<<<< HEAD
    *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -81,6 +82,25 @@ export class PhoneService {
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Phone>>>;
   public phoneList(
+=======
+   * get list of phones
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getPhones(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Phone>>;
+  public getPhones(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Phone>>>;
+  public getPhones(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Phone>>>;
+  public getPhones(
+>>>>>>> dedf782... fix: update new apis
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {

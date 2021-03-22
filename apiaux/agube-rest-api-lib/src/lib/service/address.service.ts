@@ -64,34 +64,58 @@ export class AddressService {
 
   /**
    *
+<<<<<<< HEAD
    *
+=======
+   * create a new Address
+>>>>>>> dedf782... fix: update new apis
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
+<<<<<<< HEAD
   public addressCreate(
+=======
+  public createAddress(
+>>>>>>> dedf782... fix: update new apis
     data: Address,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Address>;
+<<<<<<< HEAD
   public addressCreate(
+=======
+  public createAddress(
+>>>>>>> dedf782... fix: update new apis
     data: Address,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Address>>;
+<<<<<<< HEAD
   public addressCreate(
+=======
+  public createAddress(
+>>>>>>> dedf782... fix: update new apis
     data: Address,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Address>>;
+<<<<<<< HEAD
   public addressCreate(
+=======
+  public createAddress(
+>>>>>>> dedf782... fix: update new apis
     data: Address,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
+<<<<<<< HEAD
         'Required parameter data was null or undefined when calling addressCreate.'
+=======
+        'Required parameter data was null or undefined when calling createAddress.'
+>>>>>>> dedf782... fix: update new apis
       );
     }
 
@@ -134,6 +158,7 @@ export class AddressService {
 
   /**
    *
+<<<<<<< HEAD
    *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -151,6 +176,25 @@ export class AddressService {
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Address>>>;
   public addressList(
+=======
+   * get list of address
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getAddress(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Address>>;
+  public getAddress(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Address>>>;
+  public getAddress(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Address>>>;
+  public getAddress(
+>>>>>>> dedf782... fix: update new apis
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {

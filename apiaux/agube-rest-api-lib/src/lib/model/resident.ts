@@ -9,9 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { UserDetail } from './userDetail';
 
 
-export interface UserUpdatePhone { 
-    phone: string;
-    main: boolean;
+export interface Resident { 
+    readonly id?: string;
+    readonly dwellingId?: number;
+    user: UserDetail;
+    readonly releaseDate?: string;
+    readonly dischargeDate?: string;
 }

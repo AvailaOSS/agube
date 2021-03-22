@@ -47,6 +47,7 @@ export class WaterMeterService {
       this.basePath = basePath || configuration.basePath || this.basePath;
     }
   }
+<<<<<<< HEAD
 
   /**
    * @param consumes string[] mime-types
@@ -115,8 +116,24 @@ export class WaterMeterService {
         'Basic ' +
           btoa(this.configuration.username + ':' + this.configuration.password)
       );
-    }
+=======
 
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data';
+    for (const consume of consumes) {
+      if (form === consume) {
+        return true;
+      }
+>>>>>>> dedf782... fix: update new apis
+    }
+    return false;
+  }
+
+<<<<<<< HEAD
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
@@ -202,6 +219,126 @@ export class WaterMeterService {
       );
     }
 
+=======
+  /**
+   *
+   * Create a new Measurement for this Water Meter
+   * @param id
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addWaterMeterMeasure(
+    id: string,
+    data: WaterMeterMeasurement,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<WaterMeterMeasurement>;
+  public addWaterMeterMeasure(
+    id: string,
+    data: WaterMeterMeasurement,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<WaterMeterMeasurement>>;
+  public addWaterMeterMeasure(
+    id: string,
+    data: WaterMeterMeasurement,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<WaterMeterMeasurement>>;
+  public addWaterMeterMeasure(
+    id: string,
+    data: WaterMeterMeasurement,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling addWaterMeterMeasure.'
+      );
+    }
+
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling addWaterMeterMeasure.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<WaterMeterMeasurement>(
+      `${this.basePath}/water-meter/${encodeURIComponent(String(id))}/measure`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * get all Measures saved
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getTotalMeasures(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<WaterMeterMeasurement>>;
+  public getTotalMeasures(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<WaterMeterMeasurement>>>;
+  public getTotalMeasures(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<WaterMeterMeasurement>>>;
+  public getTotalMeasures(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+>>>>>>> dedf782... fix: update new apis
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
@@ -215,9 +352,13 @@ export class WaterMeterService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Array<WaterMeterMeasurement>>(
+<<<<<<< HEAD
       `${this.basePath}/water-meter/${encodeURIComponent(
         String(id)
       )}/measure/${encodeURIComponent(String(chunk))}`,
+=======
+      `${this.basePath}/water-meter/measures`,
+>>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -229,6 +370,7 @@ export class WaterMeterService {
 
   /**
    *
+<<<<<<< HEAD
    *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -249,6 +391,39 @@ export class WaterMeterService {
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
+=======
+   * Return a list of water meter measures.
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getWaterMeterMeasures(
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<WaterMeterMeasurement>>;
+  public getWaterMeterMeasures(
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<WaterMeterMeasurement>>>;
+  public getWaterMeterMeasures(
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<WaterMeterMeasurement>>>;
+  public getWaterMeterMeasures(
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getWaterMeterMeasures.'
+      );
+    }
+
+>>>>>>> dedf782... fix: update new apis
     let headers = this.defaultHeaders;
 
     // authentication (Basic) required
@@ -273,7 +448,11 @@ export class WaterMeterService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Array<WaterMeterMeasurement>>(
+<<<<<<< HEAD
       `${this.basePath}/water-meter/measures`,
+=======
+      `${this.basePath}/water-meter/${encodeURIComponent(String(id))}/measure`,
+>>>>>>> dedf782... fix: update new apis
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

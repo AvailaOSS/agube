@@ -10,10 +10,25 @@ import { WaterMeterService } from '../../../../../../apiaux/agube-rest-api-lib/s
 export class WaterMeterDetailCardComponent implements OnInit {
   public currentWaterMeter: WaterMeterDetailCard;
 
+<<<<<<< HEAD
   constructor(private readonly svcCountService: WaterMeterService) {}
 
   ngOnInit(): void {
     
+=======
+  public ngOnChanges(): void {
+    this.svcWelling
+      .getCurrentWaterMeter(this.DWelling.id)
+      .subscribe((value) => {
+        this.currentWaterMeter = {
+          code: value.code,
+          activation_date: value.releaseDate.split('T')[0],
+        };
+        this.sendWaterMeter.emit(this.currentWaterMeter)
+      });
+  }
+  public ngOnInit(): void {
+>>>>>>> dedf782... fix: update new apis
     this.currentWaterMeter = {
       code: '00000001AS',
       activation_date: new Date('2011-04-17'),

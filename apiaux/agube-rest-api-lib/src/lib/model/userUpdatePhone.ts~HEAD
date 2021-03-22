@@ -9,12 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { WaterMeterMeasurement } from './waterMeterMeasurement';
 
 
-export interface WaterMeterDetail { 
-    readonly id?: string;
-    readonly releaseDate?: string;
-    readonly dischargeDate?: string;
-    waterMeter: Array<WaterMeterMeasurement>;
+<<<<<<< HEAD:apiaux/agube-rest-api-lib/src/lib/model/userUpdatePhone.ts
+export interface UserUpdatePhone { 
+=======
+export interface UserPhone { 
+>>>>>>> dedf782... fix: update new apis:apiaux/agube-rest-api-lib/src/lib/model/userPhone.ts
+    phone: string;
+    main: boolean;
 }

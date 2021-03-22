@@ -10,10 +10,18 @@
  * Do not edit the class manually.
  */
 
+<<<<<<< HEAD
 
 export interface WaterMeter { 
     readonly id?: string;
     code: string;
     readonly releaseDate?: string;
     readonly dischargeDate?: string;
+=======
+export interface WaterMeter {
+  readonly id?: string;
+  code: string;
+  readonly releaseDate?: string;
+  readonly dischargeDate?: string;
+>>>>>>> dedf782... fix: update new apis
 }

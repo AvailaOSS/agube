@@ -10,16 +10,10 @@
  * Do not edit the class manually.
  */
 import { FullAddress } from './fullAddress';
-import { Payment } from './payment';
-import { UserDetail } from './userDetail';
-import { WaterMeter } from './waterMeter';
 
 
-export interface DwellingCreate { 
+export interface UserAddress { 
     readonly id?: string;
-    full_address: FullAddress;
-    payment: Payment;
-    owner: UserDetail;
-    resident: UserDetail;
-    water_meter: WaterMeter;
+    fullAddress: FullAddress;
+    main: boolean;
 }
