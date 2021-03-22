@@ -14,9 +14,10 @@ export class AccountService {
 
   constructor(private router: Router, private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('user'))
+      JSON.parse(localStorage.getItem('currentUser'))
     );
     this.user = this.userSubject.asObservable();
+    console.log(this.user)
   }
 
   public get userValue(): User {
@@ -33,6 +34,7 @@ export class AccountService {
         map((user) => {
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
+            console.log(user.token)
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.userSubject.next(user);
           }
@@ -60,7 +62,7 @@ export class AccountService {
 
   public logout(): void {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
+    localStorage.removeItem('currentUser');
     this.userSubject.next(null);
     this.router.navigate(['/account/login']);
   }

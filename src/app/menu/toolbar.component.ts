@@ -26,7 +26,9 @@ export class ToolbarComponent implements OnInit {
     this.currentUserSubscription = this.svcAccountService.user.subscribe(
       (user) => {
         this.currentUser = jwt_decode(user.token);
-        console.log(this.currentUser);
+      },
+      (error) => {
+        this.svcAccountService.refresh();
       }
     );
 

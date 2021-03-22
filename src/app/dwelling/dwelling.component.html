@@ -1,0 +1,16 @@
+<app-toolbar [title]="'Vivienda de la Comunidad'"></app-toolbar>
+<div fxLayout="row" fxLayoutAlign="space-around">
+  <div class="detail-table-group">
+    <app-dwelling-detail-list (selected)="selectItem($event)">
+    </app-dwelling-detail-list>
+  </div>
+  <div class="detail-dwelling-card">
+    <app-dwelling-detail-card [DWelling]="DWelling">
+    </app-dwelling-detail-card>
+  </div>
+</div>
+<div class="position-button-back">
+  <button mat-raised-button color="primary" (click)="goToControlPanel()">
+    Atrás
+  </button>
+</div>

@@ -15,7 +15,8 @@ export class ControlPanelComponent implements OnInit {
   constructor() {}
 
   public ngOnInit(): void {
-    this.users = JSON.parse(localStorage.getItem('users')) || [];
+    console.log(JSON.parse(localStorage.getItem('currentUser')))
+    this.users = JSON.parse(localStorage.getItem('currentUser'));
     this.managementButtons = {
       name: 'Gestión',
       buttons: [

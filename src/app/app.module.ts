@@ -10,18 +10,24 @@ import { AppComponent } from './app.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import {
   ErrorInterceptor,
-  fakeBackendProvider,
   JwtInterceptor,
 } from './login/helpers';
 import { LoginModule } from './login/login.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlPanelModule } from './control-panel/control-panel.module';
-import { LivingPlaceModule } from './living-place/living-place.module';
+import { DWellingModule } from './dwelling/dwelling.module';
 import { ToolbarModule } from './menu/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
+<<<<<<< HEAD
+import { AddWellingModule } from './living-place/living-place-detail-card/management-components/add-welling/add-welling.module';
+import { UtilsModule } from './living-place/living-place-detail-card/management-components/add-welling/utils/utils.module';
+=======
+import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.module';
+import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/utils/utils.module';
+>>>>>>> 969aab6... fix: update new name dwelling
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent],
@@ -40,18 +46,17 @@ import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
     SubscriptionApiModule,
     ContactBookApiModule,
     AgubeApiModule,
-    LivingPlaceModule,
+    DWellingModule,
     ContactPanelModule,
-    DepositPanelModule
-
+    AdDWellingModule,
+    DepositPanelModule,
+    UtilsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // provider used to create fake backend
-    fakeBackendProvider,
+    
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
