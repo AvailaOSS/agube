@@ -12,18 +12,16 @@ import { PhoneService } from './service/phone.service';
 import { TokenService } from './service/token.service';
 import { UserService } from './service/user.service';
 import { WaterMeterService } from './service/waterMeter.service';
-import { RefreshService } from './service/refresh.service';
-
-
+import { ManagerService } from './service/manager.service';
 
 @NgModule({
   imports: [],
   declarations: [],
   exports: [],
   providers: [
-    RefreshService,
     AddressService,
     DwellingService,
+    ManagerService,
     PhoneService,
     TokenService,
     UserService,
