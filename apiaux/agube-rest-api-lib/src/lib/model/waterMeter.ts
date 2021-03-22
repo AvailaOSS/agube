@@ -21,7 +21,12 @@ export interface WaterMeter {
 export interface WaterMeter {
   readonly id?: string;
   code: string;
+<<<<<<< HEAD
   readonly releaseDate?: string;
   readonly dischargeDate?: string;
 >>>>>>> dedf782... fix: update new apis
+=======
+  readonly release_date?: string;
+  readonly discharge_date?: string;
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
 }

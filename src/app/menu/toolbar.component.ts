@@ -23,12 +23,9 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.currentUser);
     this.currentUserSubscription = this.svcAccountService.user.subscribe(
       (user) => {
-        console.log(user);
         this.currentUser = jwt_decode(user.token);
-        console.log(this.currentUser);
       },
       (error) => {
         this.svcAccountService.refresh();

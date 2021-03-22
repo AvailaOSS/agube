@@ -22,7 +22,7 @@ export class WaterMeterDetailCardComponent implements OnInit {
       .subscribe((value) => {
         this.currentWaterMeter = {
           code: value.code,
-          activation_date: value.releaseDate.split('T')[0],
+          activation_date: value.release_date.split('T')[0],
         };
         this.sendWaterMeter.emit(this.currentWaterMeter)
       });

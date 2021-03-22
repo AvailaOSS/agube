@@ -1,1 +1,13 @@
-<p>change-resident works!</p>
+<app-toolbar [title]="'Cambio de Residente'"></app-toolbar>
+<div class="contenedor">
+  <app-utils
+    [isHiddenAddress]="false"
+    [isHiddenBank]="true"
+    [isHiddenResident]="false"
+    [isHiddenOwner]="true"
+    [residentTitle]="'Cambio de Residente'"
+    [titleCard]="'Cambio de Residente'"
+    [formDataConfiguration]="formConfigurationData"
+    (sendForm)="sendForm($event)"
+  ></app-utils>
+</div>

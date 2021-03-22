@@ -24,7 +24,12 @@ import { AdDWellingModule } from './dwelling-detail-card/management-components/a
 import { UtilsModule } from './dwelling-detail-card/management-components/utils/utils.module';
 import { ChangePayModule } from './dwelling-detail-card/management-components/change-pay/change-pay.module';
 import { ChangeCountModule } from './dwelling-detail-card/management-components/change-count/change-count.module';
+<<<<<<< HEAD
 >>>>>>> 969aab6... fix: update new name dwelling:src/app/dwelling/dwelling.module.ts
+=======
+import { ChangeOwnerModule } from './dwelling-detail-card/management-components/change-owner/change-owner.module';
+import { ChangeResidentModule } from './dwelling-detail-card/management-components/change-resident/change-resident.module';
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
 
 @NgModule({
   declarations: [
@@ -47,7 +52,9 @@ import { ChangeCountModule } from './dwelling-detail-card/management-components/
     MatCardModule,
     AdDWellingModule,
     ChangePayModule,
+    ChangeOwnerModule,
     ChangeCountModule,
+    ChangeResidentModule,
     ToolbarModule,
     UtilsModule
   ],

@@ -3,8 +3,13 @@
 </div>
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<<<<<<< HEAD
   <mat-card style="margin: 15px">
     <mat-card-title>{{titleCard}}</mat-card-title>
+=======
+  <mat-card [hidden]="isHiddenAddress" style="margin: 15px">
+    <mat-card-title>{{ titleCard }}</mat-card-title>
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
     <mat-card-subtitle>Dirección</mat-card-subtitle>
     <div style="display: flex">
       <div class="col-md-3 mb-1">
@@ -81,7 +86,8 @@
       </div>
     </div>
   </mat-card>
-  <mat-card style="margin: 15px">
+
+  <mat-card  [hidden]="isHiddenBank" style="margin: 15px">
     <mat-card-title>Numero de cuenta</mat-card-title>
     <div class="col-md-6 mb-1">
       <input
@@ -95,8 +101,10 @@
       </div>
     </div>
   </mat-card>
-  <mat-card style="margin: 15px; float: left; width: 46%">
-    <mat-card-title>Alta Propietario</mat-card-title>
+
+
+  <mat-card [hidden]="isHiddenOwner" style="margin: 15px; float: left; width: 46%">
+    <mat-card-title>{{ownerTitle}}</mat-card-title>
     <mat-checkbox formControlName="pagador" [(ngModel)]="pagador"
       >Pagador</mat-checkbox
     >
@@ -168,8 +176,9 @@
       </div>
     </div>
   </mat-card>
-  <mat-card [hidden]="isHidden" style="margin: 15px; float: left; width: 50%">
-    <mat-card-title>Alta Residente</mat-card-title>
+
+  <mat-card [hidden]="isHiddenResident" style="margin: 15px; float: left; width: 50%">
+    <mat-card-title>{{residentTitle}}</mat-card-title>
     <mat-checkbox formControlName="pagadorResidente" [(ngModel)]="pagador"
       >Pagador</mat-checkbox
     >

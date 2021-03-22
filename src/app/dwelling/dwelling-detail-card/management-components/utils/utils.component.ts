@@ -10,6 +10,12 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+<<<<<<< HEAD
+=======
+import { BehaviorSubject } from 'rxjs';
+import { isUndefined } from 'lodash';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -31,6 +37,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class UtilsComponent implements OnInit {
   @Input() titleCard: string;
+<<<<<<< HEAD
+=======
+  @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
+
+  @Input() isHiddenResident?: boolean = false;
+  @Input() isHiddenAddress?: boolean = false;
+  @Input() isHiddenBank?: boolean = false;
+  @Input() isHiddenOwner?: boolean = false;
+  @Input() ownerTitle?: string = 'Alta Propietario';
+  @Input() residentTitle?: string = 'Alta Residente';
+
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
   hide = true;
   public registerForm: FormGroup;
@@ -43,7 +61,6 @@ export class UtilsComponent implements OnInit {
   errorInformation: boolean;
   public pagador = false;
   public residente = false;
-  public isHidden = false;
   public isAllSave = false;
   constructor(
     private formBuilder: FormBuilder,
@@ -56,7 +73,7 @@ export class UtilsComponent implements OnInit {
     this.router.navigate(['/control-panel']);
   }
   public toggle(): void {
-    this.isHidden = !this.isHidden;
+    this.isHiddenResident = !this.isHiddenResident;
   }
   public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -83,6 +100,37 @@ export class UtilsComponent implements OnInit {
       addressRes: ['', Validators.required],
       pagadorResidente: [''],
     });
+<<<<<<< HEAD
+=======
+
+    this.formDataConfiguration.subscribe((value) => {
+      console.log(value);
+
+      if (!isUndefined(value) && value !== 5) {
+
+
+        this.code = value.code;
+        this.address = value.user.address[0].address.street || '';
+        this.number = value.user.address[0].number;
+        this.flat = value.user.address[0].flat;
+        this.gate = value.user.address[0].gate;
+        this.town = value.user.address[0].address.town;
+
+        this.email = value.user.email;
+        this.username = value.user.username;
+        this.first_name = value.user.first_name;
+        this.last_name = value.user.last_name;
+        this.phones = value.user.phones[0].phone_number;
+
+        this.usernameRes = value.user.username;
+        this.first_nameRes = value.user.first_name;
+        this.last_nameRes = value.user.last_name;
+        this.phonesRes = value.user.phones[0].phone_number;
+        this.emailRes = value.user.email;
+
+      }
+    });
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
   }
   // convenience getter for easy access to form fields
   get f() {

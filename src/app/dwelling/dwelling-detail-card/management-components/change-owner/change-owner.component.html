@@ -1,1 +1,12 @@
-<p>change-owner works!</p>
+<app-toolbar [title]="'Cambio Propietario'"></app-toolbar>
+<div class="contenedor">
+  <app-utils
+    [isHiddenAddress]="false"
+    [isHiddenBank]="true"
+    [isHiddenResident]="true"
+    [ownerTitle]="'Cambio de Propietario'"
+    [titleCard]="'Cambio de Propietario'"
+    [formDataConfiguration]="formConfigurationData"
+    (sendForm)="sendForm($event)"
+  ></app-utils>
+</div>

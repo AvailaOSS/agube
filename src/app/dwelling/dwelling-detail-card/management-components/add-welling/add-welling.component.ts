@@ -31,10 +31,7 @@ export class AdDWellingComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-    console.log('add-welling', event);
-
     this.svcCreateNewDWelling
-
       .createDwelling({
         full_address: {
           address: {
@@ -58,8 +55,8 @@ export class AdDWellingComponent implements OnInit {
         },
         owner: {
           username: event.username,
-          firstName: event.first_name,
-          lastName: event.last_name,
+          first_name: event.first_name,
+          last_name: event.last_name,
           email: event.email,
           phones: [{ phone_number: event.phones }],
           address: [
@@ -81,9 +78,15 @@ export class AdDWellingComponent implements OnInit {
           ],
         },
         resident: {
+<<<<<<< HEAD
           username: 'test',
           firstName: event.first_nameRes,
           lastName: event.last_nameRes,
+=======
+          username: event.usernameRes,
+          first_name: event.first_nameRes,
+          last_name: event.last_nameRes,
+>>>>>>> 92509f4... feat: add contador, vivienda, residente , pagador, propietario
           email: event.emailRes,
           phones: [{ phone_number: event.phonesRes }],
           address: [
