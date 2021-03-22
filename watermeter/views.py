@@ -1,4 +1,4 @@
-from login.permissions import IsManagerAuthenticated
+from manager.permissions import IsManagerAuthenticated
 from django.utils import timezone
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics

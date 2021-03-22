@@ -6,7 +6,8 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from dwelling.urls import urlpatterns as urls_dwelling
-from login.urls import urlpatterns as urls_user, urlpatterns_manager as urls_manager
+from login.urls import urlpatterns as urls_user
+from manager.urls import urlpatterns as urls_manager
 from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions

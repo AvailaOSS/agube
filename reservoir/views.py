@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from login.permissions import IsManagerAuthenticated
+from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response

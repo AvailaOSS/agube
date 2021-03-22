@@ -1,4 +1,4 @@
-from login.models import Manager
+from manager.models import Manager
 from rest_framework.permissions import BasePermission
 from django.core.exceptions import ObjectDoesNotExist
 
