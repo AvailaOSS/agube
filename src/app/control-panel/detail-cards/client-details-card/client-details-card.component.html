@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-title>{{ clientDetails.name }}</mat-card-title>
+  <mat-card-subtitle>Datos de la comunidad</mat-card-subtitle>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item><b>NIF</b>{{ clientDetails.nif }}</mat-list-item>
+      <mat-list-item><b>Fecha Alta</b>
+        {{ clientDetails.subscription_date }}</mat-list-item>
+      <mat-list-item><b>Dirección</b> {{ clientDetails.address }}</mat-list-item>
+      <mat-list-item><b>Plan</b> {{ clientDetails.plan }}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

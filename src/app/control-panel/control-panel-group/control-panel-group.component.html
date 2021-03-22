@@ -1,0 +1,12 @@
+<div class="control-panel-group">
+  <h1>{{ groupConfig.name }}</h1>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm" *ngFor="let button of groupConfig.buttons">
+        <app-control-panel-button [buttonConfig]="button">
+        </app-control-panel-button>
+      </div>
+    </div>
+  </div>
+</div>

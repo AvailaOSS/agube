@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuComponent } from './menu.component';
+import { ControlPanelGroupComponent } from './control-panel-group.component';
 
-describe('MenuComponent', () => {
-  let component: MenuComponent;
-  let fixture: ComponentFixture<MenuComponent>;
+describe('ControlPanelGroupComponent', () => {
+  let component: ControlPanelGroupComponent;
+  let fixture: ComponentFixture<ControlPanelGroupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MenuComponent ]
+      declarations: [ ControlPanelGroupComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuComponent);
+    fixture = TestBed.createComponent(ControlPanelGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

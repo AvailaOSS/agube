@@ -1,0 +1,28 @@
+<mat-card *ngIf="livingPlace != undefined">
+  <mat-card-header>
+    <mat-card-title>Vivienda seleccionada</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="container">
+      <div class="row">
+        <div fxLayout="column" fxLayoutAlign="space-around stretch" class="col-sm">
+          Dirección
+          <p>{{ livingPlace.address }}</p>
+          <app-water-meter-detail-card></app-water-meter-detail-card>
+        </div>
+        <div class="col-sm">
+          <app-president-details-card></app-president-details-card>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm">
+          <app-living-place-water-meter-readings></app-living-place-water-meter-readings>
+        </div>
+        <div class="col-sm">
+          <app-living-place-management></app-living-place-management>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
