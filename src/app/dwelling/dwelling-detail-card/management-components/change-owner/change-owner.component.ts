@@ -36,7 +36,7 @@ export class ChangeOwnerComponent implements OnInit {
       user: {
          address: [{
            address: {
-             street: event.address,
+             street: event.addressOwner,
              town: event.town,
              is_external:true
           },

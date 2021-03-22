@@ -1,4 +1,16 @@
 <app-toolbar [title]="'Cambio Pagador'"></app-toolbar>
 <div class="contenedor">
+<<<<<<< HEAD
   <app-utils [titleCard]="'Cambio Pagador'"></app-utils>
+=======
+  <app-utils
+    [titleCard]="'Cambio Pagador'"
+    [isHiddenAddress]="true"
+    [isHiddenBank]="false"
+    [isHiddenResident]="false"
+    [isHiddenOwner]="false"
+    [formDataConfiguration]="formConfigurationData"
+    (sendForm)="sendForm($event)"
+  ></app-utils>
+>>>>>>> f1e30c2... fix: add new address in forms
 </div>
