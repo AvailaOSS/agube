@@ -3,8 +3,8 @@ from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from login.models import UserAddress, UserPhone
-from manager.models import Manager
 from login.serializers import UserDetailSerializer
+from manager.models import Manager, Person
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
 from rest_framework.fields import CharField, ReadOnlyField
@@ -39,7 +39,7 @@ def create_address(user, validated_data, main):
         user=user, full_address=full_address, main=main)
 
 
-def create_user(validated_data):
+def create_user(validated_data, manager):
     # Extract unnecessary data
     phones = validated_data.pop('phones')
     addresses = validated_data.pop('address')
@@ -56,6 +56,8 @@ def create_user(validated_data):
     for address in addresses:
         create_address(user, address, first_iteration)
         first_iteration = False
+    # Important: create Person after create User
+    Person.objects.create(manager=manager, user=user)
     return user
 
 
@@ -118,9 +120,9 @@ class DwellingCreateSerializer(ModelSerializer):
         validated_data['full_address'] = self.create_dwelling_address(
             validated_data.pop('full_address'))
         # Create Owner
-        owner = create_user(validated_data.pop('owner'))
+        owner = create_user(validated_data.pop('owner'), manager)
         # Create Resident
-        resident = create_user(validated_data.pop('resident'))
+        resident = create_user(validated_data.pop('resident'), manager)
         # Extract water_meter_code
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling

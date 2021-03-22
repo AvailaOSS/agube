@@ -1,9 +1,10 @@
-from manager.models import Manager
+import json
+
 from celery import shared_task
 from celery.decorators import task
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
-import json
+
+from manager.models import Manager
 
 
 @task(name="new_user_published")
