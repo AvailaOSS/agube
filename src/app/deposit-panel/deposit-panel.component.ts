@@ -1,28 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-export interface LivingPlace {
+export interface DepositPanel {
   id: string;
   address: string;
   water_meter: string;
   resident_name: string;
   phone: string;
 }
-
 @Component({
-  selector: 'app-living-place',
-  templateUrl: './living-place.component.html',
-  styleUrls: ['./living-place.component.scss'],
+  selector: 'app-deposit-panel',
+  templateUrl: './deposit-panel.component.html',
+  styleUrls: ['./deposit-panel.component.scss']
 })
-export class LivingPlaceComponent implements OnInit {
-  public livingPlace: LivingPlace;
+export class DepositPanelComponent implements OnInit {
+  public depositPanel: DepositPanel;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {}
 
-  public selectItem(livingPlace: LivingPlace): void {
-    this.livingPlace = livingPlace;
+  public selectItem(depositPanel: DepositPanel): void {
+    this.depositPanel = depositPanel;
   }
 
   public goToControlPanel(): void {

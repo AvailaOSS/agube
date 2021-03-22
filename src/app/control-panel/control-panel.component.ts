@@ -26,7 +26,7 @@ export class ControlPanelComponent implements OnInit {
         },
         {
           name: 'Contactos',
-          redirect: 'wip',
+          redirect: 'contactos',
           icon: 'fas fa-users',
         },
         {
@@ -71,7 +71,7 @@ export class ControlPanelComponent implements OnInit {
       buttons: [
         {
           name: 'Depósito',
-          redirect: 'wip',
+          redirect: 'depositos',
           icon: 'fas fa-swimming-pool',
         },
         {

@@ -1,0 +1,29 @@
+<h1>Viviendas de la Comunidad</h1>
+<hr />
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 detail-table">
+    <!-- address Column -->
+    <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Dirección</th>
+        <td mat-cell *matCellDef="let element">
+            {{ element.address }}
+        </td>
+    </ng-container>
+    <!-- water_meter Column -->
+    <ng-container matColumnDef="water_meter">
+        <th mat-header-cell *matHeaderCellDef>Contador</th>
+        <td mat-cell *matCellDef="let element">{{ element.water_meter }}</td>
+    </ng-container>
+    <!-- resident_name Column -->
+    <ng-container matColumnDef="resident_name">
+        <th mat-header-cell *matHeaderCellDef>Residente</th>
+        <td mat-cell *matCellDef="let element">{{ element.resident_name }}</td>
+    </ng-container>
+    <!-- phone Column -->
+    <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'highlight': selectedRowIndex == row.address }" (click)="selectRow(row)">
+    </tr>
+</table>

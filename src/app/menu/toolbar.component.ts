@@ -16,10 +16,11 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     let user = localStorage.getItem('user');
-    if(user){
+    if (user) {
       // TODO: if user logged show username
       this.username = user;
-    }else{
+      console.log(this.username)
+    } else {
       // FIXME: remove else case when localStorage works
       this.username = 'Jonh Snow';
     }
@@ -33,7 +34,7 @@ export class ToolbarComponent implements OnInit {
    * FIXME: Do this in service for no dependency
    * @param currentUrl
    */
-  public checkUrl(currentUrl: Toolbar[]) {
+  public checkUrl(currentUrl: Toolbar[]): void {
     currentUrl.forEach((url) => {
       if (this.location.path() === '/' + url.url) {
         this.title = url.title;
@@ -41,7 +42,7 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  public goToControlPanel() {
+  public goToControlPanel(): void {
     this.router.navigate(['/control-panel']);
   }
 }

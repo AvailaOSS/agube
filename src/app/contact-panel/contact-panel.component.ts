@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-export interface LivingPlace {
+export interface ContactPanel {
   id: string;
   address: string;
   water_meter: string;
@@ -10,19 +10,19 @@ export interface LivingPlace {
 }
 
 @Component({
-  selector: 'app-living-place',
-  templateUrl: './living-place.component.html',
-  styleUrls: ['./living-place.component.scss'],
+  selector: 'app-contact-panel',
+  templateUrl: './contact-panel.component.html',
+  styleUrls: ['./contact-panel.component.scss'],
 })
-export class LivingPlaceComponent implements OnInit {
-  public livingPlace: LivingPlace;
+export class ContactPanelComponent implements OnInit {
+  public contactPanel: ContactPanel;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {}
 
-  public selectItem(livingPlace: LivingPlace): void {
-    this.livingPlace = livingPlace;
+  public selectItem(contactPanel: ContactPanel): void {
+    this.contactPanel = contactPanel;
   }
 
   public goToControlPanel(): void {
