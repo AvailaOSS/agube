@@ -7,11 +7,6 @@ import { GenericFormsModule } from './generic-forms/generic-forms.module';
 
 @NgModule({
   declarations: [SubscriptionComponent],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    PricingModule,
-    GenericFormsModule,
-  ],
+  imports: [CommonModule, BrowserModule, PricingModule, GenericFormsModule],
 })
 export class SubscriptionModule {}

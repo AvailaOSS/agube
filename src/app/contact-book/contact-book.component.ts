@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Contact, ContactService, TagService } from 'apiaux/contact-book-rest-api-lib/src/public-api';
+
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
+
 @Component({
   selector: 'app-contact-book',
   templateUrl: './contact-book.component.html',
