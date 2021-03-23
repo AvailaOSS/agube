@@ -1,3 +1,4 @@
+import { ComponentsModule } from './components/components.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,10 +9,7 @@ import { AgubeApiModule } from '../../apiaux/agube-rest-api-lib/src/lib/agube.ap
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
-import {
-  ErrorInterceptor,
-  JwtInterceptor,
-} from './login/helpers';
+import { ErrorInterceptor, JwtInterceptor } from './login/helpers';
 import { LoginModule } from './login/login.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,12 +44,12 @@ import { UtilsModule } from './dwelling/dwelling-detail-card/management-componen
     AdDWellingModule,
     DepositPanelModule,
     UtilsModule,
+    ComponentsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
