@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ControlPanelGroup } from './control-panel-group/control-panel-group';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-control-panel',
@@ -8,79 +8,15 @@ import { ControlPanelGroup } from './control-panel-group/control-panel-group';
 })
 export class ControlPanelComponent implements OnInit {
   public users: any;
-  public managementButtons: ControlPanelGroup;
-  public planningButtons: ControlPanelGroup;
-  public configurationButtons: ControlPanelGroup;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   public ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('currentUser')))
+    console.log(JSON.parse(localStorage.getItem('currentUser')));
     this.users = JSON.parse(localStorage.getItem('currentUser'));
-    this.managementButtons = {
-      name: 'Gestión',
-      buttons: [
-        {
-          name: 'Viviendas',
-          redirect: 'viviendas',
-          icon: 'fas fa-home fa-2x',
-        },
-        {
-          name: 'Contactos',
-          redirect: 'contactos',
-          icon: 'fas fa-users fa-2x',
-        },
-        {
-          name: 'Agenda',
-          redirect: 'wip',
-          icon: 'fas fa-address-book fa-2x',
-        },
-      ],
-    };
-    this.planningButtons = {
-      name: 'Planificación',
-      buttons: [
-        {
-          name: 'Lectura Contador',
-          redirect: 'wip',
-          icon: 'fas fa-faucet fa-2x',
-        },
-        {
-          name: 'Incidencias',
-          redirect: 'wip',
-          icon: 'fas fa-tasks fa-2x',
-        },
-        {
-          name: 'Facturas',
-          redirect: 'wip',
-          icon: 'fas fa-file-invoice fa-2x',
-        },
-        {
-          name: 'Correos',
-          redirect: 'wip',
-          icon: 'fas fa-envelope fa-2x',
-        },
-        {
-          name: 'Calendario',
-          redirect: 'wip',
-          icon: 'fas fa-calendar-alt fa-2x',
-        },
-      ],
-    };
-    this.configurationButtons = {
-      name: 'Configuración',
-      buttons: [
-        {
-          name: 'Depósito',
-          redirect: 'depositos',
-          icon: 'fas fa-swimming-pool fa-2x',
-        },
-        {
-          name: 'General',
-          redirect: 'wip',
-          icon: 'fas fa-tools fa-2x',
-        },
-      ],
-    };
+  }
+
+  public goTo(route) {
+    this.router.navigate([route]);
   }
 }

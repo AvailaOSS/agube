@@ -20,6 +20,14 @@ import { NgModule } from '@angular/core';
     ButtonInfoDirective,
   ],
   imports: [CommonModule, FlexLayoutModule],
+  exports: [
+    ButtonPrimaryDirective,
+    ButtonSecondaryDirective,
+    ButtonSuccessDirective,
+    ButtonDangerDirective,
+    ButtonWarningDirective,
+    ButtonInfoDirective,
+  ],
   providers: [],
 })
 export class ComponentsModule {}
