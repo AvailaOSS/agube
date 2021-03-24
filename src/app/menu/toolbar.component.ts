@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
   @Input() public title: string;
-  public hideCards: boolean = false;
+  public hideCards: boolean = true;
   constructor(
     private location: Location,
     private readonly router: Router,
