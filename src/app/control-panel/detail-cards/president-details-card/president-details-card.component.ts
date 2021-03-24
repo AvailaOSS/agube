@@ -57,5 +57,5 @@ export class PresidentDetailsCardComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
 }

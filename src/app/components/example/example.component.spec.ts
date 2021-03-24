@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ControlPanelGroupComponent } from './control-panel-group.component';
+import { ExampleComponent } from './example.component';
 
-describe('ControlPanelGroupComponent', () => {
-  let component: ControlPanelGroupComponent;
-  let fixture: ComponentFixture<ControlPanelGroupComponent>;
+describe('ExampleComponent', () => {
+  let component: ExampleComponent;
+  let fixture: ComponentFixture<ExampleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ControlPanelGroupComponent ]
+      declarations: [ ExampleComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ControlPanelGroupComponent);
+    fixture = TestBed.createComponent(ExampleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -16,12 +16,16 @@ export class ToolbarComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
   @Input() public title: string;
+  public hideCards: boolean = true;
   constructor(
     private location: Location,
     private readonly router: Router,
     private readonly svcAccountService: AccountService
   ) {}
 
+public getCards():void{
+  this.hideCards=!this.hideCards;
+}
   ngOnInit(): void {
     this.currentUserSubscription = this.svcAccountService.user.subscribe(
       (user) => {

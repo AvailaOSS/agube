@@ -28,7 +28,7 @@ export class ClientDetailsCardComponent implements OnInit {
     private readonly svcAccountService: AccountService,
     private readonly svcSubscription: SubscriptionService
   ) {
-    // TODO_: FIX ME MANAGER API!!!!!!!!!!
+    // TODO: FIX ME MANAGER API!!!!!!!!!!
     this.svcAccountService.user.subscribe(
       (user) => {
         this.currentUser = jwt_decode(user.token);

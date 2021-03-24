@@ -1,14 +1,143 @@
-<!-- Use Bootstrap grid instead of fxLayout for responsive -->
-<div>
-    <app-toolbar></app-toolbar><br/>
-    <div fxLayout="row" fxLayoutAlign="space-around start">
+<!-- <app-client-details-card style="margin-bottom: 15px"></app-client-details-card> -->
+<!-- <app-president-details-card></app-president-details-card> -->
 
-        <div fxLayout="column" fxLayoutAlign="space-between">
-            <app-client-details-card style="margin-bottom: 15px;"></app-client-details-card>
-            <app-president-details-card></app-president-details-card>
-        </div>
-        <app-control-panel-group [groupConfig]="managementButtons"></app-control-panel-group>
-        <app-control-panel-group [groupConfig]="planningButtons"></app-control-panel-group>
-        <app-control-panel-group [groupConfig]="configurationButtons"></app-control-panel-group>
+<!-- MANAGEMENT -->
+<div class="card container py-1">
+  <h2 class="pb-1 border-bottom " >Gestión</h2>
+  <div class="row g-5 py-2">
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-home fa-2x"></i>
+      </div>
+      <div>
+        <h2>Viviendas</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('viviendas')">Entrar</button>
+      </div>
     </div>
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-users fa-2x"></i>
+      </div>
+      <div>
+        <h2>Contactos</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('contactos')">Entrar</button>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-address-book fa-2x"></i>
+      </div>
+      <div>
+        <h2>Agenda</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANNING -->
+<div class="card container py-1 separation">
+  <h2 class="pb-1 border-bottom">Planificación</h2>
+  <div class="row g-5 py-2">
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-faucet fa-2x"></i>
+      </div>
+      <div>
+        <h2>Lectura de Contador</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-tasks fa-2x"></i>
+      </div>
+      <div>
+        <h2>Incidencias</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-file-invoice fa-2x"></i>
+      </div>
+      <div>
+        <h2>Facturas</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+    <div class="py-2 col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-envelope fa-2x"></i>
+      </div>
+      <div>
+        <h2>Correo</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+    <div class="py-2 col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-calendar-alt fa-2x"></i>
+      </div>
+      <div>
+        <h2>Calendario</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIGURATION -->
+<div class="card container py-1 separation">
+  <h2 class="pb-1 border-bottom">Configuración</h2>
+  <div class="row g-5 py-2">
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-tools fa-2x"></i>
+      </div>
+      <div>
+        <h2>General</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('wip')">Entrar</button>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-start">
+      <div>
+        <i class="fas fa-swimming-pool fa-2x"></i>
+      </div>
+      <div>
+        <h2>Depósito</h2>
+        <p>
+          Paragraph of text beneath the heading to explain the heading.
+        </p>
+        <button appButtonPrimary (click)="goTo('depositos')">Entrar</button>
+      </div>
+    </div>
+  </div>
 </div>
