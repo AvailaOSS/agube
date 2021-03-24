@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChangePayComponent } from './change-pay.component';
-import { ToolbarModule } from '../../../../menu/toolbar.module';
 import { UtilsModule } from '../utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +22,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
   declarations: [ChangePayComponent],
   imports: [
     CommonModule,
-    ToolbarModule,
     UtilsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
@@ -39,7 +37,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatListModule,
     MatCardModule,
     MatCheckboxModule,
-
     MatRadioModule,
     MatGridListModule,
   ],

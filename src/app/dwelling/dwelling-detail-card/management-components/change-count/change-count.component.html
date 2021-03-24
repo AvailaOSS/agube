@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<app-toolbar [title]="'Cambio Contador'"></app-toolbar>
 <div class="contenedor">
   <app-utils
-  [isHiddenAddress]="true"
-  [isHiddenBank]="true"
-  [isHiddenResident]="true"
-  [isHiddenOwner]="true"
-  [titleCard]="'Cambio de Contador'"
-  [formDataConfiguration]="formConfigurationData"
-  (sendForm)="sendForm($event)"
-></app-utils>
+    [isHiddenAddress]="true"
+    [isHiddenBank]="true"
+    [isHiddenResident]="true"
+    [isHiddenOwner]="true"
+    [titleCard]="'Cambio de Contador'"
+    [formDataConfiguration]="formConfigurationData"
+    (sendForm)="sendForm($event)"
+  ></app-utils>
 </div>
-

@@ -10,7 +10,6 @@ import { ControlPanelModule } from '../control-panel/control-panel.module';
 import { MatCardModule } from '@angular/material/card';
 import { DepositPanelDetailListComponent } from './deposit-panel-detail-list/deposit-panel-detail-list.component';
 import { DepositPanelDetailCardComponent } from './deposit-panel-detail-card/deposit-panel-detail-card.component';
-import { ToolbarModule } from '../menu/toolbar.module';
 
 
 
@@ -26,7 +25,6 @@ import { ToolbarModule } from '../menu/toolbar.module';
     MatListModule,
     ControlPanelModule,
     MatCardModule,
-    ToolbarModule
   ],
   exports: [DepositPanelComponent],
 })

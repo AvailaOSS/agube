@@ -1,0 +1,6 @@
+<div *ngIf="user; else noUser">
+  <app-toolbar-user></app-toolbar-user>
+</div>
+<ng-template #noUser>
+  <app-toolbar-base [item]="user.username"></app-toolbar-base>
+</ng-template>

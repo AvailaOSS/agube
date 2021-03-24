@@ -17,10 +17,10 @@ export class AccountService {
       JSON.parse(localStorage.getItem('currentUser'))
     );
     this.user = this.userSubject.asObservable();
-    console.log(this.user)
   }
 
   public get userValue(): User {
+    // FIXME: return decoded User not token
     return this.userSubject.value;
   }
 
@@ -32,11 +32,11 @@ export class AccountService {
       })
       .pipe(
         map((user) => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            console.log(user.token)
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.userSubject.next(user);
-            return user;
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          console.log(user.token);
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.userSubject.next(user);
+          return user;
         })
       );
   }

@@ -1,14 +1,15 @@
-<app-toolbar [title]="'Contactos'"></app-toolbar>
 <div fxLayout="row" fxLayoutAlign="space-around">
-    <div class="detail-table-group">
-        <app-contact-panel-detail-list (selected)="selectItem($event)"> </app-contact-panel-detail-list>
-
-    </div>
-    <div class="detail-dwelling-card">
-        <app-contact-panel-detail-card [ContactPanel]="contactPanel"> </app-contact-panel-detail-card>
-    </div>
-
+  <div class="detail-table-group">
+    <app-contact-panel-detail-list (selected)="selectItem($event)">
+    </app-contact-panel-detail-list>
+  </div>
+  <div class="detail-dwelling-card">
+    <app-contact-panel-detail-card [ContactPanel]="contactPanel">
+    </app-contact-panel-detail-card>
+  </div>
 </div>
 <div class="position-button-back">
-    <button mat-raised-button color="primary" (click)="goToControlPanel()">Atrás</button>
+  <button mat-raised-button color="primary" (click)="goToControlPanel()">
+    Atrás
+  </button>
 </div>

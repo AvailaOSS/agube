@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdDWellingComponent } from './add-welling.component';
-import { ToolbarModule } from '../../../../menu/toolbar.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,10 +35,8 @@ import { UtilsModule } from '../utils/utils.module';
     MatListModule,
     MatCardModule,
     MatCheckboxModule,
-
     MatRadioModule,
     MatGridListModule,
-    ToolbarModule,
     UtilsModule
   ],
 })
