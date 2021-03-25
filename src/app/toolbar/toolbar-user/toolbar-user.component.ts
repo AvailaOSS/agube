@@ -7,15 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./toolbar-user.component.scss'],
 })
 export class ToolbarUserComponent implements OnInit {
-  // FIXME: cannot receive username
-  @Input() username: string;
+  @Input() user;
 
   public hiddenDetails = true;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.username);
+    console.log(this.user);
   }
 
   public showDetails(): void {
