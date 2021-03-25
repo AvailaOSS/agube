@@ -1,55 +1,52 @@
-<div class="container h-100">
-    <div class="d-flex justify-content-center h-100">
-        <div class="user_card">
-            <div class="d-flex justify-content-center">
-                <div class="brand_logo_container">
-                    <img src="https://avatars.slack-edge.com/2020-10-13/1409854645591_0387c36ecf7c102cc07b_230.png" class="brand_logo" alt="Logo" />
-                </div>
-            </div>
-            <div class="d-flex justify-content-center form_container">
-                <form [formGroup]="loginForm">
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text" name="" class="form-control input_user" value="" formControlName="username" placeholder="username" />
-                    </div>
-                    <div class="input-group mb-2">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                        <input type="password" name="" class="form-control input_pass" value="" formControlName="password" placeholder="Contraseña"  (keyup.enter)="onSubmit()"/>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customControlInline" />
-                            <label class="custom-control-label" for="customControlInline">Recuerdame</label
-              >
-            </div>
-          </div>
-          <div class="d-flex justify-content-center mt-3 login_container">
-            <button
-              type="button"
-              name="button"
-              class="btn login_btn"
-              
-              (click)="onSubmit()"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-      </div>
+<main style="    width: 100%;
+max-width: 430px;
+padding: 15px;
+margin: auto;">
+<form [formGroup]="loginForm">
+  <div class="text-center">
+    <img class="mb-4" src="https://avatars.slack-edge.com/2020-10-13/1409854645591_0387c36ecf7c102cc07b_230.png" alt="" width="72" height="57">
+  </div>
 
-      <div class="mt-4">
-        <div class="d-flex justify-content-center links">
-          <label class="btn" style="color: #fff">No tienes cuenta?</label>
-                            <a href="../subscription/" class="btn btn-link">Registrate</a>
-                        </div>
-                        <div class="d-flex justify-content-center links">
-                            <a href="#">Olvidaste la contraseña?</a>
-                        </div>
-                    </div>
-            </div>
-        </div>
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+    <input type="text" id="form2Example1"  formControlName="username" class="form-control" />
+    <label class="form-label"  for="form2Example1">Username</label>
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+    <input type="password" id="form2Example2"formControlName="password"  class="form-control"  (keyup.enter)="onSubmit()" />
+    <label class="form-label" for="form2Example2">Password</label>
+  </div>
+
+  <!-- 2 column grid layout for inline styling -->
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-center">
+      <!-- Checkbox -->
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="form2Example3"
+        />
+        <label class="form-check-label" for="form2Example3"> Remember me </label>
+      </div>
     </div>
+
+    <div class="col">
+      <!-- Simple link -->
+      <a href="#!">Forgot password?</a>
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4"  (click)="onSubmit()">Sign in</button>
+
+  <!-- Register buttons -->
+  <div class="text-center">
+    <p>Not a member? <a href="/subscription">Register</a></p>
+  </div>
+</form>
+
+</main>
