@@ -1,0 +1,36 @@
+<!-- TODO: fix button dropdown-->
+<nav class="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" (click)="goToControlPanel()">Agube</a>
+    <!-- Example split danger button -->
+    <div class="row">
+      <div class="dropdown">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+        >
+          {{user.username}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item "  (click)="logout()" >Cerrar Sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- <div style="float: left" [hidden]="hiddenDetails">
+  <div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <app-client-detail-card></app-client-detail-card>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="h-100 p-5 bg-light border rounded-3">
+        <app-manager-detail-card></app-manager-detail-card>
+      </div>
+    </div>
+  </div>
+</div> -->

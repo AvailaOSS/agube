@@ -12,7 +12,7 @@ export class ControlPanelComponent implements OnInit {
   constructor(private router: Router) {}
 
   public ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('currentUser')));
+    // FIXME: get user from AccountService not from localStorage
     this.users = JSON.parse(localStorage.getItem('currentUser'));
   }
 

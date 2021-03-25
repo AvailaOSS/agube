@@ -7,7 +7,6 @@ import { MatListModule } from '@angular/material/list';
 import { ClientDetailsCardComponent } from './detail-cards/client-details-card/client-details-card.component';
 import { PresidentDetailsCardComponent } from './detail-cards/president-details-card/president-details-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ToolbarModule } from '../menu/toolbar.module';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { ComponentsModule } from '../components/components.module';
     FlexLayoutModule,
     MatListModule,
     MatIconModule,
-    ToolbarModule
   ],
   exports: [
     ControlPanelComponent,

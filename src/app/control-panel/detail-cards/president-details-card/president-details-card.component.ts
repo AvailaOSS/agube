@@ -32,29 +32,9 @@ export class PresidentDetailsCardComponent implements OnInit {
     private readonly svcClientService: ClientService,
     private readonly svcAccountService: AccountService
   ) {
-    this.svcAccountService.user.subscribe(
-      (user) => {
-        this.currentUser = jwt_decode(user.token);
-        this.svcManagerService.getManagerByUser().subscribe((manager) => {
-          console.log(manager);
-          this.svcClientService
-            .getClient(manager.user_id)
-            .subscribe((client) => {
-              this.president.name =
-                client['client'].user.first_name +
-                ' ' +
-                client['client'].user.last_name;
-              this.president.address = client['client'].business_name;
-              this.president.phone = client['client'].phone_number;
-              this.president.email = client['client'].user.email;
-            });
-        });
-      },
-      (error) => {
-        this.svcAccountService.refresh();
-      }
+
       // this.svcClientService.getClient()
-    );
+
   }
 
   public ngOnInit(): void {}

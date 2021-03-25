@@ -29,29 +29,7 @@ export class ClientDetailsCardComponent implements OnInit {
     private readonly svcSubscription: SubscriptionService
   ) {
     // TODO: FIX ME MANAGER API!!!!!!!!!!
-    this.svcAccountService.user.subscribe(
-      (user) => {
-        this.currentUser = jwt_decode(user.token);
-        this.svcSubscription.subscriptionList().subscribe((subs) => {
-          this.subs = subs;
-        });
-        this.svcClientService
-          .getClient(this.currentUser.user_id)
-          .subscribe((client) => {
-            this.clientDetails.name = client['client'].business_name;
-            this.clientDetails.address = client['client'].business_name;
-            this.clientDetails.nif = client['client'].nif;
-            this.clientDetails.plan = this.subs[client['subscription']].name;
-            this.clientDetails.subscription_date = client[
-              'expiration_date'
-            ].split('T')[0];
-          });
-      },
-      (error) => {
-        this.svcAccountService.refresh();
-      }
-      // this.svcClientService.getClient()
-    );
+
   }
 
   ngOnInit(): void {

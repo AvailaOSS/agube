@@ -15,7 +15,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { DWellingModule } from './dwelling/dwelling.module';
-import { ToolbarModule } from './menu/toolbar.module';
+import { ToolbarModule } from './toolbar/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';

@@ -1,14 +1,15 @@
-<app-toolbar [title]="'Depósitos de la comundidad'"></app-toolbar>
 <div fxLayout="row" fxLayoutAlign="space-around">
-    <div class="detail-table-group">
-        <app-deposit-panel-detail-list (selected)="selectItem($event)"> </app-deposit-panel-detail-list>
-
-    </div>
-    <div class="detail-dwelling-card">
-        <app-deposit-panel-detail-card [DepositPanel]="depositPanel"> </app-deposit-panel-detail-card>
-    </div>
-
+  <div class="detail-table-group">
+    <app-deposit-panel-detail-list (selected)="selectItem($event)">
+    </app-deposit-panel-detail-list>
+  </div>
+  <div class="detail-dwelling-card">
+    <app-deposit-panel-detail-card [DepositPanel]="depositPanel">
+    </app-deposit-panel-detail-card>
+  </div>
 </div>
 <div class="position-button-back">
-    <button mat-raised-button color="primary" (click)="goToControlPanel()">Atrás</button>
+  <button mat-raised-button color="primary" (click)="goToControlPanel()">
+    Atrás
+  </button>
 </div>
