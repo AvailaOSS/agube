@@ -48,16 +48,5 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
-    this.accountService
-      .register(this.form.value)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.router.navigate(['../login'], { relativeTo: this.route });
-        },
-        (error) => {
-          this.loading = false;
-        }
-      );
   }
 }

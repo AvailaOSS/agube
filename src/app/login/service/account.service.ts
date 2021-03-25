@@ -1,78 +1,67 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
+import { TokenService } from '../../../../apiaux/agube-rest-api-lib/src/lib/service/token.service';
+import jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class AccountService {
-  private localStorageItemReference = 'user';
-  private userSubject: BehaviorSubject<User>;
+  private cookieName = 'token';
+  private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-  public user: Observable<User>;
-
-  constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem(this.localStorageItemReference))
-    );
-    this.user = this.userSubject.asObservable();
+  constructor(private router: Router, private serviceAuth: TokenService) {
+    this.loadToken();
   }
 
-  public get userValue(): User {
-    // FIXME: return decoded User not token
-    return this.userSubject.value;
-  }
-
-  public login(username, password): any {
-    return this.http
-      .post<User>(`${environment.agubeBackendUrl}/token/auth`, {
-        username,
-        password,
+  public login(username, password): void {
+    this.serviceAuth
+      .tokenAuthCreate({
+        username: username,
+        password: password,
       })
-      .pipe(
-        map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem(
-            this.localStorageItemReference,
-            JSON.stringify(user)
-          );
-          this.userSubject.next(user);
-          return user;
-        })
+      .subscribe(
+        (response) => this.saveToken(response),
+        (error) => alert('ERROR LOGGING')
       );
   }
 
-  public refresh(): any {
-    return this.http
-      .post<User>(`${environment.agubeBackendUrl}/token/refresh`, {
-        token: this.userValue.token,
+  public refresh(): void {
+    this.serviceAuth
+      .tokenRefreshCreate({
+        token: localStorage.getItem(this.cookieName),
       })
-      .pipe(
-        map((user) => {
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem(
-              this.localStorageItemReference,
-              JSON.stringify(user)
-            );
-            this.userSubject.next(user);
-          }
-          return user;
-        })
+      .subscribe(
+        (response) => this.saveToken(response),
+        (error) => alert('ERROR LOGGING')
       );
+  }
+
+  public getUser(): Observable<User> {
+    return this.userSubject.asObservable();
   }
 
   public logout(): void {
     // remove user from local storage and set current user to null
-    localStorage.removeItem(this.localStorageItemReference);
+    localStorage.removeItem(this.cookieName);
     this.userSubject.next(null);
     this.router.navigate(['/account/login']);
   }
 
-  public register(user: User): any {
-    return this.http.post(`${environment.apiUrl}/users/register`, user);
+  private saveToken(response): void {
+    const token = JSON.stringify(response);
+    const user: User = jwt_decode(token);
+    localStorage.setItem(this.cookieName, token);
+    this.userSubject.next(user);
+  }
+
+  private loadToken(): void {
+    const token = localStorage.getItem(this.cookieName);
+    if (token) {
+      const user: User = jwt_decode(token);
+      this.userSubject.next(user);
+    }
   }
 }

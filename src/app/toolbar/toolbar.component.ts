@@ -1,6 +1,5 @@
-import { AccountService } from './../login/service/account.service';
 import { Component, OnInit } from '@angular/core';
-import jwt_decode from 'jwt-decode';
+import { AccountService } from '../login/service/account.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,10 +9,9 @@ import jwt_decode from 'jwt-decode';
 export class ToolbarComponent implements OnInit {
   public user = undefined;
 
-  constructor(private readonly svcAccountService: AccountService) {}
+  constructor(private readonly authService: AccountService) {}
 
   ngOnInit(): void {
-    this.user = jwt_decode(this.svcAccountService.userValue.token);
-    console.log(this.user.username);
+    this.authService.getUser().subscribe((result) => (this.user = result));
   }
 }
