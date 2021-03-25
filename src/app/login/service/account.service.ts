@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AccountService {
-  private cookieName = 'token';
+  public cookieName = 'token';
   private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private router: Router, private serviceAuth: TokenService) {
@@ -23,7 +23,10 @@ export class AccountService {
         password: password,
       })
       .subscribe(
-        (response) => this.saveToken(response),
+        (response) => {
+          this.saveToken(response)
+          this.router.navigate(['/control-panel']);
+        },
         (error) => alert('ERROR LOGGING')
       );
   }

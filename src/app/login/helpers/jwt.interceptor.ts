@@ -19,14 +19,15 @@ export class JwtInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // add auth header with jwt if user is logged in and request is to the api url
-    const user = this.accountService.userValue;
-    const isLoggedIn = user && user.token;
+
+    const user = localStorage.getItem(this.accountService.cookieName);
+    const isLoggedIn = user ;
     const isApiUrl = request.url.startsWith(environment.agubeBackendUrl);
 
     if (isLoggedIn && isApiUrl) {
       request = request.clone({
         setHeaders: {
-          Authorization: `jwt ${user.token}`,
+          Authorization: `jwt ${user}`,
         },
         withCredentials: true,
       });
