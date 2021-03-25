@@ -1,55 +1,73 @@
 <div class="welcome" fxLayout="column" fxLayoutAlign="space-around center">
-    <p class="w-title">Welcome to Subscribe!</p>
-    <p class="w-content">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem
-        Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-    </p>
-    <p class="w-content">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem
-        Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-        industry's standard dummy text ever since the 1500s Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-        of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-    </p>
-    <button class="log-in-button" mat-raised-button color="primary" (click)="goToLogin()">
+  <p class="w-title">Pricing</p>
+  <p class="w-content">
+    Quickly build an effective pricing table for your potential customers with
+    this Bootstrap example. It’s built with default Bootstrap components and
+    utilities with little customization.
+  </p>
+  <button
+    class="log-in-button"
+    mat-raised-button
+    color="primary"
+    (click)="goToLogin()"
+  >
     I already have a subscription!
   </button>
 </div>
 <hr />
-<div fxLayout="row" fxLayoutAlign="space-around stretch">
-    <div *ngFor="let item of subscriptions; let i = index">
-        <mat-card class="subscription-card">
-            <mat-card-header>
-                <mat-card-title class="card-title">
-                    {{ item.subscription.name }}
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="card-content" fxLayout="column" fxLayoutAlign="center center">
-                <p class="card-subtitle">{{ item.subscription.price }} €</p>
-                <ul>
-                    <li>
-                        Precio por día: <b>{{ item.subscription.price_per_day }} €</b>
-                    </li>
-                    <li>{{ item.subscription.description }}</li>
-                </ul>
-            </mat-card-content>
-            <!-- FIXME: fix button to bottom-->
-            <mat-card-actions fxLayout="row" fxLayoutAlign="center end" class="actions">
-                <button mat-raised-button color="accent" class="buy-button" (click)="sendUrl(item.subscription.id)">
-          Buy!
-        </button>
-            </mat-card-actions>
-        </mat-card>
-
-        <table mat-table [dataSource]="item.permissions" class="mat-elevation-z8">
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Contenido del plan</th>
-                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="permissionColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: permissionColumns"></tr>
-        </table>
+<div
+  class="row row-cols-1 row-cols-md-4 mb-3 text-center"
+  fxLayout="row"
+  fxLayoutAlign="space-around stretch"
+>
+  <div *ngFor="let item of subscriptions; let i = index">
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm border-primary">
+        <div class="card-header py-3 text-white bg-primary border-primary">
+          <h4 class="my-0 fw-normal">{{ item.subscription.name }}</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">
+            ${{ item.subscription.price
+            }}<small class="text-muted fw-light">/mo</small>
+          </h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>30 users included</li>
+            <li>15 GB of storage</li>
+            <li>Phone and email support</li>
+            <li>Help center access</li>
+          </ul>
+          <button
+            type="button"
+            class="w-100 btn btn-lg btn-primary"
+            (click)="sendUrl(item.subscription.id)"
+          >
+            Buy
+          </button>
+        </div>
+      </div>
     </div>
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="item.permissions"
+        class="table text-center"
+      >
+        <ng-container matColumnDef="name">
+          <th
+            id="1"
+            mat-header-cell
+            *matHeaderCellDef
+            class="table text-center"
+          >
+            <h3>Contenido del plan</h3>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="permissionColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: permissionColumns"></tr>
+      </table>
+    </div>
+  </div>
 </div>
