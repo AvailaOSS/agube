@@ -46,7 +46,6 @@ export class GenericFormsComponent implements OnInit {
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
       nif: ['', [Validators.required]],
       business_name: ['', Validators.required],
       phone_number: ['', Validators.required],
@@ -71,7 +70,7 @@ export class GenericFormsComponent implements OnInit {
   public onSubmit(): void {
     this.submitted = true;
     console.log(this.registerForm.value);
-    if (!this.registerForm.invalid) {
+
       this.subscriptionclientService
         .clientCreate({
           client: {
@@ -84,7 +83,7 @@ export class GenericFormsComponent implements OnInit {
             nif: this.registerForm.value.nif,
             business_name: this.registerForm.value.business_name,
             phone_number: this.registerForm.value.phone_number,
-            payment_type: +this.registerForm.value.payment_type.id,
+            payment_type: 1,
           },
           subscription: this.formIdentification,
         })
@@ -95,8 +94,6 @@ export class GenericFormsComponent implements OnInit {
         },(error)=>{
           console.log(error)
         });
-    } else {
-      console.log('invalid', this.registerForm);
-    }
+
   }
 }
