@@ -13,22 +13,18 @@ import { PaymentType } from '../../../../apiaux/subscription-rest-api-lib/src/li
   styleUrls: ['./generic-forms.component.scss'],
 })
 export class GenericFormsComponent implements OnInit {
-  hide = true;
   public registerForm: FormGroup;
-  public loading = false;
-  public submitted = false;
-  public error: string;
   public formIdentification: number;
   public payType: string;
   public typePay: PaymentType[];
-  requestSend: boolean;
-  errorInformation: boolean;
+  public subscriptions: any;
+  public selectedList: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly subscriptionclientService: ClientService,
-    private readonly subscription: SubscriptionService,
+    private readonly svcSubscriptionService: SubscriptionService,
     private readonly paymentTypesService: PaymentTypesService
   ) {
     this.activatedRoute.params.subscribe((params) => {
@@ -36,7 +32,12 @@ export class GenericFormsComponent implements OnInit {
     });
 
     this.paymentTypesService.paymentTypesList().subscribe((value) => {
-      this.typePay = (value);
+      this.typePay = value;
+    });
+
+    this.svcSubscriptionService.subscriptionList().subscribe((subs) => {
+      console.log(subs);
+      this.subscriptions = subs;
     });
   }
 
@@ -68,32 +69,34 @@ export class GenericFormsComponent implements OnInit {
     });
   }
   public onSubmit(): void {
-    this.submitted = true;
     console.log(this.registerForm.value);
 
-      this.subscriptionclientService
-        .clientCreate({
-          client: {
-            user: {
-              username: this.registerForm.value.username,
-              first_name: this.registerForm.value.firstName,
-              last_name: this.registerForm.value.lastName,
-              email: this.registerForm.value.email,
-            },
-            nif: this.registerForm.value.nif,
-            business_name: this.registerForm.value.business_name,
-            phone_number: this.registerForm.value.phone_number,
-            payment_type: 1,
+    this.subscriptionclientService
+      .clientCreate({
+        client: {
+          user: {
+            username: this.registerForm.value.username,
+            first_name: this.registerForm.value.firstName,
+            last_name: this.registerForm.value.lastName,
+            email: this.registerForm.value.email,
           },
-          subscription: this.formIdentification,
-        })
-        .subscribe((value) => {
+          nif: this.registerForm.value.nif,
+          business_name: this.registerForm.value.business_name,
+          phone_number: this.registerForm.value.phone_number,
+          payment_type: 1,
+        },
+        subscription: this.formIdentification,
+      })
+      .subscribe(
+        (value) => {
           console.log(value);
 
-          this.router.navigate(['/login'])
-        },(error)=>{
-          console.log(error)
-        });
-
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
+
 }
