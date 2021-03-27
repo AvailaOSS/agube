@@ -98,5 +98,4 @@ export class GenericFormsComponent implements OnInit {
         }
       );
   }
-
 }
