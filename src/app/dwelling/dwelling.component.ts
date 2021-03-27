@@ -21,4 +21,7 @@ export class DWellingComponent implements OnInit {
   public goToControlPanel(): void {
     this.router.navigate(['/control-panel']);
   }
+  public addNewWelling(): void {
+    this.router.navigate(['viviendas/alta/vivienda']);
+  }
 }

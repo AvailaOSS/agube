@@ -1,14 +1,15 @@
-<div fxLayout="row" fxLayoutAlign="space-around">
-  <div class="detail-table-group">
+<h3 class="col  mt-2">
+  Viviendas de la Comunidad
+  <button class="btn btn-outline-primary float-right" (click)="addNewWelling()">
+    Agregar viviendas
+  </button>
+</h3>
+<div  class="row col-12">
+  <div class="col-6">
     <app-dwelling-detail-list (selected)="selectItem($event)">
     </app-dwelling-detail-list>
   </div>
-  <div class="detail-dwelling-card">
+  <div class="col-6">
     <app-dwelling-detail-card [DWelling]="DWelling"> </app-dwelling-detail-card>
   </div>
-</div>
-<div class="position-button-back">
-  <button mat-raised-button color="primary" (click)="goToControlPanel()">
-    Atrás
-  </button>
 </div>
