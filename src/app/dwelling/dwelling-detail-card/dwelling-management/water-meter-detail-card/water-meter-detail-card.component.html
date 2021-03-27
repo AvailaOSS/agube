@@ -1,11 +1,11 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Contador Activo</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list>
-      <mat-list-item>Código {{ currentWaterMeter.code }}</mat-list-item>
-      <mat-list-item>Fecha de Activación {{ currentWaterMeter.activation_date }}</mat-list-item>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
+<div class="card bg-light m-3" style="max-width: 18rem;">
+  <div class="card-header"><strong>Contador Activo</strong></div>
+  <div class="card-body">
+    <p class="card-text">
+      Código {{ currentWaterMeter.code }}
+    </p>
+    <p>
+      Fecha de Activación {{ currentWaterMeter.activation_date }}
+    </p>
+  </div>
+</div>
