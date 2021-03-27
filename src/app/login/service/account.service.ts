@@ -56,11 +56,13 @@ export class AccountService {
   private saveToken(response): void {
     const token = JSON.stringify(response);
     const user: User = jwt_decode(token);
-    localStorage.setItem(this.cookieName, token);
+    console.log(user)
+    localStorage.setItem(this.cookieName, response.token);
     this.userSubject.next(user);
   }
 
   private loadToken(): void {
+
     const token = localStorage.getItem(this.cookieName);
     if (token) {
       const user: User = jwt_decode(token);
