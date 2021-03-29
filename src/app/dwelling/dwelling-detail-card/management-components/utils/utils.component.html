@@ -1,5 +1,248 @@
+<div class="col-md-12 col-lg-12">
+  <h4 class="mb-3 text-center">{{titleCard}}</h4>
+  <form
+    class="needs-validation was-validated"
+    novalidate=""
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="row g-3">
+      <div class="row col-12">
+        <div class="col-sm-5">
+          <label for="address" class="form-label">Calle</label>
+          <input type="text" formControlName="address" class="form-control" />
+          <div class="invalid-feedback">Se requiere una dirección.</div>
+        </div>
 
+        <div class="col-sm-1">
+          <label for="number" class="form-label">Numero</label>
+          <input type="number" formControlName="number" class="form-control" />
+          <div class="invalid-feedback">Se requiere un numero.</div>
+        </div>
+        <div class="col-sm-1">
+          <label for="numbflater" class="form-label">Piso</label>
+          <input type="number" formControlName="flat" class="form-control" />
+          <div class="invalid-feedback">Se requiere un Piso.</div>
+        </div>
+        <div class="col-sm-1">
+          <label for="gate" class="form-label">Puerta</label>
+          <input type="text" formControlName="gate" class="form-control" />
+          <div class="invalid-feedback">Se requiere una puerta.</div>
+        </div>
+        <div class="col-sm-4">
+          <label for="gate" class="form-label">Ciudad</label>
+          <input type="text" formControlName="town" class="form-control" />
+        </div>
 
+        <div class="invalid-feedback">Se requiere una Ciudad.</div>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <div class="row g-3">
+      <div class="row col-12">
+        <div class="col-sm-6">
+          <label for="code" class="form-label">Número de contador</label>
+          <input type="text" formControlName="code" class="form-control" />
+          <div class="invalid-feedback">Se requiere un código de contador.</div>
+        </div>
+        <div class="col-sm-6">
+          <label for="numberBank" class="form-label">Número de cuenta</label>
+          <input
+            type="bank"
+            formControlName="numberBank"
+            class="form-control"
+          />
+          <div class="invalid-feedback">Se requiere un número de cuenta.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <div class="row col-12">
+      <div class="row col-6">
+        <div class="card-header"><strong>Propietario</strong></div>
+        <div class="col-sm-6">
+          <label for="first_name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="first_name"
+            formControlName="first_name"
+            placeholder=""
+            value=""
+            required=""
+          />
+          <div class="invalid-feedback">Se requiere un nombre.</div>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="last_name" class="form-label">Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            id="last_name"
+            formControlName="last_name"
+            placeholder=""
+            value=""
+            required=""
+          />
+          <div class="invalid-feedback">Se requiere un apellido.</div>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="username" class="form-label">Username</label>
+          <div class="input-group has-validation">
+            <span class="input-group-text">@</span>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Username"
+              formControlName="username"
+              required=""
+            />
+            <div class="invalid-feedback">Se requiere un username.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="email" class="form-label">Email </label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="you@example.com"
+            formControlName="email"
+            required=""
+          />
+          <div class="invalid-feedback">Se requiere un email válido</div>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="address" class="form-label">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            placeholder="Calle Coghlan 1670..."
+            required=""
+            formControlName="addressOwner"
+          />
+          <div class="invalid-feedback">
+            Se require una dirección existente.
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="phones" class="form-label">Télefono</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phones"
+            placeholder=""
+            required=""
+            formControlName="phones"
+          />
+          <div class="invalid-feedback">Número de teléfono requerido.</div>
+        </div>
+      </div>
+      <div class="row col-6">
+
+          <div class="card-header"><strong>Residente</strong></div>
+
+            <div class="col-sm-6">
+              <label for="first_name" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="first_name"
+                formControlName="first_name"
+                placeholder=""
+                value=""
+                required=""
+              />
+              <div class="invalid-feedback">Se requiere un nombre.</div>
+            </div>
+            <div class="col-sm-6">
+              <label for="last_name" class="form-label">Apellido</label>
+              <input
+                type="text"
+                class="form-control"
+                id="last_name"
+                formControlName="last_name"
+                placeholder=""
+                value=""
+                required=""
+              />
+              <div class="invalid-feedback">Se requiere un apellido.</div>
+            </div>
+            <div class="col-sm-6">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  placeholder="Username"
+                  formControlName="username"
+                  required=""
+                />
+                <div class="invalid-feedback">Se requiere un username.</div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="email" class="form-label">Email </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="you@example.com"
+                formControlName="email"
+                required=""
+              />
+              <div class="invalid-feedback">Se requiere un email válido</div>
+            </div>
+            <div class="col-sm-6">
+              <label for="address" class="form-label">Dirección</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="Calle Coghlan 1670..."
+                required=""
+                formControlName="addressOwner"
+              />
+              <div class="invalid-feedback">
+                Se require una dirección existente.
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="phones" class="form-label">Télefono</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phones"
+                placeholder=""
+                required=""
+                formControlName="phones"
+              />
+              <div class="invalid-feedback">Número de teléfono requerido.</div>
+
+          </div>
+        </div>
+      </div>
+
+    <hr class="my-4" />
+    <button class="w-100 btn btn-primary btn-lg" type="submit">
+      {{titleCard}}
+    </button>
+  </form>
+</div>
+
+<!--
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
   <mat-card [hidden]="isHiddenAddress" style="display: flex; justify-content: start; flex-direction: column; flex-wrap: wrap;  border:1px solid;margin-top:3px">
@@ -309,9 +552,7 @@
           />
           <a href=" /viviendas " class="btn btn-link">Cancel</a>
         </mat-card-actions>
-      </mat-card>
+  </mat-card>
 
 </form>
-
-
-
+ -->
