@@ -1,12 +1,12 @@
-<div class="col-md-12 col-lg-12">
-  <h4 class="mb-3 text-center">{{titleCard}}</h4>
+<div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto;">
+  <h4 class="mb-3 text-center">{{ titleCard }}</h4>
   <form
     class="needs-validation was-validated"
     novalidate=""
     [formGroup]="registerForm"
     (ngSubmit)="onSubmit()"
   >
-    <div class="row g-3">
+    <div class="row g-3" [hidden]="isHiddenAddress">
       <div class="row col-12">
         <div class="col-sm-5">
           <label for="address" class="form-label">Calle</label>
@@ -42,12 +42,12 @@
 
     <div class="row g-3">
       <div class="row col-12">
-        <div class="col-sm-6">
+        <div class="col-sm-6" [hidden]="isHiddenCount">
           <label for="code" class="form-label">Número de contador</label>
           <input type="text" formControlName="code" class="form-control" />
           <div class="invalid-feedback">Se requiere un código de contador.</div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6"  [hidden]="isHiddenBank" >
           <label for="numberBank" class="form-label">Número de cuenta</label>
           <input
             type="bank"
@@ -62,97 +62,11 @@
     <hr class="my-4" />
 
     <div class="row col-12">
-      <div class="row col-6">
+      <div class="row col-6" [hidden]="isHiddenOwner">
         <div class="card-header"><strong>Propietario</strong></div>
-        <div class="col-sm-6">
-          <label for="first_name" class="form-label">Nombre</label>
-          <input
-            type="text"
-            class="form-control"
-            id="first_name"
-            formControlName="first_name"
-            placeholder=""
-            value=""
-            required=""
-          />
-          <div class="invalid-feedback">Se requiere un nombre.</div>
-        </div>
-
-        <div class="col-sm-6">
-          <label for="last_name" class="form-label">Apellido</label>
-          <input
-            type="text"
-            class="form-control"
-            id="last_name"
-            formControlName="last_name"
-            placeholder=""
-            value=""
-            required=""
-          />
-          <div class="invalid-feedback">Se requiere un apellido.</div>
-        </div>
-
-        <div class="col-sm-6">
-          <label for="username" class="form-label">Username</label>
-          <div class="input-group has-validation">
-            <span class="input-group-text">@</span>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              placeholder="Username"
-              formControlName="username"
-              required=""
-            />
-            <div class="invalid-feedback">Se requiere un username.</div>
-          </div>
-        </div>
-
-        <div class="col-sm-6">
-          <label for="email" class="form-label">Email </label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            placeholder="you@example.com"
-            formControlName="email"
-            required=""
-          />
-          <div class="invalid-feedback">Se requiere un email válido</div>
-        </div>
-
-        <div class="col-sm-6">
-          <label for="address" class="form-label">Dirección</label>
-          <input
-            type="text"
-            class="form-control"
-            id="address"
-            placeholder="Calle Coghlan 1670..."
-            required=""
-            formControlName="addressOwner"
-          />
-          <div class="invalid-feedback">
-            Se require una dirección existente.
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <label for="phones" class="form-label">Télefono</label>
-          <input
-            type="text"
-            class="form-control"
-            id="phones"
-            placeholder=""
-            required=""
-            formControlName="phones"
-          />
-          <div class="invalid-feedback">Número de teléfono requerido.</div>
-        </div>
-      </div>
-      <div class="row col-6">
-
-          <div class="card-header"><strong>Residente</strong></div>
-
-            <div class="col-sm-6">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-sm-4">
               <label for="first_name" class="form-label">Nombre</label>
               <input
                 type="text"
@@ -165,7 +79,8 @@
               />
               <div class="invalid-feedback">Se requiere un nombre.</div>
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-4">
               <label for="last_name" class="form-label">Apellido</label>
               <input
                 type="text"
@@ -178,7 +93,8 @@
               />
               <div class="invalid-feedback">Se requiere un apellido.</div>
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-4">
               <label for="username" class="form-label">Username</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
@@ -193,7 +109,8 @@
                 <div class="invalid-feedback">Se requiere un username.</div>
               </div>
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-3">
               <label for="email" class="form-label">Email </label>
               <input
                 type="email"
@@ -205,7 +122,8 @@
               />
               <div class="invalid-feedback">Se requiere un email válido</div>
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-5">
               <label for="address" class="form-label">Dirección</label>
               <input
                 type="text"
@@ -219,7 +137,7 @@
                 Se require una dirección existente.
               </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <label for="phones" class="form-label">Télefono</label>
               <input
                 type="text"
@@ -230,329 +148,113 @@
                 formControlName="phones"
               />
               <div class="invalid-feedback">Número de teléfono requerido.</div>
-
+            </div>
           </div>
         </div>
       </div>
+      <div class="row col-6"[hidden]="isHiddenResident">
+        <div class="card-header"><strong>Residente</strong></div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-sm-4">
+              <label for="first_name" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="first_name"
+                formControlName="first_name"
+                placeholder=""
+                value=""
+                required=""
+              />
+              <div class="invalid-feedback">Se requiere un nombre.</div>
+            </div>
+            <div class="col-sm-4">
+              <label for="last_name" class="form-label">Apellido</label>
+              <input
+                type="text"
+                class="form-control"
+                id="last_name"
+                formControlName="last_name"
+                placeholder=""
+                value=""
+                required=""
+              />
+              <div class="invalid-feedback">Se requiere un apellido.</div>
+            </div>
+            <div class="col-sm-4">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  placeholder="Username"
+                  formControlName="username"
+                  required=""
+                />
+                <div class="invalid-feedback">Se requiere un username.</div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label for="email" class="form-label">Email </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="you@example.com"
+                formControlName="email"
+                required=""
+              />
+              <div class="invalid-feedback">Se requiere un email válido</div>
+            </div>
+            <div class="col-sm-5">
+              <label for="address" class="form-label">Dirección</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="Calle Coghlan 1670..."
+                required=""
+                formControlName="addressOwner"
+              />
+              <div class="invalid-feedback">
+                Se require una dirección existente.
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label for="phones" class="form-label">Télefono</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phones"
+                placeholder=""
+                required=""
+                formControlName="phones"
+              />
+              <div class="invalid-feedback">Número de teléfono requerido.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <hr class="my-4" />
-    <button class="w-100 btn btn-primary btn-lg" type="submit">
-      {{titleCard}}
-    </button>
+
   </form>
+
 </div>
 
-<!--
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
-  <mat-card [hidden]="isHiddenAddress" style="display: flex; justify-content: start; flex-direction: column; flex-wrap: wrap;  border:1px solid;margin-top:3px">
-    <mat-card-title style="background-color: #03a9f4;
-    color: white;
-    padding: 5px;">{{ titleCard }}</mat-card-title>
-    <mat-card-subtitle>Dirección</mat-card-subtitle>
-    <div style="display: flex">
-      <div class="col-md-3 ">
-        <label for="address">Calle</label>
-        <input
-          type="text"
-          formControlName="address"
-          class="form-control"
-          [(ngModel)]="address"
-          [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
-        />
-        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-          <div *ngIf="f.address.errors.required">address is required</div>
-        </div>
-      </div>
-      <div class="col-md-1 ">
-        <label for="number">Nº</label>
-        <input
-          type="number"
-          formControlName="number"
-          class="form-control"
-          [(ngModel)]="number"
-          [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
-        />
-        <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
-          <div *ngIf="f.number.errors.required">number is required</div>
-        </div>
-      </div>
-      <div class="col-md-1 ">
-        <label for="flat">piso</label>
-        <input
-          type="text"
-          formControlName="flat"
-          class="form-control"
-          [(ngModel)]="flat"
-          [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
-        />
-        <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
-          <div *ngIf="f.flat.errors.required">flat is required</div>
-        </div>
-      </div>
-      <div class="col-md-1 ">
-        <label for="gate">Puerta</label>
-        <input
-          type="text"
-          formControlName="gate"
-          class="form-control"
-          [(ngModel)]="gate"
-          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
-        />
-        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
-          <div *ngIf="f.gate.errors.required">gate is required</div>
-        </div>
-      </div>
-      <div class="col-md-4 ">
-        <label for="town">Ciudad</label>
-        <input
-          type="text"
-          formControlName="town"
-          class="form-control"
-          [(ngModel)]="town"
-          [ngClass]="{ 'is-invalid': submitted && f.town.errors }"
-        />
-        <div *ngIf="submitted && f.town.errors" class="invalid-feedback">
-          <div *ngIf="f.town.errors.required">town is required</div>
-        </div>
-      </div>
-    </div>
-
-  </mat-card>
-
-  <mat-card  [hidden]="isHiddenCount"class="col-md-6 " style="display: inline-block; border:1px solid; justify-content: center; flex-direction: column; flex-wrap: wrap;  ">
-    <mat-card-title style="background-color: #03a9f4;
-    color: white;
-    padding: 5px;">Número de contador</mat-card-title>
-      <div class="col-md-12 ">
-        <input
-          type="text"
-          formControlName="code"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.code.errors }"
-          [(ngModel)]="code"
-        />
-        <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
-          <div *ngIf="f.code.errors.required">code is required</div>
-        </div>
-      </div>
-  </mat-card>
-
-  <mat-card  [hidden]="isHiddenBank"  class="col-md-6 "style="display: inline-block; border:1px solid; justify-content: center; flex-direction: column; flex-wrap: wrap;  ">
-    <mat-card-title style="background-color: #03a9f4;
-    color: white;
-    padding: 5px;">Numero de cuenta</mat-card-title>
-    <div class="col-md-12 ">
-      <input
-        type="bank"
-        formControlName="numberBank"
-        class="form-control"
-        [(ngModel)]="numberBank"
-        [ngClass]="{ 'is-invalid': submitted && f.numberBank.errors }"
-      />
-      <div *ngIf="submitted && f.numberBank.errors" class="invalid-feedback">
-        <div *ngIf="f.numberBank.errors.required">numberBank is required</div>
-      </div>
-    </div>
-  </mat-card>
-
-  <mat-card [hidden]="isHiddenOwner" class="col-md-6 "style="display: inline-block; border:1px solid;justify-content: center; flex-direction: column; flex-wrap: wrap; ">
-    <mat-card-title style="background-color: #03a9f4;
-    color: white;
-    padding: 5px;">{{ownerTitle}}</mat-card-title>
-    <mat-checkbox formControlName="pagador" [(ngModel)]="pagador"
-      >Pagador</mat-checkbox
-    >
-    <mat-checkbox
-      formControlName="residente"
-      [(ngModel)]="residente"
-      (click)="toggle()"
-      >Residente</mat-checkbox
-    >
-    <div class="col-md-6 ">
-      <label for="first_name">Nombre</label>
-      <input
-        type="text"
-        formControlName="first_name"
-        class="form-control"
-        [(ngModel)]="first_name"
-        [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
-      />
-      <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
-        <div *ngIf="f.first_name.errors.required">First Name is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="last_name">Apellido</label>
-      <input
-        type="text"
-        [formControlName]="'last_name'"
-        [(ngModel)]="last_name"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
-      />
-      <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
-        <div *ngIf="f.last_name.errors.required">Last Name is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="username">Usuario</label>
-      <input
-        type="text"
-        formControlName="username"
-        [(ngModel)]="username"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-      />
-      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Username is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="email">email</label>
-      <input
-        type="text"
-        formControlName="email"
-        class="form-control"
-        [(ngModel)]="email"
-        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-      />
-      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">email is required</div>
-      </div>
-    </div>
-
-    <div class="col-md-6 ">
-      <label for="phones">Número de teléfono</label>
-      <input
-        type="text"
-        formControlName="phones"
-        class="form-control"
-        [(ngModel)]="phones"
-        [ngClass]="{ 'is-invalid': submitted && f.phones.errors }"
-      />
-      <div *ngIf="submitted && f.phones.errors" class="invalid-feedback">
-        <div *ngIf="f.phones.errors.required">phone_number is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="addressOwner">Dirección del Propietario</label>
-      <input
-        type="text"
-        formControlName="addressOwner"
-        class="form-control"
-        [(ngModel)]="addressOwner"
-        [ngClass]="{ 'is-invalid': submitted && f.addressOwner.errors }"
-      />
-      <div *ngIf="submitted && f.addressOwner.errors" class="invalid-feedback">
-        <div *ngIf="f.addressOwner.errors.required">Dirección is required</div>
-      </div>
-    </div>
-  </mat-card>
-
-  <mat-card [hidden]="isHiddenResident" class="col-md-6 "style="display: inline-block; border:1px solid; justify-content: center; flex-direction: column; flex-wrap: wrap;  ">
-    <mat-card-title style="background-color: #03a9f4;
-    color: white;
-    padding: 5px;">{{residentTitle}}</mat-card-title>
-    <mat-checkbox formControlName="pagadorResidente" [(ngModel)]="pagador"
-      >Pagador</mat-checkbox
-    >
-    <div class="col-md-6 ">
-      <label for="first_name">Nombre</label>
-      <input
-        type="text"
-        formControlName="first_nameRes"
-        class="form-control"
-        [(ngModel)]="first_nameRes"
-        [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
-      />
-      <div *ngIf="submitted && f.first_nameRes.errors" class="invalid-feedback">
-        <div *ngIf="f.first_nameRes.errors.required">
-          First Name is required
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="last_nameRes">Apellido</label>
-      <input
-        type="text"
-        formControlName="last_nameRes"
-        class="form-control"
-        [(ngModel)]="last_nameRes"
-        [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
-      />
-      <div *ngIf="submitted && f.last_nameRes.errors" class="invalid-feedback">
-        <div *ngIf="f.last_nameRes.errors.required">Last Name is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="usernameRes">Usuario</label>
-      <input
-        type="text"
-        formControlName="usernameRes"
-        class="form-control"
-        [(ngModel)]="usernameRes"
-        [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
-      />
-      <div *ngIf="submitted && f.usernameRes.errors" class="invalid-feedback">
-        <div *ngIf="f.usernameRes.errors.required">Username is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="emailRes">email</label>
-      <input
-        type="text"
-        formControlName="emailRes"
-        class="form-control"
-        [(ngModel)]="emailRes"
-        [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
-      />
-      <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
-        <div *ngIf="f.emailRes.errors.required">email is required</div>
-      </div>
-    </div>
-
-    <div class="col-md-6 ">
-      <label for="phonesRes">Número de teléfono</label>
-      <input
-        type="text"
-        formControlName="phonesRes"
-        class="form-control"
-        [(ngModel)]="phonesRes"
-        [ngClass]="{ 'is-invalid': submitted && f.phonesRes.errors }"
-      />
-      <div *ngIf="submitted && f.phonesRes.errors" class="invalid-feedback">
-        <div *ngIf="f.phonesRes.errors.required">phone_number is required</div>
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <label for="addressRes">Dirección Residente</label>
-      <input
-        type="text"
-        formControlName="addressRes"
-        class="form-control"
-        [(ngModel)]="addressRes"
-        [ngClass]="{ 'is-invalid': submitted && f.addressRes.errors }"
-      />
-      <div *ngIf="submitted && f.addressRes.errors" class="invalid-feedback">
-        <div *ngIf="f.addressRes.errors.required">addressRes is required</div>
-      </div>
-    </div>
-  </mat-card>
-
-  <mat-card style="position: absolute;
-  bottom: 15px;border:1px solid;width:98%" class="col-md-12">
-    <mat-card-actions class="col-xs-2" style="float: right" >
-          <button [disabled]="loading" class="btn btn-primary">
-            {{ titleCard }}
-          </button>
-          <img
-            *ngIf="loading"
-            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-          />
-          <a href=" /viviendas " class="btn btn-link">Cancel</a>
-        </mat-card-actions>
-  </mat-card>
-
-</form>
- -->
+<div class="m-5 d-flex justify-content-between">
+  <button
+    class="w-25 btn btn-outline-danger btn-lg"
+    type="button"
+    (click)="goToControlPanel()"
+  >
+    atrás
+  </button>
+  <button class="w-25 btn btn-outline-primary btn-lg" type="submit">
+    {{ titleCard }}
+  </button>
+</div>
