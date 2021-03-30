@@ -34,20 +34,13 @@ export class UtilsComponent implements OnInit {
   @Input() isHiddenCount?: boolean = false;
   @Input() ownerTitle?: string = 'Alta Propietario';
   @Input() residentTitle?: string = 'Alta Residente';
+  @Input() error: boolean = false;
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
-  hide = true;
+
   public registerForm: FormGroup;
-  public loading = false;
-  public submitted = false;
-  public error: string;
-  public formIdentification: number;
-  public payType: string;
-  requestSend: boolean;
-  errorInformation: boolean;
   public pagador = false;
   public residente = false;
-  public isAllSave = false;
   public email: string;
   public address: string;
   public number: string;
@@ -101,7 +94,6 @@ export class UtilsComponent implements OnInit {
       emailRes: ['', Validators.required],
       phonesRes: ['', Validators.required],
       addressRes: ['', Validators.required],
-      pagadorResidente: [''],
     });
 
     this.formDataConfiguration.subscribe((value) => {

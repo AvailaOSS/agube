@@ -1,4 +1,7 @@
 <div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto;">
+  <div [hidden]="error" class="alert alert-danger" role="alert">
+    Complete todos los datos correctamente
+  </div>
   <h4 class="mb-3 text-center">{{ titleCard }}</h4>
   <form
     class="needs-validation was-validated"
@@ -10,7 +13,7 @@
       <div class="row col-12">
         <div class="col-sm-5">
           <label for="address" class="form-label">Calle</label>
-          <input type="text" formControlName="address" class="form-control" />
+          <input type="text"  formControlName="address" class="form-control" value="address" />
           <div class="invalid-feedback">Se requiere una dirección.</div>
         </div>
 
@@ -63,9 +66,24 @@
 
     <div class="row col-12">
       <div class="row col-6" [hidden]="isHiddenOwner">
-        <div class="card-header"><strong>Propietario</strong></div>
+        <div class="col m-4 card-header">
+          <strong>Propietario</strong>
+          <div class="form-check form-switch col-3 d-inline ml-1">
+            <input class="form-check-input "  formControlName="resident" type="checkbox" value="resident" id="resident" (click)="toggle()">
+            <label class="form-check-label" for="resident">
+              Residente
+            </label>
+          </div>
+          <div class="form-check form-switch col-3 d-inline" >
+            <input class="form-check-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
+            <label class="form-check-label" for="pagador">
+              Pagador
+            </label>
+          </div>
+        </div>
         <div class="card-body">
           <div class="row g-3">
+
             <div class="col-sm-4">
               <label for="first_name" class="form-label">Nombre</label>
               <input
@@ -76,6 +94,7 @@
                 placeholder=""
                 value=""
                 required=""
+                [(ngModel)]="first_name"
               />
               <div class="invalid-feedback">Se requiere un nombre.</div>
             </div>
@@ -90,6 +109,7 @@
                 placeholder=""
                 value=""
                 required=""
+                [(ngModel)]="last_name"
               />
               <div class="invalid-feedback">Se requiere un apellido.</div>
             </div>
@@ -153,16 +173,16 @@
         </div>
       </div>
       <div class="row col-6"[hidden]="isHiddenResident">
-        <div class="card-header"><strong>Residente</strong></div>
+        <div class="col m-4 card-header"><strong>Residente</strong></div>
         <div class="card-body">
           <div class="row g-3">
             <div class="col-sm-4">
-              <label for="first_name" class="form-label">Nombre</label>
+              <label for="first_nameRes" class="form-label">Nombre</label>
               <input
                 type="text"
                 class="form-control"
-                id="first_name"
-                formControlName="first_name"
+                id="first_nameRes"
+                formControlName="first_nameRes"
                 placeholder=""
                 value=""
                 required=""
@@ -170,12 +190,12 @@
               <div class="invalid-feedback">Se requiere un nombre.</div>
             </div>
             <div class="col-sm-4">
-              <label for="last_name" class="form-label">Apellido</label>
+              <label for="last_nameRes" class="form-label">Apellido</label>
               <input
                 type="text"
                 class="form-control"
-                id="last_name"
-                formControlName="last_name"
+                id="last_nameRes"
+                formControlName="last_nameRes"
                 placeholder=""
                 value=""
                 required=""
@@ -183,55 +203,55 @@
               <div class="invalid-feedback">Se requiere un apellido.</div>
             </div>
             <div class="col-sm-4">
-              <label for="username" class="form-label">Username</label>
+              <label for="usernameRes" class="form-label">Username</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
                 <input
                   type="text"
                   class="form-control"
-                  id="username"
-                  placeholder="Username"
-                  formControlName="username"
+                  id="usernameRes"
+                  placeholder="username"
+                  formControlName="usernameRes"
                   required=""
                 />
                 <div class="invalid-feedback">Se requiere un username.</div>
               </div>
             </div>
             <div class="col-sm-3">
-              <label for="email" class="form-label">Email </label>
+              <label for="emailRes" class="form-label">Email </label>
               <input
                 type="email"
                 class="form-control"
-                id="email"
+                id="emailRes"
                 placeholder="you@example.com"
-                formControlName="email"
+                formControlName="emailRes"
                 required=""
               />
               <div class="invalid-feedback">Se requiere un email válido</div>
             </div>
             <div class="col-sm-5">
-              <label for="address" class="form-label">Dirección</label>
+              <label for="addressRes" class="form-label">Dirección</label>
               <input
                 type="text"
                 class="form-control"
-                id="address"
+                id="addressRes"
                 placeholder="Calle Coghlan 1670..."
                 required=""
-                formControlName="addressOwner"
+                formControlName="addressRes"
               />
               <div class="invalid-feedback">
                 Se require una dirección existente.
               </div>
             </div>
             <div class="col-sm-4">
-              <label for="phones" class="form-label">Télefono</label>
+              <label for="phonesRes" class="form-label">Télefono</label>
               <input
                 type="text"
                 class="form-control"
-                id="phones"
+                id="phonesRes"
                 placeholder=""
                 required=""
-                formControlName="phones"
+                formControlName="phonesRes"
               />
               <div class="invalid-feedback">Número de teléfono requerido.</div>
             </div>
@@ -239,9 +259,7 @@
         </div>
       </div>
     </div>
-
     <hr class="my-4" />
-
   </form>
 
 </div>
@@ -252,9 +270,9 @@
     type="button"
     (click)="goToControlPanel()"
   >
-    atrás
+    Atrás
   </button>
-  <button class="w-25 btn btn-outline-primary btn-lg" type="submit">
+  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
     {{ titleCard }}
   </button>
 </div>
