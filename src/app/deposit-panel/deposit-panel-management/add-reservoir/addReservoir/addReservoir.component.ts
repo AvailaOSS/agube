@@ -40,9 +40,9 @@ export class AddReservoirComponent implements OnInit {
           flat: event.flat,
           gate: event.gate,
         },
-        capacity: '200',
-        outlet_flow: '2',
-        inlet_flow: '21',
+        capacity: event.capacity,
+        outlet_flow: event.outlet_flow,
+        inlet_flow: event.inlet_flow,
         water_meter: { code: event.code },
       })
       .subscribe(
