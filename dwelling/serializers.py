@@ -241,6 +241,8 @@ class DwellingDetailSerializer(Serializer):
     Dwelling Detail ModelSerializer
     """
     id = ReadOnlyField()
+    water_meter_code = CharField(max_length=None, min_length=None,
+                       allow_blank=False, trim_whitespace=True)
     street = CharField(max_length=None, min_length=None,
                        allow_blank=False, trim_whitespace=True)
     number = CharField(max_length=None, min_length=None,
