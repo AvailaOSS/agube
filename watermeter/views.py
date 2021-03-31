@@ -64,6 +64,6 @@ class WaterMeterMeasurementView(APIView):
         try:
             water_meter_measurement = water_meter.add_measurement(
                 measurement, date=date)
+            return Response((WaterMeterMeasurementSerializer(water_meter_measurement, many=False).data))
         except WaterMeterDisabledError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
-        return Response((WaterMeterMeasurementSerializer(water_meter_measurement, many=False).data))
