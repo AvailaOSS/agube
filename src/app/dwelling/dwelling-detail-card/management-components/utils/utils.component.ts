@@ -1,24 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
-  }
-}
 @Component({
   selector: 'app-utils',
   templateUrl: './utils.component.html',
@@ -27,43 +12,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class UtilsComponent implements OnInit {
   @Input() titleCard: string;
   @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
-  @Input() isHiddenResident?: boolean = false;
-  @Input() isHiddenAddress?: boolean = false;
-  @Input() isHiddenBank?: boolean = false;
-  @Input() isHiddenOwner?: boolean = false;
-  @Input() isHiddenCount?: boolean = false;
-  @Input() ownerTitle?: string = 'Alta Propietario';
-  @Input() residentTitle?: string = 'Alta Residente';
-  @Input() error: boolean = false;
+  @Input() isHiddenResident = false;
+  @Input() isHiddenAddress = false;
+  @Input() isHiddenBank = false;
+  @Input() isHiddenOwner = false;
+  @Input() isHiddenCount = false;
+  @Input() ownerTitle = 'Alta Propietario';
+  @Input() residentTitle = 'Alta Residente';
+  @Input() error = false;
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
   public registerForm: FormGroup;
-  public pagador = false;
-  public residente = false;
-  public email: string;
-  public address: string;
-  public number: string;
-  public flat: string;
-  public gate: string;
-  public town: string;
-  public numberBank: string;
-  public username: string;
-  public first_name: string;
-  public last_name: string;
-  public phones: string;
-  public addressOwner: string;
-  public code: string;
-  public usernameRes: string;
-  public first_nameRes: string;
-  public last_nameRes: string;
-  public emailRes: string;
-  public phonesRes: string;
-  public addressRes: string;
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   public goToControlPanel(): void {
     this.router.navigate(['/control-panel']);
@@ -73,54 +34,69 @@ export class UtilsComponent implements OnInit {
   }
   public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      address: ['', Validators.required],
-      number: ['', Validators.required],
-      flat: ['', Validators.required],
-      gate: ['', Validators.required],
-      town: ['', Validators.required],
-      numberBank: ['', Validators.required],
-      username: ['', Validators.required],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      email: ['', Validators.required],
-      phones: ['', Validators.required],
-      addressOwner: ['', Validators.required],
-      code: ['', Validators.required],
+      address: new FormControl(),
+      number: new FormControl(),
+      flat: new FormControl(),
+      gate: new FormControl(),
+      town: new FormControl(),
+      numberBank: new FormControl(),
+      username: new FormControl(),
+      first_name: new FormControl(),
+      last_name: new FormControl(),
+      email: new FormControl(),
+      phones: new FormControl(),
+      addressOwner: new FormControl(),
+      code: new FormControl(),
       pagador: [''],
-      residente: [''],
-      usernameRes: ['', Validators.required],
-      first_nameRes: ['', Validators.required],
-      last_nameRes: ['', Validators.required],
-      emailRes: ['', Validators.required],
-      phonesRes: ['', Validators.required],
-      addressRes: ['', Validators.required],
+      resident: new FormControl(),
+      usernameRes: new FormControl(),
+      first_nameRes: new FormControl(),
+      last_nameRes: new FormControl(),
+      emailRes: new FormControl(),
+      phonesRes: new FormControl(),
+      addressRes: new FormControl(),
     });
 
     this.formDataConfiguration.subscribe((value) => {
-      //Todo: MEJORAR ESTO "!!"
-
-      this.numberBank = value.iban;
       if (!isUndefined(value) && value !== 5) {
-        this.code = value.code;
+        this.registerForm.get('numberBank').setValue(value.iban);
+        this.registerForm.get('code').setValue(value.code);
+        if (!isUndefined(value.user)) {
+          this.registerForm
+            .get('number')
+            .setValue(value.user.address[0].number);
+          this.registerForm.get('flat').setValue(value.user.address[0].flat);
+          this.registerForm.get('gate').setValue(value.user.address[0].gate);
+          this.registerForm
+            .get('town')
+            .setValue(value.user.address[0].address.town);
+          this.registerForm.get('first_name').setValue(value.user.first_name);
+          this.registerForm.get('last_name').setValue(value.user.last_name);
+          this.registerForm.get('username').setValue(value.user.username);
+          this.registerForm.get('email').setValue(value.user.email);
+        }
 
-        this.number = value.user.address[0].number;
-        this.flat = value.user.address[0].flat;
-        this.gate = value.user.address[0].gate;
-        this.town = value.user.address[0].address.town;
+        if (!isUndefined(value.user)) {
+          this.registerForm
+            .get('addressOwner')
+            .setValue(value.user.address[0].address.street);
+          this.registerForm
+            .get('phones')
+            .setValue(value.user.phones[0].phone_number);
+          this.registerForm
+            .get('addressRes')
+            .setValue(value.user.address[0].address.street);
+          this.registerForm
+            .get('phonesRes')
+            .setValue(value.user.phones[0].phone_number);
 
-        this.email = value.user.email;
-        this.username = value.user.username;
-        this.first_name = value.user.first_name;
-        this.last_name = value.user.last_name;
-        this.phones = value.user.phones[0].phone_number;
-
-        this.usernameRes = value.user.username;
-        this.first_nameRes = value.user.first_name;
-        this.last_nameRes = value.user.last_name;
-        this.phonesRes = value.user.phones[0].phone_number;
-        this.emailRes = value.user.email;
-        this.addressRes = value.user.address[0].address.street || '';
-        this.addressOwner = value.user.address[0].address.street || '';
+          this.registerForm
+            .get('first_nameRes')
+            .setValue(value.user.first_name);
+          this.registerForm.get('last_nameRes').setValue(value.user.last_name);
+          this.registerForm.get('usernameRes').setValue(value.user.username);
+          this.registerForm.get('emailRes').setValue(value.user.email);
+        }
       }
     });
   }
@@ -129,8 +105,6 @@ export class UtilsComponent implements OnInit {
     return this.registerForm.controls;
   }
   public onSubmit(): void {
-    //TODO :  Controlar la emisión , cuando es undefined (vacio)
-
     this.sendForm.emit(this.registerForm.value);
   }
 }

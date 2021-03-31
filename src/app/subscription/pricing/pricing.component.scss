@@ -1,4 +1,3 @@
-@import "../../../styles.scss";
 
 .welcome {
   margin-top: 2%;
@@ -13,21 +12,12 @@
   max-width: 80%;
 }
 
-.subscription-card {
-  /**
-  FIXME: fix width & height and do not use px for responsive compatibilty
-  **/
-  max-width: 650px;
-  height: 300px;
-  margin: 5%;
-}
-
 .subscription-card:hover {
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-title {
-  color: $primary;
+
   font-style: italic;
 }
 
@@ -35,7 +25,7 @@
   padding: 5%;
   font-size: 200%;
   font-weight: bold;
-  color: $primary;
+
 }
 
 .actions {

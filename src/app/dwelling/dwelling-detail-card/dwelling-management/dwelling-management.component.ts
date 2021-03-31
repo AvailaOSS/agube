@@ -43,12 +43,12 @@ export class DWellingManagementComponent implements OnInit, OnChanges {
   }
   public changeCount(): void {
     this.svcRouter.navigate(['/vivienda/cambio/contador'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id , user_id: this.user_id},
     });
   }
   public changeResident(): void {
     this.svcRouter.navigate(['/vivienda/residente'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id , user_id: this.user_id},
     });
   }
   public changeOwner(): void {
@@ -58,7 +58,7 @@ export class DWellingManagementComponent implements OnInit, OnChanges {
   }
   public changePay(): void {
     this.svcRouter.navigate(['/vivienda/cambio/pagador'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id, user_id: this.user_id },
     });
   }
 }
