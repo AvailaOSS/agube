@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingDetail } from '../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
+import { ManagerService } from '../../../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
 
 @Component({
   selector: 'app-dwelling-management',
@@ -16,7 +17,17 @@ import { DwellingDetail } from '../../../../../apiaux/agube-rest-api-lib/src/lib
 export class DWellingManagementComponent implements OnInit, OnChanges {
   @Input() DWelling: DwellingDetail;
   @Input() waterMeter: string;
-  constructor(private readonly svcRouter: Router) {}
+  public user_id: string;
+  constructor(
+    private readonly svcRouter: Router,
+    private readonly svcManager: ManagerService
+  ) {
+    this.svcManager
+      .getManagerByUser()
+      .subscribe((value) => {
+        this.user_id= value.user_id;
+      });
+  }
 
   ngOnInit(): void {}
   public ngOnChanges(): void {
@@ -32,22 +43,22 @@ export class DWellingManagementComponent implements OnInit, OnChanges {
   }
   public changeCount(): void {
     this.svcRouter.navigate(['/vivienda/cambio/contador'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id , user_id: this.user_id},
     });
   }
   public changeResident(): void {
     this.svcRouter.navigate(['/vivienda/residente'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id , user_id: this.user_id},
     });
   }
   public changeOwner(): void {
     this.svcRouter.navigate(['/vivienda/propietario'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id , user_id: this.user_id},
     });
   }
   public changePay(): void {
     this.svcRouter.navigate(['/vivienda/cambio/pagador'], {
-      queryParams: { data: this.DWelling.id },
+      queryParams: { data: this.DWelling.id, user_id: this.user_id },
     });
   }
 }

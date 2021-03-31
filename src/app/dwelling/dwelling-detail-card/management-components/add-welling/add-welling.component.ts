@@ -12,7 +12,8 @@ export class AdDWellingComponent implements OnInit {
   public addNewWelling: FormGroup;
   public loading = false;
   public submitted = false;
-  public error: string;
+  public error: boolean = true;
+  public username: string;
   constructor(
     private router: Router,
     private readonly svcCreateNewDWelling: DwellingService
@@ -20,6 +21,12 @@ export class AdDWellingComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
+    if (event.pagador === true) {
+      this.username= event.username
+    }
+    else {
+      this.username= event.usernameRes
+    }
     this.svcCreateNewDWelling
       .createDwelling({
         full_address: {
@@ -33,7 +40,7 @@ export class AdDWellingComponent implements OnInit {
           gate: event.gate,
         },
         paymaster: {
-          username: event.username,
+          username: this.username,
           iban: event.numberBank,
           payment_type: 'BANK',
         },
@@ -56,6 +63,7 @@ export class AdDWellingComponent implements OnInit {
             },
           ],
         },
+
         resident: {
           username: event.usernameRes,
           first_name: event.first_nameRes,
@@ -77,8 +85,14 @@ export class AdDWellingComponent implements OnInit {
         },
         water_meter: { code: event.code },
       })
-      .subscribe((value) => {
-        this.router.navigate(['/viviendas']);
-      });
+      .subscribe(
+        (value) => {
+          this.router.navigate(['/viviendas']);
+        },
+        (error) => {
+          this.error = false;
+
+        }
+      );
   }
 }
