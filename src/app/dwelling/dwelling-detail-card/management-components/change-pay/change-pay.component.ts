@@ -12,6 +12,7 @@ export class ChangePayComponent implements OnInit {
   public addNewWelling: FormGroup;
   public formIdentification: number;
   public changePayId: string;
+  public error: boolean = true;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -38,6 +39,7 @@ export class ChangePayComponent implements OnInit {
   public ngOnInit(): void {}
   public sendForm(event: any): void {
     console.log('change pay', event);
+    this.error = false;
     // this.svcChangePay
     //   .changeCurrentWaterMeter(+this.changePayId, {
     //     user: event.username,
@@ -45,8 +47,13 @@ export class ChangePayComponent implements OnInit {
     //     dischargeDate: null,
     //     dwellingId: +this.changePayId,
     //   })
-    //   .subscribe((value) => {
-    //     console.log(value);
-    //   });
+    //   .subscribe(
+    //     (value) => {
+    //       console.log(value);
+    //     },
+    //     (error) => {
+    //       this.error = false;
+    //     }
+    //   );
   }
 }

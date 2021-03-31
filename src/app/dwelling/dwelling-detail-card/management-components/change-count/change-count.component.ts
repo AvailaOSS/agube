@@ -5,10 +5,11 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 @Component({
   selector: 'app-change-count',
   templateUrl: './change-count.component.html',
-  styleUrls: ['./change-count.component.scss']
+  styleUrls: ['./change-count.component.scss'],
 })
 export class ChangeCountComponent implements OnInit {
   public waterMeterId: string;
+  public error: boolean = true;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -31,10 +32,15 @@ export class ChangeCountComponent implements OnInit {
     console.log('water', event);
     this.svcChangeWaterMeter
       .changeCurrentWaterMeter(+this.waterMeterId, {
-        code: event.code
+        code: event.code,
       })
-      .subscribe((value) => {
-        this.router.navigate(['/viviendas']);
-      });
+      .subscribe(
+        (value) => {
+          this.router.navigate(['/viviendas']);
+        },
+        (error) => {
+          this.error = false;
+        }
+      );
   }
 }

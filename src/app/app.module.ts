@@ -20,7 +20,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
 import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
 import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/utils/utils.module';
+import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent],

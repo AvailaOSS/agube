@@ -14,7 +14,7 @@ import { DWellingManagementComponent } from './dwelling-detail-card/dwelling-man
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/dwelling-water-meter-readings/dwelling-water-meter-readings.component';
 import { WaterMeterDetailCardComponent } from './dwelling-detail-card/dwelling-management/water-meter-detail-card/water-meter-detail-card.component';
 import { AdDWellingModule } from './dwelling-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './dwelling-detail-card/management-components/utils/utils.module';
+import { UtilsModule } from './dwelling-detail-card/management-components/dWellingUtils/utils.module';
 import { ChangePayModule } from './dwelling-detail-card/management-components/change-pay/change-pay.module';
 import { ChangeCountModule } from './dwelling-detail-card/management-components/change-count/change-count.module';
 import { ChangeOwnerModule } from './dwelling-detail-card/management-components/change-owner/change-owner.module';

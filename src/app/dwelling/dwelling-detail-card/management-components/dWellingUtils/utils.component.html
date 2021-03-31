@@ -68,7 +68,7 @@
 
     <div class="row col-12">
       <div class="row col-6" [hidden]="isHiddenOwner">
-        <div class="col m-4 card-header">
+        <div class="col m-4 card-header"  [hidden]="isHiddenResident">
           <strong>Propietario</strong>
           <div class="form-check form-switch col-3 d-inline ml-1">
             <input class="form-check-input "  formControlName="resident" type="checkbox" value="resident" id="resident" (click)="toggle()">
@@ -76,7 +76,7 @@
               Residente
             </label>
           </div>
-          <div class="form-check form-switch col-3 d-inline" >
+          <div class="form-check form-switch col-3 d-inline" [hidden]="isHiddenResident" >
             <input class="form-check-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
             <label class="form-check-label" for="pagador">
               Pagador
@@ -172,7 +172,7 @@
           </div>
         </div>
       </div>
-      <div class="row col-6"[hidden]="isHiddenResident">
+      <div class="row col-6" [hidden]="isHiddenResident">
         <div class="col m-4 card-header"><strong>Residente</strong></div>
         <div class="card-body">
           <div class="row g-3">
