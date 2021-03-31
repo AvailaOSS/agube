@@ -3,7 +3,8 @@ from django.urls import include, path
 from dwelling.views import (DwellingCreateView, DwellingCreateWithResidentView,
                             DwellingListView, DwellingOwnerView,
                             DwellingPaymasterView, DwellingResidentView,
-                            DwellingView, DwellingWaterMeterChunkView,
+                            DwellingSetOwnerAsResidentView, DwellingView,
+                            DwellingWaterMeterChunkView,
                             DwellingWaterMeterView)
 
 __url_dwelling = [
@@ -12,6 +13,7 @@ __url_dwelling = [
     path('/create-with-resident', DwellingCreateWithResidentView.as_view()),
     path('/<int:pk>', DwellingView.as_view()),
     path('/<int:pk>/owner', DwellingOwnerView.as_view()),
+    path('/<int:pk>/owner-as-resident', DwellingSetOwnerAsResidentView.as_view()),
     path('/<int:pk>/paymaster', DwellingPaymasterView.as_view()),
     path('/<int:pk>/resident', DwellingResidentView.as_view()),
     path('/<int:pk>/water-meter', DwellingWaterMeterView.as_view()),

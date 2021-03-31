@@ -1,4 +1,3 @@
-from watermeter.models import WaterMeter
 from address.models import FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -6,9 +5,10 @@ from django.db import models
 from django.utils import timezone
 from login.models import UserAddress
 from manager.models import Manager
+from watermeter.models import WaterMeter
 
 from dwelling.exceptions import (IncompatibleUsernameError, NullIbanError,
-                                 PaymasterError)
+                                 OwnerAlreadyIsResidentError, PaymasterError)
 
 
 class Dwelling(models.Model):
@@ -55,7 +55,7 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         resident = self.get_current_resident()
-        if resident and self.is_paymaster(resident.user):
+        if self.get_current_owner().user != user and (resident and self.is_paymaster(resident.user)):
             raise PaymasterError(resident.user.username)
         if resident:
             resident.discharge()
@@ -106,6 +106,13 @@ class Dwelling(models.Model):
                 return self.create_paymaster(payment_type, iban, user)
             else:
                 raise IncompatibleUsernameError(user.username)
+
+    def set_owner_as_resident(self):
+        owner = self.get_current_owner()
+        resident = self.get_current_resident()
+        if owner.user == resident.user:
+            raise OwnerAlreadyIsResidentError()
+        self.change_current_resident(owner.user)
 
     def get_current_paymaster(self):
         try:

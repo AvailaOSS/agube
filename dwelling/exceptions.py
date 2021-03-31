@@ -1,3 +1,11 @@
+class OwnerAlreadyIsResidentError(Exception):
+    """Exception raised when Owner already is Resident.
+    """
+
+    def __init__(self):
+        self.message = "Owner already is Resident"
+        super().__init__(self.message)
+
 class UserManagerRequiredError(Exception):
     """Exception raised when User Manager is Invalid.
     """
