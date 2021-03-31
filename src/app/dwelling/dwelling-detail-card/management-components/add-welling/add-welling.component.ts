@@ -10,8 +10,6 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 })
 export class AdDWellingComponent implements OnInit {
   public addNewWelling: FormGroup;
-  public loading = false;
-  public submitted = false;
   public error: boolean = true;
   public username: string;
   constructor(
@@ -22,10 +20,9 @@ export class AdDWellingComponent implements OnInit {
   public ngOnInit(): void {}
   public sendForm(event: any): void {
     if (event.pagador === true) {
-      this.username= event.username
-    }
-    else {
-      this.username= event.usernameRes
+      this.username = event.username;
+    } else {
+      this.username = event.usernameRes;
     }
     this.svcCreateNewDWelling
       .createDwelling({
@@ -91,7 +88,6 @@ export class AdDWellingComponent implements OnInit {
         },
         (error) => {
           this.error = false;
-
         }
       );
   }

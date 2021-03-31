@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UtilsComponent } from './utils.component';
+import { ReservoirUtilsComponent } from './reservoir-utils.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
 
 @NgModule({
-  declarations: [UtilsComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -16,6 +15,7 @@ import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
     BrowserModule,
     ToolbarModule,
   ],
-  exports: [UtilsComponent],
+  declarations: [ReservoirUtilsComponent],
+  exports: [ReservoirUtilsComponent],
 })
-export class UtilsModule {}
+export class ReservoirUtilsModule {}

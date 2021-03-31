@@ -1,15 +1,16 @@
-<div fxLayout="row" fxLayoutAlign="space-around">
-  <div class="detail-table-group">
+<h3 class="col  mt-2">
+  Depósitos de la Comunidad
+  <button class="btn btn-outline-primary float-right" (click)="addNewDeposit()">
+    Agregar depósito
+  </button>
+</h3>
+<div  class="row col-12">
+  <div class="col-6">
     <app-deposit-panel-detail-list (selected)="selectItem($event)">
     </app-deposit-panel-detail-list>
   </div>
-  <div class="detail-dwelling-card">
+  <div class="col-6">
     <app-deposit-panel-detail-card [DepositPanel]="depositPanel">
     </app-deposit-panel-detail-card>
   </div>
-</div>
-<div class="position-button-back">
-  <button mat-raised-button color="primary" (click)="goToControlPanel()">
-    Atrás
-  </button>
 </div>

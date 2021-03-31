@@ -26,4 +26,9 @@ export class DepositPanelComponent implements OnInit {
   public goToControlPanel(): void {
     this.router.navigate(['/control-panel']);
   }
+
+  public addNewDeposit(): void{
+      this.router.navigate(['depositos/alta/deposito']);
+
+  }
 }
