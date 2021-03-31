@@ -93,3 +93,38 @@ Agube
   }
 }
 ```
+# Example post 2:
+```json
+{
+  "full_address": {
+    "address": {
+      "town": "star wars1",
+      "street": "galaxia1",
+      "is_external": true
+    },
+    "number": 11,
+    "flat": "lejana1",
+    "gate": "muy muy1"
+  },
+  "paymaster": {
+    "payment_type": "BANK",
+    "iban": "999999999999991",
+    "username": "yoda"
+  },
+  "owner": {
+    "username": "yoda",
+    "first_name": "jedi",
+    "last_name": "sw",
+    "email": "yoda@jediacademy.com",
+    "phones": [
+      {
+        "phone_number": "123456789"
+      }
+    ],
+    "address": []
+  },
+  "water_meter": {
+    "code": "yt4315w53graes"
+  }
+}
+```
