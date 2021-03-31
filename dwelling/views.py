@@ -5,7 +5,7 @@ from drf_yasg.utils import swagger_auto_schema
 from login.models import UserAddress, UserPhone
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
@@ -18,6 +18,7 @@ from dwelling.exceptions import (IncompatibleUsernameError, PaymasterError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
+                                  DwellingCreateWithResidentSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
                                   DwellingResidentSerializer,
@@ -79,7 +80,20 @@ class DwellingCreateView(generics.CreateAPIView):
     serializer_class = DwellingCreateSerializer
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(operation_id="createDwelling", operation_description="create a new Dwelling")
+    @swagger_auto_schema(operation_id="createDwelling", operation_description="create a new Dwelling, the owner will be a resident")
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except UserManagerRequiredError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
+
+
+class DwellingCreateWithResidentView(generics.CreateAPIView):
+    queryset = Dwelling.objects.all()
+    serializer_class = DwellingCreateWithResidentSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(operation_id="createDwellingWithResident", operation_description="create a new Dwelling with Resident")
     def post(self, request, *args, **kwargs):
         try:
             return super().post(request, *args, **kwargs)
