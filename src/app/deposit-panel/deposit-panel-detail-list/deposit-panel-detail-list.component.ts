@@ -9,8 +9,8 @@ import { ReservoirDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/m
   styleUrls: ['./deposit-panel-detail-list.component.scss'],
 })
 export class DepositPanelDetailListComponent implements OnInit {
-  @Output() selected = new EventEmitter<DepositPanel>();
-
+  @Output() selected = new EventEmitter<any>();
+  public address: string;
   public selectedRowIndex = '';
 
   public dataSource: ReservoirDetail[];
@@ -23,8 +23,12 @@ export class DepositPanelDetailListComponent implements OnInit {
     });
   }
 
-  public selectRow(row: DepositPanel) {
+
+  public selectRow(row: any): void {
+    this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
+
     this.selected.emit(row);
-    this.selectedRowIndex = row.address;
+    console.log(row.id)
+    this.selectedRowIndex = row.id;
   }
 }

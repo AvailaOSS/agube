@@ -3,8 +3,7 @@
     <tr>
       <th scope="col">Dirección</th>
       <th scope="col">Contador</th>
-      <th scope="col">Residente</th>
-      <th scope="col">Teléfono</th>
+      <th scope="col">Capacidad</th>
     </tr>
   </thead>
   <tbody *ngFor="let element of dataSource" >
@@ -13,9 +12,8 @@
         {{ element.flat }} {{ element.gate }} {{ element.number }}
         {{ element.street }} {{ element.town }}
       </th>
-      <td>{{ element.water_meter }}</td>
-      <td>{{ element.resident_first_name }}</td>
-      <td>{{ element.resident_phone }}</td>
+      <td>{{ element.capacity}}</td>
+      <td>{{ element.capacity}}</td>
     </tr>
   </tbody>
 </table>

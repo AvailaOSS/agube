@@ -13,7 +13,6 @@ export class ReservoirUtilsComponent implements OnInit {
   @Input() titleCard: string;
   @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
   @Input() isHiddenAddress = false;
-  @Input() isHiddenBank = false;
   @Input() isHiddenCount = false;
   @Input() isHiddenCapacity = false;
   @Input() isHiddenInletFlow = false;
@@ -47,7 +46,6 @@ export class ReservoirUtilsComponent implements OnInit {
     this.formDataConfiguration.subscribe((value) => {
       if (!isUndefined(value) && value !== 5) {
         console.log(value)
-        this.registerForm.get('numberBank').setValue(value.iban);
         this.registerForm.get('code').setValue(value.code);
         this.registerForm.get('number').setValue(value.user.address[0].number);
         this.registerForm.get('flat').setValue(value.user.address[0].flat);
