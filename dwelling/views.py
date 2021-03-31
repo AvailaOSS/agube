@@ -115,10 +115,10 @@ class DwellingOwnerView(generics.GenericAPIView):
         """
         try:
             dwelling = Dwelling.objects.get(id=pk)
+            owner = dwelling.get_current_owner()
+            return Response(get_dwelling_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        owner = dwelling.get_current_owner()
-        return Response(get_dwelling_owner_serialized(owner))
 
     @swagger_auto_schema(operation_id="changeCurrentOwner")
     def post(self, request, pk):
@@ -126,16 +126,16 @@ class DwellingOwnerView(generics.GenericAPIView):
         Create a new user owner and discharge the old owner
         """
         try:
-            dwelling = Dwelling.objects.get(id=pk)
+            with transaction.atomic():
+                dwelling = Dwelling.objects.get(id=pk)
+                user = create_user(request.data['user'], dwelling.manager)
+                dwelling.change_current_owner(user)
+                owner = dwelling.get_current_owner()
+                return Response(get_dwelling_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        user = create_user(request.data['user'])
-        try:
-            dwelling.change_current_owner(user)
         except PaymasterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
-        owner = dwelling.get_current_owner()
-        return Response(get_dwelling_owner_serialized(owner))
 
 
 class DwellingResidentView(generics.GenericAPIView):
@@ -153,10 +153,10 @@ class DwellingResidentView(generics.GenericAPIView):
         """
         try:
             dwelling = Dwelling.objects.get(id=pk)
+            resident = dwelling.get_current_resident()
+            return Response(get_dwelling_resident_serialized(resident))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        resident = dwelling.get_current_resident()
-        return Response(get_dwelling_resident_serialized(resident))
 
     @swagger_auto_schema(operation_id="changeCurrentResident")
     def post(self, request, pk):
@@ -164,16 +164,16 @@ class DwellingResidentView(generics.GenericAPIView):
         Create a new user resident and discharge the old resident
         """
         try:
-            dwelling = Dwelling.objects.get(id=pk)
+            with transaction.atomic():
+                dwelling = Dwelling.objects.get(id=pk)
+                user = create_user(request.data['user'], dwelling.manager)
+                dwelling.change_current_resident(user)
+                resident = dwelling.get_current_resident()
+            return Response(get_dwelling_resident_serialized(resident))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        user = create_user(request.data['user'])
-        try:
-            dwelling.change_current_resident(user)
         except PaymasterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
-        resident = dwelling.get_current_resident()
-        return Response(get_dwelling_resident_serialized(resident))
 
 
 class DwellingWaterMeterView(generics.GenericAPIView):
