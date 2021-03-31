@@ -33,8 +33,24 @@ class UserCustomDetailListView(APIView):
         list_of_serialized = []
         for user in User.objects.all():
 
-            user_address = UserAddress.objects.get(
-                user=user, main=True).full_address
+            try:
+                # FIXME: if user is manager, user_address is null...
+                # TODO: allow that user manager add a main address
+                town = ''
+                street = ''
+                number = ''
+                flat = ''
+                gate = ''
+                user_address = UserAddress.objects.get(
+                    user=user, main=True).full_address
+                if user_address:
+                    town = user_address.address.town,
+                    street = user_address.address.street,
+                    number = user_address.number,
+                    flat = user_address.flat,
+                    gate = user_address.gate
+            except ObjectDoesNotExist:
+                pass
 
             user_phone_number = ''
             try:
@@ -50,11 +66,11 @@ class UserCustomDetailListView(APIView):
                 "last_name": user.last_name,
                 "phone": user_phone_number,
                 "email": user.email,
-                "town": user_address.address.town,
-                "street": user_address.address.street,
-                "number": user_address.number,
-                "flat": user_address.flat,
-                "gate": user_address.gate
+                "town": town,
+                "street": street,
+                "number": number,
+                "flat": flat,
+                "gate": gate
             }
             list_of_serialized.append(
                 UserCustomDetailSerializer(data, many=False).data)
@@ -81,8 +97,9 @@ class UserDwellingDetailView(APIView):
             list(map(lambda resident: resident.dwelling, DwellingResident.objects.filter(user__id=pk))))
 
         list_of_serialized = []
-        for dwelling in dwelling_list:
+        for dwelling in set(dwelling_list):
             user = dwelling.get_current_resident().user
+            water_meter_code = dwelling.get_current_water_meter().code
 
             user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
@@ -97,6 +114,7 @@ class UserDwellingDetailView(APIView):
 
             data = {
                 'id': dwelling.id,
+                'water_meter_code': water_meter_code,
                 'town': user_address.address.town,
                 'street': user_address.address.street,
                 'number': user_address.number,

@@ -43,11 +43,12 @@ class DwellingListView(APIView):
         """
         # Get Dwelling
         manager_id = self.request.user.id
-        dwelling = Dwelling.objects.filter(manager__user_id=manager_id)
+        houses = Dwelling.objects.filter(manager__user_id=manager_id)
 
         list_of_serialized = []
-        for house in dwelling:
-            user = house.get_current_resident().user
+        for dwelling in houses:
+            user = dwelling.get_current_resident().user
+            water_meter_code = dwelling.get_current_water_meter().code
             user_address = UserAddress.objects.get(
                 user=user, main=True).full_address
             user_phone_number = ''
@@ -60,7 +61,8 @@ class DwellingListView(APIView):
                 pass
 
             data = {
-                'id': house.id,
+                'id': dwelling.id,
+                'water_meter_code': water_meter_code,
                 'town': user_address.address.town,
                 'street': user_address.address.street,
                 'number': user_address.number,
