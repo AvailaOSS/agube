@@ -14,7 +14,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from dwelling.exceptions import (IncompatibleUsernameError, PaymasterError,
+from dwelling.exceptions import (IncompatibleUsernameError, OwnerAlreadyIsResidentError, PaymasterError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
@@ -100,6 +100,27 @@ class DwellingCreateWithResidentView(generics.CreateAPIView):
         try:
             return super().post(request, *args, **kwargs)
         except UserManagerRequiredError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
+
+
+class DwellingSetOwnerAsResidentView(generics.GenericAPIView):
+    queryset = Dwelling.objects.all()
+    serializer_class = None
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="setOwnerAsResident",
+        responses={200: DwellingResidentSerializer(many=False)}
+    )
+    def post(self, request, pk):
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+            dwelling.set_owner_as_resident()
+            resident = dwelling.get_current_resident()
+            return Response(get_dwelling_resident_serialized(resident))
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling or resident'}, status=HTTP_404_NOT_FOUND)
+        except OwnerAlreadyIsResidentError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
