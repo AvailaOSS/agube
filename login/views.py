@@ -151,9 +151,9 @@ class UserCreatePhoneView(APIView):
         """
         try:
             user = User.objects.get(id=pk)
+            return Response(get_all_user_phones_serialized(user))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
-        return Response(get_all_user_phones_serialized(user))
 
 
 class UserPhoneUpdateDeleteView(APIView):
@@ -272,9 +272,9 @@ class UserCreateAddressView(APIView):
         """
         try:
             user = User.objects.get(id=pk)
+            return Response(get_all_user_full_address_serialized(user))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
-        return Response(get_all_user_full_address_serialized(user))
 
 
 class UserAddressUpdateDeleteView(APIView):

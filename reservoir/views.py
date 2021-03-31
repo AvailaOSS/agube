@@ -73,9 +73,9 @@ class ReservoirView(generics.GenericAPIView):
         """
         try:
             reservoir = Reservoir.objects.get(id=pk)
+            return Response(ReservoirCreateSerializer(reservoir, many=False).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        return Response(ReservoirCreateSerializer(reservoir, many=False).data)
 
 
 class ReservoirOwnerView(generics.GenericAPIView):
@@ -90,10 +90,10 @@ class ReservoirOwnerView(generics.GenericAPIView):
         """
         try:
             reservoir = Reservoir.objects.get(id=pk)
+            owner = reservoir.get_current_owner()
+            return Response(get_reservoir_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
-        owner = reservoir.get_current_owner()
-        return Response(get_reservoir_owner_serialized(owner))
 
 
 class ReservoirWaterMeterView(generics.GenericAPIView):
@@ -111,10 +111,10 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
         """
         try:
             reservoir = Reservoir.objects.get(id=pk)
+            water_meter = reservoir.get_current_water_meter()
+            return Response(self.get_serializer(water_meter).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        water_meter = reservoir.get_current_water_meter()
-        return Response(self.get_serializer(water_meter).data)
 
     @swagger_auto_schema(operation_id="changeCurrentWaterMeter")
     def post(self, request, pk):
@@ -124,9 +124,9 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
         # get Dwelling
         try:
             dwelling = Reservoir.objects.get(id=pk)
+            # create new Water Meter
+            dwelling.change_current_water_meter(request.data['code'])
+            new_water_meter = dwelling.get_current_water_meter()
+            return Response(self.get_serializer(new_water_meter).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        # create new Water Meter
-        dwelling.change_current_water_meter(request.data['code'])
-        new_water_meter = dwelling.get_current_water_meter()
-        return Response(self.get_serializer(new_water_meter).data)
