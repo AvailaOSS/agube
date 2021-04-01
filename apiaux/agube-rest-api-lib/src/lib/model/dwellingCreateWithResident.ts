@@ -9,13 +9,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { FullAddress } from './fullAddress';
+import { Paymaster } from './paymaster';
 import { UserDetail } from './userDetail';
+import { WaterMeter } from './waterMeter';
 
 
-export interface Owner {
+export interface DwellingCreateWithResident {
     readonly id?: string;
-    readonly dwelling_id?: number;
-    user: UserDetail;
-    readonly release_date?: string;
-    readonly discharge_date?: string;
+    full_address: FullAddress;
+    paymaster: Paymaster;
+    owner: UserDetail;
+    resident: UserDetail;
+    water_meter: WaterMeter;
 }

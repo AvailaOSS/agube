@@ -3,12 +3,39 @@
     [titleCard]="'Cambio Pagador'"
     [isHiddenAddress]="true"
     [isHiddenBank]="false"
-    [isHiddenResident]="false"
-    [isHiddenOwner]="false"
+    [isHiddenResident]="true"
+    [isHiddenOwner]="true"
     [isHiddenCount]="true"
     [formDataConfiguration]="formConfigurationData"
     [error]="error"
     (sendForm)="sendForm($event)"
   ></app-utils>
 
+<div>
+  <div class="row col-12">
+    {{paymaster}}
+    <div class="col-6">
+      <div
+        class="card m-4 rounded-3 shadow-sm border-primary"
+        (click)="selectedRow(owner)"
+      >
+        <div
+          class="card-header py-3 border-primary"
+          [ngStyle]="{'background-color':selectRow === paymaster ? 'green' : 'red' }"
+        >
+          <h4 class="my-0 fw-normal">Propietario {{ owner }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card m-4 rounded-3 shadow-sm" (click)="selectedRow(resident)">
+        <div
+          class="card-header py-3"
+        >
+          <h4 class="my-0 fw-normal">Residente {{ resident }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

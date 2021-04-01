@@ -24,6 +24,7 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
 import { DwellingCreate } from '../model/dwellingCreate';
+import { DwellingCreateWithResident } from '../model/dwellingCreateWithResident';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { Owner } from '../model/owner';
 import { Paymaster } from '../model/paymaster';
@@ -410,7 +411,7 @@ export class DwellingService {
 
   /**
    *
-   * create a new Dwelling
+   * create a new Dwelling, the owner will be a resident
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -472,6 +473,80 @@ export class DwellingService {
 
     return this.httpClient.post<DwellingCreate>(
       `${this.basePath}/dwelling/create`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * create a new Dwelling with Resident
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createDwellingWithResident(
+    data: DwellingCreateWithResident,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<DwellingCreateWithResident>;
+  public createDwellingWithResident(
+    data: DwellingCreateWithResident,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<DwellingCreateWithResident>>;
+  public createDwellingWithResident(
+    data: DwellingCreateWithResident,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<DwellingCreateWithResident>>;
+  public createDwellingWithResident(
+    data: DwellingCreateWithResident,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling createDwellingWithResident.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<DwellingCreateWithResident>(
+      `${this.basePath}/dwelling/create-with-resident`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -944,6 +1019,76 @@ export class DwellingService {
 
     return this.httpClient.get<Paymaster>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   *
+   * @param id A unique integer value identifying this dwelling.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public setOwnerAsResident(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Resident>;
+  public setOwnerAsResident(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Resident>>;
+  public setOwnerAsResident(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Resident>>;
+  public setOwnerAsResident(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling setOwnerAsResident.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.post<Resident>(
+      `${this.basePath}/dwelling/${encodeURIComponent(
+        String(id)
+      )}/owner-as-resident`,
+      null,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

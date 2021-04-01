@@ -58,43 +58,36 @@
       </div>
 
       <hr class="my-4" />
-
-      <div class="row g-3">
-        <div class="row col-12">
-          <div class="col-sm-4" [hidden]="isHiddenCapacity">
-            <label for="capacity" class="form-label">Capacidad</label>
-            <input
-              type="text"
-              formControlName="capacity"
-              class="form-control"
-            />
-            <div class="invalid-feedback">Se requiere una capacidad.</div>
+      <div class="row col-12">
+        <div class="col-sm-4" [hidden]="isHiddenCapacity">
+          <label for="capacity" class="form-label">Capacidad</label>
+          <input type="text" formControlName="capacity" class="form-control" />
+          <div class="invalid-feedback">Se requiere una capacidad.</div>
+        </div>
+        <div class="col-sm-4" [hidden]="isHiddenInletFlow">
+          <label for="inlet_flow" class="form-label"
+            >Número de inlet_flow</label
+          >
+          <input
+            type="string"
+            formControlName="inlet_flow"
+            class="form-control"
+          />
+          <div class="invalid-feedback">
+            Se requiere un número de inlet_flow.
           </div>
-          <div class="col-sm-4" [hidden]="isHiddenInletFlow">
-            <label for="inlet_flow" class="form-label"
-              >Número de inlet_flow</label
-            >
-            <input
-              type="string"
-              formControlName="inlet_flow"
-              class="form-control"
-            />
-            <div class="invalid-feedback">
-              Se requiere un número de inlet_flow.
-            </div>
-          </div>
-          <div class="col-sm-4" [hidden]="isHiddenOutletFlow">
-            <label for="outlet_flow" class="form-label"
-              >Número de outlet_flow</label
-            >
-            <input
-              type="string"
-              formControlName="outlet_flow"
-              class="form-control"
-            />
-            <div class="invalid-feedback">
-              Se requiere un número de outlet_flow.
-            </div>
+        </div>
+        <div class="col-sm-4" [hidden]="isHiddenOutletFlow">
+          <label for="outlet_flow" class="form-label"
+            >Número de outlet_flow</label
+          >
+          <input
+            type="string"
+            formControlName="outlet_flow"
+            class="form-control"
+          />
+          <div class="invalid-feedback">
+            Se requiere un número de outlet_flow.
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ export class AddReservoirComponent implements OnInit {
     private readonly svcManager: ManagerService
   ) {
     this.svcManager.getManagerByUser().subscribe((value) => {
+      console.log(value)
       this.user_id = value.user_id;
     });
   }
