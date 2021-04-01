@@ -105,7 +105,7 @@ class DwellingCreateWithResidentView(generics.CreateAPIView):
 
 class DwellingSetOwnerAsResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
-    serializer_class = None
+    serializer_class = DwellingResidentSerializer
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(

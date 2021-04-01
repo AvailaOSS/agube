@@ -5,13 +5,13 @@ from drf_yasg.utils import swagger_auto_schema
 from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.serializers import DwellingDetailSerializer
 from phone.models import Phone
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND
+from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
 from rest_framework.views import APIView
 
 from login.models import UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
-from login.serializers import (UserAddressUpdateSerializer,
+from login.serializers import (ResetPasswordSerializer, UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
                                UserPhoneUpdateSerializer, get_all_user_full_address_serialized, get_all_user_phones_serialized)
 
@@ -362,3 +362,52 @@ class UserAddressUpdateDeleteView(APIView):
             full_address.delete()
             full_address.address.delete()
         return Response({'status': 'delete successfull!'})
+
+
+class EnableAccountView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_id="enableAccount",
+        operation_description="enable account of user if first time log in",
+        request_body=ResetPasswordSerializer,
+        responses={200: None},
+        tags=[TAG_USER],
+    )
+    def put(self, request):
+        user_id = request.data['user_id']
+        password = request.data['password']
+        try:
+            user = User.objects.get(id=user_id)
+            if user.is_active:
+                return Response({'status': 'user already enabled'}, status=HTTP_404_NOT_FOUND)
+            user.set_password(password)
+            user.is_active = True
+            user.save()
+            return Response(None, status=HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
+
+
+class ResetPasswordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="resetPassword",
+        operation_description="reset password",
+        request_body=ResetPasswordSerializer,
+        responses={200: None},
+        tags=[TAG_USER],
+    )
+    def put(self, request):
+        user_id = request.data['user_id']
+        password = request.data['password']
+        if self.request.user.id != user_id:
+            return Response({'status': 'incompatible user'}, status=HTTP_404_NOT_FOUND)
+        try:
+            user = User.objects.get(id=user_id)
+            user.set_password(password)
+            user.save()
+            return Response(None, status=HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'}, status=HTTP_404_NOT_FOUND)
