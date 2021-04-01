@@ -86,6 +86,16 @@ class UserAddressUpdateSerializer(Serializer):
         ref_name = 'UserAddress'
 
 
+class ResetPasswordSerializer(Serializer):
+    """
+    Reset Password Serializer
+    """
+    user_id = CharField(max_length=None, min_length=None,
+                        allow_blank=False, trim_whitespace=True)
+    password = CharField(max_length=None, min_length=None,
+                         allow_blank=False, trim_whitespace=True)
+
+
 def get_all_user_full_address_serialized(user):
     list_of_serialized = []
     for address_iteration in UserAddress.objects.filter(user=user):
