@@ -12,11 +12,11 @@
 import { SubscriptionType } from './subscriptionType';
 
 
-export interface Subscription { 
+export interface Subscription {
     readonly id?: string;
     name: string;
     description: string;
     price: string;
-    pricePerDay: string;
+    price_per_day: string;
     type?: SubscriptionType;
 }
