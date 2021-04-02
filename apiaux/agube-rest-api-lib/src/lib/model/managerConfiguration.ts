@@ -12,8 +12,8 @@
 import { HookPrice } from './hookPrice';
 
 
-export interface ManagerConfiguration { 
+export interface ManagerConfiguration {
     readonly id?: string;
-    maxDailyConsumption: string;
-    hookPrice: HookPrice;
+    max_daily_consumption: string;
+    hook_price: HookPrice;
 }

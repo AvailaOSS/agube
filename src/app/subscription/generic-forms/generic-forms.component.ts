@@ -72,7 +72,7 @@ export class GenericFormsComponent implements OnInit {
     console.log(this.registerForm.value);
 
     this.subscriptionclientService
-      .clientCreate({
+      .createDwellingWithResident({
         client: {
           user: {
             username: this.registerForm.value.username,

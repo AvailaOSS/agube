@@ -1,14 +1,62 @@
-<div class="contenedor">
-  <app-utils
-    [titleCard]="'Cambio Pagador'"
-    [isHiddenAddress]="true"
-    [isHiddenBank]="false"
-    [isHiddenResident]="false"
-    [isHiddenOwner]="false"
-    [isHiddenCount]="true"
-    [formDataConfiguration]="formConfigurationData"
-    [error]="error"
-    (sendForm)="sendForm($event)"
-  ></app-utils>
+<div class="h-75 w-75 row text-center" style="margin: 0 auto">
+  <form class="col-12 text-center m-1" [formGroup]="registerForm">
+    <h3 class="col-12">Cambio de pagador</h3>
+    <div class="m-3 col-12">
+      <label for="numberBank" class="form-label">Número de cuenta</label>
+      <input type="bank" formControlName="numberBank" class="form-control" />
+      <div class="invalid-feedback">Se requiere un número de cuenta.</div>
+    </div>
 
+    <div class="row col-12" style="cursor: pointer">
+      <div class="col-6">
+        <div
+          class="card m-4 rounded-3 shadow-sm border-primary"
+          (click)="selectedRow(owner)"
+        >
+          <div
+            class="card-header py-3 border-primary"
+            [ngClass]="{
+              'paymaster-row': owner === paymaster,
+              'selected-row': owner === selectRow
+            }"
+          >
+            <h4 class="my-0 fw-normal">Propietario {{ owner }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div
+          class="card m-4 rounded-3 shadow-sm"
+          (click)="selectedRow(resident)"
+        >
+          <div
+            class="card-header py-3"
+            [ngClass]="{
+              'paymaster-row': resident === paymaster,
+              'selected-row': resident === selectRow
+            }"
+          >
+            <h4 class="my-0 fw-normal">Residente {{ resident }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="m-5 d-flex justify-content-between">
+  <button
+    class="w-25 btn btn-outline-danger btn-lg"
+    type="button"
+    (click)="goToControlPanel()"
+  >
+    Atrás
+  </button>
+  <button
+    class="w-25 btn btn-outline-primary btn-lg"
+    type="button"
+    (click)="onSubmit()"
+  >
+    Cambio de pagador
+  </button>
 </div>

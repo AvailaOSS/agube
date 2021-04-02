@@ -22,6 +22,8 @@ import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
 import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.module';
 import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-management/reservoir-utils/reservoir-utils/reservoir-utils.module';
+import { ChangePasswordModule } from './login/change-password/change-password.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent],
@@ -29,6 +31,7 @@ import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-management/r
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    ChangePasswordModule,
     ToolbarModule,
     ReactiveFormsModule,
     FormsModule,
@@ -51,6 +54,7 @@ import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-management/r
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

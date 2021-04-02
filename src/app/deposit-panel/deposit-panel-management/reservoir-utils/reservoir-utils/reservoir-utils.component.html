@@ -1,4 +1,4 @@
-<div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto;">
+<div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto">
   <div [hidden]="error" class="alert alert-danger" role="alert">
     Complete todos los datos correctamente
   </div>
@@ -13,7 +13,12 @@
       <div class="row col-12">
         <div class="col-sm-5">
           <label for="address" class="form-label">Calle</label>
-          <input type="text"  formControlName="address" class="form-control" value="address" />
+          <input
+            type="text"
+            formControlName="address"
+            class="form-control"
+            value="address"
+          />
           <div class="invalid-feedback">Se requiere una dirección.</div>
         </div>
 
@@ -40,228 +45,54 @@
         <div class="invalid-feedback">Se requiere una Ciudad.</div>
       </div>
 
-    <hr class="my-4" />
+      <hr class="my-4" />
     </div>
-
 
     <div class="row g-3">
       <div class="row col-12">
-        <div class="col-sm-6" [hidden]="isHiddenCount">
+        <div class="col-sm-12" [hidden]="isHiddenCount">
           <label for="code" class="form-label">Número de contador</label>
           <input type="text" formControlName="code" class="form-control" />
           <div class="invalid-feedback">Se requiere un código de contador.</div>
         </div>
-        <div class="col-sm-6"  [hidden]="isHiddenBank" >
-          <label for="numberBank" class="form-label">Número de cuenta</label>
+      </div>
+
+      <hr class="my-4" />
+      <div class="row col-12">
+        <div class="col-sm-4" [hidden]="isHiddenCapacity">
+          <label for="capacity" class="form-label">Capacidad</label>
+          <input type="text" formControlName="capacity" class="form-control" />
+          <div class="invalid-feedback">Se requiere una capacidad.</div>
+        </div>
+        <div class="col-sm-4" [hidden]="isHiddenInletFlow">
+          <label for="inlet_flow" class="form-label"
+            >Número de inlet_flow</label
+          >
           <input
-            type="bank"
-            formControlName="numberBank"
+            type="string"
+            formControlName="inlet_flow"
             class="form-control"
           />
-          <div class="invalid-feedback">Se requiere un número de cuenta.</div>
-        </div>
-      </div>
-
-    <hr class="my-4" />
-    </div>
-
-
-    <div class="row col-12">
-      <div class="row col-6" [hidden]="isHiddenOwner">
-        <div class="col m-4 card-header"  [hidden]="isHiddenResident">
-          <strong>Propietario</strong>
-          <div class="form-check form-switch col-3 d-inline ml-1">
-            <input class="form-check-input "  formControlName="resident" type="checkbox" value="resident" id="resident" (click)="toggle()">
-            <label class="form-check-label" for="resident">
-              Residente
-            </label>
-          </div>
-          <div class="form-check form-switch col-3 d-inline" [hidden]="isHiddenResident" >
-            <input class="form-check-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
-            <label class="form-check-label" for="pagador">
-              Pagador
-            </label>
+          <div class="invalid-feedback">
+            Se requiere un número de inlet_flow.
           </div>
         </div>
-        <div class="card-body">
-          <div class="row g-3">
-
-            <div class="col-sm-4">
-              <label for="first_name" class="form-label">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                id="first_name"
-                formControlName="first_name"
-                placeholder=""
-                value=""
-                required=""
-              />
-              <div class="invalid-feedback">Se requiere un nombre.</div>
-            </div>
-
-            <div class="col-sm-4">
-              <label for="last_name" class="form-label">Apellido</label>
-              <input
-                type="text"
-                class="form-control"
-                id="last_name"
-                formControlName="last_name"
-                placeholder=""
-                value=""
-                required=""
-              />
-              <div class="invalid-feedback">Se requiere un apellido.</div>
-            </div>
-
-            <div class="col-sm-4">
-              <label for="username" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  placeholder="Username"
-                  formControlName="username"
-                  required=""
-                />
-                <div class="invalid-feedback">Se requiere un username.</div>
-              </div>
-            </div>
-
-            <div class="col-sm-3">
-              <label for="email" class="form-label">Email </label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                placeholder="you@example.com"
-                formControlName="email"
-                required=""
-              />
-              <div class="invalid-feedback">Se requiere un email válido</div>
-            </div>
-
-            <div class="col-sm-5">
-              <label for="address" class="form-label">Dirección</label>
-              <input
-                type="text"
-                class="form-control"
-                id="address"
-                placeholder="Calle Coghlan 1670..."
-                required=""
-                formControlName="addressOwner"
-              />
-              <div class="invalid-feedback">
-                Se require una dirección existente.
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <label for="phones" class="form-label">Télefono</label>
-              <input
-                type="text"
-                class="form-control"
-                id="phones"
-                placeholder=""
-                required=""
-                formControlName="phones"
-              />
-              <div class="invalid-feedback">Número de teléfono requerido.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row col-6" [hidden]="isHiddenResident">
-        <div class="col m-4 card-header"><strong>Residente</strong></div>
-        <div class="card-body">
-          <div class="row g-3">
-            <div class="col-sm-4">
-              <label for="first_nameRes" class="form-label">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                id="first_nameRes"
-                formControlName="first_nameRes"
-                placeholder=""
-                value=""
-                required=""
-              />
-              <div class="invalid-feedback">Se requiere un nombre.</div>
-            </div>
-            <div class="col-sm-4">
-              <label for="last_nameRes" class="form-label">Apellido</label>
-              <input
-                type="text"
-                class="form-control"
-                id="last_nameRes"
-                formControlName="last_nameRes"
-                placeholder=""
-                value=""
-                required=""
-              />
-              <div class="invalid-feedback">Se requiere un apellido.</div>
-            </div>
-            <div class="col-sm-4">
-              <label for="usernameRes" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="usernameRes"
-                  placeholder="username"
-                  formControlName="usernameRes"
-                  required=""
-                />
-                <div class="invalid-feedback">Se requiere un username.</div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <label for="emailRes" class="form-label">Email </label>
-              <input
-                type="email"
-                class="form-control"
-                id="emailRes"
-                placeholder="you@example.com"
-                formControlName="emailRes"
-                required=""
-              />
-              <div class="invalid-feedback">Se requiere un email válido</div>
-            </div>
-            <div class="col-sm-5">
-              <label for="addressRes" class="form-label">Dirección</label>
-              <input
-                type="text"
-                class="form-control"
-                id="addressRes"
-                placeholder="Calle Coghlan 1670..."
-                required=""
-                formControlName="addressRes"
-              />
-              <div class="invalid-feedback">
-                Se require una dirección existente.
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <label for="phonesRes" class="form-label">Télefono</label>
-              <input
-                type="text"
-                class="form-control"
-                id="phonesRes"
-                placeholder=""
-                required=""
-                formControlName="phonesRes"
-              />
-              <div class="invalid-feedback">Número de teléfono requerido.</div>
-            </div>
+        <div class="col-sm-4" [hidden]="isHiddenOutletFlow">
+          <label for="outlet_flow" class="form-label"
+            >Número de outlet_flow</label
+          >
+          <input
+            type="string"
+            formControlName="outlet_flow"
+            class="form-control"
+          />
+          <div class="invalid-feedback">
+            Se requiere un número de outlet_flow.
           </div>
         </div>
       </div>
     </div>
-    <hr class="my-4" />
   </form>
-
 </div>
 
 <div class="m-5 d-flex justify-content-between">
@@ -272,7 +103,11 @@
   >
     Atrás
   </button>
-  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
+  <button
+    class="w-25 btn btn-outline-primary btn-lg"
+    type="button"
+    (click)="onSubmit()"
+  >
     {{ titleCard }}
   </button>
 </div>

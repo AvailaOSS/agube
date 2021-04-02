@@ -11,7 +11,7 @@
  */
 
 
-export interface ReservoirDetail { 
+export interface ReservoirDetail {
     readonly id?: string;
     street: string;
     number: string;
@@ -19,6 +19,6 @@ export interface ReservoirDetail {
     gate: string;
     town: string;
     capacity: string;
-    inletFlow: string;
-    outletFlow: string;
+    inlet_flow: string;
+    outlet_flow: string;
 }
