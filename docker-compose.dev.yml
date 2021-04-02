@@ -3,6 +3,7 @@ version: "3.8"
 services:
   # Postgres Database
   db:
+    container_name: postgres-db
     image: postgres
     ports:
       - 5432:5432
@@ -13,6 +14,7 @@ services:
 
   # RabbitMQ - queue
   rabbitmq:
+    container_name: rabbitmq
     hostname: rabbit
     image: rabbitmq:3-management
     ports:
@@ -26,6 +28,8 @@ services:
 
   # Django Backend server
   subscription-backend:
+    container_name: subscription-backend
+    hostname: subscription-backend
     image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
     command: python manage.py runserver 0.0.0.0:8000
     ports:
@@ -40,6 +44,8 @@ services:
     networks:
       - backend
   contact-book-backend:
+    container_name: contact-book-backend
+    hostname: contact-book-backend
     image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
     command: python manage.py runserver 0.0.0.0:8001
     ports:
@@ -54,10 +60,13 @@ services:
     networks:
       - backend
   agube-backend:
+    container_name: agube-backend
+    hostname: agube-backend
     image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
     command: python manage.py runserver 0.0.0.0:8002
     ports:
       - 8002:8002
+      - 5555:5555
     volumes:
       - .:/availa
     env_file:
