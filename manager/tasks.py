@@ -1,13 +1,13 @@
 import json
 
-from celery import shared_task
 from celery.decorators import task
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 from manager.models import Manager, Person
 
 
-@task(name="new_user_published")
+@task(autoretry_for=(ObjectDoesNotExist,), retry_backoff=True, name="agube.celery.new_user_published", queue='agube', exchange='agube_exchange')
 def new_user_published(data):
     # TODO: check json is valid
     json_response = json.loads(data)
