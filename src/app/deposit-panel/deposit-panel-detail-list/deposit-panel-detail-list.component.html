@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody *ngFor="let element of dataSource" >
-    <tr class="clickable-row table"  [ngClass]="{'selected-row': element.id === selectedRowIndex  }">
+    <tr class="clickable-row table" [ngClass]="{'selected-row': element.id === selectedRowIndex  }">
       <th scope="row"  (click)="selectRow(element)"  >
         {{ element.flat }} {{ element.gate }} {{ element.number }}
         {{ element.street }} {{ element.town }}
