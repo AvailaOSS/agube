@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { isUndefined } from 'lodash';
 import { AccountService } from '../../../../login/service/account.service';
 
 @Component({
@@ -10,35 +11,54 @@ import { AccountService } from '../../../../login/service/account.service';
   styleUrls: ['./change-pay.component.scss'],
 })
 export class ChangePayComponent implements OnInit {
-  public addNewWelling: FormGroup;
-  public formIdentification: number;
+  public registerForm: FormGroup;
   public username: string;
   public changePayId: string;
-  public error: boolean = true;
   public paymaster: any;
   public owner: any;
   public resident: any;
   public selectRow: any;
+  public iban: any;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private route: ActivatedRoute,
-    private readonly svcChangePay: DwellingService
+    private readonly svcChangePay: DwellingService,
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.route.queryParams.subscribe((params) => {
       this.changePayId = params.data;
     });
+    this.registerForm = this.formBuilder.group({
+      numberBank: new FormControl(),
+    });
   }
 
+  public onSubmit(): void {
+    this.svcChangePay
+      .changePaymaster(this.changePayId, {
+        payment_type: 'BANK',
+        iban: this.registerForm.value.numberBank,
+        username: this.selectRow,
+      })
+      .subscribe(
+        (value) => {
+          this.ngOnInit();
+        },
+        (error) => {
+          console.log('error');
+        }
+      );
+  }
   public selectedRow(event): void {
-    console.log(event);
     this.selectRow = event;
   }
   public ngOnInit(): void {
     this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
-      console.log(Object.entries(value)[3]);
+      this.iban = Object.entries(value)[2][1];
       this.paymaster = Object.entries(value)[3][1];
-      this.formConfigurationData.emit(value);
+      this.registerForm.get('numberBank').setValue(this.iban);
     });
     this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
       this.owner = Object.entries(owner)[2][1]['username'];
@@ -47,27 +67,10 @@ export class ChangePayComponent implements OnInit {
     this.svcChangePay
       .getCurrentResident(+this.changePayId)
       .subscribe((value) => {
-        console.log('residente', value);
         this.resident = Object.entries(value)[2][1]['username'];
       });
   }
-  public sendForm(event: any): void {
-    console.log('change pay', event);
-
-    this.error = false;
-    this.svcChangePay
-      .changePaymaster(this.changePayId, {
-        username: this.selectRow,
-        iban: event.numberBank,
-        payment_type: 'BANK',
-      })
-      .subscribe(
-        (value) => {
-          console.log(value);
-        },
-        (error) => {
-          this.error = false;
-        }
-      );
+  public goToControlPanel(): void {
+    this.router.navigate(['/control-panel']);
   }
 }
