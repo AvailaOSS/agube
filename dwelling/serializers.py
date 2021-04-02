@@ -45,6 +45,8 @@ def create_user(validated_data, manager):
     addresses = validated_data.pop('address')
     # Create User
     user = User.objects.create(**validated_data)
+    user.is_active = False
+    user.save()
     # first_iteration will be save as main phone/address
     first_iteration = True
     # Create User Phones

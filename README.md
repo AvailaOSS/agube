@@ -18,7 +18,10 @@ Agube
 > python manage.py startapp [your-app-name]
 
 # run celery
-> celery -A agube.celery worker --loglevel=info
+> celery -A agube.celery worker -l INFO
+
+# run flower
+> celery -A agube.celery flower --port=5555
 
 # execute tests with coverage
 
