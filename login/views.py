@@ -1,19 +1,25 @@
 from address.models import Address, FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from drf_yasg.openapi import Response as OpenApiResponse
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.serializers import DwellingDetailSerializer
 from phone.models import Phone
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
+from rest_framework.status import (HTTP_200_OK, HTTP_204_NO_CONTENT,
+                                   HTTP_404_NOT_FOUND)
 from rest_framework.views import APIView
 
-from login.models import UserAddress, UserPhone, update_address_to_not_main, update_phone_to_not_main
-from login.serializers import (ResetPasswordSerializer, UserAddressUpdateSerializer,
+from login.models import (UserAddress, UserPhone, update_address_to_not_main,
+                          update_phone_to_not_main)
+from login.serializers import (ResetPasswordSerializer,
+                               UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
-                               UserPhoneUpdateSerializer, get_all_user_full_address_serialized, get_all_user_phones_serialized)
+                               UserPhoneUpdateSerializer,
+                               get_all_user_full_address_serialized,
+                               get_all_user_phones_serialized)
 
 TAG_USER = 'user'
 
@@ -371,7 +377,10 @@ class EnableAccountView(APIView):
         operation_id="enableAccount",
         operation_description="enable account of user if first time log in",
         request_body=ResetPasswordSerializer,
-        responses={200: None},
+        responses={
+            HTTP_204_NO_CONTENT: OpenApiResponse(
+                description="Enable account corretly")
+        },
         tags=[TAG_USER],
     )
     def put(self, request):
@@ -396,7 +405,10 @@ class ResetPasswordView(APIView):
         operation_id="resetPassword",
         operation_description="reset password",
         request_body=ResetPasswordSerializer,
-        responses={200: None},
+        responses={
+            HTTP_204_NO_CONTENT: OpenApiResponse(
+                description="Password reset corretly")
+        },
         tags=[TAG_USER],
     )
     def put(self, request):
