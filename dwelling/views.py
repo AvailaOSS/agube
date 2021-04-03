@@ -220,7 +220,7 @@ class DwellingWaterMeterView(generics.GenericAPIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
-        operation_id="getCurrentWaterMeter",
+        operation_id="getCurrentDwellingWaterMeter",
         responses={200: WaterMeterSerializer(many=False)},
     )
     def get(self, request, pk):
@@ -234,7 +234,7 @@ class DwellingWaterMeterView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
 
-    @swagger_auto_schema(operation_id="changeCurrentWaterMeter")
+    @swagger_auto_schema(operation_id="changeCurrentDwellingWaterMeter")
     def post(self, request, pk):
         """
         Create a new Water Meter and discharge the old Water Meter

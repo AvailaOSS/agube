@@ -83,7 +83,7 @@ class ReservoirOwnerView(generics.GenericAPIView):
     serializer_class = ReservoirOwnerSerializer
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(operation_id="getCurrentOwner")
+    @swagger_auto_schema(operation_id="getCurrentReservoirOwner")
     def get(self, request, pk):
         """
         Get Current Owner
@@ -102,7 +102,7 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
-        operation_id="getCurrentWaterMeter",
+        operation_id="getCurrentReservoirWaterMeter",
         responses={200: WaterMeterSerializer(many=False)},
     )
     def get(self, request, pk):
@@ -116,7 +116,7 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
 
-    @swagger_auto_schema(operation_id="changeCurrentWaterMeter")
+    @swagger_auto_schema(operation_id="changeCurrentReservoirWaterMeter")
     def post(self, request, pk):
         """
         Create a new Water Meter and discharge the old Water Meter
