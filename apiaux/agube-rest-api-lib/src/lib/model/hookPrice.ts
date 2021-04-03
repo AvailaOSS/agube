@@ -11,9 +11,9 @@
  */
 
 
-export interface HookPrice { 
+export interface HookPrice {
     readonly id?: string;
     hookPrice: string;
-    readonly releaseDate?: string;
-    readonly dischargeDate?: string;
+    readonly release_date?: string;
+    readonly discharge_date?: string;
 }

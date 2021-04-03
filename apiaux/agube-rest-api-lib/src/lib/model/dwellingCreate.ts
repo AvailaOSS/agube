@@ -20,6 +20,5 @@ export interface DwellingCreate {
     full_address: FullAddress;
     paymaster: Paymaster;
     owner: UserDetail;
-    resident: UserDetail;
     water_meter: WaterMeter;
 }

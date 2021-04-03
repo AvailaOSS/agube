@@ -1,28 +1,25 @@
-<mat-card *ngIf="DepositPanel != undefined">
-    <mat-card-header>
-        <mat-card-title>Vivienda seleccionada</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="container">
-            <div class="row">
-                <div fxLayout="column" fxLayoutAlign="space-around stretch" class="col-sm">
-                    Dirección
-                    <p>{{ DepositPanel.address }}</p>
-                    <!-- <app-water-meter-detail-card></app-water-meter-detail-card> -->
-                </div>
-                <div class="col-sm">
-                    <app-president-details-card></app-president-details-card>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-sm">
-                    <!-- <app-dwelling-water-meter-readings></app-dwelling-water-meter-readings> -->
-                </div>
-                <div class="col-sm">
-                    <!-- <app-dwelling-management></app-dwelling-management> -->
-                </div>
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+<div class="card w-100 m-2" *ngIf="DepositPanel != undefined">
+  <div class="col-12 row">
+    <div class="card bg-light m-3" style="max-width: 18rem; width: 16rem">
+      <div class="card-header"><strong>Dirección</strong></div>
+      <div class="card-body">
+        <p class="card-text">
+          {{ DepositPanel.flat }} {{ DepositPanel.gate }} - {{ DepositPanel.street }} -{{
+            DepositPanel.number
+          }}
+          - {{ DepositPanel.town }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <br />
+  <div class="col-12 row">
+    <div class="">
+
+    </div>
+    <div class="">
+
+    </div>
+  </div>
+</div>

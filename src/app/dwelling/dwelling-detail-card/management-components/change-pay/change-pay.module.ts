@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChangePayComponent } from './change-pay.component';
-import { UtilsModule } from '../utils/utils.module';
+import { UtilsModule } from '../dWellingUtils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';

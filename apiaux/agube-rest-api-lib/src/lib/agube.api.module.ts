@@ -13,6 +13,7 @@ import { TokenService } from './service/token.service';
 import { UserService } from './service/user.service';
 import { WaterMeterService } from './service/waterMeter.service';
 import { ManagerService } from './service/manager.service';
+import { ReservoirService } from './service/reservoir.service';
 
 @NgModule({
   imports: [],
@@ -21,6 +22,7 @@ import { ManagerService } from './service/manager.service';
   providers: [
     AddressService,
     DwellingService,
+    ReservoirService,
     ManagerService,
     PhoneService,
     TokenService,

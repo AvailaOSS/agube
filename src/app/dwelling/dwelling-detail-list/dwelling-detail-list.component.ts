@@ -35,7 +35,9 @@ export class DWellingDetailListComponent implements OnInit {
 
   public selectRow(row: DwellingDetail): void {
     this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
+
     this.selected.emit(row);
+    console.log(row.id)
     this.selectedRowIndex = row.id;
   }
 }

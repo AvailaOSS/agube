@@ -20,7 +20,10 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
 import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
 import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/utils/utils.module';
+import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
+import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-management/reservoir-utils/reservoir-utils/reservoir-utils.module';
+import { ChangePasswordModule } from './login/change-password/change-password.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent],
@@ -28,6 +31,7 @@ import { UtilsModule } from './dwelling/dwelling-detail-card/management-componen
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    ChangePasswordModule,
     ToolbarModule,
     ReactiveFormsModule,
     FormsModule,
@@ -44,11 +48,13 @@ import { UtilsModule } from './dwelling/dwelling-detail-card/management-componen
     AdDWellingModule,
     DepositPanelModule,
     UtilsModule,
+    ReservoirUtilsModule,
     ComponentsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

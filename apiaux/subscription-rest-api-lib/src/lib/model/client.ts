@@ -11,11 +11,12 @@
  */
 import { User } from './user';
 
+
 export interface Client {
-  readonly id?: string;
-  user: User;
-  business_name: string;
-  nif: string;
-  phone_number: string;
-  payment_type: number;
+    readonly id?: string;
+    user: User;
+    business_name: string;
+    nif: string;
+    phone_number: string;
+    payment_type: number;
 }

@@ -7,25 +7,26 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { ControlPanelModule } from '../control-panel/control-panel.module';
-import { MatCardModule } from '@angular/material/card';
 import { DepositPanelDetailListComponent } from './deposit-panel-detail-list/deposit-panel-detail-list.component';
 import { DepositPanelDetailCardComponent } from './deposit-panel-detail-card/deposit-panel-detail-card.component';
-
-
+import { ReservoirUtilsModule } from './deposit-panel-management/reservoir-utils/reservoir-utils/reservoir-utils.module';
+import { AddReservoirModule } from './deposit-panel-management/add-reservoir/addReservoir/addReservoir.module';
 
 @NgModule({
-  declarations: [DepositPanelComponent, DepositPanelDetailListComponent, DepositPanelDetailCardComponent],
+  declarations: [
+    DepositPanelComponent,
+    DepositPanelDetailListComponent,
+    DepositPanelDetailCardComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
-    MatTableModule,
-    MatButtonModule,
-    MatListModule,
     ControlPanelModule,
-    MatCardModule,
+    AddReservoirModule,
+    ReservoirUtilsModule,
   ],
   exports: [DepositPanelComponent],
 })
-export class DepositPanelModule { }
+export class DepositPanelModule {}

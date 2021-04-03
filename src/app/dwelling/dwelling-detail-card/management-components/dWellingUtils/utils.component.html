@@ -1,11 +1,11 @@
 <div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto;">
   <div [hidden]="error" class="alert alert-danger" role="alert">
     Complete todos los datos correctamente
+
   </div>
   <h4 class="mb-3 text-center">{{ titleCard }}</h4>
   <form
     class="needs-validation was-validated"
-    novalidate=""
     [formGroup]="registerForm"
     (ngSubmit)="onSubmit()"
   >
@@ -68,17 +68,17 @@
 
     <div class="row col-12">
       <div class="row col-6" [hidden]="isHiddenOwner">
-        <div class="col m-4 card-header">
+        <div class="col m-4 card-header"  [hidden]="isHiddenResident">
           <strong>Propietario</strong>
-          <div class="form-check form-switch col-3 d-inline ml-1">
-            <input class="form-check-input "  formControlName="resident" type="checkbox" value="resident" id="resident" (click)="toggle()">
-            <label class="form-check-label" for="resident">
+          <div class="custom-control custom-switch col-3 d-inline ml-1">
+            <input class="custom-control-input "  formControlName="resident" type="checkbox" value="resident" id="resident" (click)="toggle()">
+            <label class="custom-control-label" for="resident">
               Residente
             </label>
           </div>
-          <div class="form-check form-switch col-3 d-inline" >
-            <input class="form-check-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
-            <label class="form-check-label" for="pagador">
+          <div class="custom-control custom-switch col-3 d-inline ml-1" [hidden]="isHiddenResident" >
+            <input class="custom-control-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
+            <label class="custom-control-label" for="pagador">
               Pagador
             </label>
           </div>
@@ -172,7 +172,7 @@
           </div>
         </div>
       </div>
-      <div class="row col-6"[hidden]="isHiddenResident">
+      <div class="row col-6" [hidden]="isHiddenResident">
         <div class="col m-4 card-header"><strong>Residente</strong></div>
         <div class="card-body">
           <div class="row g-3">

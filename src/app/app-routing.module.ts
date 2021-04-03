@@ -16,8 +16,10 @@ import { ChangeCountComponent } from './dwelling/dwelling-detail-card/management
 import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-components/change-resident/change-resident.component';
 import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-components/change-owner/change-owner.component';
 import { AdDWellingComponent } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.component';
-import { AddNewContactModule } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.module';
+
 import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
+import { AddReservoirComponent } from './deposit-panel/deposit-panel-management/add-reservoir/addReservoir/addReservoir.component';
+import { ChangePasswordComponent } from './login/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -34,15 +36,17 @@ const routes: Routes = [
   { path: 'contactos', component: ContactPanelComponent },
   { path: 'contactos/alta/contacto', component: AddNewContactComponent },
   { path: 'depositos', component: DepositPanelComponent },
+  { path: 'depositos/alta/deposito', component: AddReservoirComponent },
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },
   { path: 'forms', component: GenericFormsComponent },
   { path: 'wip', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
+  { path: 'enable-account/:id', component: ChangePasswordComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

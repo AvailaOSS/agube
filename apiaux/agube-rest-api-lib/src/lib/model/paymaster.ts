@@ -10,18 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 export interface Paymaster {
-    readonly id?: string;
-    payment_type?: Paymaster.PaymentTypeEnum;
-    iban?: string;
-    username: string;
+  readonly id?: string;
+  payment_type?: Paymaster.PaymentTypeEnum;
+  iban?: string;
+  username: string;
 }
 export namespace Paymaster {
-    export type PaymentTypeEnum = 'BANK' | 'CASH' | 'EXEMPT';
-    export const PaymentTypeEnum = {
-        BANK: 'BANK' as PaymentTypeEnum,
-        CASH: 'CASH' as PaymentTypeEnum,
-        EXEMPT: 'EXEMPT' as PaymentTypeEnum
-    };
+  export type PaymentTypeEnum = 'BANK' | 'CASH' | 'EXEMPT';
+  export const PaymentTypeEnum = {
+    BANK: 'BANK' as PaymentTypeEnum,
+    CASH: 'CASH' as PaymentTypeEnum,
+    EXEMPT: 'EXEMPT' as PaymentTypeEnum,
+  };
 }
