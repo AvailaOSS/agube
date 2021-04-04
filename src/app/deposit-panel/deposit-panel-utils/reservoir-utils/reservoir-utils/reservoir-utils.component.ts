@@ -11,15 +11,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ReservoirUtilsComponent implements OnInit {
   @Input() titleCard: string;
-  @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
+  @Input() formDataConfiguration?: BehaviorSubject<any> = new BehaviorSubject(5);
   @Input() isHiddenAddress = false;
   @Input() isHiddenCount = false;
   @Input() isHiddenCapacity = false;
   @Input() isHiddenInletFlow = false;
   @Input() isHiddenOutletFlow = false;
-  @Input() ownerTitle = 'Alta Depósito';
-  @Input() residentTitle = 'Alta Residente';
-  @Input() error = false;
+  @Input() ownerTitle? = 'Alta Depósito';
+  @Input() residentTitle? = 'Alta Residente';
+  @Input() error? = false;
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 

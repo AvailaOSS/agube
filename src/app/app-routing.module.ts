@@ -20,6 +20,7 @@ import { AdDWellingComponent } from './dwelling/dwelling-detail-card/management-
 import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
 import { AddReservoirComponent } from './deposit-panel/deposit-panel-utils/add-reservoir/addReservoir/addReservoir.component';
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
+import { ChangeReservoirComponent } from './deposit-panel/deposit-panel-utils/change-reservoir/change-reservoir.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'contactos', component: ContactPanelComponent },
   { path: 'contactos/alta/contacto', component: AddNewContactComponent },
   { path: 'depositos', component: DepositPanelComponent },
+  { path: 'deposit/changeReservoir', component: ChangeReservoirComponent },
   { path: 'depositos/alta/deposito', component: AddReservoirComponent },
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },
