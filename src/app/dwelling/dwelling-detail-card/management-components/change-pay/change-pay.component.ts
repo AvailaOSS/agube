@@ -16,7 +16,13 @@ export class ChangePayComponent implements OnInit {
   public changePayId: string;
   public paymaster: any;
   public owner: any;
+
+  public addressOwn: any;
+  public phoneOwn: any;
   public resident: any;
+
+  public addressRes: any;
+  public phoneRes: any;
   public selectRow: any;
   public iban: any;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
@@ -45,6 +51,7 @@ export class ChangePayComponent implements OnInit {
       .subscribe(
         (value) => {
           this.ngOnInit();
+          this.router.navigate(['/viviendas']);
         },
         (error) => {
           console.log('error');
@@ -62,15 +69,20 @@ export class ChangePayComponent implements OnInit {
     });
     this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
       this.owner = Object.entries(owner)[2][1]['username'];
+      this.addressOwn = Object.entries(owner)[2][1]['address'][0].address.street;
+      this.phoneOwn = Object.entries(owner)[2][1]['phones'][0].phone_number;
     });
 
     this.svcChangePay
       .getCurrentResident(+this.changePayId)
       .subscribe((value) => {
         this.resident = Object.entries(value)[2][1]['username'];
+        this.addressRes = Object.entries(value)[2][1]['address'][0].address.street;
+        this.phoneRes = Object.entries(value)[2][1]['phones'][0].phone_number;
+
       });
   }
   public goToControlPanel(): void {
-    this.router.navigate(['/control-panel']);
+    this.router.navigate(['/viviendas']);
   }
 }
