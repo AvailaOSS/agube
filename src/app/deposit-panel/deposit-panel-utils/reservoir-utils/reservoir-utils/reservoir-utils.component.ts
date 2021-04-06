@@ -27,7 +27,7 @@ export class ReservoirUtilsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   public goToControlPanel(): void {
-    this.router.navigate(['/control-panel']);
+    this.router.navigate(['/depositos']);
   }
   public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
