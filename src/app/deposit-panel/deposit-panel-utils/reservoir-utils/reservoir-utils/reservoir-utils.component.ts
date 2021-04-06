@@ -11,15 +11,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ReservoirUtilsComponent implements OnInit {
   @Input() titleCard: string;
-  @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
+  @Input() formDataConfiguration?: BehaviorSubject<any> = new BehaviorSubject(5);
   @Input() isHiddenAddress = false;
   @Input() isHiddenCount = false;
   @Input() isHiddenCapacity = false;
   @Input() isHiddenInletFlow = false;
   @Input() isHiddenOutletFlow = false;
-  @Input() ownerTitle = 'Alta Depósito';
-  @Input() residentTitle = 'Alta Residente';
-  @Input() error = false;
+  @Input() ownerTitle? = 'Alta Depósito';
+  @Input() residentTitle? = 'Alta Residente';
+  @Input() error? = false;
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
@@ -27,7 +27,7 @@ export class ReservoirUtilsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   public goToControlPanel(): void {
-    this.router.navigate(['/control-panel']);
+    this.router.navigate(['/depositos']);
   }
   public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({

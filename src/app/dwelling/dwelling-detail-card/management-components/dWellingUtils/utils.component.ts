@@ -27,7 +27,7 @@ export class UtilsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   public goToControlPanel(): void {
-    this.router.navigate(['/control-panel']);
+    this.router.navigate(['/viviendas']);
   }
   public toggle(): void {
     this.isHiddenResident = !this.isHiddenResident;
