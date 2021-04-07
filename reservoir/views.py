@@ -6,7 +6,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from watermeter.serializers import WaterMeterSerializer
+from watermeter.serializers import (WaterMeterDetailSerializer,
+                                    WaterMeterMeasurementSerializer,
+                                    WaterMeterSerializer)
 
 from reservoir.models import Reservoir, ReservoirWaterMeter
 from reservoir.serializers import (ReservoirCreateSerializer,
@@ -27,7 +29,7 @@ class ReservoirListView(APIView):
     )
     def get(self, request):
         """
-        Return a list of all Dwelling Detail.
+        Return a list of all Reservoir Detail.
         """
         # Get Reservoir
         reservoirs = Reservoir.objects.all()
@@ -75,7 +77,49 @@ class ReservoirView(generics.GenericAPIView):
             reservoir = Reservoir.objects.get(id=pk)
             return Response(ReservoirCreateSerializer(reservoir, many=False).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+
+
+class ReservoirWaterMeterChunkView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_id="getReservoirCurrentWaterMeterMeasuresChunk",
+        responses={200: WaterMeterDetailSerializer(many=False)},
+        tags=[TAG],
+    )
+    def get(self, request, pk, chunk):
+        # FIXME: move this and the Dwelling Chunk to Water Meter Chunk
+        """
+        Return the current Water Meter of Reservoir with measurements chunk.
+        """
+        # Get Reservoir
+        try:
+            reservoir = Reservoir.objects.get(id=pk)
+            water_meter = reservoir.get_current_water_meter()
+
+            list_of_water_meter_serialized = []
+            for measurement in water_meter.get_measurements_chunk(chunk):
+
+                data = {
+                    'id': measurement.id,
+                    'measurement': measurement.measurement,
+                    'date': measurement.date,
+                }
+                list_of_water_meter_serialized.append(
+                    WaterMeterMeasurementSerializer(data, many=False).data)
+
+            data = {
+                'id': water_meter.id,
+                'code': water_meter.code,
+                'release_date': water_meter.release_date,
+                'discharge_date': water_meter.discharge_date,
+                'water_meter': list_of_water_meter_serialized,
+            }
+
+            return Response(WaterMeterDetailSerializer(data, many=False).data)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
 
 
 class ReservoirOwnerView(generics.GenericAPIView):
@@ -86,7 +130,7 @@ class ReservoirOwnerView(generics.GenericAPIView):
     @swagger_auto_schema(operation_id="getCurrentReservoirOwner")
     def get(self, request, pk):
         """
-        Get Current Owner
+        Get Current Owner of the Reservoir
         """
         try:
             reservoir = Reservoir.objects.get(id=pk)
@@ -107,26 +151,26 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
     )
     def get(self, request, pk):
         """
-        Get current Water Meter
+        Get current Water Meter of the Reservoir
         """
         try:
             reservoir = Reservoir.objects.get(id=pk)
             water_meter = reservoir.get_current_water_meter()
             return Response(self.get_serializer(water_meter).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(operation_id="changeCurrentReservoirWaterMeter")
     def post(self, request, pk):
         """
-        Create a new Water Meter and discharge the old Water Meter
+        Create a new Water Meter and discharge the old Water Meter in the Reservoir
         """
-        # get Dwelling
+        # get Reservoir
         try:
-            dwelling = Reservoir.objects.get(id=pk)
+            reservoir = Reservoir.objects.get(id=pk)
             # create new Water Meter
-            dwelling.change_current_water_meter(request.data['code'])
-            new_water_meter = dwelling.get_current_water_meter()
+            reservoir.change_current_water_meter(request.data['code'])
+            new_water_meter = reservoir.get_current_water_meter()
             return Response(self.get_serializer(new_water_meter).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
