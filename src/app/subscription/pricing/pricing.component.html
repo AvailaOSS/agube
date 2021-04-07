@@ -42,84 +42,73 @@
       </div>
     </div>
   </div>
-
 </div>
-<div class="col-12 row row-cols-1 row-cols-md-12 mb-3 text-center table-responsive"
-fxLayout="row"
-fxLayoutAlign="space-around stretch">
+<div
+  class="col-10 row row-cols-1 row-cols-md-12 mb-3 text-center table-responsive"
+  fxLayout="row"
+  fxLayoutAlign="space-around stretch"
+  style="margin: 0 auto;"
+>
   <table class="table text-center">
     <thead>
       <tr>
-        <th style="width: 5%;"></th>
-        <th style="width: 14%;">Trial Plan</th>
-        <th style="width: 22%;">Silver Plan</th>
-        <th style="width: 22%;">Gold Plan</th>
-        <th style="width: 22%;">Platinium Plan</th>
+        <th scope="row" style="width: 4%"></th>
+        <th scope="row" *ngFor="let subs of subscriptions" style="width: 14%">
+          {{ subs.name }}
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row" class="text-start">Public</th>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Private</th>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-      </tr>
-    </tbody>
+      <tr *ngFor="let perm of permissionColumns">
+        <th scope="row" class="text-start">
+          {{ perm.name }}
+        </th>
+        <th
+          *ngFor="let subsc of perm.subscriptions"
+          scope="row"
+          class="text-start"
+          [hidden]="subsc.id!==1"
+        >
+          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+          {{subsc.id}}
+        </th>
 
-    <tbody>
-      <tr>
-        <th scope="row" class="text-start">Permissions</th>
-        <td>
+        <th
+          *ngFor="let subsc of perm.subscriptions"
+          scope="row"
+          class="text-start"
+          [hidden]="subsc.id!==2"
+        >
+          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+          {{subsc.id}}
+        </th>
+        <th
+          *ngFor="let subsc of perm.subscriptions"
+          scope="row"
+          class="text-start"
+          [hidden]="subsc.id!==3"
+        >
+          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+          {{subsc.id}}
+        </th>
+        <th
+          *ngFor="let subsc of perm.subscriptions"
+          scope="row"
+          class="text-start"
+          [hidden]="subsc.id!==4"
+        >
+          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+          {{subsc.id}}
+        </th>
 
-
-          <svg [hidden]="enablePermission !== []" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-          </svg>
-        </td>
-        <td>
-          <svg [hidden]="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-          </svg>
-        </td>
-        <td>
-          <svg [hidden]="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-          </svg>
-        </td>
-        <td>
-          <svg [hidden]="enablePermission !== []" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-          </svg>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Sharing</th>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Unlimited members</th>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Extra security</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
       </tr>
     </tbody>
   </table>

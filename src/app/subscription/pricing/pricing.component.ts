@@ -16,7 +16,7 @@ export class PricingComponent implements OnInit {
   public subscriptions: Subscription[];
 
   public permissionColumns: PermissionsHasSubscription[];
-  public enablePermission: any;
+  public enablePermission: any[]=[];
 
   constructor(
     private readonly router: Router,
@@ -31,9 +31,7 @@ export class PricingComponent implements OnInit {
       console.log(this.permissionColumns);
       this.permissionColumns.forEach((ps) => {
         ps.subscriptions.forEach((pss) => {
-          this.enablePermission = this.subscriptions.filter(
-            (subs) => +subs.id !== +pss.id
-          );
+          this.enablePermission.push(pss.id)
         });
       });
     });
