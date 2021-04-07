@@ -9,14 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SubscriptionType } from './subscriptionType';
+import { SubscriptionId } from './subscriptionId';
 
 
-export interface Subscription { 
+export interface PermissionsHasSubscription {
     readonly id?: string;
-    name: string;
-    description: string;
-    price: string;
-    pricePerDay: string;
-    type?: SubscriptionType;
+    readonly code_ame?: string;
+    readonly name?: string;
+    readonly subscriptions?: Array<SubscriptionId>;
 }

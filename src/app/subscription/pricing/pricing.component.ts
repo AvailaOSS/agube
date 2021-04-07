@@ -1,17 +1,11 @@
+import { Permission } from './../../../../apiaux/subscription-rest-api-lib/src/lib/model/permission';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { PermissionsHasSubscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/permissionsHasSubscription';
 import {
-  Permission,
   Subscription,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
-import { finalize } from 'rxjs/operators';
-
-export interface SubscriptionPermissions {
-  subscription: Subscription;
-  permissions: Permission[];
-}
 
 @Component({
   selector: 'app-pricing',
@@ -19,35 +13,33 @@ export interface SubscriptionPermissions {
   styleUrls: ['./pricing.component.scss'],
 })
 export class PricingComponent implements OnInit {
-  public subscriptions: SubscriptionPermissions[];
+  public subscriptions: Subscription[];
 
-  public permissionColumns: string[];
+  public permissionColumns: PermissionsHasSubscription[];
+  public enablePermission: any;
 
   constructor(
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService
   ) {
-    this.subscriptions = [];
-    this.permissionColumns = ['name'];
-  }
+    this.subscriptionService.getSubscriptions().subscribe((subscriptions) => {
+      this.subscriptions = subscriptions;
+    });
+    this.subscriptionService.getPermissions().subscribe((permissos) => {
+      this.permissionColumns = permissos;
 
-  public ngOnInit(): void {
-    this.subscriptionService.subscriptionList().subscribe((subscriptions) => {
-      subscriptions.forEach((subscription) => {
-        this.subscriptionService
-          .subscriptionPermissionsList(subscription.id)
-          .subscribe((permissions) => {
-            this.subscriptions.push({
-              subscription,
-              permissions,
-            });
-            this.subscriptions.sort((s1, s2) =>
-              s1.subscription.id > s2.subscription.id ? 1 : -1
-            );
-          });
+      console.log(this.permissionColumns);
+      this.permissionColumns.forEach((ps) => {
+        ps.subscriptions.forEach((pss) => {
+          this.enablePermission = this.subscriptions.filter(
+            (subs) => +subs.id !== +pss.id
+          );
+        });
       });
     });
   }
+
+  public ngOnInit(): void {}
   public sendUrl(url: string): void {
     this.router.navigate(['/forms', { id: url }]);
   }

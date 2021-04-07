@@ -5,16 +5,13 @@
     this Bootstrap example. It’s built with default Bootstrap components and
     utilities with little customization.
   </p>
-  <button
-    class="log-in-button btn btn-primary"
-    (click)="goToLogin()"
-  >
+  <button class="log-in-button btn btn-primary" (click)="goToLogin()">
     I already have a subscription!
   </button>
 </div>
 <hr />
 <div
-  class="row row-cols-1 row-cols-md-4 mb-3 text-center"
+  class="col-12 row row-cols-1 row-cols-md-4 mb-3 text-center"
   fxLayout="row"
   fxLayoutAlign="space-around stretch"
 >
@@ -22,12 +19,11 @@
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm border-primary">
         <div class="card-header py-3 text-white bg-primary border-primary">
-          <h4 class="my-0 fw-normal">{{ item.subscription.name }}</h4>
+          <h4 class="my-0 fw-normal">{{ item.name }}</h4>
         </div>
         <div class="card-body">
           <h1 class="card-title pricing-card-title">
-            ${{ item.subscription.price
-            }}<small class="text-muted fw-light">/mo</small>
+            ${{ item.price }}<small class="text-muted fw-light">/mo</small>
           </h1>
           <ul class="list-unstyled mt-3 mb-4">
             <li>30 users included</li>
@@ -38,34 +34,93 @@
           <button
             type="button"
             class="w-100 btn btn-lg btn-primary"
-            (click)="sendUrl(item.subscription.id)"
+            (click)="sendUrl(item.id)"
           >
             Buy
           </button>
         </div>
       </div>
     </div>
-    <div class="table-responsive">
-      <table
-        mat-table
-        [dataSource]="item.permissions"
-        class="table text-center"
-      >
-        <ng-container matColumnDef="name">
-          <th
-            id="1"
-            mat-header-cell
-            *matHeaderCellDef
-            class="table text-center"
-          >
-            <h3>Contenido del plan</h3>
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="permissionColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: permissionColumns"></tr>
-      </table>
-    </div>
   </div>
+
+</div>
+<div class="col-12 row row-cols-1 row-cols-md-12 mb-3 text-center table-responsive"
+fxLayout="row"
+fxLayoutAlign="space-around stretch">
+  <table class="table text-center">
+    <thead>
+      <tr>
+        <th style="width: 5%;"></th>
+        <th style="width: 14%;">Trial Plan</th>
+        <th style="width: 22%;">Silver Plan</th>
+        <th style="width: 22%;">Gold Plan</th>
+        <th style="width: 22%;">Platinium Plan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row" class="text-start">Public</th>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+      </tr>
+      <tr>
+        <th scope="row" class="text-start">Private</th>
+        <td></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th scope="row" class="text-start">Permissions</th>
+        <td>
+
+
+          <svg [hidden]="enablePermission !== []" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+        </td>
+        <td>
+          <svg [hidden]="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+        </td>
+        <td>
+          <svg [hidden]="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+        </td>
+        <td>
+          <svg [hidden]="enablePermission !== []" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row" class="text-start">Sharing</th>
+        <td></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+      </tr>
+      <tr>
+        <th scope="row" class="text-start">Unlimited members</th>
+        <td></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+      </tr>
+      <tr>
+        <th scope="row" class="text-start">Extra security</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

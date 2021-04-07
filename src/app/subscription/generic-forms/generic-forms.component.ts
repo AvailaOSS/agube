@@ -31,11 +31,11 @@ export class GenericFormsComponent implements OnInit {
       this.formIdentification = params.id;
     });
 
-    this.paymentTypesService.paymentTypesList().subscribe((value) => {
+    this.paymentTypesService.getPaymentTypes().subscribe((value) => {
       this.typePay = value;
     });
 
-    this.svcSubscriptionService.subscriptionList().subscribe((subs) => {
+    this.svcSubscriptionService.getSubscriptions().subscribe((subs) => {
       console.log(subs);
       this.subscriptions = subs;
     });
@@ -60,7 +60,7 @@ export class GenericFormsComponent implements OnInit {
   }
 
   public sendPayUrl(id: string): any {
-    this.paymentTypesService.paymentTypesList().subscribe((typePay) => {
+    this.paymentTypesService.getPaymentTypes().subscribe((typePay) => {
       typePay.map((type) => {
         if (type.description === id) {
           this.payType = type.id;

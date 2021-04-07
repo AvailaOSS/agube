@@ -23,7 +23,7 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
-import { Permission } from '../model/permission';
+import { PermissionsHasSubscription } from '../model/permissionsHasSubscription';
 import { Subscription } from '../model/subscription';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
@@ -65,23 +65,79 @@ export class SubscriptionService {
 
   /**
    *
-   * Endpoint that show list of Subscriptions
+   * Return permissions and his subscriptions
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public subscriptionList(
+  public getPermissions(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<PermissionsHasSubscription>>;
+  public getPermissions(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<PermissionsHasSubscription>>>;
+  public getPermissions(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<PermissionsHasSubscription>>>;
+  public getPermissions(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<PermissionsHasSubscription>>(
+      `${this.basePath}/permissions`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * get all subscriptions
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getSubscriptions(
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<Subscription>>;
-  public subscriptionList(
+  public getSubscriptions(
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<Subscription>>>;
-  public subscriptionList(
+  public getSubscriptions(
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Subscription>>>;
-  public subscriptionList(
+  public getSubscriptions(
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -110,75 +166,6 @@ export class SubscriptionService {
 
     return this.httpClient.get<Array<Subscription>>(
       `${this.basePath}/subscription`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * Endpoint that returns Permission filtered by Subscription
-   * @param subscriptionId
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public subscriptionPermissionsList(
-    subscriptionId: string,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<Permission>>;
-  public subscriptionPermissionsList(
-    subscriptionId: string,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<Permission>>>;
-  public subscriptionPermissionsList(
-    subscriptionId: string,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<Permission>>>;
-  public subscriptionPermissionsList(
-    subscriptionId: string,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (subscriptionId === null || subscriptionId === undefined) {
-      throw new Error(
-        'Required parameter subscriptionId was null or undefined when calling subscriptionPermissionsList.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-
-    return this.httpClient.get<Array<Permission>>(
-      `${this.basePath}/subscription/${encodeURIComponent(
-        String(subscriptionId)
-      )}/permissions`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

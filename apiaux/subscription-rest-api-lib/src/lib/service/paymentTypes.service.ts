@@ -64,23 +64,23 @@ export class PaymentTypesService {
 
   /**
    *
-   * Endpoint that show list of PaymentTypes
+   * get all payment types
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public paymentTypesList(
+  public getPaymentTypes(
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<PaymentType>>;
-  public paymentTypesList(
+  public getPaymentTypes(
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<PaymentType>>>;
-  public paymentTypesList(
+  public getPaymentTypes(
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<PaymentType>>>;
-  public paymentTypesList(
+  public getPaymentTypes(
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
