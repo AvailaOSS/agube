@@ -2,6 +2,7 @@ from django.urls import include, path
 
 from reservoir.views import (ReservoirCreateView, ReservoirListView,
                              ReservoirOwnerView, ReservoirView,
+                             ReservoirWaterMeterChunkView,
                              ReservoirWaterMeterView)
 
 __url_reservoir = [
@@ -10,6 +11,8 @@ __url_reservoir = [
     path('/<int:pk>', ReservoirView.as_view()),
     path('/<int:pk>/owner', ReservoirOwnerView.as_view()),
     path('/<int:pk>/water-meter', ReservoirWaterMeterView.as_view()),
+    path('/<int:pk>/water-meter/<int:chunk>',
+         ReservoirWaterMeterChunkView.as_view()),
 ]
 
 urlpatterns = [
