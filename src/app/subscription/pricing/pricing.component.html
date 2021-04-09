@@ -1,11 +1,11 @@
 <div class="welcome" fxLayout="column" fxLayoutAlign="space-around center">
   <p class="w-title">Pricing</p>
-  <p class="w-content">
+  <p class="w-content" style="margin-bottom:0px">
     Quickly build an effective pricing table for your potential customers with
     this Bootstrap example. It’s built with default Bootstrap components and
     utilities with little customization.
   </p>
-  <button class="log-in-button btn btn-primary" (click)="goToLogin()">
+  <button class="log-in-button btn btn-primary"  (click)="goToLogin()">
     I already have a subscription!
   </button>
 </div>
@@ -44,10 +44,10 @@
   </div>
 </div>
 <div
-  class="col-10 row row-cols-1 row-cols-md-12 mb-3 text-center table-responsive"
+  class="col-10 row row-cols-1 row-cols-md-12 mb-3 text-center "
   fxLayout="row"
   fxLayoutAlign="space-around stretch"
-  style="margin: 0 auto;"
+  style="margin: 0 auto"
 >
   <table class="table text-center">
     <thead>
@@ -59,56 +59,84 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let perm of permissionColumns">
+      <tr *ngFor="let perm of permissionColumns; let i = index">
         <th scope="row" class="text-start">
           {{ perm.name }}
         </th>
         <th
-          *ngFor="let subsc of perm.subscriptions"
           scope="row"
-          class="text-start"
-          [hidden]="subsc.id!==1"
-        >
-          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-          </svg>
-          {{subsc.id}}
-        </th>
-
-        <th
+          [hidden]="perm.subscriptions.length === 4"
           *ngFor="let subsc of perm.subscriptions"
-          scope="row"
-          class="text-start"
-          [hidden]="subsc.id!==2"
         >
-          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="56"
+            height="56"
+            fill="red"
+            class="bi bi-x"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
           </svg>
-          {{subsc.id}}
         </th>
         <th
-          *ngFor="let subsc of perm.subscriptions"
           scope="row"
-          class="text-start"
-          [hidden]="subsc.id!==3"
+          [hidden]="perm.subscriptions.length === 4"
+          *ngFor="let subsc of perm.subscriptions"
         >
-          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="56"
+            height="56"
+            fill="red"
+            class="bi bi-x"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
           </svg>
-          {{subsc.id}}
         </th>
         <th
-          *ngFor="let subsc of perm.subscriptions"
           scope="row"
-          class="text-start"
-          [hidden]="subsc.id!==4"
+          [hidden]="perm.subscriptions.length === 4"
+          *ngFor="let subsc of perm.subscriptions"
         >
-          <svg hidden="{{subsc.id!==1}}"  xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="56"
+            height="56"
+            fill="red"
+            class="bi bi-x"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
           </svg>
-          {{subsc.id}}
         </th>
-
+        <th scope="row" *ngFor="let subsc of perm.subscriptions">
+          <svg
+            class="checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              class="checkmark__circle"
+              cx="20"
+              cy="20"
+              r="20"
+              fill="none"
+            />
+            <path
+              class="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </svg>
+        </th>
       </tr>
     </tbody>
   </table>

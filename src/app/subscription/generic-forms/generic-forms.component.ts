@@ -41,7 +41,7 @@ export class GenericFormsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -61,7 +61,7 @@ export class GenericFormsComponent implements OnInit {
 
   public sendPayUrl(id: string): any {
     this.paymentTypesService.getPaymentTypes().subscribe((typePay) => {
-      typePay.map((type) => {
+      typePay.forEach((type) => {
         if (type.description === id) {
           this.payType = type.id;
         }

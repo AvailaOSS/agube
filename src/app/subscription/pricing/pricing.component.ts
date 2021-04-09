@@ -27,13 +27,6 @@ export class PricingComponent implements OnInit {
     });
     this.subscriptionService.getPermissions().subscribe((permissos) => {
       this.permissionColumns = permissos;
-
-      console.log(this.permissionColumns);
-      this.permissionColumns.forEach((ps) => {
-        ps.subscriptions.forEach((pss) => {
-          this.enablePermission.push(pss.id)
-        });
-      });
     });
   }
 
