@@ -20,6 +20,7 @@ export class UtilsComponent implements OnInit {
   @Input() ownerTitle = 'Alta Propietario';
   @Input() residentTitle = 'Alta Residente';
   @Input() error = false;
+  @Input() errorMessage;
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 

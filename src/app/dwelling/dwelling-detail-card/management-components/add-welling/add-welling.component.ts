@@ -12,6 +12,7 @@ export class AdDWellingComponent implements OnInit {
   public addNewWelling: FormGroup;
   public error: boolean = true;
   public username: string;
+  public errorMessage: string;
   constructor(
     private router: Router,
     private readonly svcCreateNewDWelling: DwellingService
@@ -19,7 +20,7 @@ export class AdDWellingComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-    console.log(event);
+
     if (event.resident === false || event.resident === null) {
       if (event.pagador === true) {
         this.username = event.username;
@@ -93,6 +94,7 @@ export class AdDWellingComponent implements OnInit {
           }
         );
     } else {
+      console.log(event)
       this.username = event.username;
       this.svcCreateNewDWelling
         .createDwelling({
@@ -138,6 +140,7 @@ export class AdDWellingComponent implements OnInit {
           },
           (error) => {
             this.error = false;
+            this.errorMessage = error
           }
         );
     }
