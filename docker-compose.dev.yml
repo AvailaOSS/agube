@@ -31,7 +31,7 @@ services:
     container_name: subscription-backend
     hostname: subscription-backend
     image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
     volumes:
@@ -46,8 +46,9 @@ services:
   contact-book-backend:
     container_name: contact-book-backend
     hostname: contact-book-backend
-    image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
-    command: bash -c "python manage.py runserver 0.0.0.0:8001"
+    # image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
+    build: E:\git\Availa\proyectos\contact-book\backend\contact-book-be
+    command: python manage.py runserver 0.0.0.0:8001
     ports:
       - 8001:8001
     volumes:
