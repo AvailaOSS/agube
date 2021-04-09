@@ -17,6 +17,7 @@ from dwelling.exceptions import (IncompatibleUsernameError,
                                  UserManagerRequiredError)
 from dwelling.models import (Dwelling, DwellingOwner, DwellingResident,
                              Paymaster)
+from dwelling.send import publish_user_created
 
 
 def create_phone(user, validated_data, main):
@@ -39,7 +40,7 @@ def create_address(user, validated_data, main):
         user=user, full_address=full_address, main=main)
 
 
-def create_user(validated_data, manager):
+def create_user(tag, validated_data, manager):
     # Extract unnecessary data
     phones = validated_data.pop('phones')
     addresses = validated_data.pop('address')
@@ -60,6 +61,8 @@ def create_user(validated_data, manager):
         first_iteration = False
     # Important: create Person after create User
     Person.objects.create(manager=manager, user=user)
+    # publish that user was created
+    publish_user_created(tag, manager, user)
     return user
 
 
@@ -120,7 +123,7 @@ class DwellingCreateSerializer(ModelSerializer):
         validated_data['full_address'] = self.create_dwelling_address(
             validated_data.pop('full_address'))
         # Create Owner
-        owner = create_user(validated_data.pop('owner'), manager)
+        owner = create_user("Propietario", validated_data.pop('owner'), manager)
         # Extract water_meter_code
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling
@@ -186,9 +189,9 @@ class DwellingCreateWithResidentSerializer(DwellingCreateSerializer):
         validated_data['full_address'] = self.create_dwelling_address(
             validated_data.pop('full_address'))
         # Create Owner
-        owner = create_user(validated_data.pop('owner'), manager)
+        owner = create_user("Propietario", validated_data.pop('owner'), manager)
         # Create Resident
-        resident = create_user(validated_data.pop('resident'), manager)
+        resident = create_user("Residente", validated_data.pop('resident'), manager)
         # Extract water_meter_code
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling

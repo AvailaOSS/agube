@@ -84,7 +84,7 @@ class DwellingCreateView(generics.CreateAPIView):
 
     @swagger_auto_schema(operation_id="createDwelling", operation_description="create a new Dwelling, the owner will be a resident")
     def post(self, request, *args, **kwargs):
-        if request.data['resident']:
+        if 'resident' in request.data:
             return Response({'status': 'This request contains resident, use createDwellingWithResident instead'}, status=HTTP_404_NOT_FOUND)
         try:
             return super().post(request, *args, **kwargs)
