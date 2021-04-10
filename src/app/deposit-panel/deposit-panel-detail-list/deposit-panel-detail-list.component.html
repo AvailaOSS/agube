@@ -6,9 +6,9 @@
       <th scope="col">Capacidad</th>
     </tr>
   </thead>
-  <tbody *ngFor="let element of dataSource" >
+  <tbody *ngFor="let element of dataSource"  (click)="selectRow(element)" >
     <tr class="clickable-row table" [ngClass]="{'selected-row': element.id === selectedRowIndex  }">
-      <th scope="row"  (click)="selectRow(element)"  >
+      <th scope="row"  >
         {{ element.flat }} {{ element.gate }} {{ element.number }}
         {{ element.street }} {{ element.town }}
       </th>
