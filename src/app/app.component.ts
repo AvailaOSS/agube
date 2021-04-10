@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AccountService } from './login/service/account.service';
+import { isNull } from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'agube-fe';
+  public loginPage: boolean;
+  constructor(private readonly svcAccountService: AccountService) {
+    this.svcAccountService.getUser().subscribe(value => {
+      console.log(value)
+      if (!isNull(value)) {
+        this.loginPage = false;
+      } else {
+        this.loginPage = true;
+      }
+    });
+  }
 }

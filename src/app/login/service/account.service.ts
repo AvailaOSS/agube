@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
   public cookieName = 'token';
+  public loginPage: boolean;
   private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private router: Router, private serviceAuth: TokenService) {
@@ -26,6 +27,7 @@ export class AccountService {
         (response) => {
           this.saveToken(response);
           this.router.navigate(['/control-panel']);
+          this.loginPage = true;
         },
         (error) => alert('ERROR LOGGING')
       );
@@ -51,6 +53,7 @@ export class AccountService {
     localStorage.removeItem(this.cookieName);
     this.userSubject.next(null);
     this.router.navigate(['/account/login']);
+    this.loginPage = false;
   }
 
   private saveToken(response): void {

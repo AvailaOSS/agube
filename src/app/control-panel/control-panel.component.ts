@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from '../login/service/account.service';
 
 @Component({
   selector: 'app-control-panel',
@@ -9,11 +10,10 @@ import { Router } from '@angular/router';
 export class ControlPanelComponent implements OnInit {
   public users: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private readonly svcAccountService: AccountService) {}
 
   public ngOnInit(): void {
-    // FIXME: get user from AccountService not from localStorage
-    this.users = JSON.parse(localStorage.getItem('currentUser'));
+    this.users = this.svcAccountService.getUser();
   }
 
   public goTo(route) {
