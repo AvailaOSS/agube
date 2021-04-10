@@ -32,7 +32,6 @@ export class ChangeResidentComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-    console.log('change resident', event);
     this.svcChangeResident
       .changeCurrentResident(+this.residentId, {
         user: {
@@ -65,7 +64,7 @@ export class ChangeResidentComponent implements OnInit {
         },
         (error) => {
           this.error = false;
-          this.errorMessage = error
+          this.errorMessage = error;
         }
       );
   }

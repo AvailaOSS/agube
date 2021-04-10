@@ -36,7 +36,6 @@ export class GenericFormsComponent implements OnInit {
     });
 
     this.svcSubscriptionService.getSubscriptions().subscribe((subs) => {
-      console.log(subs);
       this.subscriptions = subs;
     });
   }
@@ -89,8 +88,6 @@ export class GenericFormsComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          console.log(value);
-
           this.router.navigate(['/login']);
         },
         (error) => {

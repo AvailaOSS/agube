@@ -48,11 +48,10 @@ export class ContactDialogComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  public ngOnInit(): void {}
 
-  submit() {
+  public submit(): void {
     if (this.form.valid) {
-      console.log(this.form.value.id);
       if (!isUndefined(this.form.value.id)) {
         this.svcContactService
           .contactCreate({

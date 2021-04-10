@@ -1,0 +1,30 @@
+
+<div class="col row h-75 container">
+  <form class="row g-3" style="margin: 0 auto"
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+  >
+    <div class="mb-3">
+      <label for="hook_price" class="form-label">hook_price</label>
+      <input type="number" class="form-control" id="hook_price"  formControlName="hook_price" />
+    </div>
+    <div class="mb-3">
+      <label for="release_date" class="form-label">release_date</label>
+      <input type="date" class="form-control" id="release_date"  formControlName="release_date" />
+    </div>
+    <div class="mb-3">
+      <label for="max_daily_consumption" class="form-label"
+        >max_daily_consumption</label
+      >
+      <input type="number" class="form-control" id="max_daily_consumption" formControlName="max_daily_consumption"  />
+    </div>
+  </form>
+</div>
+<div class="m-5 d-flex justify-content-between">
+  <button class="w-25 btn btn-outline-danger btn-lg" type="button" (click)="goToControlPanel()">
+    Atrás
+  </button>
+  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
+    Editar Configuración
+  </button>
+</div>

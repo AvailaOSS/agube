@@ -20,7 +20,6 @@ export class ChangePasswordComponent implements OnInit {
     private svcRouter: Router
   ) {
     this.route.params.subscribe((params) => {
-      console.log(params);
       this.user_id = params.id;
     });
   }

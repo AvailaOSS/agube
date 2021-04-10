@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Contact, ContactService, TagService } from 'apiaux/contact-book-rest-api-lib/src/public-api';
+import {
+  Contact,
+  ContactService,
+  TagService,
+} from 'apiaux/contact-book-rest-api-lib/src/public-api';
 
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 
@@ -17,7 +21,6 @@ export class ContactBookComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.svcContactService.contactList().subscribe((value) => {
-      console.log('contactService', value);
       this.contactsTotal = value;
     });
     this.svcTagService.tagList().subscribe((value) => {

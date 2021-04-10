@@ -20,7 +20,6 @@ export class AdDWellingComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-
     if (event.resident === false || event.resident === null) {
       if (event.pagador === true) {
         this.username = event.username;
@@ -91,11 +90,10 @@ export class AdDWellingComponent implements OnInit {
           },
           (error) => {
             this.error = false;
-            this.errorMessage = error
+            this.errorMessage = error;
           }
         );
     } else {
-      console.log(event)
       this.username = event.username;
       this.svcCreateNewDWelling
         .createDwelling({
@@ -141,7 +139,7 @@ export class AdDWellingComponent implements OnInit {
           },
           (error) => {
             this.error = false;
-            this.errorMessage = error
+            this.errorMessage = error;
           }
         );
     }

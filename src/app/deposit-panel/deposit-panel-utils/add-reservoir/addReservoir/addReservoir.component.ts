@@ -20,14 +20,12 @@ export class AddReservoirComponent implements OnInit {
     private readonly svcManager: ManagerService
   ) {
     this.svcManager.getManagerByUser().subscribe((value) => {
-      console.log(value);
       this.user_id = value.user_id;
     });
   }
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-    console.log(event);
     this.svcCreateNewReservoir
       .createReservoir({
         user_id: +this.user_id,

@@ -25,9 +25,10 @@ import { ChangePasswordModule } from './login/change-password/change-password.mo
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ReservoirUtilsComponent } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.component';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
-  declarations: [AppComponent, WorkInProgressComponent],
+  declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
