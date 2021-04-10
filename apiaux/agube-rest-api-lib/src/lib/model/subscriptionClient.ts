@@ -9,14 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Client } from './client';
 
 
-export interface User {
-    /**
-     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-     */
-    username: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
+export interface SubscriptionClient {
+    readonly id?: string;
+    client: Client;
+    subscription: number;
+  readonly expiration_date?: Date;
+    readonly enabled?: boolean;
+    readonly cancelled?: boolean;
 }

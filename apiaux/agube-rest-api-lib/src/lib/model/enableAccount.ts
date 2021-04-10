@@ -1,6 +1,6 @@
 /**
- * Agube API
- * Agube API REST definition
+ * Subscription API
+ * Subscription API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -11,9 +11,7 @@
  */
 
 
-export interface WaterMeter {
-    readonly id?: string;
-    code: string;
-    readonly release_Date?: string;
-    readonly discharge_date?: string;
+export interface EnableAccount { 
+    userId: string;
+    password: string;
 }

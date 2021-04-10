@@ -24,11 +24,11 @@ export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
 
   public ngOnChanges(): void {
     this.svcWelling
-      .getCurrentWaterMeter(this.DWelling.id)
+      .getCurrentDwellingWaterMeter(this.DWelling.id)
       .subscribe((value) => {
         this.currentWaterMeter = {
           code: value.code,
-          activation_date: value.release_date.split('T')[0],
+          activation_date: value.release_Date.split('T')[0],
         };
         this.sendWaterMeter.emit(this.currentWaterMeter)
       });

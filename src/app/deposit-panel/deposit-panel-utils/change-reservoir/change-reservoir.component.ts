@@ -13,25 +13,27 @@ export class ChangeReservoirComponent implements OnInit {
   constructor(
     private readonly svcReservoirService: ReservoirService,
     private readonly svcRouter: Router,
-    private readonly svcActivate:ActivatedRoute
+    private readonly svcActivate: ActivatedRoute
   ) {
     this.svcActivate.queryParams.subscribe((params) => {
       this.idWaterMeter = params.data;
-        this.user_id = params.user_id;
+      this.user_id = params.user_id;
     });
     this.svcReservoirService
-      .getCurrentWaterMeter1(+this.user_id)
+      .getCurrentReservoirWaterMeter(+this.user_id)
       .subscribe((value) => {
         console.log(value);
       });
   }
 
-  public ngOnInit() {
-    this.svcReservoirService.getCurrentOwner1(this.idWaterMeter).subscribe(value => {
-    console.log(value)
-    })
+  public ngOnInit(): void {
+    this.svcReservoirService
+      .getCurrentReservoirOwner(this.idWaterMeter)
+      .subscribe((value) => {
+        console.log(value);
+      });
   }
-  public sendForm(event: any): void{
-    console.log(event)
+  public sendForm(event: any): void {
+    console.log(event);
   }
 }

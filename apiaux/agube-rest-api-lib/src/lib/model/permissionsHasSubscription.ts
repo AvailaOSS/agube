@@ -1,6 +1,6 @@
 /**
- * Agube API
- * Agube API REST definition
+ * Subscription API
+ * Subscription API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -9,13 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { UserDetail } from './userDetail';
+import { SubscriptionId } from './subscriptionId';
 
 
-export interface Owner {
+export interface PermissionsHasSubscription {
     readonly id?: string;
-    readonly dwellingId?: number;
-    user: UserDetail;
-    readonly release_date?: string;
-    readonly discharge_date?: string;
+    readonly code_name?: string;
+    readonly name?: string;
+    readonly subscriptions?: Array<SubscriptionId>;
 }

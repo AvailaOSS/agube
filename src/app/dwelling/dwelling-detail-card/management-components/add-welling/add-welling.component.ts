@@ -91,6 +91,7 @@ export class AdDWellingComponent implements OnInit {
           },
           (error) => {
             this.error = false;
+            this.errorMessage = error
           }
         );
     } else {

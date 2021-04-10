@@ -27,6 +27,7 @@ import { Owner } from '../model/owner';
 import { ReservoirCreate } from '../model/reservoirCreate';
 import { ReservoirDetail } from '../model/reservoirDetail';
 import { WaterMeter } from '../model/waterMeter';
+import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
@@ -67,31 +68,31 @@ export class ReservoirService {
 
   /**
    *
-   * Create a new Water Meter and discharge the old Water Meter
+   * Create a new Water Meter and discharge the old Water Meter in the Reservoir
    * @param id A unique integer value identifying this reservoir water meter.
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public changeCurrentWaterMeter1(
+  public changeCurrentReservoirWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeter>;
-  public changeCurrentWaterMeter1(
+  public changeCurrentReservoirWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeter>>;
-  public changeCurrentWaterMeter1(
+  public changeCurrentReservoirWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeter>>;
-  public changeCurrentWaterMeter1(
+  public changeCurrentReservoirWaterMeter(
     id: number,
     data: WaterMeter,
     observe: any = 'body',
@@ -99,13 +100,13 @@ export class ReservoirService {
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling changeCurrentWaterMeter1.'
+        'Required parameter id was null or undefined when calling changeCurrentReservoirWaterMeter.'
       );
     }
 
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling changeCurrentWaterMeter1.'
+        'Required parameter data was null or undefined when calling changeCurrentReservoirWaterMeter.'
       );
     }
 
@@ -228,34 +229,34 @@ export class ReservoirService {
 
   /**
    *
-   * Get Current Owner
+   * Get Current Owner of the Reservoir
    * @param id A unique integer value identifying this reservoir.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getCurrentOwner1(
+  public getCurrentReservoirOwner(
     id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<Owner>>;
-  public getCurrentOwner1(
+  public getCurrentReservoirOwner(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<Owner>>>;
-  public getCurrentOwner1(
+  public getCurrentReservoirOwner(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Owner>>>;
-  public getCurrentOwner1(
+  public getCurrentReservoirOwner(
     id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getCurrentOwner1.'
+        'Required parameter id was null or undefined when calling getCurrentReservoirOwner.'
       );
     }
 
@@ -295,34 +296,34 @@ export class ReservoirService {
 
   /**
    *
-   * Get current Water Meter
+   * Get current Water Meter of the Reservoir
    * @param id A unique integer value identifying this reservoir water meter.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getCurrentWaterMeter1(
+  public getCurrentReservoirWaterMeter(
     id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeter>;
-  public getCurrentWaterMeter1(
+  public getCurrentReservoirWaterMeter(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeter>>;
-  public getCurrentWaterMeter1(
+  public getCurrentReservoirWaterMeter(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeter>>;
-  public getCurrentWaterMeter1(
+  public getCurrentReservoirWaterMeter(
     id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getCurrentWaterMeter1.'
+        'Required parameter id was null or undefined when calling getCurrentReservoirWaterMeter.'
       );
     }
 
@@ -431,7 +432,87 @@ export class ReservoirService {
 
   /**
    *
-   * Return a list of all Dwelling Detail.
+   * Return the current Water Meter of Reservoir with measurements chunk.
+   * @param chunk
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getReservoirCurrentWaterMeterMeasuresChunk(
+    chunk: string,
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<WaterMeterWithMeasurements>;
+  public getReservoirCurrentWaterMeterMeasuresChunk(
+    chunk: string,
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<WaterMeterWithMeasurements>>;
+  public getReservoirCurrentWaterMeterMeasuresChunk(
+    chunk: string,
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<WaterMeterWithMeasurements>>;
+  public getReservoirCurrentWaterMeterMeasuresChunk(
+    chunk: string,
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (chunk === null || chunk === undefined) {
+      throw new Error(
+        'Required parameter chunk was null or undefined when calling getReservoirCurrentWaterMeterMeasuresChunk.'
+      );
+    }
+
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getReservoirCurrentWaterMeterMeasuresChunk.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<WaterMeterWithMeasurements>(
+      `${this.basePath}/reservoir/${encodeURIComponent(
+        String(id)
+      )}/water-meter/${encodeURIComponent(String(chunk))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Return a list of all Reservoir Detail.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
