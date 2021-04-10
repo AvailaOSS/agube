@@ -14,6 +14,6 @@
 export interface WaterMeter {
     readonly id?: string;
     code: string;
-    readonly release_Date?: string;
+    readonly release_date?: string;
     readonly discharge_date?: string;
 }
