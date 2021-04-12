@@ -1,4 +1,4 @@
 export * from './contact';
+export * from './createTags';
 export * from './tag';
-export * from './tags';
-export * from './user';
+export * from './tagContact';

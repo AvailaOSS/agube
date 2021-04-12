@@ -12,19 +12,19 @@ export class AddNewContactComponent implements OnInit {
   public ngOnInit(): void {}
 
   public sendForm(event: any): void {
-    this.svcContactService
-      .contactCreate({
-        business_name: event.business_name,
-        phone_number: event.phones,
-        user: {
-          username: event.username,
-          first_name: 'test',
-          last_name: 'test',
-          email: 'user@example.com',
-        },
-      })
-      .subscribe((value) => {
-        console.log(value);
-      });
+    // this.svcContactService
+    //   .createContact({
+    //     business_name: event.business_name,
+    //     phone_number: event.phones,
+    //     user: {
+    //       username: event.username,
+    //       first_name: 'test',
+    //       last_name: 'test',
+    //       email: 'user@example.com',
+    //     },
+    //   })
+    //   .subscribe((value) => {
+    //     console.log(value);
+    //   });
   }
 }

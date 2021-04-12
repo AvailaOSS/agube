@@ -1,3 +1,4 @@
+import { AccountService } from 'src/app/login/service/account.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -7,6 +8,7 @@ import {
 } from 'apiaux/contact-book-rest-api-lib/src/public-api';
 
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
+import { ManagerService } from '../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
 
 @Component({
   selector: 'app-contact-book',
@@ -15,15 +17,20 @@ import { ContactDialogComponent } from './contact-dialog/contact-dialog.componen
 })
 export class ContactBookComponent implements OnInit {
   public contactsTotal: Contact[];
+  public userId: string;
   constructor(
     private readonly svcContactService: ContactService,
+    private readonly svcManager: ManagerService,
     private readonly svcTagService: TagService,
     public dialog: MatDialog
   ) {
-    this.svcContactService.contactList().subscribe((value) => {
+    this.svcManager.getManagerByUser().subscribe((value) => {
+      this.userId = value.user_id;
+    });
+    this.svcContactService.getContacts().subscribe((value) => {
       this.contactsTotal = value;
     });
-    this.svcTagService.tagList().subscribe((value) => {
+    this.svcTagService.getAllTags().subscribe((value) => {
       console.log('tagService', value);
     });
   }
@@ -37,7 +44,7 @@ export class ContactBookComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.svcContactService.contactList().subscribe((value) => {
+      this.svcContactService.getContacts().subscribe((value) => {
         this.contactsTotal = value;
       });
     });
@@ -46,7 +53,7 @@ export class ContactBookComponent implements OnInit {
     const dialogRef = this.dialog.open(ContactDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.svcContactService.contactList().subscribe((value) => {
+      this.svcContactService.getContacts().subscribe((value) => {
         this.contactsTotal = value;
       });
     });

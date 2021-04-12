@@ -51,33 +51,33 @@ export class ContactDialogComponent implements OnInit {
   public ngOnInit(): void {}
 
   public submit(): void {
-    if (this.form.valid) {
-      if (!isUndefined(this.form.value.id)) {
-        this.svcContactService
-          .contactCreate({
-            id: this.form.value.id,
-            phone_number: this.form.value.phone_number,
-            user: {
-              username: this.form.value.username,
-              email: this.form.value.email,
-              first_name: this.form.value.email,
-              last_name: this.form.value.last_name,
-            },
-          })
-          .subscribe((value) => {});
-      } else {
-        this.svcContactService
-          .contactCreate({
-            phone_number: this.form.value.phone_number,
-            user: {
-              username: this.form.value.username,
-              email: this.form.value.email,
-              first_name: this.form.value.email,
-              last_name: this.form.value.last_name,
-            },
-          })
-          .subscribe((value) => {});
-      }
-    }
+    // if (this.form.valid) {
+    //   if (!isUndefined(this.form.value.id)) {
+    //     this.svcContactService
+    //       .contactCreate({
+    //         id: this.form.value.id,
+    //         phone_number: this.form.value.phone_number,
+    //         user: {
+    //           username: this.form.value.username,
+    //           email: this.form.value.email,
+    //           first_name: this.form.value.email,
+    //           last_name: this.form.value.last_name,
+    //         },
+    //       })
+    //       .subscribe((value) => {});
+    //   } else {
+    //     this.svcContactService
+    //       .contactCreate({
+    //         phone_number: this.form.value.phone_number,
+    //         user: {
+    //           username: this.form.value.username,
+    //           email: this.form.value.email,
+    //           first_name: this.form.value.email,
+    //           last_name: this.form.value.last_name,
+    //         },
+    //       })
+    //       .subscribe((value) => {});
+    //   }
+    // }
   }
 }

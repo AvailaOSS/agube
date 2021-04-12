@@ -15,15 +15,17 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
+  HttpParams,
   HttpResponse,
   HttpEvent,
 } from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
 import { Tag } from '../model/tag';
 
-import { BASE_PATH } from '../variables';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable()
@@ -62,23 +64,23 @@ export class TagService {
 
   /**
    *
-   * Endpoint that show list of Tags
+   * get all tags created by user logged
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public tagList(
+  public getAllTags(
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<Tag>>;
-  public tagList(
+  public getAllTags(
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<Tag>>>;
-  public tagList(
+  public getAllTags(
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Tag>>>;
-  public tagList(
+  public getAllTags(
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -105,7 +107,7 @@ export class TagService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<Tag>>(`${this.basePath}/tag/`, {
+    return this.httpClient.get<Array<Tag>>(`${this.basePath}/tag`, {
       withCredentials: this.configuration.withCredentials,
       headers: headers,
       observe: observe,

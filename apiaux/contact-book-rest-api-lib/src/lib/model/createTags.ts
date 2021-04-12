@@ -9,15 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { TagContact } from './tagContact';
+import { Tag } from './tag';
 
 
-export interface Contact {
-    readonly id?: string;
-    readonly manager_id?: number;
-    full_name?: string;
-    extra_info?: string;
-    email?: string;
-    phone_number: string;
-    readonly tags?: Array<TagContact>;
+export interface CreateTags { 
+    tags: Array<Tag>;
 }

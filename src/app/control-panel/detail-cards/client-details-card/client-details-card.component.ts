@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'apiaux/contact-book-rest-api-lib/src/public-api';
 import { AccountService } from 'src/app/login/service/account.service';
 import { ClientService } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import jwt_decode from 'jwt-decode';
 import { SubscriptionService } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/service/subscription.service';
 import { Subscription } from '../../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
+import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 
 export interface ClientDetails {
   name: string;
