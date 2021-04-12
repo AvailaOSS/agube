@@ -1,6 +1,6 @@
 /**
- * Agube API
- * Agube API REST definition
+ * Subscription API
+ * Subscription API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export interface User {
-    readonly id?: string;
-    /**
-     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-     */
-    username: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
+  /**
+   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+   */
+  username: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
 }

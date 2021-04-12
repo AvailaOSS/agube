@@ -34,13 +34,13 @@ export class ContactPanelDetailListComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.contactService.contactList().subscribe((value) => {
+    this.contactService.getContacts().subscribe((value) => {
       this.dataSource = value;
     });
   }
 
   public selectRow(row: Contact): void {
     this.selected.emit(row);
-    this.selectedRowIndex = row.business_name;
+    this.selectedRowIndex = row.email;
   }
 }

@@ -23,12 +23,9 @@ export class DepositPanelDetailListComponent implements OnInit {
     });
   }
 
-
   public selectRow(row: any): void {
     this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
-
     this.selected.emit(row);
-    console.log(row.id)
     this.selectedRowIndex = row.id;
   }
 }

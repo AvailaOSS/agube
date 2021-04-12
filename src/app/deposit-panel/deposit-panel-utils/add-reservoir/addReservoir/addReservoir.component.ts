@@ -6,31 +6,30 @@ import {
 } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: '',
   templateUrl: './addReservoir.component.html',
   styleUrls: ['./addReservoir.component.scss'],
 })
 export class AddReservoirComponent implements OnInit {
-  public error: boolean = true;
+  public error = true;
   public username: string;
-  public user_id: string;
+  public userId: string;
   constructor(
     private router: Router,
     private readonly svcCreateNewReservoir: ReservoirService,
     private readonly svcManager: ManagerService
   ) {
     this.svcManager.getManagerByUser().subscribe((value) => {
-      console.log(value);
-      this.user_id = value.user_id;
+      this.userId = value.user_id;
     });
   }
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-    console.log(event);
     this.svcCreateNewReservoir
       .createReservoir({
-        user_id: +this.user_id,
+        user_id: +this.userId,
         full_address: {
           address: {
             town: event.town,

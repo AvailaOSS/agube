@@ -9,11 +9,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { TagContact } from './tagContact';
+
 
 export interface Contact {
-  readonly id?: string;
-  business_name?: string;
-  phone_number: string;
-  user: User;
+    readonly id?: string;
+    readonly manager_id?: number;
+    full_name?: string;
+    extra_info?: string;
+    email?: string;
+    phone_number: string;
+    readonly tags?: Array<TagContact>;
 }

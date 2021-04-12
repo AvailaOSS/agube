@@ -13,233 +13,266 @@
 
 import { Inject, Injectable, Optional } from '@angular/core';
 import {
-    HttpClient, HttpHeaders,
-    HttpResponse, HttpEvent
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
 } from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
 import { Contact } from '../model/contact';
-import { Tag } from '../model/tag';
-import { Tags } from '../model/tags';
+import { CreateTags } from '../model/createTags';
 
-import { BASE_PATH } from '../variables';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
-
 
 @Injectable()
 export class ContactService {
+  protected basePath = 'http://localhost:8001/api/v1/contact-book';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
 
-    protected basePath = 'http://localhost:8001/api/v1/contact-book';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (basePath) {
+      this.basePath = basePath;
+    }
+    if (configuration) {
+      this.configuration = configuration;
+      this.basePath = basePath || configuration.basePath || this.basePath;
+    }
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data';
+    for (const consume of consumes) {
+      if (form === consume) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   *
+   * create new tag if does not exist and add to contact
+   * @param contactId
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public addTagToContact(
+    contactId: string,
+    data: CreateTags,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<CreateTags>;
+  public addTagToContact(
+    contactId: string,
+    data: CreateTags,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<CreateTags>>;
+  public addTagToContact(
+    contactId: string,
+    data: CreateTags,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<CreateTags>>;
+  public addTagToContact(
+    contactId: string,
+    data: CreateTags,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (contactId === null || contactId === undefined) {
+      throw new Error(
+        'Required parameter contactId was null or undefined when calling addTagToContact.'
+      );
     }
 
-    /**
-     *
-     * Endpoint that add tags to Contact
-     * @param contactId
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public contactAddTagsCreate(contactId: string, data: Tags, observe?: 'body', reportProgress?: boolean): Observable<Tags>;
-    public contactAddTagsCreate(contactId: string, data: Tags, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tags>>;
-    public contactAddTagsCreate(contactId: string, data: Tags, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tags>>;
-    public contactAddTagsCreate(contactId: string, data: Tags, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (contactId === null || contactId === undefined) {
-            throw new Error('Required parameter contactId was null or undefined when calling contactAddTagsCreate.');
-        }
-
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling contactAddTagsCreate.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Tags>(`${this.basePath}/contact/${encodeURIComponent(String(contactId))}/add-tags`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling addTagToContact.'
+      );
     }
 
-    /**
-     *
-     * Endpoint that create a Contact
-     * @param data
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public contactCreate(data: Contact, observe?: 'body', reportProgress?: boolean): Observable<Contact>;
-    public contactCreate(data: Contact, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Contact>>;
-    public contactCreate(data: Contact, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Contact>>;
-    public contactCreate(data: Contact, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling contactCreate.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Contact>(`${this.basePath}/contact/`,
-            data,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
     }
 
-    /**
-     *
-     * Endpoint that show list of Contacts
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public contactList(observe?: 'body', reportProgress?: boolean): Observable<Array<Contact>>;
-    public contactList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Contact>>>;
-    public contactList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Contact>>>;
-    public contactList(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Array<Contact>>(`${this.basePath}/contact/`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     *
-     * Endpoint that show tags of Contact
-     * @param contactId
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public contactTagsList(contactId: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Tag>>;
-    public contactTagsList(contactId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Tag>>>;
-    public contactTagsList(contactId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Tag>>>;
-    public contactTagsList(contactId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        if (contactId === null || contactId === undefined) {
-            throw new Error('Required parameter contactId was null or undefined when calling contactTagsList.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Array<Tag>>(`${this.basePath}/contact/${encodeURIComponent(String(contactId))}/tags`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
+    return this.httpClient.post<CreateTags>(
+      `${this.basePath}/contact/${encodeURIComponent(
+        String(contactId)
+      )}/add-tags`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * create a Contact of user logged
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createContact(
+    data: Contact,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Contact>;
+  public createContact(
+    data: Contact,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Contact>>;
+  public createContact(
+    data: Contact,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Contact>>;
+  public createContact(
+    data: Contact,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling createContact.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Contact>(`${this.basePath}/contact/`, data, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
+   *
+   * Return a list of Contacts of user logged.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getContacts(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Contact>>;
+  public getContacts(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Contact>>>;
+  public getContacts(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Contact>>>;
+  public getContacts(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<Contact>>(
+      `${this.basePath}/contact/list`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }

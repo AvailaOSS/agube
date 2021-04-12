@@ -11,16 +11,18 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ReservoirUtilsComponent implements OnInit {
   @Input() titleCard: string;
-  @Input() formDataConfiguration?: BehaviorSubject<any> = new BehaviorSubject(5);
+  @Input() formDataConfiguration?: BehaviorSubject<any> = new BehaviorSubject(
+    5
+  );
   @Input() isHiddenAddress = false;
   @Input() isHiddenCount = false;
   @Input() isHiddenCapacity = false;
   @Input() isHiddenInletFlow = false;
   @Input() isHiddenOutletFlow = false;
-  @Input() ownerTitle? = 'Alta Depósito';
-  @Input() residentTitle? = 'Alta Residente';
-  @Input() error? = false;
-
+  @Input() ownerTitle ? = 'Alta Depósito';
+  @Input() residentTitle ? = 'Alta Residente';
+  @Input() error ? = false;
+  @Input() errorMessage?: string;
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
   public registerForm: FormGroup;
@@ -45,14 +47,12 @@ export class ReservoirUtilsComponent implements OnInit {
 
     this.formDataConfiguration.subscribe((value) => {
       if (!isUndefined(value) && value !== 5) {
-        console.log(value)
         this.registerForm.get('code').setValue(value.code);
-        this.registerForm.get('number').setValue(value.user.address[0].number);
-        this.registerForm.get('flat').setValue(value.user.address[0].flat);
-        this.registerForm.get('gate').setValue(value.user.address[0].gate);
-        this.registerForm
-          .get('town')
-          .setValue(value.user.address[0].address.town);
+        this.registerForm.get('address').setValue(value.user.address.street);
+        this.registerForm.get('number').setValue(value.user.number);
+        this.registerForm.get('flat').setValue(value.user.flat);
+        this.registerForm.get('gate').setValue(value.user.gate);
+        this.registerForm.get('town').setValue(value.user.address.town);
         this.registerForm.get('capacity').setValue(value.capacity);
         this.registerForm.get('inlet_flow').setValue(value.inlet_flow);
         this.registerForm.get('outlet_flow').setValue(value.outlet_flow);
@@ -60,6 +60,7 @@ export class ReservoirUtilsComponent implements OnInit {
     });
   }
   // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }

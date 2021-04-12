@@ -10,7 +10,8 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 export class ChangeResidentComponent implements OnInit {
   public residentId: string;
   public userId: string;
-  public error: boolean=true;
+  public error = true;
+  public errorMessage: string;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -20,7 +21,7 @@ export class ChangeResidentComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe((params) => {
       this.residentId = params.data;
-        this.userId = params.user_id;
+      this.userId = params.user_id;
     });
     this.svcChangeResident
       .getCurrentResident(+this.residentId)
@@ -31,7 +32,6 @@ export class ChangeResidentComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendForm(event: any): void {
-    console.log('change resident', event);
     this.svcChangeResident
       .changeCurrentResident(+this.residentId, {
         user: {
@@ -54,15 +54,18 @@ export class ChangeResidentComponent implements OnInit {
             },
           ],
           email: event.emailRes,
-          first_name: event.fist_nameRes,
+          first_name: event.first_nameRes,
           last_name: event.last_nameRes,
         },
       })
-      .subscribe((value) => {
-        this.router.navigate(['/viviendas']);
-      },
-      (error) => {
-        this.error = false;
-      });
+      .subscribe(
+        (value) => {
+          this.router.navigate(['/viviendas']);
+        },
+        (error) => {
+          this.error = false;
+          this.errorMessage = error;
+        }
+      );
   }
 }

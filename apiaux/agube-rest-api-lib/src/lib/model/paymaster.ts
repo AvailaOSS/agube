@@ -16,6 +16,7 @@ export interface Paymaster {
   iban?: string;
   username: string;
 }
+// tslint:disable-next-line: no-namespace
 export namespace Paymaster {
   export type PaymentTypeEnum = 'BANK' | 'CASH' | 'EXEMPT';
   export const PaymentTypeEnum = {

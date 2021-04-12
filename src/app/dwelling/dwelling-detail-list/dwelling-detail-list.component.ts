@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
-import { User } from 'apiaux/contact-book-rest-api-lib/src/public-api';
 import { AccountService } from 'src/app/login/service/account.service';
 
 import { DwellingDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
 import { ManagerService } from '../../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
 import jwt_decode from 'jwt-decode';
+import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 
 @Component({
   selector: 'app-dwelling-detail-list',
@@ -20,12 +20,7 @@ export class DWellingDetailListComponent implements OnInit {
   public dataSource: DwellingDetail[];
   public currentUser: User;
 
-  constructor(
-
-    private readonly svcCreateNewDWelling: DwellingService
-  ) {}
-
-
+  constructor(private readonly svcCreateNewDWelling: DwellingService) {}
 
   ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
@@ -37,7 +32,6 @@ export class DWellingDetailListComponent implements OnInit {
     this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
 
     this.selected.emit(row);
-    console.log(row.id)
     this.selectedRowIndex = row.id;
   }
 }

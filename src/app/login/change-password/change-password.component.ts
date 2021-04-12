@@ -12,7 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ChangePasswordComponent implements OnInit {
   public loginForm: FormGroup;
-  public user_id: string;
+  public userId: string;
+  public error = false;
+  public errorMessage: string;
   constructor(
     private formBuilder: FormBuilder,
     private svcClientService: ClientService,
@@ -20,8 +22,7 @@ export class ChangePasswordComponent implements OnInit {
     private svcRouter: Router
   ) {
     this.route.params.subscribe((params) => {
-      console.log(params);
-      this.user_id = params.id;
+      this.userId = params.id;
     });
   }
 
@@ -31,23 +32,29 @@ export class ChangePasswordComponent implements OnInit {
       password2: ['', Validators.required],
     });
   }
+  // tslint:disable-next-line: typedef
   get f() {
     return this.loginForm.controls;
   }
   public onSubmit(): void {
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
+    if (this.loginForm.value.password1 !== this.loginForm.value.password2) {
+      this.error = true;
+      this.errorMessage = 'Las contraseñas tienen que ser iguales';
+    } else {
+      this.svcClientService
+        .enableAccount({
+          user_id: this.userId,
+          password: this.loginForm.value.password1,
+        })
+        .subscribe(
+          (value) => {
+            this.svcRouter.navigate(['/login']);
+          },
+          (error) => {
+            this.error = true;
+            this.errorMessage = error;
+          }
+        );
     }
-
-    console.log(this.loginForm);
-    this.svcClientService
-      .enableAccount({
-        user_id: this.user_id,
-        password: this.loginForm.value.password1,
-      })
-      .subscribe((value) => {
-        this.svcRouter.navigate(['/login']);
-      });
   }
 }

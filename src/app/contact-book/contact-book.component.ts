@@ -1,8 +1,14 @@
+import { AccountService } from 'src/app/login/service/account.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Contact, ContactService, TagService } from 'apiaux/contact-book-rest-api-lib/src/public-api';
+import {
+  Contact,
+  ContactService,
+  TagService,
+} from 'apiaux/contact-book-rest-api-lib/src/public-api';
 
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
+import { ManagerService } from '../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
 
 @Component({
   selector: 'app-contact-book',
@@ -11,30 +17,34 @@ import { ContactDialogComponent } from './contact-dialog/contact-dialog.componen
 })
 export class ContactBookComponent implements OnInit {
   public contactsTotal: Contact[];
+  public userId: string;
   constructor(
     private readonly svcContactService: ContactService,
+    private readonly svcManager: ManagerService,
     private readonly svcTagService: TagService,
     public dialog: MatDialog
   ) {
-    this.svcContactService.contactList().subscribe((value) => {
-      console.log('contactService', value);
+    this.svcManager.getManagerByUser().subscribe((value) => {
+      this.userId = value.user_id;
+    });
+    this.svcContactService.getContacts().subscribe((value) => {
       this.contactsTotal = value;
     });
-    this.svcTagService.tagList().subscribe((value) => {
+    this.svcTagService.getAllTags().subscribe((value) => {
       console.log('tagService', value);
     });
   }
 
   public ngOnInit(): void {}
-  public editDialog(Contact: Contact): void {
+  public editDialog(contact: Contact): void {
     const dialogRef = this.dialog.open(ContactDialogComponent, {
       data: {
-        dataKey: Contact,
+        dataKey: contact,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.svcContactService.contactList().subscribe((value) => {
+      this.svcContactService.getContacts().subscribe((value) => {
         this.contactsTotal = value;
       });
     });
@@ -43,7 +53,7 @@ export class ContactBookComponent implements OnInit {
     const dialogRef = this.dialog.open(ContactDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.svcContactService.contactList().subscribe((value) => {
+      this.svcContactService.getContacts().subscribe((value) => {
         this.contactsTotal = value;
       });
     });

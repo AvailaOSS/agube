@@ -11,9 +11,8 @@ describe('AddReservoirComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddReservoirComponent ]
-    })
-    .compileComponents();
+      declarations: [AddReservoirComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

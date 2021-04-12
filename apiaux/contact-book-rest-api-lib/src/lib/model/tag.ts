@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface Tag {
-  readonly id?: string;
-  description: string;
+
+export interface Tag { 
+    readonly id?: string;
+    description: string;
 }

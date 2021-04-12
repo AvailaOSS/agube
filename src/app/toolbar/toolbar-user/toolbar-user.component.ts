@@ -17,14 +17,11 @@ export class ToolbarUserComponent implements OnInit {
     private readonly svcAccountService: AccountService
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.user);
-  }
+  ngOnInit(): void {}
 
   public logout(): void {
     this.svcAccountService.logout();
     this.router.navigate(['/login']);
-
   }
   public showDetails(): void {
     this.hiddenDetails = !this.hiddenDetails;

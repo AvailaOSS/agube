@@ -13,6 +13,7 @@ export * from './phone';
 export * from './refreshJSONWebToken';
 export * from './reservoirCreate';
 export * from './reservoirDetail';
+export * from './resetPassword';
 export * from './resident';
 export * from './userAddress';
 export * from './userDetail';

@@ -9,7 +9,8 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 })
 export class ChangeCountComponent implements OnInit {
   public waterMeterId: string;
-  public error: boolean = true;
+  public error = true;
+  public errorMessage: string;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -20,9 +21,11 @@ export class ChangeCountComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.waterMeterId = params.data;
     });
+
     this.svcChangeWaterMeter
-      .getCurrentWaterMeter(+this.waterMeterId)
+      .getCurrentDwellingWaterMeter(+this.waterMeterId)
       .subscribe((value) => {
+        console.log(value);
         this.formConfigurationData.emit(value);
       });
   }
@@ -31,7 +34,7 @@ export class ChangeCountComponent implements OnInit {
   public sendForm(event: any): void {
     console.log('water', event);
     this.svcChangeWaterMeter
-      .changeCurrentWaterMeter(+this.waterMeterId, {
+      .changeCurrentDwellingWaterMeter(+this.waterMeterId, {
         code: event.code,
       })
       .subscribe(
@@ -40,6 +43,7 @@ export class ChangeCountComponent implements OnInit {
         },
         (error) => {
           this.error = false;
+          this.errorMessage = error;
         }
       );
   }

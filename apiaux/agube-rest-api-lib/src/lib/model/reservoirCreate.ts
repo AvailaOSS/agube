@@ -12,13 +12,12 @@
 import { FullAddress } from './fullAddress';
 import { WaterMeter } from './waterMeter';
 
-
 export interface ReservoirCreate {
-    readonly id?: string;
-    full_address: FullAddress;
-    user_id: number;
-    water_meter: WaterMeter;
-    capacity: string;
-    inlet_flow: string;
-    outlet_flow: string;
+  readonly id?: string;
+  full_address: FullAddress;
+  user_id: number;
+  water_meter: WaterMeter;
+  capacity: string;
+  inlet_flow: string;
+  outlet_flow: string;
 }

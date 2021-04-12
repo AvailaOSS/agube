@@ -18,7 +18,7 @@ export class GenericFormsComponent implements OnInit {
   public payType: string;
   public typePay: PaymentType[];
   public subscriptions: any;
-  public selectedList: boolean = false;
+  public selectedList = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -31,17 +31,16 @@ export class GenericFormsComponent implements OnInit {
       this.formIdentification = params.id;
     });
 
-    this.paymentTypesService.paymentTypesList().subscribe((value) => {
+    this.paymentTypesService.getPaymentTypes().subscribe((value) => {
       this.typePay = value;
     });
 
-    this.svcSubscriptionService.subscriptionList().subscribe((subs) => {
-      console.log(subs);
+    this.svcSubscriptionService.getSubscriptions().subscribe((subs) => {
       this.subscriptions = subs;
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -55,13 +54,14 @@ export class GenericFormsComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }
 
   public sendPayUrl(id: string): any {
-    this.paymentTypesService.paymentTypesList().subscribe((typePay) => {
-      typePay.map((type) => {
+    this.paymentTypesService.getPaymentTypes().subscribe((typePay) => {
+      typePay.forEach((type) => {
         if (type.description === id) {
           this.payType = type.id;
         }
@@ -89,8 +89,6 @@ export class GenericFormsComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          console.log(value);
-
           this.router.navigate(['/login']);
         },
         (error) => {

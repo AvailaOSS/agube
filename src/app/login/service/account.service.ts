@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
   public cookieName = 'token';
+  public loginPage: boolean;
   private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private router: Router, private serviceAuth: TokenService) {
@@ -19,13 +20,14 @@ export class AccountService {
   public login(username, password): void {
     this.serviceAuth
       .tokenAuthCreate({
-        username: username,
-        password: password,
+        username,
+        password,
       })
       .subscribe(
         (response) => {
-          this.saveToken(response)
+          this.saveToken(response);
           this.router.navigate(['/control-panel']);
+          this.loginPage = true;
         },
         (error) => alert('ERROR LOGGING')
       );
@@ -50,19 +52,18 @@ export class AccountService {
     // remove user from local storage and set current user to null
     localStorage.removeItem(this.cookieName);
     this.userSubject.next(null);
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/login']);
+    this.loginPage = false;
   }
 
   private saveToken(response): void {
     const token = JSON.stringify(response);
     const user: User = jwt_decode(token);
-    console.log(user)
     localStorage.setItem(this.cookieName, response.token);
     this.userSubject.next(user);
   }
 
   private loadToken(): void {
-
     const token = localStorage.getItem(this.cookieName);
     if (token) {
       const user: User = jwt_decode(token);

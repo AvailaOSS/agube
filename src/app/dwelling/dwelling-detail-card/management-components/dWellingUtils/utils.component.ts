@@ -20,6 +20,7 @@ export class UtilsComponent implements OnInit {
   @Input() ownerTitle = 'Alta Propietario';
   @Input() residentTitle = 'Alta Residente';
   @Input() error = false;
+  @Input() errorMessage;
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
@@ -58,6 +59,7 @@ export class UtilsComponent implements OnInit {
     });
 
     this.formDataConfiguration.subscribe((value) => {
+      console.log(value.user);
       if (!isUndefined(value) && value !== 5) {
         this.registerForm.get('numberBank').setValue(value.iban);
         this.registerForm.get('code').setValue(value.code);
@@ -101,6 +103,7 @@ export class UtilsComponent implements OnInit {
     });
   }
   // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }

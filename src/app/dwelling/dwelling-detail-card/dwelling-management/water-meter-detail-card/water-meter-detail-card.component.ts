@@ -19,18 +19,19 @@ import { DwellingDetail } from '../../../../../../apiaux/agube-rest-api-lib/src/
 export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
   public currentWaterMeter: WaterMeterDetailCard;
   @Input() public DWelling: any;
-  @Output() public sendWaterMeter: EventEmitter<WaterMeterDetailCard> = new EventEmitter();
+  @Output()
+  public sendWaterMeter: EventEmitter<WaterMeterDetailCard> = new EventEmitter();
   constructor(private readonly svcWelling: DwellingService) {}
 
   public ngOnChanges(): void {
     this.svcWelling
-      .getCurrentWaterMeter(this.DWelling.id)
+      .getCurrentDwellingWaterMeter(this.DWelling.id)
       .subscribe((value) => {
         this.currentWaterMeter = {
           code: value.code,
           activation_date: value.release_date.split('T')[0],
         };
-        this.sendWaterMeter.emit(this.currentWaterMeter)
+        this.sendWaterMeter.emit(this.currentWaterMeter);
       });
   }
   public ngOnInit(): void {
@@ -39,5 +40,4 @@ export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
       activation_date: '',
     };
   }
-
 }
