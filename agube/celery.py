@@ -16,7 +16,8 @@ app = Celery('agube')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.task_queues = (
-    Queue('agube', Exchange('agube_exchange', type='direct'), routing_key='agube.user'),
+    Queue('agube', Exchange('agube_exchange', type='direct'),
+          routing_key='agube.user'),
 )
 
 # Load task modules from all registered Django app configs.
