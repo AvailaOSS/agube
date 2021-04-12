@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '../login/service/account.service';
+import { isNull } from 'lodash';
 
 @Component({
   selector: 'app-control-panel',
@@ -13,7 +14,13 @@ export class ControlPanelComponent implements OnInit {
   constructor(
     private router: Router,
     private readonly svcAccountService: AccountService
-  ) {}
+  ) {
+    this.svcAccountService.getUser().subscribe(value => {
+      if (isNull(value)) {
+        this.svcAccountService.logout();
+      }
+    });
+  }
 
   public ngOnInit(): void {
     this.users = this.svcAccountService.getUser();
