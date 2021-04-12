@@ -29,10 +29,10 @@ export class ContactBookComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
-  public editDialog(Contact: Contact): void {
+  public editDialog(contact: Contact): void {
     const dialogRef = this.dialog.open(ContactDialogComponent, {
       data: {
-        dataKey: Contact,
+        dataKey: contact,
       },
     });
 

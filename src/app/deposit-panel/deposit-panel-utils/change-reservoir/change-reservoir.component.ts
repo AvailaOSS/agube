@@ -9,11 +9,11 @@ import { ReservoirService } from 'apiaux/agube-rest-api-lib/src/public-api';
   styleUrls: ['./change-reservoir.component.scss'],
 })
 export class ChangeReservoirComponent implements OnInit {
-  public user_id: string;
+  public userId: string;
   public idWaterMeter: number;
   public genericArray: any;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
-  public error: boolean = true;
+  public error = true;
   public errorMessage: any;
   constructor(
     private readonly svcReservoirService: ReservoirService,
@@ -22,7 +22,7 @@ export class ChangeReservoirComponent implements OnInit {
   ) {
     this.svcActivate.queryParams.subscribe((params) => {
       this.idWaterMeter = params.data;
-      this.user_id = params.user_id;
+      this.userId = params.user_id;
       this.svcReservoirService
         .getReservoir(this.idWaterMeter)
         .subscribe((userAddress) => {

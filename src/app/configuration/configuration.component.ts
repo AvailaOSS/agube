@@ -10,7 +10,8 @@ import { ManagerService } from '../../../apiaux/agube-rest-api-lib/src/lib/servi
   styleUrls: ['./configuration.component.scss'],
 })
 export class ConfigurationComponent implements OnInit {
-  public user_id: any;
+  // tslint:disable-next-line: variable-name
+  public userId: any;
 
   public registerForm: FormGroup;
   constructor(
@@ -24,19 +25,19 @@ export class ConfigurationComponent implements OnInit {
       max_daily_consumption: new FormControl(),
     });
     this.svcManager.getManagerByUser().subscribe((value) => {
-      this.user_id = value.user_id;
+      this.userId = value.user_id;
       this.svcManager
-        .getManagerConfiguration(this.user_id)
-        .subscribe((value) => {
+        .getManagerConfiguration(this.userId)
+        .subscribe((values) => {
           this.registerForm
             .get('hook_price')
-            .setValue(value.hook_price.hook_price);
+            .setValue(values.hook_price.hook_price);
           this.registerForm
             .get('release_date')
-            .setValue(value.hook_price.release_date.split('T')[0]);
+            .setValue(values.hook_price.release_date.split('T')[0]);
           this.registerForm
             .get('max_daily_consumption')
-            .setValue(value.max_daily_consumption);
+            .setValue(values.max_daily_consumption);
         });
     });
   }
@@ -46,7 +47,7 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit(): void {}
   public onSubmit(): void {
     this.svcManager
-      .updateManagerConfiguration(this.user_id, {
+      .updateManagerConfiguration(this.userId, {
         max_daily_consumption: this.registerForm.value.max_daily_consumption,
         hook_price: {
           hook_price: this.registerForm.value.hook_price,

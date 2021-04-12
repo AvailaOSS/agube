@@ -9,7 +9,7 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 })
 export class ChangeCountComponent implements OnInit {
   public waterMeterId: string;
-  public error: boolean = true;
+  public error = true;
   public errorMessage: string;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 

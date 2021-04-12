@@ -10,13 +10,16 @@ import { AccountService } from '../login/service/account.service';
 export class ControlPanelComponent implements OnInit {
   public users: any;
 
-  constructor(private router: Router,private readonly svcAccountService: AccountService) {}
+  constructor(
+    private router: Router,
+    private readonly svcAccountService: AccountService
+  ) {}
 
   public ngOnInit(): void {
     this.users = this.svcAccountService.getUser();
   }
 
-  public goTo(route) {
+  public goTo(route: any): void {
     this.router.navigate([route]);
   }
 }

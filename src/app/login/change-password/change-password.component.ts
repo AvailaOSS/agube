@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ChangePasswordComponent implements OnInit {
   public loginForm: FormGroup;
-  public user_id: string;
+  public userId: string;
   constructor(
     private formBuilder: FormBuilder,
     private svcClientService: ClientService,
@@ -20,7 +20,7 @@ export class ChangePasswordComponent implements OnInit {
     private svcRouter: Router
   ) {
     this.route.params.subscribe((params) => {
-      this.user_id = params.id;
+      this.userId = params.id;
     });
   }
 
@@ -30,6 +30,7 @@ export class ChangePasswordComponent implements OnInit {
       password2: ['', Validators.required],
     });
   }
+  // tslint:disable-next-line: typedef
   get f() {
     return this.loginForm.controls;
   }
@@ -42,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
     console.log(this.loginForm);
     this.svcClientService
       .enableAccount({
-        user_id: this.user_id,
+        user_id: this.userId,
         password: this.loginForm.value.password1,
       })
       .subscribe((value) => {

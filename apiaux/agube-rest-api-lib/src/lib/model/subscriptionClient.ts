@@ -11,12 +11,11 @@
  */
 import { Client } from './client';
 
-
 export interface SubscriptionClient {
-    readonly id?: string;
-    client: Client;
-    subscription: number;
+  readonly id?: string;
+  client: Client;
+  subscription: number;
   readonly expiration_date?: Date;
-    readonly enabled?: boolean;
-    readonly cancelled?: boolean;
+  readonly enabled?: boolean;
+  readonly cancelled?: boolean;
 }

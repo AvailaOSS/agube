@@ -19,9 +19,9 @@ export class ReservoirUtilsComponent implements OnInit {
   @Input() isHiddenCapacity = false;
   @Input() isHiddenInletFlow = false;
   @Input() isHiddenOutletFlow = false;
-  @Input() ownerTitle? = 'Alta Depósito';
-  @Input() residentTitle? = 'Alta Residente';
-  @Input() error? = false;
+  @Input() ownerTitle ? = 'Alta Depósito';
+  @Input() residentTitle ? = 'Alta Residente';
+  @Input() error ? = false;
   @Input() errorMessage?: string;
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
@@ -60,6 +60,7 @@ export class ReservoirUtilsComponent implements OnInit {
     });
   }
   // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }

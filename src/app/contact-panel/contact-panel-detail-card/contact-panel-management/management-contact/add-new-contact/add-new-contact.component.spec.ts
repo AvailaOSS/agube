@@ -11,9 +11,8 @@ describe('AddNewContactComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddNewContactComponent ]
-    })
-    .compileComponents();
+      declarations: [AddNewContactComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

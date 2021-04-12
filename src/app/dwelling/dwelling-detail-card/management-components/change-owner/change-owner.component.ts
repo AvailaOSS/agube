@@ -11,7 +11,7 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 export class ChangeOwnerComponent implements OnInit {
   public ownerId: string;
   public userId: string;
-  public error: boolean = true;
+  public error = true;
   public errorMessage: string;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
@@ -32,6 +32,7 @@ export class ChangeOwnerComponent implements OnInit {
   public ngOnInit(): void {}
 
   public sendForm(event: any): void {
+    console.log(event);
     this.svcChangeOwner
       .changeCurrentOwner(+this.ownerId, {
         user: {
@@ -54,7 +55,7 @@ export class ChangeOwnerComponent implements OnInit {
             },
           ],
           email: event.email,
-          first_name: event.fist_name,
+          first_name: event.first_name,
           last_name: event.last_name,
         },
       })

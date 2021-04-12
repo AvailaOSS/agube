@@ -18,7 +18,7 @@ export class GenericFormsComponent implements OnInit {
   public payType: string;
   public typePay: PaymentType[];
   public subscriptions: any;
-  public selectedList: boolean = false;
+  public selectedList = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -54,6 +54,7 @@ export class GenericFormsComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }

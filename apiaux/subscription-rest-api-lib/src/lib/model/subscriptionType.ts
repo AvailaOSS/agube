@@ -10,9 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface SubscriptionType { 
-    readonly id?: string;
-    description: string;
-    days: number;
+export interface SubscriptionType {
+  readonly id?: string;
+  description: string;
+  days: number;
 }

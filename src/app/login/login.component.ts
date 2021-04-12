@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
+
+  // tslint:disable-next-line: typedef
   get f() {
     return this.loginForm.controls;
   }
@@ -37,7 +39,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-
 
     this.loading = true;
 

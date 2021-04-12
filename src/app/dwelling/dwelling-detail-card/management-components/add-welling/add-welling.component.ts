@@ -10,7 +10,7 @@ import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 })
 export class AdDWellingComponent implements OnInit {
   public addNewWelling: FormGroup;
-  public error: boolean = true;
+  public error = true;
   public username: string;
   public errorMessage: string;
   constructor(

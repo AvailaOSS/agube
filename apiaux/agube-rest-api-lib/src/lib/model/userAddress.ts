@@ -11,9 +11,8 @@
  */
 import { FullAddress } from './fullAddress';
 
-
 export interface UserAddress {
-    readonly id?: string;
-    full_address: FullAddress;
-    main: boolean;
+  readonly id?: string;
+  full_address: FullAddress;
+  main: boolean;
 }

@@ -54,7 +54,7 @@ export class ChangeResidentComponent implements OnInit {
             },
           ],
           email: event.emailRes,
-          first_name: event.fist_nameRes,
+          first_name: event.first_nameRes,
           last_name: event.last_nameRes,
         },
       })

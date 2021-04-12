@@ -10,16 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 export interface UserDetailCustom {
-    readonly id?: string;
-    first_name: string;
-    last_name: string;
-    phone: string;
-    email: string;
-    town: string;
-    street: string;
-    number: string;
-    flat: string;
-    gate: string;
+  readonly id?: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  town: string;
+  street: string;
+  number: string;
+  flat: string;
+  gate: string;
 }

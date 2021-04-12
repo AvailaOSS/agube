@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-
 export interface ResetPassword {
-    user_id: string;
-    password: string;
+  user_id: string;
+  password: string;
 }

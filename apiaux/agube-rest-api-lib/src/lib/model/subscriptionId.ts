@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface SubscriptionId { 
-    readonly id?: string;
+export interface SubscriptionId {
+  readonly id?: string;
 }

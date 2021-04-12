@@ -16,7 +16,7 @@ export class PricingComponent implements OnInit {
   public subscriptions: Subscription[];
 
   public permissionColumns: PermissionsHasSubscription[];
-  public enablePermission: any[]=[];
+  public enablePermission: any[] = [];
 
   constructor(
     private readonly router: Router,

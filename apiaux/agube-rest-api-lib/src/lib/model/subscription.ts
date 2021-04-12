@@ -11,12 +11,11 @@
  */
 import { SubscriptionType } from './subscriptionType';
 
-
 export interface Subscription {
-    readonly id?: string;
-    name: string;
-    description: string;
-    price: string;
-    price_per_day: string;
-    type?: SubscriptionType;
+  readonly id?: string;
+  name: string;
+  description: string;
+  price: string;
+  price_per_day: string;
+  type?: SubscriptionType;
 }

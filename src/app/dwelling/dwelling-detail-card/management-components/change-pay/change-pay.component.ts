@@ -69,7 +69,9 @@ export class ChangePayComponent implements OnInit {
     });
     this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
       this.owner = Object.entries(owner)[2][1]['username'];
-      this.addressOwn = Object.entries(owner)[2][1]['address'][0].address.street;
+      this.addressOwn = Object.entries(owner)[2][1][
+        'address'
+      ][0].address.street;
       this.phoneOwn = Object.entries(owner)[2][1]['phones'][0].phone_number;
     });
 
@@ -77,9 +79,10 @@ export class ChangePayComponent implements OnInit {
       .getCurrentResident(+this.changePayId)
       .subscribe((value) => {
         this.resident = Object.entries(value)[2][1]['username'];
-        this.addressRes = Object.entries(value)[2][1]['address'][0].address.street;
+        this.addressRes = Object.entries(value)[2][1][
+          'address'
+        ][0].address.street;
         this.phoneRes = Object.entries(value)[2][1]['phones'][0].phone_number;
-
       });
   }
   public goToControlPanel(): void {

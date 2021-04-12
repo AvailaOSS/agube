@@ -11,8 +11,7 @@ export class AppComponent {
   title = 'agube-fe';
   public loginPage: boolean;
   constructor(private readonly svcAccountService: AccountService) {
-    this.svcAccountService.getUser().subscribe(value => {
-      console.log(value)
+    this.svcAccountService.getUser().subscribe((value) => {
       if (!isNull(value)) {
         this.loginPage = false;
       } else {
