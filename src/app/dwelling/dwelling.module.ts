@@ -44,7 +44,7 @@ import { ChangeResidentModule } from './dwelling-detail-card/management-componen
     ChangeOwnerModule,
     ChangeCountModule,
     ChangeResidentModule,
-    UtilsModule
+    UtilsModule,
   ],
   exports: [DWellingComponent],
 })

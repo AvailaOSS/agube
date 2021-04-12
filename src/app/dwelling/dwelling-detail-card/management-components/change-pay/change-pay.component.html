@@ -23,14 +23,17 @@
             <h4 class="my-0 fw-normal">Propietario {{ owner }}</h4>
           </div>
           <div class="card-body">
-            <p class="card-text" style="display: grid;"  [ngClass]="{
-              'paymaster-row': owner === paymaster,
-              'selected-row': owner === selectRow
-            }">
-             <strong>Dirección:</strong> {{ addressOwn}}
-             <strong>Teléfono:</strong> {{ phoneOwn }}
-             <strong>Nombre:</strong> {{ owner}}
-
+            <p
+              class="card-text"
+              style="display: grid"
+              [ngClass]="{
+                'paymaster-row': owner === paymaster,
+                'selected-row': owner === selectRow
+              }"
+            >
+              <strong>Dirección:</strong> {{ addressOwn }}
+              <strong>Teléfono:</strong> {{ phoneOwn }}
+              <strong>Nombre:</strong> {{ owner }}
             </p>
           </div>
         </div>
@@ -51,14 +54,17 @@
             <h4 class="my-0 fw-normal">Residente {{ resident }}</h4>
           </div>
           <div class="card-body">
-            <p class="card-text"style="display: grid;" [ngClass]="{
-              'paymaster-row': resident === paymaster,
-              'selected-row': resident === selectRow
-            }">
-             <strong>Dirección:</strong> {{ addressRes}}
-             <strong>Teléfono:</strong> {{ phoneRes }}
-             <strong>Nombre:</strong> {{ resident}}
-
+            <p
+              class="card-text"
+              style="display: grid"
+              [ngClass]="{
+                'paymaster-row': resident === paymaster,
+                'selected-row': resident === selectRow
+              }"
+            >
+              <strong>Dirección:</strong> {{ addressRes }}
+              <strong>Teléfono:</strong> {{ phoneRes }}
+              <strong>Nombre:</strong> {{ resident }}
             </p>
           </div>
         </div>

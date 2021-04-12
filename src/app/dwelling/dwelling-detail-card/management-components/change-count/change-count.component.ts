@@ -21,9 +21,11 @@ export class ChangeCountComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.waterMeterId = params.data;
     });
+
     this.svcChangeWaterMeter
       .getCurrentDwellingWaterMeter(+this.waterMeterId)
       .subscribe((value) => {
+        console.log(value);
         this.formConfigurationData.emit(value);
       });
   }

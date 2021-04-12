@@ -37,7 +37,7 @@ import { UtilsModule } from '../dWellingUtils/utils.module';
     MatCheckboxModule,
     MatRadioModule,
     MatGridListModule,
-    UtilsModule
+    UtilsModule,
   ],
 })
 export class AdDWellingModule {}

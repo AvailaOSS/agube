@@ -13,7 +13,7 @@ export class DWellingDetailCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public sendWater(event): void {
+  public sendWater(event: any): void {
     this.sendWaterMeterCode = event;
   }
 }
