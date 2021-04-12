@@ -27,10 +27,10 @@ services:
       - backend
 
   # Django Backend server
-  subscription-backend:
-    container_name: subscription-backend
-    hostname: subscription-backend
-    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
+  auth-backend:
+    container_name: auth-backend
+    hostname: auth-backend
+    image: registry.gitlab.com/availa/proyectos/auth/backend/auth-be
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
@@ -43,14 +43,30 @@ services:
       - rabbitmq
     networks:
       - backend
+  subscription-backend:
+    container_name: subscription-backend
+    hostname: subscription-backend
+    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8001:8000
+    volumes:
+      - .:/availa
+    env_file:
+      - ./docker/dev/.env.be.dev
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
   contact-book-backend:
     container_name: contact-book-backend
     hostname: contact-book-backend
-    # image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
-    build: E:\git\Availa\proyectos\contact-book\backend\contact-book-be
-    command: python manage.py runserver 0.0.0.0:8001
+    image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
+    # build: E:\git\Availa\proyectos\contact-book\backend\contact-book-be
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8001:8001
+      - 8002:8000
     volumes:
       - .:/availa
     env_file:
@@ -66,9 +82,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8002
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8002:8002
+      - 8003:8000
       - 5555:5555
     volumes:
       - .:/availa-agube
