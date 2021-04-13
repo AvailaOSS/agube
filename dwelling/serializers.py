@@ -1,69 +1,19 @@
 from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from login.models import UserAddress, UserPhone
 from login.serializers import UserDetailSerializer
-from manager.models import Manager, Person
-from phone.models import Phone
-from phone.serializers import PhoneSerializer
+from manager.models import Manager
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterSerializer
 
+from dwelling.assemblers import PersonTag, create_user
 from dwelling.exceptions import (IncompatibleUsernameError,
                                  UserManagerRequiredError)
 from dwelling.models import (Dwelling, DwellingOwner, DwellingResident,
                              Paymaster)
-from dwelling.send import publish_user_created
-
-
-def create_phone(user, validated_data, main):
-    new_phone = Phone.objects.create(
-        phone_number=validated_data.pop('phone_number'))
-    UserPhone.objects.create(user=user, phone=new_phone, main=main)
-
-
-def create_address(user, validated_data, main):
-    # extract address_data
-    address_data = validated_data.pop('address')
-    # create addres
-    new_address = Address.objects.create(town=address_data.pop(
-        'town'), street=address_data.pop('street'), is_external=address_data.pop('is_external'))
-    # create full address
-    full_address = FullAddress.objects.create(address=new_address, number=validated_data.pop(
-        'number'), flat=validated_data.pop('flat'), gate=validated_data.pop('gate'))
-    # create user address
-    UserAddress.objects.create(
-        user=user, full_address=full_address, main=main)
-
-
-def create_user(tag, validated_data, manager):
-    # Extract unnecessary data
-    phones = validated_data.pop('phones')
-    addresses = validated_data.pop('address')
-    # Create User
-    user = User.objects.create(**validated_data)
-    user.is_active = False
-    user.save()
-    # first_iteration will be save as main phone/address
-    first_iteration = True
-    # Create User Phones
-    for phone in phones:
-        create_phone(user, phone, first_iteration)
-        first_iteration = False
-    # Create User Address
-    first_iteration = True
-    for address in addresses:
-        create_address(user, address, first_iteration)
-        first_iteration = False
-    # Important: create Person after create User
-    Person.objects.create(manager=manager, user=user)
-    # publish that user was created
-    publish_user_created(tag, manager, user)
-    return user
 
 
 class PaymasterSerializer(ModelSerializer):
@@ -123,7 +73,8 @@ class DwellingCreateSerializer(ModelSerializer):
         validated_data['full_address'] = self.create_dwelling_address(
             validated_data.pop('full_address'))
         # Create Owner
-        owner = create_user("Propietario", validated_data.pop('owner'), manager)
+        owner = create_user(
+            PersonTag.OWNER, validated_data.pop('owner'), manager)
         # Extract water_meter_code
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling
@@ -189,9 +140,11 @@ class DwellingCreateWithResidentSerializer(DwellingCreateSerializer):
         validated_data['full_address'] = self.create_dwelling_address(
             validated_data.pop('full_address'))
         # Create Owner
-        owner = create_user("Propietario", validated_data.pop('owner'), manager)
+        owner = create_user(
+            PersonTag.OWNER, validated_data.pop('owner'), manager)
         # Create Resident
-        resident = create_user("Residente", validated_data.pop('resident'), manager)
+        resident = create_user(
+            PersonTag.RESIDENT, validated_data.pop('resident'), manager)
         # Extract water_meter_code
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create dwelling
@@ -247,7 +200,7 @@ class DwellingDetailSerializer(Serializer):
     """
     id = ReadOnlyField()
     water_meter_code = CharField(max_length=None, min_length=None,
-                       allow_blank=False, trim_whitespace=True)
+                                 allow_blank=False, trim_whitespace=True)
     street = CharField(max_length=None, min_length=None,
                        allow_blank=False, trim_whitespace=True)
     number = CharField(max_length=None, min_length=None,
@@ -265,79 +218,3 @@ class DwellingDetailSerializer(Serializer):
 
     class Meta:
         ref_name = 'DwellingDetail'
-
-
-def get_all_user_address_serialized(user):
-    list_of_serialized = []
-    for address_iteration in UserAddress.objects.filter(user=user):
-        full_address = address_iteration.full_address
-        data = {
-            "id": full_address.id,
-            "address": {
-                "id": full_address.address.id,
-                "town": full_address.address.town,
-                "street": full_address.address.street,
-                "is_external": full_address.address.is_external
-            },
-            "number": full_address.number,
-            "flat": full_address.flat,
-            "gate": full_address.gate
-        }
-        list_of_serialized.append(
-            FullAddressSerializer(data, many=False).data)
-
-    return list_of_serialized
-
-
-def get_user_phones_serialized(user):
-    list_of_serialized = []
-    for phone_iteration in UserPhone.objects.filter(user=user):
-        phone = phone_iteration.phone
-        data = {
-            "phone_number": phone.phone_number,
-            "id": phone.id,
-        }
-        list_of_serialized.append(
-            PhoneSerializer(data, many=False).data)
-
-    return list_of_serialized
-
-
-def get_dwelling_owner_serialized(owner: DwellingOwner):
-    user = owner.user
-    data = {
-        "id": owner.id,
-        "dwelling_id": owner.dwelling,
-        "user": {
-            "id": user.id,
-            "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "email": user.email,
-            "phones": get_user_phones_serialized(user),
-            "address": get_all_user_address_serialized(user)
-        },
-        "release_date": owner.release_date,
-        "discharge_date": owner.discharge_date
-    }
-    return DwellingOwnerSerializer(data, many=False).data
-
-
-def get_dwelling_resident_serialized(resident: DwellingResident):
-    user = resident.user
-    data = {
-        "id": resident.id,
-        "dwelling_id": resident.dwelling,
-        "user": {
-            "id": user.id,
-            "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "email": user.email,
-            "phones": get_user_phones_serialized(user),
-            "address": get_all_user_address_serialized(user)
-        },
-        "release_date": resident.release_date,
-        "discharge_date": resident.discharge_date
-    }
-    return DwellingResidentSerializer(data, many=False).data

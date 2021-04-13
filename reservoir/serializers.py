@@ -1,16 +1,15 @@
 from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
-from dwelling.models import Dwelling
-from dwelling.serializers import get_all_user_address_serialized, get_user_phones_serialized
+from dwelling.assemblers import (get_all_user_address_serialized,
+                                 get_user_phones_serialized)
 from login.serializers import UserDetailSerializer
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
-from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterSerializer
 
-from reservoir.models import Reservoir, ReservoirOwner, ReservoirWaterMeter
+from reservoir.models import Reservoir, ReservoirOwner
 
 
 class ReservoirSerializer(ModelSerializer):
