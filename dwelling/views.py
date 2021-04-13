@@ -168,7 +168,7 @@ class DwellingOwnerView(generics.GenericAPIView):
         try:
             with transaction.atomic():
                 dwelling = Dwelling.objects.get(id=pk)
-                user = create_user(request.data['user'], dwelling.manager)
+                user = create_user("Propietario", request.data['user'], dwelling.manager)
                 dwelling.change_current_owner(user)
                 owner = dwelling.get_current_owner()
                 return Response(get_dwelling_owner_serialized(owner))
@@ -206,7 +206,7 @@ class DwellingResidentView(generics.GenericAPIView):
         try:
             with transaction.atomic():
                 dwelling = Dwelling.objects.get(id=pk)
-                user = create_user(request.data['user'], dwelling.manager)
+                user = create_user("Residente", request.data['user'], dwelling.manager)
                 dwelling.change_current_resident(user)
                 resident = dwelling.get_current_resident()
             return Response(get_dwelling_resident_serialized(resident))
