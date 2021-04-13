@@ -11,7 +11,6 @@ from manager.urls import urlpatterns as urls_manager
 from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from watermeter.urls import urlpatterns as urls_water_meter
 
 current_version = 'v1'
@@ -39,8 +38,6 @@ urlpatterns = [
     path(base_url, include(urls_water_meter)),
     path(base_url, include(urls_manager)),
     path(base_url, include(urls_user)),
-    path(base_url + 'token/auth', obtain_jwt_token),
-    path(base_url + 'token/refresh', refresh_jwt_token),
 ]
 
 if settings.DEBUG:

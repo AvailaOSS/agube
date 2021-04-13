@@ -157,14 +157,3 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
 }
-
-SWAGGER_SETTINGS = {
-    'LOGIN_URL': reverse_lazy('admin:login'),
-    'LOGOUT_URL': '/admin/logout',
-    'SECURITY_DEFINITIONS': {
-        'basic': {
-            'type': 'basic'
-        }
-    },
-    'USE_SESSION_AUTH': True,
-}
