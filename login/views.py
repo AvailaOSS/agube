@@ -10,13 +10,13 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
+from login.assemblers import (get_all_user_full_address_serialized,
+                              get_all_user_phones_serialized)
 from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
 from login.serializers import (UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
-                               UserPhoneUpdateSerializer,
-                               get_all_user_full_address_serialized,
-                               get_all_user_phones_serialized)
+                               UserPhoneUpdateSerializer)
 
 TAG_USER = 'user'
 
