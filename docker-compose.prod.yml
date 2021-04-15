@@ -25,8 +25,8 @@ services:
       - backend
 
   # Django Backend server
-  subscription-backend:
-    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
+  auth-backend:
+    image: registry.gitlab.com/availa/proyectos/auth/backend/auth-be
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
@@ -39,11 +39,25 @@ services:
       - rabbitmq
     networks:
       - backend
+  subscription-backend:
+    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8001:8000
+    volumes:
+      - .:/availa
+    env_file:
+      - ./docker/prod/.env.be.prod
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
   contact-book-backend:
     image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
-    command: python manage.py runserver 0.0.0.0:8001
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8001:8001
+      - 8002:8000
     volumes:
       - .:/availa
     env_file:
@@ -55,9 +69,9 @@ services:
       - backend
   agube-backend:
     image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
-    command: python manage.py runserver 0.0.0.0:8002
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8002:8002
+      - 8003:8000
     volumes:
       - .:/availa
     env_file:
@@ -65,8 +79,6 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - subscription-backend
-      - contact-book-backend
     networks:
       - backend
 
