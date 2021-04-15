@@ -1,3 +1,10 @@
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
+import { EnableAccount } from '../model/enableAccount';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SubscriptionClient } from '../model/subscriptionClient';
 /**
  * Subscription API
  * Subscription API REST definition
@@ -11,7 +18,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
@@ -19,19 +25,13 @@ import {
   HttpResponse,
   HttpEvent,
 } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable } from 'rxjs';
 
-import { EnableAccount } from '../model/enableAccount';
-import { SubscriptionClient } from '../model/subscriptionClient';
 
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
-import { Configuration } from '../configuration';
 
 @Injectable()
 export class ClientService {
-  protected basePath = 'http://localhost:8000/api/v1/subscription';
+  protected basePath = 'http://localhost:8001/api/v1/subscription';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 

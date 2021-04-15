@@ -1,6 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "auth-rest-api-lib": [
+        "dist/auth-rest-api-lib/auth-rest-api-lib",
+        "dist/auth-rest-api-lib"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Auth API
+ * Auth API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -23,15 +23,15 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
-import { EnableAccount } from '../model/enableAccount';
-import { SubscriptionClient } from '../model/subscriptionClient';
+import { JSONWebToken } from '../model/jSONWebToken';
+import { RefreshJSONWebToken } from '../model/refreshJSONWebToken';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable()
-export class ClientService {
-  protected basePath = 'http://localhost:8001/api/v1/subscription';
+export class TokenService {
+  protected basePath = 'http://localhost:8000/api/v1/auth';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -64,41 +64,41 @@ export class ClientService {
   }
 
   /**
-   *
-   * create a new Dwelling with Resident
+   * API View that receives a POST with a user&#39;s username and password.
+   * Returns a JSON Web Token that can be used for authenticated requests.
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public createDwellingWithResident(
-    data: SubscriptionClient,
+  public tokenAuthCreate(
+    data: JSONWebToken,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<SubscriptionClient>;
-  public createDwellingWithResident(
-    data: SubscriptionClient,
+  ): Observable<JSONWebToken>;
+  public tokenAuthCreate(
+    data: JSONWebToken,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<SubscriptionClient>>;
-  public createDwellingWithResident(
-    data: SubscriptionClient,
+  ): Observable<HttpResponse<JSONWebToken>>;
+  public tokenAuthCreate(
+    data: JSONWebToken,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<SubscriptionClient>>;
-  public createDwellingWithResident(
-    data: SubscriptionClient,
+  ): Observable<HttpEvent<JSONWebToken>>;
+  public tokenAuthCreate(
+    data: JSONWebToken,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling createDwellingWithResident.'
+        'Required parameter data was null or undefined when calling tokenAuthCreate.'
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -125,8 +125,8 @@ export class ClientService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.post<SubscriptionClient>(
-      `${this.basePath}/client`,
+    return this.httpClient.post<JSONWebToken>(
+      `${this.basePath}/token/auth`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -138,41 +138,41 @@ export class ClientService {
   }
 
   /**
-   *
-   * enable account of client if first time log in
+   * API View that returns a refreshed token (with new expiration) based on existing token
+   * If &#39;orig_iat&#39; field (original issued-at-time) is found, will first check if it&#39;s within expiration window, then copy it to the new token
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public enableAccount(
-    data: EnableAccount,
+  public tokenRefreshCreate(
+    data: RefreshJSONWebToken,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<any>;
-  public enableAccount(
-    data: EnableAccount,
+  ): Observable<RefreshJSONWebToken>;
+  public tokenRefreshCreate(
+    data: RefreshJSONWebToken,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<any>>;
-  public enableAccount(
-    data: EnableAccount,
+  ): Observable<HttpResponse<RefreshJSONWebToken>>;
+  public tokenRefreshCreate(
+    data: RefreshJSONWebToken,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<any>>;
-  public enableAccount(
-    data: EnableAccount,
+  ): Observable<HttpEvent<RefreshJSONWebToken>>;
+  public tokenRefreshCreate(
+    data: RefreshJSONWebToken,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling enableAccount.'
+        'Required parameter data was null or undefined when calling tokenRefreshCreate.'
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -199,76 +199,9 @@ export class ClientService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.put<any>(
-      `${this.basePath}/client/enable-account`,
+    return this.httpClient.post<RefreshJSONWebToken>(
+      `${this.basePath}/token/refresh`,
       data,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * Get Subscription client by user_id
-   * @param userId
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getClient(
-    userId: string,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<SubscriptionClient>>;
-  public getClient(
-    userId: string,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<SubscriptionClient>>>;
-  public getClient(
-    userId: string,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<SubscriptionClient>>>;
-  public getClient(
-    userId: string,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (userId === null || userId === undefined) {
-      throw new Error(
-        'Required parameter userId was null or undefined when calling getClient.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-
-    return this.httpClient.get<Array<SubscriptionClient>>(
-      `${this.basePath}/client/user/${encodeURIComponent(String(userId))}/info`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

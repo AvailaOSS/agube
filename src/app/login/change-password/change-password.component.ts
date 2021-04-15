@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from '../service/account.service';
-import { SubscriptionService } from '../../../../apiaux/subscription-rest-api-lib/src/lib/service/subscription.service';
-import { ClientService } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../../apiaux/auth-rest-api-lib/src/lib/service/user.service';
 
 @Component({
   selector: 'app-change-password',
@@ -17,7 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   public errorMessage: string;
   constructor(
     private formBuilder: FormBuilder,
-    private svcClientService: ClientService,
+    private svcClientService: UserService,
     private route: ActivatedRoute,
     private svcRouter: Router
   ) {
@@ -45,6 +43,7 @@ export class ChangePasswordComponent implements OnInit {
         .enableAccount({
           user_id: this.userId,
           password: this.loginForm.value.password1,
+          confirm_password: this.loginForm.value.password2,
         })
         .subscribe(
           (value) => {

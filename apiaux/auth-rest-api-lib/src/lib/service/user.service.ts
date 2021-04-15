@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Auth API
+ * Auth API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -23,15 +23,14 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 import { Observable } from 'rxjs';
 
-import { EnableAccount } from '../model/enableAccount';
-import { SubscriptionClient } from '../model/subscriptionClient';
+import { ChangePassword } from '../model/changePassword';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable()
-export class ClientService {
-  protected basePath = 'http://localhost:8001/api/v1/subscription';
+export class UserService {
+  protected basePath = 'http://localhost:8000/api/v1/auth';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -65,114 +64,40 @@ export class ClientService {
 
   /**
    *
-   * create a new Dwelling with Resident
+   * change password
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public createDwellingWithResident(
-    data: SubscriptionClient,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<SubscriptionClient>;
-  public createDwellingWithResident(
-    data: SubscriptionClient,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<SubscriptionClient>>;
-  public createDwellingWithResident(
-    data: SubscriptionClient,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<SubscriptionClient>>;
-  public createDwellingWithResident(
-    data: SubscriptionClient,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling createDwellingWithResident.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.post<SubscriptionClient>(
-      `${this.basePath}/client`,
-      data,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * enable account of client if first time log in
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public enableAccount(
-    data: EnableAccount,
+  public changePassword(
+    data: ChangePassword,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
-  public enableAccount(
-    data: EnableAccount,
+  public changePassword(
+    data: ChangePassword,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
-  public enableAccount(
-    data: EnableAccount,
+  public changePassword(
+    data: ChangePassword,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
-  public enableAccount(
-    data: EnableAccount,
+  public changePassword(
+    data: ChangePassword,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling enableAccount.'
+        'Required parameter data was null or undefined when calling changePassword.'
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -200,7 +125,7 @@ export class ClientService {
     }
 
     return this.httpClient.put<any>(
-      `${this.basePath}/client/enable-account`,
+      `${this.basePath}/user/change-password`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -213,40 +138,40 @@ export class ClientService {
 
   /**
    *
-   * Get Subscription client by user_id
-   * @param userId
+   * enable account of user if first time log in and save the new password
+   * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getClient(
-    userId: string,
+  public enableAccount(
+    data: ChangePassword,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<SubscriptionClient>>;
-  public getClient(
-    userId: string,
+  ): Observable<any>;
+  public enableAccount(
+    data: ChangePassword,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<SubscriptionClient>>>;
-  public getClient(
-    userId: string,
+  ): Observable<HttpResponse<any>>;
+  public enableAccount(
+    data: ChangePassword,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<SubscriptionClient>>>;
-  public getClient(
-    userId: string,
+  ): Observable<HttpEvent<any>>;
+  public enableAccount(
+    data: ChangePassword,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
-    if (userId === null || userId === undefined) {
+    if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getClient.'
+        'Required parameter data was null or undefined when calling enableAccount.'
       );
     }
 
     let headers = this.defaultHeaders;
 
-    // authentication (Basic) required
+    // authentication (basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -266,9 +191,16 @@ export class ClientService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected:
+      | string
+      | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
 
-    return this.httpClient.get<Array<SubscriptionClient>>(
-      `${this.basePath}/client/user/${encodeURIComponent(String(userId))}/info`,
+    return this.httpClient.put<any>(
+      `${this.basePath}/user/enable-account`,
+      data,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
