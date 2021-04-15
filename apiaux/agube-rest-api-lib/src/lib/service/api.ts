@@ -8,19 +8,8 @@ export * from './phone.service';
 import { PhoneService } from './phone.service';
 export * from './reservoir.service';
 import { ReservoirService } from './reservoir.service';
-export * from './token.service';
-import { TokenService } from './token.service';
 export * from './user.service';
 import { UserService } from './user.service';
 export * from './waterMeter.service';
 import { WaterMeterService } from './waterMeter.service';
-export const APIS = [
-  AddressService,
-  DwellingService,
-  ManagerService,
-  PhoneService,
-  ReservoirService,
-  TokenService,
-  UserService,
-  WaterMeterService,
-];
+export const APIS = [AddressService, DwellingService, ManagerService, PhoneService, ReservoirService, UserService, WaterMeterService];

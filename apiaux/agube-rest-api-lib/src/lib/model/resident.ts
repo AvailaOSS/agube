@@ -11,10 +11,11 @@
  */
 import { UserDetail } from './userDetail';
 
+
 export interface Resident {
-  readonly id?: string;
-  readonly dwelling_id?: number;
-  user: UserDetail;
-  readonly release_date?: string;
-  readonly discharge_date?: string;
+    readonly id?: string;
+    readonly dwelling_id?: number;
+    user: UserDetail;
+    readonly release_date?: string;
+    readonly discharge_date?: string;
 }

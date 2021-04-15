@@ -10,12 +10,13 @@
  * Do not edit the class manually.
  */
 
+
 export interface User {
-  /**
-   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-   */
-  username: string;
-  first_name?: string;
-  last_name?: string;
-  email?: string;
+    /**
+     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+     */
+    username: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
 }

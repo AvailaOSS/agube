@@ -10,8 +10,9 @@
  * Do not edit the class manually.
  */
 
-export interface WaterMeterMeasurement {
-  readonly id?: string;
-  measurement: string;
-  date?: Date;
+
+export interface WaterMeterMeasurement { 
+    readonly id?: string;
+    measurement: string;
+    date?: Date;
 }

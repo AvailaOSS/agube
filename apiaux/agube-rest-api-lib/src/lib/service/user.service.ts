@@ -24,7 +24,6 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
 import { DwellingDetail } from '../model/dwellingDetail';
-import { ResetPassword } from '../model/resetPassword';
 import { UserAddress } from '../model/userAddress';
 import { UserDetailCustom } from '../model/userDetailCustom';
 import { UserPhone } from '../model/userPhone';
@@ -34,7 +33,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class UserService {
-  protected basePath = 'http://localhost:8002/api/v1/agube';
+  protected basePath = 'http://localhost:8003/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -112,7 +111,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -197,7 +196,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -282,7 +281,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -362,7 +361,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -387,80 +386,6 @@ export class UserService {
       `${this.basePath}/user/${encodeURIComponent(
         String(id)
       )}/phone/${encodeURIComponent(String(phoneId))}`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * enable account of user if first time log in
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public enableAccount(
-    data: ResetPassword,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<any>;
-  public enableAccount(
-    data: ResetPassword,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<any>>;
-  public enableAccount(
-    data: ResetPassword,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<any>>;
-  public enableAccount(
-    data: ResetPassword,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling enableAccount.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.put<any>(
-      `${this.basePath}/user/enable-account`,
-      data,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -505,7 +430,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -572,7 +497,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -639,7 +564,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -695,7 +620,7 @@ export class UserService {
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -718,80 +643,6 @@ export class UserService {
 
     return this.httpClient.get<Array<UserDetailCustom>>(
       `${this.basePath}/user`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * reset password
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public resetPassword(
-    data: ResetPassword,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<any>;
-  public resetPassword(
-    data: ResetPassword,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<any>>;
-  public resetPassword(
-    data: ResetPassword,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<any>>;
-  public resetPassword(
-    data: ResetPassword,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling resetPassword.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.put<any>(
-      `${this.basePath}/user/reset-password`,
-      data,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -858,7 +709,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -956,7 +807,7 @@ export class UserService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',

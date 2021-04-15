@@ -34,7 +34,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class ReservoirService {
-  protected basePath = 'http://localhost:8002/api/v1/agube';
+  protected basePath = 'http://localhost:8003/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -112,7 +112,7 @@ export class ReservoirService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -188,7 +188,7 @@ export class ReservoirService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -262,7 +262,7 @@ export class ReservoirService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -329,7 +329,7 @@ export class ReservoirService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -398,7 +398,7 @@ export class ReservoirService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -476,7 +476,7 @@ export class ReservoirService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -534,7 +534,7 @@ export class ReservoirService {
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',

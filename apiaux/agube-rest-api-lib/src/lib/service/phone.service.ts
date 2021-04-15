@@ -30,7 +30,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class PhoneService {
-  protected basePath = 'http://localhost:8002/api/v1/agube';
+  protected basePath = 'http://localhost:8003/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -86,7 +86,7 @@ export class PhoneService {
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',

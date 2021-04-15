@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
-import { TokenService } from '../../../../apiaux/agube-rest-api-lib/src/lib/service/token.service';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { TokenService } from 'apiaux/auth-rest-api-lib/src/public-api';
 
 @Injectable({
   providedIn: 'root',

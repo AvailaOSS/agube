@@ -1,5 +1,4 @@
 export * from './client';
-export * from './enableAccount';
 export * from './paymentType';
 export * from './permissionsHasSubscription';
 export * from './subscription';
