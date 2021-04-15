@@ -92,6 +92,22 @@ services:
       - rabbitmq
     networks:
       - backend
+  task-backend:
+    container_name: task-backend
+    hostname: task-backend
+    image: registry.gitlab.com/availa/proyectos/task/backend/task-be
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8004:8000
+    volumes:
+      - .:/availa-agube
+    env_file:
+      - ./docker/dev/.env.be.dev
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
 
 networks:
   backend:
