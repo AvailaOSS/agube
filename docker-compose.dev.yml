@@ -27,13 +27,29 @@ services:
       - backend
 
   # Django Backend server
+  auth-backend:
+    container_name: auth-backend
+    hostname: auth-backend
+    image: registry.gitlab.com/availa/proyectos/auth/backend/auth-be
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/availa
+    env_file:
+      - ./docker/dev/.env.be.dev
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
   subscription-backend:
     container_name: subscription-backend
     hostname: subscription-backend
     image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
     command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8000:8000
+      - 8001:8000
     volumes:
       - .:/availa
     env_file:
@@ -47,9 +63,9 @@ services:
     container_name: contact-book-backend
     hostname: contact-book-backend
     image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
-    command: python manage.py runserver 0.0.0.0:8001
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8001:8001
+      - 8002:8000
     volumes:
       - .:/availa
     env_file:
@@ -63,12 +79,28 @@ services:
     container_name: agube-backend
     hostname: agube-backend
     image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
-    command: python manage.py runserver 0.0.0.0:8002
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8002:8002
+      - 8003:8000
       - 5555:5555
     volumes:
       - .:/availa
+    env_file:
+      - ./docker/dev/.env.be.dev
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
+  task-backend:
+    container_name: task-backend
+    hostname: task-backend
+    image: registry.gitlab.com/availa/proyectos/task/backend/task-be
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8004:8000
+    volumes:
+      - .:/availa-agube
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
