@@ -29,6 +29,10 @@
         </ul>
       </div>
       <div class="col-md-7 col-lg-8">
+        <div [hidden]="!error" class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+
         <h4 class="mb-3 text-center">Registrarse</h4>
         <form
           class="needs-validation was-validated"

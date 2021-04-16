@@ -19,6 +19,8 @@ export class GenericFormsComponent implements OnInit {
   public typePay: PaymentType[];
   public subscriptions: any;
   public selectedList = false;
+  public error = false;
+  public errorMessage: string;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -92,7 +94,8 @@ export class GenericFormsComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         (error) => {
-          console.log(error);
+          this.error = true;
+          this.errorMessage = error.statusText;
         }
       );
   }
