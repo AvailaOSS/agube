@@ -73,7 +73,7 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "agube-fe:build"
+                        "browserTarget": "agube-fe:build","proxyConfig": "src/proxy.conf.json"
                     },
                     "configurations": {
                         "production": {
