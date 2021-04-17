@@ -24,14 +24,10 @@ import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-com
 import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
 import { ChangePasswordModule } from './login/change-password/change-password.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ReservoirUtilsComponent } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.component';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AuthApiModule } from '../../apiaux/auth-rest-api-lib/src/lib/auth.api.module';
 import { ReadingCountModule } from './reading-count/reading-count.module';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
