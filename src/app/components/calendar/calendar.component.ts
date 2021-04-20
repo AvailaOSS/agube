@@ -42,10 +42,9 @@ const colors: any = {
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent {
-
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -178,16 +177,15 @@ export class CalendarComponent {
     ];
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
+  public deleteEvent(eventToDelete: CalendarEvent): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
-  setView(view: CalendarView) {
+  public setView(view: CalendarView): void {
     this.view = view;
   }
 
-  closeOpenMonthViewDay() {
+  public closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
   }
-
 }
