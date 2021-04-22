@@ -26,7 +26,7 @@ import { WaterMeterService } from './service/waterMeter.service';
     PhoneService,
     ReservoirService,
     UserService,
-    WaterMeterService,
+    WaterMeterService
   ],
 })
 export class AgubeApiModule {

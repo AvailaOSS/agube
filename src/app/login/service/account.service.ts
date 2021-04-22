@@ -65,6 +65,7 @@ export class AccountService {
 
   private loadToken(): void {
     const token = localStorage.getItem(this.cookieName);
+    console.log(token)
     if (token) {
       const user: User = jwt_decode(token);
       this.userSubject.next(user);
