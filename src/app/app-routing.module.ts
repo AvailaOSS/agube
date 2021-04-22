@@ -23,6 +23,9 @@ import { ChangePasswordComponent } from './login/change-password/change-password
 import { ChangeReservoirComponent } from './deposit-panel/deposit-panel-utils/change-reservoir/change-reservoir.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ReadingCountComponent } from './reading-count/reading-count.component';
+import { IncidentComponent } from './incident/incident.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { EmailComponent } from './email/email.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -45,7 +48,10 @@ const routes: Routes = [
   { path: 'contact-book', component: ContactBookComponent },
   { path: 'config', component: ConfigurationComponent },
   { path: 'forms', component: GenericFormsComponent },
-  { path: 'lecturas', component: ReadingCountComponent},
+  { path: 'lecturas', component: ReadingCountComponent },
+  { path: 'incident', component: IncidentComponent },
+  { path: 'schedule', component: ScheduleComponent },
+  { path: 'email', component: EmailComponent},
   { path: 'wip', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
   { path: 'enable-account/:id', component: ChangePasswordComponent },
