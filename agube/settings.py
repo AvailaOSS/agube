@@ -146,7 +146,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'login.authentication.ApiJSONWebTokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # TODO: Remove this in the future
         'rest_framework.authentication.SessionAuthentication',
     ]
