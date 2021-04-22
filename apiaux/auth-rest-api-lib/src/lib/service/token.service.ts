@@ -1,6 +1,6 @@
 /**
- * Agube API
- * Agube API REST definition
+ * Auth API
+ * Auth API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -31,7 +31,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class TokenService {
-  protected basePath = 'http://localhost:8002/api/v1/agube';
+  protected basePath = 'http://localhost:8000/api/v1/auth';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 

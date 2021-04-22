@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Auth API
+ * Auth API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -11,7 +11,8 @@
  */
 
 
-export interface EnableAccount {
+export interface ChangePassword {
     user_id: string;
     password: string;
+    confirm_password: string;
 }

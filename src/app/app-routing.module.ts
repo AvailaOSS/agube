@@ -22,6 +22,7 @@ import { AddReservoirComponent } from './deposit-panel/deposit-panel-utils/add-r
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
 import { ChangeReservoirComponent } from './deposit-panel/deposit-panel-utils/change-reservoir/change-reservoir.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { ReadingCountComponent } from './reading-count/reading-count.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -42,8 +43,9 @@ const routes: Routes = [
   { path: 'depositos/alta/deposito', component: AddReservoirComponent },
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },
-  { path: 'config', component: ConfigurationComponent},
+  { path: 'config', component: ConfigurationComponent },
   { path: 'forms', component: GenericFormsComponent },
+  { path: 'lecturas', component: ReadingCountComponent},
   { path: 'wip', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
   { path: 'enable-account/:id', component: ChangePasswordComponent },

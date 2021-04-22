@@ -31,7 +31,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class SubscriptionService {
-  protected basePath = 'http://localhost:8000/api/v1/subscription';
+  protected basePath = 'http://localhost:8001/api/v1/subscription';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 

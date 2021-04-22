@@ -1,4 +1,3 @@
-import { Permission } from './../../../../apiaux/subscription-rest-api-lib/src/lib/model/permission';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionsHasSubscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/permissionsHasSubscription';

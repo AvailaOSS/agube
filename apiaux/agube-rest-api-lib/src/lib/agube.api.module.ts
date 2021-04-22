@@ -6,14 +6,14 @@ import {
 } from '@angular/core';
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'apiaux/auth-rest-api-lib/src/public-api';
 import { AddressService } from './service/address.service';
 import { DwellingService } from './service/dwelling.service';
-import { PhoneService } from './service/phone.service';
-import { TokenService } from './service/token.service';
-import { UserService } from './service/user.service';
-import { WaterMeterService } from './service/waterMeter.service';
 import { ManagerService } from './service/manager.service';
+import { PhoneService } from './service/phone.service';
 import { ReservoirService } from './service/reservoir.service';
+import { WaterMeterService } from './service/waterMeter.service';
+
 
 @NgModule({
   imports: [],
@@ -22,12 +22,11 @@ import { ReservoirService } from './service/reservoir.service';
   providers: [
     AddressService,
     DwellingService,
-    ReservoirService,
     ManagerService,
     PhoneService,
-    TokenService,
+    ReservoirService,
     UserService,
-    WaterMeterService,
+    WaterMeterService
   ],
 })
 export class AgubeApiModule {

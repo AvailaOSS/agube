@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface UserPhone {
-  phone: string;
-  main: boolean;
+
+export interface UserPhone { 
+    phone: string;
+    main: boolean;
 }

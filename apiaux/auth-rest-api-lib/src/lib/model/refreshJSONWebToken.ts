@@ -1,6 +1,6 @@
 /**
- * Subscription API
- * Subscription API REST definition
+ * Auth API
+ * Auth API REST definition
  *
  * OpenAPI spec version: v1
  * Contact: frannabril@gmail.com
@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-export interface SubscriptionType {
-  readonly id?: string;
-  description: string;
-  days: number;
+
+export interface RefreshJSONWebToken { 
+    token: string;
 }

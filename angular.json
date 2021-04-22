@@ -73,7 +73,7 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "agube-fe:build"
+                        "browserTarget": "agube-fe:build","proxyConfig": "src/proxy.conf.json"
                     },
                     "configurations": {
                         "production": {
@@ -128,6 +128,46 @@
                         "production": {
                             "devServerTarget": "agube-fe:serve:production"
                         }
+                    }
+                }
+            }
+        },
+        "auth-rest-api-lib": {
+            "projectType": "library",
+            "root": "projects/auth-rest-api-lib",
+            "sourceRoot": "projects/auth-rest-api-lib/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "tsConfig": "projects/auth-rest-api-lib/tsconfig.lib.json",
+                        "project": "projects/auth-rest-api-lib/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/auth-rest-api-lib/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/auth-rest-api-lib/src/test.ts",
+                        "tsConfig": "projects/auth-rest-api-lib/tsconfig.spec.json",
+                        "karmaConfig": "projects/auth-rest-api-lib/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/auth-rest-api-lib/tsconfig.lib.json",
+                            "projects/auth-rest-api-lib/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
                     }
                 }
             }

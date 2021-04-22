@@ -11,9 +11,10 @@
  */
 import { SubscriptionId } from './subscriptionId';
 
+
 export interface PermissionsHasSubscription {
-  readonly id?: string;
-  readonly code_ame?: string;
-  readonly name?: string;
-  readonly subscriptions?: Array<SubscriptionId>;
+    readonly id?: string;
+    readonly code_name?: string;
+    readonly name?: string;
+    readonly subscriptions?: Array<SubscriptionId>;
 }

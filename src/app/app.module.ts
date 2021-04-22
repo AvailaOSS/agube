@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SubscriptionApiModule } from '../../apiaux/subscription-rest-api-lib/src/lib/subscription.api.module';
 import { ContactBookApiModule } from '../../apiaux/contact-book-rest-api-lib/src/lib/contact.book.api.module';
 import { AgubeApiModule } from '../../apiaux/agube-rest-api-lib/src/lib/agube.api.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
@@ -23,9 +24,10 @@ import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-com
 import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
 import { ChangePasswordModule } from './login/change-password/change-password.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ReservoirUtilsComponent } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.component';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { AuthApiModule } from '../../apiaux/auth-rest-api-lib/src/lib/auth.api.module';
+import { ReadingCountModule } from './reading-count/reading-count.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
@@ -45,6 +47,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     SubscriptionApiModule,
     ContactBookApiModule,
     AgubeApiModule,
+    AuthApiModule,
     DWellingModule,
     ContactPanelModule,
     AdDWellingModule,
@@ -52,11 +55,14 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     UtilsModule,
     ReservoirUtilsModule,
     ComponentsModule,
+    ReadingCountModule,
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+
   ],
   bootstrap: [AppComponent],
 })

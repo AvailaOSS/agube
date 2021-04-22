@@ -11,10 +11,11 @@
  */
 import { Address } from './address';
 
-export interface FullAddress {
-  readonly id?: string;
-  address: Address;
-  number: number;
-  flat?: string;
-  gate?: string;
+
+export interface FullAddress { 
+    readonly id?: string;
+    address: Address;
+    number: number;
+    flat?: string;
+    gate?: string;
 }

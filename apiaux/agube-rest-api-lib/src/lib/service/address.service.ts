@@ -30,7 +30,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class AddressService {
-  protected basePath = 'http://localhost:8002/api/v1/agube';
+  protected basePath = 'http://localhost:8003/api/v1/agube';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -65,7 +65,6 @@ export class AddressService {
   /**
    *
    * create a new Address
-   // tslint:disable: jsdoc-format
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -98,7 +97,7 @@ export class AddressService {
 
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
@@ -157,7 +156,7 @@ export class AddressService {
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
-    // authentication (basic) required
+    // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
