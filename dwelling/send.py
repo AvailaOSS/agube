@@ -56,7 +56,7 @@ def publish_user_created(tag, manager, user, phone_number= ''):
     payload = '{"id":"' + str(manager.user_id) + \
         '","full_name":"' + user.first_name + " " + user.last_name + \
         '","extra_info":"","email":"' + user.email + \
-        '","phone_number":"' + phone_number + '", "tag":"' + tag + '"}'
+        '","phone_number":"' + phone_number + '", "tag":"' + tag.value + '"}'
     for task_config in settings.PUBLISH_USER_TASKS:
         send_task(task_config["task"], [payload],
                   exchange=task_config["exchange"], routing_key=task_config["routing_key"])
