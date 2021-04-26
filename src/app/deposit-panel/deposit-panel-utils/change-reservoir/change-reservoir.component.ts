@@ -54,7 +54,7 @@ export class ChangeReservoirComponent implements OnInit {
         },
         (error) => {
           this.error = false;
-          this.errorMessage = error;
+          this.errorMessage = error.error.message;
         }
       );
   }
