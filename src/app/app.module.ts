@@ -28,6 +28,9 @@ import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reserv
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AuthApiModule } from '../../apiaux/auth-rest-api-lib/src/lib/auth.api.module';
 import { ReadingCountModule } from './reading-count/reading-count.module';
+import { IncidentModule } from './incident/incident.module';
+import { EmailModule } from './email/email.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
@@ -56,6 +59,9 @@ import { ReadingCountModule } from './reading-count/reading-count.module';
     ReservoirUtilsModule,
     ComponentsModule,
     ReadingCountModule,
+    IncidentModule,
+    EmailModule,
+    ScheduleModule
 
   ],
   providers: [
