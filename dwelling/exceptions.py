@@ -6,6 +6,7 @@ class OwnerAlreadyIsResidentError(Exception):
         self.message = "Owner already is Resident"
         super().__init__(self.message)
 
+
 class UserManagerRequiredError(Exception):
     """Exception raised when User Manager is Invalid.
     """
@@ -13,6 +14,7 @@ class UserManagerRequiredError(Exception):
     def __init__(self):
         self.message = "User Manager required for this operation"
         super().__init__(self.message)
+
 
 class NullIbanError(Exception):
     """Exception raised when iban is null.
@@ -31,10 +33,20 @@ class IncompatibleUsernameError(Exception):
         self.message = "username " + username + " not equal to owner or resident"
         super().__init__(self.message)
 
+
 class PaymasterError(Exception):
     """Exception raised when user is paymaster.
     """
 
     def __init__(self, username):
         self.message = "user " + username + " is paymaster."
+        super().__init__(self.message)
+
+
+class InvalidEmailError(Exception):
+    """Exception raised when email invalid or does not exist.
+    """
+
+    def __init__(self, email):
+        self.message = "Email: " + email + " invalid or does not exist"
         super().__init__(self.message)
