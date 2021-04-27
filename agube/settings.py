@@ -32,6 +32,16 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
 PUBLISH_USER_TASKS = json.loads(os.environ.get("PUBLISH_USER_TASKS"))
 
+PUBLIC_APP_NAME = os.environ.get("PUBLIC_APP_NAME")
+
+# Email
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+REDIRECT_TO = os.environ.get("REDIRECT_TO")
+EMAIL_USE_TLS = True  # TODO: check if it should be disabled
+
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition

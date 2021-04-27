@@ -9,7 +9,7 @@ from phone.models import Phone
 from phone.serializers import PhoneSerializer
 
 from dwelling.models import DwellingOwner, DwellingResident
-from dwelling.send import publish_user_created
+from dwelling.send import EmailType, publish_user_created, send_user_creation_email
 
 
 class PersonTag(Enum):
@@ -58,6 +58,12 @@ def create_user(tag: PersonTag, validated_data, manager):
         first_iteration = False
     # Important: create Person after create User
     Person.objects.create(manager=manager, user=user)
+    if PersonTag.OWNER == tag.value :
+        email_type = EmailType.OWNER_EMAIL
+    else:
+        email_type = EmailType.RESIDENT_EMAIL
+    # send email to user created
+    send_user_creation_email(user, email_type)
     # publish that user was created
     publish_user_created(tag, manager, user)
     return user
