@@ -1,0 +1,69 @@
+# docker image, we need a image with chrome installed so we can run unit tests in a virtualized environment such as docker containers
+image: "registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe/develop"
+
+#the majority of our builds require npm dependencies
+before_script:
+  - npm install
+
+# thre stages, build -> unit tests and compilation, release -> docker image creation, deploy-> start created image on a remote server
+stages:
+  - build
+  - release
+  - deploy
+
+build:
+  stage: build #due to this common stage we have paralel builds to gain some speed
+  script:
+    - npm run-script build # makes sure we can still build our code
+  artifacts: #take the output of the compilation and transfer it to gain speed and create a docker image out of it
+    paths:
+      - dist/
+tests:
+  stage: build #due to this common stage we have paralel builds to gain some speed
+  script:
+    - npm test #runs unit tests
+
+image-creation:
+  image: docker:git # image with docker installed to execute docker commands
+  stage: release # notice a new stage
+  services:
+    - docker:dind #used to be able to execute docker commands inside of a docker container
+  before_script:
+    - docker ps #overrides previous docker script
+  script:
+    # Non interactive ssh gracefully reloads server
+    - docker login -u $CI_REGISTRY_USER -p $DOCKER_CI_TOKEN registry.gitlab.com #logs into gitlab docker registery, make sure to have this variables defined
+    - docker build -t $IMAGE_NAME . # creates a docker image
+    - docker push $IMAGE_NAME:latest # pushes the create docker image to docker registry
+  dependencies:
+    - build #dependent on build to get the dist directory
+
+
+deploy:
+  image: ubuntu
+  before_script: #checks if ssh installed and if not, attempts to install it
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
+    - eval $(ssh-agent -s)
+    # Inject the remote's private key
+    - echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null #adding a ssh private key from variables, pair of the one registered on digital ocean
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    # Append keyscan output into known hosts
+    - ssh-keyscan $SERVER_IP_ADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  stage: deploy #new stage after release
+  script:
+    # Non interactive ssh gracefully reloads server
+    - ssh $SERVER_USER@$SERVER_IP_ADDRESS  ls
+    - ssh $SERVER_USER@$SERVER_IP_ADDRESS "docker login -u ${CI_REGISTRY_USER} -p ${DOCKER_CI_TOKEN} registry.gitlab.com;
+     docker stop angular-ci;
+     docker rm angular-ci; 
+     docker rmi "$(docker images -aq)"
+     docker pull ${IMAGE_NAME};
+     docker run --name angular-ci -d -p 80:80 ${IMAGE_NAME}"
+
+  only:
+    # Trigger deployments only from master branch
+    - master
+  dependencies:
+   - image-creation #dependency on creating a docker image with latest changes
