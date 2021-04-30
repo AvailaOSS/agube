@@ -5,6 +5,10 @@
       "auth-rest-api-lib": [
         "dist/auth-rest-api-lib/auth-rest-api-lib",
         "dist/auth-rest-api-lib"
+      ],
+      "task-rest-api-lib": [
+        "dist/task-rest-api-lib/task-rest-api-lib",
+        "dist/task-rest-api-lib"
       ]
     },
     "baseUrl": "./",

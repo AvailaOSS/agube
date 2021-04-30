@@ -4,6 +4,8 @@
 export const environment = {
   apiUrl: 'http://localhost:4200',
   // docker-compose.yml contains port config
+
+  taskBackendUrl: 'http://localhost:8004/api/v1/task',
   agubeBackendUrl: 'http://localhost:8003/api/v1/agube',
   authBackendUrl: 'http://localhost:8000/api/v1/auth',
   contactBookBackendUrl: 'http://localhost:8001/api/v1/contact-book',

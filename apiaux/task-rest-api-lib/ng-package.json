@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/task-rest-api-lib",
+  "lib": {
+    "entryFile": "src/apiaux.ts"
+  }
+}
