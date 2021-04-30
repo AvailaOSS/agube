@@ -27,16 +27,25 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AuthApiModule } from '../../apiaux/auth-rest-api-lib/src/lib/auth.api.module';
+
 import { ReadingCountModule } from './reading-count/reading-count.module';
 import { IncidentModule } from './incident/incident.module';
 import { EmailModule } from './email/email.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { TaskApiModule } from '../../apiaux/task-rest-api-lib/src/lib/task.api.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AgubeApiModule,
+    AuthApiModule,
+    SubscriptionApiModule,
+    ContactBookApiModule,
+    TaskApiModule,
+
+
     LoginModule,
     ChangePasswordModule,
     ToolbarModule,
@@ -47,10 +56,8 @@ import { ScheduleModule } from './schedule/schedule.module';
     ContactBookModule,
     BrowserAnimationsModule,
     ControlPanelModule,
-    SubscriptionApiModule,
-    ContactBookApiModule,
-    AgubeApiModule,
-    AuthApiModule,
+
+
     DWellingModule,
     ContactPanelModule,
     AdDWellingModule,

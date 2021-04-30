@@ -100,7 +100,7 @@ services:
     ports:
       - 8004:8000
     volumes:
-      - .:/availa-agube
+      - .:/availa
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
