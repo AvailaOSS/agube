@@ -11,6 +11,9 @@ RUN mkdir /availa-agube
 WORKDIR /availa-agube
 
 # Copying requirements
-COPY . .
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
+
+# Copying requirements
+COPY . .
