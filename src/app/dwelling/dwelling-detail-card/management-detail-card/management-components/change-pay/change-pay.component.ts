@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 import { isUndefined } from 'lodash';
-import { AccountService } from '../../../../login/service/account.service';
+import { AccountService } from '../../../../../login/service/account.service';
 
 @Component({
   selector: 'app-change-pay',

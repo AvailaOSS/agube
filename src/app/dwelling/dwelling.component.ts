@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DwellingDetail } from '../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
+import { DwellingDetail } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
   selector: 'app-dwelling',

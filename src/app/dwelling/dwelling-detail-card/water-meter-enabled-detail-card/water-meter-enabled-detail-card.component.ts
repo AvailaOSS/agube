@@ -8,14 +8,14 @@ import {
 } from '@angular/core';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
-import { WaterMeterDetailCard } from './water-meter-detail-card';
+import { WaterMeterDetailCard } from './water-meter-enabled-detail-card';
 
 @Component({
-  selector: 'app-water-meter-detail-card',
-  templateUrl: './water-meter-detail-card.component.html',
-  styleUrls: ['./water-meter-detail-card.component.scss'],
+  selector: 'app-water-meter-enabled-detail-card',
+  templateUrl: './water-meter-enabled-detail-card.component.html',
+  styleUrls: ['./water-meter-enabled-detail-card.component.scss'],
 })
-export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
+export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
   public currentWaterMeter: WaterMeterDetailCard;
   @Input() public DWelling: any;
   @Output()
@@ -34,6 +34,7 @@ export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
         this.sendWaterMeter.emit(this.currentWaterMeter);
       });
   }
+
   public ngOnInit(): void {
     this.currentWaterMeter = {
       code: '',

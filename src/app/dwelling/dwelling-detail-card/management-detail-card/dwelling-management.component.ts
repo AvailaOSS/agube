@@ -6,11 +6,11 @@ import {
 } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-dwelling-management',
-  templateUrl: './dwelling-management.component.html',
-  styleUrls: ['./dwelling-management.component.scss'],
+  selector: 'app-dwelling-management-detail-card',
+  templateUrl: './dwelling-management-detail-card.component.html',
+  styleUrls: ['./dwelling-management-detail-card.component.scss'],
 })
-export class DWellingManagementComponent implements OnInit, OnChanges {
+export class DwellingManagementDetailCardComponent implements OnInit, OnChanges {
   @Input() dwelling: DwellingDetail;
   @Input() waterMeter: string;
   public userId: string;

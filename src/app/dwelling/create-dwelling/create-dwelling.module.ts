@@ -16,7 +16,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UtilsModule } from '../dwelling-detail-card/management-components/dwellingUtils/utils.module';
+import { UtilsModule } from '../dwelling-detail-card/management-detail-card/management-components/dwellingUtils/utils.module';
 
 @NgModule({
   declarations: [CreateDwellingComponent],

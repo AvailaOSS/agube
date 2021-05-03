@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DWellingWaterMeterReadings } from './dwelling-water-meter-readings';
 
 @Component({
-  selector: 'app-dwelling-water-meter-readings',
-  templateUrl: './dwelling-water-meter-readings.component.html',
-  styleUrls: ['./dwelling-water-meter-readings.component.scss'],
+  selector: 'app-dwelling-water-meter-readings-detail-card',
+  templateUrl: './dwelling-water-meter-readings-detail-card.component.html',
+  styleUrls: ['./dwelling-water-meter-readings-detail-card.component.scss'],
 })
 export class DWellingWaterMeterReadingsComponent implements OnInit {
   public displayedColumns: string[] = ['reading', 'date'];

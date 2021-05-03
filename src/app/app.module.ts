@@ -18,7 +18,7 @@ import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
-import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dwellingUtils/utils.module';
+import { UtilsModule } from './dwelling/dwelling-detail-card/management-detail-card/management-components/dwellingUtils/utils.module';
 import { DwellingModule } from './dwelling/dwelling.module';
 import { EmailModule } from './email/email.module';
 import { IncidentModule } from './incident/incident.module';
