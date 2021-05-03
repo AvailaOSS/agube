@@ -2,7 +2,7 @@ import { ExampleComponent } from './components/example/example.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { GenericFormsComponent } from './subscription/generic-forms/generic-forms.component';
+import { CreateAccountFormComponent } from './subscription/create-account-form/create-account-form.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
@@ -47,7 +47,7 @@ const routes: Routes = [
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },
   { path: 'config', component: ConfigurationComponent },
-  { path: 'forms', component: GenericFormsComponent },
+  { path: 'create-account', component: CreateAccountFormComponent },
   { path: 'lecturas', component: ReadingCountComponent },
   { path: 'incident', component: IncidentComponent },
   { path: 'schedule', component: ScheduleComponent },

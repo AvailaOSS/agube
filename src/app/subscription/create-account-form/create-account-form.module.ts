@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { GenericFormsComponent } from './generic-forms.component';
+import { CreateAccountFormComponent } from './create-account-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,8 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatGridListModule } from '@angular/material/grid-list';
+
 @NgModule({
-  declarations: [GenericFormsComponent],
+  declarations: [CreateAccountFormComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -21,12 +22,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatNativeDateModule,
     MatInputModule,
     MatSelectModule,
-
     MatIconModule,
-
     MatRadioModule,
     MatGridListModule,
   ],
-  exports: [GenericFormsComponent],
+  exports: [CreateAccountFormComponent],
 })
-export class GenericFormsModule {}
+export class CreateAccountFormModule {}

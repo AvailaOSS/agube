@@ -3,16 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
-import { SubscriptionService } from 'apiaux/subscription-rest-api-lib/src/public-api';
-import { first } from 'rxjs/operators';
-import { PaymentType } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/paymentType';
+import {
+  PaymentType,
+  SubscriptionService,
+} from 'apiaux/subscription-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-generic-forms',
-  templateUrl: './generic-forms.component.html',
-  styleUrls: ['./generic-forms.component.scss'],
+  selector: 'app-create-account-form',
+  templateUrl: './create-account-form.component.html',
+  styleUrls: ['./create-account-form.component.scss'],
 })
-export class GenericFormsComponent implements OnInit {
+export class CreateAccountFormComponent implements OnInit {
   public registerForm: FormGroup;
   public formIdentification: number;
   public payType: string;
@@ -21,6 +22,7 @@ export class GenericFormsComponent implements OnInit {
   public selectedList = false;
   public error = false;
   public errorMessage: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -71,7 +73,6 @@ export class GenericFormsComponent implements OnInit {
     });
   }
   public onSubmit(): void {
-    console.log(this.registerForm.value);
 
     this.subscriptionclientService
       .createDwellingWithResident({
