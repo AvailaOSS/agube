@@ -19,7 +19,7 @@ import { AdDWellingComponent } from './dwelling/dwelling-detail-card/management-
 
 import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
 import { AddReservoirComponent } from './deposit-panel/deposit-panel-utils/add-reservoir/addReservoir/addReservoir.component';
-import { ChangePasswordComponent } from './login/change-password/change-password.component';
+import { EnableAccountComponent } from './login/enable-account/enable-account.component';
 import { ChangeReservoirComponent } from './deposit-panel/deposit-panel-utils/change-reservoir/change-reservoir.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ReadingCountComponent } from './reading-count/reading-count.component';
@@ -54,7 +54,7 @@ const routes: Routes = [
   { path: 'email', component: EmailComponent},
   { path: 'wip', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
-  { path: 'enable-account/:id', component: ChangePasswordComponent },
+  { path: 'enable-account/:id', component: EnableAccountComponent },
 ];
 
 @NgModule({

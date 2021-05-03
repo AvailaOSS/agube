@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../../apiaux/auth-rest-api-lib/src/lib/service/user.service';
+import { UserService } from 'apiaux/auth-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss'],
+  selector: 'app-enable-account',
+  templateUrl: './enable-account.component.html',
+  styleUrls: ['./enable-account.component.scss'],
 })
-export class ChangePasswordComponent implements OnInit {
+export class EnableAccountComponent implements OnInit {
   public loginForm: FormGroup;
   public userId: string;
   public error = false;
   public errorMessage: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private svcClientService: UserService,

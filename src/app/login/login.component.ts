@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { AccountService } from './service/account.service';
 
 @Component({
@@ -14,11 +12,10 @@ export class LoginComponent implements OnInit {
   public loading = false;
   public submitted = false;
   public returnUrl: string;
+
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private accountService: AccountService,
-    private router: Router
   ) {}
 
   public ngOnInit(): void {
