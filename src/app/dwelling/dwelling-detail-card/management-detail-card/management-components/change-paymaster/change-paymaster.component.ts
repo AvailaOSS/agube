@@ -2,15 +2,13 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
-import { isUndefined } from 'lodash';
-import { AccountService } from '../../../../../login/service/account.service';
 
 @Component({
-  selector: 'app-change-pay',
-  templateUrl: './change-pay.component.html',
-  styleUrls: ['./change-pay.component.scss'],
+  selector: 'app-change-paymaster',
+  templateUrl: './change-paymaster.component.html',
+  styleUrls: ['./change-paymaster.component.scss'],
 })
-export class ChangePayComponent implements OnInit {
+export class ChangePaymasterComponent implements OnInit {
   public registerForm: FormGroup;
   public username: string;
   public changePayId: string;

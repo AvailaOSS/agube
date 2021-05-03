@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangePayComponent } from './change-pay.component';
-import { UtilsModule } from '../dwellingUtils/utils.module';
+import { ChangePaymasterComponent } from './change-paymaster.component';
+import { DwellingUtilsModule } from '../dwelling-utils/dwelling-utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,10 +19,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [ChangePayComponent],
+  declarations: [ChangePaymasterComponent],
   imports: [
     CommonModule,
-    UtilsModule,
+    DwellingUtilsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
@@ -41,4 +41,4 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatGridListModule,
   ],
 })
-export class ChangePayModule {}
+export class ChangePaymasterModule {}

@@ -5,11 +5,11 @@ import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-utils',
-  templateUrl: './utils.component.html',
-  styleUrls: ['./utils.component.scss'],
+  selector: 'app-dwelling-utils',
+  templateUrl: './dwelling-utils.component.html',
+  styleUrls: ['./dwelling-utils.component.scss'],
 })
-export class UtilsComponent implements OnInit {
+export class DwellingUtilsComponent implements OnInit {
   @Input() titleCard: string;
   @Input() formDataConfiguration: BehaviorSubject<any> = new BehaviorSubject(5);
   @Input() isHiddenResident = false;

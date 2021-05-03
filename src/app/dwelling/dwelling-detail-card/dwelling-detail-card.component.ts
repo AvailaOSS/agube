@@ -5,9 +5,8 @@ import { WaterMeterDetailCard } from 'src/app/contact-panel/contact-panel-detail
 @Component({
   selector: 'app-dwelling-detail-card',
   templateUrl: './dwelling-detail-card.component.html',
-  styleUrls: ['./dwelling-detail-card.component.scss'],
 })
-export class DWellingDetailCardComponent implements OnInit {
+export class DwellingDetailCardComponent implements OnInit {
   @Input() dwelling: DwellingDetail | undefined;
   public sendWaterMeterCode: WaterMeterDetailCard;
   constructor() {}

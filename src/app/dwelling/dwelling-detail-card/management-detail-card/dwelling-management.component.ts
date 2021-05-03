@@ -8,9 +8,9 @@ import {
 @Component({
   selector: 'app-dwelling-management-detail-card',
   templateUrl: './dwelling-management-detail-card.component.html',
-  styleUrls: ['./dwelling-management-detail-card.component.scss'],
 })
-export class DwellingManagementDetailCardComponent implements OnInit, OnChanges {
+export class DwellingManagementDetailCardComponent
+  implements OnInit, OnChanges {
   @Input() dwelling: DwellingDetail;
   @Input() waterMeter: string;
   public userId: string;
@@ -25,32 +25,27 @@ export class DwellingManagementDetailCardComponent implements OnInit, OnChanges 
   }
 
   ngOnInit(): void {}
-  public ngOnChanges(): void {
-    console.log(this.dwelling);
-    console.log(this.waterMeter);
-  }
 
-  public seeAllBills(): void {
-    this.svcRouter.navigate(['vivienda/facturas']);
-  }
-  public seeBills(): void {
-    this.svcRouter.navigate(['/vivienda/facturas']);
-  }
+  public ngOnChanges(): void {}
+
   public changeCount(): void {
     this.svcRouter.navigate(['/vivienda/cambio/contador'], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
+
   public changeResident(): void {
     this.svcRouter.navigate(['/vivienda/residente'], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
+
   public changeOwner(): void {
     this.svcRouter.navigate(['/vivienda/propietario'], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
+
   public changePay(): void {
     this.svcRouter.navigate(['/vivienda/cambio/pagador'], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },

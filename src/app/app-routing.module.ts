@@ -10,13 +10,11 @@ import { DWellingComponent } from './dwelling/dwelling.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { ContactPanelComponent } from './contact-panel/contact-panel.component';
 import { DepositPanelComponent } from './deposit-panel/deposit-panel.component';
-import { AllBillsComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/all-bills/all-bills.component';
-import { ChangePayComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-pay/change-pay.component';
-import { ChangeCountComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-count/change-count.component';
+import { ChangePaymasterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.component';
+import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.component';
 import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.component';
 import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.component';
 import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
-
 import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
 import { AddReservoirComponent } from './deposit-panel/deposit-panel-utils/add-reservoir/addReservoir/addReservoir.component';
 import { EnableAccountComponent } from './login/enable-account/enable-account.component';
@@ -33,10 +31,9 @@ const routes: Routes = [
   { path: 'control-panel', component: ControlPanelComponent },
   { path: 'viviendas', component: DWellingComponent },
   { path: 'viviendas/alta/vivienda', component: CreateDwellingComponent },
-  { path: 'vivienda/facturas', component: AllBillsComponent },
-  { path: 'vivienda/pagador', component: ChangePayComponent },
-  { path: 'vivienda/cambio/pagador', component: ChangePayComponent },
-  { path: 'vivienda/cambio/contador', component: ChangeCountComponent },
+  { path: 'vivienda/pagador', component: ChangePaymasterComponent },
+  { path: 'vivienda/cambio/pagador', component: ChangePaymasterComponent },
+  { path: 'vivienda/cambio/contador', component: ChangeWaterMeterComponent },
   { path: 'vivienda/residente', component: ChangeResidentComponent },
   { path: 'vivienda/propietario', component: ChangeOwnerComponent },
   { path: 'contactos', component: ContactPanelComponent },

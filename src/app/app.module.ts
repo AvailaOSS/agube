@@ -18,7 +18,7 @@ import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
-import { UtilsModule } from './dwelling/dwelling-detail-card/management-detail-card/management-components/dwellingUtils/utils.module';
+import { DwellingUtilsModule } from './dwelling/dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
 import { DwellingModule } from './dwelling/dwelling.module';
 import { EmailModule } from './email/email.module';
 import { IncidentModule } from './incident/incident.module';
@@ -54,7 +54,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     DwellingModule,
     ContactPanelModule,
     DepositPanelModule,
-    UtilsModule,
+    DwellingUtilsModule,
     ReservoirUtilsModule,
     ComponentsModule,
     ReadingCountModule,

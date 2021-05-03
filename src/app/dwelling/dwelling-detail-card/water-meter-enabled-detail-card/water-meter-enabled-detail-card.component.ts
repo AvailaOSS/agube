@@ -13,7 +13,6 @@ import { WaterMeterDetailCard } from './water-meter-enabled-detail-card';
 @Component({
   selector: 'app-water-meter-enabled-detail-card',
   templateUrl: './water-meter-enabled-detail-card.component.html',
-  styleUrls: ['./water-meter-enabled-detail-card.component.scss'],
 })
 export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
   public currentWaterMeter: WaterMeterDetailCard;

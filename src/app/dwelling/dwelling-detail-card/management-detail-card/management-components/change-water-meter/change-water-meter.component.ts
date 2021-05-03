@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-change-count',
-  templateUrl: './change-count.component.html',
-  styleUrls: ['./change-count.component.scss'],
+  selector: 'app-change-water-meter',
+  templateUrl: './change-water-meter.component.html',
+  styleUrls: ['./change-water-meter.component.scss'],
 })
-export class ChangeCountComponent implements OnInit {
+export class ChangeWaterMeterComponent implements OnInit {
   public waterMeterId: string;
   public error = true;
   public errorMessage: string;
