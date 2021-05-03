@@ -7,7 +7,7 @@ import { DwellingDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/mo
   styleUrls: ['./dwelling-detail-card.component.scss'],
 })
 export class DWellingDetailCardComponent implements OnInit {
-  @Input() DWelling: DwellingDetail | undefined;
+  @Input() dwelling: DwellingDetail | undefined;
   public sendWaterMeterCode: WaterMeterDetailCard;
   constructor() {}
 

@@ -1,13 +1,9 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DwellingDetail } from '../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
-import { ManagerService } from '../../../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
+import {
+  DwellingDetail,
+  ManagerService,
+} from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
   selector: 'app-dwelling-management',
@@ -15,9 +11,10 @@ import { ManagerService } from '../../../../../apiaux/agube-rest-api-lib/src/lib
   styleUrls: ['./dwelling-management.component.scss'],
 })
 export class DWellingManagementComponent implements OnInit, OnChanges {
-  @Input() DWelling: DwellingDetail;
+  @Input() dwelling: DwellingDetail;
   @Input() waterMeter: string;
   public userId: string;
+
   constructor(
     private readonly svcRouter: Router,
     private readonly svcManager: ManagerService
@@ -29,7 +26,7 @@ export class DWellingManagementComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   public ngOnChanges(): void {
-    console.log(this.DWelling);
+    console.log(this.dwelling);
     console.log(this.waterMeter);
   }
 
@@ -41,22 +38,22 @@ export class DWellingManagementComponent implements OnInit, OnChanges {
   }
   public changeCount(): void {
     this.svcRouter.navigate(['/vivienda/cambio/contador'], {
-      queryParams: { data: this.DWelling.id, user_id: this.userId },
+      queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
   public changeResident(): void {
     this.svcRouter.navigate(['/vivienda/residente'], {
-      queryParams: { data: this.DWelling.id, user_id: this.userId },
+      queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
   public changeOwner(): void {
     this.svcRouter.navigate(['/vivienda/propietario'], {
-      queryParams: { data: this.DWelling.id, user_id: this.userId },
+      queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
   public changePay(): void {
     this.svcRouter.navigate(['/vivienda/cambio/pagador'], {
-      queryParams: { data: this.DWelling.id, user_id: this.userId },
+      queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
 }

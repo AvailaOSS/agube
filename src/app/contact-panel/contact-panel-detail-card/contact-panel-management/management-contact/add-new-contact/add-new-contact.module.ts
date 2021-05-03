@@ -1,16 +1,10 @@
-import { UtilsModule } from '../../../../../dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddNewContactComponent } from './add-new-contact.component';
-
-
+import { UtilsModule } from 'src/app/dwelling/dwelling-detail-card/management-components/dwellingUtils/utils.module';
 
 @NgModule({
   declarations: [AddNewContactComponent],
-  imports: [
-    CommonModule,
-    UtilsModule
-  ]
+  imports: [CommonModule, UtilsModule],
 })
-export class AddNewContactModule { }
+export class AddNewContactModule {}

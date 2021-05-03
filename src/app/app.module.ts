@@ -18,9 +18,9 @@ import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
 import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
-import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
-import { DWellingModule } from './dwelling/dwelling.module';
+import { AddDwellingModule } from './dwelling/dwelling-detail-card/management-components/add-dwelling/add-dwelling.module';
+import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dwellingUtils/utils.module';
+import { DwellingModule } from './dwelling/dwelling.module';
 import { EmailModule } from './email/email.module';
 import { IncidentModule } from './incident/incident.module';
 import { EnableAccountModule } from './login/enable-account/enable-account.module';
@@ -52,9 +52,9 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     ContactBookModule,
     BrowserAnimationsModule,
     ControlPanelModule,
-    DWellingModule,
+    DwellingModule,
     ContactPanelModule,
-    AdDWellingModule,
+    AddDwellingModule,
     DepositPanelModule,
     UtilsModule,
     ReservoirUtilsModule,

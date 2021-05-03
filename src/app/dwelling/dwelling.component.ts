@@ -8,20 +8,20 @@ import { DwellingDetail } from '../../../apiaux/agube-rest-api-lib/src/lib/model
   styleUrls: ['./dwelling.component.scss'],
 })
 export class DWellingComponent implements OnInit {
-  public DWelling: DwellingDetail;
+  public dwelling: DwellingDetail;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {}
 
-  public selectItem(DWelling: DwellingDetail): void {
-    this.DWelling = DWelling;
+  public selectItem(dwelling: DwellingDetail): void {
+    this.dwelling = dwelling;
   }
 
   public goToControlPanel(): void {
     this.router.navigate(['/control-panel']);
   }
-  public addNewWelling(): void {
+  public addNewDwelling(): void {
     this.router.navigate(['/viviendas/alta/vivienda']);
   }
 }

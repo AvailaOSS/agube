@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-add-welling',
-  templateUrl: './add-welling.component.html',
-  styleUrls: ['./add-welling.component.scss'],
+  selector: 'app-add-dwelling',
+  templateUrl: './add-dwelling.component.html',
+  styleUrls: ['./add-dwelling.component.scss'],
 })
-export class AdDWellingComponent implements OnInit {
+export class AddDwellingComponent implements OnInit {
   public addNewWelling: FormGroup;
   public error = true;
   public username: string;
   public errorMessage: string;
+
   constructor(
     private router: Router,
     private readonly svcCreateNewDWelling: DwellingService
   ) {}
 
   public ngOnInit(): void {}
+
   public sendForm(event: any): void {
     if (event.resident === false || event.resident === null) {
       if (event.pagador === true) {
@@ -26,6 +28,7 @@ export class AdDWellingComponent implements OnInit {
       } else {
         this.username = event.usernameRes;
       }
+
       this.svcCreateNewDWelling
         .createDwellingWithResident({
           full_address: {

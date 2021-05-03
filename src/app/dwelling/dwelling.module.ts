@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DWellingComponent } from './dwelling.component';
+import { DWellingComponent as DwellingComponent } from './dwelling.component';
 import { MatTableModule } from '@angular/material/table';
 import { ControlPanelModule } from '../control-panel/control-panel.module';
 import { MatCardModule } from '@angular/material/card';
@@ -13,8 +13,8 @@ import { DWellingDetailCardComponent } from './dwelling-detail-card/dwelling-det
 import { DWellingManagementComponent } from './dwelling-detail-card/dwelling-management/dwelling-management.component';
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/dwelling-water-meter-readings/dwelling-water-meter-readings.component';
 import { WaterMeterDetailCardComponent } from './dwelling-detail-card/dwelling-management/water-meter-detail-card/water-meter-detail-card.component';
-import { AdDWellingModule } from './dwelling-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './dwelling-detail-card/management-components/dWellingUtils/utils.module';
+import { AddDwellingModule } from './dwelling-detail-card/management-components/add-dwelling/add-dwelling.module';
+import { UtilsModule } from './dwelling-detail-card/management-components/dwellingUtils/utils.module';
 import { ChangePayModule } from './dwelling-detail-card/management-components/change-pay/change-pay.module';
 import { ChangeCountModule } from './dwelling-detail-card/management-components/change-count/change-count.module';
 import { ChangeOwnerModule } from './dwelling-detail-card/management-components/change-owner/change-owner.module';
@@ -22,7 +22,7 @@ import { ChangeResidentModule } from './dwelling-detail-card/management-componen
 
 @NgModule({
   declarations: [
-    DWellingComponent,
+    DwellingComponent,
     DWellingDetailListComponent,
     DWellingDetailCardComponent,
     DWellingManagementComponent,
@@ -39,13 +39,13 @@ import { ChangeResidentModule } from './dwelling-detail-card/management-componen
     MatListModule,
     ControlPanelModule,
     MatCardModule,
-    AdDWellingModule,
+    AddDwellingModule,
     ChangePayModule,
     ChangeOwnerModule,
     ChangeCountModule,
     ChangeResidentModule,
     UtilsModule,
   ],
-  exports: [DWellingComponent],
+  exports: [DwellingComponent],
 })
-export class DWellingModule {}
+export class DwellingModule {}
