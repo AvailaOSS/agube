@@ -6,15 +6,15 @@ import {
 } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  // tslint:disable-next-line: component-selector
   selector: '',
-  templateUrl: './addReservoir.component.html',
-  styleUrls: ['./addReservoir.component.scss'],
+  templateUrl: './create-reservoir.component.html',
+  styleUrls: ['./create-reservoir.component.scss'],
 })
-export class AddReservoirComponent implements OnInit {
+export class CreateReservoirComponent implements OnInit {
   public error = true;
   public username: string;
   public userId: string;
+
   constructor(
     private router: Router,
     private readonly svcCreateNewReservoir: ReservoirService,
@@ -26,6 +26,7 @@ export class AddReservoirComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
+
   public sendForm(event: any): void {
     this.svcCreateNewReservoir
       .createReservoir({

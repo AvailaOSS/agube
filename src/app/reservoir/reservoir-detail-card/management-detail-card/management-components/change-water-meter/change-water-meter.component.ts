@@ -1,20 +1,20 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReservoirService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-change-reservoir',
-  templateUrl: './change-reservoir.component.html',
-  styleUrls: ['./change-reservoir.component.scss'],
+  selector: 'app-change-water-meter',
+  templateUrl: './change-water-meter.component.html',
+  styleUrls: ['./change-water-meter.component.scss'],
 })
-export class ChangeReservoirComponent implements OnInit {
+export class ChangeWaterMeterComponent implements OnInit {
   public userId: string;
   public idWaterMeter: number;
   public genericArray: any;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
   public error = true;
   public errorMessage: any;
+
   constructor(
     private readonly svcReservoirService: ReservoirService,
     private readonly svcRouter: Router,
@@ -43,6 +43,7 @@ export class ChangeReservoirComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
+
   public sendForm(event: any): void {
     this.svcReservoirService
       .changeCurrentReservoirWaterMeter(this.idWaterMeter, {

@@ -1,16 +1,12 @@
 <div class="contenedor">
   <app-reservoir-utils
-    [titleCard]="'Cambio Deposito'"
+    [titleCard]="'Alta Deposito'"
     [isHiddenAddress]="false"
     [isHiddenCount]="false"
     [isHiddenCapacity]="false"
     [isHiddenInletFlow]="false"
     [isHiddenOutletFlow]="false"
-    [error]="error"
-    [errorMessage]="errorMessage"
-    [formDataConfiguration]="formConfigurationData"
+    [error]="true"
     (sendForm)="sendForm($event)"
   ></app-reservoir-utils>
-
 </div>
-

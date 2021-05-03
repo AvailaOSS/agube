@@ -1,14 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DepositPanel } from '../deposit-panel.component';
-import { ReservoirService } from '../../../../apiaux/agube-rest-api-lib/src/lib/service/reservoir.service';
-import { ReservoirDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/model/reservoirDetail';
+import {
+  ReservoirDetail,
+  ReservoirService,
+} from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-deposit-panel-detail-list',
-  templateUrl: './deposit-panel-detail-list.component.html',
-  styleUrls: ['./deposit-panel-detail-list.component.scss'],
+  selector: 'app-reservoir-detail-list',
+  templateUrl: './reservoir-detail-list.component.html',
+  styleUrls: ['./reservoir-detail-list.component.scss'],
 })
-export class DepositPanelDetailListComponent implements OnInit {
+export class ReservoirDetailListComponent implements OnInit {
   @Output() selected = new EventEmitter<any>();
   public address: string;
   public selectedRowIndex = '';

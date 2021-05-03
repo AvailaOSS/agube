@@ -1,29 +1,28 @@
-import { ExampleComponent } from './components/example/example.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { ExampleComponent } from './components/example/example.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { ContactBookComponent } from './contact-book/contact-book.component';
+import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
+import { ContactPanelComponent } from './contact-panel/contact-panel.component';
+import { ControlPanelComponent } from './control-panel/control-panel.component';
+import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
+import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.component';
+import { ChangePaymasterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.component';
+import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.component';
+import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.component';
+import { DWellingComponent } from './dwelling/dwelling.component';
+import { EmailComponent } from './email/email.component';
+import { IncidentComponent } from './incident/incident.component';
+import { EnableAccountComponent } from './login/enable-account/enable-account.component';
 import { LoginComponent } from './login/login.component';
+import { ReadingCountComponent } from './reading-count/reading-count.component';
+import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
+import { ReservoirComponent } from './reservoir/reservoir.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { CreateAccountFormComponent } from './subscription/create-account-form/create-account-form.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
-import { ContactBookComponent } from './contact-book/contact-book.component';
-import { ControlPanelComponent } from './control-panel/control-panel.component';
-import { DWellingComponent } from './dwelling/dwelling.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
-import { ContactPanelComponent } from './contact-panel/contact-panel.component';
-import { DepositPanelComponent } from './deposit-panel/deposit-panel.component';
-import { ChangePaymasterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.component';
-import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.component';
-import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.component';
-import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.component';
-import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
-import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
-import { AddReservoirComponent } from './deposit-panel/deposit-panel-utils/add-reservoir/addReservoir/addReservoir.component';
-import { EnableAccountComponent } from './login/enable-account/enable-account.component';
-import { ChangeReservoirComponent } from './deposit-panel/deposit-panel-utils/change-reservoir/change-reservoir.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { ReadingCountComponent } from './reading-count/reading-count.component';
-import { IncidentComponent } from './incident/incident.component';
-import { ScheduleComponent } from './schedule/schedule.component';
-import { EmailComponent } from './email/email.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -38,9 +37,9 @@ const routes: Routes = [
   { path: 'vivienda/propietario', component: ChangeOwnerComponent },
   { path: 'contactos', component: ContactPanelComponent },
   { path: 'contactos/alta/contacto', component: AddNewContactComponent },
-  { path: 'depositos', component: DepositPanelComponent },
-  { path: 'deposit/changeReservoir', component: ChangeReservoirComponent },
-  { path: 'depositos/alta/deposito', component: AddReservoirComponent },
+  { path: 'depositos', component: ReservoirComponent },
+  { path: 'deposit/changeReservoir', component: ChangeWaterMeterComponent },
+  { path: 'depositos/alta/deposito', component: CreateReservoirComponent },
   { path: 'subscription', component: SubscriptionComponent },
   { path: 'contact-book', component: ContactBookComponent },
   { path: 'config', component: ConfigurationComponent },
@@ -48,7 +47,7 @@ const routes: Routes = [
   { path: 'lecturas', component: ReadingCountComponent },
   { path: 'incident', component: IncidentComponent },
   { path: 'schedule', component: ScheduleComponent },
-  { path: 'email', component: EmailComponent},
+  { path: 'email', component: EmailComponent },
   { path: 'wip', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
   { path: 'enable-account/:id', component: EnableAccountComponent },

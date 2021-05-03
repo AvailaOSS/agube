@@ -16,8 +16,6 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
-import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
-import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
 import { DwellingUtilsModule } from './dwelling/dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
 import { DwellingModule } from './dwelling/dwelling.module';
 import { EmailModule } from './email/email.module';
@@ -26,6 +24,8 @@ import { EnableAccountModule } from './login/enable-account/enable-account.modul
 import { ErrorInterceptor, JwtInterceptor } from './login/helpers';
 import { LoginModule } from './login/login.module';
 import { ReadingCountModule } from './reading-count/reading-count.module';
+import { ReservoirUtilsModule } from './reservoir/reservoir-detail-card/management-detail-card/management-components/reservoir-utils/reservoir-utils.module';
+import { ReservoirModule } from './reservoir/reservoir.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
@@ -53,7 +53,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     ControlPanelModule,
     DwellingModule,
     ContactPanelModule,
-    DepositPanelModule,
+    ReservoirModule,
     DwellingUtilsModule,
     ReservoirUtilsModule,
     ComponentsModule,

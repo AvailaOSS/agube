@@ -1,12 +1,12 @@
-<div class="card w-100 m-2" *ngIf="DepositPanel != undefined">
+<div class="card w-100 m-2" *ngIf="reservoir != undefined">
   <div class="col-12 row">
     <div class="card bg-light m-3" style="max-width: 18rem; width: 16rem">
       <div class="card-header"><strong>Dirección</strong></div>
       <div class="card-body">
         <p class="card-text">
-          {{ DepositPanel.flat }} {{ DepositPanel.gate }} -
-          {{ DepositPanel.street }} -{{ DepositPanel.number }} -
-          {{ DepositPanel.town }}
+          {{ reservoir.flat }} {{ reservoir.gate }} -
+          {{ reservoir.street }} -{{ reservoir.number }} -
+          {{ reservoir.town }}
         </p>
       </div>
     </div>
@@ -16,7 +16,7 @@
   <div class="col-12 row">
     <div class="">
       <app-deposit-management
-        [reservoir]="DepositPanel"
+        [reservoir]="reservoir"
         [waterMeter]="sendWaterMeterCode"
       ></app-deposit-management>
     </div>
