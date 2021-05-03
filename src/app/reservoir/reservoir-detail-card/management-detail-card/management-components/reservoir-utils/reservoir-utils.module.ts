@@ -7,6 +7,7 @@ import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
 import { ReservoirUtilsComponent } from './reservoir-utils.component';
 
 @NgModule({
+  declarations: [ReservoirUtilsComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -15,7 +16,6 @@ import { ReservoirUtilsComponent } from './reservoir-utils.component';
     BrowserModule,
     ToolbarModule,
   ],
-  declarations: [ReservoirUtilsComponent],
   exports: [ReservoirUtilsComponent],
 })
 export class ReservoirUtilsModule {}

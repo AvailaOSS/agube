@@ -6,7 +6,7 @@ import {
 } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: '',
+  selector: 'app-create-reservoir',
   templateUrl: './create-reservoir.component.html',
   styleUrls: ['./create-reservoir.component.scss'],
 })
