@@ -13,7 +13,7 @@ import { DWellingDetailCardComponent } from './dwelling-detail-card/dwelling-det
 import { DWellingManagementComponent } from './dwelling-detail-card/dwelling-management/dwelling-management.component';
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/dwelling-water-meter-readings/dwelling-water-meter-readings.component';
 import { WaterMeterDetailCardComponent } from './dwelling-detail-card/dwelling-management/water-meter-detail-card/water-meter-detail-card.component';
-import { AddDwellingModule } from './dwelling-detail-card/management-components/add-dwelling/add-dwelling.module';
+import { CreateDwellingModule } from './create-dwelling/create-dwelling.module';
 import { UtilsModule } from './dwelling-detail-card/management-components/dwellingUtils/utils.module';
 import { ChangePayModule } from './dwelling-detail-card/management-components/change-pay/change-pay.module';
 import { ChangeCountModule } from './dwelling-detail-card/management-components/change-count/change-count.module';
@@ -39,7 +39,7 @@ import { ChangeResidentModule } from './dwelling-detail-card/management-componen
     MatListModule,
     ControlPanelModule,
     MatCardModule,
-    AddDwellingModule,
+    CreateDwellingModule,
     ChangePayModule,
     ChangeOwnerModule,
     ChangeCountModule,

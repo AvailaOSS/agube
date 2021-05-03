@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddDwellingComponent } from './add-dwelling.component';
+import { CreateDwellingComponent } from './create-dwelling.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,10 +16,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UtilsModule } from '../dwellingUtils/utils.module';
+import { UtilsModule } from '../dwelling-detail-card/management-components/dwellingUtils/utils.module';
 
 @NgModule({
-  declarations: [AddDwellingComponent],
+  declarations: [CreateDwellingComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -41,4 +41,4 @@ import { UtilsModule } from '../dwellingUtils/utils.module';
     UtilsModule,
   ],
 })
-export class AddDwellingModule {}
+export class CreateDwellingModule {}

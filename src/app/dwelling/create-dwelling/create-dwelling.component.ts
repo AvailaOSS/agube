@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-add-dwelling',
-  templateUrl: './add-dwelling.component.html',
-  styleUrls: ['./add-dwelling.component.scss'],
+  selector: 'app-create-dwelling',
+  templateUrl: './create-dwelling.component.html',
+  styleUrls: ['./create-dwelling.component.scss'],
 })
-export class AddDwellingComponent implements OnInit {
+export class CreateDwellingComponent implements OnInit {
   public addNewWelling: FormGroup;
   public error = true;
   public username: string;

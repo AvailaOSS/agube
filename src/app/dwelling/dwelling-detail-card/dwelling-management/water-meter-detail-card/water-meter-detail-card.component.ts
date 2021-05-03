@@ -6,10 +6,9 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
-import { DwellingService } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/service/dwelling.service';
 import { WaterMeterDetailCard } from './water-meter-detail-card';
-import { DwellingDetail } from '../../../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
 
 @Component({
   selector: 'app-water-meter-detail-card',
@@ -21,6 +20,7 @@ export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
   @Input() public DWelling: any;
   @Output()
   public sendWaterMeter: EventEmitter<WaterMeterDetailCard> = new EventEmitter();
+
   constructor(private readonly svcWelling: DwellingService) {}
 
   public ngOnChanges(): void {
