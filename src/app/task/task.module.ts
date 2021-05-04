@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { IncidenceModule } from './incidence/incidence.module';
-import { ScheduleModule } from './schedule/schedule.module';
-import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { TaskApiModule } from 'apiaux/task-rest-api-lib/src/public-api';
+import { IncidenceModule } from './incidence/incidence.module';
+import { CalendarComponent } from './schedule/calendar/calendar.component';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @NgModule({
   declarations: [CalendarComponent],
@@ -16,6 +17,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    TaskApiModule,
   ],
   exports: [CalendarComponent],
 })
