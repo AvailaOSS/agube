@@ -1,0 +1,24 @@
+<div class="card bg-light m-3">
+  <div class="card-header"><strong>Administración</strong></div>
+  <div class="card-body" style="display: grid">
+    <button class="btn btn-outline-primary" (click)="changeReservoir()">
+      Cambio Depósito
+    </button>
+  </div>
+</div>
+
+<div class="card bg-light m-3">
+  <div class="card-header"><strong>Datos</strong></div>
+  <div class="card-body" style="display: grid">
+    <p class="card-text">
+      <strong>Capacidad: </strong> {{ reservoir.capacity }}
+    </p>
+    <p class="card-text">
+      <strong>Entrada: </strong> {{ reservoir.inlet_flow }}
+    </p>
+    <p class="card-text">
+      <strong>Salida: </strong> {{ reservoir.outlet_flow }}
+      {{ waterMeter }}
+    </p>
+  </div>
+</div>

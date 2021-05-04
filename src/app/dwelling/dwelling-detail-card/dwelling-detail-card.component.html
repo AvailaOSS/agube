@@ -1,31 +1,31 @@
-<div class="card w-100 m-2" *ngIf="DWelling != undefined">
+<div class="card w-100 m-2" *ngIf="dwelling != undefined">
   <div class="col-12 row">
     <div class="card bg-light m-3" style="max-width: 18rem; width: 16rem">
       <div class="card-header"><strong>Dirección</strong></div>
       <div class="card-body">
         <p class="card-text">
-          {{ DWelling.flat }} {{ DWelling.gate }} - {{ DWelling.street }} -{{
-            DWelling.number
+          {{ dwelling.flat }} {{ dwelling.gate }} - {{ dwelling.street }} -{{
+            dwelling.number
           }}
-          - {{ DWelling.town }}
+          - {{ dwelling.town }}
         </p>
       </div>
     </div>
-    <app-water-meter-detail-card
-      [DWelling]="DWelling"
+    <app-water-meter-enabled-detail-card
+      [dwelling]="dwelling"
       (sendWaterMeter)="sendWater($event)"
-    ></app-water-meter-detail-card>
+    ></app-water-meter-enabled-detail-card>
   </div>
   <br />
   <div class="col-12 row">
     <div class="">
-      <app-dwelling-water-meter-readings></app-dwelling-water-meter-readings>
+      <app-dwelling-water-meter-readings-detail-card></app-dwelling-water-meter-readings-detail-card>
     </div>
     <div class="">
-      <app-dwelling-management
-        [DWelling]="DWelling"
+      <app-dwelling-management-detail-card
+        [dwelling]="dwelling"
         [waterMeter]="sendWaterMeterCode"
-      ></app-dwelling-management>
+      ></app-dwelling-management-detail-card>
     </div>
   </div>
 </div>

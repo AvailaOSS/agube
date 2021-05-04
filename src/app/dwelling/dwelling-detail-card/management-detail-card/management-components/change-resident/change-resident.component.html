@@ -1,0 +1,15 @@
+<div class="contenedor">
+  <app-dwelling-utils
+    [isHiddenAddress]="true"
+    [isHiddenBank]="true"
+    [isHiddenResident]="false"
+    [isHiddenOwner]="true"
+    [isHiddenCount]="true"
+    [residentTitle]="'Cambio de Residente'"
+    [titleCard]="'Cambio de Residente'"
+    [error]="error"
+    [errorMessage]="errorMessage"
+    [formDataConfiguration]="formConfigurationData"
+    (sendForm)="sendForm($event)"
+  ></app-dwelling-utils>
+</div>

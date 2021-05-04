@@ -1,0 +1,13 @@
+<div class="contenedor">
+  <app-dwelling-utils
+    [titleCard]="'Alta Vivienda'"
+    [isHiddenAddress]="false"
+    [isHiddenBank]="false"
+    [isHiddenResident]="false"
+    [isHiddenOwner]="false"
+    [isHiddenCount]="false"
+    [error]="error"
+    [errorMessage]="errorMessage"
+    (sendForm)="sendForm($event)"
+  ></app-dwelling-utils>
+</div>

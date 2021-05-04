@@ -1,38 +1,34 @@
-import { ComponentsModule } from './components/components.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { SubscriptionApiModule } from '../../apiaux/subscription-rest-api-lib/src/lib/subscription.api.module';
-import { ContactBookApiModule } from '../../apiaux/contact-book-rest-api-lib/src/lib/contact.book.api.module';
-import { AgubeApiModule } from '../../apiaux/agube-rest-api-lib/src/lib/agube.api.module';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgubeApiModule } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AuthApiModule } from 'apiaux/auth-rest-api-lib/src/public-api';
+import { ContactBookApiModule } from 'apiaux/contact-book-rest-api-lib/src/public-api';
+import { SubscriptionApiModule } from 'apiaux/subscription-rest-api-lib/src/public-api';
+import { TaskApiModule } from 'apiaux/task-rest-api-lib/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ComponentsModule } from './components/components.module';
+import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
+import { ControlPanelModule } from './control-panel/control-panel.module';
+import { DwellingUtilsModule } from './dwelling/dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
+import { DwellingModule } from './dwelling/dwelling.module';
+import { EmailModule } from './email/email.module';
+import { IncidentModule } from './incident/incident.module';
+import { EnableAccountModule } from './login/enable-account/enable-account.module';
 import { ErrorInterceptor, JwtInterceptor } from './login/helpers';
 import { LoginModule } from './login/login.module';
+import { ReadingCountModule } from './reading-count/reading-count.module';
+import { ReservoirUtilsModule } from './reservoir/reservoir-detail-card/management-detail-card/management-components/reservoir-utils/reservoir-utils.module';
+import { ReservoirModule } from './reservoir/reservoir.module';
+import { ScheduleModule } from './schedule/schedule.module';
 import { SubscriptionModule } from './subscription/subscription.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ControlPanelModule } from './control-panel/control-panel.module';
-import { DWellingModule } from './dwelling/dwelling.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
-import { ContactPanelModule } from './contact-panel/contact-panel.module';
-import { DepositPanelModule } from './deposit-panel/deposit-panel.module';
-import { AdDWellingModule } from './dwelling/dwelling-detail-card/management-components/add-welling/add-welling.module';
-import { UtilsModule } from './dwelling/dwelling-detail-card/management-components/dWellingUtils/utils.module';
-import { ChangePasswordModule } from './login/change-password/change-password.module';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ReservoirUtilsModule } from './deposit-panel/deposit-panel-utils/reservoir-utils/reservoir-utils/reservoir-utils.module';
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { AuthApiModule } from '../../apiaux/auth-rest-api-lib/src/lib/auth.api.module';
-
-import { ReadingCountModule } from './reading-count/reading-count.module';
-import { IncidentModule } from './incident/incident.module';
-import { EmailModule } from './email/email.module';
-import { ScheduleModule } from './schedule/schedule.module';
-import { TaskApiModule } from '../../apiaux/task-rest-api-lib/src/lib/task.api.module';
 
 @NgModule({
   declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
@@ -44,10 +40,8 @@ import { TaskApiModule } from '../../apiaux/task-rest-api-lib/src/lib/task.api.m
     SubscriptionApiModule,
     ContactBookApiModule,
     TaskApiModule,
-
-
     LoginModule,
-    ChangePasswordModule,
+    EnableAccountModule,
     ToolbarModule,
     ReactiveFormsModule,
     FormsModule,
@@ -56,26 +50,20 @@ import { TaskApiModule } from '../../apiaux/task-rest-api-lib/src/lib/task.api.m
     ContactBookModule,
     BrowserAnimationsModule,
     ControlPanelModule,
-
-
-    DWellingModule,
-    ContactPanelModule,
-    AdDWellingModule,
-    DepositPanelModule,
-    UtilsModule,
+    DwellingModule,
+    ReservoirModule,
+    DwellingUtilsModule,
     ReservoirUtilsModule,
     ComponentsModule,
     ReadingCountModule,
     IncidentModule,
     EmailModule,
-    ScheduleModule
-
+    ScheduleModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-
   ],
   bootstrap: [AppComponent],
 })

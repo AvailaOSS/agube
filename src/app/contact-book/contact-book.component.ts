@@ -18,6 +18,7 @@ import { ManagerService } from '../../../apiaux/agube-rest-api-lib/src/lib/servi
 export class ContactBookComponent implements OnInit {
   public contactsTotal: Contact[];
   public userId: string;
+
   constructor(
     private readonly svcContactService: ContactService,
     private readonly svcManager: ManagerService,

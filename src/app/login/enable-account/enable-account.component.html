@@ -1,0 +1,43 @@
+<div [hidden]="!error" class="alert alert-danger" role="alert">
+  {{ errorMessage }}
+</div>
+<main class="container-login">
+  <form [formGroup]="loginForm" style="
+  padding: 10px;">
+    <div class="text-center">
+      <img
+        class="mb-4"
+        src="https://avatars.slack-edge.com/2020-10-13/1409854645591_0387c36ecf7c102cc07b_230.png"
+        alt=""
+        width="150"
+        height="150"
+        style="border: 2px solid; border-radius: 15px"
+      />
+    </div>
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <input type="password" formControlName="password1" class="form-control" />
+      <label class="form-label" for="form2Example2">Password</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <input
+        type="password"
+        formControlName="password2"
+        class="form-control"
+        (keyup.enter)="onSubmit()"
+      />
+      <label class="form-label" for="form2Example2">Confirm Password</label>
+    </div>
+
+    <!-- Submit button -->
+    <button
+      type="submit"
+      class="btn btn-dark btn-block mb-4"
+      (click)="onSubmit()"
+    >
+      Confirm
+    </button>
+  </form>
+</main>

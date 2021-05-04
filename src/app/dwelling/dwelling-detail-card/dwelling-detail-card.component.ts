@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WaterMeterDetailCard } from 'src/app/contact-panel/contact-panel-detail-card/contact-panel-management/contact-water-meter-detail-card/water-meter-detail-card';
-import { DwellingDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
+import { DwellingDetail } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { WaterMeterEnabledDetailCardComponent } from './water-meter-enabled-detail-card/water-meter-enabled-detail-card.component';
+
 @Component({
   selector: 'app-dwelling-detail-card',
   templateUrl: './dwelling-detail-card.component.html',
-  styleUrls: ['./dwelling-detail-card.component.scss'],
 })
-export class DWellingDetailCardComponent implements OnInit {
-  @Input() DWelling: DwellingDetail | undefined;
-  public sendWaterMeterCode: WaterMeterDetailCard;
+export class DwellingDetailCardComponent implements OnInit {
+  @Input() dwelling: DwellingDetail | undefined;
+  public sendWaterMeterCode: WaterMeterEnabledDetailCardComponent;
+
   constructor() {}
 
   ngOnInit(): void {}
