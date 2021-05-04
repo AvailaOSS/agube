@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService } from '../login/service/account.service';
 import { isNull } from 'lodash';
+import { AccountService } from '../auth/login/service/account.service';
 
 @Component({
   selector: 'app-control-panel',
@@ -15,7 +15,7 @@ export class ControlPanelComponent implements OnInit {
     private router: Router,
     private readonly svcAccountService: AccountService
   ) {
-    this.svcAccountService.getUser().subscribe(value => {
+    this.svcAccountService.getUser().subscribe((value) => {
       if (isNull(value)) {
         this.svcAccountService.logout();
       }

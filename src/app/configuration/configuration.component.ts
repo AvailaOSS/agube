@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Manager } from '../../../apiaux/agube-rest-api-lib/src/lib/model/manager';
-import { ManagerService } from '../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
+import { ManagerService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
 @Component({
   selector: 'app-configuration',

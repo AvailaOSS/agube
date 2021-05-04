@@ -1,11 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
-import { AccountService } from 'src/app/login/service/account.service';
-
-import { DwellingDetail } from '../../../../apiaux/agube-rest-api-lib/src/lib/model/dwellingDetail';
-import { ManagerService } from '../../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
-import jwt_decode from 'jwt-decode';
+import {
+  DwellingDetail,
+  DwellingService,
+} from 'apiaux/agube-rest-api-lib/src/public-api';
 import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 
 @Component({

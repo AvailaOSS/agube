@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EnableAccountComponent } from './auth/enable-account/enable-account.component';
+import { LoginComponent } from './auth/login/login.component';
 import { ExampleComponent } from './components/example/example.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
@@ -12,8 +14,6 @@ import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/manag
 import { DWellingComponent } from './dwelling/dwelling.component';
 import { EmailComponent } from './email/email.component';
 import { IncidentComponent } from './incident/incident.component';
-import { EnableAccountComponent } from './login/enable-account/enable-account.component';
-import { LoginComponent } from './login/login.component';
 import { ReadingCountComponent } from './reading-count/reading-count.component';
 import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
 import { ReservoirComponent } from './reservoir/reservoir.component';
