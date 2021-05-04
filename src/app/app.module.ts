@@ -11,14 +11,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
-import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 
 @NgModule({
-  declarations: [AppComponent, WorkInProgressComponent, ConfigurationComponent],
+  declarations: [AppComponent, WorkInProgressComponent],
   imports: [
     AuthModule,
     SubscriptionModule,

@@ -13,7 +13,7 @@ import { MeasuresComponent } from './agube/water-meter/measures/measures.compone
 import { EnableAccountComponent } from './auth/enable-account/enable-account.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ExampleComponent } from './components/example/example.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
+import { ConfigurationComponent } from './agube/configuration/configuration.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
 import { IncidenceComponent } from './task/incidence/incidence.component';
 import { ScheduleComponent } from './task/schedule/schedule.component';

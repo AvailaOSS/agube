@@ -11,8 +11,8 @@ import { ManagerService } from 'apiaux/agube-rest-api-lib/src/public-api';
 export class ConfigurationComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   public userId: any;
-
   public registerForm: FormGroup;
+
   constructor(
     private readonly svcManager: ManagerService,
     private formBuilder: FormBuilder,
@@ -40,10 +40,13 @@ export class ConfigurationComponent implements OnInit {
         });
     });
   }
+
   public goToControlPanel(): void {
     this.svcRouter.navigate(['/control-panel']);
   }
+
   ngOnInit(): void {}
+
   public onSubmit(): void {
     this.svcManager
       .updateManagerConfiguration(this.userId, {
