@@ -1,14 +1,12 @@
-import { AccountService } from 'src/app/login/service/account.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ManagerService } from 'apiaux/agube-rest-api-lib/src/public-api';
 import {
   Contact,
   ContactService,
   TagService,
 } from 'apiaux/contact-book-rest-api-lib/src/public-api';
-
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import { ManagerService } from '../../../apiaux/agube-rest-api-lib/src/lib/service/manager.service';
 
 @Component({
   selector: 'app-contact-book',
