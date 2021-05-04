@@ -7,7 +7,7 @@ import { DwellingDetail } from 'apiaux/agube-rest-api-lib/src/public-api';
   templateUrl: './dwelling.component.html',
   styleUrls: ['./dwelling.component.scss'],
 })
-export class DWellingComponent implements OnInit {
+export class DwellingComponent implements OnInit {
   public dwelling: DwellingDetail;
 
   constructor(private readonly router: Router) {}

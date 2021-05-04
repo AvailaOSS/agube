@@ -1,13 +1,12 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
-  EventEmitter,
 } from '@angular/core';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
-
 import { WaterMeterDetailCard } from './water-meter-enabled-detail-card';
 
 @Component({
@@ -15,6 +14,7 @@ import { WaterMeterDetailCard } from './water-meter-enabled-detail-card';
   templateUrl: './water-meter-enabled-detail-card.component.html',
 })
 export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
+  // TODO: move to water-meter module
   public currentWaterMeter: WaterMeterDetailCard;
   @Input() public DWelling: any;
   @Output()

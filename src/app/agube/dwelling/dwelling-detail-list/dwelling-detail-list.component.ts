@@ -10,7 +10,7 @@ import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
   templateUrl: './dwelling-detail-list.component.html',
   styleUrls: ['./dwelling-detail-list.component.scss'],
 })
-export class DWellingDetailListComponent implements OnInit {
+export class DwellingDetailListComponent implements OnInit {
   @Output() selected = new EventEmitter<DwellingDetail>();
   public selectedRowIndex = '';
   public address: string;

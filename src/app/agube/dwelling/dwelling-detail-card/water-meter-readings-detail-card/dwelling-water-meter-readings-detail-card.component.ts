@@ -7,6 +7,7 @@ import { DWellingWaterMeterReadings } from './dwelling-water-meter-readings';
   styleUrls: ['./dwelling-water-meter-readings-detail-card.component.scss'],
 })
 export class DWellingWaterMeterReadingsComponent implements OnInit {
+  // TODO: move to water-meter module
   public displayedColumns: string[] = ['reading', 'date'];
   public dataSource: DWellingWaterMeterReadings[];
 

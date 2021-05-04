@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ControlPanelModule } from '../control-panel/control-panel.module';
 import { CreateReservoirModule } from './create-reservoir/create-reservoir.module';
 import { ChangeReservoirModule } from './reservoir-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.module';
 import { ReservoirUtilsModule } from './reservoir-detail-card/management-detail-card/management-components/reservoir-utils/reservoir-utils.module';
@@ -21,7 +20,6 @@ import { ReservoirComponent } from './reservoir.component';
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
-    ControlPanelModule,
     ChangeReservoirModule,
     ReservoirUtilsModule,
     CreateReservoirModule,
