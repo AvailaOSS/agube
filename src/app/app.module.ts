@@ -13,11 +13,9 @@ import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionModule } from './subscription/subscription.module';
-import { ToolbarModule } from './toolbar/toolbar.module';
-import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 
 @NgModule({
-  declarations: [AppComponent, WorkInProgressComponent],
+  declarations: [AppComponent],
   imports: [
     AuthModule,
     SubscriptionModule,
@@ -28,7 +26,6 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     SubscriptionApiModule,
     ContactBookApiModule,
     TaskApiModule,
-    ToolbarModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

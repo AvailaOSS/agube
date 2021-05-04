@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DwellingUtilsComponent } from './dwelling-utils.component';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
+import { DwellingUtilsComponent } from './dwelling-utils.component';
 
 @NgModule({
   declarations: [DwellingUtilsComponent],
@@ -14,7 +13,6 @@ import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
-    ToolbarModule,
   ],
   exports: [DwellingUtilsComponent],
 })

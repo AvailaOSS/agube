@@ -19,7 +19,7 @@ import { IncidenceComponent } from './task/incidence/incidence.component';
 import { ScheduleComponent } from './task/schedule/schedule.component';
 import { CreateAccountFormComponent } from './subscription/create-account-form/create-account-form.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
-import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
+import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'lecturas', component: MeasuresComponent },
   { path: 'incident', component: IncidenceComponent },
   { path: 'schedule', component: ScheduleComponent },
-  { path: 'wip', component: WorkInProgressComponent },
+  { path: 'email', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
   { path: 'enable-account/:id', component: EnableAccountComponent },
 ];

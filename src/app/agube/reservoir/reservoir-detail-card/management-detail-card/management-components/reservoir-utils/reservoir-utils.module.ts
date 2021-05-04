@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
 import { ReservoirUtilsComponent } from './reservoir-utils.component';
 
 @NgModule({
@@ -11,10 +10,9 @@ import { ReservoirUtilsComponent } from './reservoir-utils.component';
   imports: [
     CommonModule,
     FlexLayoutModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
-    ToolbarModule,
   ],
   exports: [ReservoirUtilsComponent],
 })
