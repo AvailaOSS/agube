@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { IncidenceService } from 'apiaux/task-rest-api-lib/src/public-api';
 
 @Component({
-  selector: 'app-incident',
-  templateUrl: './incident.component.html',
-  styleUrls: ['./incident.component.scss'],
+  selector: 'app-incidence',
+  templateUrl: './incidence.component.html',
+  styleUrls: ['./incidence.component.scss'],
 })
-export class IncidentComponent implements OnInit {
+export class IncidenceComponent implements OnInit {
   constructor(private readonly svcTaskService: IncidenceService) {
     this.svcTaskService
       .createIncidence({

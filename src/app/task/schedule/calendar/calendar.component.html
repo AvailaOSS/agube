@@ -1,5 +1,5 @@
 <div class="row text-center">
-  <div class="w-100 d-flex justify-content-between" >
+  <div class="w-100 d-flex justify-content-between">
     <div class="btn-group">
       <mwlCalendarPreviousView
         class="btn btn-primary"
@@ -26,13 +26,11 @@
       >
         Next
       </mwlCalendarNextView>
-
-
+    </div>
+    <div class="">
+      <h3>{{ viewDate | calendarDate: view + "ViewTitle":"en" }}</h3>
+    </div>
   </div>
-  <div class="">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-  </div>
-</div>
 </div>
 <br />
 <div [ngSwitch]="view">

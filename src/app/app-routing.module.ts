@@ -15,9 +15,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { ExampleComponent } from './components/example/example.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
-import { EmailComponent } from './email/email.component';
-import { IncidentComponent } from './incident/incident.component';
-import { ScheduleComponent } from './schedule/schedule.component';
+import { IncidenceComponent } from './task/incidence/incidence.component';
+import { ScheduleComponent } from './task/schedule/schedule.component';
 import { CreateAccountFormComponent } from './subscription/create-account-form/create-account-form.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
@@ -40,9 +39,8 @@ const routes: Routes = [
   { path: 'config', component: ConfigurationComponent },
   { path: 'create-account', component: CreateAccountFormComponent },
   { path: 'lecturas', component: MeasuresComponent },
-  { path: 'incident', component: IncidentComponent },
+  { path: 'incident', component: IncidenceComponent },
   { path: 'schedule', component: ScheduleComponent },
-  { path: 'email', component: EmailComponent },
   { path: 'wip', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
   { path: 'enable-account/:id', component: EnableAccountComponent },

@@ -13,9 +13,6 @@ import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
-import { EmailModule } from './email/email.module';
-import { IncidentModule } from './incident/incident.module';
-import { ScheduleModule } from './schedule/schedule.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
@@ -38,9 +35,6 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    IncidentModule,
-    EmailModule,
-    ScheduleModule,
   ],
   bootstrap: [AppComponent],
 })
