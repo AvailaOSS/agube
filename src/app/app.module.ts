@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookModule } from './contact-book/contact-book.module';
-import { ContactPanelModule } from './contact-panel/contact-panel.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { DwellingUtilsModule } from './dwelling/dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
 import { DwellingModule } from './dwelling/dwelling.module';
@@ -52,7 +51,6 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     BrowserAnimationsModule,
     ControlPanelModule,
     DwellingModule,
-    ContactPanelModule,
     ReservoirModule,
     DwellingUtilsModule,
     ReservoirUtilsModule,

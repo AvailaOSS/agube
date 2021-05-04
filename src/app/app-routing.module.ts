@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExampleComponent } from './components/example/example.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
-import { AddNewContactComponent } from './contact-panel/contact-panel-detail-card/contact-panel-management/management-contact/add-new-contact/add-new-contact.component';
-import { ContactPanelComponent } from './contact-panel/contact-panel.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
 import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.component';
@@ -35,8 +33,6 @@ const routes: Routes = [
   { path: 'vivienda/cambio/contador', component: ChangeWaterMeterComponent },
   { path: 'vivienda/residente', component: ChangeResidentComponent },
   { path: 'vivienda/propietario', component: ChangeOwnerComponent },
-  { path: 'contactos', component: ContactPanelComponent },
-  { path: 'contactos/alta/contacto', component: AddNewContactComponent },
   { path: 'depositos', component: ReservoirComponent },
   { path: 'deposit/changeReservoir', component: ChangeWaterMeterComponent },
   { path: 'depositos/alta/deposito', component: CreateReservoirComponent },
