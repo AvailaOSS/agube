@@ -6,6 +6,7 @@ import { TaskApiModule } from 'apiaux/task-rest-api-lib/src/public-api';
 import { IncidenceModule } from './incidence/incidence.module';
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { ScheduleModule } from './schedule/schedule.module';
+import { TaskRoutingModule } from './task-routing.module';
 
 @NgModule({
   declarations: [CalendarComponent],
@@ -18,6 +19,7 @@ import { ScheduleModule } from './schedule/schedule.module';
       useFactory: adapterFactory,
     }),
     TaskApiModule,
+    TaskRoutingModule
   ],
   exports: [CalendarComponent],
 })

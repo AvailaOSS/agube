@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionModule } from './subscription/subscription.module';
+import { TaskModule } from './task/task.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
+    TaskModule
   ],
   bootstrap: [AppComponent],
 })
