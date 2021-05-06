@@ -10,6 +10,7 @@ import { AuthRoutingModule } from './auth/auth-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
+import { SubscriptionRoutingModule } from './subscription/subscription-routing.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SubscriptionModule } from './subscription/subscription.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    SubscriptionRoutingModule
   ],
   bootstrap: [AppComponent],
 })

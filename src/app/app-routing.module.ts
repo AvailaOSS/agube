@@ -33,10 +33,9 @@ const routes: Routes = [
   { path: 'depositos', component: ReservoirComponent },
   { path: 'deposit/changeReservoir', component: ChangeWaterMeterComponent },
   { path: 'depositos/alta/deposito', component: CreateReservoirComponent },
-  { path: 'subscription', component: SubscriptionComponent },
+
   { path: 'contact-book', component: ContactBookComponent },
   { path: 'config', component: ConfigurationComponent },
-  { path: 'create-account', component: CreateAccountFormComponent },
   { path: 'lecturas', component: MeasuresComponent },
   { path: 'incident', component: IncidenceComponent },
   { path: 'schedule', component: ScheduleComponent },
