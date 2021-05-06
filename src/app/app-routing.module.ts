@@ -10,8 +10,6 @@ import { DwellingComponent } from './agube/dwelling/dwelling.component';
 import { CreateReservoirComponent } from './agube/reservoir/create-reservoir/create-reservoir.component';
 import { ReservoirComponent } from './agube/reservoir/reservoir.component';
 import { MeasuresComponent } from './agube/water-meter/measures/measures.component';
-import { EnableAccountComponent } from './auth/enable-account/enable-account.component';
-import { LoginComponent } from './auth/login/login.component';
 import { ExampleComponent } from './components/example/example.component';
 import { ConfigurationComponent } from './agube/configuration/configuration.component';
 import { ContactBookComponent } from './contact-book/contact-book.component';
@@ -20,10 +18,11 @@ import { ScheduleComponent } from './task/schedule/schedule.component';
 import { CreateAccountFormComponent } from './subscription/create-account-form/create-account-form.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
+import { AuthRoutingModule } from './auth/auth-routing.module';
+import { EnableAccountComponent } from './auth/enable-account/enable-account.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
-  { path: 'login', component: LoginComponent },
+  // redirect to `SubscriptionComponent`
   { path: 'control-panel', component: ControlPanelComponent },
   { path: 'viviendas', component: DwellingComponent },
   { path: 'viviendas/alta/vivienda', component: CreateDwellingComponent },
@@ -43,11 +42,13 @@ const routes: Routes = [
   { path: 'schedule', component: ScheduleComponent },
   { path: 'email', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
-  { path: 'enable-account/:id', component: EnableAccountComponent },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  imports: [
+    RouterModule.forRoot(routes, { useHash: true }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
