@@ -6,12 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthRoutingModule } from './auth/auth-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
-import { SubscriptionRoutingModule } from './subscription/subscription-routing.module';
 import { SubscriptionModule } from './subscription/subscription.module';
+import { TaskModule } from './task/task.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +25,8 @@ import { SubscriptionModule } from './subscription/subscription.module';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ComponentsModule
+    ComponentsModule,
+    TaskModule
   ],
   bootstrap: [AppComponent],
 })
