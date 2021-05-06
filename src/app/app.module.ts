@@ -26,9 +26,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ComponentsModule,
-    AuthRoutingModule,
-    SubscriptionRoutingModule
+    ComponentsModule
   ],
   bootstrap: [AppComponent],
 })
