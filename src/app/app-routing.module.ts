@@ -23,16 +23,6 @@ import { EnableAccountComponent } from './auth/enable-account/enable-account.com
 
 const routes: Routes = [
   // redirect to `SubscriptionComponent`
-  { path: 'control-panel', component: ControlPanelComponent },
-  { path: 'viviendas', component: DwellingComponent },
-  { path: 'viviendas/alta/vivienda', component: CreateDwellingComponent },
-  { path: 'vivienda/cambio/pagador', component: ChangePaymasterComponent },
-  { path: 'vivienda/cambio/contador', component: ChangeWaterMeterComponent },
-  { path: 'vivienda/residente', component: ChangeResidentComponent },
-  { path: 'vivienda/propietario', component: ChangeOwnerComponent },
-  { path: 'depositos', component: ReservoirComponent },
-  { path: 'deposit/changeReservoir', component: ChangeWaterMeterComponent },
-  { path: 'depositos/alta/deposito', component: CreateReservoirComponent },
 
   { path: 'config', component: ConfigurationComponent },
   { path: 'lecturas', component: MeasuresComponent },
