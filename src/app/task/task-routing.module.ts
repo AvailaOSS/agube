@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { MeasuresComponent } from '../agube/water-meter/measures/measures.component';
 import { IncidenceComponent } from './incidence/incidence.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { taskEnumPaths } from './task-enum-paths';
 
 const routes: Routes = [
-  { path: 'lecturas', component: MeasuresComponent },
-  { path: 'incident', component: IncidenceComponent },
-  { path: 'schedule', component: ScheduleComponent },
+  { path: taskEnumPaths.LECTURAS, component: MeasuresComponent },
+  { path: taskEnumPaths.INCIDENCE, component: IncidenceComponent },
+  { path: taskEnumPaths.SCHEDULE, component: ScheduleComponent },
 ];
 
 @NgModule({

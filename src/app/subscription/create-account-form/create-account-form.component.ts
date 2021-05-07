@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
+import { authEnumPaths } from '../../auth/auth-enum-paths';
 import {
   PaymentType,
   SubscriptionService,
@@ -92,7 +93,7 @@ export class CreateAccountFormComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate(['/login']);
+          this.router.navigate([authEnumPaths.LOGIN]);
         },
         (error) => {
           this.error = true;

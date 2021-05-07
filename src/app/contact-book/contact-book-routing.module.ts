@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactBookComponent } from './contact-book.component';
-
+import { ContactBookEnumPaths } from './contact-dialog/contact-book-enum-paths';
 
 const routes: Routes = [
-
-  { path: 'contact-book', component: ContactBookComponent },
+  { path: ContactBookEnumPaths.CONTACTBOOK, component: ContactBookComponent },
 ];
 
 @NgModule({
