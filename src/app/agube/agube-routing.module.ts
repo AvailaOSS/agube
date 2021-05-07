@@ -11,22 +11,23 @@ import { DwellingComponent } from './dwelling/dwelling.component';
 import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
 import { ReservoirComponent } from './reservoir/reservoir.component';
 import { ChangeReservoirModule } from './reservoir/reservoir-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.module';
+import { agubeEnumPaths } from './agube-enum-paths';
 
 const routes: Routes = [
   // redirect to `SubscriptionComponent`
-  { path: 'control-panel', component: ControlPanelComponent },
-  { path: 'viviendas', component: DwellingComponent },
-  { path: 'viviendas/alta/vivienda', component: CreateDwellingComponent },
-  { path: 'vivienda/cambio/pagador', component: ChangePaymasterComponent },
-  { path: 'vivienda/cambio/contador', component: ChangeWaterMeterComponent },
-  { path: 'vivienda/residente', component: ChangeResidentComponent },
-  { path: 'vivienda/propietario', component: ChangeOwnerComponent },
+  { path: agubeEnumPaths.CONTROLPANEL, component: ControlPanelComponent },
+  { path: agubeEnumPaths.DWELLING, component: DwellingComponent },
+  { path: agubeEnumPaths.CREATEDWELLING, component: CreateDwellingComponent },
+  { path: agubeEnumPaths.CHANGEPAYMASTER, component: ChangePaymasterComponent },
+  { path: agubeEnumPaths.CHANGEWATERMETER, component: ChangeWaterMeterComponent },
+  { path: agubeEnumPaths.CHANGERESIDENT, component: ChangeResidentComponent },
+  { path: agubeEnumPaths.CHANGEOWNER, component: ChangeOwnerComponent },
 
-  { path: 'config', component: ConfigurationComponent },
+  { path: agubeEnumPaths.CONFIG, component: ConfigurationComponent },
 
-  { path: 'depositos', component: ReservoirComponent },
-  { path: 'deposit/changeReservoir', component: ChangeWaterMeterComponent },
-  { path: 'depositos/alta/deposito', component: CreateReservoirComponent },
+  { path: agubeEnumPaths.RESERVOIR, component: ReservoirComponent },
+  { path: agubeEnumPaths.CHANGEWATERMETER, component: ChangeWaterMeterComponent },
+  { path: agubeEnumPaths.CREATERESERVOIR, component: CreateReservoirComponent },
 ];
 
 @NgModule({

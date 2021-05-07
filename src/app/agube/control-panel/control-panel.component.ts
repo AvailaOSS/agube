@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { isNull } from 'lodash';
 import { AccountService } from 'src/app/auth/login/service/account.service';
+import { agubeEnumPaths } from '../agube-enum-paths';
+import { contactBookEnumPaths } from '../../contact-book/contact-dialog/contact-book-enum-paths';
+import { taskEnumPaths } from '../../task/task-enum-paths';
 
 @Component({
   selector: 'app-control-panel',
@@ -10,6 +13,14 @@ import { AccountService } from 'src/app/auth/login/service/account.service';
 })
 export class ControlPanelComponent implements OnInit {
   public users: any;
+  public dwelling: string = agubeEnumPaths.DWELLING;
+  public dwellingConfig: string = agubeEnumPaths.CONFIG;
+  public dwellingReservoir: string = agubeEnumPaths.RESERVOIR;
+  public contactBook: string = contactBookEnumPaths.CONTACTBOOK;
+  public taskReading: string = taskEnumPaths.READING;
+  public taskSchedule: string = taskEnumPaths.SCHEDULE;
+  public taskIncidence: string = taskEnumPaths.INCIDENCE;
+
 
   constructor(
     private router: Router,

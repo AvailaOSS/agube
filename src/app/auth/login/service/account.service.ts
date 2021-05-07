@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { TokenService } from 'apiaux/auth-rest-api-lib/src/public-api';
+import { agubeEnumPaths } from '../../../agube/agube-enum-paths';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class AccountService {
       .subscribe(
         (response) => {
           this.saveToken(response);
-          this.router.navigate(['/control-panel']);
+          this.router.navigate([agubeEnumPaths.CONTROLPANEL]);
           this.loginPage = true;
         },
         (error) => alert('ERROR LOGGING')
