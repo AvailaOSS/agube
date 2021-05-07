@@ -6,7 +6,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { taskEnumPaths } from './task-enum-paths';
 
 const routes: Routes = [
-  { path: taskEnumPaths.LECTURAS, component: MeasuresComponent },
+  { path: taskEnumPaths.READING, component: MeasuresComponent },
   { path: taskEnumPaths.INCIDENCE, component: IncidenceComponent },
   { path: taskEnumPaths.SCHEDULE, component: ScheduleComponent },
 ];

@@ -1,4 +1,4 @@
-export enum ContactBookEnumPaths {
+export enum contactBookEnumPaths {
   CONTACTBOOK='contact-book'
 
 }

@@ -1,5 +1,5 @@
 export enum taskEnumPaths {
-  LECTURAS = 'lecturas',
+  READING = 'lecturas',
   INCIDENCE = 'incidence',
   SCHEDULE = 'schedule',
 }
