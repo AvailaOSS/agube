@@ -30,7 +30,7 @@
       </div>
       <div class="col-md-7 col-lg-8">
         <div [hidden]="!error" class="alert alert-danger" role="alert">
-          {{errorMessage}}
+          {{ errorMessage }}
         </div>
 
         <h4 class="mb-3 text-center">Registrarse</h4>
@@ -156,53 +156,35 @@
 
           <div class="my-3">
             <div class="form-check">
-              <input
-                id="credit"
-                name="paymentMethod"
-                type="radio"
-                class="form-check-input"
-                checked="true"
-                required="false"
-                formControlName="payment_type"
-                name="payment_type"
-              />
-              <label class="form-check-label" for="credit"
-                >Tarjeta de crédito</label
-              >
+              <input class="form-check-input" type="radio" formControlName="payment_type" value="1"  checked>
+              <label class="form-check-label" for="debit">
+               Visa
+              </label>
             </div>
             <div class="form-check">
-              <input
-                id="debit"
-                name="paymentMethod"
-                type="radio"
-                class="form-check-input"
-                required="false"
-                formControlName="payment_type"
-                name="payment_type"
-              />
-              <label class="form-check-label" for="debit"
-                >Tarjeta de débito</label
-              >
+              <input class="form-check-input" type="radio" formControlName="payment_type"   value="2" >
+              <label class="form-check-label" for="paypal">
+               Paypal
+              </label>
             </div>
+
             <div class="form-check">
-              <input
-                id="paypal"
-                name="paymentMethod"
-                type="radio"
-                class="form-check-input"
-                required="false"
-                formControlName="payment_type"
-                name="payment_type"
-              />
-              <label class="form-check-label" for="paypal">PayPal</label>
+              <input class="form-check-input" type="radio" formControlName="payment_type"   value="3" >
+              <label class="form-check-label" for="credit">
+                Mastercard
+              </label>
             </div>
           </div>
           <hr class="my-4" />
-          <button class="w-100 btn btn-primary btn-lg" type="submit">
+          <button class="w-100 btn btn-primary btn-lg" type="submit" [disabled]="registerForm.invalid">
             Registrarse
           </button>
         </form>
       </div>
     </div>
   </main>
+</div>
+
+<div [hidden]="!success" class="alert alert-success" role="success">
+ Formulario enviado con éxito
 </div>

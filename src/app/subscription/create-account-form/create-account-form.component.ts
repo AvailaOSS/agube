@@ -23,6 +23,7 @@ export class CreateAccountFormComponent implements OnInit {
   public selectedList = false;
   public error = false;
   public errorMessage: string;
+  public success: boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,23 +59,12 @@ export class CreateAccountFormComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }
 
-  public sendPayUrl(id: string): any {
-    this.paymentTypesService.getPaymentTypes().subscribe((typePay) => {
-      typePay.forEach((type) => {
-        if (type.description === id) {
-          this.payType = type.id;
-        }
-      });
-    });
-  }
   public onSubmit(): void {
-
     this.subscriptionclientService
       .createDwellingWithResident({
         client: {
@@ -87,16 +77,19 @@ export class CreateAccountFormComponent implements OnInit {
           nif: this.registerForm.value.nif,
           business_name: this.registerForm.value.business_name,
           phone_number: this.registerForm.value.phone_number,
-          payment_type: 1,
+          payment_type: this.registerForm.value.payment_type,
         },
         subscription: this.formIdentification,
       })
       .subscribe(
         (value) => {
           this.router.navigate([authEnumPaths.LOGIN]);
+          this.success = true;
+          this.error = false;
         },
         (error) => {
           this.error = true;
+          this.success = false;
           this.errorMessage = error.statusText;
         }
       );
