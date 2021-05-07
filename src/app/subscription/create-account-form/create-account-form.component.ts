@@ -4,10 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
 import { authEnumPaths } from '../../auth/auth-enum-paths';
+import { Subscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
 import {
   PaymentType,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
+import { sub } from 'date-fns';
 
 @Component({
   selector: 'app-create-account-form',
@@ -23,7 +25,7 @@ export class CreateAccountFormComponent implements OnInit {
   public selectedList = false;
   public error = false;
   public errorMessage: string;
-  public success: boolean=false;
+  public success: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -93,5 +95,9 @@ export class CreateAccountFormComponent implements OnInit {
           this.errorMessage = error.statusText;
         }
       );
+  }
+
+  public selectedSubscription(subs: Subscription): void {
+    this.formIdentification = +subs.id;
   }
 }

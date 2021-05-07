@@ -8,6 +8,7 @@
         <ul
           class="list-group mb-3"
           *ngFor="let subs of subscriptions; let id = index"
+          (click)="selectedSubscription(subs)"
         >
           <li
             class="list-group-item list-group-item-action list-group-item-primary"
