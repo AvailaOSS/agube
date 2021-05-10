@@ -21,7 +21,6 @@ export class ToolbarUserComponent implements OnInit {
 
   public logout(): void {
     this.svcAccountService.logout();
-    this.router.navigate(['/login']);
   }
   public showDetails(): void {
     this.hiddenDetails = !this.hiddenDetails;

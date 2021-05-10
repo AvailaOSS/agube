@@ -11,6 +11,7 @@
           (click)="selectedSubscription(subs)"
         >
           <li
+          style="cursor: pointer;"
             class="list-group-item list-group-item-action list-group-item-primary"
             [ngClass]="{
               ' list-group-item-success':
@@ -30,7 +31,7 @@
 
         </ul>
         <button class="w-100 btn btn-primary btn-lg" type="button" (click)="backToLogin()" >
-          Ir al Login
+          Ya tengo una cuenta
         </button>
       </div>
       <div class="col-md-7 col-lg-8">
@@ -182,7 +183,7 @@
           </div>
           <hr class="my-4" />
           <button class="w-100 btn btn-primary btn-lg" type="submit" [disabled]="registerForm.invalid">
-            Registrarse
+            Continuar
           </button>
         </form>
       </div>
