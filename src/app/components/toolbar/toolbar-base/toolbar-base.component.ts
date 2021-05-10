@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar-base',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarBaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly svcRouter: Router) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+  }
+
+  public goToRegister(): void{
+    this.svcRouter.navigate(['/subscription']);
   }
 
 }
