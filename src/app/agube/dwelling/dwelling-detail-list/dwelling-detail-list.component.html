@@ -1,4 +1,14 @@
-<table  class="m-2 table table-bordered table-condensed" >
+<div class="col-12 form-group">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Type to search"
+    [(ngModel)]="data"
+    style="float: left; width: 50%; align-items: center; margin-bottom: 20px"
+  />
+  <button class="btn btn-outline-primary float-right">Agregar Viviendas</button>
+</div>
+<table class="m-2 table table-bordered table-condensed">
   <thead>
     <tr>
       <th scope="col">Dirección</th>
@@ -7,9 +17,15 @@
       <th scope="col">Teléfono</th>
     </tr>
   </thead>
-  <tbody *ngFor="let element of dataSource"  (click)="selectRow(element)" >
-    <tr class="clickable-row table" [ngClass]="{'selected-row': element.id === selectedRowIndex  }">
-      <th scope="row"  >
+  <tbody
+    *ngFor="let element of dataSource | filter: data"
+    (click)="selectRow(element)"
+  >
+    <tr
+      class="clickable-row table"
+      [ngClass]="{ 'selected-row': element.id === selectedRowIndex }"
+    >
+      <th scope="row">
         {{ element.flat }} {{ element.gate }} {{ element.number }}
         {{ element.street }} {{ element.town }}
       </th>

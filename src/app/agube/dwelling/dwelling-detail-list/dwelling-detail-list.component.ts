@@ -11,12 +11,14 @@ import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
   styleUrls: ['./dwelling-detail-list.component.scss'],
 })
 export class DwellingDetailListComponent implements OnInit {
+
+
   @Output() selected = new EventEmitter<DwellingDetail>();
   public selectedRowIndex = '';
   public address: string;
   public dataSource: DwellingDetail[];
   public currentUser: User;
-
+  public data: string;
   constructor(private readonly svcCreateNewDWelling: DwellingService) {}
 
   ngOnInit(): void {
@@ -31,4 +33,7 @@ export class DwellingDetailListComponent implements OnInit {
     this.selected.emit(row);
     this.selectedRowIndex = row.id;
   }
+
+
+
 }
