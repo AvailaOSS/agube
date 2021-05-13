@@ -15,6 +15,8 @@ import { ChangeWaterMeterModule } from './dwelling-detail-card/management-detail
 import { ChangeOwnerModule } from './dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.module';
 import { ChangeResidentModule } from './dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// MDB Angular Free
+import { WavesModule, TableModule, IconsModule } from 'angular-bootstrap-md';
 @NgModule({
   declarations: [
     DwellingComponent,
@@ -36,6 +38,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ChangeResidentModule,
     DwellingUtilsModule,
     Ng2SearchPipeModule,
+    TableModule,
+    IconsModule,
+    WavesModule
+
   ],
   exports: [DwellingComponent],
 })

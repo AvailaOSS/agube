@@ -21,7 +21,5 @@ export class DwellingComponent implements OnInit {
   public goToControlPanel(): void {
     this.router.navigate(['/control-panel']);
   }
-  public addNewDwelling(): void {
-    this.router.navigate(['/viviendas/alta/vivienda']);
-  }
+
 }
