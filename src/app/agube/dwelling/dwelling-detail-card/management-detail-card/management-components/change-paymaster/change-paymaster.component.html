@@ -26,10 +26,7 @@
             <p
               class="card-text"
               style="display: grid"
-              [ngClass]="{
-                'paymaster-row': owner === paymaster,
-                'selected-row': owner === selectRow
-              }"
+
             >
               <strong>Dirección:</strong> {{ addressOwn }}
               <strong>Teléfono:</strong> {{ phoneOwn }}
@@ -57,10 +54,7 @@
             <p
               class="card-text"
               style="display: grid"
-              [ngClass]="{
-                'paymaster-row': resident === paymaster,
-                'selected-row': resident === selectRow
-              }"
+
             >
               <strong>Dirección:</strong> {{ addressRes }}
               <strong>Teléfono:</strong> {{ phoneRes }}

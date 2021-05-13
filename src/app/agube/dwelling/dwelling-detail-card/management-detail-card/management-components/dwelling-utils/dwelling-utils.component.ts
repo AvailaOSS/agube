@@ -31,7 +31,13 @@ export class DwellingUtilsComponent implements OnInit {
     this.router.navigate(['/viviendas']);
   }
   public toggle(): void {
-    this.isHiddenResident = !this.isHiddenResident;
+    if (this.isHiddenResident) {
+      this.isHiddenResident = !this.isHiddenResident;
+    } else {
+      this.isHiddenResident = true;
+    }
+
+
   }
   public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({

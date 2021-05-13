@@ -35,7 +35,7 @@ export class DwellingManagementDetailCardComponent
   }
 
   public changeResident(): void {
-    this.svcRouter.navigate(['/vivienda/residente'], {
+    this.svcRouter.navigate(['/vivienda/resident'], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }

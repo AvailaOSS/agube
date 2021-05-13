@@ -65,14 +65,15 @@
 
     <div class="row col-12">
       <div class="row col-6" [hidden]="isHiddenOwner">
-        <div class="col m-4 card-header"  [hidden]="isHiddenResident">
+        <div class="col m-4 card-header" >
           <strong>Propietario</strong>
-          <div class="custom-control custom-switch col-3 d-inline ml-1">
-            <input class="custom-control-input "  formControlName="resident" type="checkbox" value="resident" id="resident" (click)="toggle()">
-            <label class="custom-control-label" for="resident">
+          <div style="display: inline;" class="custom-control custom-switch col-3  ml-1"   >
+            <input class="custom-control-input "  formControlName="resident" type="checkbox" value="resident" id="resident"  [attr.disabled]="isHiddenResident ? '' : null">
+            <label class="custom-control-label" for="resident"  (click)="toggle()">
               Residente
             </label>
           </div>
+
           <div class="custom-control custom-switch col-3 d-inline ml-1" [hidden]="isHiddenResident" >
             <input class="custom-control-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
             <label class="custom-control-label" for="pagador">
