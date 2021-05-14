@@ -68,8 +68,8 @@
         <div class="col m-4 card-header" >
           <strong>Propietario</strong>
           <div style="display: inline;" class="custom-control custom-switch col-3  ml-1"   >
-            <input class="custom-control-input "  formControlName="resident" type="checkbox" value="resident" id="resident"  [attr.disabled]="isHiddenResident ? '' : null">
-            <label class="custom-control-label" for="resident"  (click)="toggle()">
+            <input class="custom-control-input "  formControlName="resident" type="checkbox" value="resident" id="resident"  [attr.disabled]="isHiddenResidentCheck ? '' : null" (click)="toggle()">
+            <label class="custom-control-label" for="resident"  >
               Residente
             </label>
           </div>
