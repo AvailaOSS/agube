@@ -70,5 +70,9 @@ export class AccountService {
       const user: User = jwt_decode(token);
       this.userSubject.next(user);
     }
+
+    setInterval(() => {
+      this.refresh();
+    }, 500000);
   }
 }
