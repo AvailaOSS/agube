@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReservoirDetail } from 'apiaux/agube-rest-api-lib/src/lib/model/reservoirDetail';
 
-export interface Reservoir {
-  // TODO: use apiaux/reservoir...
-  id: string;
-  address: string;
-  water_meter: string;
-  resident_name: string;
-  phone: string;
-}
 
 @Component({
   selector: 'app-reservoir',
@@ -16,13 +9,13 @@ export interface Reservoir {
   styleUrls: ['./reservoir.component.scss'],
 })
 export class ReservoirComponent implements OnInit {
-  public reservoir: Reservoir;
+  public reservoir: ReservoirDetail;
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {}
 
-  public selectItem(reservoir: Reservoir): void {
+  public selectItem(reservoir: ReservoirDetail): void {
     this.reservoir = reservoir;
   }
 
@@ -30,7 +23,5 @@ export class ReservoirComponent implements OnInit {
     this.router.navigate(['/control-panel']);
   }
 
-  public addNewReservoir(): void {
-    this.router.navigate(['depositos/alta/deposito']);
-  }
+
 }
