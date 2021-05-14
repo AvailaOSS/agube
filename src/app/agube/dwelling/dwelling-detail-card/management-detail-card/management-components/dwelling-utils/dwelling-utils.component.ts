@@ -32,10 +32,21 @@ export class DwellingUtilsComponent implements OnInit {
     this.router.navigate(['/viviendas']);
   }
   public toggle(): void {
+    this.isHiddenResident = !this.isHiddenResident;
     if (this.isHiddenResident) {
-      this.isHiddenResident = !this.isHiddenResident;
+      this.registerForm.controls.first_nameRes.disable();
+      this.registerForm.controls.last_nameRes.disable();
+      this.registerForm.controls.phonesRes.disable();
+      this.registerForm.controls.addressRes.disable();
+      this.registerForm.controls.usernameRes.disable();
+      this.registerForm.controls.emailRes.disable();
     } else {
-      this.isHiddenResident = true;
+      this.registerForm.controls.first_nameRes.enable();
+      this.registerForm.controls.last_nameRes.enable();
+      this.registerForm.controls.phonesRes.enable();
+      this.registerForm.controls.addressRes.enable();
+      this.registerForm.controls.usernameRes.enable();
+      this.registerForm.controls.emailRes.enable();
     }
   }
   public ngOnInit(): void {
@@ -64,7 +75,6 @@ export class DwellingUtilsComponent implements OnInit {
     });
 
     this.formDataConfiguration.subscribe((value) => {
-      console.log(value.user);
       if (!isUndefined(value) && value !== 5) {
         this.registerForm.get('numberBank').setValue(value.iban);
         this.registerForm.get('code').setValue(value.code);
@@ -106,13 +116,70 @@ export class DwellingUtilsComponent implements OnInit {
         }
       }
     });
+
+    if (this.isHiddenAddress && this.isHiddenOwner && !this.isHiddenResident) {
+      this.validatorResident();
+    }
+    if (this.isHiddenResident && this.isHiddenAddress && !this.isHiddenOwner) {
+      this.validatorOwner();
+    }
+    if (
+      this.isHiddenResident &&
+      this.isHiddenAddress &&
+      this.isHiddenBank &&
+      this.isHiddenOwner
+    ) {
+      this.validatorWaterMeter();
+    }
   }
-  // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() {
     return this.registerForm.controls;
   }
   public onSubmit(): void {
     this.sendForm.emit(this.registerForm.value);
+  }
+  private validatorResident(): void {
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.username.disable();
+    this.registerForm.controls.first_name.disable();
+    this.registerForm.controls.last_name.disable();
+    this.registerForm.controls.email.disable();
+    this.registerForm.controls.phones.disable();
+    this.registerForm.controls.addressOwner.disable();
+    this.registerForm.controls.code.disable();
+    this.registerForm.controls.numberBank.disable();
+  }
+  private validatorOwner(): void {
+    this.registerForm.controls.first_nameRes.disable();
+    this.registerForm.controls.last_nameRes.disable();
+    this.registerForm.controls.phonesRes.disable();
+    this.registerForm.controls.addressRes.disable();
+    this.registerForm.controls.usernameRes.disable();
+    this.registerForm.controls.emailRes.disable();
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.code.disable();
+    this.registerForm.controls.numberBank.disable();
+  }
+  private validatorWaterMeter(): void {
+    this.registerForm.controls.first_nameRes.disable();
+    this.registerForm.controls.last_nameRes.disable();
+    this.registerForm.controls.phonesRes.disable();
+    this.registerForm.controls.addressRes.disable();
+    this.registerForm.controls.usernameRes.disable();
+    this.registerForm.controls.emailRes.disable();
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.number.disable();
+    this.registerForm.controls.flat.disable();
+    this.registerForm.controls.gate.disable();
+    this.registerForm.controls.town.disable();
+    this.registerForm.controls.numberBank.disable();
+    this.registerForm.controls.username.disable();
+    this.registerForm.controls.first_name.disable();
+    this.registerForm.controls.last_name.disable();
+    this.registerForm.controls.email.disable();
+    this.registerForm.controls.phones.disable();
+    this.registerForm.controls.addressOwner.disable();
+    this.registerForm.controls.code.enable();
   }
 }

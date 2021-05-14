@@ -19,7 +19,9 @@ export class CreateDwellingComponent implements OnInit {
     private readonly svcCreateNewDWelling: DwellingService
   ) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    //
+  }
 
   public sendForm(event: any): void {
     if (event.resident === false || event.resident === null) {
