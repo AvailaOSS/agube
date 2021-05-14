@@ -11,21 +11,15 @@
         </p>
       </div>
     </div>
-    <app-water-meter-enabled-detail-card
-      [dwelling]="dwelling"
-      (sendWaterMeter)="sendWater($event)"
-    ></app-water-meter-enabled-detail-card>
+    <app-water-meter-enabled-detail-card [dWelling]="dwelling">
+    </app-water-meter-enabled-detail-card>
   </div>
   <br />
   <div class="col-12 row">
-    <div class="">
-      <app-dwelling-water-meter-readings-detail-card></app-dwelling-water-meter-readings-detail-card>
-    </div>
-    <div class="">
-      <app-dwelling-management-detail-card
-        [dwelling]="dwelling"
-        [waterMeter]="sendWaterMeterCode"
-      ></app-dwelling-management-detail-card>
-    </div>
+    <app-dwelling-water-meter-readings-detail-card></app-dwelling-water-meter-readings-detail-card>
+    <app-dwelling-management-detail-card
+      [dwelling]="dwelling"
+      [waterMeter]="sendWaterMeterCode"
+    ></app-dwelling-management-detail-card>
   </div>
 </div>
