@@ -17,10 +17,11 @@ export class DwellingUtilsComponent implements OnInit {
   @Input() isHiddenBank = false;
   @Input() isHiddenOwner = false;
   @Input() isHiddenCount = false;
+  @Input() isHiddenResidentCheck = false;
   @Input() ownerTitle = 'Alta Propietario';
   @Input() residentTitle = 'Alta Residente';
   @Input() error = false;
-  @Input() errorMessage: any=[];
+  @Input() errorMessage: any = [];
 
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,7 +32,11 @@ export class DwellingUtilsComponent implements OnInit {
     this.router.navigate(['/viviendas']);
   }
   public toggle(): void {
-    this.isHiddenResident = !this.isHiddenResident;
+    if (this.isHiddenResident) {
+      this.isHiddenResident = !this.isHiddenResident;
+    } else {
+      this.isHiddenResident = true;
+    }
   }
   public ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
