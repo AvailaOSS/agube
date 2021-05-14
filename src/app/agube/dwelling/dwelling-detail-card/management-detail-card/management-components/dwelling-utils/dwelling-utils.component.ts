@@ -1,10 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
@@ -39,19 +34,19 @@ export class DwellingUtilsComponent implements OnInit {
   public toggle(): void {
     this.isHiddenResident = !this.isHiddenResident;
     if (this.isHiddenResident) {
-      this.registerForm.controls['first_nameRes'].disable();
-      this.registerForm.controls['last_nameRes'].disable();
-      this.registerForm.controls['phonesRes'].disable();
-      this.registerForm.controls['addressRes'].disable();
-      this.registerForm.controls['usernameRes'].disable();
-      this.registerForm.controls['emailRes'].disable();
+      this.registerForm.controls.first_nameRes.disable();
+      this.registerForm.controls.last_nameRes.disable();
+      this.registerForm.controls.phonesRes.disable();
+      this.registerForm.controls.addressRes.disable();
+      this.registerForm.controls.usernameRes.disable();
+      this.registerForm.controls.emailRes.disable();
     } else {
-      this.registerForm.controls['first_nameRes'].enable();
-      this.registerForm.controls['last_nameRes'].enable();
-      this.registerForm.controls['phonesRes'].enable();
-      this.registerForm.controls['addressRes'].enable();
-      this.registerForm.controls['usernameRes'].enable();
-      this.registerForm.controls['emailRes'].enable();
+      this.registerForm.controls.first_nameRes.enable();
+      this.registerForm.controls.last_nameRes.enable();
+      this.registerForm.controls.phonesRes.enable();
+      this.registerForm.controls.addressRes.enable();
+      this.registerForm.controls.usernameRes.enable();
+      this.registerForm.controls.emailRes.enable();
     }
   }
   public ngOnInit(): void {
@@ -123,34 +118,10 @@ export class DwellingUtilsComponent implements OnInit {
     });
 
     if (this.isHiddenAddress && this.isHiddenOwner && !this.isHiddenResident) {
-      this.registerForm.controls['address'].disable();
-      this.registerForm.controls['number'].disable();
-      this.registerForm.controls['flat'].disable();
-      this.registerForm.controls['gate'].disable();
-      this.registerForm.controls['town'].disable();
-      this.registerForm.controls['username'].disable();
-      this.registerForm.controls['first_name'].disable();
-      this.registerForm.controls['last_name'].disable();
-      this.registerForm.controls['email'].disable();
-      this.registerForm.controls['phones'].disable();
-      this.registerForm.controls['addressOwner'].disable();
-      this.registerForm.controls['code'].disable();
-      this.registerForm.controls['numberBank'].disable();
+      this.validatorResident();
     }
     if (this.isHiddenResident && this.isHiddenAddress && !this.isHiddenOwner) {
-      this.registerForm.controls['first_nameRes'].disable();
-      this.registerForm.controls['last_nameRes'].disable();
-      this.registerForm.controls['phonesRes'].disable();
-      this.registerForm.controls['addressRes'].disable();
-      this.registerForm.controls['usernameRes'].disable();
-      this.registerForm.controls['emailRes'].disable();
-      this.registerForm.controls['address'].disable();
-      this.registerForm.controls['number'].disable();
-      this.registerForm.controls['flat'].disable();
-      this.registerForm.controls['gate'].disable();
-      this.registerForm.controls['town'].disable();
-      this.registerForm.controls['code'].disable();
-      this.registerForm.controls['numberBank'].disable();
+      this.validatorOwner();
     }
     if (
       this.isHiddenResident &&
@@ -158,25 +129,7 @@ export class DwellingUtilsComponent implements OnInit {
       this.isHiddenBank &&
       this.isHiddenOwner
     ) {
-      this.registerForm.controls['first_nameRes'].disable();
-      this.registerForm.controls['last_nameRes'].disable();
-      this.registerForm.controls['phonesRes'].disable();
-      this.registerForm.controls['addressRes'].disable();
-      this.registerForm.controls['usernameRes'].disable();
-      this.registerForm.controls['emailRes'].disable();
-      this.registerForm.controls['address'].disable();
-      this.registerForm.controls['number'].disable();
-      this.registerForm.controls['flat'].disable();
-      this.registerForm.controls['gate'].disable();
-      this.registerForm.controls['town'].disable();
-      this.registerForm.controls['numberBank'].disable();
-      this.registerForm.controls['code'].enable();
-      this.registerForm.controls['username'].disable();
-      this.registerForm.controls['first_name'].disable();
-      this.registerForm.controls['last_name'].disable();
-      this.registerForm.controls['email'].disable();
-      this.registerForm.controls['phones'].disable();
-      this.registerForm.controls['addressOwner'].disable();
+      this.validatorWaterMeter();
     }
   }
   // tslint:disable-next-line: typedef
@@ -185,5 +138,48 @@ export class DwellingUtilsComponent implements OnInit {
   }
   public onSubmit(): void {
     this.sendForm.emit(this.registerForm.value);
+  }
+  private validatorResident(): void {
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.username.disable();
+    this.registerForm.controls.first_name.disable();
+    this.registerForm.controls.last_name.disable();
+    this.registerForm.controls.email.disable();
+    this.registerForm.controls.phones.disable();
+    this.registerForm.controls.addressOwner.disable();
+    this.registerForm.controls.code.disable();
+    this.registerForm.controls.numberBank.disable();
+  }
+  private validatorOwner(): void {
+    this.registerForm.controls.first_nameRes.disable();
+    this.registerForm.controls.last_nameRes.disable();
+    this.registerForm.controls.phonesRes.disable();
+    this.registerForm.controls.addressRes.disable();
+    this.registerForm.controls.usernameRes.disable();
+    this.registerForm.controls.emailRes.disable();
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.code.disable();
+    this.registerForm.controls.numberBank.disable();
+  }
+  private validatorWaterMeter(): void {
+    this.registerForm.controls.first_nameRes.disable();
+    this.registerForm.controls.last_nameRes.disable();
+    this.registerForm.controls.phonesRes.disable();
+    this.registerForm.controls.addressRes.disable();
+    this.registerForm.controls.usernameRes.disable();
+    this.registerForm.controls.emailRes.disable();
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.number.disable();
+    this.registerForm.controls.flat.disable();
+    this.registerForm.controls.gate.disable();
+    this.registerForm.controls.town.disable();
+    this.registerForm.controls.numberBank.disable();
+    this.registerForm.controls.username.disable();
+    this.registerForm.controls.first_name.disable();
+    this.registerForm.controls.last_name.disable();
+    this.registerForm.controls.email.disable();
+    this.registerForm.controls.phones.disable();
+    this.registerForm.controls.addressOwner.disable();
+    this.registerForm.controls.code.enable();
   }
 }
