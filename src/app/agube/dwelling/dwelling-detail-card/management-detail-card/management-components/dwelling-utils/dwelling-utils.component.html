@@ -1,6 +1,6 @@
-<div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto;">
+<div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto">
   <div [hidden]="error" class="alert alert-danger" role="alert">
-        {{errorMessage |json}}
+    {{ errorMessage | json }}
   </div>
   <h4 class="mb-3 text-center">{{ titleCard }}</h4>
   <form
@@ -12,78 +12,141 @@
       <div class="row col-12">
         <div class="col-sm-5">
           <label for="address" class="form-label">Calle</label>
-          <input type="text"  formControlName="address" class="form-control" value="address" />
+          <input
+            type="text"
+            formControlName="address"
+            class="form-control"
+            value="address"
+            placeholder=""
+            value=""
+            required=""
+          />
           <div class="invalid-feedback">Se requiere una dirección.</div>
         </div>
 
         <div class="col-sm-1">
           <label for="number" class="form-label">Numero</label>
-          <input type="number" formControlName="number" class="form-control" />
+          <input
+            type="number"
+            formControlName="number"
+            class="form-control"
+            placeholder=""
+            value=""
+            required=""
+          />
           <div class="invalid-feedback">Se requiere un numero.</div>
         </div>
         <div class="col-sm-1">
           <label for="numbflater" class="form-label">Piso</label>
-          <input type="number" formControlName="flat" class="form-control" />
+          <input
+            type="number"
+            formControlName="flat"
+            class="form-control"
+            placeholder=""
+            value=""
+            required=""
+          />
           <div class="invalid-feedback">Se requiere un Piso.</div>
         </div>
         <div class="col-sm-1">
           <label for="gate" class="form-label">Puerta</label>
-          <input type="text" formControlName="gate" class="form-control" />
+          <input
+            type="text"
+            formControlName="gate"
+            class="form-control"
+            placeholder=""
+            value=""
+            required=""
+          />
           <div class="invalid-feedback">Se requiere una puerta.</div>
         </div>
         <div class="col-sm-4">
           <label for="gate" class="form-label">Ciudad</label>
-          <input type="text" formControlName="town" class="form-control" />
+          <input
+            type="text"
+            formControlName="town"
+            class="form-control"
+            placeholder=""
+            value=""
+            required=""
+          />
         </div>
 
         <div class="invalid-feedback">Se requiere una Ciudad.</div>
       </div>
 
-    <hr class="my-4" />
+      <hr class="my-4" />
     </div>
 
     <div class="row g-3">
       <div class="row col-12">
         <div class="col-sm-6" [hidden]="isHiddenCount">
           <label for="code" class="form-label">Número de contador</label>
-          <input type="text" formControlName="code" class="form-control" />
+          <input
+            type="text"
+            formControlName="code"
+            class="form-control"
+            placeholder=""
+            value=""
+            required=""
+          />
           <div class="invalid-feedback">Se requiere un código de contador.</div>
         </div>
-        <div class="col-sm-6"  [hidden]="isHiddenBank" >
+        <div class="col-sm-6" [hidden]="isHiddenBank">
           <label for="numberBank" class="form-label">Número de cuenta</label>
           <input
             type="bank"
             formControlName="numberBank"
             class="form-control"
+            placeholder=""
+            value=""
+            required=""
           />
           <div class="invalid-feedback">Se requiere un número de cuenta.</div>
         </div>
       </div>
 
-    <hr class="my-4" />
+      <hr class="my-4" />
     </div>
 
     <div class="row col-12">
       <div class="row col-6" [hidden]="isHiddenOwner">
-        <div class="col m-4 card-header" >
+        <div class="col m-4 card-header">
           <strong>Propietario</strong>
-          <div style="display: inline;" class="custom-control custom-switch col-3  ml-1"   >
-            <input class="custom-control-input "  formControlName="resident" type="checkbox" value="resident" id="resident"  [attr.disabled]="isHiddenResidentCheck ? '' : null" (click)="toggle()">
-            <label class="custom-control-label" for="resident"  >
+          <div
+            style="display: inline-table"
+            class="custom-control custom-switch col-3 ml-1"
+          >
+            <input
+              class="custom-control-input"
+              formControlName="resident"
+              type="checkbox"
+              value="resident"
+              id="resident"
+              [attr.disabled]="isHiddenResidentCheck ? '' : null"
+              (click)="toggle()"
+            />
+            <label class="custom-control-label" for="resident">
               Residente
             </label>
           </div>
 
-          <div class="custom-control custom-switch col-3 d-inline ml-1" [hidden]="isHiddenResident" >
-            <input class="custom-control-input"  formControlName="pagador" type="checkbox" value="pagador" id="pagador" >
-            <label class="custom-control-label" for="pagador">
-              Pagador
-            </label>
+          <div
+            class="custom-control custom-switch col-3 d-inline ml-1"
+            [hidden]="isHiddenResident"
+          >
+            <input
+              class="custom-control-input"
+              formControlName="pagador"
+              type="checkbox"
+              value="pagador"
+              id="pagador"
+            />
+            <label class="custom-control-label" for="pagador"> Pagador </label>
           </div>
         </div>
         <div class="card-body">
           <div class="row g-3">
-
             <div class="col-sm-4">
               <label for="first_name" class="form-label">Nombre</label>
               <input
@@ -259,7 +322,6 @@
     </div>
     <hr class="my-4" />
   </form>
-
 </div>
 
 <div class="m-5 d-flex justify-content-between">
@@ -270,7 +332,12 @@
   >
     Atrás
   </button>
-  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
+  <button
+    class="w-25 btn btn-outline-primary btn-lg"
+    type="button"
+    (click)="onSubmit()"
+    [disabled]="registerForm.invalid"
+  >
     {{ titleCard }}
   </button>
 </div>
