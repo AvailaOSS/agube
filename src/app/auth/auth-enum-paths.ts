@@ -1,4 +1,4 @@
-export enum authEnumPaths{
+export enum AuthEnumPaths{
   LOGIN = 'login',
-  ENABLEACCOUNT='enable-account/:id'
+  ENABLE_ACCOUNT='enable-account/:id'
 }
