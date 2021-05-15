@@ -8,9 +8,9 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AgubeEnumPaths } from './agube/agube-enum-paths';
+import { AgubeRoute } from './agube/agube-route';
 import { AccountService } from './auth/login/service/account.service';
-import { SubscriptionEnumPaths } from './subscription/subscription-enum-paths';
+import { SubscriptionRoute } from './subscription/subscription-route';
 
 @Injectable({
   providedIn: 'root',
@@ -29,9 +29,9 @@ export class MainGuard implements CanActivate {
     return this.accountService.getUser().pipe(
       switchMap((response) => {
         if (response) {
-          return of(this.router.parseUrl(AgubeEnumPaths.CONTROL_PANEL));
+          return of(this.router.parseUrl(AgubeRoute.CONTROL_PANEL));
         } else {
-          return of(this.router.parseUrl(SubscriptionEnumPaths.SUBSCRIPTION));
+          return of(this.router.parseUrl(SubscriptionRoute.SUBSCRIPTION));
         }
       })
     );

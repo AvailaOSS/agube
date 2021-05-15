@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from './service/account.service';
-import { SubscriptionEnumPaths } from '../../subscription/subscription-enum-paths';
+import { SubscriptionRoute } from '../../subscription/subscription-route';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   public loading = false;
   public submitted = false;
   public returnUrl: string;
-  public subscription: string = SubscriptionEnumPaths.SUBSCRIPTION;
+  public subscription: string = SubscriptionRoute.SUBSCRIPTION;
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,

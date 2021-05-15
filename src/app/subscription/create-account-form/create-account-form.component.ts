@@ -7,7 +7,7 @@ import {
   PaymentType,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
-import { AuthEnumPaths } from 'src/app/auth/auth-enum-paths';
+import { AuthRoute } from 'src/app/auth/auth-route';
 import { Subscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
 
 @Component({
@@ -25,7 +25,7 @@ export class CreateAccountFormComponent implements OnInit {
   public error = false;
   public errorMessage: string;
   public success: boolean = false;
-  public login: string = AuthEnumPaths.LOGIN;
+  public login: string = AuthRoute.LOGIN;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,7 +85,7 @@ export class CreateAccountFormComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate([AuthEnumPaths.LOGIN]);
+          this.router.navigate([AuthRoute.LOGIN]);
           this.success = true;
           this.error = false;
         },
@@ -102,6 +102,6 @@ export class CreateAccountFormComponent implements OnInit {
   }
 
   public backToLogin(): void {
-    this.router.navigate([AuthEnumPaths.LOGIN]);
+    this.router.navigate([AuthRoute.LOGIN]);
   }
 }

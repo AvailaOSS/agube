@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { isNull } from 'lodash';
 import { AccountService } from 'src/app/auth/login/service/account.service';
-import { AgubeEnumPaths } from '../agube-enum-paths';
-import { contactBookEnumPaths } from '../../contact-book/contact-dialog/contact-book-enum-paths';
-import { taskEnumPaths } from '../../task/task-enum-paths';
+import { ContactBookRoute } from '../../contact-book/contact-book-route';
+import { TaskRoute } from '../../task/task-route';
+import { AgubeRoute } from '../agube-route';
 
 @Component({
   selector: 'app-control-panel',
@@ -13,14 +13,13 @@ import { taskEnumPaths } from '../../task/task-enum-paths';
 })
 export class ControlPanelComponent implements OnInit {
   public users: any;
-  public dwelling: string = AgubeEnumPaths.DWELLING;
-  public dwellingConfig: string = AgubeEnumPaths.CONFIG;
-  public dwellingReservoir: string = AgubeEnumPaths.RESERVOIR;
-  public contactBook: string = contactBookEnumPaths.CONTACTBOOK;
-  public taskReading: string = taskEnumPaths.READING;
-  public taskSchedule: string = taskEnumPaths.SCHEDULE;
-  public taskIncidence: string = taskEnumPaths.INCIDENCE;
-
+  public dwelling: string = AgubeRoute.DWELLING;
+  public dwellingConfig: string = AgubeRoute.CONFIG;
+  public dwellingReservoir: string = AgubeRoute.RESERVOIR;
+  public contactBook: string = ContactBookRoute.CONTACT_BOOK;
+  public taskReading: string = TaskRoute.READING;
+  public taskSchedule: string = TaskRoute.SCHEDULE;
+  public taskIncidence: string = TaskRoute.INCIDENCE;
 
   constructor(
     private router: Router,
@@ -37,7 +36,7 @@ export class ControlPanelComponent implements OnInit {
     this.users = this.svcAccountService.getUser();
   }
 
-  public goTo(route: any): void {
+  public goTo(route: string): void {
     this.router.navigate([route]);
   }
 }
