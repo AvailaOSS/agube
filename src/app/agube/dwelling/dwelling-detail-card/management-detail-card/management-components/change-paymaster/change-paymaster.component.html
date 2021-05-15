@@ -9,25 +9,15 @@
 
     <div class="row col-12" style="cursor: pointer">
       <div class="col-6" [hidden]="owner === resident">
-        <div
-          class="card m-4 rounded-3 shadow-sm border-primary"
-          (click)="selectedRow(owner)"
-        >
-          <div
-            class="card-header py-3 border-primary"
-            [ngClass]="{
+        <div class="card m-4 rounded-3 shadow-sm border-primary" (click)="selectedRow(owner)">
+          <div class="card-header py-3 border-primary" [ngClass]="{
               'paymaster-row': owner === paymaster,
               'selected-row': owner === selectRow
-            }"
-          >
+            }">
             <h4 class="my-0 fw-normal">Propietario {{ owner }}</h4>
           </div>
           <div class="card-body">
-            <p
-              class="card-text"
-              style="display: grid"
-
-            >
+            <p class="card-text" style="display: grid">
               <strong>Dirección:</strong> {{ addressOwn }}
               <strong>Teléfono:</strong> {{ phoneOwn }}
               <strong>Nombre:</strong> {{ owner }}
@@ -37,25 +27,15 @@
       </div>
 
       <div class="col-6">
-        <div
-          class="card m-4 rounded-3 shadow-sm"
-          (click)="selectedRow(resident)"
-        >
-          <div
-            class="card-header py-3"
-            [ngClass]="{
+        <div class="card m-4 rounded-3 shadow-sm" (click)="selectedRow(resident)">
+          <div class="card-header py-3" [ngClass]="{
               'paymaster-row': resident === paymaster,
               'selected-row': resident === selectRow
-            }"
-          >
+            }">
             <h4 class="my-0 fw-normal">Residente {{ resident }}</h4>
           </div>
           <div class="card-body">
-            <p
-              class="card-text"
-              style="display: grid"
-
-            >
+            <p class="card-text" style="display: grid">
               <strong>Dirección:</strong> {{ addressRes }}
               <strong>Teléfono:</strong> {{ phoneRes }}
               <strong>Nombre:</strong> {{ resident }}
@@ -67,18 +47,10 @@
   </form>
 </div>
 <div class="m-5 d-flex justify-content-between">
-  <button
-    class="w-25 btn btn-outline-danger btn-lg"
-    type="button"
-    (click)="goToControlPanel()"
-  >
+  <button class="w-25 btn btn-outline-danger btn-lg" type="button" (click)="goToControlPanel()">
     Atrás
   </button>
-  <button
-    class="w-25 btn btn-outline-primary btn-lg"
-    type="button"
-    (click)="onSubmit()"
-  >
+  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
     Cambio de pagador
   </button>
 </div>

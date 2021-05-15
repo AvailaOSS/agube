@@ -1,9 +1,8 @@
+import { Component, Input, OnInit } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { DwellingDetail, DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+  DwellingDetail,
+  DwellingService,
+} from 'apiaux/agube-rest-api-lib/src/public-api';
 import { iWaterMeterDetailCard } from './water-meter-enabled-detail-card';
 
 @Component({
@@ -12,11 +11,10 @@ import { iWaterMeterDetailCard } from './water-meter-enabled-detail-card';
 })
 export class WaterMeterEnabledDetailCardComponent implements OnInit {
   // TODO: move to water-meter module
-  public currentWaterMeter: iWaterMeterDetailCard;
   @Input() public dWelling: DwellingDetail;
+  public currentWaterMeter: iWaterMeterDetailCard;
 
   constructor(private readonly svcWelling: DwellingService) {}
-
 
   public ngOnInit(): void {
     this.currentWaterMeter = {

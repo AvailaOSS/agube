@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReservoirService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
   selector: 'app-change-water-meter',
@@ -51,7 +52,7 @@ export class ChangeWaterMeterComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.svcRouter.navigate(['/depositos']);
+          this.svcRouter.navigate([AgubeRoute.RESERVOIR]);
         },
         (error) => {
           this.error = false;

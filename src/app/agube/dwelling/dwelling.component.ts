@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingDetail } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../agube-route';
 
 @Component({
   selector: 'app-dwelling',
@@ -19,7 +20,6 @@ export class DwellingComponent implements OnInit {
   }
 
   public goToControlPanel(): void {
-    this.router.navigate(['/control-panel']);
+    this.router.navigate([AgubeRoute.CONTROL_PANEL]);
   }
-
 }

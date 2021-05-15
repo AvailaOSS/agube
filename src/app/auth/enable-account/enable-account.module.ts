@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EnableAccountComponent } from './enable-account.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EnableAccountComponent } from './enable-account.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, FormsModule],

@@ -1,29 +1,15 @@
 <div class="row text-center">
   <div class="w-100 d-flex justify-content-between">
     <div class="btn-group">
-      <mwlCalendarPreviousView
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
+      <mwlCalendarPreviousView class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
         Previous
       </mwlCalendarPreviousView>
-      <mwlCalendarToday
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-      >
+      <mwlCalendarToday class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
         Today
       </mwlCalendarToday>
-      <mwlCalendarNextView
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
+      <mwlCalendarNextView class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
         Next
       </mwlCalendarNextView>
     </div>
@@ -34,16 +20,9 @@
 </div>
 <br />
 <div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
-  >
+  <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+    [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-month-view>
 </div>
 <ng-template #modalContent let-close="close">

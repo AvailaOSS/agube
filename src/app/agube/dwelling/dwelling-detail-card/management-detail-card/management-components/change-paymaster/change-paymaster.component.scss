@@ -1,8 +1,10 @@
-.paymaster-row{
+.paymaster-row {
+  // FIXME: use colors from project style palette
   background-color: #18693d;
   color: #fff;
-  }
-  .selected-row{
-    background-color: #007bff;
-    color: #fff;
-    }
+}
+
+.selected-row {
+  background-color: #007bff;
+  color: #fff;
+}

@@ -1,4 +1,4 @@
-export enum SubscriptionRoute{
+export enum SubscriptionRoute {
   SUBSCRIPTION = 'subscription',
-  CREATE_ACCOUNT='create-account'
+  CREATE_ACCOUNT = 'create-account',
 }

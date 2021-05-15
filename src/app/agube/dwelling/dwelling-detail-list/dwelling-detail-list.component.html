@@ -1,16 +1,8 @@
 <div class="col-12 form-group">
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Buscador"
-    [(ngModel)]="data"
-    style="float: left; width: 50%; align-items: center; margin-bottom: 20px"
-  />
+  <input type="text" class="form-control" placeholder="Buscador" [(ngModel)]="data"
+    style="float: left; width: 50%; align-items: center; margin-bottom: 20px" />
 
-  <button
-    class="btn btn-outline-primary float-right"
-    (click)="addNewDwelling()"
-  >
+  <button class="btn btn-outline-primary float-right" (click)="addNewDwelling()">
     Agregar Viviendas
   </button>
 </div>
@@ -18,59 +10,39 @@
   <table mdbTable #tableEl="mdbTable" mdbTable class="z-depth-1">
     <thead>
       <tr>
-        <th
-          *ngFor="let head of headElements; let i = index"
-          aria-controls="tableSortExample"
-          scope="col"
-          [mdbTableSort]="dataSource"
-          [sortBy]="headElementsRead[i]"
-          style="background-color: #d0d1d4b8"
-        >
+        <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col"
+          [mdbTableSort]="dataSource" [sortBy]="headElementsRead[i]" style="background-color: #d0d1d4b8">
           <strong> {{ head | titlecase }}</strong>
           <mdb-icon fas icon="sort"></mdb-icon>
         </th>
       </tr>
     </thead>
-    <tbody
-      class="clickable-row table"
-      *ngFor="let el of dataSource | filter: data; let i = index"
-      [ngClass]="{ 'selected-row': el.id === selectedRowIndex }"
-      (click)="selectRow(el)"
-    >
+    <tbody class="clickable-row table" *ngFor="let el of dataSource | filter: data; let i = index"
+      [ngClass]="{ 'selected-row': el.id === selectedRowIndex }" (click)="selectRow(el)">
       <tr>
-        <th
-          *ngIf="
+        <th *ngIf="
             i + 1 >= mdbTablePagination.firstItemIndex &&
             i < mdbTablePagination.lastItemIndex
-          "
-          scope="row"
-        >
+          " scope="row">
           {{ el.flat }} {{ el.gate }} {{ el.number }} {{ el.street }}
           {{ el.town }}
         </th>
-        <td
-          *ngIf="
+        <td *ngIf="
             i + 1 >= mdbTablePagination.firstItemIndex &&
             i < mdbTablePagination.lastItemIndex
-          "
-        >
+          ">
           {{ el.water_meter_code }}
         </td>
-        <td
-          *ngIf="
+        <td *ngIf="
             i + 1 >= mdbTablePagination.firstItemIndex &&
             i < mdbTablePagination.lastItemIndex
-          "
-        >
+          ">
           {{ el.resident_first_name }}
         </td>
-        <td
-          [ngClass]="{ 'selected-row': el.id === selectedRowIndex }"
-          *ngIf="
+        <td [ngClass]="{ 'selected-row': el.id === selectedRowIndex }" *ngIf="
             i + 1 >= mdbTablePagination.firstItemIndex &&
             i < mdbTablePagination.lastItemIndex
-          "
-        >
+          ">
           {{ el.resident_phone }}
         </td>
       </tr>
@@ -78,11 +50,8 @@
     <tfoot class="lighten-5 w-100 bg-gray" style="background-color: #d0d1d4b8">
       <tr class="text-center">
         <td colspan="4">
-          <mdb-table-pagination
-            style="display: inline-flex; margin: 0 auto; color: blue"
-            [tableEl]="tableEl"
-            [searchDataSource]="dataSource"
-          ></mdb-table-pagination>
+          <mdb-table-pagination style="display: inline-flex; margin: 0 auto; color: blue" [tableEl]="tableEl"
+            [searchDataSource]="dataSource"></mdb-table-pagination>
         </td>
       </tr>
     </tfoot>

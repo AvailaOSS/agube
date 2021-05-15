@@ -13,7 +13,7 @@ import { SubscriptionComponent } from './subscription.component';
     BrowserModule,
     SubscriptionApiModule,
     CreateAccountFormModule,
-    SubscriptionRoutingModule
+    SubscriptionRoutingModule,
   ],
 })
 export class SubscriptionModule {}

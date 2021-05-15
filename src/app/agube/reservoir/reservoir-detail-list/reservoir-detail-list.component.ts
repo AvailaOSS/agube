@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AgubeRoute } from '../../agube-route';
 import {
   MdbTableDirective,
   MdbTablePaginationComponent,
@@ -28,6 +29,7 @@ export class ReservoirDetailListComponent implements OnInit, AfterViewInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
 
   @Output() selected = new EventEmitter<ReservoirDetail>();
+
   public address: string;
   public selectedRowIndex = '';
   public data: string;
@@ -36,6 +38,7 @@ export class ReservoirDetailListComponent implements OnInit, AfterViewInit {
   public dataSource: ReservoirDetail[];
   headElementsRead = ['Dirección', 'inlet_flow', 'outlet_flow'];
   headElements = ['Dirección', 'Contador', 'Capacidad'];
+
   constructor(
     private readonly svcReservoirService: ReservoirService,
     private readonly router: Router,
@@ -50,12 +53,14 @@ export class ReservoirDetailListComponent implements OnInit, AfterViewInit {
       this.previous = this.mdbTable.getDataSource();
     });
   }
+
   public ngAfterViewInit(): void {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
   }
+
   public selectRow(row: any): void {
     this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
     this.selected.emit(row);
@@ -63,6 +68,6 @@ export class ReservoirDetailListComponent implements OnInit, AfterViewInit {
   }
 
   public addNewReservoir(): void {
-    this.router.navigate(['depositos/alta/deposito']);
+    this.router.navigate([AgubeRoute.CREATE_RESERVOIR]);
   }
 }

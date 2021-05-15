@@ -8,6 +8,7 @@ import { IncidenceService } from 'apiaux/task-rest-api-lib/src/public-api';
 })
 export class IncidenceComponent implements OnInit {
   constructor(private readonly svcTaskService: IncidenceService) {
+    // FIXME: move it to ngOnInit (good practice) ?
     this.svcTaskService
       .createIncidence({
         task: {

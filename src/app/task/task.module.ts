@@ -19,7 +19,7 @@ import { TaskRoutingModule } from './task-routing.module';
       useFactory: adapterFactory,
     }),
     TaskApiModule,
-    TaskRoutingModule
+    TaskRoutingModule,
   ],
   exports: [CalendarComponent],
 })

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
 
@@ -32,7 +31,6 @@ export class ChangeOwnerComponent implements OnInit {
   public ngOnInit(): void {}
 
   public sendForm(event: any): void {
-    console.log(event);
     this.svcChangeOwner
       .changeCurrentOwner(+this.ownerId, {
         user: {

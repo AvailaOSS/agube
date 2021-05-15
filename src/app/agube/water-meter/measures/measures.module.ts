@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MeasuresComponent } from './measures.component';
-import { ComponentsModule } from '../../../components/components.module';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { ComponentsModule } from '../../../components/components.module';
+import { MeasuresComponent } from './measures.component';
 
 @NgModule({
   declarations: [MeasuresComponent],

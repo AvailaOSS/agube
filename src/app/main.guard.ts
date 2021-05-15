@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 import { AgubeRoute } from './agube/agube-route';
 import { AccountService } from './auth/login/service/account.service';
 import { SubscriptionRoute } from './subscription/subscription-route';
+import { AuthRoute } from './auth/auth-route';
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +30,13 @@ export class MainGuard implements CanActivate {
     return this.accountService.getUser().pipe(
       switchMap((response) => {
         if (response) {
+          // if user logged redirect to control panel
           return of(this.router.parseUrl(AgubeRoute.CONTROL_PANEL));
+        } else if (this.router.url != SubscriptionRoute.SUBSCRIPTION) {
+          // if not in subscription redirect to login
+          return of(this.router.parseUrl(AuthRoute.LOGIN));
         } else {
+          // else return user to subscription
           return of(this.router.parseUrl(SubscriptionRoute.SUBSCRIPTION));
         }
       })

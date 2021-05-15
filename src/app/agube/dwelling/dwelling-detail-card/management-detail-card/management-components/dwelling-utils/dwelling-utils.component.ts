@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
+import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
   selector: 'app-dwelling-utils',
@@ -26,11 +27,35 @@ export class DwellingUtilsComponent implements OnInit {
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
   public registerForm: FormGroup;
+
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
-  public goToControlPanel(): void {
-    this.router.navigate(['/viviendas']);
+  public ngOnInit(): void {
+    this.registerForm = this.initializeForm();
+    this.initializeFormWatcher();
+
+    if (this.isHiddenAddress && this.isHiddenOwner && !this.isHiddenResident) {
+      this.validatorResident();
+    }
+
+    if (this.isHiddenResident && this.isHiddenAddress && !this.isHiddenOwner) {
+      this.validatorOwner();
+    }
+
+    if (
+      this.isHiddenResident &&
+      this.isHiddenAddress &&
+      this.isHiddenBank &&
+      this.isHiddenOwner
+    ) {
+      this.validatorWaterMeter();
+    }
   }
+
+  public goToControlPanel(): void {
+    this.router.navigate([AgubeRoute.DWELLING]);
+  }
+
   public toggle(): void {
     this.isHiddenResident = !this.isHiddenResident;
     if (this.isHiddenResident) {
@@ -49,8 +74,64 @@ export class DwellingUtilsComponent implements OnInit {
       this.registerForm.controls.emailRes.enable();
     }
   }
-  public ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
+
+  // tslint:disable-next-line: typedef
+  get f() {
+    return this.registerForm.controls;
+  }
+
+  public onSubmit(): void {
+    this.sendForm.emit(this.registerForm.value);
+  }
+
+  private validatorResident(): void {
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.username.disable();
+    this.registerForm.controls.first_name.disable();
+    this.registerForm.controls.last_name.disable();
+    this.registerForm.controls.email.disable();
+    this.registerForm.controls.phones.disable();
+    this.registerForm.controls.addressOwner.disable();
+    this.registerForm.controls.code.disable();
+    this.registerForm.controls.numberBank.disable();
+  }
+
+  private validatorOwner(): void {
+    this.registerForm.controls.first_nameRes.disable();
+    this.registerForm.controls.last_nameRes.disable();
+    this.registerForm.controls.phonesRes.disable();
+    this.registerForm.controls.addressRes.disable();
+    this.registerForm.controls.usernameRes.disable();
+    this.registerForm.controls.emailRes.disable();
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.code.disable();
+    this.registerForm.controls.numberBank.disable();
+  }
+
+  private validatorWaterMeter(): void {
+    this.registerForm.controls.first_nameRes.disable();
+    this.registerForm.controls.last_nameRes.disable();
+    this.registerForm.controls.phonesRes.disable();
+    this.registerForm.controls.addressRes.disable();
+    this.registerForm.controls.usernameRes.disable();
+    this.registerForm.controls.emailRes.disable();
+    this.registerForm.controls.address.disable();
+    this.registerForm.controls.number.disable();
+    this.registerForm.controls.flat.disable();
+    this.registerForm.controls.gate.disable();
+    this.registerForm.controls.town.disable();
+    this.registerForm.controls.numberBank.disable();
+    this.registerForm.controls.username.disable();
+    this.registerForm.controls.first_name.disable();
+    this.registerForm.controls.last_name.disable();
+    this.registerForm.controls.email.disable();
+    this.registerForm.controls.phones.disable();
+    this.registerForm.controls.addressOwner.disable();
+    this.registerForm.controls.code.enable();
+  }
+
+  private initializeForm(): FormGroup {
+    return this.formBuilder.group({
       address: new FormControl(),
       number: new FormControl(),
       flat: new FormControl(),
@@ -73,11 +154,14 @@ export class DwellingUtilsComponent implements OnInit {
       phonesRes: new FormControl(),
       addressRes: new FormControl(),
     });
+  }
 
+  private initializeFormWatcher() {
     this.formDataConfiguration.subscribe((value) => {
       if (!isUndefined(value) && value !== 5) {
         this.registerForm.get('numberBank').setValue(value.iban);
         this.registerForm.get('code').setValue(value.code);
+
         if (!isUndefined(value.user)) {
           this.registerForm
             .get('number')
@@ -116,70 +200,5 @@ export class DwellingUtilsComponent implements OnInit {
         }
       }
     });
-
-    if (this.isHiddenAddress && this.isHiddenOwner && !this.isHiddenResident) {
-      this.validatorResident();
-    }
-    if (this.isHiddenResident && this.isHiddenAddress && !this.isHiddenOwner) {
-      this.validatorOwner();
-    }
-    if (
-      this.isHiddenResident &&
-      this.isHiddenAddress &&
-      this.isHiddenBank &&
-      this.isHiddenOwner
-    ) {
-      this.validatorWaterMeter();
-    }
-  }
-  // tslint:disable-next-line: typedef
-  get f() {
-    return this.registerForm.controls;
-  }
-  public onSubmit(): void {
-    this.sendForm.emit(this.registerForm.value);
-  }
-  private validatorResident(): void {
-    this.registerForm.controls.address.disable();
-    this.registerForm.controls.username.disable();
-    this.registerForm.controls.first_name.disable();
-    this.registerForm.controls.last_name.disable();
-    this.registerForm.controls.email.disable();
-    this.registerForm.controls.phones.disable();
-    this.registerForm.controls.addressOwner.disable();
-    this.registerForm.controls.code.disable();
-    this.registerForm.controls.numberBank.disable();
-  }
-  private validatorOwner(): void {
-    this.registerForm.controls.first_nameRes.disable();
-    this.registerForm.controls.last_nameRes.disable();
-    this.registerForm.controls.phonesRes.disable();
-    this.registerForm.controls.addressRes.disable();
-    this.registerForm.controls.usernameRes.disable();
-    this.registerForm.controls.emailRes.disable();
-    this.registerForm.controls.address.disable();
-    this.registerForm.controls.code.disable();
-    this.registerForm.controls.numberBank.disable();
-  }
-  private validatorWaterMeter(): void {
-    this.registerForm.controls.first_nameRes.disable();
-    this.registerForm.controls.last_nameRes.disable();
-    this.registerForm.controls.phonesRes.disable();
-    this.registerForm.controls.addressRes.disable();
-    this.registerForm.controls.usernameRes.disable();
-    this.registerForm.controls.emailRes.disable();
-    this.registerForm.controls.address.disable();
-    this.registerForm.controls.number.disable();
-    this.registerForm.controls.flat.disable();
-    this.registerForm.controls.gate.disable();
-    this.registerForm.controls.town.disable();
-    this.registerForm.controls.numberBank.disable();
-    this.registerForm.controls.username.disable();
-    this.registerForm.controls.first_name.disable();
-    this.registerForm.controls.last_name.disable();
-    this.registerForm.controls.email.disable();
-    this.registerForm.controls.phones.disable();
-    this.registerForm.controls.addressOwner.disable();
-    this.registerForm.controls.code.enable();
   }
 }
