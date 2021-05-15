@@ -17,6 +17,7 @@ import {
   DwellingService,
 } from 'apiaux/agube-rest-api-lib/src/public-api';
 import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../../agube-route';
 
 @Component({
   selector: 'app-dwelling-detail-list',
@@ -28,20 +29,23 @@ export class DwellingDetailListComponent implements OnInit, AfterViewInit {
   mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @Output() selected = new EventEmitter<DwellingDetail>();
-  elements: any = [];
-  previous: any = [];
-  headElementsRead = [
+
+  public elements: any = [];
+  public previous: any = [];
+  public headElementsRead = [
     'Dirección',
     'water_meter_code',
     'resident_first_name',
     'resident_phone',
   ];
-  headElements = ['Dirección', 'Contador', 'Residente', 'Teléfono'];
+  public headElements = ['Dirección', 'Contador', 'Residente', 'Teléfono'];
+
   public selectedRowIndex = '';
   public address: string;
   public dataSource: DwellingDetail[] = [];
   public currentUser: User;
   public data: string;
+
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
     private readonly route: Router,
@@ -70,7 +74,8 @@ export class DwellingDetailListComponent implements OnInit, AfterViewInit {
     this.selected.emit(row);
     this.selectedRowIndex = row.id;
   }
+
   public addNewDwelling(): void {
-    this.route.navigate(['/viviendas/alta/vivienda']);
+    this.route.navigate([AgubeRoute.CREATE_DWELLING]);
   }
 }

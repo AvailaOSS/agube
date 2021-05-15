@@ -4,6 +4,7 @@ import {
   ManagerService,
   ReservoirService,
 } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../../agube-route';
 
 @Component({
   selector: 'app-create-reservoir',
@@ -48,9 +49,10 @@ export class CreateReservoirComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate(['/depositos']);
+          this.router.navigate([AgubeRoute.RESERVOIR]);
         },
         (error) => {
+          // FIXME: throw Notification Service
           this.error = false;
         }
       );

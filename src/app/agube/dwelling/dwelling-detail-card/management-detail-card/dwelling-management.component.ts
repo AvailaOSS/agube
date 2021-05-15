@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AgubeRoute } from '../../../agube-route';
 import {
   DwellingDetail,
   ManagerService,
@@ -10,7 +11,8 @@ import {
   templateUrl: './dwelling-management-detail-card.component.html',
 })
 export class DwellingManagementDetailCardComponent
-  implements OnInit, OnChanges {
+  implements OnInit, OnChanges
+{
   @Input() dwelling: DwellingDetail;
   @Input() waterMeter: string;
   public userId: string;
@@ -29,25 +31,25 @@ export class DwellingManagementDetailCardComponent
   public ngOnChanges(): void {}
 
   public changeCount(): void {
-    this.svcRouter.navigate(['/vivienda/cambio/contador'], {
+    this.svcRouter.navigate([AgubeRoute.CHANGE_WATER_METER], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
 
   public changeResident(): void {
-    this.svcRouter.navigate(['/vivienda/resident'], {
+    this.svcRouter.navigate([AgubeRoute.CHANGE_RESIDENT], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
 
   public changeOwner(): void {
-    this.svcRouter.navigate(['/vivienda/propietario'], {
+    this.svcRouter.navigate([AgubeRoute.CHANGE_OWNER], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }
 
   public changePay(): void {
-    this.svcRouter.navigate(['/vivienda/cambio/pagador'], {
+    this.svcRouter.navigate([AgubeRoute.CHANGE_PAYMASTER], {
       queryParams: { data: this.dwelling.id, user_id: this.userId },
     });
   }

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appButtonDanger]'
+  selector: '[appButtonDanger]',
 })
 export class ButtonDangerDirective {
   constructor(private renderer: Renderer2, hostElement: ElementRef) {

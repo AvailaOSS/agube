@@ -5,23 +5,16 @@
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-primary">Tu Subscripción</span>
         </h4>
-        <ul
-          class="list-group mb-3"
-          *ngFor="let subs of subscriptions; let id = index"
-          (click)="selectedSubscription(subs)"
-        >
-          <li
-          style="cursor: pointer;"
-            class="list-group-item list-group-item-action list-group-item-primary"
-            [ngClass]="{
+        <ul class="list-group mb-3" *ngFor="let subs of subscriptions; let id = index"
+          (click)="selectedSubscription(subs)">
+          <li style="cursor: pointer;" class="list-group-item list-group-item-action list-group-item-primary" [ngClass]="{
               ' list-group-item-success':
                 id + 1 == formIdentification
                   ? true
                   : false
                   ? 'list-group-item-primary'
                   : false
-            }"
-          >
+            }">
             <a id="{{ subs.id }}">
               <h6 class="my-0">{{ subs.name }}</h6>
               <small class="text-muted">{{ subs.description }}</small>
@@ -30,7 +23,7 @@
           </li>
 
         </ul>
-        <button class="w-100 btn btn-primary btn-lg" type="button" (click)="backToLogin()" >
+        <button class="w-100 btn btn-primary btn-lg" type="button" (click)="backToLogin()">
           Ya tengo una cuenta
         </button>
       </div>
@@ -40,38 +33,19 @@
         </div>
 
         <h4 class="mb-3 text-center">Registrarse</h4>
-        <form
-          class="needs-validation was-validated"
-          novalidate=""
-          [formGroup]="registerForm"
-          (ngSubmit)="onSubmit()"
-        >
+        <form class="needs-validation was-validated" novalidate="" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                formControlName="firstName"
-                placeholder=""
-                value=""
-                required=""
-              />
+              <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="" value=""
+                required="" />
               <div class="invalid-feedback">Se requiere un nombre.</div>
             </div>
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">Apellido</label>
-              <input
-                type="text"
-                class="form-control"
-                id="lastName"
-                formControlName="lastName"
-                placeholder=""
-                value=""
-                required=""
-              />
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="" value=""
+                required="" />
               <div class="invalid-feedback">Se requiere un apellido.</div>
             </div>
 
@@ -79,41 +53,23 @@
               <label for="username" class="form-label">Username</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  placeholder="Username"
-                  formControlName="username"
-                  required=""
-                />
+                <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username"
+                  required="" />
                 <div class="invalid-feedback">Se requiere un username.</div>
               </div>
             </div>
 
             <div class="col-12">
               <label for="email" class="form-label">Email </label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                placeholder="you@example.com"
-                formControlName="email"
-                required=""
-              />
+              <input type="email" class="form-control" id="email" placeholder="you@example.com" formControlName="email"
+                required="" />
               <div class="invalid-feedback">Se requiere un email válido</div>
             </div>
 
             <div class="col-12">
               <label for="address" class="form-label">Dirección</label>
-              <input
-                type="text"
-                class="form-control"
-                id="address"
-                placeholder="Calle Coghlan 1670..."
-                required=""
-                formControlName="business_name"
-              />
+              <input type="text" class="form-control" id="address" placeholder="Calle Coghlan 1670..." required=""
+                formControlName="business_name" />
               <div class="invalid-feedback">
                 Se require una dirección existente.
               </div>
@@ -121,37 +77,18 @@
 
             <div class="col-md-3">
               <label for="zip" class="form-label">Cp</label>
-              <input
-                type="text"
-                class="form-control"
-                id="zip"
-                placeholder=""
-                required=""
-              />
+              <input type="text" class="form-control" id="zip" placeholder="" required="" />
               <div class="invalid-feedback">Código postal required.</div>
             </div>
             <div class="col-md-3">
               <label for="nif" class="form-label">NIF</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nif"
-                placeholder=""
-                required=""
-                formControlName="nif"
-              />
+              <input type="text" class="form-control" id="nif" placeholder="" required="" formControlName="nif" />
               <div class="invalid-feedback">NIF requerido.</div>
             </div>
             <div class="col-md-3">
               <label for="phone_number" class="form-label">Télefono</label>
-              <input
-                type="text"
-                class="form-control"
-                id="phone_number"
-                placeholder=""
-                required=""
-                formControlName="phone_number"
-              />
+              <input type="text" class="form-control" id="phone_number" placeholder="" required=""
+                formControlName="phone_number" />
               <div class="invalid-feedback">Número de teléfono requerido.</div>
             </div>
           </div>
@@ -162,20 +99,20 @@
 
           <div class="my-3">
             <div class="form-check">
-              <input class="form-check-input" type="radio" formControlName="payment_type" value="1"  checked>
+              <input class="form-check-input" type="radio" formControlName="payment_type" value="1" checked>
               <label class="form-check-label" for="debit">
-               Visa
+                Visa
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" formControlName="payment_type"   value="2" >
+              <input class="form-check-input" type="radio" formControlName="payment_type" value="2">
               <label class="form-check-label" for="paypal">
-               Paypal
+                Paypal
               </label>
             </div>
 
             <div class="form-check">
-              <input class="form-check-input" type="radio" formControlName="payment_type"   value="3" >
+              <input class="form-check-input" type="radio" formControlName="payment_type" value="3">
               <label class="form-check-label" for="credit">
                 Mastercard
               </label>
@@ -192,5 +129,5 @@
 </div>
 
 <div [hidden]="!success" class="alert alert-success" role="success">
- Formulario enviado con éxito
+  Formulario enviado con éxito
 </div>

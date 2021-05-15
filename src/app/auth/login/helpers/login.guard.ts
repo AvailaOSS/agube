@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AccountService } from '../service/account.service';
 

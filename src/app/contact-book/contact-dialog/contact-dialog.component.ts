@@ -2,15 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
-  Input,
-  OnChanges,
   OnInit,
-  ɵConsole,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ContactService } from 'apiaux/contact-book-rest-api-lib/src/public-api';
-import { isNull, isUndefined } from 'lodash';
+import { isNull } from 'lodash';
 
 @Component({
   selector: 'app-contact-dialog',

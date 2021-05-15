@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
+import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
   selector: 'app-reservoir-utils',
@@ -28,11 +29,27 @@ export class ReservoirUtilsComponent implements OnInit {
   public registerForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
-  public goToControlPanel(): void {
-    this.router.navigate(['/depositos']);
-  }
   public ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
+    this.registerForm = this.initializeForm();
+    this.initializeFormWatcher();
+  }
+
+  // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
+  get f() {
+    return this.registerForm.controls;
+  }
+
+  public onSubmit(): void {
+    this.sendForm.emit(this.registerForm.value);
+  }
+
+  public goToControlPanel(): void {
+    this.router.navigate([AgubeRoute.RESERVOIR]);
+  }
+
+  private initializeForm(): FormGroup {
+    return this.formBuilder.group({
       address: new FormControl(),
       number: new FormControl(),
       flat: new FormControl(),
@@ -44,7 +61,9 @@ export class ReservoirUtilsComponent implements OnInit {
       inlet_flow: new FormControl(),
       outlet_flow: new FormControl(),
     });
+  }
 
+  private initializeFormWatcher() {
     this.formDataConfiguration.subscribe((value) => {
       if (!isUndefined(value) && value !== 5) {
         this.registerForm.get('code').setValue(value.code);
@@ -58,13 +77,5 @@ export class ReservoirUtilsComponent implements OnInit {
         this.registerForm.get('outlet_flow').setValue(value.outlet_flow);
       }
     });
-  }
-  // convenience getter for easy access to form fields
-  // tslint:disable-next-line: typedef
-  get f() {
-    return this.registerForm.controls;
-  }
-  public onSubmit(): void {
-    this.sendForm.emit(this.registerForm.value);
   }
 }

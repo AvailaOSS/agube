@@ -4,7 +4,7 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
+  UrlTree
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';

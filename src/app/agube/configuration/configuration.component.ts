@@ -24,6 +24,7 @@ export class ConfigurationComponent implements OnInit {
       release_date: new FormControl(),
       max_daily_consumption: new FormControl(),
     });
+    // FIXME: initialize it into ngOnIniti better (good practice)?
     this.svcManager.getManagerByUser().subscribe((value) => {
       this.userId = value.user_id;
       this.svcManager
@@ -34,6 +35,7 @@ export class ConfigurationComponent implements OnInit {
             .setValue(values.hook_price.hook_price);
           this.registerForm
             .get('release_date')
+            // TODO: use PIPE to parse date
             .setValue(values.hook_price.release_date.split('T')[0]);
           this.registerForm
             .get('max_daily_consumption')
@@ -42,11 +44,11 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {}
+
   public goToControlPanel(): void {
     this.svcRouter.navigate([AgubeRoute.CONTROL_PANEL]);
   }
-
-  ngOnInit(): void {}
 
   public onSubmit(): void {
     this.svcManager

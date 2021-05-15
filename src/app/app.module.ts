@@ -26,7 +26,7 @@ import { TaskModule } from './task/task.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    TaskModule
+    TaskModule,
   ],
   bootstrap: [AppComponent],
 })

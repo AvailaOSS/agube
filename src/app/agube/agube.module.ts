@@ -18,7 +18,7 @@ import { WaterMeterModule } from './water-meter/water-meter.module';
     DwellingModule,
     ReservoirModule,
     ConfigurationModule,
-    AgubeRoutingModule
+    AgubeRoutingModule,
   ],
 })
 export class AgubeModule {}

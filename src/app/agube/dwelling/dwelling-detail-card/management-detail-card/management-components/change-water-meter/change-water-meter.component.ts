@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
   selector: 'app-change-water-meter',
@@ -31,16 +32,14 @@ export class ChangeWaterMeterComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
+
   public sendForm(event: any): void {
-    console.log('water', event);
     this.svcChangeWaterMeter
       .changeCurrentDwellingWaterMeter(+this.waterMeterId, {
         code: event.code,
       })
       .subscribe(
-        (value) => {
-          this.router.navigate(['/viviendas']);
-        },
+        (value) => this.router.navigate([AgubeRoute.DWELLING]),
         (error) => {
           this.error = false;
           this.errorMessage = error;

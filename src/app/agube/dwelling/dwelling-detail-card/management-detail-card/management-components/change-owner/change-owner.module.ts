@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeOwnerComponent } from './change-owner.component';
+import { NgModule } from '@angular/core';
 import { DwellingUtilsModule } from '../dwelling-utils/dwelling-utils.module';
+import { ChangeOwnerComponent } from './change-owner.component';
 
 @NgModule({
   declarations: [ChangeOwnerComponent],

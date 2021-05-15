@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'apiaux/auth-rest-api-lib/src/public-api';
+import { AuthRoute } from '../auth-route';
 
 @Component({
   selector: 'app-enable-account',
@@ -48,7 +49,7 @@ export class EnableAccountComponent implements OnInit {
         })
         .subscribe(
           (value) => {
-            this.svcRouter.navigate(['/login']);
+            this.svcRouter.navigate([AuthRoute.LOGIN]);
           },
           (error) => {
             this.error = true;

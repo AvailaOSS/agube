@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from './service/account.service';
 import { SubscriptionRoute } from '../../subscription/subscription-route';
+import { AccountService } from './service/account.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   public subscription: string = SubscriptionRoute.SUBSCRIPTION;
   constructor(
     private formBuilder: FormBuilder,
-    private accountService: AccountService,
+    private accountService: AccountService
   ) {}
 
   public ngOnInit(): void {

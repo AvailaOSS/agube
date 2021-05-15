@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
   selector: 'app-change-paymaster',
@@ -39,6 +40,29 @@ export class ChangePaymasterComponent implements OnInit {
     });
   }
 
+  public ngOnInit(): void {
+    this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
+      this.iban = Object.entries(value)[2][1];
+      this.paymaster = Object.entries(value)[3][1];
+      this.registerForm.get('numberBank').setValue(this.iban);
+    });
+    this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
+      this.owner = Object.entries(owner)[2][1]['username'];
+      this.addressOwn =
+        Object.entries(owner)[2][1]['address'][0].address.street;
+      this.phoneOwn = Object.entries(owner)[2][1]['phones'][0].phone_number;
+    });
+
+    this.svcChangePay
+      .getCurrentResident(+this.changePayId)
+      .subscribe((value) => {
+        this.resident = Object.entries(value)[2][1]['username'];
+        this.addressRes =
+          Object.entries(value)[2][1]['address'][0].address.street;
+        this.phoneRes = Object.entries(value)[2][1]['phones'][0].phone_number;
+      });
+  }
+
   public onSubmit(): void {
     this.svcChangePay
       .changePaymaster(this.changePayId, {
@@ -49,41 +73,20 @@ export class ChangePaymasterComponent implements OnInit {
       .subscribe(
         (value) => {
           this.ngOnInit();
-          this.router.navigate(['/viviendas']);
+          this.router.navigate([AgubeRoute.DWELLING]);
         },
         (error) => {
+          // FIXME: throw Notification Service
           console.log('error');
         }
       );
   }
+
   public selectedRow(event): void {
     this.selectRow = event;
   }
-  public ngOnInit(): void {
-    this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
-      this.iban = Object.entries(value)[2][1];
-      this.paymaster = Object.entries(value)[3][1];
-      this.registerForm.get('numberBank').setValue(this.iban);
-    });
-    this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
-      this.owner = Object.entries(owner)[2][1]['username'];
-      this.addressOwn = Object.entries(owner)[2][1][
-        'address'
-      ][0].address.street;
-      this.phoneOwn = Object.entries(owner)[2][1]['phones'][0].phone_number;
-    });
 
-    this.svcChangePay
-      .getCurrentResident(+this.changePayId)
-      .subscribe((value) => {
-        this.resident = Object.entries(value)[2][1]['username'];
-        this.addressRes = Object.entries(value)[2][1][
-          'address'
-        ][0].address.street;
-        this.phoneRes = Object.entries(value)[2][1]['phones'][0].phone_number;
-      });
-  }
   public goToControlPanel(): void {
-    this.router.navigate(['/viviendas']);
+    this.router.navigate([AgubeRoute.DWELLING]);
   }
 }

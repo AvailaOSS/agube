@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservoirDetail } from 'apiaux/agube-rest-api-lib/src/lib/model/reservoirDetail';
-
+import { AgubeRoute } from '../agube-route';
 
 @Component({
   selector: 'app-reservoir',
@@ -20,8 +20,6 @@ export class ReservoirComponent implements OnInit {
   }
 
   public goToControlPanel(): void {
-    this.router.navigate(['/control-panel']);
+    this.router.navigate([AgubeRoute.CONTROL_PANEL]);
   }
-
-
 }

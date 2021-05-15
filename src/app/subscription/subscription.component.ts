@@ -5,6 +5,7 @@ import {
   Subscription,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
+import { SubscriptionRoute } from './subscription-route';
 
 @Component({
   selector: 'app-subscription',
@@ -31,10 +32,11 @@ export class SubscriptionComponent implements OnInit {
 
   public ngOnInit(): void {}
   public sendUrl(url: string): void {
-    this.router.navigate(['/create-account', { id: url }]);
+    this.router.navigate([SubscriptionRoute.CREATE_ACCOUNT, { id: url }]);
   }
 
   public goToLogin(): void {
-    this.router.navigate(['/login']);
+    // the project will be redirect automatically
+    this.router.navigate(['']);
   }
 }
