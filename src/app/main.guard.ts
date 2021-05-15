@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AccountService } from '../service/account.service';
+import { AgubeRoute } from './agube/agube-route';
+import { AccountService } from './auth/login/service/account.service';
+import { SubscriptionRoute } from './subscription/subscription-route';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoginGuard implements CanActivate {
-  constructor(private accountService: AccountService) {}
+export class MainGuard implements CanActivate {
+  constructor(private accountService: AccountService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,9 +29,9 @@ export class LoginGuard implements CanActivate {
     return this.accountService.getUser().pipe(
       switchMap((response) => {
         if (response) {
-          return of(false);
+          return of(this.router.parseUrl(AgubeRoute.CONTROL_PANEL));
         } else {
-          return of(true);
+          return of(this.router.parseUrl(SubscriptionRoute.SUBSCRIPTION));
         }
       })
     );

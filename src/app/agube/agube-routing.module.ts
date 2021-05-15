@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AgubeEnumPaths } from './agube-enum-paths';
+import { AgubeRoute } from './agube-route';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
@@ -15,27 +15,27 @@ import { ReservoirComponent } from './reservoir/reservoir.component';
 const routes: Routes = [
   // User
   {
-    path: AgubeEnumPaths.CONTROL_PANEL,
+    path: AgubeRoute.CONTROL_PANEL,
     component: ControlPanelComponent,
   },
-  { path: AgubeEnumPaths.CONFIG, component: ConfigurationComponent },
+  { path: AgubeRoute.CONFIG, component: ConfigurationComponent },
   // Dwelling
-  { path: AgubeEnumPaths.DWELLING, component: DwellingComponent },
-  { path: AgubeEnumPaths.CREATE_DWELLING, component: CreateDwellingComponent },
+  { path: AgubeRoute.DWELLING, component: DwellingComponent },
+  { path: AgubeRoute.CREATE_DWELLING, component: CreateDwellingComponent },
   {
-    path: AgubeEnumPaths.CHANGE_PAYMASTER,
+    path: AgubeRoute.CHANGE_PAYMASTER,
     component: ChangePaymasterComponent,
   },
-  { path: AgubeEnumPaths.CHANGE_RESIDENT, component: ChangeResidentComponent },
-  { path: AgubeEnumPaths.CHANGE_OWNER, component: ChangeOwnerComponent },
+  { path: AgubeRoute.CHANGE_RESIDENT, component: ChangeResidentComponent },
+  { path: AgubeRoute.CHANGE_OWNER, component: ChangeOwnerComponent },
   {
-    path: AgubeEnumPaths.CHANGE_WATER_METER,
+    path: AgubeRoute.CHANGE_WATER_METER,
     component: ChangeWaterMeterComponent,
   },
   // Reservoir
-  { path: AgubeEnumPaths.RESERVOIR, component: ReservoirComponent },
+  { path: AgubeRoute.RESERVOIR, component: ReservoirComponent },
   {
-    path: AgubeEnumPaths.CREATE_RESERVOIR,
+    path: AgubeRoute.CREATE_RESERVOIR,
     component: CreateReservoirComponent,
   },
 ];

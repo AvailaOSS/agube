@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { TokenService } from 'apiaux/auth-rest-api-lib/src/public-api';
-import { AgubeEnumPaths } from '../../../agube/agube-enum-paths';
+import { AgubeRoute } from '../../../agube/agube-route';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class AccountService {
       .subscribe(
         (response) => {
           this.saveToken(response);
-          this.router.navigate([AgubeEnumPaths.CONTROL_PANEL]);
+          this.router.navigate([AgubeRoute.CONTROL_PANEL]);
         },
         (error) => alert('ERROR LOGGING')
       );
@@ -50,7 +50,7 @@ export class AccountService {
   public logout(): void {
     // remove user from local storage and set current user to null
     localStorage.removeItem(this.cookieName);
-    this.userSubject.next(undefined);
+    this.userSubject.next(null);
     this.router.navigate(['/login']);
   }
 
