@@ -4,14 +4,13 @@ import { User } from '../models/user';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { TokenService } from 'apiaux/auth-rest-api-lib/src/public-api';
-import { agubeEnumPaths } from '../../../agube/agube-enum-paths';
+import { AgubeEnumPaths } from '../../../agube/agube-enum-paths';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   public cookieName = 'token';
-  public loginPage: boolean;
   private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private router: Router, private serviceAuth: TokenService) {
@@ -27,8 +26,7 @@ export class AccountService {
       .subscribe(
         (response) => {
           this.saveToken(response);
-          this.router.navigate([agubeEnumPaths.CONTROLPANEL]);
-          this.loginPage = true;
+          this.router.navigate([AgubeEnumPaths.CONTROL_PANEL]);
         },
         (error) => alert('ERROR LOGGING')
       );
@@ -54,7 +52,6 @@ export class AccountService {
     localStorage.removeItem(this.cookieName);
     this.userSubject.next(undefined);
     this.router.navigate(['/login']);
-    this.loginPage = false;
   }
 
   private saveToken(response): void {

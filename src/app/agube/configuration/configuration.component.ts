@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ManagerService } from 'apiaux/agube-rest-api-lib/src/public-api';
-import { agubeEnumPaths } from '../agube-enum-paths';
+import { AgubeEnumPaths } from '../agube-enum-paths';
 
 @Component({
   selector: 'app-configuration',
@@ -43,7 +43,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   public goToControlPanel(): void {
-    this.svcRouter.navigate([agubeEnumPaths.CONTROLPANEL]);
+    this.svcRouter.navigate([AgubeEnumPaths.CONTROL_PANEL]);
   }
 
   ngOnInit(): void {}

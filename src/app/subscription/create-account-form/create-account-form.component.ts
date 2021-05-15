@@ -3,14 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
-import { authEnumPaths } from '../../auth/auth-enum-paths';
-import { Subscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
 import {
   PaymentType,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
-import { sub } from 'date-fns';
-import { agubeEnumPaths } from '../../agube/agube-enum-paths';
+import { AuthEnumPaths } from 'src/app/auth/auth-enum-paths';
+import { Subscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
 
 @Component({
   selector: 'app-create-account-form',
@@ -27,7 +25,7 @@ export class CreateAccountFormComponent implements OnInit {
   public error = false;
   public errorMessage: string;
   public success: boolean = false;
-  public login: string = authEnumPaths.LOGIN;
+  public login: string = AuthEnumPaths.LOGIN;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,7 +85,7 @@ export class CreateAccountFormComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate([authEnumPaths.LOGIN]);
+          this.router.navigate([AuthEnumPaths.LOGIN]);
           this.success = true;
           this.error = false;
         },
@@ -104,6 +102,6 @@ export class CreateAccountFormComponent implements OnInit {
   }
 
   public backToLogin(): void {
-    this.router.navigate([authEnumPaths.LOGIN]);
+    this.router.navigate([AuthEnumPaths.LOGIN]);
   }
 }

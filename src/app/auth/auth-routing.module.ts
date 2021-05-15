@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginGuard } from './login/helpers/login.guard';
+import { AuthEnumPaths } from './auth-enum-paths';
 import { EnableAccountComponent } from './enable-account/enable-account.component';
 import { LoginComponent } from './login/login.component';
-import { authEnumPaths } from './auth-enum-paths';
 
 const routes: Routes = [
-  { path: authEnumPaths.LOGIN, component: LoginComponent },
-  { path: authEnumPaths.ENABLEACCOUNT, component: EnableAccountComponent },
+  {
+    path: AuthEnumPaths.LOGIN,
+    component: LoginComponent,
+    canActivate: [LoginGuard],
+  },
+  { path: AuthEnumPaths.ENABLE_ACCOUNT, component: EnableAccountComponent },
 ];
 
 @NgModule({
