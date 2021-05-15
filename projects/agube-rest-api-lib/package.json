@@ -1,6 +1,9 @@
 {
-  "name": "agube-rest-api-lib",
-  "version": "0.0.1",
+  "name": "@availa/agube-rest-api-lib",
+  "version": "0.0.0",
+  "publishConfig": {
+    "@availa:registry": "https://gitlab.com/api/v4/projects/23378318/packages/npm/"
+  },
   "peerDependencies": {
     "@angular/common": "^10.2.4",
     "@angular/core": "^10.2.4"
