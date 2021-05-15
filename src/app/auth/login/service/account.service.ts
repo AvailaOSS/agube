@@ -50,7 +50,7 @@ export class AccountService {
   public logout(): void {
     // remove user from local storage and set current user to null
     localStorage.removeItem(this.cookieName);
-    this.userSubject.next(undefined);
+    this.userSubject.next(null);
     this.router.navigate(['/login']);
   }
 

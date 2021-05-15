@@ -5,7 +5,6 @@ import { SubscriptionEnumPaths } from './subscription-enum-paths';
 import { SubscriptionComponent } from './subscription.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/subscription', pathMatch: 'full' }, // redirect to `SubscriptionComponent`
   {
     path: SubscriptionEnumPaths.SUBSCRIPTION,
     component: SubscriptionComponent,
