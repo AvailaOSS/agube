@@ -4,9 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build contact-book-rest-api-lib",
-    "npm_pack": "cd dist/contact-book-rest-api-lib && npm pack",
-    "package": "npm run build && npm run npm_pack",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint"
   },
@@ -25,7 +23,6 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1002.1",
     "@angular/cli": "~10.2.0",
     "@angular/compiler-cli": "~10.2.0",
     "@types/node": "^12.11.1",
@@ -39,7 +36,6 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^10.1.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
