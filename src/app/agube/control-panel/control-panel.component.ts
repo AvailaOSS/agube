@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from '@availa/auth-fe';
 import { isNull } from 'lodash';
-import { AccountService } from 'src/app/auth/login/service/account.service';
 import { ContactBookRoute } from '../../contact-book/contact-book-route';
 import { TaskRoute } from '../../task/task-route';
 import { AgubeRoute } from '../agube-route';

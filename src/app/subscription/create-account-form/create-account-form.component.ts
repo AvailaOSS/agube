@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthRoute } from '@availa/auth-fe';
 import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
 import {
   PaymentType,
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
-import { AuthRoute } from 'src/app/auth/auth-route';
 import { Subscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
 
 @Component({
