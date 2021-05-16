@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from 'apiaux/auth-rest-api-lib/src/public-api';
 import { AddressService } from './service/address.service';
 import { DwellingService } from './service/dwelling.service';
 import { ManagerService } from './service/manager.service';
 import { PhoneService } from './service/phone.service';
 import { ReservoirService } from './service/reservoir.service';
 import { WaterMeterService } from './service/waterMeter.service';
+import { UserService } from '../public-api';
 
 
 @NgModule({
