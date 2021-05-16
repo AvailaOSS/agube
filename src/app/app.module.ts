@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from '@availa/auth-fe';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionModule } from './subscription/subscription.module';
