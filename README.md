@@ -1,72 +1,27 @@
-# agube-rest-api
+# AgubeRestApi
 
-Agube API Librería para proyectos Angular/Ionic
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
-## Step 1 - Generating your service and models from swagger.json
+## Development server
 
-Go to ```{your-temp-folder}``` and follow next commands:
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-> git clone https://github.com/swagger-api/swagger-codegen.git
->
-> cd swagger-codegen
->
-> mvn clean install
->
+## Code scaffolding
 
-Return to ```this README.md path``` and:
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-> COPY {your-temp-folder}\modules\swagger-codegen-cli\target\swagger-codegen-cli.jar .
+## Build
 
-Then run command defined in ```generate.json```, example:
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-> java -jar swagger-codegen-cli.jar generate -i http://localhost:8000/swagger.json -l typescript-angular -o your-project-api-generated
+## Running unit tests
 
-optional parameters (***deprecated***):
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-> -c options.json
+## Running end-to-end tests
 
-After follow ```your-project-api-generated``` README.md instructions.
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Or go to https://editor.swagger.io/ and generate client.
+## Further help
 
-## Step 2 - Creating library
-
-*Next steps follow the oficial guide : https://angular.io/guide/creating-libraries*
-
-Run command:
-
-> ng new your-project-api --create-application=false
->
-> cd your-project-api
->
-> ng generate library your-project-api
-
-From ```your-project-api-generated``` copy all folders:
-- ```model```
-- ```service```
-- ```configuration.ts```
-- ```encoder.ts```
-- ```your-project-api-generated.module.ts```
-- ```variables.ts```
-
-Pastle into ```your-project-api\projects\lib\src```.
-
-## Step 3 - Publish API
-
-Add follow rows into ```your-project-api\package.json```
-
-    "scripts": {
-        ...
-        "build": "ng build your-project-api",
-        "npm_pack": "cd dist/your-project-api && npm pack",
-        "package": "npm run build && npm run npm_pack",
-        ..
-    },
-
-Run npm command:
-
-> npm run package
-
-Go to Main Angular project and paste something like this:
-
-> npm install {you-path}/your-project-api/your-project-api/dist/your-project-api.tgz
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
