@@ -4,7 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build agube-rest-api-lib",
+    "npm_pack": "cd dist/agube-rest-api-lib && npm pack",
+    "package": "npm run build && npm run npm_pack",
+    "publish": "npm publish dist/agube-rest-api-lib/availa-agube-rest-api-0.0.0.tgz",
     "test": "ng test",
     "lint": "ng lint"
   },
