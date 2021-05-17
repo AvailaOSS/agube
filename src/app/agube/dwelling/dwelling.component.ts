@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DwellingDetail } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { DwellingDetail } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../agube-route';
 
 @Component({

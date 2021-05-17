@@ -8,15 +8,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgubeRoute } from '../../agube-route';
+import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
 import {
   MdbTableDirective,
   MdbTablePaginationComponent,
 } from 'angular-bootstrap-md';
-import {
-  ReservoirDetail,
-  ReservoirService,
-} from 'apiaux/agube-rest-api-lib/src/public-api';
+import { AgubeRoute } from '../../agube-route';
 
 @Component({
   selector: 'app-reservoir-detail-list',

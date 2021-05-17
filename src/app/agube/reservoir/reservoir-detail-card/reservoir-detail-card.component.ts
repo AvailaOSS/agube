@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ReservoirDetail } from 'apiaux/agube-rest-api-lib/src/lib/model/reservoirDetail';
-import { ReservoirService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-reservoir-detail-card',

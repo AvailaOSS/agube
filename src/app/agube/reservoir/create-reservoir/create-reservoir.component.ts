@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  ManagerService,
-  ReservoirService,
-} from 'apiaux/agube-rest-api-lib/src/public-api';
+import { ManagerService, ReservoirService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../agube-route';
 
 @Component({

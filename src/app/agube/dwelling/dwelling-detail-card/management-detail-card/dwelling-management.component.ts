@@ -4,7 +4,7 @@ import { AgubeRoute } from '../../../agube-route';
 import {
   DwellingDetail,
   ManagerService,
-} from 'apiaux/agube-rest-api-lib/src/public-api';
+} from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-dwelling-management-detail-card',

@@ -4,7 +4,7 @@ import {
   ManagerService,
   ReservoirCreate,
   ReservoirDetail,
-} from 'apiaux/agube-rest-api-lib/src/public-api';
+} from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-reservoir-management-detail-card',
