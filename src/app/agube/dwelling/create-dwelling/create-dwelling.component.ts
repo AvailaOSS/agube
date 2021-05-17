@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { DwellingService } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-create-dwelling',

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   DwellingDetail,
   DwellingService,
-} from 'apiaux/agube-rest-api-lib/src/public-api';
+} from '@availa/agube-rest-api';
 import { iWaterMeterDetailCard } from './water-meter-enabled-detail-card';
 
 @Component({

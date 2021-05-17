@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ManagerService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { ManagerService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../agube-route';
 
 @Component({

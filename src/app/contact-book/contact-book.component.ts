@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ManagerService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { ManagerService } from '@availa/agube-rest-api';
 import {
   Contact,
   ContactService,

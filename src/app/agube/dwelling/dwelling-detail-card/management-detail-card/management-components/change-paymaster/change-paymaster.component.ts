@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { DwellingService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({

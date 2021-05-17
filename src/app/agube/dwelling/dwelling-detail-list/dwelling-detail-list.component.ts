@@ -12,10 +12,7 @@ import {
   MdbTableDirective,
   MdbTablePaginationComponent,
 } from 'angular-bootstrap-md';
-import {
-  DwellingDetail,
-  DwellingService,
-} from 'apiaux/agube-rest-api-lib/src/public-api';
+import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { AgubeRoute } from '../../agube-route';
 

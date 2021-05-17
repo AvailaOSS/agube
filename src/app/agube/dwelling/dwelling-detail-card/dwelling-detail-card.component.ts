@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DwellingDetail } from 'apiaux/agube-rest-api-lib/src/public-api';
+import { DwellingDetail } from '@availa/agube-rest-api';
 import { WaterMeterEnabledDetailCardComponent } from './water-meter-enabled-detail-card/water-meter-enabled-detail-card.component';
 
 @Component({
