@@ -7,7 +7,6 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 
 const routes: Routes = [
   { path: '', component: SubscriptionComponent, canActivate: [MainGuard] },
-  { path: '**', redirectTo: '' },
   { path: 'email', component: WorkInProgressComponent },
   { path: 'example', component: ExampleComponent },
 ];
