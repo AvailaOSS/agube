@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { AgubeRoute } from '../../../../../agube-route';
+import { NotificationsService } from '../../../../../../components/notifications/notifications.service';
 
 @Component({
   selector: 'app-dwelling-utils',
@@ -27,8 +28,15 @@ export class DwellingUtilsComponent implements OnInit {
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
   public registerForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  public options = {
+    autoClose: false,
+    keepAfterRouteChange: false,
+  };
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    public alertService: NotificationsService
+  ) {}
 
   public ngOnInit(): void {
     this.registerForm = this.initializeForm();

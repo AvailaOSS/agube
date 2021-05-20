@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
+import { NotificationsService } from 'src/app/components/notifications/notifications.service';
 
 @Component({
   selector: 'app-create-dwelling',
@@ -13,10 +14,14 @@ export class CreateDwellingComponent implements OnInit {
   public error = true;
   public username: string;
   public errorMessage: string;
-
+  public options = {
+    autoClose: false,
+    keepAfterRouteChange: false,
+  };
   constructor(
     private router: Router,
-    private readonly svcCreateNewDWelling: DwellingService
+    private readonly svcCreateNewDWelling: DwellingService,
+    public alertService: NotificationsService
   ) {}
 
   public ngOnInit(): void {
@@ -31,7 +36,7 @@ export class CreateDwellingComponent implements OnInit {
     }
   }
 
-  private createDwelling(event: any) {
+  private createDwelling(event: any): void {
     if (event.pagador === true) {
       this.username = event.username;
     } else {
@@ -98,16 +103,15 @@ export class CreateDwellingComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate(['/viviendas']);
+          this.alertService.success('creado con éxito', this.options);
         },
         (error) => {
-          this.error = false;
-          this.errorMessage = error;
+          this.alertService.error('error', this.options);
         }
       );
   }
 
-  private createDwellingWithResident(event: any) {
+  private createDwellingWithResident(event: any): void {
     this.username = event.username;
     this.svcCreateNewDWelling
       .createDwelling({
@@ -149,11 +153,10 @@ export class CreateDwellingComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate(['/viviendas']);
+          this.alertService.success('creado con éxito', this.options);
         },
         (error) => {
-          this.error = false;
-          this.errorMessage = error;
+          this.alertService.error('error', this.options);
         }
       );
   }
