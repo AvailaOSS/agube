@@ -21,25 +21,11 @@ import { AgubeRoute } from '../../agube-route';
   templateUrl: './dwelling-detail-list.component.html',
   styleUrls: ['./dwelling-detail-list.component.scss'],
 })
-export class DwellingDetailListComponent implements OnInit, AfterViewInit {
-  @ViewChild(MdbTablePaginationComponent, { static: true })
-  mdbTablePagination: MdbTablePaginationComponent;
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
+export class DwellingDetailListComponent implements OnInit {
   @Output() selected = new EventEmitter<DwellingDetail>();
-
-  public elements: any = [];
-  public previous: any = [];
-  public headElementsRead = [
-    'Dirección',
-    'water_meter_code',
-    'resident_first_name',
-    'resident_phone',
-  ];
-  public headElements = ['Dirección', 'Contador', 'Residente', 'Teléfono'];
-
+  public dataSource:DwellingDetail[] =[] ;
   public selectedRowIndex = '';
   public address: string;
-  public dataSource: DwellingDetail[] = [];
   public currentUser: User;
   public data: string;
 
@@ -52,17 +38,7 @@ export class DwellingDetailListComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
       this.dataSource = value;
-      this.mdbTable.setDataSource(this.dataSource);
-      this.elements = this.mdbTable.getDataSource();
-      this.previous = this.mdbTable.getDataSource();
     });
-  }
-
-  public ngAfterViewInit(): void {
-    this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
-    this.mdbTablePagination.calculateFirstItemIndex();
-    this.mdbTablePagination.calculateLastItemIndex();
-    this.cdRef.detectChanges();
   }
 
   public selectRow(row: DwellingDetail): void {

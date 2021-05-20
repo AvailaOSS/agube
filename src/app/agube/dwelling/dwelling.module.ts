@@ -17,6 +17,7 @@ import { WaterMeterEnabledDetailCardComponent } from './dwelling-detail-card/wat
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/water-meter-readings-detail-card/dwelling-water-meter-readings-detail-card.component';
 import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-detail-list.component';
 import { DwellingComponent } from './dwelling.component';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { DwellingComponent } from './dwelling.component';
     TableModule,
     IconsModule,
     WavesModule,
+    ComponentsModule
   ],
   exports: [DwellingComponent],
 })
