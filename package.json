@@ -25,6 +25,7 @@
     "@angular/router": "~11.1.2",
     "@availa/agube-rest-api": "0.0.0",
     "@availa/auth-fe": "0.0.0",
+    "@availa/toolbar": "0.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "@popperjs/core": "^2.9.1",

@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from '@availa/auth-fe';
+import { ToolbarModule } from '@availa/toolbar';
 import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from '@availa/auth-fe';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionModule } from './subscription/subscription.module';
@@ -15,10 +16,6 @@ import { TaskModule } from './task/task.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    AuthModule,
-    SubscriptionModule,
-    ContactBookModule,
-    AgubeModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -27,6 +24,11 @@ import { TaskModule } from './task/task.module';
     BrowserAnimationsModule,
     ComponentsModule,
     TaskModule,
+    ToolbarModule.forRoot({ title: 'Agube' }),
+    AuthModule,
+    SubscriptionModule,
+    ContactBookModule,
+    AgubeModule,
   ],
   bootstrap: [AppComponent],
 })

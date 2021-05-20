@@ -1,8 +1,0 @@
-<div class="bg-primary">
-  <div *ngIf="user; else noUser">
-    <app-toolbar-user [user]="user"></app-toolbar-user>
-  </div>
-  <ng-template #noUser>
-    <app-toolbar-base></app-toolbar-base>
-  </ng-template>
-</div>
