@@ -11,7 +11,6 @@ import { ButtonSecondaryDirective } from './buttons/button-secondary/button-seco
 import { ButtonSuccessDirective } from './buttons/button-success/button-success.directive';
 import { ButtonWarningDirective } from './buttons/button-warning/button-warning.directive';
 import { ExampleComponent } from './example/example.component';
-import { ToolbarModule } from './toolbar/toolbar.module';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     NgbModalModule,
     FormsModule,
     AuthModule,
-    ToolbarModule,
   ],
   exports: [
     ButtonPrimaryDirective,
@@ -42,7 +40,6 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     ButtonWarningDirective,
     ButtonInfoDirective,
     WorkInProgressComponent,
-    ToolbarModule,
   ],
   providers: [],
 })
