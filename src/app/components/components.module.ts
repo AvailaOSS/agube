@@ -12,6 +12,9 @@ import { ButtonSuccessDirective } from './buttons/button-success/button-success.
 import { ButtonWarningDirective } from './buttons/button-warning/button-warning.directive';
 import { ExampleComponent } from './example/example.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
+import { TableComponent } from './table/table.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { IconsModule, TableModule, WavesModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     ButtonWarningDirective,
     ButtonInfoDirective,
     WorkInProgressComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +35,10 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     NgbModalModule,
     FormsModule,
     AuthModule,
+    Ng2SearchPipeModule,
+    TableModule,
+    IconsModule,
+    WavesModule,
   ],
   exports: [
     ButtonPrimaryDirective,
@@ -40,6 +48,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     ButtonWarningDirective,
     ButtonInfoDirective,
     WorkInProgressComponent,
+    TableComponent,
   ],
   providers: [],
 })
