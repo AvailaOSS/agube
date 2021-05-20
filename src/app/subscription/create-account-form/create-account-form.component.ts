@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthRoute } from '@availa/auth-fe';
 import { ClientService } from 'apiaux/subscription-rest-api-lib/src/lib/service/client.service';
 import { PaymentTypesService } from 'apiaux/subscription-rest-api-lib/src/lib/service/paymentTypes.service';
 import {
@@ -9,6 +8,7 @@ import {
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { Subscription } from '../../../../apiaux/subscription-rest-api-lib/src/lib/model/subscription';
+import { SubscriptionService as SubscriptionConfigService } from '../subscription.service';
 
 @Component({
   selector: 'app-create-account-form',
@@ -25,7 +25,6 @@ export class CreateAccountFormComponent implements OnInit {
   public error = false;
   public errorMessage: string;
   public success: boolean = false;
-  public login: string = AuthRoute.LOGIN;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +32,8 @@ export class CreateAccountFormComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly subscriptionclientService: ClientService,
     private readonly svcSubscriptionService: SubscriptionService,
-    private readonly paymentTypesService: PaymentTypesService
+    private readonly paymentTypesService: PaymentTypesService,
+    private subscriptionConfigService: SubscriptionConfigService
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.formIdentification = params.id;
@@ -85,9 +85,9 @@ export class CreateAccountFormComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate([AuthRoute.LOGIN]);
           this.success = true;
           this.error = false;
+          this.goToLogin();
         },
         (error) => {
           this.error = true;
@@ -101,7 +101,7 @@ export class CreateAccountFormComponent implements OnInit {
     this.formIdentification = +subs.id;
   }
 
-  public backToLogin(): void {
-    this.router.navigate([AuthRoute.LOGIN]);
+  public goToLogin(): void {
+    this.router.navigate([this.subscriptionConfigService.getLoginUrl()]);
   }
 }

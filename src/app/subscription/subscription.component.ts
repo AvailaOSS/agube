@@ -6,6 +6,7 @@ import {
   SubscriptionService,
 } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { SubscriptionRoute } from './subscription-route';
+import { SubscriptionService as SubscriptionConfigService } from './subscription.service';
 
 @Component({
   selector: 'app-subscription',
@@ -20,23 +21,20 @@ export class SubscriptionComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
-    private readonly subscriptionService: SubscriptionService
+    private readonly subscriptionService: SubscriptionService,
+    private readonly subscriptionConfigService: SubscriptionConfigService
   ) {
     this.subscriptionService.getSubscriptions().subscribe((subscriptions) => {
       this.subscriptions = subscriptions;
     });
-    this.subscriptionService.getPermissions().subscribe((permissos) => {
-      this.permissionColumns = permissos;
+    this.subscriptionService.getPermissions().subscribe((permissions) => {
+      this.permissionColumns = permissions;
     });
   }
 
   public ngOnInit(): void {}
+
   public sendUrl(url: string): void {
     this.router.navigate([SubscriptionRoute.CREATE_ACCOUNT, { id: url }]);
-  }
-
-  public goToLogin(): void {
-    // the project will be redirect automatically
-    this.router.navigate(['']);
   }
 }
