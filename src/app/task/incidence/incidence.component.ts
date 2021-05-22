@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IncidenceService } from 'apiaux/task-rest-api-lib/src/public-api';
 
 @Component({
@@ -7,8 +9,28 @@ import { IncidenceService } from 'apiaux/task-rest-api-lib/src/public-api';
   styleUrls: ['./incidence.component.scss'],
 })
 export class IncidenceComponent implements OnInit {
-  constructor(private readonly svcTaskService: IncidenceService) {
-    // FIXME: move it to ngOnInit (good practice) ?
+  public registerForm: FormGroup;
+  constructor(
+    private readonly svcTaskService: IncidenceService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+  ) {}
+
+  public ngOnInit(): void {
+    this.registerForm = this.formBuilder.group({
+      state: ['', Validators.required],
+      description: ['', Validators.required],
+      username: ['', Validators.required],
+      code: ['', Validators.required],
+      resolution_date:['', Validators.required],
+      publish_date: ['', [Validators.required]],
+      date_problem: ['', Validators.required],
+      expected_resolution_date: ['', Validators.required],
+    });
+    this.svcTaskService.incidenceList().subscribe(value => {
+      console.log(value)
+    })
     this.svcTaskService
       .createIncidence({
         task: {
@@ -27,6 +49,10 @@ export class IncidenceComponent implements OnInit {
         console.log(value);
       });
   }
-
-  ngOnInit(): void {}
+  get f() {
+    return this.registerForm.controls;
+  }
+  public onSubmit(): void {
+   console.log(this.registerForm)
+  }
 }

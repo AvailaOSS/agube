@@ -1,39 +1,135 @@
 <div class="row col w-100 h-75">
   <div class="col-6">
     <div class="h-100">
-      <form class="needs-validation was-validated" novalidate="">
-        <!-- Fecha duracion hora nombre direccion ruta nota planificar -->
+      <form
+        class="needs-validation was-validated"
+        novalidate=""
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+      >
         <div class="row g-3">
           <div class="col-sm-6">
-            <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
+            <label for="state" class="form-label">Estado</label>
+            <input
+              type="text"
+              class="form-control"
+              id="state"
+              formControlName="state"
+              placeholder=""
+              value=""
+              required=""
+            />
+            <div class="invalid-feedback">Se requiere un estado.</div>
           </div>
-          <div class="col-sm-3">
-            <label for="exampleFormControlSelect2">Example multiple select</label>
-            <select multiple class="form-control" id="exampleFormControlSelect2">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
+
           <div class="col-sm-6">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="description" class="form-label">Descripción</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="description"
+              formControlName="description"
+              placeholder=""
+              value=""
+              required=""
+            >
+            </textarea>
+            <div class="invalid-feedback">Se requiere un Descripción.</div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text">@</span>
+              <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username"
+                required="" />
+              <div class="invalid-feedback">Se requiere un username.</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="code" class="form-label">Código</label>
+            <input
+              type="text"
+              class="form-control"
+              id="code"
+              placeholder=""
+              required=""
+              formControlName="code"
+            />
+            <div class="invalid-feedback">Se require un Código.</div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="publish_date" class="form-label">Fecha Publicada</label>
+            <input
+              type="text"
+              class="form-control"
+              id="publish_date"
+              formControlName="publish_date"
+              placeholder=""
+              required=""
+            />
+            <div class="invalid-feedback">Fecha Publicada requerida.</div>
+          </div>
+          <div class="col-md-3">
+            <label for="resolution_date" class="form-label"
+              >Fecha de resolución</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="resolution_date"
+              placeholder=""
+              required=""
+              formControlName="resolution_date"
+            />
+            <div class="invalid-feedback">Fecha Resuelta requerida.</div>
+          </div>
+          <div class="col-md-3">
+            <label for="date_problem" class="form-label"
+              >Fecha del problema</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="date_problem"
+              placeholder=""
+              required=""
+              formControlName="date_problem"
+            />
+            <div class="invalid-feedback">fecha del problema requerida.</div>
+          </div>
+          <div class="col-md-5">
+            <label for="expected_resolution_date" class="form-label"
+              >Fecha del esperada de resolución</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="expected_resolution_date"
+              placeholder=""
+              required=""
+              formControlName="expected_resolution_date"
+            />
+            <div class="invalid-feedback">
+              fecha esperada de resolución requerida.
+            </div>
           </div>
         </div>
+
+        <hr class="my-4" />
+        <button
+          class="w-100 btn btn-primary btn-lg"
+          type="submit"
+          [disabled]="registerForm.invalid"
+        >
+          Guardar
+        </button>
       </form>
     </div>
-    <button class="w-100 btn btn-primary btn-lg" type="submit">Guardar</button>
   </div>
-  <div class="col-6 p-2">
-    <!-- <app-calendar></app-calendar> -->
-  </div>
+
+ <!-- <div class="col-6 p-2">
+     <app-calendar></app-calendar>
+  </div> -->
 </div>
