@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { DwellingUtilsModule } from '../dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
 import { CreateDwellingComponent } from './create-dwelling.component';
-import { NotificationsModule } from '../../../components/notifications/notifications.module';
+import { NotificationModule } from '@availa/notification';
 
 @NgModule({
   declarations: [CreateDwellingComponent],
@@ -16,7 +16,7 @@ import { NotificationsModule } from '../../../components/notifications/notificat
     FormsModule,
     BrowserModule,
     DwellingUtilsModule,
-    NotificationsModule
+    NotificationModule,
   ],
 })
 export class CreateDwellingModule {}

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
-import { NotificationsService } from 'src/app/components/notifications/notifications.service';
+import { NotificationService } from '@availa/notification';
 
 @Component({
   selector: 'app-create-dwelling',
@@ -19,9 +18,8 @@ export class CreateDwellingComponent implements OnInit {
     keepAfterRouteChange: false,
   };
   constructor(
-    private router: Router,
     private readonly svcCreateNewDWelling: DwellingService,
-    public alertService: NotificationsService
+    public alertService: NotificationService
   ) {}
 
   public ngOnInit(): void {

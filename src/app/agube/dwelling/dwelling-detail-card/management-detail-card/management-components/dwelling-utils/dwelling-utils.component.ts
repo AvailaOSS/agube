@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from '@availa/notification';
 import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { AgubeRoute } from '../../../../../agube-route';
-import { NotificationsService } from '../../../../../../components/notifications/notifications.service';
 
 @Component({
   selector: 'app-dwelling-utils',
@@ -35,7 +35,7 @@ export class DwellingUtilsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public alertService: NotificationsService
+    public alertService: NotificationService
   ) {}
 
   public ngOnInit(): void {
