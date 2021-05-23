@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
+import { NotificationService } from '@availa/notification';
 import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
@@ -30,7 +31,8 @@ export class ChangePaymasterComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly svcChangePay: DwellingService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public alertService: NotificationService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.changePayId = params.data;
@@ -73,11 +75,10 @@ export class ChangePaymasterComponent implements OnInit {
       .subscribe(
         (value) => {
           this.ngOnInit();
-          this.router.navigate([AgubeRoute.DWELLING]);
+          this.alertService.success('Cambiado con éxito');
         },
         (error) => {
-          // FIXME: throw Notification Service
-          console.log('error');
+          this.alertService.error('error'+ error.error.message);
         }
       );
   }

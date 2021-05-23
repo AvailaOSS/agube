@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
+import { NotificationService } from '@availa/notification';
 
 @Component({
   selector: 'app-change-owner',
@@ -17,7 +18,8 @@ export class ChangeOwnerComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private readonly svcChangeOwner: DwellingService
+    private readonly svcChangeOwner: DwellingService,
+    private readonly alertService:NotificationService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.ownerId = params.data;
@@ -59,11 +61,12 @@ export class ChangeOwnerComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate(['/viviendas']);
+          this.alertService.success('Actualizado con éxito')
         },
         (error) => {
           this.error = false;
           this.errorMessage = error;
+          this.alertService.error('Error '+ error.error.status)
         }
       );
   }

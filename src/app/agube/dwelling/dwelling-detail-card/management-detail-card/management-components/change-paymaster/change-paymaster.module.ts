@@ -17,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { DwellingUtilsModule } from '../dwelling-utils/dwelling-utils.module';
 import { ChangePaymasterComponent } from './change-paymaster.component';
+import { NotificationModule } from '@availa/notification';
 
 @NgModule({
   declarations: [ChangePaymasterComponent],
@@ -28,17 +29,7 @@ import { ChangePaymasterComponent } from './change-paymaster.component';
     FormsModule,
     BrowserModule,
     MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatSelectModule,
-    MatIconModule,
-    MatTableModule,
-    MatButtonModule,
-    MatListModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatGridListModule,
+    NotificationModule
   ],
 })
 export class ChangePaymasterModule {}

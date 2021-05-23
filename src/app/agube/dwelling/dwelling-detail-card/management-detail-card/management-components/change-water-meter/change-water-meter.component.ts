@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../../../../agube-route';
+import { NotificationService } from '@availa/notification';
 
 @Component({
   selector: 'app-change-water-meter',
@@ -17,7 +18,8 @@ export class ChangeWaterMeterComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly svcChangeWaterMeter: DwellingService
+    private readonly svcChangeWaterMeter: DwellingService,
+    private readonly alertService: NotificationService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.waterMeterId = params.data;
@@ -39,10 +41,11 @@ export class ChangeWaterMeterComponent implements OnInit {
         code: event.code,
       })
       .subscribe(
-        (value) => this.router.navigate([AgubeRoute.DWELLING]),
+        (value) => {
+          this.alertService.success('Actualizado con éxito');
+        },
         (error) => {
-          this.error = false;
-          this.errorMessage = error;
+          this.alertService.error('Error al actualizad ' + error.error.status);
         }
       );
   }
