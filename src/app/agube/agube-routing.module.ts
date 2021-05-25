@@ -11,12 +11,17 @@ import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/manag
 import { DwellingComponent } from './dwelling/dwelling.component';
 import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
 import { ReservoirComponent } from './reservoir/reservoir.component';
+import { TestComponent } from './dwelling/test/test.component';
 
 const routes: Routes = [
   // User
   {
     path: AgubeRoute.CONTROL_PANEL,
     component: ControlPanelComponent,
+  },
+  {
+    path: 'test',
+    component: TestComponent,
   },
   { path: AgubeRoute.CONFIG, component: ConfigurationComponent },
   // Dwelling

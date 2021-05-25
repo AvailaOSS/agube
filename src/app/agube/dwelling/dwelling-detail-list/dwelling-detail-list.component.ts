@@ -15,6 +15,7 @@ import {
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { AgubeRoute } from '../../agube-route';
+import { TableDataSourceService } from '@availa/table';
 
 @Component({
   selector: 'app-dwelling-detail-list',
@@ -31,13 +32,13 @@ export class DwellingDetailListComponent implements OnInit {
 
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
-    private readonly route: Router,
-    private cdRef: ChangeDetectorRef
+    private readonly route: Router
   ) {}
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
       this.dataSource = value;
+
     });
   }
 

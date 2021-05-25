@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
 import { ToolbarModule } from '@availa/toolbar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgubeRoute } from './agube/agube-route';
 import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +37,7 @@ import { TaskModule } from './task/task.module';
     }),
     ContactBookModule,
     AgubeModule,
+    NgbModule
   ],
   bootstrap: [AppComponent],
 })
