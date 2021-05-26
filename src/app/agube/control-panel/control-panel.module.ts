@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ButtonsModule } from '@availa/buttons';
 import { ComponentsModule } from '../../components/components.module';
 import { ControlPanelComponent } from './control-panel.component';
@@ -12,11 +9,8 @@ import { ControlPanelComponent } from './control-panel.component';
   declarations: [ControlPanelComponent],
   imports: [
     CommonModule,
-    MatCardModule,
     ComponentsModule,
     FlexLayoutModule,
-    MatListModule,
-    MatIconModule,
     ButtonsModule
   ],
   exports: [ControlPanelComponent],

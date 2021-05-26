@@ -8,15 +8,4 @@
 </div>
 <div class="container">
 
-  <app-table
-    [dataSource]="dataSource"
-    [headElements]="['Dirección', 'Contador', 'Residente', 'Teléfono']"
-    [headElementsRead]="[
-      'Dirección',
-      'water_meter_code',
-      'resident_first_name',
-      'resident_phone'
-    ]"
-    (selected)="selectRow($event)"
-  ></app-table>
 </div>
