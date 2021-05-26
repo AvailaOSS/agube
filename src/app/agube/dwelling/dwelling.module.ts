@@ -16,8 +16,6 @@ import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-det
 import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
-import { TestComponent } from './test/test.component';
-
 
 @NgModule({
   declarations: [
@@ -26,8 +24,7 @@ import { TestComponent } from './test/test.component';
     DwellingDetailCardComponent,
     DwellingManagementDetailCardComponent,
     DWellingWaterMeterReadingsComponent,
-    WaterMeterEnabledDetailCardComponent,
-    TestComponent
+    WaterMeterEnabledDetailCardComponent
   ],
   imports: [
     CommonModule,
