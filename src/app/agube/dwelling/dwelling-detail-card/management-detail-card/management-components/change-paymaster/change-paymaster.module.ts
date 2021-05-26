@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { DwellingUtilsModule } from '../dwelling-utils/dwelling-utils.module';
@@ -12,7 +11,6 @@ import { NotificationModule } from '@availa/notification';
   imports: [
     CommonModule,
     DwellingUtilsModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,

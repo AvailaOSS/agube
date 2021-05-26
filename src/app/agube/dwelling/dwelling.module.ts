@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // MDB Angular Free
 import { CreateDwellingModule } from './create-dwelling/create-dwelling.module';
@@ -34,7 +33,6 @@ import { TestComponent } from './test/test.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule,
     CreateDwellingModule,
     ChangePaymasterModule,
     ChangeOwnerModule,

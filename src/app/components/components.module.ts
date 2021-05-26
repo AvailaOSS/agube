@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from '@availa/auth-fe';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +13,6 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
   ],
   imports: [
     CommonModule,
-    FlexLayoutModule,
     NgbModule,
     NgbModalModule,
     FormsModule,

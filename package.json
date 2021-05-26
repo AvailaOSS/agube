@@ -11,7 +11,6 @@
   },
   "private": true,
   "dependencies": {
-
     "@angular/animations": "~10.2.4",
     "@angular/common": "~10.2.4",
     "@angular/compiler": "~10.2.4",
@@ -21,15 +20,6 @@
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
-    "@ng-bootstrap/ng-bootstrap": "^8.0.4",
-    "bootstrap": "^4.5.0",
-    "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-
-
-
-    "@angular/flex-layout": "^11.0.0-beta.33",
     "@availa/agube-rest-api": "0.0.0",
     "@availa/auth-fe": "0.0.0",
     "@availa/buttons": "0.0.0",
@@ -37,16 +27,20 @@
     "@availa/table": "0.0.0",
     "@availa/toolbar": "0.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@ng-bootstrap/ng-bootstrap": "^8.0.4",
     "@types/lodash": "^4.14.166",
     "angular-calendar": "^0.28.22",
+    "bootstrap": "^4.5.0",
     "date-fns": "^2.21.1",
     "fontawesome": "^5.6.3",
     "jquery": "^3.5.1",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
-
     "@angular-devkit/build-angular": "~0.1002.3",
     "@angular/cli": "~10.2.3",
     "@angular/compiler-cli": "~10.2.4",
@@ -66,8 +60,5 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
-
-
-
   }
 }
