@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // MDB Angular Free
-import { IconsModule, TableModule, WavesModule } from 'angular-bootstrap-md';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CreateDwellingModule } from './create-dwelling/create-dwelling.module';
 import { DwellingDetailCardComponent } from './dwelling-detail-card/dwelling-detail-card.component';
 import { DwellingManagementDetailCardComponent } from './dwelling-detail-card/management-detail-card/dwelling-management.component';
@@ -18,6 +15,7 @@ import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/wate
 import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-detail-list.component';
 import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
+import { TableModule } from '@availa/table';
 
 @NgModule({
   declarations: [
@@ -26,24 +24,21 @@ import { ComponentsModule } from '../../components/components.module';
     DwellingDetailCardComponent,
     DwellingManagementDetailCardComponent,
     DWellingWaterMeterReadingsComponent,
-    WaterMeterEnabledDetailCardComponent,
+    WaterMeterEnabledDetailCardComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule,
     CreateDwellingModule,
     ChangePaymasterModule,
     ChangeOwnerModule,
     ChangeWaterMeterModule,
     ChangeResidentModule,
     DwellingUtilsModule,
-    Ng2SearchPipeModule,
-    TableModule,
-    IconsModule,
-    WavesModule,
-    ComponentsModule
+    ComponentsModule,
+    TableModule
+
   ],
   exports: [DwellingComponent],
 })
