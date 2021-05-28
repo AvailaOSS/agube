@@ -1,7 +1,12 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+.selected-row {
+  // FIXME: use colors from project style palette
+  background-color: #007bff;
+  color: #fff;
+}
