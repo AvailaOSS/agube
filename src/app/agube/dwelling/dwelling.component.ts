@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingDetail } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../agube-route';
@@ -8,15 +8,21 @@ import { AgubeRoute } from '../agube-route';
   templateUrl: './dwelling.component.html',
   styleUrls: ['./dwelling.component.scss'],
 })
-export class DwellingComponent implements OnInit {
+export class DwellingComponent {
   public dwelling: DwellingDetail;
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router) {
 
-  ngOnInit(): void {}
+  }
 
   public selectItem(dwelling: DwellingDetail): void {
     this.dwelling = dwelling;
+  }
+  public selectHeader(headers: string[]): void{
+
+    console.log(this.dwelling.gate);
+
+
   }
 
   public goToControlPanel(): void {

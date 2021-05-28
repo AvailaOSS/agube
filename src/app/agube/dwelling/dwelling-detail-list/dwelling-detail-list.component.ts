@@ -13,7 +13,7 @@ import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { AgubeRoute } from '../../agube-route';
 import { TableDataSourceService } from '@availa/table';
 
-interface DwellingTableDataSource{
+interface DwellingTableDataSource {
   readonly id?: string;
   water_meter_code: string;
   street: string;
@@ -25,19 +25,30 @@ interface DwellingTableDataSource{
   resident_phone: string;
 }
 
-
 @Component({
   selector: 'app-dwelling-detail-list',
   templateUrl: './dwelling-detail-list.component.html',
   styleUrls: ['./dwelling-detail-list.component.scss'],
 })
 export class DwellingDetailListComponent implements OnInit {
-  @Output() selected = new EventEmitter<DwellingDetail>();
-  public dataSource:DwellingDetail[] =[] ;
+  @Output() sendSelected: EventEmitter<DwellingDetail> =
+    new EventEmitter<DwellingDetail>();
+  public dataSource: DwellingDetail[] = [];
+  public valuesDwelling: string[] = [];
   public selectedRowIndex = '';
   public address: string;
-  public currentUser: User;
   public data: string;
+  public tableHeader: string[] = [
+    'id',
+    'Código Contador',
+    'Calle',
+    'Número',
+    'Piso',
+    'Puerta',
+    'Ciudad',
+    'Nombre Residente',
+    'Número Telf.',
+  ];
 
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
@@ -47,18 +58,21 @@ export class DwellingDetailListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
-
+      this.valuesDwelling = Object.keys(value[0]);
       this.svcTableService.addDataSource(value);
-      this.svcTableService.addHeader(['id','Código Contador','Calle','Número','Piso','Puerta','Ciudad','Nombre Residente', 'Número Telf.']);
-
+      this.svcTableService.addHeader(this.tableHeader);
     });
   }
 
-  public selectRow(row: DwellingDetail): void {
-    this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
-
-    this.selected.emit(row);
-    this.selectedRowIndex = row.id;
+  public selectRow(row: []): void {
+    const result: DwellingDetail = row.reduce(
+      (result: any, field: any, index: any) => {
+        result[this.valuesDwelling[index]] = field;
+        return result;
+      },
+      {}
+    );
+    this.sendSelected.emit(result);
   }
 
   public addNewDwelling(): void {

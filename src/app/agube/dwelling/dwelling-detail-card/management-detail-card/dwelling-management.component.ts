@@ -1,10 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgubeRoute } from '../../../agube-route';
-import {
-  DwellingDetail,
-  ManagerService,
-} from '@availa/agube-rest-api';
+import { DwellingDetail, ManagerService } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-dwelling-management-detail-card',
