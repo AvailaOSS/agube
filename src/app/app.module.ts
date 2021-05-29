@@ -14,7 +14,6 @@ import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionRoute } from './subscription/subscription-route';
 import { SubscriptionModule } from './subscription/subscription.module';
-import { TaskModule } from './task/task.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +25,6 @@ import { TaskModule } from './task/task.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    TaskModule,
     ToolbarModule.forRoot({ title: 'Agube', mainPageUrl: AuthRoute.LOGIN }),
     AuthModule.forRoot({
       afterLoginSuccessUrl: AgubeRoute.CONTROL_PANEL,
