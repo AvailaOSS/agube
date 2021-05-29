@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AccountService } from '@availa/auth-fe';
 import { isNull } from 'lodash';
 import { ContactBookRoute } from '../../contact-book/contact-book-route';
-import { TaskRoute } from '../../task/task-route';
 import { AgubeRoute } from '../agube-route';
 
 @Component({
@@ -17,9 +16,7 @@ export class ControlPanelComponent implements OnInit {
   public dwellingConfig: string = AgubeRoute.CONFIG;
   public dwellingReservoir: string = AgubeRoute.RESERVOIR;
   public contactBook: string = ContactBookRoute.CONTACT_BOOK;
-  public taskReading: string = TaskRoute.READING;
-  public taskSchedule: string = TaskRoute.SCHEDULE;
-  public taskIncidence: string = TaskRoute.INCIDENCE;
+  public wip: string = AgubeRoute.WIP;
 
   constructor(
     private router: Router,

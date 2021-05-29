@@ -1,4 +1,5 @@
 export enum AgubeRoute {
+  WIP = 'wip',
   // User options
   CONTROL_PANEL = 'control-panel',
   CONFIG = 'config',

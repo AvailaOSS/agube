@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ExampleComponent } from './components/example/example.component';
 import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
-import { SubscriptionRoute } from './subscription/subscription-route';
+import { AgubeRoute } from './agube/agube-route';
+import { MainGuard } from './main.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: SubscriptionRoute.SUBSCRIPTION, pathMatch: 'full' },
-  { path: 'email', component: WorkInProgressComponent },
-  { path: 'example', component: ExampleComponent },
+  {
+    path: '',
+    redirectTo: AgubeRoute.CONTROL_PANEL,
+    pathMatch: 'full',
+    canActivate: [MainGuard],
+  },
+  { path: AgubeRoute.WIP, component: WorkInProgressComponent },
 ];
 
 @NgModule({
