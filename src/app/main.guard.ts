@@ -6,11 +6,11 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { AccountService, AuthRoute } from '@availa/auth-fe';
+import { AccountService } from '@availa/auth-fe';
+import { SubscriptionRoute } from '@availa/subscription-fe';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AgubeRoute } from './agube/agube-route';
-import { SubscriptionRoute } from './subscription/subscription-route';
 
 @Injectable({
   providedIn: 'root',

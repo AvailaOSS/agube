@@ -12,8 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { ContactBookModule } from './contact-book/contact-book.module';
-import { SubscriptionRoute } from './subscription/subscription-route';
-import { SubscriptionModule } from './subscription/subscription.module';
+import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +34,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     }),
     ContactBookModule,
     AgubeModule,
-    NgbModule
+    NgbModule,
   ],
   bootstrap: [AppComponent],
 })
