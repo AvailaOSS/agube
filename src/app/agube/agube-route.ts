@@ -14,4 +14,7 @@ export enum AgubeRoute {
   RESERVOIR = 'depositos',
   CHANGE_RESERVOIR = 'depositos/changeReservoir',
   CREATE_RESERVOIR = 'depositos/alta/deposito',
+
+  // INCIDENCES
+  INCIDENCE = 'incidence',
 }

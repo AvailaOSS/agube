@@ -13,6 +13,7 @@ export class ControlPanelComponent implements OnInit {
   public dwellingConfig: string = AgubeRoute.CONFIG;
   public dwellingReservoir: string = AgubeRoute.RESERVOIR;
   public contactBook: string = ContactBookRoute.CONTACT_BOOK;
+  public incidence: string = AgubeRoute.INCIDENCE;
   public wip: string = AgubeRoute.WIP;
 
   constructor(private router: Router) {}

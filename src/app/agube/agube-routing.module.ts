@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IncidenceFormComponent } from '@availa/task-fe';
 import { AgubeRoute } from './agube-route';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: AgubeRoute.CREATE_RESERVOIR,
     component: CreateReservoirComponent,
+  },
+  {
+    path: AgubeRoute.INCIDENCE,
+    component: IncidenceFormComponent,
   },
 ];
 
