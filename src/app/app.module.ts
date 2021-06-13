@@ -24,7 +24,7 @@ import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    ToolbarModule.forRoot({ title: 'Agube', mainPageUrl: AuthRoute.LOGIN }),
+    ToolbarModule.forRoot({ logOutPageUrl: 'login' }),
     AuthModule.forRoot({
       afterLoginSuccessUrl: AgubeRoute.CONTROL_PANEL,
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,

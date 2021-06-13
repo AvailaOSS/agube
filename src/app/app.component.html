@@ -1,3 +1,39 @@
-<lib-toolbar></lib-toolbar>
+<div class="w-100 d-inline" id="wrapper">
+  <!-- Sidebar -->
+  <div
+    class=" border-right float-left"
 
-<router-outlet> </router-outlet>
+    id="sidebar-wrapper"
+    [hidden]="user === null || undefined"
+  >
+    <div class="sidebar-heading text-center">
+      <a class="" href="#">Agube</a>
+      <hr />
+    </div>
+    <div class="text-center">
+      <i class="fas fa-user-circle fa-7x"> </i>
+      <p class="m-1">{{user.username}}</p>
+    </div>
+    <hr />
+    <div class="list-group list-group-flush">
+      <span
+        class="list-group-item list-group-item-action border-0"
+        style="cursor: pointer"
+        *ngFor="let component of menuComponents"
+        (click)="selectedComponent(component)"
+        >{{ component.name }}</span
+      >
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div class="h-100  pl-2" id="page-content-wrapper " style="display: grid;">
+    <lib-toolbar [title]="currentComponentName"></lib-toolbar>
+    <div class="" style="background-color: #f4f6f8;
+    height: 55rem;
+    overflow-y: auto; background-color: #f4f6f8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+</div>
