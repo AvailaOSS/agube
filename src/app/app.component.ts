@@ -2,6 +2,8 @@ import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { isUndefined, isNull } from 'lodash';
 import { AccountService } from '@availa/auth-fe';
 import { Router } from '@angular/router';
+import { SubscriptionRoute } from '@availa/subscription-fe';
+import { AgubeRoute } from './agube/agube-route';
 
 interface SelectedComponent {
   path: string;
@@ -19,8 +21,15 @@ export class AppComponent {
   public currentComponentName: string = 'Example';
   public user = undefined;
 
-  constructor(private readonly accountService: AccountService,private readonly route: Router) {
-    this.accountService.getUser().subscribe((result) => (this.user = result));
+  constructor(private readonly accountService: AccountService, private readonly route: Router) {
+    this.accountService.getUser().subscribe((result) => {
+      this.user = result;
+      if (this.user) {
+        this.route.navigate([AgubeRoute.DWELLING]);
+      } else {
+        this.route.navigate([SubscriptionRoute.SUBSCRIPTION]);
+      }
+    });
     this.menuComponents = [
       { path: 'viviendas', name: 'Viviendas' },
       { path: 'contact-book', name: 'Contactos' },
