@@ -20,20 +20,28 @@ export class AppComponent {
   public menuComponents: SelectedComponent[] = [];
   public currentComponentName: string = 'Example';
   public user = undefined;
-
-  constructor(private readonly accountService: AccountService, private readonly route: Router) {
+  public toogleVision: boolean = false;
+  constructor(
+    private readonly accountService: AccountService,
+    private readonly route: Router
+  ) {
     this.accountService.getUser().subscribe((result) => {
       this.user = result;
-      if (this.user) {
-        this.route.navigate([AgubeRoute.DWELLING]);
-      } else {
-        this.route.navigate([SubscriptionRoute.SUBSCRIPTION]);
-      }
+      // if (this.user) {
+      //   this.route.navigate([AgubeRoute.DWELLING]);
+      // } else {
+      //   this.route.navigate([SubscriptionRoute.SUBSCRIPTION]);
+      // }
     });
     this.menuComponents = [
       { path: 'viviendas', name: 'Viviendas' },
       { path: 'contact-book', name: 'Contactos' },
+      { path: 'contact-book', name: 'Agenda' },
+      { path: 'wip', name: 'Lectura de Contador' },
       { path: 'incidence', name: 'Incidencias' },
+      { path: 'wip', name: 'Facturas' },
+      { path: 'wip', name: 'Correo' },
+      { path: 'wip', name: 'Calendario' },
       { path: 'config', name: 'General' },
       { path: 'depositos', name: 'Depósito' },
       { path: 'subscription', name: 'Subscription' },
@@ -41,8 +49,11 @@ export class AppComponent {
   }
 
   public selectedComponent(component: SelectedComponent): void {
-    this.route.navigate([component.path])
+    this.route.navigate([component.path]);
     this.currentComponentName = component.name;
-
+  }
+  public toogleSidebar(): void {
+    console.log(this.toogleVision);
+    this.toogleVision = !this.toogleVision;
   }
 }

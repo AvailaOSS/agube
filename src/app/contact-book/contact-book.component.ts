@@ -19,18 +19,15 @@ export class ContactBookComponent implements OnInit {
     private readonly svcManager: ManagerService,
     private readonly svcTagService: TagService,
   ) {
+
+
+  }
+
+  public ngOnInit(): void {
     this.svcManager.getManagerByUser().subscribe((value) => {
       this.userId = value.user_id;
     });
-    this.svcContactService.getContacts().subscribe((value) => {
-      this.contactsTotal = value;
-    });
-    this.svcTagService.getAllTags().subscribe((value) => {
-      console.log('tagService', value);
-    });
   }
-
-  public ngOnInit(): void {}
 
 
 }

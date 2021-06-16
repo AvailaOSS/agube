@@ -16,6 +16,7 @@ import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-det
 import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
+import { ContactBookModule } from '@availa/contact-book-fe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TableModule } from '@availa/table';
     ChangeResidentModule,
     DwellingUtilsModule,
     ComponentsModule,
-    TableModule
+    TableModule,
+    ContactBookModule
 
   ],
   exports: [DwellingComponent],

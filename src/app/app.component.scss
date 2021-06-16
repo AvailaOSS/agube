@@ -1,9 +1,13 @@
 body {
   overflow-x: hidden;
 }
+.active{
+  margin-left: -12rem !important;
+}
+
 #sidebar-wrapper {
   min-height: 100vh;
-  margin-left: -15rem;
+  margin-left: -13rem;
   -webkit-transition: margin 0.25s ease-out;
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
@@ -24,7 +28,7 @@ body {
 }
 @media (min-width: 768px) {
   #sidebar-wrapper {
-    margin-left: 0;
+    margin-left: 2rem;
   }
   #page-content-wrapper {
     min-width: 0;
@@ -33,4 +37,5 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+
 }

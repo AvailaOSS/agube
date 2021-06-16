@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContactBookApiModule } from 'apiaux/contact-book-rest-api-lib/src/public-api';
+import { ContactBookApiModule } from '@availa/contact-book-rest-api';
 import { ContactBookRoutingModule } from './contact-book-routing.module';
 import { ContactBookComponent } from './contact-book.component';
 

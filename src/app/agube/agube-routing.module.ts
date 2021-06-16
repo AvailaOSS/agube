@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { IncidenceFormComponent } from '@availa/task-fe';
 import { AgubeRoute } from './agube-route';
 import { ConfigurationComponent } from './configuration/configuration.component';
-import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
 import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.component';
 import { ChangePaymasterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.component';
@@ -15,10 +14,7 @@ import { ReservoirComponent } from './reservoir/reservoir.component';
 
 const routes: Routes = [
   // User
-  {
-    path: AgubeRoute.CONTROL_PANEL,
-    component: ControlPanelComponent,
-  },
+
   { path: AgubeRoute.CONFIG, component: ConfigurationComponent },
   // Dwelling
   { path: AgubeRoute.DWELLING, component: DwellingComponent },

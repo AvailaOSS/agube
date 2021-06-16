@@ -1,3 +1,4 @@
+import { ContactBookComponent } from './contact-book/contact-book.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,8 +12,8 @@ import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { ContactBookModule } from './contact-book/contact-book.module';
 import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
+import { ContactBookModule } from '@availa/contact-book-fe';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,6 @@ import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
     SubscriptionModule.forRoot({
       loginUrl: AuthRoute.LOGIN,
     }),
-    ContactBookModule,
     AgubeModule,
     NgbModule,
   ],

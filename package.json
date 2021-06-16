@@ -23,6 +23,7 @@
     "@availa/agube-rest-api": "0.0.0",
     "@availa/auth-fe": "0.0.0",
     "@availa/buttons": "0.0.0",
+    "@availa/contact-book-fe": "0.0.0",
     "@availa/contact-book-rest-api": "0.0.0",
     "@availa/notification": "0.0.0",
     "@availa/subscription-fe": "0.0.0",
