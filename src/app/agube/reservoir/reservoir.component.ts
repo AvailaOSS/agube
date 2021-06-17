@@ -20,6 +20,6 @@ export class ReservoirComponent implements OnInit {
   }
 
   public goToControlPanel(): void {
-    this.router.navigate([AgubeRoute.CONTROL_PANEL]);
+    this.router.navigate([AgubeRoute.RESERVOIR]);
   }
 }

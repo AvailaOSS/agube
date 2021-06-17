@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { AgubeRoute } from '../../agube-route';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-dwelling',
@@ -19,7 +21,8 @@ export class CreateDwellingComponent implements OnInit {
   };
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
-    public alertService: NotificationService
+    public alertService: NotificationService,
+    private readonly svcRouter: Router
   ) {}
 
   public ngOnInit(): void {
@@ -152,6 +155,9 @@ export class CreateDwellingComponent implements OnInit {
       .subscribe(
         (value) => {
           this.alertService.success('creado con éxito', this.options);
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 2000);
         },
         (error) => {
           this.alertService.error('error', this.options);

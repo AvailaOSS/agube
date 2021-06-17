@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { NotificationModule } from '@availa/notification';
 import { ReservoirUtilsModule } from '../reservoir-detail-card/management-detail-card/management-components/reservoir-utils/reservoir-utils.module';
 import { CreateReservoirComponent } from './create-reservoir.component';
 
@@ -13,6 +14,7 @@ import { CreateReservoirComponent } from './create-reservoir.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
+    NotificationModule
   ],
 })
 export class CreateReservoirModule {}

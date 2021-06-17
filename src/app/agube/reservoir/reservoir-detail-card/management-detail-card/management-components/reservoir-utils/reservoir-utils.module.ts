@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReservoirUtilsComponent } from './reservoir-utils.component';
+import { NotificationModule } from '@availa/notification';
 
 @NgModule({
   declarations: [ReservoirUtilsComponent],
@@ -11,6 +12,7 @@ import { ReservoirUtilsComponent } from './reservoir-utils.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
+    NotificationModule
   ],
   exports: [ReservoirUtilsComponent],
 })

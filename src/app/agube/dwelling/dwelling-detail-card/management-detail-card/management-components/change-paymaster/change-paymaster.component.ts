@@ -74,11 +74,14 @@ export class ChangePaymasterComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.ngOnInit();
           this.alertService.success('Cambiado con éxito');
+          setTimeout(() => {
+            this.ngOnInit();
+          },2000);
+
         },
         (error) => {
-          this.alertService.error('error'+ error.error.message);
+          this.alertService.error('error' + error.error.message);
         }
       );
   }
