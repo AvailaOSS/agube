@@ -62,6 +62,8 @@ export class DwellingDetailListComponent implements OnInit {
   }
 
   public selectRow(row: []): void {
+    console.log(row)
+
     const result: DwellingDetail = row.reduce(
       (result: any, field: any, index: any) => {
         result[this.valuesDwelling[index]] = field;

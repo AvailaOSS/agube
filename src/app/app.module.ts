@@ -1,4 +1,3 @@
-import { ContactBookComponent } from './contact-book/contact-book.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,13 +26,14 @@ import { ContactBookModule } from '@availa/contact-book-fe';
     ComponentsModule,
     ToolbarModule.forRoot({ logOutPageUrl: 'login' }),
     AuthModule.forRoot({
-      afterLoginSuccessUrl: AgubeRoute.CONTROL_PANEL,
+      afterLoginSuccessUrl: AgubeRoute.DWELLING,
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
     }),
     SubscriptionModule.forRoot({
       loginUrl: AuthRoute.LOGIN,
     }),
     AgubeModule,
+    ContactBookModule,
     NgbModule,
   ],
   bootstrap: [AppComponent],

@@ -35,16 +35,10 @@ export class AppComponent {
     });
     this.menuComponents = [
       { path: 'viviendas', name: 'Viviendas' },
-      { path: 'contact-book', name: 'Contactos' },
-      { path: 'contact-book', name: 'Agenda' },
       { path: 'wip', name: 'Lectura de Contador' },
-      { path: 'incidence', name: 'Incidencias' },
-      { path: 'wip', name: 'Facturas' },
-      { path: 'wip', name: 'Correo' },
-      { path: 'wip', name: 'Calendario' },
-      { path: 'config', name: 'General' },
       { path: 'depositos', name: 'Depósito' },
-      { path: 'subscription', name: 'Subscription' },
+      { path: 'incidence', name: 'Incidencias' },
+      { path: 'config', name: 'Configutación General' },
     ];
   }
 

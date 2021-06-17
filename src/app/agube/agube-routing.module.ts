@@ -44,6 +44,7 @@ const routes: Routes = [
     path: AgubeRoute.INCIDENCE,
     component: IncidenceFormComponent,
   },
+
 ];
 
 @NgModule({
