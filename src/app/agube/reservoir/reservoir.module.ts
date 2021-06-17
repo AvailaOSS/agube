@@ -7,12 +7,15 @@ import { ReservoirUtilsModule } from './reservoir-detail-card/management-detail-
 import { ReservoirDetailCardComponent } from './reservoir-detail-card/reservoir-detail-card.component';
 import { ReservoirDetailListComponent } from './reservoir-detail-list/reservoir-detail-list.component';
 import { ReservoirComponent } from './reservoir.component';
-
+import { ComponentsModule } from '../../components/components.module';
+import { TableModule } from '@availa/table';
+import { ReservoirManagementComponent } from './reservoir-detail-card/management-detail-card/reservoir-management-detail-card.component';
 @NgModule({
   declarations: [
     ReservoirComponent,
     ReservoirDetailListComponent,
     ReservoirDetailCardComponent,
+    ReservoirManagementComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +24,8 @@ import { ReservoirComponent } from './reservoir.component';
     ChangeReservoirModule,
     ReservoirUtilsModule,
     CreateReservoirModule,
+    ComponentsModule,
+    TableModule
   ],
   exports: [ReservoirComponent],
 })

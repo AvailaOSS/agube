@@ -10,6 +10,7 @@ import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/managem
 import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.component';
 import { DwellingComponent } from './dwelling/dwelling.component';
 import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
+import { ChangeReservoirComponent } from './reservoir/reservoir-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.component';
 import { ReservoirComponent } from './reservoir/reservoir.component';
 
 const routes: Routes = [
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: AgubeRoute.CREATE_RESERVOIR,
     component: CreateReservoirComponent,
+  },
+  {
+    path: AgubeRoute.CHANGE_RESERVOIR,
+    component: ChangeReservoirComponent,
   },
   {
     path: AgubeRoute.INCIDENCE,

@@ -8,7 +8,7 @@ import { AgubeRoute } from '../../../../../agube-route';
   templateUrl: './change-water-meter.component.html',
   styleUrls: ['./change-water-meter.component.scss'],
 })
-export class ChangeWaterMeterComponent implements OnInit {
+export class ChangeReservoirComponent implements OnInit {
   public userId: string;
   public idWaterMeter: number;
   public genericArray: any;
