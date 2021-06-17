@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ManagerService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../agube-route';
+import { NotificationService } from '@availa/notification';
 
 @Component({
   selector: 'app-configuration',
@@ -13,18 +14,24 @@ export class ConfigurationComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   public userId: any;
   public registerForm: FormGroup;
-
+  public options = {
+    autoClose: true,
+    keepAfterRouteChange: false,
+  };
   constructor(
     private readonly svcManager: ManagerService,
     private formBuilder: FormBuilder,
-    private svcRouter: Router
+    private svcRouter: Router,
+    private alertService: NotificationService
   ) {
     this.registerForm = this.formBuilder.group({
       hook_price: new FormControl(),
       release_date: new FormControl(),
       max_daily_consumption: new FormControl(),
     });
-    // FIXME: initialize it into ngOnIniti better (good practice)?
+  }
+
+  public ngOnInit(): void {
     this.svcManager.getManagerByUser().subscribe((value) => {
       this.userId = value.user_id;
       this.svcManager
@@ -35,7 +42,6 @@ export class ConfigurationComponent implements OnInit {
             .setValue(values.hook_price.hook_price);
           this.registerForm
             .get('release_date')
-            // TODO: use PIPE to parse date
             .setValue(values.hook_price.release_date.split('T')[0]);
           this.registerForm
             .get('max_daily_consumption')
@@ -44,10 +50,8 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   public goToControlPanel(): void {
-    this.svcRouter.navigate([AgubeRoute.CONTROL_PANEL]);
+    this.svcRouter.navigate([AgubeRoute.CONFIG]);
   }
 
   public onSubmit(): void {
@@ -60,10 +64,11 @@ export class ConfigurationComponent implements OnInit {
       })
       .subscribe(
         (value) => {
+          this.alertService.success('Actualizado con éxito', this.options);
           this.goToControlPanel();
         },
         (error) => {
-          console.log(error);
+          this.alertService.error('error', this.options);
         }
       );
   }
