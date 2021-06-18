@@ -64,21 +64,17 @@ export class ReservoirDetailListComponent implements OnInit {
   }
 
   public selectRow(row: any): void {
-
-    const result: ReservoirDetail = row.reduce(
+    const result: any = Object.values(row).reduce(
       (result: any, field: any, index: any) => {
         result[this.valuesReservoir[index]] = field;
 
         return result;
       },
       {}
-
     );
     this.sendSelected.emit(result);
   }
   public addNewReservoir(): void {
     this.router.navigate([AgubeRoute.CREATE_RESERVOIR]);
   }
-
-
 }

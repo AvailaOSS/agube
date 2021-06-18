@@ -17,9 +17,9 @@ export class ChangeWaterMeterComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private readonly svcChangeWaterMeter: DwellingService,
-    private readonly alertService: NotificationService
+    private readonly alertService: NotificationService,
+    private readonly svcRouter: Router
   ) {
     this.route.queryParams.subscribe((params) => {
       this.waterMeterId = params.data;
@@ -43,6 +43,9 @@ export class ChangeWaterMeterComponent implements OnInit {
       .subscribe(
         (value) => {
           this.alertService.success('Actualizado con éxito');
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 2000);
         },
         (error) => {
           this.alertService.error('Error al actualizad ' + error.error.status);

@@ -105,6 +105,9 @@ export class CreateDwellingComponent implements OnInit {
       .subscribe(
         (value) => {
           this.alertService.success('creado con éxito', this.options);
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 2000);
         },
         (error) => {
           this.alertService.error('error', this.options);
