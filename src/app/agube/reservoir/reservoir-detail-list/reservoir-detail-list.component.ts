@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { BehaviorSubject } from 'rxjs';
 
 import { AgubeRoute } from '../../agube-route';
-import { TableDataSourceService } from '@availa/table';
 
 interface DReservoirTableDataSource {
   readonly id?: string;
@@ -32,7 +32,6 @@ interface DReservoirTableDataSource {
 export class ReservoirDetailListComponent implements OnInit {
   @Output() sendSelected: EventEmitter<ReservoirDetail> =
     new EventEmitter<ReservoirDetail>();
-  public dataSource: ReservoirDetail[] = [];
   public valuesReservoir: string[] = [];
   public selectedRowIndex = '';
   public address: string;
@@ -48,18 +47,19 @@ export class ReservoirDetailListComponent implements OnInit {
     'inlet_flow',
     'outlet_flow',
   ];
-
+  public datasource: BehaviorSubject<any>;
+  public headDatasource: BehaviorSubject<any> = new BehaviorSubject<any[]>(
+    this.tableHeader
+  );
   constructor(
     private readonly svcReservoirService: ReservoirService,
-    private readonly router: Router,
-    private svcTableService: TableDataSourceService
+    private readonly router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.svcReservoirService.getReservoirs().subscribe((value) => {
-      this.valuesReservoir = Object.keys(value[0]);
-      this.svcTableService.addDataSource(value);
-      this.svcTableService.addHeader(this.tableHeader);
+       this.valuesReservoir = Object.keys(value[0]);
+      this.datasource = new BehaviorSubject<any[]>(value);
     });
   }
 

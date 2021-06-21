@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../agube-route';
-import { TableDataSourceService } from '@availa/table';
+import { BehaviorSubject } from 'rxjs';
 
 interface DwellingTableDataSource {
   readonly id?: string;
@@ -30,7 +30,6 @@ interface DwellingTableDataSource {
 export class DwellingDetailListComponent implements OnInit {
   @Output() sendSelected: EventEmitter<DwellingDetail> =
     new EventEmitter<DwellingDetail>();
-  public dataSource: DwellingDetail[] = [];
   public valuesDwelling: string[] = [];
   public selectedRowIndex = '';
   public address: string;
@@ -46,18 +45,19 @@ export class DwellingDetailListComponent implements OnInit {
     'Nombre Residente',
     'Número Telf.',
   ];
-
+  public datasource: BehaviorSubject<any>;
+  public headDatasource: BehaviorSubject<any> = new BehaviorSubject<any[]>(
+    this.tableHeader
+  );
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
-    private readonly route: Router,
-    private svcTableService: TableDataSourceService
+    private readonly route: Router
   ) {}
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
       this.valuesDwelling = Object.keys(value[0]);
-      this.svcTableService.addDataSource(value);
-      this.svcTableService.addHeader(this.tableHeader);
+      this.datasource = new BehaviorSubject<any[]>(value);
     });
   }
 
