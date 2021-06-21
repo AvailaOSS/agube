@@ -58,7 +58,7 @@ export class ReservoirDetailListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.svcReservoirService.getReservoirs().subscribe((value) => {
-       this.valuesReservoir = Object.keys(value[0]);
+      this.valuesReservoir = Object.keys(value[0]);
       this.datasource = new BehaviorSubject<any[]>(value);
     });
   }
