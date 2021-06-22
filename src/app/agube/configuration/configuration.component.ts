@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ManagerService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../agube-route';
 import { NotificationService } from '@availa/notification';
+import { UserService } from '@availa/auth-rest-api';
+
 
 @Component({
   selector: 'app-configuration',
@@ -22,12 +24,15 @@ export class ConfigurationComponent implements OnInit {
     private readonly svcManager: ManagerService,
     private formBuilder: FormBuilder,
     private svcRouter: Router,
-    private alertService: NotificationService
-  ) {
+    private alertService: NotificationService,
+    private svcAuthService:UserService
+      ) {
     this.registerForm = this.formBuilder.group({
       hook_price: new FormControl(),
       release_date: new FormControl(),
       max_daily_consumption: new FormControl(),
+      password: new FormControl(),
+      password2: new FormControl(),
     });
   }
 
@@ -47,6 +52,8 @@ export class ConfigurationComponent implements OnInit {
             .get('max_daily_consumption')
             .setValue(values.max_daily_consumption);
         });
+      console.log(this.registerForm.controls.password)
+
     });
   }
 
@@ -70,6 +77,20 @@ export class ConfigurationComponent implements OnInit {
         (error) => {
           this.alertService.error('error', this.options);
         }
-      );
+    );
+
+  }
+  public onSubmitPassword(): void{
+    this.svcAuthService.changePassword(
+      {
+        user_id: this.userId,
+        password:this.registerForm.value.password,
+        confirm_password: this.registerForm.value.password2,
+      })
+      .subscribe((values) => {
+        this.alertService.success('Actualizado con éxito', this.options);
+      }, (error) => {
+        this.alertService.error('Error al actualizar ' + error.error.status, this.options);
+      });
   }
 }

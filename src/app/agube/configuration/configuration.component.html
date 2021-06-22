@@ -15,7 +15,26 @@
       <input type="number" class="form-control" id="max_daily_consumption" formControlName="max_daily_consumption" />
     </div>
   </form>
+
+<div class="card m-2" >
+  <h3 class="text-center">Cambiar Contraseña</h3>
+  <form class="row g-3 p-5" style="margin: 0 auto" [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
+    <div class="col-6">
+      <strong for="password" class="form-label">Password</strong>
+      <input type="password" class="form-control" id="password" formControlName="password" />
+    </div>
+    <div class="col-6">
+      <strong for="password2" class="form-label">Confirm Password</strong>
+      <input type="password" class="form-control" id="password2" formControlName="password2" />
+    </div>
+
+  </form>
+  <button class="w-25 btn btn-outline-primary btn" style="margin: 0 auto;" type="button" (click)="onSubmitPassword()"  [disabled]="registerForm.invalid">
+    Cambiar Contraseña
+  </button>
 </div>
+</div>
+
 <div class="m-5 d-flex justify-content-between">
   <button class="w-25 btn btn-outline-danger btn-lg" type="button" (click)="goToControlPanel()">
     Atrás
