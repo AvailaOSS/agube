@@ -57,9 +57,6 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
-  public goToControlPanel(): void {
-    this.svcRouter.navigate([AgubeRoute.CONFIG]);
-  }
 
   public onSubmit(): void {
     this.svcManager
@@ -72,7 +69,7 @@ export class ConfigurationComponent implements OnInit {
       .subscribe(
         (value) => {
           this.alertService.success('Actualizado con éxito', this.options);
-          this.goToControlPanel();
+
         },
         (error) => {
           this.alertService.error('error', this.options);
