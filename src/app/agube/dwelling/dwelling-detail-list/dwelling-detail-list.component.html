@@ -1,11 +1,16 @@
 <div class="col-12 form-group">
   <button
-    class="btn btn-outline-primary float-right"
+    class="btn btn-outline-primary float-right mt-3"
     (click)="addNewDwelling()"
   >
     Agregar Viviendas
   </button>
 </div>
 <div class="container">
-  <availa-table-complete (selected)="selectRow($event)"></availa-table-complete>
+  <availa-table-complete
+  [datasource]="datasource"
+  [headerDatasource]="headDatasource"
+  [rows]="[2,4,6,8,9]"
+  (selected)="selectRow($event)">
+</availa-table-complete>
 </div>

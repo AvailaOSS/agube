@@ -2,13 +2,14 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReservoirService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../../../../agube-route';
+import { NotificationService } from '@availa/notification';
 
 @Component({
   selector: 'app-change-water-meter',
   templateUrl: './change-water-meter.component.html',
   styleUrls: ['./change-water-meter.component.scss'],
 })
-export class ChangeWaterMeterComponent implements OnInit {
+export class ChangeReservoirComponent implements OnInit {
   public userId: string;
   public idWaterMeter: number;
   public genericArray: any;
@@ -19,8 +20,11 @@ export class ChangeWaterMeterComponent implements OnInit {
   constructor(
     private readonly svcReservoirService: ReservoirService,
     private readonly svcRouter: Router,
-    private readonly svcActivate: ActivatedRoute
-  ) {
+    private readonly svcActivate: ActivatedRoute,
+    private readonly alertService: NotificationService
+  ) {}
+
+  public ngOnInit(): void {
     this.svcActivate.queryParams.subscribe((params) => {
       this.idWaterMeter = params.data;
       this.userId = params.user_id;
@@ -43,8 +47,6 @@ export class ChangeWaterMeterComponent implements OnInit {
     });
   }
 
-  public ngOnInit(): void {}
-
   public sendForm(event: any): void {
     this.svcReservoirService
       .changeCurrentReservoirWaterMeter(this.idWaterMeter, {
@@ -52,7 +54,10 @@ export class ChangeWaterMeterComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.svcRouter.navigate([AgubeRoute.RESERVOIR]);
+          this.alertService.success('Actualizado con éxito');
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.RESERVOIR]);
+          },2000);
         },
         (error) => {
           this.error = false;

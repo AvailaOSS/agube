@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManagerService, ReservoirService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../agube-route';
+import { NotificationService } from '@availa/notification';
 
 @Component({
   selector: 'app-create-reservoir',
@@ -16,7 +17,8 @@ export class CreateReservoirComponent implements OnInit {
   constructor(
     private router: Router,
     private readonly svcCreateNewReservoir: ReservoirService,
-    private readonly svcManager: ManagerService
+    private readonly svcManager: ManagerService,
+    private readonly alertService: NotificationService
   ) {
     this.svcManager.getManagerByUser().subscribe((value) => {
       this.userId = value.user_id;
@@ -46,7 +48,8 @@ export class CreateReservoirComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.router.navigate([AgubeRoute.RESERVOIR]);
+          this.alertService.success('Cambiado con éxito');
+          // this.router.navigate([AgubeRoute.RESERVOIR]);
         },
         (error) => {
           // FIXME: throw Notification Service

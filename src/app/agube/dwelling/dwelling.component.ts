@@ -9,7 +9,7 @@ import { AgubeRoute } from '../agube-route';
   styleUrls: ['./dwelling.component.scss'],
 })
 export class DwellingComponent {
-  public dwelling: DwellingDetail;
+  public dwelling: DwellingDetail = undefined;
 
   constructor(private readonly router: Router) {
 
@@ -19,13 +19,8 @@ export class DwellingComponent {
     this.dwelling = dwelling;
   }
   public selectHeader(headers: string[]): void{
-
     console.log(this.dwelling.gate);
 
 
-  }
-
-  public goToControlPanel(): void {
-    this.router.navigate([AgubeRoute.CONTROL_PANEL]);
   }
 }

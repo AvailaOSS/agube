@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from '@availa/auth-fe';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ExampleComponent } from './example/example.component';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
+import { TaskModule } from '@availa/task-fe';
 
 @NgModule({
   declarations: [
-    ExampleComponent,
     WorkInProgressComponent,
   ],
   imports: [
@@ -17,6 +16,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     NgbModalModule,
     FormsModule,
     AuthModule,
+    TaskModule
 
   ],
   exports: [

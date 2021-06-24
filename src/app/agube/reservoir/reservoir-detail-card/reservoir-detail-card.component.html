@@ -1,21 +1,25 @@
-<div class="card w-100 m-2" *ngIf="reservoir != undefined">
+<div class="card w-100 " *ngIf="reservoir != undefined">
   <div class="col-12 row">
     <div class="card bg-light m-3" style="max-width: 18rem; width: 16rem">
       <div class="card-header"><strong>Dirección</strong></div>
       <div class="card-body">
         <p class="card-text">
-          {{ reservoir.flat }} {{ reservoir.gate }} -
-          {{ reservoir.street }} -{{ reservoir.number }} -
+          {{ reservoir.flat }} {{ reservoir.gate }} - {{ reservoir.street }} -{{
+            reservoir.number
+          }}
+          -
           {{ reservoir.town }}
         </p>
       </div>
     </div>
-
   </div>
   <br />
   <div class="col-12 row">
     <div class="">
-      <app-deposit-management [reservoir]="reservoir" [waterMeter]="sendWaterMeterCode"></app-deposit-management>
+      <app-reservoir-management-detail-card
+        [reservoir]="reservoir"
+        [waterMeter]="sendWaterMeterCode"
+      ></app-reservoir-management-detail-card>
     </div>
   </div>
 </div>

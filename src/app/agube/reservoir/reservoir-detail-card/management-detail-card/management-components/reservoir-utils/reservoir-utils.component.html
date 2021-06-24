@@ -1,7 +1,5 @@
 <div class="h-75 col-md-10 col-lg-10" style="margin: 15px auto">
-  <div [hidden]="error" class="alert alert-danger" role="alert">
-    {{ errorMessage }}
-  </div>
+  <app-notification></app-notification>
   <h4 class="mb-3 text-center">{{ titleCard }}</h4>
   <form class="needs-validation was-validated" novalidate="" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="row g-3" [hidden]="isHiddenAddress">

@@ -18,7 +18,7 @@ export class ChangeResidentComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
+    private readonly svcRouter: Router,
     private readonly svcChangeResident: DwellingService,
     private readonly alertService: NotificationService
   ) {
@@ -65,6 +65,9 @@ export class ChangeResidentComponent implements OnInit {
       .subscribe(
         (value) => {
           this.alertService.success('Actualizado con éxito');
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 2000);
         },
         (error) => {
           this.error = false;

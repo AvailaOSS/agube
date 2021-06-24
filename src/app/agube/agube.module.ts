@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AgubeApiModule } from '@availa/agube-rest-api';
 import { AgubeRoutingModule } from './agube-routing.module';
 import { ConfigurationModule } from './configuration/configuration.module';
-import { ControlPanelModule } from './control-panel/control-panel.module';
 import { DwellingModule } from './dwelling/dwelling.module';
 import { ReservoirModule } from './reservoir/reservoir.module';
 import { WaterMeterModule } from './water-meter/water-meter.module';
@@ -13,7 +12,6 @@ import { WaterMeterModule } from './water-meter/water-meter.module';
   imports: [
     CommonModule,
     AgubeApiModule,
-    ControlPanelModule,
     WaterMeterModule,
     DwellingModule,
     ReservoirModule,

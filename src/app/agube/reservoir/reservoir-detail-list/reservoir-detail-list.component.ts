@@ -9,59 +9,72 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { BehaviorSubject } from 'rxjs';
 
 import { AgubeRoute } from '../../agube-route';
 
+interface DReservoirTableDataSource {
+  readonly id?: string;
+  water_meter_code: string;
+  street: string;
+  number: string;
+  flat: string;
+  gate: string;
+  town: string;
+  resident_first_name: string;
+  resident_phone: string;
+}
 @Component({
   selector: 'app-reservoir-detail-list',
   templateUrl: './reservoir-detail-list.component.html',
   styleUrls: ['./reservoir-detail-list.component.scss'],
 })
-export class ReservoirDetailListComponent implements OnInit, AfterViewInit {
-  // @ViewChild(MdbTablePaginationComponent, { static: true })
-  // mdbTablePagination: MdbTablePaginationComponent;
-  // @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
+export class ReservoirDetailListComponent implements OnInit {
+  @Output() sendSelected: EventEmitter<ReservoirDetail> =
+    new EventEmitter<ReservoirDetail>();
+  public valuesReservoir: string[] = [];
+  public selectedRowIndex = '';
+  public address: string;
+  public data: string;
+  public tableHeader: string[] = [
+    'id',
+    'Calle',
+    'Número',
+    'Piso',
+    'Puerta',
+    'Ciudad',
+    'Capacidad',
+    'inlet_flow',
+    'outlet_flow',
+  ];
+  public datasource: BehaviorSubject<any>;
+  public headDatasource: BehaviorSubject<any> = new BehaviorSubject<any[]>(
+    this.tableHeader
+  );
+  constructor(
+    private readonly svcReservoirService: ReservoirService,
+    private readonly router: Router
+  ) {}
 
-  // @Output() selected = new EventEmitter<ReservoirDetail>();
-
-  // public address: string;
-  // public selectedRowIndex = '';
-  // public data: string;
-  // elements: any = [];
-  // previous: any = [];
-  // public dataSource: ReservoirDetail[];
-  // headElementsRead = ['Dirección', 'inlet_flow', 'outlet_flow'];
-  // headElements = ['Dirección', 'Contador', 'Capacidad'];
-
-  // constructor(
-  //   private readonly svcReservoirService: ReservoirService,
-  //   private readonly router: Router,
-  //   private cdRef: ChangeDetectorRef
-  // ) {}
-
-  ngOnInit(): void {
-    // this.svcReservoirService.getReservoirs().subscribe((value) => {
-    //   this.dataSource = value;
-    //   this.mdbTable.setDataSource(this.dataSource);
-    //   this.elements = this.mdbTable.getDataSource();
-    //   this.previous = this.mdbTable.getDataSource();
-    // });
+  public ngOnInit(): void {
+    this.svcReservoirService.getReservoirs().subscribe((value) => {
+      this.valuesReservoir = Object.keys(value[0]);
+      this.datasource = new BehaviorSubject<any[]>(value);
+    });
   }
 
-  public ngAfterViewInit(): void {
-    // this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
-    // this.mdbTablePagination.calculateFirstItemIndex();
-    // this.mdbTablePagination.calculateLastItemIndex();
-    // this.cdRef.detectChanges();
+  public selectRow(row: any): void {
+    const result: any = Object.values(row).reduce(
+      (result: any, field: any, index: any) => {
+        result[this.valuesReservoir[index]] = field;
+
+        return result;
+      },
+      {}
+    );
+    this.sendSelected.emit(result);
   }
-
-  // public selectRow(row: any): void {
-  //   this.address = `${row.flat}  -  ${row.gate} - ${row.number} - ${row.street}  -  ${row.number} - ${row.street} - ${row.town}`;
-  //   this.selected.emit(row);
-  //   this.selectedRowIndex = row.id;
-  // }
-
-  // public addNewReservoir(): void {
-  //   this.router.navigate([AgubeRoute.CREATE_RESERVOIR]);
-  // }
+  public addNewReservoir(): void {
+    this.router.navigate([AgubeRoute.CREATE_RESERVOIR]);
+  }
 }

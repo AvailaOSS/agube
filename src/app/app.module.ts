@@ -11,10 +11,8 @@ import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { ContactBookModule } from './contact-book/contact-book.module';
-import { SubscriptionRoute } from './subscription/subscription-route';
-import { SubscriptionModule } from './subscription/subscription.module';
-import { TaskModule } from './task/task.module';
+import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
+import { ContactBookModule } from '@availa/contact-book-fe';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,18 +24,17 @@ import { TaskModule } from './task/task.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    TaskModule,
-    ToolbarModule.forRoot({ title: 'Agube', mainPageUrl: AuthRoute.LOGIN }),
+    ToolbarModule.forRoot({ logOutPageUrl: 'login' }),
     AuthModule.forRoot({
-      afterLoginSuccessUrl: AgubeRoute.CONTROL_PANEL,
+      afterLoginSuccessUrl: AgubeRoute.DWELLING,
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
     }),
     SubscriptionModule.forRoot({
       loginUrl: AuthRoute.LOGIN,
     }),
-    ContactBookModule,
     AgubeModule,
-    NgbModule
+    ContactBookModule,
+    NgbModule,
   ],
   bootstrap: [AppComponent],
 })

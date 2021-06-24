@@ -63,7 +63,7 @@ export class ReservoirUtilsComponent implements OnInit {
     });
   }
 
-  private initializeFormWatcher() {
+  private initializeFormWatcher(): void {
     this.formDataConfiguration.subscribe((value) => {
       if (!isUndefined(value) && value !== 5) {
         this.registerForm.get('code').setValue(value.code);

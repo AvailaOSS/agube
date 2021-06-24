@@ -1,24 +1,42 @@
-<div class="col row h-75 container">
-  <form class="row g-3" style="margin: 0 auto" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="hook_price" class="form-label">hook_price</label>
+<app-notification></app-notification>
+<h3>Configuración General</h3>
+<div class="col row h-75 container card mt-5">
+  <form class="row g-3 p-5" style="margin: 0 auto" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="col-4">
+      <strong for="hook_price" class="form-label">hook_price</strong>
       <input type="number" class="form-control" id="hook_price" formControlName="hook_price" />
     </div>
-    <div class="mb-3">
-      <label for="release_date" class="form-label">release_date</label>
+    <div class="col-4">
+      <strong for="release_date" class="form-label">release_date</strong>
       <input type="date" class="form-control" id="release_date" formControlName="release_date" />
     </div>
-    <div class="mb-3">
-      <label for="max_daily_consumption" class="form-label">max_daily_consumption</label>
+    <div class="col-4">
+      <strong for="max_daily_consumption" class="form-label">max_daily_consumption</strong>
       <input type="number" class="form-control" id="max_daily_consumption" formControlName="max_daily_consumption" />
     </div>
   </form>
-</div>
-<div class="m-5 d-flex justify-content-between">
-  <button class="w-25 btn btn-outline-danger btn-lg" type="button" (click)="goToControlPanel()">
-    Atrás
+
+<div class="card m-2" >
+  <h3 class="text-center">Cambiar Contraseña</h3>
+  <form class="row g-3 p-5" style="margin: 0 auto" [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
+    <div class="col-6">
+      <strong for="password" class="form-label">Password</strong>
+      <input type="password" class="form-control" id="password" formControlName="password" />
+    </div>
+    <div class="col-6">
+      <strong for="password2" class="form-label">Confirm Password</strong>
+      <input type="password" class="form-control" id="password2" formControlName="password2" />
+    </div>
+
+  </form>
+  <button class="w-25 btn btn-outline-primary btn" style="margin: 0 auto;" type="button" (click)="onSubmitPassword()"  [disabled]="registerForm.invalid">
+    Cambiar Contraseña
   </button>
-  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
+</div>
+</div>
+
+<div class="m-3 justify-content-between">
+  <button class="w-25 btn btn-outline-primary btn-lg float-right" type="button" (click)="onSubmit()">
     Editar Configuración
   </button>
 </div>

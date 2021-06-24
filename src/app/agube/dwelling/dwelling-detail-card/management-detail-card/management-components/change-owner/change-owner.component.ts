@@ -1,3 +1,4 @@
+import { AgubeRoute } from './../../../../../agube-route';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
@@ -16,10 +17,10 @@ export class ChangeOwnerComponent implements OnInit {
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private router: Router,
+    private svcRouter: Router,
     private route: ActivatedRoute,
     private readonly svcChangeOwner: DwellingService,
-    private readonly alertService:NotificationService
+    private readonly alertService: NotificationService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.ownerId = params.data;
@@ -61,12 +62,15 @@ export class ChangeOwnerComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.alertService.success('Actualizado con éxito')
+          this.alertService.success('Actualizado con éxito');
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 2000);
         },
         (error) => {
           this.error = false;
           this.errorMessage = error;
-          this.alertService.error('Error '+ error.error.status)
+          this.alertService.error('Error ' + error.error.status);
         }
       );
   }
