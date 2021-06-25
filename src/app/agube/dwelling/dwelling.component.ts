@@ -19,13 +19,8 @@ export class DwellingComponent {
     this.dwelling = dwelling;
   }
   public selectHeader(headers: string[]): void{
-
     console.log(this.dwelling.gate);
 
 
-  }
-
-  public goToControlPanel(): void {
-    this.router.navigate([AgubeRoute.CONTROL_PANEL]);
   }
 }

@@ -11,7 +11,7 @@ import { iWaterMeterDetailCard } from './water-meter-enabled-detail-card';
 })
 export class WaterMeterEnabledDetailCardComponent implements OnInit {
   // TODO: move to water-meter module
-  @Input() public dWelling: DwellingDetail;
+  @Input() public dwelling: DwellingDetail;
   public currentWaterMeter: iWaterMeterDetailCard;
 
   constructor(private readonly svcWelling: DwellingService) {}

@@ -31,18 +31,19 @@ export class ChangePaymasterComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly svcChangePay: DwellingService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private svcRouter: Router,
     public alertService: NotificationService
   ) {
+  }
+
+  public ngOnInit(): void {
+
     this.route.queryParams.subscribe((params) => {
       this.changePayId = params.data;
     });
     this.registerForm = this.formBuilder.group({
       numberBank: new FormControl(),
     });
-  }
-
-  public ngOnInit(): void {
     this.svcChangePay.getPaymaster(this.changePayId).subscribe((value) => {
       this.iban = Object.entries(value)[2][1];
       this.paymaster = Object.entries(value)[3][1];
@@ -74,11 +75,14 @@ export class ChangePaymasterComponent implements OnInit {
       })
       .subscribe(
         (value) => {
-          this.ngOnInit();
           this.alertService.success('Cambiado con éxito');
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 2000);
+
         },
         (error) => {
-          this.alertService.error('error'+ error.error.message);
+          this.alertService.error('error' + error.error.message);
         }
       );
   }
@@ -88,6 +92,6 @@ export class ChangePaymasterComponent implements OnInit {
   }
 
   public goToControlPanel(): void {
-    this.router.navigate([AgubeRoute.DWELLING]);
+    this.svcRouter.navigate([AgubeRoute.DWELLING]);
   }
 }

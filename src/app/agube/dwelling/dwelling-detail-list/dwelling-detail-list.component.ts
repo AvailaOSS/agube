@@ -1,6 +1,4 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   OnInit,
@@ -9,9 +7,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
-import { User } from 'apiaux/subscription-rest-api-lib/src/public-api';
 import { AgubeRoute } from '../../agube-route';
-import { TableDataSourceService } from '@availa/table';
+import { BehaviorSubject } from 'rxjs';
+import { Header } from '@availa/table/lib/header';
 
 interface DwellingTableDataSource {
   readonly id?: string;
@@ -33,41 +31,73 @@ interface DwellingTableDataSource {
 export class DwellingDetailListComponent implements OnInit {
   @Output() sendSelected: EventEmitter<DwellingDetail> =
     new EventEmitter<DwellingDetail>();
-  public dataSource: DwellingDetail[] = [];
-  public valuesDwelling: string[] = [];
+  public keysDwelling: string[] = [];
+  public valuesDwelling: any[] = [];
   public selectedRowIndex = '';
   public address: string;
   public data: string;
-  public tableHeader: string[] = [
-    'id',
-    'Código Contador',
-    'Calle',
-    'Número',
-    'Piso',
-    'Puerta',
-    'Ciudad',
-    'Nombre Residente',
-    'Número Telf.',
-  ];
+  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<
+    Header[]
+    >([
+      {
+        columnDataName: 'id',
+        columnName: 'id',
+      },
+    {
+      columnDataName: 'water_meter_code',
+      columnName: 'Código Contador',
+    },
+    {
+      columnDataName: 'street',
+      columnName: 'Calle',
+    },
+    {
+      columnDataName: 'number',
+      columnName: 'Número',
+    },
+    {
+      columnDataName: 'flat',
+      columnName: 'Piso',
+    },
+    {
+      columnDataName: 'gate',
+      columnName: 'Puerta',
+    },
+    {
+      columnDataName: 'town',
+      columnName: 'Ciudad',
+    },
+    {
+      columnDataName: 'resident_first_name',
+      columnName: 'Nombre Residente',
+    },
+    {
+      columnDataName: 'resident_phone',
+      columnName: 'Número Telf.',
+    },
+  ]);
+
+  public datasource: BehaviorSubject<any>;
 
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
-    private readonly route: Router,
-    private svcTableService: TableDataSourceService
+    private readonly route: Router
   ) {}
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
-      this.valuesDwelling = Object.keys(value[0]);
-      this.svcTableService.addDataSource(value);
-      this.svcTableService.addHeader(this.tableHeader);
+      console.log(value)
+      this.keysDwelling = Object.keys(value[0]);
+      this.valuesDwelling = Object.values(value);
+      this.datasource = new BehaviorSubject<any[]>(value);
     });
   }
 
-  public selectRow(row: []): void {
-    const result: DwellingDetail = row.reduce(
+  public selectRow(row: any): void {
+    console.log(this.valuesDwelling)
+    const result: any = Object.values(row).reduce(
       (result: any, field: any, index: any) => {
-        result[this.valuesDwelling[index]] = field;
+        result[this.keysDwelling[index]] = field;
         return result;
       },
       {}

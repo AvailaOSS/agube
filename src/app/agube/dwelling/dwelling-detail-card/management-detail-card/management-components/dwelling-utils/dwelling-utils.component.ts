@@ -28,10 +28,7 @@ export class DwellingUtilsComponent implements OnInit {
   @Output() sendForm: EventEmitter<any> = new EventEmitter<any>();
 
   public registerForm: FormGroup;
-  public options = {
-    autoClose: false,
-    keepAfterRouteChange: false,
-  };
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -164,7 +161,7 @@ export class DwellingUtilsComponent implements OnInit {
     });
   }
 
-  private initializeFormWatcher() {
+  private initializeFormWatcher(): void {
     this.formDataConfiguration.subscribe((value) => {
       if (!isUndefined(value) && value !== 5) {
         this.registerForm.get('numberBank').setValue(value.iban);

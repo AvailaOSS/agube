@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AgubeRoute } from '../../../agube-route';
 import {
   ManagerService,
   ReservoirCreate,
@@ -10,7 +11,7 @@ import {
   selector: 'app-reservoir-management-detail-card',
   templateUrl: './reservoir-management-detail-card.component.html',
 })
-export class DepositManagementComponent implements OnInit {
+export class ReservoirManagementComponent implements OnInit {
   @Input() reservoir: ReservoirCreate;
   @Input() waterMeter: string;
 
@@ -29,7 +30,7 @@ export class DepositManagementComponent implements OnInit {
   public ngOnInit(): void {}
 
   public changeReservoir(): void {
-    this.svcRouter.navigate(['/deposit/changeReservoir'], {
+    this.svcRouter.navigate([AgubeRoute.CHANGE_RESERVOIR], {
       queryParams: { data: this.reservoir.id, user_id: this.user_id },
     });
   }

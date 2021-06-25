@@ -57,8 +57,8 @@
     <div class="row col-12">
       <div class="row col-6" [hidden]="isHiddenOwner">
         <div class="col m-4 card-header">
-          <strong>Propietario</strong>
-          <div style="display: inline-table" class="custom-control custom-switch col-3 ml-1">
+          <strong style="padding-right: 50px;">Propietario</strong>
+          <div style="display: inline-flex" class="custom-control custom-switch col-4 ml-1">
             <input class="custom-control-input" formControlName="resident" type="checkbox" value="resident"
               id="resident" [attr.disabled]="isHiddenResidentCheck ? '' : null" (click)="toggle()" />
             <label class="custom-control-label" for="resident">

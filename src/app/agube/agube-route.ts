@@ -1,4 +1,5 @@
 export enum AgubeRoute {
+  WIP = 'wip',
   // User options
   CONTROL_PANEL = 'control-panel',
   CONFIG = 'config',
@@ -13,4 +14,7 @@ export enum AgubeRoute {
   RESERVOIR = 'depositos',
   CHANGE_RESERVOIR = 'depositos/changeReservoir',
   CREATE_RESERVOIR = 'depositos/alta/deposito',
+
+  // INCIDENCES
+  INCIDENCE = 'incidence',
 }
