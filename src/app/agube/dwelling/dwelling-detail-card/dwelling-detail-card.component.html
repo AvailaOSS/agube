@@ -1,4 +1,4 @@
-<div class="card w-100 " *ngIf="dwelling != undefined">
+<div class="card w-100 ">
   <div class="col-12 row">
     <div class="card bg-light m-3" style="max-width: 18rem; width: 16rem">
       <div class="card-header"><strong>Dirección</strong></div>
@@ -11,7 +11,7 @@
         </p>
       </div>
     </div>
-    <app-water-meter-enabled-detail-card [dWelling]="dwelling">
+    <app-water-meter-enabled-detail-card [dwelling]="dwelling">
     </app-water-meter-enabled-detail-card>
   </div>
   <br />

@@ -7,7 +7,7 @@
     <app-dwelling-detail-list (sendSelected)="selectItem($event)">
     </app-dwelling-detail-list>
   </div>
-  <div class="col-5">
+  <div class="col-5"  *ngIf="dwelling != undefined">
     <app-dwelling-detail-card [dwelling]="dwelling"></app-dwelling-detail-card>
 
   </div>

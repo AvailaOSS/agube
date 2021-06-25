@@ -9,7 +9,7 @@ import { AgubeRoute } from '../agube-route';
   styleUrls: ['./dwelling.component.scss'],
 })
 export class DwellingComponent {
-  public dwelling: DwellingDetail = undefined;
+  public dwelling: DwellingDetail;
 
   constructor(private readonly router: Router) {
 

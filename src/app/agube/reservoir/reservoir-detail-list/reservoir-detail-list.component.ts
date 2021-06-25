@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { Header } from '@availa/table/lib/header';
 import { BehaviorSubject } from 'rxjs';
 
 import { AgubeRoute } from '../../agube-route';
@@ -36,20 +37,43 @@ export class ReservoirDetailListComponent implements OnInit {
   public selectedRowIndex = '';
   public address: string;
   public data: string;
-  public tableHeader: string[] = [
-    'id',
-    'Calle',
-    'Número',
-    'Piso',
-    'Puerta',
-    'Ciudad',
-    'Capacidad',
-    'inlet_flow',
-    'outlet_flow',
-  ];
   public datasource: BehaviorSubject<any>;
-  public headDatasource: BehaviorSubject<any> = new BehaviorSubject<any[]>(
-    this.tableHeader
+  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
+    [
+      {
+        columnDataName: 'id',
+        columnName: 'id',
+      },
+
+      {
+        columnDataName: 'street',
+        columnName: 'Calle',
+      },
+      {
+        columnDataName: 'number',
+        columnName: 'Número',
+      },
+      {
+        columnDataName: 'flat',
+        columnName: 'Piso',
+      },
+      {
+        columnDataName: 'gate',
+        columnName: 'Puerta',
+      },
+      {
+        columnDataName: 'capacity',
+        columnName: 'Capacidad',
+      },
+      {
+        columnDataName: 'inlet_flow',
+        columnName: 'inlet_flow',
+      },
+      {
+        columnDataName: 'outlet_flow',
+        columnName: 'outlet_flow.',
+      },
+    ]
   );
   constructor(
     private readonly svcReservoirService: ReservoirService,
