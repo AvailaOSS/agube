@@ -89,7 +89,8 @@ export class DwellingDetailListComponent implements OnInit {
       console.log(value)
       this.keysDwelling = Object.keys(value[0]);
       this.valuesDwelling = Object.values(value);
-      this.datasource = new BehaviorSubject<any[]>(value);
+
+
     });
   }
 
