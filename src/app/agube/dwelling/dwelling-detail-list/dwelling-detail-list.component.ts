@@ -39,10 +39,7 @@ export class DwellingDetailListComponent implements OnInit {
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<
     Header[]
     >([
-      {
-        columnDataName: 'id',
-        columnName: 'id',
-      },
+
     {
       columnDataName: 'water_meter_code',
       columnName: 'Código Contador',
