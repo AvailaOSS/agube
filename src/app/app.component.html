@@ -28,13 +28,25 @@
         style="cursor: pointer"
         *ngFor="let component of menuComponents"
         (click)="selectedComponent(component)"
+        [ngClass]="{
+          ' list-group-item-primary':
+          currentComponentName == component.name
+              ? true
+              : false
+              ? 'list-group-item-primary'
+              : false
+        }"
         >{{ component.name }}</span
       >
     </div>
   </div>
   <!-- /#sidebar-wrapper -->
   <!-- Page Content -->
-  <div class="h-100" id="page-content-wrapper " style="display: flow-root; background-color: #f4f6f8;">
+  <div
+    class="h-100"
+    id="page-content-wrapper "
+    style="display: flow-root; background-color: #f4f6f8"
+  >
     <lib-toolbar [title]="currentComponentName"></lib-toolbar>
     <div
       style="
@@ -45,7 +57,10 @@
       "
     >
       <router-outlet></router-outlet>
-      <lib-contact-book [userId]="user" [hideContactBook]="false"></lib-contact-book>
+      <lib-contact-book
+        [userId]="user"
+        [hideContactBook]="false"
+      ></lib-contact-book>
     </div>
   </div>
   <!-- /#page-content-wrapper -->
