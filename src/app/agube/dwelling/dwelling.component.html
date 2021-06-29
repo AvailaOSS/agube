@@ -1,14 +1,15 @@
-<h3 class="col mt-2">
-  Viviendas de la Comunidad
-</h3>
+  <div class="row col-12">
+    <div class="col-7 card">
+      <h1 class="col mt-2">
+        Viviendas de la Comunidad
+      </h1>
 
-<div class="row col-12">
-  <div class="col-7 card">
-    <app-dwelling-detail-list (sendSelected)="selectItem($event)">
-    </app-dwelling-detail-list>
-  </div>
-  <div class="col-5"  *ngIf="dwelling != undefined">
-    <app-dwelling-detail-card [dwelling]="dwelling"></app-dwelling-detail-card>
+      <app-dwelling-detail-list (sendSelected)="selectItem($event)">
+      </app-dwelling-detail-list>
+    </div>
+    <div class="col-5"  *ngIf="dwelling != undefined">
+      <app-dwelling-detail-card [dwelling]="dwelling"></app-dwelling-detail-card>
 
+    </div>
   </div>
-</div>
+
