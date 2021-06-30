@@ -1,0 +1,51 @@
+@import "./variables/colors-theme-secondary";
+@import "./variables/layout";
+@import "./variables/paddings";
+@import "./variables/typography";
+
+body {
+  background-color: $color-white;
+  margin: 0;
+  padding: 0;
+}
+.btn-primary {
+  color: $color-terciary;
+  background-color: $color-cuaternary;
+  border-color: $color-secondary;
+}
+
+.btn-outline-primary {
+  color: $color-terciary;
+  background-color: $color-cuaternary;
+  border-color: $color-secondary;
+}
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled,
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+  color: $color-secondary;
+  background-color: $color-cuaternary;
+  border-color: $color-secondary;
+}
+
+.btn-outline-danger,
+.btn-outline-danger {
+  color: $color-cuaternary;
+  background-color: $color-secondary;
+  border-color: $color-secondary;
+}
+.bg-primary {
+  color: $color-cuaternary;
+  background-color: $color-secondary !important;
+  border-color: $color-secondary;
+}
+.list-group-item {
+  color: $color-secondary;
+  background-color: $color-sidebar;
+  border-color: $color-secondary;
+}
+button {
+  margin-top: 6px;
+  color: $color-white;
+  background-color: $color-secondary;
+}

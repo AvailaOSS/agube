@@ -1,10 +1,9 @@
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
-
+@import "../src/app/scss/base.scss";
 .selected-row {
-  // FIXME: use colors from project style palette
-  background-color: #007bff;
+  background-color: $color-black;
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
 }
 @import "~@ng-select/ng-select/themes/default.theme.css";
