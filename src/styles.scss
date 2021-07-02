@@ -1,9 +1,17 @@
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
-@import "../src/app/scss/base.scss";
-.selected-row {
-  background-color: $color-black;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-}
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "./scss/theme/colors-theme-light-blue-cake.scss";
+@import "./scss/variables/layout";
+@import "./scss/variables/paddings";
+@import "./scss/variables/typography";
+
+body {
+  background-color: $color-white;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: $color-sidebar;
+}
