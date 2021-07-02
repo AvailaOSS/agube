@@ -1,20 +1,21 @@
-
-.active-sidebar{
-  margin-left: -12rem !important;
+@import "../../../styles.scss";
+.active-sidebar {
+  margin-left: 0rem !important;
 }
-#sidebar-wrapper {
+.sidebar {
+  float: left;
   min-height: 100vh;
-  margin-left: -13rem;
+  margin-left: -12rem;
   -webkit-transition: margin 0.25s ease-out;
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
   transition: margin 0.25s ease-out;
 }
-#sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
+.sidebar .sidebar-heading {
+  padding: 0.5rem 0.5rem 0.3rem 0rem;
   font-size: 1.2rem;
 }
-#sidebar-wrapper .list-group {
+.sidebar .list-group {
   width: 15rem;
 }
 #page-content-wrapper {
@@ -25,7 +26,6 @@
 }
 @media (min-width: 768px) {
   #sidebar-wrapper {
-    margin-left: 2rem;
   }
   #page-content-wrapper {
     min-width: 0;
@@ -34,4 +34,12 @@
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+.menu-selected {
+  color: $color-sidebar;
+}
+
+.menu-selected:hover {
+  color: $color-sidebar;
 }

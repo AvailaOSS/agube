@@ -16,7 +16,8 @@ export class SidebarComponent implements OnInit {
     new EventEmitter();
   public menuComponents: SelectedComponent[] = [];
   public toogleVision: boolean = false;
-  @Input() user: any ;
+  @Input() user: any;
+  public selectComponent: string;
 
   constructor(private readonly route: Router) {
     this.menuComponents = [
@@ -33,6 +34,7 @@ export class SidebarComponent implements OnInit {
   public selectedComponent(component: SelectedComponent): void {
     this.route.navigate([component.path]);
     this.currentComponentName.emit(component.name);
+    this.selectComponent = component.name;
   }
 
   public toogleSidebar(): void {

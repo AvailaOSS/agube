@@ -1,43 +1,39 @@
-
-  <!-- Sidebar -->
-  <div
-    class="border-right float-left"
-    *ngIf="user"
-    id="sidebar-wrapper"
-    [hidden]="user === null || undefined"
-    [ngClass]="{ 'active-sidebar': toogleVision }"
-  >
-    <div class="sidebar-heading text-center">
-      <a class="" href="#">Agube</a>
-      <div class="float-right">
-        <i
-          class="fas fa-bars"
-          style="cursor: pointer"
-          (click)="toogleSidebar()"
-        >
-        </i>
+<!-- Sidebar -->
+<div
+  class="sidebar"
+  *ngIf="user"
+  [hidden]="user === null || undefined"
+  [ngClass]="{ 'active-sidebar': toogleVision }"
+>
+  <div class="sidebar-heading text-center">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-4">
+          <h4 class="">Agube</h4>
+        </div>
+        <div class="col-4 text-right p-2">
+          <i
+            class="fas fa-bars text-right"
+            style="cursor: pointer"
+            (click)="toogleSidebar()"
+          >
+          </i>
+        </div>
       </div>
     </div>
-    <div class="text-center">
-      <i class="fas fa-user-circle fa-7x"> </i>
-      <p class="m-1">{{ user.username }}</p>
-    </div>
-    <div class="list-group list-group-flush">
-      <span
-        class="list-group-item list-group-item-action border-0"
-        style="cursor: pointer;"
-        *ngFor="let component of menuComponents"
-        (click)="selectedComponent(component)"
-        style=" cursor: pointer;"
-        [ngClass]="{
-          'list-group':
-          currentComponentName == component.name
-              ? true
-              : false
-              ? 'list-group'
-              : false
-        }"
-        >{{ component.name }}</span
-      >
-    </div>
   </div>
+  <div class="text-center">
+    <i class="fas fa-user-circle fa-7x"> </i>
+    <h5 class="m-1">{{ user.username }}</h5>
+  </div>
+  <div class="list-group list-group-flush">
+    <span
+      class="list-group-item list-group-item-action border-0"
+      style="cursor: pointer"
+      *ngFor="let component of menuComponents"
+      (click)="selectedComponent(component)"
+      [ngClass]="component.name == selectComponent ? 'menu-selected' : '' "
+      >{{ component.name }} </span
+    >
+  </div>
+</div>
