@@ -1,10 +1,9 @@
-<div class="row col-12">
-  <div class="col-7 card">
-    <h1>Depósitos de la Comunidad</h1>
+<div class="subgrid">
+  <div >
     <app-reservoir-detail-list (sendSelected)="selectItem($event)">
     </app-reservoir-detail-list>
   </div>
-  <div class="col-5">
+  <div >
     <app-reservoir-detail-card [reservoir]="reservoir">
     </app-reservoir-detail-card>
   </div>

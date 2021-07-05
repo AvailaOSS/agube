@@ -1,8 +1,8 @@
 $xs: 360px;
 $s: 440px;
 $m: 768px;
-$l: 1280px;
-$xl: 1440px;
+$l: 1290px;
+$xl: 1345px;
 
 @mixin for-size($size) {
   @if $size == xs {
@@ -25,18 +25,19 @@ $xl: 1440px;
 }
 
 :root {
-  --columns: 4;
-  --column-gap: 6.67%;
+  --columns: 1;
+    --column-gap: 5.00%;
 
   @include for-size(m) {
-    --columns: 12;
-    --column-gap: 2.27%;
+    --columns:1;
+    --column-gap: 5.00%;
   }
 
   @include for-size(l) {
-    --columns: 12;
-    --column-gap: 2.19%;
+    --columns: 2;
+    --column-gap: 5.00%;
   }
+
 }
 
 .grid {

@@ -5,6 +5,7 @@
 @import "./scss/variables/layout";
 @import "./scss/variables/paddings";
 @import "./scss/variables/typography";
+@import "./scss/variables/buttons.scss";
 
 body {
   background-color: $color-white;
@@ -16,6 +17,30 @@ body {
   background-color: $color-sidebar;
 }
 
+.navbar > div h4 {
+  color: $color-white;
+}
+
 .full-navbar {
   background-color: $color-white !important;
+}
+
+.bg-primary,
+.btn-outline-primary,
+.btn-outline-primary:hover {
+  background-color: $color-sidebar !important;
+  border-color: $color-sidebar;
+  color:$color-white
+}
+
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: $color-white;
+  background-color: $color-sidebar;
+  border-color: $color-sidebar;
+}
+.col-4 {
+  flex: 0 0 20.333333%;
+  max-width: 20.333333%;
 }

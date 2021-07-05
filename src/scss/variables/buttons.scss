@@ -1,0 +1,38 @@
+.btn-secondary {
+  background-color: $color-black;
+}
+.btn-secondary:hover {
+  background-color: $color-black;
+}
+.btn-secondary:active {
+  background-color: $color-black;
+}
+.btn-primary {
+  background-color: $color-sidebar;
+  border: 1px solid $color-sidebar;
+}
+.btn-primary:hover {
+  background-color: $color-sidebar;
+  border: 1px solid $color-sidebar;
+}
+.btn-primary:active {
+  background-color: $color-sidebar;
+  border: 1px solid $color-sidebar;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: $color-sidebar;
+  border: 1px solid $color-sidebar;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $color-sidebar;
+}
+button {
+  background-color: $color-sidebar;
+  border: 1px solid $color-black;
+  color:$color-white;
+  padding: 5px
+}
