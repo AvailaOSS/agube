@@ -21,7 +21,7 @@ def send_user_creation_email(user: User, email_type: EmailType):
 
     # check that email is valid and has SMTP Server
     user_email = user.email
-    is_valid = validate_email(user_email, check_mx=True)
+    is_valid = validate_email(user_email, verify=True)
     if not is_valid:
         raise InvalidEmailError(user_email)
 

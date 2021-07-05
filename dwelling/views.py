@@ -17,7 +17,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
-from dwelling.exceptions import (IncompatibleUsernameError,
+from dwelling.exceptions import (IncompatibleUsernameError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError, PaymasterError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling
@@ -89,8 +89,9 @@ class DwellingCreateView(generics.CreateAPIView):
         if 'resident' in request.data:
             return Response({'status': 'This request contains resident, use createDwellingWithResident instead'}, status=HTTP_404_NOT_FOUND)
         try:
-            return super().post(request, *args, **kwargs)
-        except UserManagerRequiredError as e:
+            with transaction.atomic():
+                return super().post(request, *args, **kwargs)
+        except (InvalidEmailError, UserManagerRequiredError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
@@ -102,8 +103,9 @@ class DwellingCreateWithResidentView(generics.CreateAPIView):
     @swagger_auto_schema(operation_id="createDwellingWithResident", operation_description="create a new Dwelling with Resident")
     def post(self, request, *args, **kwargs):
         try:
-            return super().post(request, *args, **kwargs)
-        except UserManagerRequiredError as e:
+            with transaction.atomic():
+                return super().post(request, *args, **kwargs)
+        except (InvalidEmailError, UserManagerRequiredError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
