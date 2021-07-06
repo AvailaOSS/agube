@@ -27,12 +27,7 @@ export class DwellingManagementDetailCardComponent
 
   public ngOnChanges(): void {}
 
-  public changeCount(): void {
 
-    this.svcRouter.navigate([AgubeRoute.CHANGE_WATER_METER], {
-      queryParams: { data: this.dwelling.id, user_id: this.userId },
-    });
-  }
 
   public changeResident(): void {
     this.svcRouter.navigate([AgubeRoute.CHANGE_RESIDENT], {

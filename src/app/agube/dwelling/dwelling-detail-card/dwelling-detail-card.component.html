@@ -1,26 +1,25 @@
-<div class="card">
-  <div >
-    <div >
-      <div class="card-header"><strong>Dirección</strong></div>
+<div class="card m-1 card-component-welling bg-aqua" >
+  <div>
+    <div>
       <div class="card-body">
-        <p >
-          {{ dwelling.flat }} {{ dwelling.gate }} - {{ dwelling.street }} -{{
+        <h1>
+          C/ {{ dwelling.flat }} - {{ dwelling.gate }} / {{ dwelling.street }} /{{
             dwelling.number
           }}
-          - {{ dwelling.town }}
-        </p>
+          /{{ dwelling.town }}
+        </h1>
       </div>
-    </div >
+    </div>
     <app-water-meter-enabled-detail-card [dwelling]="dwelling">
     </app-water-meter-enabled-detail-card>
-  </div>
-  <br />
-  <div >
-    <app-dwelling-water-meter-readings-detail-card></app-dwelling-water-meter-readings-detail-card>
     <app-dwelling-management-detail-card
       [dwelling]="dwelling"
       [waterMeter]="sendWaterMeterCode"
     >
     </app-dwelling-management-detail-card>
+  </div>
+  <br />
+  <div>
+    <app-dwelling-water-meter-readings-detail-card></app-dwelling-water-meter-readings-detail-card>
   </div>
 </div>

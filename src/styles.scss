@@ -30,9 +30,8 @@ body {
 .btn-outline-primary:hover {
   background-color: $color-sidebar !important;
   border-color: $color-sidebar;
-  color:$color-white
+  color: $color-white;
 }
-
 
 .page-item.active .page-link {
   z-index: 3;
@@ -43,4 +42,20 @@ body {
 .col-4 {
   flex: 0 0 20.333333%;
   max-width: 20.333333%;
+}
+.water-meter-card {
+  width: 320px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  float:left
+}
+.card-component-welling{
+  width: 760px;
+}
+.bg-aqua{
+  background-color: $color-cuaternary;
+}
+.bg-warning{
+  background-color: $color-terciary;
 }
