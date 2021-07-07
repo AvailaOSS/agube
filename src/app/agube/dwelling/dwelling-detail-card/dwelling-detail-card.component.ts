@@ -8,7 +8,7 @@ import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 })
 export class DwellingDetailCardComponent implements OnInit {
   @Input() public dwellingId: number;
-  public dwelling: DwellingCreate;
+  public dwelling: DwellingCreate | undefined;
 
   public sendWaterMeterCode: WaterMeterEnabledDetailCardComponent;
 

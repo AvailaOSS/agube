@@ -15,7 +15,7 @@ export class WaterMeterEnabledDetailCardComponent implements OnInit {
   // TODO: move to water-meter module
 
   @Input() public dwellingId: number;
-  public waterMeter: WaterMeter;
+  public waterMeter: WaterMeter | undefined;
   public userId: string;
 
   constructor(
