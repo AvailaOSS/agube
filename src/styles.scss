@@ -48,14 +48,17 @@ body {
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
-  float:left
+  float: left;
 }
-.card-component-welling{
+.card-component-welling {
   width: 760px;
 }
-.bg-aqua{
+.bg-aqua {
   background-color: $color-cuaternary;
 }
-.bg-warning{
+.bg-warning {
   background-color: $color-terciary;
+}
+.table-component {
+  height: 550px;
 }

@@ -1,12 +1,10 @@
-<div class="card m-1 card-component-welling bg-aqua" >
+<div class="card m-1 card-component-welling bg-aqua">
   <div>
     <div>
       <div class="card-body">
         <h1>
-          C/ {{ dwelling.flat }} - {{ dwelling.gate }} / {{ dwelling.street }} /{{
-            dwelling.number
-          }}
-          /{{ dwelling.town }}
+          C/ {{ dwelling.flat }} - {{ dwelling.gate }} /
+          {{ dwelling.street }} /{{ dwelling.number }} /{{ dwelling.town }}
         </h1>
       </div>
     </div>
@@ -20,6 +18,8 @@
   </div>
   <br />
   <div>
-    <app-dwelling-water-meter-readings-detail-card></app-dwelling-water-meter-readings-detail-card>
+    <app-dwelling-water-meter-readings-detail-card
+      [dwelling]="dwelling"
+    ></app-dwelling-water-meter-readings-detail-card>
   </div>
 </div>

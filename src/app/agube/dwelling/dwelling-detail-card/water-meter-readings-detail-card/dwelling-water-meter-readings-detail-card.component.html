@@ -1,20 +1,16 @@
 <div >
-  <div class="text-center m-1 ">
-    <table class="table table-bordered w-50 bg-warning" style="margin: 0 auto;">
-      <thead>
-        <tr>
-          <th scope="col">Lectura</th>
-          <th scope="col">Fecha</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let element of dataSource">
-        <tr>
-          <th scope="row">
-            {{ element.reading }}
-          </th>
-          <td>{{ element.date | date:'dd/MM/yyyy'}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <button
+  class="btn btn-primary float-right m-1"
+  (click)="addNew()"
+  >    Agregar Lecturas
+  </button>
+  <div class="text-center m-1 table-component ">
+    <availa-table-complete
+    [datasource]="datasource"
+    [headerDatasource]="tableHeader"
+    [showPaginator]="true"
+    [showPaginator]="false"
+    (selected)="selectRow($event)">
+  </availa-table-complete>
   </div>
 </div>

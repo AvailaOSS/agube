@@ -1,5 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { DWellingWaterMeterReadings } from './dwelling-water-meter-readings';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { DwellingService, WaterMeter, WaterMeterService } from '@availa/agube-rest-api';
+import { BehaviorSubject } from 'rxjs';
+import { Header } from '@availa/table/lib/header';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewWaterFormComponent } from './new-water-meter-form/new-water-form/new-water-form.component';
 
 @Component({
   selector: 'app-dwelling-water-meter-readings-detail-card',
@@ -7,34 +19,61 @@ import { DWellingWaterMeterReadings } from './dwelling-water-meter-readings';
   styleUrls: ['./dwelling-water-meter-readings-detail-card.component.scss'],
 })
 export class DWellingWaterMeterReadingsComponent implements OnInit {
-  // TODO: move to water-meter module
+  @Input() public dwelling: any;
+  @Output() sendSelected: EventEmitter<WaterMeter> =
+    new EventEmitter<WaterMeter>();
+  public keysDwelling: string[] = [];
+  public valuesWaterMeter: any[] = [];
+  public selectedRowIndex = '';
+  public address: string;
+  public data: string;
   public displayedColumns: string[] = ['reading', 'date'];
-  public dataSource: DWellingWaterMeterReadings[];
+  public datasource: BehaviorSubject<any>;
+  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
+    [
+      {
+        columnDataName: 'code',
+        columnName: 'Código Contador',
+      },
+      {
+        columnDataName: 'release_date',
+        columnName: 'Fecha',
+      },
+      {
+        columnDataName: 'water_meter',
+        columnName: 'Lecturas',
+      },
+    ]
+  );
 
-  constructor() {}
+  constructor(
+    private readonly svcDwelling: DwellingService,
+    private readonly svcWaterMeter: WaterMeterService,
+    private modalService: NgbModal
+  ) {}
 
-  ngOnInit(): void {
-    this.dataSource = [
-      {
-        reading: '2663.93',
-        date: new Date('2020-09-11'),
-      },
-      {
-        reading: '2657.31',
-        date: new Date('2020-06-22'),
-      },
-      {
-        reading: '2645.70',
-        date: new Date('2020-10-05'),
-      },
-      {
-        reading: '2580.99',
-        date: new Date('2019-09-09'),
-      },
-      {
-        reading: '2577.06 ',
-        date: new Date('2019-08-03'),
-      },
-    ];
+  public ngOnInit(): void {
+    console.log(this.dwelling.id);
+    this.svcWaterMeter
+      .getWaterMeterMeasures(this.dwelling.id)
+      .subscribe((value) => {
+        this.datasource = new BehaviorSubject<any[]>([value]);
+        this.keysDwelling = Object.keys(value);
+        this.valuesWaterMeter = Object.values(value);
+      });
+  }
+  public selectRow(evt: any): void {
+    //
+  }
+  public addNew(): void {
+    this.modalService
+      .open(NewWaterFormComponent, {
+        centered: true,
+        backdrop: 'static',
+      })
+      .result.then((result) => {
+        this.valuesWaterMeter.push(result);
+        this.datasource = new BehaviorSubject<any[]>(this.valuesWaterMeter);
+      });
   }
 }

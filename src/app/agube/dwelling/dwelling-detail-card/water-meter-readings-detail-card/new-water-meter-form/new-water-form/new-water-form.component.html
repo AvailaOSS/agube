@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h4 class="modal-title">Nueva Lectura</h4>
+</div>
+<div class="modal-body">
+  <div>Form to create a new Water Meter</div>
+
+  <form
+    class="needs-validation was-validated"
+    novalidate=""
+    [formGroup]="createReading"
+    (ngSubmit)="save()"
+  >
+    <div class="col-sm-6">
+      <label for="code" class="form-label">Código</label>
+      <input
+        type="text"
+        class="form-control"
+        id="code"
+        formControlName="code"
+        placeholder=""
+        value=""
+        required=""
+      />
+      <div class="invalid-feedback">Se requiere un código.</div>
+    </div>
+
+    <div class="col-sm-6">
+      <label for="release_date" class="form-label">Fecha</label>
+      <div class="input-group has-validation">
+        <input
+          type="date"
+          class="form-control"
+          id="release_date"
+          placeholder="fecha"
+          formControlName="release_date"
+          required=""
+        />
+        <div class="invalid-feedback">Se requiere una fecha.</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label for="measurement" class="form-label">Lectura</label>
+      <div class="input-group has-validation">
+        <input
+          type="number"
+          class="form-control"
+          id="release_date"
+          placeholder="measurement"
+          formControlName="measurement"
+          required=""
+        />
+        <div class="invalid-feedback">Se requiere una lectura.</div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="cancel()">
+    Cancelar
+  </button>
+  <button type="button" class="btn btn-primary" (click)="save()">
+    Guardar
+  </button>
+</div>
