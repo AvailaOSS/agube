@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+} from '@angular/core';
 import {
   DwellingService,
   ManagerService,
@@ -12,7 +17,7 @@ import { AgubeRoute } from 'src/app/agube/agube-route';
   templateUrl: './water-meter-enabled-detail-card.component.html',
   styleUrls: ['./water-meter-enabled-detail-card.component.scss'],
 })
-export class WaterMeterEnabledDetailCardComponent implements OnInit {
+export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
   // TODO: move to water-meter module
 
   @Input() public dwellingId: number;
@@ -26,12 +31,17 @@ export class WaterMeterEnabledDetailCardComponent implements OnInit {
   ) {
     //
   }
+  public ngOnChanges(): void {
+    this.ngOnInit();
+  }
 
   public ngOnInit(): void {
     this.svcManager.getManagerByUser().subscribe((value) => {
       this.userId = value.user_id;
     });
-    this.svcDwelling.getCurrentDwellingWaterMeter(this.dwellingId).subscribe(result => this.waterMeter = result);
+    this.svcDwelling
+      .getCurrentDwellingWaterMeter(this.dwellingId)
+      .subscribe((result) => (this.waterMeter = result));
   }
 
   public changeCount(): void {
