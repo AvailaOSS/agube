@@ -38,7 +38,6 @@ export class SidebarComponent implements OnInit {
   }
 
   public toogleSidebar(): void {
-    console.log(this.toogleVision);
     this.toogleVision = !this.toogleVision;
   }
 }

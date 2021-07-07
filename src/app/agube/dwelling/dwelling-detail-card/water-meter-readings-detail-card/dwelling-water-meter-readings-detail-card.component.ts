@@ -7,7 +7,11 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { DwellingService, WaterMeter, WaterMeterService } from '@availa/agube-rest-api';
+import {
+  DwellingService,
+  WaterMeter,
+  WaterMeterService,
+} from '@availa/agube-rest-api';
 import { BehaviorSubject } from 'rxjs';
 import { Header } from '@availa/table/lib/header';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +27,7 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   @Input() public dwelling: any;
   @Output() sendSelected: EventEmitter<WaterMeter> =
     new EventEmitter<WaterMeter>();
-  public keysDwelling: string[] = [];
+  public keysWater: string[] = [];
   public valuesWaterMeter: any[] = [];
   public selectedRowIndex = '';
   public address: string;
@@ -33,16 +37,12 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
     [
       {
-        columnDataName: 'code',
-        columnName: 'Código Contador',
-      },
-      {
-        columnDataName: 'release_date',
-        columnName: 'Fecha',
-      },
-      {
-        columnDataName: 'water_meter',
+        columnDataName: 'measurement',
         columnName: 'Lecturas',
+      },
+      {
+        columnDataName: 'date',
+        columnName: 'Fecha',
       },
     ]
   );
@@ -52,41 +52,51 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
     private readonly svcWaterMeter: WaterMeterService,
     private modalService: NgbModal
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (!isUndefined(changes.dwelling.currentValue)) {
-      console.log(changes.dwelling.currentValue.id)
-      this.svcWaterMeter
-      .getWaterMeterMeasures(changes.dwelling.currentValue.id)
-      .subscribe((value) => {
-        this.datasource = new BehaviorSubject<any[]>([value]);
-        this.keysDwelling = Object.keys(value);
-        this.valuesWaterMeter = Object.values(value);
-      });
+      this.svcDwelling
+        .getCurrentDwellingWaterMeter(changes.dwelling.currentValue.id)
+        .subscribe((value) => {
+          if (!isUndefined(value)) {
+            this.svcWaterMeter
+              .getWaterMeterMeasures(value.id)
+              .subscribe((water) => {
+                this.datasource = new BehaviorSubject<any[]>(water);
+                this.keysWater = Object.keys(water);
+                this.valuesWaterMeter = Object.values(water);
+              });
+          }
+        });
     }
   }
 
   public ngOnInit(): void {
-    this.svcWaterMeter
-      .getWaterMeterMeasures(this.dwelling.id)
+    this.svcDwelling
+      .getCurrentDwellingWaterMeter(this.dwelling.id)
       .subscribe((value) => {
-        this.datasource = new BehaviorSubject<any[]>([value]);
-        this.keysDwelling = Object.keys(value);
-        this.valuesWaterMeter = Object.values(value);
+        if (!isUndefined(value)) {
+          this.svcWaterMeter
+            .getWaterMeterMeasures(value.id)
+            .subscribe((waters) => {
+              this.datasource = new BehaviorSubject<any[]>(waters);
+              this.keysWater = Object.keys(waters);
+              this.valuesWaterMeter = Object.values(waters);
+            });
+        }
       });
   }
   public selectRow(evt: any): void {
     //
   }
   public addNew(): void {
-    this.modalService
-      .open(NewWaterFormComponent, {
-        centered: true,
-        backdrop: 'static',
-      })
-      .result.then((result) => {
-        this.valuesWaterMeter.push(result);
-        this.datasource = new BehaviorSubject<any[]>(this.valuesWaterMeter);
+    this.svcDwelling
+      .getCurrentDwellingWaterMeter(this.dwelling.id)
+      .subscribe((value) => {
+        this.modalService.open(NewWaterFormComponent, {
+          centered: true,
+          backdrop: 'static',
+        }).componentInstance.id = value.id;
+
       });
   }
-
 }

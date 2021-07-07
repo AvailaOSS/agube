@@ -3,27 +3,12 @@
 </div>
 <div class="modal-body">
   <div>Form to create a new Water Meter</div>
-
   <form
     class="needs-validation was-validated"
     novalidate=""
     [formGroup]="createReading"
     (ngSubmit)="save()"
   >
-    <div class="col-sm-6">
-      <label for="code" class="form-label">Código</label>
-      <input
-        type="text"
-        class="form-control"
-        id="code"
-        formControlName="code"
-        placeholder=""
-        value=""
-        required=""
-      />
-      <div class="invalid-feedback">Se requiere un código.</div>
-    </div>
-
     <div class="col-sm-6">
       <label for="release_date" class="form-label">Fecha</label>
       <div class="input-group has-validation">

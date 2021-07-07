@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WaterMeterService } from '@availa/agube-rest-api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NewWaterFormComponent implements OnInit {
   public createReading: FormGroup;
+  @Input() public id: any;
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -18,7 +19,6 @@ export class NewWaterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createReading = this.formBuilder.group({
-      code: ['', Validators.required],
       release_date: ['', Validators.required],
       measurement: ['', Validators.required],
     });
@@ -30,13 +30,13 @@ export class NewWaterFormComponent implements OnInit {
 
   public save(): void {
     this.svcWaterMeter
-      .addWaterMeterMeasure('1', {
+      .addWaterMeterMeasure(this.id, {
         measurement: this.createReading.value.measurement,
         date: this.createReading.value.release_date,
-        id: '1',
+        id: this.id,
       })
-      .subscribe((value) => {
-        console.log(value);
+      .subscribe((response) => {
+        this.activeModal.close(response);
       });
   }
 }
