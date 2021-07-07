@@ -5,10 +5,12 @@ import { AuthModule } from '@availa/auth-fe';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { TaskModule } from '@availa/task-fe';
+import { DwellingAddressPipe } from './pipes/dwellingaddress.pipe';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
+    DwellingAddressPipe,
   ],
   imports: [
     CommonModule,
@@ -17,11 +19,11 @@ import { TaskModule } from '@availa/task-fe';
     FormsModule,
     AuthModule,
     TaskModule
-
   ],
   exports: [
-    WorkInProgressComponent
+    WorkInProgressComponent,
+    DwellingAddressPipe
   ],
   providers: [],
 })
-export class ComponentsModule {}
+export class ComponentsModule { }
