@@ -1,39 +1,30 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import {
   DwellingService,
-  WaterMeter,
-  WaterMeterService,
+  WaterMeterMeasurement,
+  WaterMeterWithMeasurements,
 } from '@availa/agube-rest-api';
 import { BehaviorSubject } from 'rxjs';
 import { Header } from '@availa/table/lib/header';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewWaterFormComponent } from './new-water-meter-form/new-water-form/new-water-form.component';
-import { isUndefined } from 'lodash';
 
 @Component({
   selector: 'app-dwelling-water-meter-readings-detail-card',
   templateUrl: './dwelling-water-meter-readings-detail-card.component.html',
   styleUrls: ['./dwelling-water-meter-readings-detail-card.component.scss'],
 })
-export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
-  @Input() public dwelling: any;
-  @Output() sendSelected: EventEmitter<WaterMeter> =
-    new EventEmitter<WaterMeter>();
-  public keysWater: string[] = [];
-  public valuesWaterMeter: any[] = [];
-  public selectedRowIndex = '';
-  public address: string;
-  public data: string;
-  public displayedColumns: string[] = ['reading', 'date'];
-  public datasource: BehaviorSubject<any>;
+export class DWellingWaterMeterReadingsComponent implements OnInit {
+
+  @Input() public dwellingId: number;
+  private chunk: number = 8;
+  private waterMeterWithMeasurements: WaterMeterWithMeasurements;
+
+  public datasource: BehaviorSubject<WaterMeterMeasurement[]>;
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
     [
       {
@@ -49,54 +40,27 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
 
   constructor(
     private readonly svcDwelling: DwellingService,
-    private readonly svcWaterMeter: WaterMeterService,
     private modalService: NgbModal
-  ) {}
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (!isUndefined(changes.dwelling.currentValue)) {
-      this.svcDwelling
-        .getCurrentDwellingWaterMeter(changes.dwelling.currentValue.id)
-        .subscribe((value) => {
-          if (!isUndefined(value)) {
-            this.svcWaterMeter
-              .getWaterMeterMeasures(value.id)
-              .subscribe((water) => {
-                this.datasource = new BehaviorSubject<any[]>(water);
-                this.keysWater = Object.keys(water);
-                this.valuesWaterMeter = Object.values(water);
-              });
-          }
-        });
-    }
+  ) {
+    //
   }
 
   public ngOnInit(): void {
-    this.svcDwelling
-      .getCurrentDwellingWaterMeter(this.dwelling.id)
-      .subscribe((value) => {
-        if (!isUndefined(value)) {
-          this.svcWaterMeter
-            .getWaterMeterMeasures(value.id)
-            .subscribe((waters) => {
-              this.datasource = new BehaviorSubject<any[]>(waters);
-              this.keysWater = Object.keys(waters);
-              this.valuesWaterMeter = Object.values(waters);
-            });
-        }
-      });
+    this.svcDwelling.getCurrentWaterMeterMeasuresChunk(String(this.chunk), String(this.dwellingId)).subscribe(result => {
+      this.waterMeterWithMeasurements = result;
+      let measurements = this.waterMeterWithMeasurements.water_meter;
+      this.datasource = new BehaviorSubject<WaterMeterMeasurement[]>(measurements);
+    });
   }
-  public selectRow(evt: any): void {
-    //
-  }
-  public addNew(): void {
+
+  public addReading(): void {
     this.svcDwelling
-      .getCurrentDwellingWaterMeter(this.dwelling.id)
+      .getCurrentDwellingWaterMeter(this.dwellingId)
       .subscribe((value) => {
         this.modalService.open(NewWaterFormComponent, {
           centered: true,
           backdrop: 'static',
         }).componentInstance.id = value.id;
-
       });
   }
 }

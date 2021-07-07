@@ -1,26 +1,20 @@
-<div class="card m-1 card-component-welling bg-aqua">
+<div class="card m-1 card-component-welling bg-aqua" *ngIf="dwelling">
   <div>
     <div>
       <div class="card-body">
         <h1>
-          C/ {{ dwelling.flat }} - {{ dwelling.gate }} /
-          {{ dwelling.street }} /{{ dwelling.number }} /{{ dwelling.town }}
+          {{ dwelling.full_address | fullAddress }}
         </h1>
       </div>
     </div>
-    <app-water-meter-enabled-detail-card [dwelling]="dwelling">
+    <app-water-meter-enabled-detail-card [dwellingId]="dwellingId">
     </app-water-meter-enabled-detail-card>
-    <app-dwelling-management-detail-card
-      [dwelling]="dwelling"
-      [waterMeter]="sendWaterMeterCode"
-    >
+    <app-dwelling-management-detail-card [dwellingId]="dwellingId">
     </app-dwelling-management-detail-card>
   </div>
   <br />
   <div>
-    <app-dwelling-water-meter-readings-detail-card
-      [dwelling]="dwelling"
-      (sendSelected)="sendWater($event)"
-    ></app-dwelling-water-meter-readings-detail-card>
+    <app-dwelling-water-meter-readings-detail-card [dwellingId]="dwellingId" (sendSelected)="sendWater($event)">
+    </app-dwelling-water-meter-readings-detail-card>
   </div>
 </div>

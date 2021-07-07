@@ -1,7 +1,6 @@
 <div class="card water-meter-card">
-  <div class="text-center">
-    <strong>{{ dwelling.resident_first_name }}</strong>
-  </div>
+  <p><strong>{{ resident | userDetailName }}</strong></p>
+  <p>residente</p>
   <div class="d-flex">
     <button class="btn btn-primary m-1" (click)="changePay()">
       Cambio Pagador

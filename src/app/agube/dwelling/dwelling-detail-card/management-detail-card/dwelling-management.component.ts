@@ -1,49 +1,46 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgubeRoute } from '../../../agube-route';
-import { DwellingDetail, ManagerService } from '@availa/agube-rest-api';
+import { DwellingService, UserDetail } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-dwelling-management-detail-card',
   templateUrl: './dwelling-management-detail-card.component.html',
 })
 export class DwellingManagementDetailCardComponent
-  implements OnInit, OnChanges
-{
-  @Input() dwelling: DwellingDetail;
-  @Input() waterMeter: string;
+  implements OnInit {
+  // TODO: rename it to DwellingResidentDetailCard
+
+  @Input() dwellingId: number;
+  public resident: UserDetail;
   public userId: string;
 
   constructor(
     private readonly svcRouter: Router,
-    private readonly svcManager: ManagerService
+    private readonly svcDwelling: DwellingService
   ) {
-    this.svcManager.getManagerByUser().subscribe((value) => {
-      this.userId = value.user_id;
-    });
+    //
   }
 
-  ngOnInit(): void {}
-
-  public ngOnChanges(): void {}
-
-
+  ngOnInit(): void {
+    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe(result => this.resident = result.user);
+  }
 
   public changeResident(): void {
     this.svcRouter.navigate([AgubeRoute.CHANGE_RESIDENT], {
-      queryParams: { data: this.dwelling.id, user_id: this.userId },
+      queryParams: { data: this.dwellingId },
     });
   }
 
   public changeOwner(): void {
     this.svcRouter.navigate([AgubeRoute.CHANGE_OWNER], {
-      queryParams: { data: this.dwelling.id, user_id: this.userId },
+      queryParams: { data: this.dwellingId },
     });
   }
 
   public changePay(): void {
     this.svcRouter.navigate([AgubeRoute.CHANGE_PAYMASTER], {
-      queryParams: { data: this.dwelling.id, user_id: this.userId },
+      queryParams: { data: this.dwellingId },
     });
   }
 }

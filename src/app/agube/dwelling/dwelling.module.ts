@@ -40,7 +40,6 @@ import { NewWaterFormComponent } from './dwelling-detail-card/water-meter-readin
     DwellingUtilsModule,
     ComponentsModule,
     TableModule
-
   ],
   exports: [DwellingComponent],
 })
