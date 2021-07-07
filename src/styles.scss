@@ -1,10 +1,69 @@
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
-
-.selected-row {
-  // FIXME: use colors from project style palette
-  background-color: #007bff;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif
-}
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "./scss/theme/colors-theme-light-blue-cake.scss";
+@import "./scss/variables/layout";
+@import "./scss/variables/paddings";
+@import "./scss/variables/typography";
+@import "./scss/variables/buttons.scss";
+
+body {
+  background-color: $color-white;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: $color-sidebar;
+}
+
+.navbar > div h4 {
+  color: $color-white;
+}
+
+.full-navbar {
+  background-color: $color-white !important;
+}
+
+.bg-primary,
+.btn-outline-primary,
+.btn-outline-primary:hover {
+  background-color: $color-sidebar !important;
+  border-color: $color-sidebar;
+  color: $color-white;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: $color-white;
+  background-color: $color-sidebar;
+  border-color: $color-sidebar;
+}
+.col-4 {
+  flex: 0 0 20.333333%;
+  max-width: 20.333333%;
+}
+.water-meter-card {
+  width: 320px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  float: left;
+}
+.card-component-welling {
+  width: 760px;
+}
+.bg-aqua {
+  background-color: $color-cuaternary;
+}
+.bg-warning {
+  background-color: $color-terciary;
+}
+.table-component {
+  height: 550px;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  background-color: $color-sidebar !important;
+  border: 1px solid $color-sidebar;
+}

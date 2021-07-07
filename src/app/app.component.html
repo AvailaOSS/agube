@@ -1,62 +1,11 @@
-<div class="w-100 d-inline" id="wrapper">
+<div>
   <!-- Sidebar -->
-  <div
-    class="border-right float-left"
-    *ngIf="user"
-    id="sidebar-wrapper"
-    [hidden]="user === null || undefined"
-    [ngClass]="{ active: toogleVision }"
-  >
-    <div class="sidebar-heading text-center">
-      <a class="" href="#">Agube</a>
-      <div class="float-right">
-        <i
-          class="fas fa-bars"
-          style="cursor: pointer"
-          (click)="toogleSidebar()"
-        >
-        </i>
-      </div>
-    </div>
-    <div class="text-center">
-      <i class="fas fa-user-circle fa-7x"> </i>
-      <p class="m-1">{{ user.username }}</p>
-    </div>
-    <div class="list-group list-group-flush">
-      <span
-        class="list-group-item list-group-item-action border-0"
-        style="cursor: pointer;"
-        *ngFor="let component of menuComponents"
-        (click)="selectedComponent(component)"
-        style=" cursor: pointer;"
-        [ngClass]="{
-          'list-group':
-          currentComponentName == component.name
-              ? true
-              : false
-              ? 'list-group'
-              : false
-        }"
-        >{{ component.name }}</span
-      >
-    </div>
-  </div>
+  <app-sidebar [user]="user" (currentComponentName)="getSelectedComponent($event)"></app-sidebar>
   <!-- /#sidebar-wrapper -->
   <!-- Page Content -->
-  <div
-    class="h-100"
-    id="page-content-wrapper "
-    style="display: flow-root; background-color: #f4f6f8"
-  >
-    <lib-toolbar [title]="currentComponentName"></lib-toolbar>
-    <div
-      style="
-        height: 55rem;
-        overflow-y: auto;
-        background-color: #f4f6f8;
-        margin: 15px;
-      "
-    >
+  <div>
+    <lib-toolbar [title]="toolbarName"></lib-toolbar>
+    <div>
       <router-outlet></router-outlet>
       <lib-contact-book
         [userId]="user"

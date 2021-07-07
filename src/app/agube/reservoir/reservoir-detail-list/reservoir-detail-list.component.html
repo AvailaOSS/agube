@@ -1,16 +1,17 @@
-<div class="col-12 form-group">
+<div class="m-1">
   <button
-    class="btn btn-outline-primary float-right mt-3"
+    class="btn btn-primary float-right"
     (click)="addNewReservoir()"
   >
     Agregar Depósitos
   </button>
 </div>
-<div class="container">
+<div >
   <availa-table-complete
     [datasource]="datasource"
     [headerDatasource]="tableHeader"
     [rows]="[2, 4, 6, 8, 9]"
+    [showPaginator]="true"
     (selected)="selectRow($event)"
   ></availa-table-complete>
 </div>

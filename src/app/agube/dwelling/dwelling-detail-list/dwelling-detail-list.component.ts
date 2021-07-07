@@ -10,6 +10,7 @@ import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../agube-route';
 import { BehaviorSubject } from 'rxjs';
 import { Header } from '@availa/table/lib/header';
+import { isNull } from 'lodash';
 
 interface DwellingTableDataSource {
   readonly id?: string;
@@ -36,46 +37,42 @@ export class DwellingDetailListComponent implements OnInit {
   public selectedRowIndex = '';
   public address: string;
   public data: string;
-  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<
-    Header[]
-    >([
+  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
+    [
       {
-        columnDataName: 'id',
-        columnName: 'id',
+        columnDataName: 'water_meter_code',
+        columnName: 'Código Contador',
       },
-    {
-      columnDataName: 'water_meter_code',
-      columnName: 'Código Contador',
-    },
-    {
-      columnDataName: 'street',
-      columnName: 'Calle',
-    },
-    {
-      columnDataName: 'number',
-      columnName: 'Número',
-    },
-    {
-      columnDataName: 'flat',
-      columnName: 'Piso',
-    },
-    {
-      columnDataName: 'gate',
-      columnName: 'Puerta',
-    },
-    {
-      columnDataName: 'town',
-      columnName: 'Ciudad',
-    },
-    {
-      columnDataName: 'resident_first_name',
-      columnName: 'Nombre Residente',
-    },
-    {
-      columnDataName: 'resident_phone',
-      columnName: 'Número Telf.',
-    },
-  ]);
+      {
+        columnDataName: 'street',
+        columnName: 'Calle',
+      },
+      {
+        columnDataName: 'number',
+        columnName: 'Número',
+      },
+      {
+        columnDataName: 'flat',
+        columnName: 'Piso',
+      },
+      {
+        columnDataName: 'gate',
+        columnName: 'Puerta',
+      },
+      {
+        columnDataName: 'town',
+        columnName: 'Ciudad',
+      },
+      {
+        columnDataName: 'resident_first_name',
+        columnName: 'Nombre Residente',
+      },
+      {
+        columnDataName: 'resident_phone',
+        columnName: 'Número Telf.',
+      },
+    ]
+  );
 
   public datasource: BehaviorSubject<any>;
 
@@ -86,16 +83,16 @@ export class DwellingDetailListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
-      this.datasource = new BehaviorSubject<any[]>(value);
-      this.keysDwelling = Object.keys(value[0]);
-      this.valuesDwelling = Object.values(value);
-
-
+      if (value.length !== 0) {
+        this.datasource = new BehaviorSubject<any[]>(value);
+        this.keysDwelling = Object.keys(value[0]);
+        this.valuesDwelling = Object.values(value);
+      }
     });
   }
 
   public selectRow(row: any): void {
-    console.log(this.valuesDwelling)
+    console.log(this.valuesDwelling);
     const result: any = Object.values(row).reduce(
       (result: any, field: any, index: any) => {
         result[this.keysDwelling[index]] = field;

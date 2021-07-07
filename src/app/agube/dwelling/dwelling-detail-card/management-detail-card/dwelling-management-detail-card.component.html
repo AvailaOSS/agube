@@ -1,16 +1,16 @@
-<div class="card bg-light m-3">
-  <div class="card-header"><strong>Administración</strong></div>
-  <div class="card-body" style="display: grid;">
-    <button class="btn btn-outline-primary" (click)="changePay()">
+<div class="card water-meter-card">
+  <div class="text-center">
+    <strong>{{ dwelling.resident_first_name }}</strong>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-primary m-1" (click)="changePay()">
       Cambio Pagador
     </button>
-    <button class="btn btn-outline-primary" (click)="changeCount()">
-      Cambio Contador
-    </button>
-    <button class="btn btn-outline-primary" (click)="changeResident()">
+
+    <button class="btn btn-primary m-1" (click)="changeResident()">
       Cambio Residente
     </button>
-    <button class="btn btn-outline-primary" (click)="changeOwner()">
+    <button class="btn btn-primary m-1" (click)="changeOwner()">
       Cambio Propietario
     </button>
   </div>

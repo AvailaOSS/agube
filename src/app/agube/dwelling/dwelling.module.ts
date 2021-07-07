@@ -16,6 +16,7 @@ import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-det
 import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
+import { NewWaterFormComponent } from './dwelling-detail-card/water-meter-readings-detail-card/new-water-meter-form/new-water-form/new-water-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TableModule } from '@availa/table';
     DwellingDetailCardComponent,
     DwellingManagementDetailCardComponent,
     DWellingWaterMeterReadingsComponent,
-    WaterMeterEnabledDetailCardComponent
+    WaterMeterEnabledDetailCardComponent,
+    NewWaterFormComponent
   ],
   imports: [
     CommonModule,
