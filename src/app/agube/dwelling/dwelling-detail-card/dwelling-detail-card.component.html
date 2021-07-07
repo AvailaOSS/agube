@@ -20,6 +20,7 @@
   <div>
     <app-dwelling-water-meter-readings-detail-card
       [dwelling]="dwelling"
+      (sendSelected)="sendWater($event)"
     ></app-dwelling-water-meter-readings-detail-card>
   </div>
 </div>

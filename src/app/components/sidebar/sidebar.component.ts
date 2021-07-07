@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   @Output() public currentComponentName: EventEmitter<string> =
     new EventEmitter();
   public menuComponents: SelectedComponent[] = [];
-  public toogleVision: boolean = false;
+  public toogleVision = true;
   @Input() user: any;
   public selectComponent: string;
 

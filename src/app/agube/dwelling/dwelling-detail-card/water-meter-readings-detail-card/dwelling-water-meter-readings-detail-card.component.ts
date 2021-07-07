@@ -12,13 +12,14 @@ import { BehaviorSubject } from 'rxjs';
 import { Header } from '@availa/table/lib/header';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewWaterFormComponent } from './new-water-meter-form/new-water-form/new-water-form.component';
+import { isUndefined } from 'lodash';
 
 @Component({
   selector: 'app-dwelling-water-meter-readings-detail-card',
   templateUrl: './dwelling-water-meter-readings-detail-card.component.html',
   styleUrls: ['./dwelling-water-meter-readings-detail-card.component.scss'],
 })
-export class DWellingWaterMeterReadingsComponent implements OnInit {
+export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   @Input() public dwelling: any;
   @Output() sendSelected: EventEmitter<WaterMeter> =
     new EventEmitter<WaterMeter>();
@@ -51,9 +52,20 @@ export class DWellingWaterMeterReadingsComponent implements OnInit {
     private readonly svcWaterMeter: WaterMeterService,
     private modalService: NgbModal
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!isUndefined(changes.dwelling.currentValue)) {
+      console.log(changes.dwelling.currentValue.id)
+      this.svcWaterMeter
+      .getWaterMeterMeasures(changes.dwelling.currentValue.id)
+      .subscribe((value) => {
+        this.datasource = new BehaviorSubject<any[]>([value]);
+        this.keysDwelling = Object.keys(value);
+        this.valuesWaterMeter = Object.values(value);
+      });
+    }
+  }
 
   public ngOnInit(): void {
-    console.log(this.dwelling.id);
     this.svcWaterMeter
       .getWaterMeterMeasures(this.dwelling.id)
       .subscribe((value) => {
@@ -76,4 +88,5 @@ export class DWellingWaterMeterReadingsComponent implements OnInit {
         this.datasource = new BehaviorSubject<any[]>(this.valuesWaterMeter);
       });
   }
+
 }
