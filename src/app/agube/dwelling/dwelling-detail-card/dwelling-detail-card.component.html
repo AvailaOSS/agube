@@ -3,11 +3,11 @@
     <div>
       <div class="card-body">
         <h1>
-          {{ dwelling.full_address| fullAddress }}
+          {{ dwelling.full_address | fullAddress }}
         </h1>
       </div>
     </div>
-    <app-water-meter-enabled-detail-card [dwelling]="dwelling">
+    <app-water-meter-enabled-detail-card [dwellingId]="dwellingId">
     </app-water-meter-enabled-detail-card>
     <app-dwelling-management-detail-card
       [dwelling]="dwelling"

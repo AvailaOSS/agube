@@ -1,8 +1,8 @@
 <div class="card water-meter-card">
-  <p><strong>Código: </strong> {{ dwelling.water_meter_code }}</p>
+  <p><strong>Código: </strong> {{ waterMeter.code }}</p>
   <p>
     <strong>Alta desde: </strong>
-    {{ currentWaterMeter.activation_date | date: "dd/MM/yyyy" }}
+    {{ waterMeter.release_date | date: "dd/MM/yyyy" }}
   </p>
   <button class="btn btn-primary" (click)="changeCount()">Cambio Contador</button>
 </div>
