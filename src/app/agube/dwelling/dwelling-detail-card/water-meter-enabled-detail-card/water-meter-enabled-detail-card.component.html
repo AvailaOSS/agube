@@ -1,8 +1,6 @@
 <div class="card water-meter-card" *ngIf="waterMeter">
-  <p><strong>Código: </strong> {{ waterMeter.code }}</p>
-  <p>
-    <strong>Alta desde: </strong>
-    {{ waterMeter.release_date | date: "dd/MM/yyyy" }}
-  </p>
+  <p><strong>Contador</strong></p>
+  <p>nº {{ waterMeter.code }}</p>
+  <p>Alta {{ waterMeter.release_date | date: "dd/MM/yyyy" }}</p>
   <button class="btn btn-primary" (click)="changeCount()">Cambio Contador</button>
 </div>

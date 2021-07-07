@@ -6,11 +6,13 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { TaskModule } from '@availa/task-fe';
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
+import { UserDetailPipe } from './pipes/userdetail.pipe';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
     FullAddressPipe,
+    UserDetailPipe,
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { FullAddressPipe } from './pipes/fulladdress.pipe';
   ],
   exports: [
     WorkInProgressComponent,
-    FullAddressPipe
+    FullAddressPipe,
+    UserDetailPipe
   ],
   providers: [],
 })
