@@ -62,3 +62,8 @@ body {
 .table-component {
   height: 550px;
 }
+.btn-primary:focus,
+.btn-primary.focus {
+  background-color: $color-sidebar !important;
+  border: 1px solid $color-sidebar;
+}
