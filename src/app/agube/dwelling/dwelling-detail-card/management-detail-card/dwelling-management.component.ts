@@ -6,6 +6,7 @@ import { DwellingService, UserDetail } from '@availa/agube-rest-api';
 @Component({
   selector: 'app-dwelling-management-detail-card',
   templateUrl: './dwelling-management-detail-card.component.html',
+  styleUrls: ['./dwelling-management.component.scss'],
 })
 export class DwellingManagementDetailCardComponent
   implements OnInit {

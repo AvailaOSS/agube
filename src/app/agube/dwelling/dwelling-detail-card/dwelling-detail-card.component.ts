@@ -5,6 +5,7 @@ import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 @Component({
   selector: 'app-dwelling-detail-card',
   templateUrl: './dwelling-detail-card.component.html',
+  styleUrls: ['./dwelling-detail-card.component.scss'],
 })
 export class DwellingDetailCardComponent implements OnInit {
   @Input() public dwellingId: number;

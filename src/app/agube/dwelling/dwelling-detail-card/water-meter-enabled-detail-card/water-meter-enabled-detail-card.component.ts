@@ -10,6 +10,7 @@ import { AgubeRoute } from 'src/app/agube/agube-route';
 @Component({
   selector: 'app-water-meter-enabled-detail-card',
   templateUrl: './water-meter-enabled-detail-card.component.html',
+  styleUrls: ['./water-meter-enabled-detail-card.component.scss'],
 })
 export class WaterMeterEnabledDetailCardComponent implements OnInit {
   // TODO: move to water-meter module

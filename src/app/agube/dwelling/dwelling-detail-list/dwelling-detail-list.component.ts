@@ -3,26 +3,12 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../agube-route';
 import { BehaviorSubject } from 'rxjs';
 import { Header } from '@availa/table/lib/header';
-import { isNull } from 'lodash';
-
-interface DwellingTableDataSource {
-  readonly id?: string;
-  water_meter_code: string;
-  street: string;
-  number: string;
-  flat: string;
-  gate: string;
-  town: string;
-  resident_first_name: string;
-  resident_phone: string;
-}
 
 @Component({
   selector: 'app-dwelling-detail-list',
@@ -79,7 +65,7 @@ export class DwellingDetailListComponent implements OnInit {
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
     private readonly route: Router
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {

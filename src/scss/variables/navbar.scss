@@ -1,0 +1,17 @@
+.navbar {
+  background-color: $color-primary;
+}
+.navbar > div h4 {
+  color: $color-white;
+}
+.navbar .btn-primary {
+  color: $color-white;
+  background-color: $color-primary;
+}
+.navbar .btn-primary:hover {
+  color: $color-primary;
+  background-color: $color-white;
+}
+.full-navbar {
+  background-color: $color-white !important;
+}
