@@ -5,12 +5,12 @@ import { AuthModule } from '@availa/auth-fe';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { TaskModule } from '@availa/task-fe';
-import { DwellingAddressPipe } from './pipes/dwellingaddress.pipe';
+import { FullAddressPipe } from './pipes/fulladdress.pipe';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
-    DwellingAddressPipe,
+    FullAddressPipe,
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { DwellingAddressPipe } from './pipes/dwellingaddress.pipe';
   ],
   exports: [
     WorkInProgressComponent,
-    DwellingAddressPipe
+    FullAddressPipe
   ],
   providers: [],
 })

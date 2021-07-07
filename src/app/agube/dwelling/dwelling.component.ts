@@ -1,7 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { DwellingDetail } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../agube-route';
 
 @Component({
   selector: 'app-dwelling',
@@ -9,18 +7,13 @@ import { AgubeRoute } from '../agube-route';
   styleUrls: ['./dwelling.component.scss'],
 })
 export class DwellingComponent {
-  public dwelling: DwellingDetail;
+  public dwellingId: number;
 
-  constructor(private readonly router: Router) {
-
+  constructor() {
+    //
   }
 
   public selectItem(dwelling: DwellingDetail): void {
-    this.dwelling = dwelling;
-  }
-  public selectHeader(headers: string[]): void{
-    console.log(this.dwelling.gate);
-
-
+    this.dwellingId = +dwelling.id;
   }
 }
