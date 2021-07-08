@@ -41,11 +41,6 @@ export class ReservoirDetailListComponent implements OnInit {
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
     [
       {
-        columnDataName: 'id',
-        columnName: 'id',
-      },
-
-      {
         columnDataName: 'street',
         columnName: 'Calle',
       },
@@ -67,11 +62,11 @@ export class ReservoirDetailListComponent implements OnInit {
       },
       {
         columnDataName: 'inlet_flow',
-        columnName: 'inlet_flow',
+        columnName: 'Entrada',
       },
       {
         columnDataName: 'outlet_flow',
-        columnName: 'outlet_flow.',
+        columnName: 'Salida',
       },
     ]
   );
