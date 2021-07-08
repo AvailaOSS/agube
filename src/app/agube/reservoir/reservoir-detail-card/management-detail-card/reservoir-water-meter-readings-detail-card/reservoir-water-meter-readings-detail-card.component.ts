@@ -8,13 +8,16 @@ import { Header } from '@availa/table/lib/header';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { NewWaterFormComponent } from 'src/app/agube/dwelling/dwelling-detail-card/water-meter-readings-detail-card/new-water-meter-form/new-water-form/new-water-form.component';
+import { isUndefined } from 'lodash';
 
 @Component({
   selector: 'app-reservoir-water-meter-readings-detail-card',
   templateUrl: './reservoir-water-meter-readings-detail-card.component.html',
   styleUrls: ['./reservoir-water-meter-readings-detail-card.component.scss'],
 })
-export class ReservoirWaterMeterReadingsDetailCardComponent implements OnInit,OnChanges {
+export class ReservoirWaterMeterReadingsDetailCardComponent
+  implements OnInit, OnChanges
+{
   @Input() public reservoirId: number;
   private chunk = 8;
   private waterMeterWithMeasurements: WaterMeterWithMeasurements;
@@ -39,17 +42,19 @@ export class ReservoirWaterMeterReadingsDetailCardComponent implements OnInit,On
 
   ngOnInit(): void {
     this.svcReservoir
-    .getReservoirCurrentWaterMeterMeasuresChunk(
-      String(this.chunk),
-      String(this.reservoirId)
-    )
-    .subscribe((result) => {
-      this.waterMeterWithMeasurements = result;
-      const measurements = this.waterMeterWithMeasurements.water_meter;
-      this.datasource = new BehaviorSubject<WaterMeterMeasurement[]>(
-        measurements
-      );
-    });
+      .getReservoirCurrentWaterMeterMeasuresChunk(
+        String(this.chunk),
+        String(this.reservoirId)
+      )
+      .subscribe((result) => {
+        if (!isUndefined(result)) {
+          this.waterMeterWithMeasurements = result;
+          const measurements = this.waterMeterWithMeasurements.water_meter;
+          this.datasource = new BehaviorSubject<WaterMeterMeasurement[]>(
+            measurements
+          );
+        }
+      });
   }
   ngOnChanges(): void {
     this.ngOnInit();
@@ -59,10 +64,13 @@ export class ReservoirWaterMeterReadingsDetailCardComponent implements OnInit,On
     this.svcReservoir
       .getCurrentReservoirWaterMeter(this.reservoirId)
       .subscribe((value) => {
-        const modal: NgbModalRef = this.modalService.open(NewWaterFormComponent, {
-          centered: true,
-          backdrop: 'static',
-        });
+        const modal: NgbModalRef = this.modalService.open(
+          NewWaterFormComponent,
+          {
+            centered: true,
+            backdrop: 'static',
+          }
+        );
         modal.componentInstance.id = value.id;
         modal.result.then(
           (result) => {
