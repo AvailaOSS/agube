@@ -1,14 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import {
+  ReservoirCreate,
+  ReservoirDetail,
+  ReservoirService,
+} from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-reservoir-detail-card',
   templateUrl: './reservoir-detail-card.component.html',
+  styleUrls: ['./reservoir-detail-card.component.scss'],
 })
-export class ReservoirDetailCardComponent implements OnInit {
-  @Input() reservoir: ReservoirDetail | undefined;
+export class ReservoirDetailCardComponent implements OnInit, OnChanges {
+  public reservoir: ReservoirCreate | undefined;
+  @Input() public reservoirId: number;
 
   constructor(private readonly svcReservoirService: ReservoirService) {}
-
-  public ngOnInit(): void {}
+  ngOnInit(): void {
+    this.svcReservoirService
+      .getReservoir(this.reservoirId)
+      .subscribe((result) => (this.reservoir = result));
+  }
+  public ngOnChanges(): void {
+    this.ngOnInit();
+  }
 }

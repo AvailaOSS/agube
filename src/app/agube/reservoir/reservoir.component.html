@@ -1,10 +1,10 @@
 <div class="subgrid">
-  <div >
+  <div class="m-1">
     <app-reservoir-detail-list (sendSelected)="selectItem($event)">
     </app-reservoir-detail-list>
   </div>
-  <div >
-    <app-reservoir-detail-card [reservoir]="reservoir">
+  <div *ngIf="reservoirId != undefined">
+    <app-reservoir-detail-card [reservoirId]="reservoirId">
     </app-reservoir-detail-card>
   </div>
 </div>

@@ -1,18 +1,14 @@
-<div>
-  <div><strong>Administración</strong></div>
-  <div>
-    <button (click)="changeReservoir()">Cambio Depósito</button>
-  </div>
-</div>
-
-<div>
+<div class="card mini-card">
   <div><strong>Datos</strong></div>
   <div>
     <p><strong>Capacidad: </strong> {{ reservoir.capacity }}</p>
     <p><strong>Entrada: </strong> {{ reservoir.inlet_flow }}</p>
-    <p>
-      <strong>Salida: </strong> {{ reservoir.outlet_flow }}
-      {{ waterMeter }}
-    </p>
+    <p><strong>Salida: </strong> {{ reservoir.outlet_flow }}</p>
+    <button class="btn btn-primary m-1" (click)="changeReservoir()">
+      Cambio Depósito
+    </button>
+
+  </div>
+  <div class="d-flex">
   </div>
 </div>
