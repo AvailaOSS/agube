@@ -18,7 +18,7 @@ h4 {
 }
 
 h1 {
-  color: $color-primary;
+  color: $color-secondary;
   font-family: $font-primary;
   font-size: $font-size-extra-large;
   font-weight: 300;
@@ -45,12 +45,12 @@ h3 {
   line-height: 1.5;
 
   &.h3--primary {
-    color: $color-primary;
+    color: $color-secondary;
   }
 }
 
 h4 {
-  color: $color-primary;
+  color: $color-secondary;
   font-family: $font-primary;
   font-size: $font-size-medium;
   font-weight: 300;

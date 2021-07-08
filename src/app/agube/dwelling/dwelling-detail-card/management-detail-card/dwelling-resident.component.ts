@@ -1,16 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgubeRoute } from '../../../agube-route';
 import { DwellingService, UserDetail } from '@availa/agube-rest-api';
 
 @Component({
-  selector: 'app-dwelling-management-detail-card',
-  templateUrl: './dwelling-management-detail-card.component.html',
+  selector: 'app-dwelling-resident-detail-card',
+  templateUrl: './dwelling-resident-detail-card.component.html',
 })
-export class DwellingManagementDetailCardComponent
-  implements OnInit {
-  // TODO: rename it to DwellingResidentDetailCard
-
+export class DwellingResidentDetailCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail;
   public userId: string;
@@ -21,9 +18,13 @@ export class DwellingManagementDetailCardComponent
   ) {
     //
   }
-
-  ngOnInit(): void {
-    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe(result => this.resident = result.user);
+  public ngOnChanges(): void {
+    this.ngOnInit();
+  }
+  public ngOnInit(): void {
+    this.svcDwelling
+      .getCurrentResident(this.dwellingId)
+      .subscribe((result) => (this.resident = result.user));
   }
 
   public changeResident(): void {

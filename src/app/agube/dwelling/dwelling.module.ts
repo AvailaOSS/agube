@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // MDB Angular Free
 import { CreateDwellingModule } from './create-dwelling/create-dwelling.module';
 import { DwellingDetailCardComponent } from './dwelling-detail-card/dwelling-detail-card.component';
-import { DwellingManagementDetailCardComponent } from './dwelling-detail-card/management-detail-card/dwelling-management.component';
+import { DwellingResidentDetailCard } from './dwelling-detail-card/management-detail-card/dwelling-management.component';
 import { ChangeOwnerModule } from './dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.module';
 import { ChangePaymasterModule } from './dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.module';
 import { ChangeResidentModule } from './dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.module';
@@ -23,7 +23,7 @@ import { NewWaterFormComponent } from './dwelling-detail-card/water-meter-readin
     DwellingComponent,
     DwellingDetailListComponent,
     DwellingDetailCardComponent,
-    DwellingManagementDetailCardComponent,
+    DwellingResidentDetailCard,
     DWellingWaterMeterReadingsComponent,
     WaterMeterEnabledDetailCardComponent,
     NewWaterFormComponent
