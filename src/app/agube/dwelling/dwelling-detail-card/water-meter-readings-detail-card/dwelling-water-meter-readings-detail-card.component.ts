@@ -1,15 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  DwellingService,
-  WaterMeterMeasurement,
-  WaterMeterWithMeasurements,
-} from '@availa/agube-rest-api';
+import { DwellingService, WaterMeterMeasurement } from '@availa/agube-rest-api';
 import { BehaviorSubject } from 'rxjs';
 import { Header } from '@availa/table/lib/header';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { NewWaterFormComponent } from './new-water-meter-form/new-water-form/new-water-form.component';
 import { OnChanges } from '@angular/core';
-
+import { format } from 'date-fns';
+import { NewWaterFormComponent } from 'src/app/agube/new-water-meter-form/new-water-form/new-water-form.component';
 @Component({
   selector: 'app-dwelling-water-meter-readings-detail-card',
   templateUrl: './dwelling-water-meter-readings-detail-card.component.html',
@@ -18,7 +14,6 @@ import { OnChanges } from '@angular/core';
 export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   @Input() public dwellingId: number;
   private chunk = 8;
-  private waterMeterWithMeasurements: WaterMeterWithMeasurements;
 
   public datasource: BehaviorSubject<WaterMeterMeasurement[]>;
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
@@ -51,22 +46,26 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
         String(this.dwellingId)
       )
       .subscribe((result) => {
-        this.waterMeterWithMeasurements = result;
-        const measurements = this.waterMeterWithMeasurements.water_meter;
+        const measurements: any = result.water_meter;
+        measurements.map((val) => {
+          val.date = format(new Date(val.date), 'dd/MM/yyyy');
+        });
         this.datasource = new BehaviorSubject<WaterMeterMeasurement[]>(
           measurements
         );
       });
   }
-
   public addReading(): void {
     this.svcDwelling
       .getCurrentDwellingWaterMeter(this.dwellingId)
       .subscribe((value) => {
-        const modal: NgbModalRef = this.modalService.open(NewWaterFormComponent, {
-          centered: true,
-          backdrop: 'static',
-        });
+        const modal: NgbModalRef = this.modalService.open(
+          NewWaterFormComponent,
+          {
+            centered: true,
+            backdrop: 'static',
+          }
+        );
         modal.componentInstance.id = value.id;
         modal.result.then(
           (result) => {
