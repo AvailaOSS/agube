@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import {
   WaterMeterMeasurement,
-  WaterMeterWithMeasurements,
   ReservoirService,
 } from '@availa/agube-rest-api';
 import { Header } from '@availa/table/lib/header';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { NewWaterFormComponent } from 'src/app/agube/dwelling/dwelling-detail-card/water-meter-readings-detail-card/new-water-meter-form/new-water-form/new-water-form.component';
 import { isUndefined } from 'lodash';
+import { format } from 'date-fns';
+import { NewWaterFormComponent } from 'src/app/agube/new-water-meter-form/new-water-form/new-water-form.component';
 
 @Component({
   selector: 'app-reservoir-water-meter-readings-detail-card',
@@ -20,7 +20,6 @@ export class ReservoirWaterMeterReadingsDetailCardComponent
 {
   @Input() public reservoirId: number;
   private chunk = 8;
-  private waterMeterWithMeasurements: WaterMeterWithMeasurements;
 
   public datasource: BehaviorSubject<WaterMeterMeasurement[]>;
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
@@ -48,8 +47,11 @@ export class ReservoirWaterMeterReadingsDetailCardComponent
       )
       .subscribe((result) => {
         if (!isUndefined(result)) {
-          this.waterMeterWithMeasurements = result;
-          const measurements = this.waterMeterWithMeasurements.water_meter;
+          const measurements: any = result.water_meter;
+          measurements.map((val) => {
+            val.date = format(new Date(val.date), 'dd/MM/yyyy');
+          });
+
           this.datasource = new BehaviorSubject<WaterMeterMeasurement[]>(
             measurements
           );
@@ -59,7 +61,6 @@ export class ReservoirWaterMeterReadingsDetailCardComponent
   ngOnChanges(): void {
     this.ngOnInit();
   }
-  // FIXME ... USAR COMPONENTE DIFERENTE PARA EL FORMULARIO??????
   public addReading(): void {
     this.svcReservoir
       .getCurrentReservoirWaterMeter(this.reservoirId)

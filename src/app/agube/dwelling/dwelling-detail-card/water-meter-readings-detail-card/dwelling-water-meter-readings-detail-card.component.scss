@@ -7,3 +7,16 @@
   background-color: $color-primary-light;
 }
 
+
+.table tr:nth-child(even) {
+  background-color: $color-black;
+  color: $color-black;
+}
+.table tr:nth-child(even):hover {
+  background-color: $color-secondary;
+  color: $color-black;
+}
+.table tr:nth-child(odd):hover {
+  background-color: $color-secondary;
+  color: $color-black;
+}
