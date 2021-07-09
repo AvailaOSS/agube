@@ -45,10 +45,24 @@ body {
   border: 0px;
   background-color: $color-primary-light;
 }
+.card-configuration {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  float: left;
+  border: 0px;
+  background-color: $color-primary-light;
+}
 .bg-warning {
-  background-color: $color-terciary;
+  background-color: $color-terciary !important;
+}
+.bg-configuration {
+  background-color: $color-cuaternary !important;
 }
 
+.display-flex{
+  display: flex;
+}
 .table-component {
   height: 550px;
 }
