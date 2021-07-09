@@ -1,14 +1,16 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { AgubeRoute } from '../../../agube-route';
 import { isUndefined } from 'lodash';
-import { ReservoirCreate, ReservoirService } from '@availa/agube-rest-api';
+import {
+  ReservoirCreate,
+  ReservoirService,
+  WaterMeter,
+} from '@availa/agube-rest-api';
 
 @Component({
-  selector: 'app-reservoir-management-detail-card',
-  templateUrl: './reservoir-management-detail-card.component.html',
+  selector: 'app-reservoir-data-detail-card',
+  templateUrl: './reservoir-data-detail-card.component.html',
 })
-export class ReservoirManagementComponent implements OnInit, OnChanges {
+export class ReservoirDataComponent implements OnInit, OnChanges {
   @Input() reservoirId: number;
   public reservoir: ReservoirCreate = {
     full_address: {
@@ -22,7 +24,6 @@ export class ReservoirManagementComponent implements OnInit, OnChanges {
     outlet_flow: '',
   };
   public userId: string;
-  public waterMeter: any;
 
   constructor(private readonly svcReservoir: ReservoirService) {}
   public ngOnChanges(): void {
