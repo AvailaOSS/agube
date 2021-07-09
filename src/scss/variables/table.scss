@@ -2,7 +2,20 @@
   border-bottom: 2px solid $color-secondary;
 }
 
+
 .table th,
 .table td {
   border-top: 0px;
+}
+.table tr:nth-child(even) {
+  background-color: $color-primary-light;
+  color: $color-black;
+}
+.table tr:nth-child(even):hover {
+  background-color: $color-secondary;
+  color: $color-black;
+}
+.table tr:nth-child(odd):hover {
+  background-color: $color-secondary;
+  color: $color-black;
 }

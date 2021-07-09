@@ -9,17 +9,12 @@ import { AgubeRoute } from '../agube-route';
   styleUrls: ['./reservoir.component.scss'],
 })
 export class ReservoirComponent implements OnInit {
-  public reservoir: ReservoirDetail;
-
-  constructor(private readonly router: Router) {}
+  public reservoirId: number;
+  constructor() {}
 
   ngOnInit(): void {}
 
   public selectItem(reservoir: ReservoirDetail): void {
-    this.reservoir = reservoir;
-  }
-
-  public goToControlPanel(): void {
-    this.router.navigate([AgubeRoute.RESERVOIR]);
+    this.reservoirId = +reservoir.id;
   }
 }

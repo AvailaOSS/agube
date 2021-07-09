@@ -5,14 +5,12 @@ import { AgubeRoutingModule } from './agube-routing.module';
 import { ConfigurationModule } from './configuration/configuration.module';
 import { DwellingModule } from './dwelling/dwelling.module';
 import { ReservoirModule } from './reservoir/reservoir.module';
-import { WaterMeterModule } from './water-meter/water-meter.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     AgubeApiModule,
-    WaterMeterModule,
     DwellingModule,
     ReservoirModule,
     ConfigurationModule,

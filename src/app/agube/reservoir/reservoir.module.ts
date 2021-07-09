@@ -9,13 +9,17 @@ import { ReservoirDetailListComponent } from './reservoir-detail-list/reservoir-
 import { ReservoirComponent } from './reservoir.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
-import { ReservoirManagementComponent } from './reservoir-detail-card/management-detail-card/reservoir-management-detail-card.component';
+import { ReservoirDataComponent } from './reservoir-detail-card/management-detail-card/reservoir-data-detail-card.component';
+import { WaterMeterDetailCardComponent } from './reservoir-detail-card/management-detail-card/water-meter-enable-detail-card/water-meter-detail-card.component';
+import { ReservoirWaterMeterReadingsDetailCardComponent } from './reservoir-detail-card/management-detail-card/reservoir-water-meter-readings-detail-card/reservoir-water-meter-readings-detail-card.component';
 @NgModule({
   declarations: [
     ReservoirComponent,
     ReservoirDetailListComponent,
     ReservoirDetailCardComponent,
-    ReservoirManagementComponent
+    ReservoirDataComponent,
+    WaterMeterDetailCardComponent,
+    ReservoirWaterMeterReadingsDetailCardComponent
   ],
   imports: [
     CommonModule,
