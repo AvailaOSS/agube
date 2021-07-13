@@ -2,12 +2,16 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "./scss/theme/colors-theme-light-green-cake.scss";
-@import "./scss/variables/layout";
-@import "./scss/variables/paddings";
-@import "./scss/variables/typography";
-@import "./scss/variables/buttons";
-@import "./scss/variables/navbar";
-@import "./scss/variables/table";
+@import "./scss/variables/borders.scss";
+@import "./scss/variables/buttons.scss";
+@import "./scss/variables/layout.scss";
+@import "./scss/variables/margins.scss";
+@import "./scss/variables/minicards.scss";
+@import "./scss/variables/navbar.scss";
+@import "./scss/variables/paddings.scss";
+@import "./scss/variables/sizes.scss";
+@import "./scss/variables/tables.scss";
+@import "./scss/variables/typography.scss";
 
 body {
   background-color: $color-white;
@@ -15,11 +19,8 @@ body {
   padding: 0;
 }
 
-.bg-primary,
-.btn-outline-primary,
-.btn-outline-primary:hover {
+.bg-primary {
   background-color: $color-primary !important;
-  border-color: $color-primary;
   color: $color-white;
 }
 
@@ -35,40 +36,35 @@ body {
   max-width: 20.333333%;
 }
 
-.mini-card {
-  // width: 320px;
-  height: 150px;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
-  float: left;
-  border: 0px;
-  background-color: $color-primary-light;
-}
 .card-configuration {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
   float: left;
-  border: 0px;
+  margin: $margin-small;
+  padding: $padding-small;
   background-color: $color-primary-light;
+  @include rounded;
 }
+
 .bg-warning {
   background-color: $color-terciary !important;
 }
+
 .bg-configuration {
   background-color: $color-cuaternary !important;
 }
 
-.display-flex{
+.display-flex {
   display: flex;
-}
-.table-component {
-  height: 550px;
 }
 
 .btn-primary:focus,
 .btn-primary.focus {
   background-color: $color-primary !important;
   border: 1px solid $color-primary;
+}
+
+.container-login {
+  background-color: $color-primary !important;
+}
+app-login {
+  background-color: $color-primary !important;
 }

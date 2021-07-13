@@ -1,0 +1,14 @@
+@use  "./margins";
+@use  "./paddings";
+@use  "./sizes";
+@use  "./borders";
+
+.mini-card {
+  // width: 320px;
+  height: sizes.$height-x-small;
+  padding: paddings.$padding-small;
+  margin: margins.$margin-small;
+  @include rounded;
+  float: left;
+  background-color: $color-primary-light;
+}

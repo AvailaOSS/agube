@@ -1,15 +1,14 @@
 <div class="m-1">
-  <button
-  class="btn btn-primary float-right"
-  (click)="addNewDwelling()"
-  >    Agregar Viviendas
+  <button class="btn btn-primary float-right" (click)="addNewDwelling()">
+    Agregar Viviendas
   </button>
 </div>
-<div style="height: 550px;">
+<div>
   <availa-table-complete
-  [datasource]="datasource"
-  [headerDatasource]="tableHeader"
-  [showPaginator]="true"
-  (selected)="selectRow($event)">
-</availa-table-complete>
+    [datasource]="datasource"
+    [headerDatasource]="tableHeader"
+    [showPaginator]="true"
+    (selected)="selectRow($event)"
+  >
+  </availa-table-complete>
 </div>
