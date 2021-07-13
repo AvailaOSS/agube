@@ -1,7 +1,8 @@
-@import "../../../../scss/theme/colors-theme-light-blue-cake.scss";
+@use '../../../../scss/variables/sizes';
+@use '../../../../scss/variables/borders';
 
 .card-component-dwelling {
-  height: 90%;
-  width: 65%;
-  border: 0px;
+  height: sizes.$height-medium;
+  width: sizes.$width-medium;
+  @include borders.rounded-small;
 }

@@ -13,10 +13,12 @@ export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
   public waterMeter: WaterMeter = {
     code: '',
   };
+
   constructor(
     private readonly svcReservoir: ReservoirService,
     private readonly svcRouter: Router
   ) {}
+
   public ngOnChanges(): void {
     this.ngOnInit();
   }

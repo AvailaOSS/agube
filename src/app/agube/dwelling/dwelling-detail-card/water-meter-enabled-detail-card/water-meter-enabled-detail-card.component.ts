@@ -1,14 +1,5 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-} from '@angular/core';
-import {
-  DwellingService,
-  ManagerService,
-  WaterMeter,
-} from '@availa/agube-rest-api';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { DwellingService, WaterMeter } from '@availa/agube-rest-api';
 import { Router } from '@angular/router';
 import { AgubeRoute } from 'src/app/agube/agube-route';
 
@@ -22,23 +13,19 @@ export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
 
   @Input() public dwellingId: number;
   public waterMeter: WaterMeter | undefined;
-  public userId: string;
 
   constructor(
     private readonly svcDwelling: DwellingService,
-    private readonly svcRouter: Router,
-    private readonly svcManager: ManagerService
+    private readonly svcRouter: Router
   ) {
     //
   }
+
   public ngOnChanges(): void {
     this.ngOnInit();
   }
 
   public ngOnInit(): void {
-    this.svcManager.getManagerByUser().subscribe((value) => {
-      this.userId = value.user_id;
-    });
     this.svcDwelling
       .getCurrentDwellingWaterMeter(this.dwellingId)
       .subscribe((result) => (this.waterMeter = result));
