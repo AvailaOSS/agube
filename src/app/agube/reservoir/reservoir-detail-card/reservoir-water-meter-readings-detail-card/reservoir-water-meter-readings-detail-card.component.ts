@@ -34,6 +34,7 @@ export class ReservoirWaterMeterReadingsDetailCardComponent
       },
     ]
   );
+
   constructor(
     private readonly svcReservoir: ReservoirService,
     private modalService: NgbModal
@@ -58,9 +59,11 @@ export class ReservoirWaterMeterReadingsDetailCardComponent
         }
       });
   }
+
   ngOnChanges(): void {
     this.ngOnInit();
   }
+
   public addReading(): void {
     this.svcReservoir
       .getCurrentReservoirWaterMeter(this.reservoirId)

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../../../../../agube-route';
 import { NotificationService } from '@availa/notification';
+import { AgubeRoute } from 'src/app/agube/agube-route';
 
 @Component({
   selector: 'app-change-water-meter',

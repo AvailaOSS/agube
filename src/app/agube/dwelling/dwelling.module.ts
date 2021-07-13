@@ -9,7 +9,6 @@ import { DwellingDetailCardComponent } from './dwelling-detail-card/dwelling-det
 import { ChangeOwnerModule } from './dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.module';
 import { ChangePaymasterModule } from './dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.module';
 import { ChangeResidentModule } from './dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.module';
-import { ChangeWaterMeterModule } from './dwelling-detail-card/management-detail-card/management-components/change-water-meter/change-water-meter.module';
 import { DwellingUtilsModule } from './dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
 import { WaterMeterEnabledDetailCardComponent } from './dwelling-detail-card/water-meter-enabled-detail-card/water-meter-enabled-detail-card.component';
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/water-meter-readings-detail-card/dwelling-water-meter-readings-detail-card.component';
@@ -18,6 +17,7 @@ import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
 import { NewWaterFormModule } from '../new-water-meter-form/new-water-form/new-water-form.module';
+import { ChangeWaterMeterModule } from './dwelling-detail-card/water-meter-enabled-detail-card/change-water-meter/change-water-meter.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { NewWaterFormModule } from '../new-water-meter-form/new-water-form/new-w
     DwellingDetailCardComponent,
     DwellingResidentDetailCard,
     DWellingWaterMeterReadingsComponent,
-    WaterMeterEnabledDetailCardComponent
+    WaterMeterEnabledDetailCardComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +40,7 @@ import { NewWaterFormModule } from '../new-water-meter-form/new-water-form/new-w
     DwellingUtilsModule,
     ComponentsModule,
     TableModule,
-    NewWaterFormModule
+    NewWaterFormModule,
   ],
   exports: [DwellingComponent],
 })

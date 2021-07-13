@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReservoirService } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../../../../../agube-route';
+import { AgubeRoute } from '../../../../agube-route';
 import { NotificationService } from '@availa/notification';
 
 @Component({
