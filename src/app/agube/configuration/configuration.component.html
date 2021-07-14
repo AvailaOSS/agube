@@ -1,11 +1,121 @@
-<div class="subgrid bg-configuration">
-  <div class="m-2 card-configuration w-85">
-    <app-notification></app-notification>
+<div class="card-configuration h-75">
+  <div
+    class="card-configuration-container"
+
+  >
+    <h1>Parámetros generales</h1>
+    <div>
+      <form
+        class="display-flex"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="col-sm-4">
+          <strong for="max_daily_consumption" class="form-label"
+            >Consumo máximo</strong
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="max_daily_consumption"
+            formControlName="max_daily_consumption"
+          />
+        </div>
+        <div class="col-sm-4">
+          <strong for="hook_price" class="form-label">Precio Enganche</strong>
+          <input
+            type="number"
+            class="form-control"
+            id="hook_price"
+            formControlName="hook_price"
+          />
+        </div>
+        <div class="col-sm-4">
+          <strong for="release_date" class="form-label"
+            >Última Actualización</strong
+          >
+          <input
+            type="date"
+            class="form-control"
+            id="release_date"
+            formControlName="release_date"
+            readonly
+          />
+        </div>
+      </form>
+      <div class="">
+        <button
+          class="w-100 btn btn-primary"
+          type="button"
+          (click)="onSubmit()"
+        >
+          Editar precio de enganche
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+  class="card-configuration-container">
+    <h1>Seguridad</h1>
+    <div >
+      <form
+        class="display-flex"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmitPassword()"
+      >
+        <div class="col-sm-6">
+          <strong for="password" class="form-label">Contraseña</strong>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+          />
+        </div>
+        <div class="col-sm-6">
+          <strong for="password2" class="form-label"
+            >Confirmar Contraseña</strong
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="password2"
+            formControlName="password2"
+          />
+        </div>
+      </form>
+      <button
+        class="w-100 btn btn-primary"
+        type="button"
+        (click)="onSubmitPassword()"
+        [disabled]="registerForm.invalid"
+      >
+        Cambiar Contraseña
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="">
+  <app-notification></app-notification>
+  <h1>Parámetros generales</h1>
+  <div>
     <form
       class="display-flex"
       [formGroup]="registerForm"
       (ngSubmit)="onSubmit()"
     >
+    <div class="col-sm-4">
+      <strong for="max_daily_consumption" class="form-label"
+      >Consumo máximo</strong
+      >
+      <input
+      type="number"
+      class="form-control"
+      id="max_daily_consumption"
+      formControlName="max_daily_consumption"
+      />
+    </div>
       <div class="col-sm-4">
         <strong for="hook_price" class="form-label">Precio Enganche</strong>
         <input
@@ -16,24 +126,12 @@
         />
       </div>
       <div class="col-sm-4">
-        <strong for="release_date" class="form-label">Fecha</strong>
+        <strong for="release_date" class="form-label">Última Actualización</strong>
         <input
           type="date"
           class="form-control"
           id="release_date"
           formControlName="release_date"
-          readonly
-        />
-      </div>
-      <div class="col-sm-4">
-        <strong for="max_daily_consumption" class="form-label"
-          >Consumo máximo</strong
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="max_daily_consumption"
-          formControlName="max_daily_consumption"
           readonly
         />
       </div>
@@ -44,8 +142,9 @@
       </button>
     </div>
   </div>
-  <div></div>
-  <div class="m-2 card-configuration w-85">
+  <hr>
+  <h1>Seguridad</h1>
+  <div>
     <form
       class="display-flex"
       [formGroup]="registerForm"
@@ -79,4 +178,4 @@
       Cambiar Contraseña
     </button>
   </div>
-</div>
+</div> -->

@@ -1,10 +1,30 @@
+@import "../../../../../../../styles.scss";
+
 .paymaster-row {
-  // FIXME: use colors from project style palette
-  background-color: #18693d;
-  color: #fff;
+  background-color: $color-terciary;
 }
 
 .selected-row {
-  background-color: #007bff;
-  color: #fff;
+  background-color: $color-primary;
+}
+
+.card-paymaster {
+  display: grid;
+}
+
+.border-primary {
+  border-color: $color-terciary !important;
+}
+.container-paymaster {
+  margin-left: 18%;
+  margin-top: 4%;
+}
+
+.container-number-bank {
+  width: 94%;
+  margin-left: 2%;
+}
+.container-buttons {
+  height: 50px;
+  margin: 30px 96px 30px 67px;
 }

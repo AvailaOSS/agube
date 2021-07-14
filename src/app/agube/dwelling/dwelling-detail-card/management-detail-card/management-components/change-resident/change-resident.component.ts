@@ -12,8 +12,6 @@ import { NotificationService } from '@availa/notification';
 export class ChangeResidentComponent implements OnInit {
   public residentId: string;
   public userId: string;
-  public error = true;
-  public errorMessage: string;
   public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -33,7 +31,9 @@ export class ChangeResidentComponent implements OnInit {
       });
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    //
+  }
 
   public sendForm(event: any): void {
     this.svcChangeResident
@@ -63,15 +63,13 @@ export class ChangeResidentComponent implements OnInit {
         },
       })
       .subscribe(
-        (value) => {
+        () => {
           this.alertService.success('Actualizado con éxito');
           setTimeout(() => {
             this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 2000);
+          }, 1500);
         },
         (error) => {
-          this.error = false;
-          this.errorMessage = error;
           this.alertService.error('Error al actualizar' + error.error.status);
         }
       );

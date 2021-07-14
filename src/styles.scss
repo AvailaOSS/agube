@@ -36,14 +36,6 @@ body {
   max-width: 20.333333%;
 }
 
-.card-configuration {
-  float: left;
-  margin: $margin-small;
-  padding: $padding-small;
-  background-color: $color-primary-light;
-  @include rounded;
-}
-
 .bg-warning {
   background-color: $color-terciary !important;
 }

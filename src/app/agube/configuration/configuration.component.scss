@@ -1,0 +1,16 @@
+//@import "../../../styles.scss";
+//@use "../../../scss/variables/borders";
+@use "../../../scss/variables/sizes";
+@use "../../../scss/variables/margins";
+@use "../../../scss/variables/paddings";
+
+.card-configuration {
+  display: flow-root;
+}
+
+.card-configuration-container {
+  border: 1px solid lightgray;
+  margin: margins.$margin-large;
+  padding: paddings.$padding-small;
+  height: sizes.$height-small;
+}

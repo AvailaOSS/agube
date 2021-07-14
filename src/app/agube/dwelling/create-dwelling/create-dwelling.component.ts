@@ -12,9 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CreateDwellingComponent implements OnInit {
   public addNewWelling: FormGroup;
-  public error = true;
   public username: string;
-  public errorMessage: string;
   public options = {
     autoClose: false,
     keepAfterRouteChange: false,
@@ -103,13 +101,13 @@ export class CreateDwellingComponent implements OnInit {
         water_meter: { code: event.code },
       })
       .subscribe(
-        (value) => {
+        () => {
           this.alertService.success('creado con éxito', this.options);
           setTimeout(() => {
             this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 2000);
+          }, 1500);
         },
-        (error) => {
+        () => {
           this.alertService.error('error', this.options);
         }
       );
@@ -156,13 +154,13 @@ export class CreateDwellingComponent implements OnInit {
         water_meter: { code: event.code },
       })
       .subscribe(
-        (value) => {
+        () => {
           this.alertService.success('creado con éxito', this.options);
           setTimeout(() => {
             this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 2000);
+          }, 1500);
         },
-        (error) => {
+        () => {
           this.alertService.error('error', this.options);
         }
       );

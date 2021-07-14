@@ -18,6 +18,10 @@
 .show > .btn-primary.dropdown-toggle {
   @include set-btn-primary();
 }
+
+.btn-primary.disabled, .btn-primary:disabled {
+  @include set-btn-primary();
+}
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {

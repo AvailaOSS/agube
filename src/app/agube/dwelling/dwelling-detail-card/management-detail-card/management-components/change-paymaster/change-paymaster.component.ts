@@ -14,18 +14,19 @@ export class ChangePaymasterComponent implements OnInit {
   public registerForm: FormGroup;
   public username: string;
   public changePayId: string;
-  public paymaster: any;
-  public owner: any;
+  public paymaster: string;
+  public owner: string;
 
-  public addressOwn: any;
-  public phoneOwn: any;
-  public resident: any;
+  public addressOwn: string;
+  public phoneOwn: string;
+  public resident: string;
 
-  public addressRes: any;
-  public phoneRes: any;
-  public selectRow: any;
-  public iban: any;
-  public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
+  public addressRes: string;
+  public phoneRes: string;
+  public selectRow: string;
+  public iban: string;
+  public formConfigurationData: EventEmitter<string> =
+    new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -33,11 +34,9 @@ export class ChangePaymasterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private svcRouter: Router,
     public alertService: NotificationService
-  ) {
-  }
+  ) {}
 
   public ngOnInit(): void {
-
     this.route.queryParams.subscribe((params) => {
       this.changePayId = params.data;
     });
@@ -74,12 +73,11 @@ export class ChangePaymasterComponent implements OnInit {
         username: this.selectRow,
       })
       .subscribe(
-        (value) => {
+        () => {
           this.alertService.success('Cambiado con éxito');
           setTimeout(() => {
             this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 2000);
-
+          }, 1500);
         },
         (error) => {
           this.alertService.error('error' + error.error.message);

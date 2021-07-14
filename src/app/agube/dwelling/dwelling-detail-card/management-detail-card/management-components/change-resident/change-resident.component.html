@@ -1,4 +1,4 @@
-<div class="contenedor card  m-5">
+<div class="card container-resident" >
   <app-dwelling-utils
     [isHiddenAddress]="true"
     [isHiddenBank]="true"
@@ -7,8 +7,6 @@
     [isHiddenCount]="true"
     [residentTitle]="'Cambio de Residente'"
     [titleCard]="'Cambio de Residente'"
-    [error]="error"
-    [errorMessage]="errorMessage"
     [formDataConfiguration]="formConfigurationData"
     (sendForm)="sendForm($event)"
   ></app-dwelling-utils>
