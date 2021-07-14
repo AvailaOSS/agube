@@ -18,7 +18,7 @@ from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
 from dwelling.exceptions import (IncompatibleUsernameError, InvalidEmailError,
-                                 OwnerAlreadyIsResidentError, PaymasterError,
+                                 OwnerAlreadyIsResidentError, OwnerIsPaymasterError, PaymasterError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
@@ -172,6 +172,9 @@ class DwellingOwnerView(generics.GenericAPIView):
         try:
             with transaction.atomic():
                 dwelling = Dwelling.objects.get(id=pk)
+                current_paymaster = dwelling.get_current_paymaster().user
+                if dwelling.is_paymaster(current_paymaster):
+                    raise OwnerIsPaymasterError(current_paymaster.username)
                 user = create_user(
                     PersonTag.OWNER, request.data['user'], dwelling.manager)
                 dwelling.change_current_owner(user)
@@ -179,7 +182,7 @@ class DwellingOwnerView(generics.GenericAPIView):
                 return Response(get_dwelling_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        except PaymasterError as e:
+        except (PaymasterError, OwnerIsPaymasterError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
