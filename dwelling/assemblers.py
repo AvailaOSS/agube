@@ -47,8 +47,11 @@ def create_user(tag: PersonTag, validated_data, manager):
     user.save()
     # first_iteration will be save as main phone/address
     first_iteration = True
+    firstPhone = ''
     # Create User Phones
     for phone in phones:
+        if first_iteration:
+            firstPhone = phone['phone_number']
         create_phone(user, phone, first_iteration)
         first_iteration = False
     # Create User Address
@@ -65,7 +68,7 @@ def create_user(tag: PersonTag, validated_data, manager):
     # send email to user created
     send_user_creation_email(user, email_type)
     # publish that user was created
-    publish_user_created(tag, manager, user)
+    publish_user_created(tag, manager, user, firstPhone)
     return user
 
 
