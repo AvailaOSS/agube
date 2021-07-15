@@ -4,11 +4,34 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from manager.models import ManagerConfiguration, Person
+from manager.models import Manager, ManagerConfiguration, Person
 from manager.serializers import (ManagerConfigurationSerializer,
-                                 ManagerSerializer)
+                                 ManagerSerializer, UserIsManagerSerializer)
 
 TAG_MANAGER = 'manager'
+
+
+class UserIsManagerView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="userIsManager",
+        responses={200: UserIsManagerSerializer(many=False)},
+        tags=[TAG_MANAGER],
+    )
+    def get(self, request):
+        """
+        true if user is manager
+        """
+        managers = Manager.objects.filter(user__id=self.request.user.id).count()
+        is_manager = False
+        if managers > 0:
+            is_manager = True
+        data = {
+            'is_manager': is_manager
+        }
+        return Response(
+            UserIsManagerSerializer(data, many=False).data)
 
 
 class ManagerView(APIView):
