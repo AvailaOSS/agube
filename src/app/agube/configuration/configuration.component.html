@@ -1,130 +1,22 @@
-<!-- <div style="display: grid">
-  <div style="border-bottom: 2px solid lightgray; padding: 10px" class="col-12">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div>
-        <h1>Parámetros generales</h1>
-      </div>
+<div class="container-xl">
+  <app-notification></app-notification>
+</div>
 
-      <div
-        style="display: flex; margin-left: 60px; margin-top: 50px; width: 30%"
-      >
-        <strong style="margin-top: 12px" for="max_daily_consumption" class=""
-          >Consumo máximo</strong
-        >
-        <input
-          style="margin-left: 60px; margin-top: 5px"
-          class="col-6 form-control"
-          type="number"
-          id="max_daily_consumption"
-          formControlName="max_daily_consumption"
-        />
-
-      </div>
-      <span style="padding-left: 16em;">Limite de consumo máximo permitido para todas las viviendas de la comunidad</span>
-      <div
-        style="display: flex; margin-left: 60px; margin-top: 50px; width: 30%"
-      >
-        <strong style="margin-top: 12px" for="hook_price" class="form-label"
-          >Precio Enganche</strong
-        >
-        <input
-          style="margin-left: 72px; margin-top: 5px"
-          class="col-6 form-control"
-          type="number"
-          id="hook_price"
-          formControlName="hook_price"
-        />
-
-      </div>
-      <span style="padding-left: 16em;">Precio general del enganche estipulado para toda vivienda de la comunidad</span>
-      <div
-        style="display: flex; margin-left: 60px; margin-top: 50px; width: 30%"
-      >
-        <strong for="release_date" style="margin-top: 12px"
-          >Última Actualización</strong
-        >
-
-        <input
-          style="margin-left: 41px; margin-top: 5px"
-          class="col-6 form-control"
-          type="date"
-          id="release_date"
-          formControlName="release_date"
-          readonly
-        />
-      </div>
-    </form>
-    <div class="float-right"  style="width: 14%;">
-      <button class="w-100 btn btn-primary" type="button" (click)="onSubmit()">
-        Editar precio de enganche
-      </button>
-    </div>
-  </div>
-
-  <div style="border-bottom: 2px solid lightgray; padding: 10px" class="col-12">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
-      <div>
-        <h1>Seguridad</h1>
-      </div>
-      <div
-        style="display: flex; margin-left: 60px; margin-top: 50px; width: 29%"
-      >
-        <strong style="margin-top: 12px" for="password">Contraseña</strong>
-
-        <input
-          style="margin-left: 115px; margin-top: 5px"
-          type="password"
-          class="col-6 form-control"
-          id="password"
-          formControlName="password"
-        />
-      </div>
-
-      <div
-        style="display: flex; margin-left: 60px; margin-top: 50px; width: 29%"
-      >
-        <strong style="margin-top: 12px" for="password2" class=""
-          >Confirmar Contraseña</strong
-        >
-
-        <input
-          style="margin-left: 32px; margin-top: 5px"
-          type="password"
-          class="col-6 form-control"
-          id="password2"
-          formControlName="password2"
-        />
-      </div>
-    </form>
-    <div class="float-right " style="width: 14%;">
-      <button
-        class="w-100 btn btn-primary"
-        type="button"
-        (click)="onSubmitPassword()"
-        [disabled]="registerForm.invalid"
-      >
-        Cambiar Contraseña
-      </button>
-    </div>
-  </div>
-</div> -->
-<div class="container">
+<div class="container-xl">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h1>Parámetros generales</h1>
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="hook_price">Precio de enganche</label>
         <input
-        class="form-control"
-        type="number"
-        id="hook_price"
-        formControlName="hook_price"
-      />
+          class="form-control"
+          type="number"
+          id="hook_price"
+          formControlName="hook_price"
+        />
       </div>
-
     </div>
     <div class="form-row">
-
       <div class="form-group col-md-3">
         <label for="max_daily_consumption">Máximo consumo</label>
         <input
@@ -140,27 +32,25 @@
       <div class="form-group col-md-3">
         <label for="release_date">Fecha de Actualización</label>
         <input
-        class=" form-control"
-        type="date"
-        id="release_date"
-        formControlName="release_date"
-        readonly
-      />
+          class="form-control"
+          type="date"
+          id="release_date"
+          formControlName="release_date"
+          readonly
+        />
       </div>
-
     </div>
-   <div class="form-row">
-
-    <button class="btn btn-primary" type="button" (click)="onSubmit()">
-      Editar precio de enganche
-    </button>
-   </div>
+    <div class="form-row">
+      <button class="btn btn-primary" type="button" (click)="onSubmit()">
+        Editar precio de enganche
+      </button>
+    </div>
   </form>
   <hr class="my-4" />
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
     <div class="row mb-4">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <h1>Seguridad</h1>
         <div class="form-group">
           <label for="password">Contraseña</label>
