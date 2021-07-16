@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
       { path: 'wip', name: 'Lectura de Contador' },
       { path: 'depositos', name: 'Depósito' },
       { path: 'incidence', name: 'Incidencias' },
-      { path: 'config', name: 'Configutación General' },
+      { path: 'config', name: 'Configuración' },
     ];
   }
 

@@ -1,89 +1,102 @@
-<div class="card-configuration h-75">
-  <div
-    class="card-configuration-container"
-
-  >
-    <h1>Parámetros generales</h1>
-    <div>
-      <form
-        class="display-flex"
-        [formGroup]="registerForm"
-        (ngSubmit)="onSubmit()"
-      >
-        <div class="col-sm-4">
-          <strong for="max_daily_consumption" class="form-label"
-            >Consumo máximo</strong
-          >
-          <input
-            type="number"
-            class="form-control"
-            id="max_daily_consumption"
-            formControlName="max_daily_consumption"
-          />
-        </div>
-        <div class="col-sm-4">
-          <strong for="hook_price" class="form-label">Precio Enganche</strong>
-          <input
-            type="number"
-            class="form-control"
-            id="hook_price"
-            formControlName="hook_price"
-          />
-        </div>
-        <div class="col-sm-4">
-          <strong for="release_date" class="form-label"
-            >Última Actualización</strong
-          >
-          <input
-            type="date"
-            class="form-control"
-            id="release_date"
-            formControlName="release_date"
-            readonly
-          />
-        </div>
-      </form>
-      <div class="">
-        <button
-          class="w-100 btn btn-primary"
-          type="button"
-          (click)="onSubmit()"
-        >
-          Editar precio de enganche
-        </button>
+<!-- <div style="display: grid">
+  <div style="border-bottom: 2px solid lightgray; padding: 10px" class="col-12">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div>
+        <h1>Parámetros generales</h1>
       </div>
+
+      <div
+        style="display: flex; margin-left: 60px; margin-top: 50px; width: 30%"
+      >
+        <strong style="margin-top: 12px" for="max_daily_consumption" class=""
+          >Consumo máximo</strong
+        >
+        <input
+          style="margin-left: 60px; margin-top: 5px"
+          class="col-6 form-control"
+          type="number"
+          id="max_daily_consumption"
+          formControlName="max_daily_consumption"
+        />
+
+      </div>
+      <span style="padding-left: 16em;">Limite de consumo máximo permitido para todas las viviendas de la comunidad</span>
+      <div
+        style="display: flex; margin-left: 60px; margin-top: 50px; width: 30%"
+      >
+        <strong style="margin-top: 12px" for="hook_price" class="form-label"
+          >Precio Enganche</strong
+        >
+        <input
+          style="margin-left: 72px; margin-top: 5px"
+          class="col-6 form-control"
+          type="number"
+          id="hook_price"
+          formControlName="hook_price"
+        />
+
+      </div>
+      <span style="padding-left: 16em;">Precio general del enganche estipulado para toda vivienda de la comunidad</span>
+      <div
+        style="display: flex; margin-left: 60px; margin-top: 50px; width: 30%"
+      >
+        <strong for="release_date" style="margin-top: 12px"
+          >Última Actualización</strong
+        >
+
+        <input
+          style="margin-left: 41px; margin-top: 5px"
+          class="col-6 form-control"
+          type="date"
+          id="release_date"
+          formControlName="release_date"
+          readonly
+        />
+      </div>
+    </form>
+    <div class="float-right"  style="width: 14%;">
+      <button class="w-100 btn btn-primary" type="button" (click)="onSubmit()">
+        Editar precio de enganche
+      </button>
     </div>
   </div>
-  <div
-  class="card-configuration-container">
-    <h1>Seguridad</h1>
-    <div >
-      <form
-        class="display-flex"
-        [formGroup]="registerForm"
-        (ngSubmit)="onSubmitPassword()"
+
+  <div style="border-bottom: 2px solid lightgray; padding: 10px" class="col-12">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
+      <div>
+        <h1>Seguridad</h1>
+      </div>
+      <div
+        style="display: flex; margin-left: 60px; margin-top: 50px; width: 29%"
       >
-        <div class="col-sm-6">
-          <strong for="password" class="form-label">Contraseña</strong>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            formControlName="password"
-          />
-        </div>
-        <div class="col-sm-6">
-          <strong for="password2" class="form-label"
-            >Confirmar Contraseña</strong
-          >
-          <input
-            type="password"
-            class="form-control"
-            id="password2"
-            formControlName="password2"
-          />
-        </div>
-      </form>
+        <strong style="margin-top: 12px" for="password">Contraseña</strong>
+
+        <input
+          style="margin-left: 115px; margin-top: 5px"
+          type="password"
+          class="col-6 form-control"
+          id="password"
+          formControlName="password"
+        />
+      </div>
+
+      <div
+        style="display: flex; margin-left: 60px; margin-top: 50px; width: 29%"
+      >
+        <strong style="margin-top: 12px" for="password2" class=""
+          >Confirmar Contraseña</strong
+        >
+
+        <input
+          style="margin-left: 32px; margin-top: 5px"
+          type="password"
+          class="col-6 form-control"
+          id="password2"
+          formControlName="password2"
+        />
+      </div>
+    </form>
+    <div class="float-right " style="width: 14%;">
       <button
         class="w-100 btn btn-primary"
         type="button"
@@ -94,88 +107,101 @@
       </button>
     </div>
   </div>
-</div>
-
-<!-- <div class="">
-  <app-notification></app-notification>
-  <h1>Parámetros generales</h1>
-  <div>
-    <form
-      class="display-flex"
-      [formGroup]="registerForm"
-      (ngSubmit)="onSubmit()"
-    >
-    <div class="col-sm-4">
-      <strong for="max_daily_consumption" class="form-label"
-      >Consumo máximo</strong
-      >
-      <input
-      type="number"
-      class="form-control"
-      id="max_daily_consumption"
-      formControlName="max_daily_consumption"
+</div> -->
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h1>Parámetros generales</h1>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="hook_price">Precio de enganche</label>
+        <input
+        class="form-control"
+        type="number"
+        id="hook_price"
+        formControlName="hook_price"
       />
+      </div>
+
     </div>
-      <div class="col-sm-4">
-        <strong for="hook_price" class="form-label">Precio Enganche</strong>
+    <div class="form-row">
+
+      <div class="form-group col-md-3">
+        <label for="max_daily_consumption">Máximo consumo</label>
         <input
+          class="form-control"
           type="number"
-          class="form-control"
-          id="hook_price"
-          formControlName="hook_price"
+          id="max_daily_consumption"
+          formControlName="max_daily_consumption"
         />
       </div>
-      <div class="col-sm-4">
-        <strong for="release_date" class="form-label">Última Actualización</strong>
-        <input
-          type="date"
-          class="form-control"
-          id="release_date"
-          formControlName="release_date"
-          readonly
-        />
-      </div>
-    </form>
-    <div class="m-3">
-      <button class="w-100 btn btn-primary" type="button" (click)="onSubmit()">
-        Editar precio de enganche
-      </button>
     </div>
-  </div>
-  <hr>
-  <h1>Seguridad</h1>
-  <div>
-    <form
-      class="display-flex"
-      [formGroup]="registerForm"
-      (ngSubmit)="onSubmitPassword()"
-    >
-      <div class="col-sm-6">
-        <strong for="password" class="form-label">Contraseña</strong>
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="release_date">Fecha de Actualización</label>
         <input
-          type="password"
-          class="form-control"
-          id="password"
-          formControlName="password"
-        />
+        class=" form-control"
+        type="date"
+        id="release_date"
+        formControlName="release_date"
+        readonly
+      />
       </div>
-      <div class="col-sm-6">
-        <strong for="password2" class="form-label">Confirmar Contraseña</strong>
-        <input
-          type="password"
-          class="form-control"
-          id="password2"
-          formControlName="password2"
-        />
+
+    </div>
+   <div class="form-row">
+
+    <button class="btn btn-primary" type="button" (click)="onSubmit()">
+      Editar precio de enganche
+    </button>
+   </div>
+  </form>
+  <hr class="my-4" />
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <h1>Seguridad</h1>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirmar Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password2"
+            formControlName="password2"
+          />
+        </div>
       </div>
-    </form>
+      <div class="col-md-6">
+        <p class="mb-2">Contraseña Requerimientos</p>
+        <p class="small text-muted mb-2">
+          Para crear la contraseña se necesitan estos requisitos:
+        </p>
+        <ul class="small text-muted pl-4 mb-0">
+          <li>Mínimo 8 caracteres</li>
+          <li>Al menos un caracter especial</li>
+          <li>Al menos contener un numero</li>
+          <li>No puede repetirse la anterior contraseña</li>
+        </ul>
+      </div>
+    </div>
     <button
-      class="w-100 btn btn-primary"
+      class="btn btn-primary"
       type="button"
       (click)="onSubmitPassword()"
       [disabled]="registerForm.invalid"
     >
       Cambiar Contraseña
     </button>
-  </div>
-</div> -->
+  </form>
+  <hr class="my-4" />
+</div>
