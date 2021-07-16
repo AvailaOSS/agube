@@ -1,9 +1,11 @@
 <app-notification></app-notification>
-<div class="h-75 w-75 row text-center card" style="margin: 3% auto">
+<div
+  class="col row h-90 w-75 text-center card container-paymaster"
 
+>
   <form class="col-12 text-center m-3" [formGroup]="registerForm">
-    <h3 class="col-12">Cambio de pagador</h3>
-    <div class="m-3 col-12">
+    <h1 class="col-12">Cambio de pagador</h1>
+    <div class="col-12 container-number-bank" >
       <label for="numberBank" class="form-label">Número de cuenta</label>
       <input type="bank" formControlName="numberBank" class="form-control" />
       <div class="invalid-feedback">Se requiere un número de cuenta.</div>
@@ -11,15 +13,21 @@
 
     <div class="row col-12" style="cursor: pointer">
       <div class="col-6" [hidden]="owner === resident">
-        <div class="card m-4 rounded-3 shadow-sm border-primary" (click)="selectedRow(owner)">
-          <div class="card-header py-3 border-primary" [ngClass]="{
+        <div
+          class="card m-4 rounded-3 shadow-sm border-primary"
+          (click)="selectedRow(owner)"
+        >
+          <div
+            class="card-header py-3 border-primary"
+            [ngClass]="{
               'paymaster-row': owner === paymaster,
               'selected-row': owner === selectRow
-            }">
+            }"
+          >
             <h4 class="my-0 fw-normal">Propietario {{ owner }}</h4>
           </div>
           <div class="card-body">
-            <p class="card-text" style="display: grid">
+            <p class="card-text card-paymaster">
               <strong>Dirección:</strong> {{ addressOwn }}
               <strong>Teléfono:</strong> {{ phoneOwn }}
               <strong>Nombre:</strong> {{ owner }}
@@ -29,11 +37,17 @@
       </div>
 
       <div class="col-6">
-        <div class="card m-4 rounded-3 shadow-sm" (click)="selectedRow(resident)">
-          <div class="card-header py-3" [ngClass]="{
+        <div
+          class="card m-4 rounded-3 shadow-sm"
+          (click)="selectedRow(resident)"
+        >
+          <div
+            class="card-header py-3"
+            [ngClass]="{
               'paymaster-row': resident === paymaster,
               'selected-row': resident === selectRow
-            }">
+            }"
+          >
             <h4 class="my-0 fw-normal">Residente {{ resident }}</h4>
           </div>
           <div class="card-body">
@@ -47,12 +61,24 @@
       </div>
     </div>
   </form>
-</div>
-<div class="m-5 d-flex justify-content-between">
-  <button class="w-25 btn btn-outline-danger btn-lg" type="button" (click)="goToControlPanel()">
-    Atrás
-  </button>
-  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()">
-    Cambio de pagador
-  </button>
+
+  <div
+    class="d-flex justify-content-between container-buttons"
+
+  >
+    <button
+      class="h-5 w-25 btn btn-primary btn-lg"
+      type="button"
+      (click)="goToControlPanel()"
+    >
+      Atrás
+    </button>
+    <button
+      class="h-5 w-25 btn btn-primary btn-lg"
+      type="button"
+      (click)="onSubmit()"
+    >
+      Cambio de pagador
+    </button>
+  </div>
 </div>

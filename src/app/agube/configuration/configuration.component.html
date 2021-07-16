@@ -1,82 +1,97 @@
-<div class="subgrid bg-configuration">
-  <div class="m-2 card-configuration w-85">
-    <app-notification></app-notification>
-    <form
-      class="display-flex"
-      [formGroup]="registerForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <div class="col-sm-4">
-        <strong for="hook_price" class="form-label">Precio Enganche</strong>
+<div class="container-xl">
+  <app-notification></app-notification>
+</div>
+
+<div class="container-xl">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h1>Parámetros generales</h1>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="hook_price">Precio de enganche</label>
         <input
-          type="number"
           class="form-control"
+          type="number"
           id="hook_price"
           formControlName="hook_price"
         />
       </div>
-      <div class="col-sm-4">
-        <strong for="release_date" class="form-label">Fecha</strong>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="max_daily_consumption">Máximo consumo</label>
         <input
-          type="date"
           class="form-control"
+          type="number"
+          id="max_daily_consumption"
+          formControlName="max_daily_consumption"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="release_date">Fecha de Actualización</label>
+        <input
+          class="form-control"
+          type="date"
           id="release_date"
           formControlName="release_date"
           readonly
         />
       </div>
-      <div class="col-sm-4">
-        <strong for="max_daily_consumption" class="form-label"
-          >Consumo máximo</strong
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="max_daily_consumption"
-          formControlName="max_daily_consumption"
-          readonly
-        />
-      </div>
-    </form>
-    <div class="m-3">
-      <button class="w-100 btn btn-primary" type="button" (click)="onSubmit()">
+    </div>
+    <div class="form-row">
+      <button class="btn btn-primary" type="button" (click)="onSubmit()">
         Editar precio de enganche
       </button>
     </div>
-  </div>
-  <div></div>
-  <div class="m-2 card-configuration w-85">
-    <form
-      class="display-flex"
-      [formGroup]="registerForm"
-      (ngSubmit)="onSubmitPassword()"
-    >
-      <div class="col-sm-6">
-        <strong for="password" class="form-label">Contraseña</strong>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          formControlName="password"
-        />
+  </form>
+  <hr class="my-4" />
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmitPassword()">
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <h1>Seguridad</h1>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirmar Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password2"
+            formControlName="password2"
+          />
+        </div>
       </div>
-      <div class="col-sm-6">
-        <strong for="password2" class="form-label">Confirmar Contraseña</strong>
-        <input
-          type="password"
-          class="form-control"
-          id="password2"
-          formControlName="password2"
-        />
+      <div class="col-md-6">
+        <p class="mb-2">Contraseña Requerimientos</p>
+        <p class="small text-muted mb-2">
+          Para crear la contraseña se necesitan estos requisitos:
+        </p>
+        <ul class="small text-muted pl-4 mb-0">
+          <li>Mínimo 8 caracteres</li>
+          <li>Al menos un caracter especial</li>
+          <li>Al menos contener un numero</li>
+          <li>No puede repetirse la anterior contraseña</li>
+        </ul>
       </div>
-    </form>
+    </div>
     <button
-      class="w-100 btn btn-outline-primary btn"
+      class="btn btn-primary"
       type="button"
       (click)="onSubmitPassword()"
       [disabled]="registerForm.invalid"
     >
       Cambiar Contraseña
     </button>
-  </div>
+  </form>
+  <hr class="my-4" />
 </div>

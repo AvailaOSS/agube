@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReservoirUtilsModule } from '../reservoir-utils/reservoir-utils.module';
+import { ReservoirUtilsModule } from '../../management-detail-card/management-components/reservoir-utils/reservoir-utils.module';
 import { ChangeReservoirComponent } from './change-water-meter.component';
 
 @NgModule({

@@ -1,4 +1,4 @@
-<div class="contenedor card  m-5">
+<div class=" card container-owner">
   <app-dwelling-utils
     [isHiddenAddress]="true"
     [isHiddenBank]="true"
@@ -7,8 +7,6 @@
     [ownerTitle]="'Cambio de Propietario'"
     [titleCard]="'Cambio de Propietario'"
     [formDataConfiguration]="formConfigurationData"
-    [error]="error"
-    [errorMessage]="errorMessage"
     [isHiddenResidentCheck]="true"
     (sendForm)="sendForm($event)"
   ></app-dwelling-utils>
