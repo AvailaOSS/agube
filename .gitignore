@@ -126,4 +126,3 @@ dmypy.json
 
 # IDE
 .idea/
-docker/dev/.env.be.dev
