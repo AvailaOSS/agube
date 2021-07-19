@@ -38,7 +38,7 @@
 
     <div class="row g-3">
       <div class="row col-12">
-        <div class="col-sm-12" [hidden]="isHiddenCount">
+        <div class="col-sm-6" style="margin: 0 auto;" [hidden]="isHiddenCount">
           <label for="code" class="form-label">Número de contador</label>
           <input type="text" formControlName="code" class="form-control" required="" />
           <div class="invalid-feedback">Se requiere un código de contador.</div>
@@ -72,10 +72,10 @@
 </div>
 
 <div class="m-5 d-flex justify-content-between">
-  <button class="w-25 btn btn-outline-danger btn-lg" type="button" (click)="goToControlPanel()">
+  <button class="w-25 btn btn-primary " type="button" (click)="goToControlPanel()">
     Atrás
   </button>
-  <button class="w-25 btn btn-outline-primary btn-lg" type="button" (click)="onSubmit()"
+  <button class="w-50 btn btn-primary " type="button" (click)="onSubmit()"
     [disabled]="registerForm.invalid">
     {{ titleCard }}
   </button>

@@ -39,7 +39,7 @@
 
     <div class="row g-3">
       <div class="row col-12">
-        <div class="col-sm-6" [hidden]="isHiddenCount">
+        <div class="col-sm-6" style="margin: 0 auto;" [hidden]="isHiddenCount">
           <label for="code" class="form-label">Número de contador</label>
           <input type="text" formControlName="code" class="form-control" placeholder="" value="" required="" />
           <div class="invalid-feedback">Se requiere un código de contador.</div>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="row col-12">
-      <div class="row col-6" [hidden]="isHiddenOwner">
+      <div class="row col-12" [hidden]="isHiddenOwner">
         <div class="col m-4 card-header">
           <strong style="padding-right: 50px;">Propietario</strong>
           <div style="display: inline-flex" class="custom-control custom-switch col-4 ml-1">
@@ -121,7 +121,7 @@
           </div>
         </div>
       </div>
-      <div class="row col-6" [hidden]="isHiddenResident">
+      <div class="row col-12" [hidden]="isHiddenResident">
         <div class="col m-4 card-header"><strong>Residente</strong></div>
         <div class="card-body">
           <div class="row g-3">
@@ -175,10 +175,10 @@
 </div>
 
 <div class="m-5 d-flex justify-content-between">
-  <button class="w-25 btn btn-primary btn-lg" type="button" (click)="goToControlPanel()">
+  <button class="w-25 h-100 btn btn-primary btn-lg" type="button" (click)="goToControlPanel()">
     Atrás
   </button>
-  <button class="w-25 btn btn-primary btn-lg" type="button" (click)="onSubmit()"
+  <button class="w-50 h-100 btn btn-primary btn-lg" type="button" (click)="onSubmit()"
     [disabled]="registerForm.invalid">
     {{ titleCard }}
   </button>
