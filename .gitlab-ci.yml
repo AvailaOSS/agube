@@ -1,28 +1,3 @@
-# test-address:
-#   stage: test
-#   script:
-#     - echo "This job will test address module"
-
-# test-dwelling:
-#   stage: test
-#   script:
-#     - echo "This job will test dwelling module"
-
-# test-login:
-#   stage: test
-#   script:
-#     - echo "This job will test login module"
-
-# test-phone:
-#   stage: test
-#   script:
-#     - echo "This job will test phone module"
-
-# test-water-meter:
-#   stage: test
-#   script:
-#     - echo "This job will test water-meter module"
-
 docker-build-develop:
   image: docker:latest
   # stage: .post
@@ -37,4 +12,4 @@ docker-build-develop:
     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
     - docker push "$CI_REGISTRY_IMAGE"
   only:
-    - develop
+    - gitlab-ci

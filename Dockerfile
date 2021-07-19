@@ -1,19 +1,14 @@
-FROM python:3.9
+FROM ubuntu:20.04
 
-LABEL maintainer="ffrannabril@gmail.com"
+RUN apt update && apt install -y python3 python3-pip
 
 ENV PYTHONUNBUFFERED 1
 
-# Creating working directory
-RUN mkdir /availa-agube
-
-# All next commands here
 WORKDIR /availa-agube
 
-# Copying requirements
+# Install dependencies
 COPY requirements.txt .
-
 RUN pip install -r requirements.txt
 
-# Copying requirements
+# Copy code
 COPY . .
