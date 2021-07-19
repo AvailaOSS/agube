@@ -1,0 +1,14 @@
+#docs
+readme.md
+
+#node
+node_modules
+npm-debug.log
+
+#git
+.git
+.gitignore
+
+#docker
+Dockerfile
+docker*
