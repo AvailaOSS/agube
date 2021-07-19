@@ -1,29 +1,42 @@
-# STEP 1 build static website
-FROM node:alpine as builder
+# Node build
+FROM node:14 AS nodebuilder
 
-RUN apk update && apk add --no-cache make git
+WORKDIR /availa-agube
 
-# Create app directory
-WORKDIR /app
+# Install dependencies
+COPY package*.json .
+COPY .npmrc .
+RUN npm install
 
-# Install app dependencies
-COPY package.json package-lock.json Makefile  /app/
-RUN cd /app && npm set progress=false && npm install
+# Copy code
+COPY . .
 
-# Copy project files into the docker image
-COPY .  /app
+# Delete .npmrc
+RUN rm .npmrc
 
-RUN cd /app && npm run build
+# Build
+RUN npm run build
 
-# STEP 2 build a small nginx image with static website
-FROM nginx:alpine
+# Delete nginx files
+RUN rm -r nginx
 
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
+# NGINX publish
+FROM nginx:1.21
 
-## From 'builder' copy website to default nginx public folder
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy config
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+# Permissions
+RUN chown -R nginx:nginx /var/cache/nginx && \
+        chown -R nginx:nginx /var/log/nginx && \
+        chown -R nginx:nginx /etc/nginx/conf.d
+RUN touch /var/run/nginx.pid && \
+        chown -R nginx:nginx /var/run/nginx.pid
+RUN chown -R nginx:nginx /usr/share/nginx/html
 
-CMD ["nginx", "-g", "daemon off;"]
+# User
+USER nginx
+
+# Copy Node build
+COPY --from=nodebuilder /availa-agube/dist/agube-fe /usr/share/nginx/html
