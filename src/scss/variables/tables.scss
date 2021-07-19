@@ -36,3 +36,10 @@
   background-color: $color-secondary;
   color: $color-black;
 }
+
+.table-config {
+  display: table;
+  text-align: center;
+  width: sizes.$width-x-medium;
+  margin: margins.$margin-large auto;
+}
