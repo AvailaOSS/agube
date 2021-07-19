@@ -185,6 +185,11 @@ class DwellingOwner(models.Model):
     def discharge(self):
         """discharge this owner"""
         self.discharge_date = timezone.now()
+        dwelling = Dwelling.objects.get(id=self.dwelling.id)
+        # if not paymaster disable user account
+        if not dwelling.is_paymaster(self.user):
+            self.user.is_active = False
+            self.user.save()
         self.save()
 
 
@@ -218,6 +223,12 @@ class DwellingResident(models.Model):
     def discharge(self):
         """discharge this resident"""
         self.discharge_date = timezone.now()
+        # if user is Owner or Paymaster do not disable user account
+        dwelling = Dwelling.objects.get(id=self.dwelling.id)
+        current_owner = dwelling.get_current_owner().user
+        if self.user != current_owner and not dwelling.is_paymaster(self.user):
+            self.user.is_active = False
+            self.user.save()
         self.save()
 
 

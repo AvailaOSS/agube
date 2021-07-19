@@ -173,7 +173,8 @@ class DwellingOwnerView(generics.GenericAPIView):
             with transaction.atomic():
                 dwelling = Dwelling.objects.get(id=pk)
                 current_paymaster = dwelling.get_current_paymaster().user
-                if dwelling.is_paymaster(current_paymaster):
+                current_owner = dwelling.get_current_owner().user
+                if dwelling.is_paymaster(current_owner):
                     raise OwnerIsPaymasterError(current_paymaster.username)
                 user = create_user(
                     PersonTag.OWNER, request.data['user'], dwelling.manager)
