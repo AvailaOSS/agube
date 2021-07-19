@@ -1,11 +1,12 @@
-<app-notification></app-notification>
+
 <div
-  class="col row h-90 w-75 text-center card container-paymaster"
+  class="table-card table-config"
 
 >
+<app-notification></app-notification>
   <form class="col-12 text-center m-3" [formGroup]="registerForm">
-    <h1 class="col-12">Cambio de pagador</h1>
-    <div class="col-12 container-number-bank" >
+    <h4 class="col-12">Cambio de pagador</h4>
+    <div class="col-6 container-number-bank" >
       <label for="numberBank" class="form-label">Número de cuenta</label>
       <input type="bank" formControlName="numberBank" class="form-control" />
       <div class="invalid-feedback">Se requiere un número de cuenta.</div>
@@ -63,18 +64,18 @@
   </form>
 
   <div
-    class="d-flex justify-content-between container-buttons"
+  class="col-12">
 
-  >
     <button
-      class="h-5 w-25 btn btn-primary btn-lg"
+    class="w-25 h-100 btn btn-primary btn-lg"
       type="button"
       (click)="goToControlPanel()"
     >
       Atrás
     </button>
     <button
-      class="h-5 w-25 btn btn-primary btn-lg"
+    class="w-25 h-100 btn btn-primary btn-lg"
+    style="margin-left:8%"
       type="button"
       (click)="onSubmit()"
     >
@@ -82,3 +83,5 @@
     </button>
   </div>
 </div>
+
+
