@@ -60,3 +60,18 @@ body {
 app-login {
   background-color: $color-primary !important;
 }
+::ng-deep .incidence-fe {
+  margin-top: 80px !important;
+  height: 570px;
+  margin-left: 100px;
+}
+::ng-deep .task-fe {
+  margin-top: 30px !important;
+  height: 500px;
+}
+::ng-deep .calendar-fe {
+  margin-top: 70px !important;
+  width: 54%;
+  float: right;
+  margin-right: 110px;
+}
