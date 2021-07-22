@@ -14,6 +14,8 @@ import { ComponentsModule } from './components/components.module';
 import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
 import { ContactBookModule } from '@availa/contact-book-fe';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { environment } from 'src/environments/environment';
+import { AgubeApiModule } from '@availa/agube-rest-api';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent],
@@ -25,6 +27,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
+    AgubeApiModule.forRoot({  basePath: environment.agubeBackendUrl }),
     ToolbarModule.forRoot({ logOutPageUrl: 'login' }),
     AuthModule.forRoot({
       afterLoginSuccessUrl: AgubeRoute.DWELLING,
