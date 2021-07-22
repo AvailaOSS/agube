@@ -51,7 +51,7 @@ body {
 .btn-primary:focus,
 .btn-primary.focus {
   background-color: $color-primary !important;
-  border: 1px solid $color-primary;
+  border:1 solid $color-primary;
 }
 
 .container-login {
@@ -61,13 +61,13 @@ app-login {
   background-color: $color-primary !important;
 }
 ::ng-deep .incidence-fe {
-  margin-top: 80px !important;
-  height: 570px;
-  margin-left: 100px;
+  margin-top: $margin-large !important;
+  height: $height-x-large;
+  margin-left: $margin-medium;
 }
 ::ng-deep .task-fe {
-  margin-top: 30px !important;
-  height: 500px;
+  margin-top: $margin-x-medium !important;
+  height: $height-large;
 }
 ::ng-deep .calendar-fe {
   margin-top: 70px !important;
