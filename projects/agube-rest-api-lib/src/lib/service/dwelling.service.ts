@@ -11,18 +11,14 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core';
 import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
+  HttpClient, HttpEvent, HttpHeaders,
+  HttpResponse
 } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
-
+import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { Configuration } from '../configuration';
+import { AgubeRestConfigurationService } from '../configuration.service';
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingCreateWithResident } from '../model/dwellingCreateWithResident';
 import { DwellingDetail } from '../model/dwellingDetail';
@@ -32,28 +28,24 @@ import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
 
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
-import { Configuration } from '../configuration';
-
 @Injectable()
 export class DwellingService {
-  protected basePath = 'http://localhost:8003/api/v1/agube';
+  protected basePath = '';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
   constructor(
     protected httpClient: HttpClient,
-    @Optional() @Inject(BASE_PATH) basePath: string,
+    private svcConfig: AgubeRestConfigurationService,
     @Optional() configuration: Configuration
   ) {
-    if (basePath) {
-      this.basePath = basePath;
-    }
     if (configuration) {
       this.configuration = configuration;
-      this.basePath = basePath || configuration.basePath || this.basePath;
+      this.basePath = configuration.basePath || this.basePath;
     }
+    this.basePath = this.svcConfig.getBasePath();
   }
+
 
   /**
    * @param consumes string[] mime-types
@@ -120,7 +112,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -205,7 +197,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -290,7 +282,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -375,7 +367,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -449,7 +441,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -523,7 +515,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -597,7 +589,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -664,7 +656,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -731,7 +723,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -809,7 +801,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -878,7 +870,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -934,7 +926,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -1001,7 +993,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -1079,7 +1071,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+        btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
