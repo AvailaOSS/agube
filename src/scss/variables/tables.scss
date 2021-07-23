@@ -5,7 +5,6 @@
 
 .table-card {
   min-height: sizes.$height-small;
-  max-height: sizes.$height-small;
   margin: margins.$margin-small;
   padding: paddings.$padding-small;
   @include borders.rounded;
