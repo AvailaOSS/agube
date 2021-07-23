@@ -6,6 +6,7 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
 import { UserDetailPipe } from './pipes/userdetail.pipe';
+import { SidebarConfiguration } from './sidebar/sidebar.configuration';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,6 @@ import { UserDetailPipe } from './pipes/userdetail.pipe';
     FullAddressPipe,
     UserDetailPipe
   ],
-  providers: [],
+  providers: [SidebarConfiguration],
 })
 export class ComponentsModule { }

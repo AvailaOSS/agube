@@ -8,6 +8,8 @@ import { ToolbarModule } from '@availa/toolbar';
 import { environment } from 'src/environments/environment';
 import { AgubeRoute } from '../agube/agube-route';
 import { AgubeModule } from '../agube/agube.module';
+import { SidebarConfiguration } from '../components/sidebar/sidebar.configuration';
+import { AvailaRoutingModule } from './availa-routing.module';
 
 @NgModule({
   declarations: [],
@@ -31,8 +33,9 @@ import { AgubeModule } from '../agube/agube.module';
       }
     }),
     TaskModule,
+    AvailaRoutingModule,
   ],
-  exports:[
+  exports: [
     AgubeModule,
     AgubeApiModule,
     ToolbarModule,
@@ -40,6 +43,6 @@ import { AgubeModule } from '../agube/agube.module';
     SubscriptionModule,
     ContactBookModule,
     TaskModule,
-  ]
+  ],
 })
 export class AvailaModule { }

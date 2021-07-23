@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IncidenceFormComponent } from '@availa/task-fe';
 import { AgubeRoute } from './agube-route';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
@@ -40,15 +39,10 @@ const routes: Routes = [
     path: AgubeRoute.CHANGE_RESERVOIR,
     component: ChangeReservoirComponent,
   },
-  {
-    path: AgubeRoute.INCIDENCE,
-    component: IncidenceFormComponent,
-  },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AgubeRoutingModule {}
+export class AgubeRoutingModule { }

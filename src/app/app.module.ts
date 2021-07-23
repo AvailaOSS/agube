@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { AvailaModule } from './availa/availa.module';
 import { ComponentsModule } from './components/components.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarConfiguration } from './components/sidebar/sidebar.configuration';
+import { AgubeRoute } from './agube/agube-route';
+import { TaskRoute } from '@availa/task-fe';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent],
@@ -24,5 +27,17 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     NgbModule,
   ],
   bootstrap: [AppComponent],
+  providers: [{
+    provide: SidebarConfiguration,
+    useValue: {
+      routes: [
+        { path: AgubeRoute.DWELLING, name: 'Viviendas' },
+        { path: AgubeRoute.WIP, name: 'Lecturas de Contador' },
+        { path: AgubeRoute.RESERVOIR, name: 'Depósitos' },
+        { path: TaskRoute.INCIDENCE, name: 'Incidencias' },
+        { path: AgubeRoute.CONFIG, name: 'Configuración' },
+      ]
+    }
+  }]
 })
 export class AppModule { }
