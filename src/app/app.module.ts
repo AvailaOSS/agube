@@ -40,7 +40,11 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
       loginUrl: AuthRoute.LOGIN,
     }),
     AgubeModule,
-    ContactBookModule,
+    ContactBookModule.forRoot({
+      contactBookRestconfig: {
+        basePath: environment.contactBookBackendUrl
+      }
+    }),
     NgbModule,
   ],
   bootstrap: [AppComponent],
