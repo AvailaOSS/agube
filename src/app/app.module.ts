@@ -27,9 +27,12 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    AgubeApiModule.forRoot({  basePath: environment.agubeBackendUrl }),
+    AgubeApiModule.forRoot({ basePath: environment.agubeBackendUrl }),
     ToolbarModule.forRoot({ logOutPageUrl: 'login' }),
     AuthModule.forRoot({
+      authRestconfig: {
+        basePath: environment.authBackendUrl
+      },
       afterLoginSuccessUrl: AgubeRoute.DWELLING,
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
     }),
@@ -42,4 +45,4 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
