@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { isUndefined } from 'lodash';
 import { AgubeRoute } from '../../../../../agube-route';
 
 @Component({
@@ -66,27 +67,33 @@ export class ChangePaymasterComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.svcChangePay
-      .changePaymaster(this.changePayId, {
-        payment_type: 'BANK',
-        iban: this.registerForm.value.numberBank,
-        username: this.selectRow,
-      })
-      .subscribe(
-        () => {
-          this.alertService.success('Cambiado con éxito');
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 1500);
-        },
-        (error) => {
-          this.alertService.error('error' + error.error.message);
-        }
-      );
+    if (!isUndefined(this.selectRow)) {
+      this.svcChangePay
+        .changePaymaster(this.changePayId, {
+          payment_type: 'BANK',
+          iban: this.registerForm.value.numberBank,
+          username: this.selectRow,
+        })
+        .subscribe(
+          () => {
+            this.alertService.success('Cambiado con éxito');
+            setTimeout(() => {
+              this.svcRouter.navigate([AgubeRoute.DWELLING]);
+            }, 1500);
+          },
+          (error) => {
+            this.alertService.error('error ' + error.error.message);
+          }
+        );
+    } else {
+      this.alertService.error('Debe de seleccionar un pagador');
+    }
   }
 
   public selectedRow(event): void {
-    this.selectRow = event;
+    if (!isUndefined(event)) {
+      this.selectRow = event;
+    }
   }
 
   public goToControlPanel(): void {
