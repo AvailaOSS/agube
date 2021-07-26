@@ -18,26 +18,27 @@ import { AvailaRoutingModule } from './availa-routing.module';
     ToolbarModule.forRoot({ logOutPageUrl: AuthRoute.LOGIN }),
     AuthModule.forRoot({
       authRestconfig: {
-        basePath: environment.authBackendUrl
+        basePath: environment.authBackendUrl,
       },
       afterLoginSuccessUrl: AgubeRoute.DWELLING,
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
     }),
     SubscriptionModule.forRoot({
       loginUrl: AuthRoute.LOGIN,
+      subscriptionRestconfig: { basePath: environment.subscriptionBackendUrl },
     }),
     ContactBookModule.forRoot({
       contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl
-      }
+        basePath: environment.contactBookBackendUrl,
+      },
     }),
     TaskModule.forRoot({
       contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl
+        basePath: environment.contactBookBackendUrl,
       },
       taskRestconfig: {
-        basePath: environment.taskBackendUrl
-      }
+        basePath: environment.taskBackendUrl,
+      },
     }),
     AvailaRoutingModule,
   ],
@@ -51,4 +52,4 @@ import { AvailaRoutingModule } from './availa-routing.module';
     TaskModule,
   ],
 })
-export class AvailaModule { }
+export class AvailaModule {}
