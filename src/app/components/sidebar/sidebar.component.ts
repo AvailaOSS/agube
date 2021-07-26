@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
+import { SidebarConfiguration } from './sidebar.configuration';
 interface SelectedComponent {
   path: string;
   name: string;
@@ -19,17 +20,11 @@ export class SidebarComponent implements OnInit {
   @Input() user: any;
   public selectComponent: string;
 
-  constructor(private readonly route: Router) {
-    this.menuComponents = [
-      { path: 'viviendas', name: 'Viviendas' },
-      { path: 'wip', name: 'Lectura de Contador' },
-      { path: 'depositos', name: 'Depósito' },
-      { path: 'incidence', name: 'Incidencias' },
-      { path: 'config', name: 'Configuración' },
-    ];
+  constructor(private readonly route: Router, private sidebarRoutes: SidebarConfiguration) {
+    this.menuComponents = this.sidebarRoutes.routes;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   public selectedComponent(component: SelectedComponent): void {
     this.route.navigate([component.path]);

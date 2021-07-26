@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgubeRoute } from '../../../agube-route';
-import { DwellingService, UserDetail } from '@availa/agube-rest-api';
+import { DwellingService, Paymaster, UserDetail } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-dwelling-resident-detail-card',
@@ -10,6 +10,7 @@ import { DwellingService, UserDetail } from '@availa/agube-rest-api';
 export class DwellingResidentDetailCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail;
+  public paymaster: Paymaster;
   public userId: string;
 
   constructor(
@@ -18,13 +19,18 @@ export class DwellingResidentDetailCard implements OnInit, OnChanges {
   ) {
     //
   }
+
   public ngOnChanges(): void {
     this.ngOnInit();
   }
+
   public ngOnInit(): void {
     this.svcDwelling
       .getCurrentResident(this.dwellingId)
       .subscribe((result) => (this.resident = result.user));
+    this.svcDwelling
+      .getPaymaster(String(this.dwellingId))
+      .subscribe((result) => (this.paymaster = result));;
   }
 
   public changeResident(): void {

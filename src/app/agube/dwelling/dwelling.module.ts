@@ -1,4 +1,4 @@
-import { DwellingResidentDetailCard } from './dwelling-detail-card/management-detail-card/dwelling-resident.component';
+import { DwellingResidentDetailCard } from './dwelling-detail-card/management-detail-card/dwelling-resident-detail-card.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

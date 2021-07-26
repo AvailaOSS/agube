@@ -3,17 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule, AuthRoute } from '@availa/auth-fe';
-import { ToolbarModule } from '@availa/toolbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AgubeRoute } from './agube/agube-route';
-import { AgubeModule } from './agube/agube.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AvailaModule } from './availa/availa.module';
 import { ComponentsModule } from './components/components.module';
-import { SubscriptionRoute, SubscriptionModule } from '@availa/subscription-fe';
-import { ContactBookModule } from '@availa/contact-book-fe';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarConfiguration } from './components/sidebar/sidebar.configuration';
+import { AgubeRoute } from './agube/agube-route';
+import { TaskRoute } from '@availa/task-fe';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent],
@@ -25,18 +23,21 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    ToolbarModule.forRoot({ logOutPageUrl: 'login' }),
-    AuthModule.forRoot({
-      afterLoginSuccessUrl: AgubeRoute.DWELLING,
-      createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
-    }),
-    SubscriptionModule.forRoot({
-      loginUrl: AuthRoute.LOGIN,
-    }),
-    AgubeModule,
-    ContactBookModule,
+    AvailaModule,
     NgbModule,
   ],
   bootstrap: [AppComponent],
+  providers: [{
+    provide: SidebarConfiguration,
+    useValue: {
+      routes: [
+        { path: AgubeRoute.DWELLING, name: 'Viviendas' },
+        { path: AgubeRoute.WIP, name: 'Lecturas de Contador' },
+        { path: AgubeRoute.RESERVOIR, name: 'Depósitos' },
+        { path: TaskRoute.INCIDENCE, name: 'Incidencias' },
+        { path: AgubeRoute.CONFIG, name: 'Configuración' },
+      ]
+    }
+  }]
 })
-export class AppModule {}
+export class AppModule { }

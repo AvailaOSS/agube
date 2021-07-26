@@ -64,6 +64,8 @@ app-login {
   margin-top: $margin-large !important;
   height: $height-x-large;
   margin-left: $margin-medium;
+  border: 0px solid black;
+  background-color: $color-primary-light
 }
 ::ng-deep .task-fe {
   margin-top: $margin-x-medium !important;

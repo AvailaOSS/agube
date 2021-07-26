@@ -4,15 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { AuthModule } from '@availa/auth-fe';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkInProgressComponent } from './work-in-progress/work-in-progress.component';
-import { TaskModule } from '@availa/task-fe';
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
 import { UserDetailPipe } from './pipes/userdetail.pipe';
+import { SidebarConfiguration } from './sidebar/sidebar.configuration';
+import { PaymasterPipe } from './pipes/paymaster.pipe';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
+    PaymasterPipe,
   ],
   imports: [
     CommonModule,
@@ -20,13 +22,13 @@ import { UserDetailPipe } from './pipes/userdetail.pipe';
     NgbModalModule,
     FormsModule,
     AuthModule,
-    TaskModule
   ],
   exports: [
     WorkInProgressComponent,
     FullAddressPipe,
-    UserDetailPipe
+    UserDetailPipe,
+    PaymasterPipe
   ],
-  providers: [],
+  providers: [SidebarConfiguration],
 })
 export class ComponentsModule { }
