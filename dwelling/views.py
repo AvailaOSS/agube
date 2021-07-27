@@ -17,7 +17,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
-from dwelling.exceptions import (IncompatibleUsernameError, InvalidEmailError,
+from dwelling.exceptions import (IncompatibleUsernameError, InvalidEmailError, EmailValidationError,
                                  OwnerAlreadyIsResidentError, OwnerIsPaymasterError, PaymasterError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling
@@ -91,7 +91,7 @@ class DwellingCreateView(generics.CreateAPIView):
         try:
             with transaction.atomic():
                 return super().post(request, *args, **kwargs)
-        except (InvalidEmailError, UserManagerRequiredError) as e:
+        except (InvalidEmailError, EmailValidationError, UserManagerRequiredError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
@@ -105,7 +105,7 @@ class DwellingCreateWithResidentView(generics.CreateAPIView):
         try:
             with transaction.atomic():
                 return super().post(request, *args, **kwargs)
-        except (InvalidEmailError, UserManagerRequiredError) as e:
+        except (InvalidEmailError, EmailValidationError, UserManagerRequiredError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
