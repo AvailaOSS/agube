@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  # Postgres Database
+  # Postgres DB
   db:
     container_name: postgres-db
     image: postgres
@@ -12,11 +12,11 @@ services:
     networks:
       - backend
 
-  # RabbitMQ - queue
+  # RabbitMQ
   rabbitmq:
     container_name: rabbitmq
     hostname: rabbit
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8-management
     ports:
       - 5672:5672
       # here, we can access rabbitmq management plugin
@@ -26,7 +26,32 @@ services:
     networks:
       - backend
 
-  # Django Backend server
+  # BE: agube
+  agube-backend:
+    container_name: agube-backend
+    hostname: agube-backend
+    image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8003:8000
+      - 5555:5555
+    environment:
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+      - EMAIL_HOST=smtp.googlemail.com
+      - EMAIL_PORT=587
+      - EMAIL_HOST_USER=$DEV_USER_MAIL
+      - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
+    volumes:
+      - .:/availa
+    env_file:
+      - ./docker/dev/.env.be.dev
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
+
+  # BE: auth
   auth-backend:
     container_name: auth-backend
     hostname: auth-backend
@@ -43,22 +68,8 @@ services:
       - rabbitmq
     networks:
       - backend
-  subscription-backend:
-    container_name: subscription-backend
-    hostname: subscription-backend
-    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - 8001:8000
-    volumes:
-      - .:/availa
-    env_file:
-      - ./docker/dev/.env.be.dev
-    depends_on:
-      - db
-      - rabbitmq
-    networks:
-      - backend
+
+  # BE: contact-book
   contact-book-backend:
     container_name: contact-book-backend
     hostname: contact-book-backend
@@ -66,6 +77,8 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8002:8000
+    environment:
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
     volumes:
       - .:/availa
     env_file:
@@ -75,14 +88,22 @@ services:
       - rabbitmq
     networks:
       - backend
-  agube-backend:
-    container_name: agube-backend
-    hostname: agube-backend
-    image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
+
+  # BE: subscription
+  subscription-backend:
+    container_name: subscription-backend
+    hostname: subscription-backend
+    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
     command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8003:8000
-      - 5555:5555
+      - 8001:8000
+    environment:
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+      - EMAIL_HOST=smtp.googlemail.com
+      - EMAIL_PORT=587
+      - EMAIL_HOST_USER=$DEV_USER_MAIL
+      - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
+      - REDIRECT_TO=localhost:8080/enable-account?id=
     volumes:
       - .:/availa
     env_file:
@@ -92,6 +113,8 @@ services:
       - rabbitmq
     networks:
       - backend
+
+  # BE: task
   task-backend:
     container_name: task-backend
     hostname: task-backend
