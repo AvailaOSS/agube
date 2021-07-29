@@ -4,12 +4,11 @@
 export const environment = {
   apiUrl: 'http://localhost:4200',
   // docker-compose.yml contains port config
-
-  taskBackendUrl: 'http://localhost:8004/api/v1/task',
-  agubeBackendUrl: 'http://localhost:8003/api/v1/agube',
   authBackendUrl: 'http://localhost:8000/api/v1/auth',
+  subscriptionBackendUrl: 'http://localhost:8001/api/v1/subscription',
   contactBookBackendUrl: 'http://localhost:8002/api/v1/contact-book',
-  subscriptionBackendUrl: 'http://localhost:8000/api/v1/subscription',
+  agubeBackendUrl: 'http://localhost:8003/api/v1/agube',
+  taskBackendUrl: 'http://localhost:8004/api/v1/task',
 };
 /*
  * For easier debugging in development mode, you can import the following file
