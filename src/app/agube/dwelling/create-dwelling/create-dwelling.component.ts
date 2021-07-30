@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AgubeRoute } from '../../agube-route';
@@ -11,22 +11,44 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-dwelling.component.scss'],
 })
 export class CreateDwellingComponent implements OnInit {
-  public addNewWelling: FormGroup;
-  public username: string;
+  public createFormGroup: FormGroup;
+  public submitted = false;
   public options = {
     autoClose: false,
     keepAfterRouteChange: false,
   };
+  public ownerId: string;
+  public userId: string;
+  public name: string;
+  public lastName: string;
+  public email: string;
+  public username: string;
+  public phone: string;
+
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
     public alertService: NotificationService,
-    private readonly svcRouter: Router
+    private readonly svcRouter: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   public ngOnInit(): void {
+    this.createFormGroup = this.formBuilder.group({
+      street: ['', Validators.required],
+      number: ['', Validators.required],
+      gate: ['', Validators.required],
+      flat: ['', Validators.required],
+      city: ['', Validators.required],
+    });
     //
   }
 
+  get f() {
+    return this.createFormGroup.controls;
+  }
+  public onSubmit(): void {
+    console.log('hola', this.createFormGroup.value);
+  }
   public sendForm(event: any): void {
     if (event.resident === false || event.resident === null) {
       this.createDwelling(event);

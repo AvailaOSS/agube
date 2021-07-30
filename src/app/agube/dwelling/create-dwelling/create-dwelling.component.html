@@ -1,11 +1,80 @@
-<div  class="table-card table-config">
-  <app-dwelling-utils
-    [titleCard]="'Alta Vivienda'"
-    [isHiddenAddress]="false"
-    [isHiddenBank]="false"
-    [isHiddenResident]="false"
-    [isHiddenOwner]="false"
-    [isHiddenCount]="false"
-    (sendForm)="sendForm($event)"
-  ></app-dwelling-utils>
+<div class="table-card table-config">
+  <h4>Alta vivienda</h4>
+  <form
+    [formGroup]="createFormGroup"
+    (ngSubmit)="(onSubmit)"
+    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+  >
+    <div class="row">
+      <div class="col-sm-5">
+        <label for="street">Calle</label>
+        <input
+          type="text"
+          formControlName="street"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
+        />
+        <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+          <div *ngIf="f.street.errors.required">Se requiere una calle</div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <label for="number">Número</label>
+        <input
+          type="number"
+          formControlName="number"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
+        />
+        <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+          <div *ngIf="f.number.errors.required">Se requiere un número</div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <label for="gate">Puerta</label>
+        <input
+          type="text"
+          formControlName="gate"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
+        />
+        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
+          <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <label for="flat">Piso</label>
+        <input
+          type="number"
+          formControlName="gate"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
+        />
+        <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
+          <div *ngIf="f.flat.errors.required">Se requiere una puerta</div>
+        </div>
+      </div>
+      <div class="col-lg-5" colspan="4">
+        <label for="city">Ciudad</label>
+        <input
+          type="text"
+          formControlName="city"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+        />
+        <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+          <div *ngIf="f.city.errors.required">Se requiere una ciudad</div>
+        </div>
+      </div>
+
+      <button
+        class="btn btn-primary w-50 h-50"
+        type="button"
+        (click)="onSubmit()"
+        style="margin-top: 30px"
+      >
+        Agregar Vivienda
+      </button>
+    </div>
+  </form>
 </div>
