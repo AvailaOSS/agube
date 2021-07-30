@@ -4,9 +4,9 @@
   <form
     [formGroup]="residentFormGroup"
     (ngSubmit)="(onSubmit)"
-    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+    class="border-forms"
   >
-    <div class="row" style="margin-right: -21%">
+    <div class="row margin-adaptation-generic">
       <div class="col-sm-5">
         <label for="name">Nombre</label>
         <input
@@ -74,10 +74,10 @@
       </div>
       <div class="col-sm-5">
         <button
-          class="btn btn-primary w-100 h-50"
+          class="btn btn-primary w-100 h-50 margin-buttons-forms"
           type="button"
           (click)="onSubmit()"
-          style="margin-top: 33px"
+
         >
           {{ titleFormResident }}
         </button>

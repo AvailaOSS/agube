@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DwellingUtilsModule } from '../dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
 import { CreateDwellingComponent } from './create-dwelling.component';
 import { NotificationModule } from '@availa/notification';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [CreateDwellingComponent],
@@ -15,6 +16,7 @@ import { NotificationModule } from '@availa/notification';
     BrowserModule,
     DwellingUtilsModule,
     NotificationModule,
+    NgbModule,
   ],
 })
 export class CreateDwellingModule {}
