@@ -1,13 +1,87 @@
-<div class="table-card table-config ">
-  <app-dwelling-utils
-    [isHiddenAddress]="true"
-    [isHiddenBank]="true"
-    [isHiddenResident]="false"
-    [isHiddenOwner]="true"
-    [isHiddenCount]="true"
-    [residentTitle]="'Cambio de Residente'"
-    [titleCard]="'Cambio de Residente'"
-    [formDataConfiguration]="formConfigurationData"
-    (sendForm)="sendForm($event)"
-  ></app-dwelling-utils>
+<div class="table-card table-config">
+  <app-notification></app-notification>
+  <h4>{{ titleFormResident }}</h4>
+  <form
+    [formGroup]="residentFormGroup"
+    (ngSubmit)="(onSubmit)"
+    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+  >
+    <div class="row" style="margin-right: -21%">
+      <div class="col-sm-5">
+        <label for="name">Nombre</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+          [(ngModel)]="name"
+        />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Se requiere un nombre</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="lastName">Apellido</label>
+        <input
+          type="text"
+          formControlName="lastName"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+          [(ngModel)]="lastName"
+        />
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">Se requiere un apellido</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="username">username</label>
+        <input
+          type="text"
+          formControlName="username"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          [(ngModel)]="username"
+        />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Se requiere un username</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="email">email</label>
+        <input
+          type="text"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+          [(ngModel)]="email"
+        />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Se requiere un email</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="phone">teléfono</label>
+        <input
+          type="number"
+          formControlName="phone"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+          [(ngModel)]="phone"
+        />
+        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+          <div *ngIf="f.phone.errors.required">Se requiere un teléfono</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <button
+          class="btn btn-primary w-100 h-50"
+          type="button"
+          (click)="onSubmit()"
+          style="margin-top: 33px"
+        >
+          {{ titleFormResident }}
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
