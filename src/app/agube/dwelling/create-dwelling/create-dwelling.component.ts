@@ -19,7 +19,7 @@ export class CreateDwellingComponent implements OnInit {
 
   public submitted = false;
   public options = {
-    autoClose: false,
+    autoClose: true,
     keepAfterRouteChange: false,
   };
 
@@ -58,8 +58,7 @@ export class CreateDwellingComponent implements OnInit {
       iban: ['', Validators.required],
     });
     this.radioGroupForm = this.formBuilder.group({
-      owner: true,
-      resident: false,
+      model: 1,
     });
   }
 
@@ -109,22 +108,24 @@ export class CreateDwellingComponent implements OnInit {
       })
       .subscribe(
         () => {
-          this.alertService.success('creado con éxito', this.options);
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 1500);
+          this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
         () => {
-          this.alertService.error('error', this.options);
+          this.alertService.error(
+            'Error, Todos los campos son obligatorios',
+            this.options
+          );
         }
       );
   }
 
-  public onSubmitResident(): void{
-    console.log(this.residentFormGroup.value);
-    console.log(this.ownerFormGroup.value);
-    console.log(this.paymasterFormGroup.value);
-    console.log(this.createFormGroup.value);
+  public onSubmitResident(): void {
+    let usernamePaymaster: string;
+    if (this.radioGroupForm.value.model === 'Residente') {
+      usernamePaymaster = this.residentFormGroup.value.username;
+    } else {
+      usernamePaymaster = this.ownerFormGroup.value.username;
+    }
     this.svcCreateNewDWelling
       .createDwellingWithResident({
         full_address: {
@@ -138,7 +139,7 @@ export class CreateDwellingComponent implements OnInit {
           gate: this.createFormGroup.value.gate,
         },
         paymaster: {
-          username: this.ownerFormGroup.value.username,
+          username: usernamePaymaster,
           iban: this.paymasterFormGroup.value.iban,
           payment_type: 'BANK',
         },
@@ -185,16 +186,14 @@ export class CreateDwellingComponent implements OnInit {
       })
       .subscribe(
         () => {
-          this.alertService.success('creado con éxito', this.options);
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 1500);
+          this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
         () => {
-          this.alertService.error('error', this.options);
+          this.alertService.error(
+            'Error, Todos los campos son obligatorios',
+            this.options
+          );
         }
       );
   }
-
-
 }

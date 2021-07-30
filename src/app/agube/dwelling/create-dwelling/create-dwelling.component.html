@@ -1,4 +1,5 @@
 <div class="table-card table-config">
+  <app-notification></app-notification>
   <h4>Alta vivienda</h4>
   <form
     [formGroup]="createFormGroup"
@@ -11,6 +12,7 @@
           type="text"
           formControlName="street"
           class="form-control"
+          required
           [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
         />
         <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
@@ -23,6 +25,7 @@
           type="number"
           formControlName="number"
           class="form-control"
+          required
           [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
         />
         <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
@@ -35,6 +38,7 @@
           type="number"
           formControlName="flat"
           class="form-control"
+          required
           [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
         />
         <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
@@ -47,6 +51,7 @@
           type="text"
           formControlName="gate"
           class="form-control"
+          required
           [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
         />
         <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
@@ -60,6 +65,7 @@
           type="text"
           formControlName="city"
           class="form-control"
+          required
           [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
         />
         <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
@@ -72,6 +78,7 @@
           type="text"
           formControlName="waterMeter"
           class="form-control"
+          required
           [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
         />
         <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
@@ -104,15 +111,12 @@
 
       <div class="col-sm-5" style="margin-top: 34px;">
         <form [formGroup]="radioGroupForm">
-          <div class="btn-group btn-group-toggle d-flex">
-            <label class="btn-primary" ngbButtonLabel>
-              <input type="checkbox" formControlName="owner" ngbButton />
-              Propietario
+          <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
+            <label ngbButtonLabel class="btn-outline-primary">
+              <input ngbButton type="radio" [value]="1"> Propietario
             </label>
-
-            <label class="btn-primary" ngbButtonLabel>
-              <input type="checkbox" formControlName="resident" ngbButton />
-              Residente
+            <label ngbButtonLabel class="btn-outline-primary">
+              <input ngbButton type="radio" [value]="'Residente'"> Residente
             </label>
           </div>
         </form>
