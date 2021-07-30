@@ -13,6 +13,6 @@ import { ChangeOwnerComponent } from './change-owner.component';
     BrowserModule,
     FormsModule,
     NotificationModule,
-  ],
+  ]
 })
 export class ChangeOwnerModule {}

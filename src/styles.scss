@@ -51,7 +51,7 @@ body {
 .btn-primary:focus,
 .btn-primary.focus {
   background-color: $color-primary !important;
-  border:1 solid $color-primary;
+  border: 1 solid $color-primary;
 }
 
 .container-login {
@@ -65,7 +65,7 @@ app-login {
   height: $height-x-large;
   margin-left: $margin-medium;
   border: 0px solid black;
-  background-color: $color-primary-light
+  background-color: $color-primary-light;
 }
 ::ng-deep .task-fe {
   margin-top: $margin-x-medium !important;

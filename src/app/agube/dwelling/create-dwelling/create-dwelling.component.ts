@@ -14,30 +14,15 @@ export class CreateDwellingComponent implements OnInit {
   public createFormGroup: FormGroup;
   public ownerFormGroup: FormGroup;
   public residentFormGroup: FormGroup;
+  public paymasterFormGroup: FormGroup;
+  public radioGroupForm: FormGroup;
+
   public submitted = false;
   public options = {
     autoClose: false,
     keepAfterRouteChange: false,
   };
-  public ownerId: string;
-  public userId: string;
-  public name: string;
-  public lastName: string;
-  public email: string;
-  public username: string;
-  public phone: string;
 
-  public residentId: string;
-  public userIdRes: string;
-  public residentData: any;
-
-  public nameRes: string;
-  public lastNameRes: string;
-  public emailRes: string;
-  public usernameRes: string;
-  public phoneRes: string;
-
-  public paymaster: any;
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
     public alertService: NotificationService,
@@ -52,6 +37,7 @@ export class CreateDwellingComponent implements OnInit {
       gate: ['', Validators.required],
       flat: ['', Validators.required],
       city: ['', Validators.required],
+      waterMeter: ['', Validators.required],
     });
     this.residentFormGroup = this.formBuilder.group({
       nameRes: ['', Validators.required],
@@ -66,6 +52,14 @@ export class CreateDwellingComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],
+      address: ['', Validators.required],
+    });
+    this.paymasterFormGroup = this.formBuilder.group({
+      iban: ['', Validators.required],
+    });
+    this.radioGroupForm = this.formBuilder.group({
+      owner: true,
+      resident: false,
     });
   }
 
@@ -73,92 +67,121 @@ export class CreateDwellingComponent implements OnInit {
     return this.createFormGroup.controls;
   }
 
-  public paymasterClick(event: any): void {
-    console.log(event);
-  }
-
-  public paymasterClickRes(event: any): void {
-    console.log(event);
-  }
+  // FIXME : CAMBIAR IBAN EN EL FUTURO --- POSIBLE CAMBIO DE API
   public onSubmitOwner(): void {
-    console.log('direccion', this.createFormGroup.value);
-    console.log('propietario', this.ownerFormGroup.value);
-  }
-  public onSubmitResident(): void {
-    console.log('Residente', this.residentFormGroup.value);
-  }
-  public sendForm(event: any): void {
-    if (event.resident === false || event.resident === null) {
-      this.createDwelling(event);
-    } else {
-      this.createDwellingWithResident(event);
-    }
+    this.svcCreateNewDWelling
+      .createDwelling({
+        full_address: {
+          address: {
+            town: this.createFormGroup.value.city,
+            street: this.createFormGroup.value.street,
+            is_external: true,
+          },
+          number: this.createFormGroup.value.number,
+          flat: this.createFormGroup.value.flat,
+          gate: this.createFormGroup.value.gate,
+        },
+        paymaster: {
+          username: this.ownerFormGroup.value.username,
+          iban: '123456789',
+          payment_type: 'BANK',
+        },
+        owner: {
+          username: this.ownerFormGroup.value.username,
+          first_name: this.ownerFormGroup.value.name,
+          last_name: this.ownerFormGroup.value.lastName,
+          email: this.ownerFormGroup.value.email,
+          phones: [{ phone_number: this.ownerFormGroup.value.phone }],
+          address: [
+            {
+              address: {
+                town: this.createFormGroup.value.city,
+                street: this.createFormGroup.value.street,
+                is_external: true,
+              },
+              number: this.createFormGroup.value.number,
+              flat: this.createFormGroup.value.flat,
+              gate: this.createFormGroup.value.gate,
+            },
+          ],
+        },
+        water_meter: { code: this.createFormGroup.value.waterMeter },
+      })
+      .subscribe(
+        () => {
+          this.alertService.success('creado con éxito', this.options);
+          setTimeout(() => {
+            this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          }, 1500);
+        },
+        () => {
+          this.alertService.error('error', this.options);
+        }
+      );
   }
 
-  private createDwelling(event: any): void {
-    if (event.pagador === true) {
-      this.username = event.username;
-    } else {
-      this.username = event.usernameRes;
-    }
-
+  public onSubmitResident(): void{
+    console.log(this.residentFormGroup.value);
+    console.log(this.ownerFormGroup.value);
+    console.log(this.paymasterFormGroup.value);
+    console.log(this.createFormGroup.value);
     this.svcCreateNewDWelling
       .createDwellingWithResident({
         full_address: {
           address: {
-            town: event.town,
-            street: event.address,
+            town: this.createFormGroup.value.city,
+            street: this.createFormGroup.value.street,
             is_external: true,
           },
-          number: event.number,
-          flat: event.flat,
-          gate: event.gate,
+          number: this.createFormGroup.value.number,
+          flat: this.createFormGroup.value.flat,
+          gate: this.createFormGroup.value.gate,
         },
         paymaster: {
-          username: this.username,
-          iban: event.numberBank,
+          username: this.ownerFormGroup.value.username,
+          iban: this.paymasterFormGroup.value.iban,
           payment_type: 'BANK',
         },
         owner: {
-          username: event.username,
-          first_name: event.first_name,
-          last_name: event.last_name,
-          email: event.email,
-          phones: [{ phone_number: event.phones }],
+          username: this.ownerFormGroup.value.username,
+          first_name: this.ownerFormGroup.value.name,
+          last_name: this.ownerFormGroup.value.lastName,
+          email: this.ownerFormGroup.value.email,
+          phones: [{ phone_number: this.ownerFormGroup.value.phone }],
           address: [
             {
               address: {
-                town: event.town,
-                street: event.addressOwner,
+                town: this.createFormGroup.value.city,
+                street: this.ownerFormGroup.value.address,
                 is_external: true,
               },
-              number: event.number,
-              flat: event.flat,
-              gate: event.gate,
+              number: this.createFormGroup.value.number,
+              flat: this.createFormGroup.value.flat,
+              gate: this.createFormGroup.value.gate,
             },
           ],
         },
 
         resident: {
-          username: event.usernameRes,
-          first_name: event.first_nameRes,
-          last_name: event.last_nameRes,
-          email: event.emailRes,
-          phones: [{ phone_number: event.phonesRes }],
+          username: this.residentFormGroup.value.usernameRes,
+          first_name: this.residentFormGroup.value.nameRes,
+          last_name: this.residentFormGroup.value.lastNameRes,
+          email: this.residentFormGroup.value.emailRes,
+          phones: [{ phone_number: this.residentFormGroup.value.phoneRes }],
           address: [
             {
               address: {
-                town: event.town,
-                street: event.addressRes,
+                town: this.createFormGroup.value.city,
+                street: this.createFormGroup.value.street,
                 is_external: true,
               },
-              number: event.number,
-              flat: event.flat,
-              gate: event.gate,
+              number: this.createFormGroup.value.number,
+              flat: this.createFormGroup.value.flat,
+              gate: this.createFormGroup.value.gate,
             },
           ],
         },
-        water_meter: { code: event.code },
+        water_meter: { code: this.createFormGroup.value.waterMeter },
       })
       .subscribe(
         () => {
@@ -173,56 +196,5 @@ export class CreateDwellingComponent implements OnInit {
       );
   }
 
-  private createDwellingWithResident(event: any): void {
-    this.username = event.username;
-    this.svcCreateNewDWelling
-      .createDwelling({
-        full_address: {
-          address: {
-            town: event.town,
-            street: event.address,
-            is_external: true,
-          },
-          number: event.number,
-          flat: event.flat,
-          gate: event.gate,
-        },
-        paymaster: {
-          username: this.username,
-          iban: event.numberBank,
-          payment_type: 'BANK',
-        },
-        owner: {
-          username: event.username,
-          first_name: event.first_name,
-          last_name: event.last_name,
-          email: event.email,
-          phones: [{ phone_number: event.phones }],
-          address: [
-            {
-              address: {
-                town: event.town,
-                street: event.addressOwner,
-                is_external: true,
-              },
-              number: event.number,
-              flat: event.flat,
-              gate: event.gate,
-            },
-          ],
-        },
-        water_meter: { code: event.code },
-      })
-      .subscribe(
-        () => {
-          this.alertService.success('creado con éxito', this.options);
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 1500);
-        },
-        () => {
-          this.alertService.error('error', this.options);
-        }
-      );
-  }
+
 }

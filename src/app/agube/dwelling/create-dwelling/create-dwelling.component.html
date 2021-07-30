@@ -30,18 +30,6 @@
         </div>
       </div>
       <div class="col-sm-2">
-        <label for="gate">Puerta</label>
-        <input
-          type="text"
-          formControlName="gate"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
-        />
-        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
-          <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
-        </div>
-      </div>
-      <div class="col-sm-2">
         <label for="flat">Piso</label>
         <input
           type="number"
@@ -53,6 +41,19 @@
           <div *ngIf="f.flat.errors.required">Se requiere una puerta</div>
         </div>
       </div>
+      <div class="col-sm-2">
+        <label for="gate">Puerta</label>
+        <input
+          type="text"
+          formControlName="gate"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
+        />
+        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
+          <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
+        </div>
+      </div>
+
       <div class="col-sm-5" colspan="4">
         <label for="city">Ciudad</label>
         <input
@@ -65,9 +66,59 @@
           <div *ngIf="f.city.errors.required">Se requiere una ciudad</div>
         </div>
       </div>
+      <div class="col-sm-6">
+        <label for="waterMeter">Cód. Contador</label>
+        <input
+          type="text"
+          formControlName="waterMeter"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
+        />
+        <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
+          <div *ngIf="f.waterMeter.errors.required">
+            Se requiere un código de contador
+          </div>
+        </div>
+      </div>
     </div>
   </form>
+  <h4>Pagador</h4>
 
+  <form
+    [formGroup]="paymasterFormGroup"
+    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+  >
+    <div class="row" style="margin-right: -21%">
+      <div class="col-sm-5">
+        <label for="iban">IBAN</label>
+        <input
+          type="text"
+          formControlName="iban"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.iban.errors }"
+        />
+        <div *ngIf="submitted && f.iban.errors" class="invalid-feedback">
+          <div *ngIf="f.iban.errors.required">Se requiere un iban</div>
+        </div>
+      </div>
+
+      <div class="col-sm-5" style="margin-top: 34px;">
+        <form [formGroup]="radioGroupForm">
+          <div class="btn-group btn-group-toggle d-flex">
+            <label class="btn-primary" ngbButtonLabel>
+              <input type="checkbox" formControlName="owner" ngbButton />
+              Propietario
+            </label>
+
+            <label class="btn-primary" ngbButtonLabel>
+              <input type="checkbox" formControlName="resident" ngbButton />
+              Residente
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </form>
   <h4>Propietario</h4>
 
   <form
@@ -75,10 +126,7 @@
     (ngSubmit)="(onSubmitOwner)"
     style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
   >
-  <label ngbButtonLabel class="btn-primary p-1">
-    <input ngbButton  NgbCheckBox type="radio" value="pagador" (click)="paymasterClick($event)" /> Pagador
-  </label>
-    <div class="row" style="margin-right: -21%">
+   <div class="row" style="margin-right: -21%">
       <div class="col-sm-5">
         <label for="name">Nombre</label>
         <input
@@ -86,7 +134,6 @@
           formControlName="name"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-          [(ngModel)]="name"
         />
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
           <div *ngIf="f.name.errors.required">Se requiere un nombre</div>
@@ -99,7 +146,6 @@
           formControlName="lastName"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-          [(ngModel)]="lastName"
         />
         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
           <div *ngIf="f.lastName.errors.required">Se requiere un apellido</div>
@@ -112,7 +158,6 @@
           formControlName="username"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-          [(ngModel)]="username"
         />
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
           <div *ngIf="f.username.errors.required">Se requiere un username</div>
@@ -125,7 +170,6 @@
           formControlName="email"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-          [(ngModel)]="email"
         />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Se requiere un email</div>
@@ -138,11 +182,26 @@
           formControlName="phone"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
-          [(ngModel)]="phone"
         />
         <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
           <div *ngIf="f.phone.errors.required">Se requiere un teléfono</div>
         </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="address">Dirección <span style="color:red">*</span></label>
+        <input
+          type="text"
+          formControlName="address"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+        />
+        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+          <div *ngIf="f.address.errors.required">Se requiere una dirección</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <span style="color: red;">* Solo agrega el propietario y el residente </span> <br/>
+        <span style="color: red;">** Agregar la dirección si es distinta que la vivienda de alta </span>
       </div>
       <div class="col-sm-5">
         <button
@@ -152,6 +211,7 @@
           style="margin-top: 33px"
         >
           Agregar Propietario
+          <span style="color:red">**</span>
         </button>
       </div>
     </div>
@@ -160,12 +220,11 @@
 
   <form
     [formGroup]="residentFormGroup"
-    (ngSubmit)="(onSubmitResident)"
     style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
   >
-  <label ngbButtonLabel class="btn-primary p-1">
+    <!-- <label ngbButtonLabel class="btn-primary p-1" disabled="disabledRes">
     <input ngbButton type="radio" value="middle" (click)="paymasterClickRes($event)" /> Pagador
-  </label>
+  </label> -->
     <div class="row" style="margin-right: -21%">
       <div class="col-sm-5">
         <label for="nameRes">Nombre</label>
@@ -174,7 +233,6 @@
           formControlName="nameRes"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.nameRes.errors }"
-          [(ngModel)]="nameRes"
         />
         <div *ngIf="submitted && f.nameRes.errors" class="invalid-feedback">
           <div *ngIf="f.nameRes.errors.required">Se requiere un nombre</div>
@@ -187,7 +245,6 @@
           formControlName="lastNameRes"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-          [(ngModel)]="lastNameRes"
         />
         <div *ngIf="submitted && f.lastNameRes.errors" class="invalid-feedback">
           <div *ngIf="f.lastNameRes.errors.required">
@@ -202,7 +259,6 @@
           formControlName="usernameRes"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
-          [(ngModel)]="usernameRes"
         />
         <div *ngIf="submitted && f.usernameRes.errors" class="invalid-feedback">
           <div *ngIf="f.usernameRes.errors.required">
@@ -217,7 +273,6 @@
           formControlName="emailRes"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
-          [(ngModel)]="emailRes"
         />
         <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
           <div *ngIf="f.emailRes.errors.required">Se requiere un email</div>
@@ -230,7 +285,6 @@
           formControlName="phoneRes"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted && f.phoneRes.errors }"
-          [(ngModel)]="phoneRes"
         />
         <div *ngIf="submitted && f.phoneRes.errors" class="invalid-feedback">
           <div *ngIf="f.phoneRes.errors.required">Se requiere un teléfono</div>
@@ -243,9 +297,10 @@
           (click)="onSubmitResident()"
           style="margin-top: 33px"
         >
-          Agregar Residente
+          Agregar Residente y Propietario
         </button>
       </div>
     </div>
   </form>
+
 </div>
