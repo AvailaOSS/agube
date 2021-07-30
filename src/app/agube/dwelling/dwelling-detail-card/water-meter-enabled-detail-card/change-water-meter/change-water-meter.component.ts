@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService } from '@availa/agube-rest-api';
+import { DwellingService, WaterMeter } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AgubeRoute } from 'src/app/agube/agube-route';
 
@@ -10,16 +11,22 @@ import { AgubeRoute } from 'src/app/agube/agube-route';
   styleUrls: ['./change-water-meter.component.scss'],
 })
 export class ChangeWaterMeterComponent implements OnInit {
+  @Input() titleFormWaterMeter?: string = 'Cambio de Contador';
+  public waterMeterFormGroup: FormGroup;
+  public submitted = false;
+  public options = {
+    autoClose: true,
+    keepAfterRouteChange: false,
+  };
   public waterMeterId: string;
-  public error = true;
-  public errorMessage: string;
-  public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
-
+  public waterMeter: WaterMeter;
+  public waterMeterCode: string;
   constructor(
     private readonly route: ActivatedRoute,
     private readonly svcChangeWaterMeter: DwellingService,
     private readonly alertService: NotificationService,
-    private readonly svcRouter: Router
+    private readonly svcRouter: Router,
+    private formBuilder: FormBuilder
   ) {
     this.route.queryParams.subscribe((params) => {
       this.waterMeterId = params.data;
@@ -29,23 +36,27 @@ export class ChangeWaterMeterComponent implements OnInit {
       .getCurrentDwellingWaterMeter(+this.waterMeterId)
       .subscribe((value) => {
         console.log(value);
-        this.formConfigurationData.emit(value);
+        this.waterMeter = value;
+        this.waterMeterCode = value.code;
       });
   }
 
-  public ngOnInit(): void {}
-
-  public sendForm(event: any): void {
+  public ngOnInit(): void {
+    this.waterMeterFormGroup = this.formBuilder.group({
+      waterMeter: ['', Validators.required],
+    });
+  }
+  get f() {
+    return this.waterMeterFormGroup.controls;
+  }
+  public onSubmit(): void {
     this.svcChangeWaterMeter
       .changeCurrentDwellingWaterMeter(+this.waterMeterId, {
-        code: event.code,
+        code: this.waterMeterFormGroup.value.waterMeter,
       })
       .subscribe(
         (value) => {
-          this.alertService.success('Actualizado con éxito');
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 2000);
+          this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
         (error) => {
           this.alertService.error('Error al actualizad ' + error.error.status);
