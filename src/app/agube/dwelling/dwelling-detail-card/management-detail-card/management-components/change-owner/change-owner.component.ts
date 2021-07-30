@@ -1,8 +1,10 @@
 import { AgubeRoute } from './../../../../../agube-route';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService } from '@availa/agube-rest-api';
+import { DwellingService, Owner } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isUndefined } from 'lodash';
 
 @Component({
   selector: 'app-change-owner',
@@ -10,54 +12,85 @@ import { NotificationService } from '@availa/notification';
   styleUrls: ['./change-owner.component.scss'],
 })
 export class ChangeOwnerComponent implements OnInit {
+  @Input() titleFormOwner?: string = 'Cambio de Propietario';
+  public ownerFormGroup: FormGroup;
+  public submitted = false;
+  public options = {
+    autoClose: false,
+    keepAfterRouteChange: false,
+  };
   public ownerId: string;
   public userId: string;
-  public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
+  public ownerData: Owner;
+  public owner: Owner;
+  public name: string;
+  public lastName: string;
+  public email: string;
+  public username: string;
+  public phone: string;
 
   constructor(
     private svcRouter: Router,
     private route: ActivatedRoute,
     private readonly svcChangeOwner: DwellingService,
-    private readonly alertService: NotificationService
+    private readonly alertService: NotificationService,
+    private formBuilder: FormBuilder
   ) {
     this.route.queryParams.subscribe((params) => {
       this.ownerId = params.data;
       this.userId = params.user_id;
     });
-    this.svcChangeOwner.getCurrentOwner(+this.ownerId).subscribe((value) => {
-      this.formConfigurationData.emit(value);
+    this.svcChangeOwner
+      .getCurrentOwner(+this.ownerId)
+      .subscribe((value: Owner[]) => {
+        this.owner = value as unknown as Owner;
+        this.ownerData = this.owner;
+        this.name = this.owner.user.first_name;
+        this.lastName = this.owner.user.last_name;
+        this.email = this.owner.user.email;
+        this.username = this.owner.user.username;
+        this.owner.user.phones.map((ph) => {
+          this.phone = ph.phone_number;
+        });
+      });
+  }
+  get f() {
+    return this.ownerFormGroup.controls;
+  }
+  public ngOnInit(): void {
+    this.ownerFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
     });
   }
-
-  public ngOnInit(): void {
-    //
-  }
-
-  public sendForm(event: any): void {
+  public onSubmit(): void {
     this.svcChangeOwner
       .changeCurrentOwner(+this.ownerId, {
         user: {
           address: [
             {
               address: {
-                street: event.addressOwner,
-                town: event.town,
+                street: this.ownerData.user.address[0].address.street,
+                town: this.ownerData.user.address[0].address.town,
                 is_external: true,
               },
-              number: event.number,
-              flat: event.flat,
-              gate: event.gate,
+              number: this.ownerData.user.address[0].number,
+              flat: this.ownerData.user.address[0].flat,
+              gate: this.ownerData.user.address[0].gate,
             },
           ],
-          username: event.username,
+          username: this.ownerFormGroup.value.username,
           phones: [
             {
-              phone_number: event.phones,
+              phone_number: this.ownerFormGroup.value.phone,
             },
           ],
-          email: event.email,
-          first_name: event.first_name,
-          last_name: event.last_name,
+          email: this.ownerFormGroup.value.email,
+          first_name: this.ownerFormGroup.value.name,
+          last_name: this.ownerFormGroup.value.lastName,
         },
       })
       .subscribe(
