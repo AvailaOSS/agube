@@ -1,8 +1,12 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService } from '@availa/agube-rest-api';
+import {
+  DwellingService,
+  Resident,
+} from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../../../../agube-route';
 import { NotificationService } from '@availa/notification';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-change-resident',
@@ -10,15 +14,29 @@ import { NotificationService } from '@availa/notification';
   styleUrls: ['./change-resident.component.scss'],
 })
 export class ChangeResidentComponent implements OnInit {
+  @Input() titleFormResident?: string = 'Cambio de residente';
+  public residentFormGroup: FormGroup;
+  public submitted = false;
+  public options = {
+    autoClose: false,
+    keepAfterRouteChange: false,
+  };
   public residentId: string;
   public userId: string;
-  public formConfigurationData: EventEmitter<any> = new EventEmitter<any>();
+  public residentData: any;
+
+  public name: string;
+  public lastName: string;
+  public email: string;
+  public username: string;
+  public phone: string;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly svcRouter: Router,
     private readonly svcChangeResident: DwellingService,
-    private readonly alertService: NotificationService
+    private readonly alertService: NotificationService,
+    private formBuilder: FormBuilder
   ) {
     this.route.queryParams.subscribe((params) => {
       this.residentId = params.data;
@@ -26,40 +44,55 @@ export class ChangeResidentComponent implements OnInit {
     });
     this.svcChangeResident
       .getCurrentResident(+this.residentId)
-      .subscribe((value) => {
-        this.formConfigurationData.emit(value);
+      .subscribe((value: Resident) => {
+        this.residentData = value;
+        this.name = value.user.first_name;
+        this.lastName = value.user.last_name;
+        this.email = value.user.email;
+        this.username = value.user.username;
+        value.user.phones.map((ph) => {
+          this.phone = ph.phone_number;
+        });
       });
   }
-
+  get f() {
+    return this.residentFormGroup.controls;
+  }
   public ngOnInit(): void {
-    //
+    this.residentFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+    });
   }
 
-  public sendForm(event: any): void {
+  public onSubmit(): void {
     this.svcChangeResident
       .changeCurrentResident(+this.residentId, {
         user: {
           address: [
             {
               address: {
-                street: event.addressRes,
-                town: event.town,
+                street: this.residentData.user.address[0].address.street,
+                town: this.residentData.user.address[0].address.town,
                 is_external: true,
               },
-              number: event.number,
-              flat: event.flat,
-              gate: event.gate,
+              number: +this.residentData.user.address[0].number,
+              flat: this.residentData.user.address[0].flat,
+              gate: this.residentData.user.address[0].gate,
             },
           ],
-          username: event.usernameRes,
+          username: this.residentFormGroup.value.username,
           phones: [
             {
-              phone_number: event.phonesRes,
+              phone_number: this.residentFormGroup.value.phone,
             },
           ],
-          email: event.emailRes,
-          first_name: event.first_nameRes,
-          last_name: event.last_nameRes,
+          email: this.residentFormGroup.value.email,
+          first_name: this.residentFormGroup.value.name,
+          last_name: this.residentFormGroup.value.lastName,
         },
       })
       .subscribe(
@@ -70,7 +103,7 @@ export class ChangeResidentComponent implements OnInit {
           }, 1500);
         },
         (error) => {
-          this.alertService.error('Error al actualizar' + error.error.status);
+          this.alertService.error('Error al actualizar ' + error.message);
         }
       );
   }
