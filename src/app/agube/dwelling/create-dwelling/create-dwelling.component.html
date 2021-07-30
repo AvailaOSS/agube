@@ -3,9 +3,10 @@
   <h4>Alta vivienda</h4>
   <form
     [formGroup]="createFormGroup"
-    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+    class="border-forms"
+
   >
-    <div class="row" style="margin-right: -9%">
+    <div class="row margin-adaptation" >
       <div class="col-sm-5">
         <label for="street">Calle</label>
         <input
@@ -93,9 +94,9 @@
 
   <form
     [formGroup]="paymasterFormGroup"
-    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+    class="border-forms"
   >
-    <div class="row" style="margin-right: -21%">
+    <div class="row margin-adaptation-generic" >
       <div class="col-sm-5">
         <label for="iban">IBAN</label>
         <input
@@ -109,7 +110,7 @@
         </div>
       </div>
 
-      <div class="col-sm-5" style="margin-top: 34px;">
+      <div class="col-sm-5 margin-adaptation-radio" >
         <form [formGroup]="radioGroupForm">
           <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
             <label ngbButtonLabel class="btn-outline-primary">
@@ -128,9 +129,9 @@
   <form
     [formGroup]="ownerFormGroup"
     (ngSubmit)="(onSubmitOwner)"
-    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+   class="border-forms"
   >
-   <div class="row" style="margin-right: -21%">
+   <div class="row margin-adaptation-generic " >
       <div class="col-sm-5">
         <label for="name">Nombre</label>
         <input
@@ -192,7 +193,7 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="address">Dirección <span style="color:red">*</span></label>
+        <label for="address">Dirección <span class="color-danger">*</span></label>
         <input
           type="text"
           formControlName="address"
@@ -204,18 +205,18 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <span style="color: red;">* Solo agrega el propietario y el residente </span> <br/>
-        <span style="color: red;">** Agregar la dirección si es distinta que la vivienda de alta </span>
+        <span class="color-danger">* Solo agrega el propietario y el residente </span> <br/>
+        <span class="color-danger">** Agregar la dirección si es distinta que la vivienda de alta </span>
       </div>
       <div class="col-sm-5">
         <button
-          class="btn btn-primary w-100 h-50"
+          class="btn btn-primary w-100 h-50 margin-buttons-forms"
           type="button"
           (click)="onSubmitOwner()"
-          style="margin-top: 33px"
+
         >
           Agregar Propietario
-          <span style="color:red">**</span>
+          <span class="color-danger">**</span>
         </button>
       </div>
     </div>
@@ -224,12 +225,9 @@
 
   <form
     [formGroup]="residentFormGroup"
-    style="border: 1px solid lightgray; padding: 10px; border-radius: 10px"
+    class="border-forms"
   >
-    <!-- <label ngbButtonLabel class="btn-primary p-1" disabled="disabledRes">
-    <input ngbButton type="radio" value="middle" (click)="paymasterClickRes($event)" /> Pagador
-  </label> -->
-    <div class="row" style="margin-right: -21%">
+    <div class="row margin-adaptation-generic" >
       <div class="col-sm-5">
         <label for="nameRes">Nombre</label>
         <input
@@ -296,10 +294,10 @@
       </div>
       <div class="col-sm-5">
         <button
-          class="btn btn-primary w-100 h-50"
+          class="btn btn-primary w-100 h-50 margin-buttons-forms"
           type="button"
           (click)="onSubmitResident()"
-          style="margin-top: 33px"
+
         >
           Agregar Residente y Propietario
         </button>
