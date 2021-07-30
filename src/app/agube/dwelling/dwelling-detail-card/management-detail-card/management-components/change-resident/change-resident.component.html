@@ -1,6 +1,9 @@
 <div class="table-card table-config">
   <app-notification></app-notification>
   <h4>{{ titleFormResident }}</h4>
+  <span class="color-danger"
+    >*Asegúrese antes de cambiar de residente , que no sea un pagador</span
+  >
   <form
     [formGroup]="residentFormGroup"
     (ngSubmit)="(onSubmit)"
@@ -77,7 +80,6 @@
           class="btn btn-primary w-100 h-50 margin-buttons-forms"
           type="button"
           (click)="onSubmit()"
-
         >
           {{ titleFormResident }}
         </button>
