@@ -1,6 +1,7 @@
 <div class="table-card table-config">
   <app-notification></app-notification>
   <h4>{{ titleFormOwner }}</h4>
+  <span class="color-danger">*Asegúrese antes de cambiar de propietario , que no sea un pagador</span>
   <form
     [formGroup]="ownerFormGroup"
     (ngSubmit)="(onSubmit)"

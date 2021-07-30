@@ -16,7 +16,7 @@ export class ChangeOwnerComponent implements OnInit {
   public ownerFormGroup: FormGroup;
   public submitted = false;
   public options = {
-    autoClose: false,
+    autoClose: true,
     keepAfterRouteChange: false,
   };
   public ownerId: string;
@@ -95,13 +95,13 @@ export class ChangeOwnerComponent implements OnInit {
       })
       .subscribe(
         () => {
-          this.alertService.success('Actualizado con éxito');
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 1500);
+          this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
         (error) => {
-          this.alertService.error('Error ' + error.error.status);
+          this.alertService.error(
+            'Error' + error.error.status,
+            this.options
+          );
         }
       );
   }

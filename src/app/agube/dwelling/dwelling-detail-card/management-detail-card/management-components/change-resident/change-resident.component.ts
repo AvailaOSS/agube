@@ -1,9 +1,6 @@
 import { Component, EventEmitter, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  DwellingService,
-  Resident,
-} from '@availa/agube-rest-api';
+import { DwellingService, Resident } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../../../../agube-route';
 import { NotificationService } from '@availa/notification';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +15,7 @@ export class ChangeResidentComponent implements OnInit {
   public residentFormGroup: FormGroup;
   public submitted = false;
   public options = {
-    autoClose: false,
+    autoClose: true,
     keepAfterRouteChange: false,
   };
   public residentId: string;
@@ -97,13 +94,11 @@ export class ChangeResidentComponent implements OnInit {
       })
       .subscribe(
         () => {
-          this.alertService.success('Actualizado con éxito');
-          setTimeout(() => {
-            this.svcRouter.navigate([AgubeRoute.DWELLING]);
-          }, 1500);
+          this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
         (error) => {
-          this.alertService.error('Error al actualizar ' + error.message);
+          console.log(error);
+          this.alertService.error('Error al actualizar', error.error.status);
         }
       );
   }
