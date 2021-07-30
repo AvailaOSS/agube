@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class CreateDwellingComponent implements OnInit {
   public createFormGroup: FormGroup;
+  public ownerFormGroup: FormGroup;
+  public residentFormGroup: FormGroup;
   public submitted = false;
   public options = {
     autoClose: false,
@@ -25,6 +27,17 @@ export class CreateDwellingComponent implements OnInit {
   public username: string;
   public phone: string;
 
+  public residentId: string;
+  public userIdRes: string;
+  public residentData: any;
+
+  public nameRes: string;
+  public lastNameRes: string;
+  public emailRes: string;
+  public usernameRes: string;
+  public phoneRes: string;
+
+  public paymaster: any;
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
     public alertService: NotificationService,
@@ -40,14 +53,39 @@ export class CreateDwellingComponent implements OnInit {
       flat: ['', Validators.required],
       city: ['', Validators.required],
     });
-    //
+    this.residentFormGroup = this.formBuilder.group({
+      nameRes: ['', Validators.required],
+      lastNameRes: ['', Validators.required],
+      usernameRes: ['', Validators.required],
+      emailRes: ['', Validators.required],
+      phoneRes: ['', Validators.required],
+    });
+    this.ownerFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+    });
   }
 
   get f() {
     return this.createFormGroup.controls;
   }
-  public onSubmit(): void {
-    console.log('hola', this.createFormGroup.value);
+
+  public paymasterClick(event: any): void {
+    console.log(event);
+  }
+
+  public paymasterClickRes(event: any): void {
+    console.log(event);
+  }
+  public onSubmitOwner(): void {
+    console.log('direccion', this.createFormGroup.value);
+    console.log('propietario', this.ownerFormGroup.value);
+  }
+  public onSubmitResident(): void {
+    console.log('Residente', this.residentFormGroup.value);
   }
   public sendForm(event: any): void {
     if (event.resident === false || event.resident === null) {
