@@ -8,7 +8,7 @@ from django.template.loader import get_template
 from manager.models import Person
 from validate_email import validate_email
 
-from dwelling.exceptions import InvalidEmailError
+from dwelling.exceptions import InvalidEmailError, EmailValidationError
 
 
 class EmailType(Enum):
@@ -19,10 +19,12 @@ class EmailType(Enum):
 def send_user_creation_email(user: User, email_type: EmailType):
     app_name = settings.PUBLIC_APP_NAME
 
-    # check that email is valid and has SMTP Server
+    # validate email
     user_email = user.email
-    is_valid = validate_email(user_email, verify=True)
-    if not is_valid:
+    is_valid = validate_email(user_email, check_format=True, check_blacklist=True, check_dns=True, dns_timeout=1, check_smtp=False)
+    if (is_valid==None):
+        raise EmailValidationError(user_email)
+    elif not is_valid:
         raise InvalidEmailError(user_email)
 
     manager = Person.objects.get(user=user).manager

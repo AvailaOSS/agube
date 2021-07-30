@@ -59,3 +59,11 @@ class InvalidEmailError(Exception):
     def __init__(self, email):
         self.message = "Email: " + email + " invalid or does not exist"
         super().__init__(self.message)
+
+class EmailValidationError(Exception):
+    """Exception raised when email could not be verified.
+    """
+
+    def __init__(self, email):
+        self.message = "Email: " + email + " could not be verified"
+        super().__init__(self.message)
