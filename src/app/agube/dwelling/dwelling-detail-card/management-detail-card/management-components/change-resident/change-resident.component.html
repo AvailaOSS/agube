@@ -37,7 +37,11 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="username">username</label>
+        <label for="username">Username</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+          </div>
         <input
           type="text"
           formControlName="username"
@@ -48,9 +52,10 @@
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
           <div *ngIf="f.username.errors.required">Se requiere un username</div>
         </div>
+        </div>
       </div>
       <div class="col-sm-5">
-        <label for="email">email</label>
+        <label for="email">Email</label>
         <input
           type="text"
           formControlName="email"
@@ -63,7 +68,7 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="phone">teléfono</label>
+        <label for="phone">Teléfono</label>
         <input
           type="number"
           formControlName="phone"

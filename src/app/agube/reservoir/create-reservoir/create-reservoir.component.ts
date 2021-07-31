@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ManagerService, ReservoirService } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../agube-route';
 import { NotificationService } from '@availa/notification';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-reservoir',
@@ -10,7 +11,13 @@ import { NotificationService } from '@availa/notification';
   styleUrls: ['./create-reservoir.component.scss'],
 })
 export class CreateReservoirComponent implements OnInit {
-  public error = true;
+  public createFormGroup: FormGroup;
+  public reservoirFormGroup: FormGroup;
+  public submitted = false;
+  public options = {
+    autoClose: true,
+    keepAfterRouteChange: false,
+  };
   public username: string;
   public userId: string;
 
@@ -18,42 +25,60 @@ export class CreateReservoirComponent implements OnInit {
     private router: Router,
     private readonly svcCreateNewReservoir: ReservoirService,
     private readonly svcManager: ManagerService,
-    private readonly alertService: NotificationService
+    private readonly alertService: NotificationService,
+    private formBuilder: FormBuilder
   ) {
     this.svcManager.getManagerByUser().subscribe((value) => {
       this.userId = value.user_id;
     });
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.createFormGroup = this.formBuilder.group({
+      street: ['', Validators.required],
+      number: ['', Validators.required],
+      gate: ['', Validators.required],
+      flat: ['', Validators.required],
+      city: ['', Validators.required],
+      waterMeter: ['', Validators.required],
+    });
+    this.reservoirFormGroup = this.formBuilder.group({
+      capacity: ['', Validators.required],
+      inlet: ['', Validators.required],
+      outlet: ['', Validators.required],
+    });
+  }
+  get f() {
+    return this.createFormGroup.controls;
+  }
 
-  public sendForm(event: any): void {
+  public onSubmitReservoir(): void {
+    console.log('alta', this.createFormGroup.value);
+    console.log('datos', this.reservoirFormGroup.value);
     this.svcCreateNewReservoir
       .createReservoir({
         user_id: +this.userId,
         full_address: {
           address: {
-            town: event.town,
-            street: event.address,
+            town: this.createFormGroup.value.city,
+            street: this.createFormGroup.value.street,
             is_external: true,
           },
-          number: event.number,
-          flat: event.flat,
-          gate: event.gate,
+          number: this.createFormGroup.value.number,
+          flat: this.createFormGroup.value.flat,
+          gate: this.createFormGroup.value.gate,
         },
-        capacity: event.capacity,
-        outlet_flow: event.outlet_flow,
-        inlet_flow: event.inlet_flow,
-        water_meter: { code: event.code },
+        capacity: this.reservoirFormGroup.value.capacity,
+        outlet_flow: this.reservoirFormGroup.value.outlet,
+        inlet_flow: this.reservoirFormGroup.value.inlet,
+        water_meter: { code: this.createFormGroup.value.waterMeter },
       })
       .subscribe(
         (value) => {
-          this.alertService.success('Cambiado con éxito');
-          // this.router.navigate([AgubeRoute.RESERVOIR]);
+          this.router.navigate([AgubeRoute.RESERVOIR]);
         },
         (error) => {
-          // FIXME: throw Notification Service
-          this.error = false;
+          this.alertService.error('Error al actualizar ' + error.error.status);
         }
       );
   }

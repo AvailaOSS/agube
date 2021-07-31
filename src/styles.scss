@@ -86,10 +86,29 @@ app-login {
 .margin-adaptation-generic {
   margin-right: -21%;
 }
-.margin-buttons-forms{
-  margin-top: 33px
+.margin-buttons-forms {
+  margin-top: 33px;
 }
 
-.color-danger{
-  color:red;
+.color-danger {
+  color: red;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle {
+  color: $color-terciary;
+  background-color: $color-primary;
+  border-color: $color-primary;
+}
+
+.btn-outline-primary:hover {
+  color: $color-terciary;
+  background-color: $color-primary;
+  border-color: $color-primary;
+}
+
+.btn-outline-primary {
+  color: $color-terciary;
+  border-color: $color-primary;
 }

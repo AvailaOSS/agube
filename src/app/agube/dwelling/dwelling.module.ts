@@ -9,7 +9,7 @@ import { DwellingDetailCardComponent } from './dwelling-detail-card/dwelling-det
 import { ChangeOwnerModule } from './dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.module';
 import { ChangePaymasterModule } from './dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.module';
 import { ChangeResidentModule } from './dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.module';
-import { DwellingUtilsModule } from './dwelling-detail-card/management-detail-card/management-components/dwelling-utils/dwelling-utils.module';
+
 import { WaterMeterEnabledDetailCardComponent } from './dwelling-detail-card/water-meter-enabled-detail-card/water-meter-enabled-detail-card.component';
 import { DWellingWaterMeterReadingsComponent } from './dwelling-detail-card/water-meter-readings-detail-card/dwelling-water-meter-readings-detail-card.component';
 import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-detail-list.component';
@@ -37,7 +37,6 @@ import { ChangeWaterMeterModule } from './dwelling-detail-card/water-meter-enabl
     ChangeOwnerModule,
     ChangeWaterMeterModule,
     ChangeResidentModule,
-    DwellingUtilsModule,
     ComponentsModule,
     TableModule,
     NewWaterFormModule,

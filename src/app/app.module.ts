@@ -32,7 +32,6 @@ import { TaskRoute } from '@availa/task-fe';
     useValue: {
       routes: [
         { path: AgubeRoute.DWELLING, name: 'Viviendas' },
-        { path: AgubeRoute.WIP, name: 'Lecturas de Contador' },
         { path: AgubeRoute.RESERVOIR, name: 'Depósitos' },
         { path: TaskRoute.INCIDENCE, name: 'Incidencias' },
         { path: AgubeRoute.CONFIG, name: 'Configuración' },
