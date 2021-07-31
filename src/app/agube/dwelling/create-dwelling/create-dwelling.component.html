@@ -1,12 +1,8 @@
 <div class="table-card table-config">
   <app-notification></app-notification>
   <h4>Alta vivienda</h4>
-  <form
-    [formGroup]="createFormGroup"
-    class="border-forms"
-
-  >
-    <div class="row margin-adaptation" >
+  <form [formGroup]="createFormGroup" class="border-forms">
+    <div class="row margin-adaptation">
       <div class="col-sm-5">
         <label for="street">Calle</label>
         <input
@@ -92,13 +88,10 @@
   </form>
   <h4>Pagador</h4>
 
-  <form
-    [formGroup]="paymasterFormGroup"
-    class="border-forms"
-  >
-    <div class="row margin-adaptation-generic" >
+  <form [formGroup]="paymasterFormGroup" class="border-forms">
+    <div class="row margin-adaptation-generic">
       <div class="col-sm-5">
-        <label for="iban">IBAN</label>
+        <label for="iban">Número de cuenta</label>
         <input
           type="text"
           formControlName="iban"
@@ -110,14 +103,19 @@
         </div>
       </div>
 
-      <div class="col-sm-5 margin-adaptation-radio" >
+      <div class="col-sm-5 margin-adaptation-radio">
         <form [formGroup]="radioGroupForm">
-          <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
+          <div
+            class="btn-group btn-group-toggle"
+            ngbRadioGroup
+            name="radioBasic"
+            formControlName="model"
+          >
             <label ngbButtonLabel class="btn-outline-primary">
-              <input ngbButton type="radio" [value]="1"> Propietario
+              <input ngbButton type="radio" [value]="1" /> Propietario
             </label>
             <label ngbButtonLabel class="btn-outline-primary">
-              <input ngbButton type="radio" [value]="'Residente'"> Residente
+              <input ngbButton type="radio" [value]="'Residente'" /> Residente
             </label>
           </div>
         </form>
@@ -129,9 +127,9 @@
   <form
     [formGroup]="ownerFormGroup"
     (ngSubmit)="(onSubmitOwner)"
-   class="border-forms"
+    class="border-forms"
   >
-   <div class="row margin-adaptation-generic " >
+    <div class="row margin-adaptation-generic">
       <div class="col-sm-5">
         <label for="name">Nombre</label>
         <input
@@ -157,19 +155,26 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="username">username</label>
-        <input
-          type="text"
-          formControlName="username"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-        />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required">Se requiere un username</div>
+        <label for="username">Username</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+          </div>
+          <input
+            type="text"
+            formControlName="username"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">
+              Se requiere un username
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="email">email</label>
+        <label for="email">Email</label>
         <input
           type="text"
           formControlName="email"
@@ -181,7 +186,7 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="phone">teléfono</label>
+        <label for="phone">Teléfono</label>
         <input
           type="number"
           formControlName="phone"
@@ -193,7 +198,9 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="address">Dirección <span class="color-danger">*</span></label>
+        <label for="address"
+          >Dirección <span class="color-danger">**</span></label
+        >
         <input
           type="text"
           formControlName="address"
@@ -205,29 +212,30 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <span class="color-danger">* Solo agrega el propietario y el residente </span> <br/>
-        <span class="color-danger">** Agregar la dirección si es distinta que la vivienda de alta </span>
+        <span class="color-danger"
+          >*La misma persona será Propietario y Residente
+        </span>
+        <br />
+        <span class="color-danger"
+          >** Agregar la dirección si es distinta que la vivienda de alta
+        </span>
       </div>
       <div class="col-sm-5">
         <button
           class="btn btn-primary w-100 h-50 margin-buttons-forms"
           type="button"
           (click)="onSubmitOwner()"
-
         >
           Agregar Propietario
-          <span class="color-danger">**</span>
+          <span class="color-danger">*</span>
         </button>
       </div>
     </div>
   </form>
   <h4>Residente</h4>
 
-  <form
-    [formGroup]="residentFormGroup"
-    class="border-forms"
-  >
-    <div class="row margin-adaptation-generic" >
+  <form [formGroup]="residentFormGroup" class="border-forms">
+    <div class="row margin-adaptation-generic">
       <div class="col-sm-5">
         <label for="nameRes">Nombre</label>
         <input
@@ -255,33 +263,30 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <label for="usernameRes">username</label>
-        <input
-          type="text"
-          formControlName="usernameRes"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
-        />
-        <div *ngIf="submitted && f.usernameRes.errors" class="invalid-feedback">
-          <div *ngIf="f.usernameRes.errors.required">
-            Se requiere un username
+        <label for="usernameRes">Username</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+          </div>
+          <input
+            type="text"
+            formControlName="usernameRes"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
+          />
+          <div
+            *ngIf="submitted && f.usernameRes.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.usernameRes.errors.required">
+              Se requiere un username
+            </div>
           </div>
         </div>
       </div>
+
       <div class="col-sm-5">
-        <label for="emailRes">email</label>
-        <input
-          type="text"
-          formControlName="emailRes"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
-        />
-        <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
-          <div *ngIf="f.emailRes.errors.required">Se requiere un email</div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="phoneRes">teléfono</label>
+        <label for="phoneRes">Teléfono</label>
         <input
           type="number"
           formControlName="phoneRes"
@@ -293,16 +298,20 @@
         </div>
       </div>
       <div class="col-sm-5">
+        <span class="color-danger"
+          >*El residente y propietario serán creados de manera separada
+        </span>
+        <br />
+      </div>
+      <div class="col-sm-5">
         <button
           class="btn btn-primary w-100 h-50 margin-buttons-forms"
           type="button"
           (click)="onSubmitResident()"
-
         >
-          Agregar Residente y Propietario
+          Agregar Residente y Propietario <span class="color-danger">*</span>
         </button>
       </div>
     </div>
   </form>
-
 </div>

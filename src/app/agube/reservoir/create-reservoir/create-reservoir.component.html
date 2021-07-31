@@ -1,12 +1,142 @@
 <div  class="table-card table-config">
-  <app-reservoir-utils
-    [titleCard]="'Alta Deposito'"
-    [isHiddenAddress]="false"
-    [isHiddenCount]="false"
-    [isHiddenCapacity]="false"
-    [isHiddenInletFlow]="false"
-    [isHiddenOutletFlow]="false"
-    [error]="error"
-    (sendForm)="sendForm($event)"
-  ></app-reservoir-utils>
+  <app-notification></app-notification>
+  <h4>Alta Depósito</h4>
+  <span class="color-danger">*Todos los datos son obligatorios</span>
+  <form [formGroup]="createFormGroup" class="border-forms">
+    <div class="row margin-adaptation">
+      <div class="col-sm-5">
+        <label for="street">Calle</label>
+        <input
+          type="text"
+          formControlName="street"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
+        />
+        <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+          <div *ngIf="f.street.errors.required">Se requiere una calle</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label for="number">Número</label>
+        <input
+          type="number"
+          formControlName="number"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
+        />
+        <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+          <div *ngIf="f.number.errors.required">Se requiere un número</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label for="flat">Piso</label>
+        <input
+          type="number"
+          formControlName="flat"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
+        />
+        <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
+          <div *ngIf="f.flat.errors.required">Se requiere una puerta</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label for="gate">Puerta</label>
+        <input
+          type="text"
+          formControlName="gate"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
+        />
+        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
+          <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
+        </div>
+      </div>
+
+      <div class="col-sm-5" colspan="4">
+        <label for="city">Ciudad</label>
+        <input
+          type="text"
+          formControlName="city"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+        />
+        <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+          <div *ngIf="f.city.errors.required">Se requiere una ciudad</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <label for="waterMeter">Cód. Contador</label>
+        <input
+          type="text"
+          formControlName="waterMeter"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
+        />
+        <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
+          <div *ngIf="f.waterMeter.errors.required">
+            Se requiere un código de contador
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <h4>Datos Importantes</h4>
+
+  <form [formGroup]="reservoirFormGroup" class="border-forms">
+    <div class="row margin-adaptation-generic">
+      <div class="col-sm-5">
+        <label for="capacity">Capacidad</label>
+        <input
+          type="text"
+          formControlName="capacity"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.capacity.errors }"
+        />
+        <div *ngIf="submitted && f.capacity.errors" class="invalid-feedback">
+          <div *ngIf="f.capacity.errors.required">Se requiere una Capacidad</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="inlet">Entrada de agua</label>
+        <input
+          type="number"
+          formControlName="inlet"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.inlet.errors }"
+        />
+        <div *ngIf="submitted && f.inlet.errors" class="invalid-feedback">
+          <div *ngIf="f.inlet.errors.required">Se requiere una entrada de agua</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <label for="outlet">Salida de agua</label>
+        <input
+          type="number"
+          formControlName="outlet"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.outlet.errors }"
+        />
+        <div *ngIf="submitted && f.outlet.errors" class="invalid-feedback">
+          <div *ngIf="f.outlet.errors.required">Se requiere una salida de agua</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <button
+          class="btn btn-primary w-100 h-50 margin-buttons-forms"
+          type="button"
+          (click)="onSubmitReservoir()"
+        >
+          Agregar Depósitos
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
