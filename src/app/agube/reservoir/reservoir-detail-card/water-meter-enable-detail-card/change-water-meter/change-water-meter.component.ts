@@ -39,7 +39,6 @@ export class ChangeReservoirComponent implements OnInit {
     this.svcReservoirService
       .getCurrentReservoirWaterMeter(+this.waterMeterId)
       .subscribe((value) => {
-        console.log(value);
         this.waterMeter = value;
         this.waterMeterCode = value.code;
       });
