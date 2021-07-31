@@ -69,7 +69,6 @@ export class DwellingDetailListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
-      console.log(value)
       if (value.length !== 0) {
         this.datasource = new BehaviorSubject<any[]>(value);
         this.keysDwelling = Object.keys(value[0]);
