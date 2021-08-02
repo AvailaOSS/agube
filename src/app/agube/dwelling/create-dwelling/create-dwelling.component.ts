@@ -19,7 +19,7 @@ export class CreateDwellingComponent implements OnInit {
 
   public submitted = false;
   public options = {
-    autoClose: true,
+    autoClose: false,
     keepAfterRouteChange: false,
   };
 
@@ -39,13 +39,6 @@ export class CreateDwellingComponent implements OnInit {
       city: ['', Validators.required],
       waterMeter: ['', Validators.required],
     });
-    this.residentFormGroup = this.formBuilder.group({
-      nameRes: ['', Validators.required],
-      lastNameRes: ['', Validators.required],
-      usernameRes: ['', Validators.required],
-      emailRes: ['', Validators.required],
-      phoneRes: ['', Validators.required],
-    });
     this.ownerFormGroup = this.formBuilder.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -53,6 +46,13 @@ export class CreateDwellingComponent implements OnInit {
       email: ['', Validators.required],
       phone: ['', Validators.required],
       address: ['', Validators.required],
+    });
+    this.residentFormGroup = this.formBuilder.group({
+      nameRes: ['', Validators.required],
+      lastNameRes: ['', Validators.required],
+      usernameRes: ['', Validators.required],
+      emailRes: ['', Validators.required],
+      phoneRes: ['', Validators.required],
     });
     this.paymasterFormGroup = this.formBuilder.group({
       iban: ['', Validators.required],
@@ -110,9 +110,9 @@ export class CreateDwellingComponent implements OnInit {
         () => {
           this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
-        () => {
+        (err) => {
           this.alertService.error(
-            'Error, Todos los campos son obligatorios',
+            JSON.stringify(err.error),
             this.options
           );
         }
@@ -188,9 +188,9 @@ export class CreateDwellingComponent implements OnInit {
         () => {
           this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
-        () => {
+        (err) => {
           this.alertService.error(
-            'Error, Todos los campos son obligatorios',
+            JSON.stringify(err.error),
             this.options
           );
         }
