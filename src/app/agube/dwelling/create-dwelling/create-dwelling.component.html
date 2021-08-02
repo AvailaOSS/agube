@@ -1,317 +1,337 @@
-<div class="table-card table-config">
-  <app-notification></app-notification>
-  <h4>Alta vivienda</h4>
-  <form [formGroup]="createFormGroup" class="border-forms">
-    <div class="row margin-adaptation">
-      <div class="col-sm-5">
-        <label for="street">Calle</label>
-        <input
-          type="text"
-          formControlName="street"
-          class="form-control"
-          required
-          [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
-        />
-        <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
-          <div *ngIf="f.street.errors.required">Se requiere una calle</div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <label for="number">Número</label>
-        <input
-          type="number"
-          formControlName="number"
-          class="form-control"
-          required
-          [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
-        />
-        <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
-          <div *ngIf="f.number.errors.required">Se requiere un número</div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <label for="flat">Piso</label>
-        <input
-          type="number"
-          formControlName="flat"
-          class="form-control"
-          required
-          [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
-        />
-        <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
-          <div *ngIf="f.flat.errors.required">Se requiere una puerta</div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <label for="gate">Puerta</label>
-        <input
-          type="text"
-          formControlName="gate"
-          class="form-control"
-          required
-          [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
-        />
-        <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
-          <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
-        </div>
-      </div>
-
-      <div class="col-sm-5" colspan="4">
-        <label for="city">Ciudad</label>
-        <input
-          type="text"
-          formControlName="city"
-          class="form-control"
-          required
-          [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
-        />
-        <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
-          <div *ngIf="f.city.errors.required">Se requiere una ciudad</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <label for="waterMeter">Cód. Contador</label>
-        <input
-          type="text"
-          formControlName="waterMeter"
-          class="form-control"
-          required
-          [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
-        />
-        <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
-          <div *ngIf="f.waterMeter.errors.required">
-            Se requiere un código de contador
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-  <h4>Pagador</h4>
-
-  <form [formGroup]="paymasterFormGroup" class="border-forms">
-    <div class="row margin-adaptation-generic">
-      <div class="col-sm-5">
-        <label for="iban">Número de cuenta</label>
-        <input
-          type="text"
-          formControlName="iban"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.iban.errors }"
-        />
-        <div *ngIf="submitted && f.iban.errors" class="invalid-feedback">
-          <div *ngIf="f.iban.errors.required">Se requiere un iban</div>
-        </div>
-      </div>
-
-      <div class="col-sm-5 margin-adaptation-radio">
-        <form [formGroup]="radioGroupForm">
-          <div
-            class="btn-group btn-group-toggle"
-            ngbRadioGroup
-            name="radioBasic"
-            formControlName="model"
-          >
-            <label ngbButtonLabel class="btn-outline-primary">
-              <input ngbButton type="radio" [value]="1" /> Propietario
-            </label>
-            <label ngbButtonLabel class="btn-outline-primary">
-              <input ngbButton type="radio" [value]="'Residente'" /> Residente
-            </label>
-          </div>
-        </form>
-      </div>
-    </div>
-  </form>
-  <h4>Propietario</h4>
-
-  <form
-    [formGroup]="ownerFormGroup"
-    (ngSubmit)="(onSubmitOwner)"
-    class="border-forms"
-  >
-    <div class="row margin-adaptation-generic">
-      <div class="col-sm-5">
-        <label for="name">Nombre</label>
-        <input
-          type="text"
-          formControlName="name"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-        />
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">Se requiere un nombre</div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="lastName">Apellido</label>
-        <input
-          type="text"
-          formControlName="lastName"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-        />
-        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-          <div *ngIf="f.lastName.errors.required">Se requiere un apellido</div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="username">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupPrepend">@</span>
-          </div>
+<div class="form">
+  <div class="dwelling-form">
+    <h4>Alta vivienda</h4>
+    <form [formGroup]="createFormGroup" class="border-forms">
+      <div class="row margin-adaptation">
+        <div class="col-sm-5">
+          <label for="street">Calle<span class="text-danger"> *</span></label>
           <input
             type="text"
-            formControlName="username"
+            formControlName="street"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+            required
+            [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
           />
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">
-              Se requiere un username
+          <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+            <div *ngIf="f.street.errors.required">Se requiere una calle</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label for="number">Número<span class="text-danger"> *</span></label>
+          <input
+            type="number"
+            formControlName="number"
+            class="form-control"
+            required
+            [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
+          />
+          <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+            <div *ngIf="f.number.errors.required">Se requiere un número</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label for="flat">Piso</label>
+          <input
+            type="number"
+            formControlName="flat"
+            class="form-control"
+            required
+            [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
+          />
+          <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
+            <div *ngIf="f.flat.errors.required">Se requiere una puerta</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label for="gate">Puerta</label>
+          <input
+            type="text"
+            formControlName="gate"
+            class="form-control"
+            required
+            [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
+          />
+          <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
+            <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
+          </div>
+        </div>
+
+        <div class="col-sm-5" colspan="4">
+          <label for="city">Ciudad<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="city"
+            class="form-control"
+            required
+            [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+          />
+          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+            <div *ngIf="f.city.errors.required">Se requiere una ciudad</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="waterMeter">Cód. Contador<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="waterMeter"
+            class="form-control"
+            required
+            [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
+          />
+          <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
+            <div *ngIf="f.waterMeter.errors.required">
+              Se requiere un código de contador
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-5">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          formControlName="email"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-        />
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Se requiere un email</div>
+    </form>
+  </div>
+
+  <div class="paymaster-form">
+    <h4>Pagador</h4>
+
+    <form [formGroup]="paymasterFormGroup" class="border-forms">
+      <div class="row margin-adaptation-generic">
+        <div class="col-sm-5">
+          <label for="iban">Número de cuenta<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="iban"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.iban.errors }"
+          />
+          <div *ngIf="submitted && f.iban.errors" class="invalid-feedback">
+            <div *ngIf="f.iban.errors.required">Se requiere un iban</div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 margin-adaptation-radio">
+          <form [formGroup]="radioGroupForm">
+            <div
+              class="btn-group btn-group-toggle"
+              ngbRadioGroup
+              name="radioBasic"
+              formControlName="model"
+            >
+              <label ngbButtonLabel class="btn-outline-primary">
+                <input ngbButton type="radio" [value]="1" /> Propietario
+              </label>
+              <label ngbButtonLabel class="btn-outline-primary">
+                <input ngbButton type="radio" [value]="'Residente'" /> Residente
+              </label>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="col-sm-5">
-        <label for="phone">Teléfono</label>
-        <input
-          type="number"
-          formControlName="phone"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
-        />
-        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-          <div *ngIf="f.phone.errors.required">Se requiere un teléfono</div>
+    </form>
+  </div>
+
+  <div class="owner-form">
+    <h4>Propietario</h4>
+
+    <form
+      [formGroup]="ownerFormGroup"
+      (ngSubmit)="(onSubmitOwner)"
+      class="border-forms"
+    >
+      <div class="row margin-adaptation-generic">
+        <div class="col-sm-5">
+          <label for="name">Nombre<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+          />
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Se requiere un nombre</div>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="address"
-          >Dirección <span class="color-danger">**</span></label
-        >
-        <input
-          type="text"
-          formControlName="address"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
-        />
-        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-          <div *ngIf="f.address.errors.required">Se requiere una dirección</div>
+        <div class="col-sm-5">
+          <label for="lastName">Apellidos<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="lastName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+          />
+          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">Se requiere un apellido</div>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-5">
-        <span class="color-danger"
-          >*La misma persona será Propietario y Residente
-        </span>
-        <br />
-        <span class="color-danger"
-          >** Agregar la dirección si es distinta que la vivienda de alta
-        </span>
-      </div>
-      <div class="col-sm-5">
-        <button
-          class="btn btn-primary w-100 h-50 margin-buttons-forms"
+        <div class="col-sm-5">
+          <label for="username">Nombre de usuario<span class="text-danger"> *</span></label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+            </div>
+            <input
+              type="text"
+              formControlName="username"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+            />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">
+                Se requiere un nombre de usuario
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <label for="email">Correo electrónico<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+          />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Se requiere un email</div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <label for="phone">Teléfono<span class="text-danger"> *</span></label>
+          <input
+            type="number"
+            formControlName="phone"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+          />
+          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">Se requiere un teléfono</div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <label for="address">
+            Dirección<span class="text-danger"> *</span><span class="text-info"> (1)</span></label
+          >
+          <input
+            type="text"
+            formControlName="address"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+          />
+          <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+            <div *ngIf="f.address.errors.required">Se requiere una dirección</div>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <button
+          class="btn btn-primary margin-buttons-forms"
           type="button"
           (click)="onSubmitOwner()"
-        >
-          Agregar Propietario
-          <span class="color-danger">*</span>
+          >
+          Guardar vivienda con sólo Propietario
+          <span class="text-info"></span>
         </button>
+        <br />
+        <span class="text-info"
+          >El Propietario será el Residente
+        </span>
+        <br />
+        <span class="text-info"
+          >(1) Añadir dirección si el propietario no es el residente
+        </span>
+        <br />
+        </div>
       </div>
-    </div>
-  </form>
-  <h4>Residente</h4>
+    </form>
+  </div>
 
-  <form [formGroup]="residentFormGroup" class="border-forms">
-    <div class="row margin-adaptation-generic">
-      <div class="col-sm-5">
-        <label for="nameRes">Nombre</label>
-        <input
-          type="text"
-          formControlName="nameRes"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.nameRes.errors }"
-        />
-        <div *ngIf="submitted && f.nameRes.errors" class="invalid-feedback">
-          <div *ngIf="f.nameRes.errors.required">Se requiere un nombre</div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="lastNameRes">Apellido</label>
-        <input
-          type="text"
-          formControlName="lastNameRes"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-        />
-        <div *ngIf="submitted && f.lastNameRes.errors" class="invalid-feedback">
-          <div *ngIf="f.lastNameRes.errors.required">
-            Se requiere un apellido
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="usernameRes">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupPrepend">@</span>
-          </div>
+  <div class="resident-form">
+    <h4>Residente</h4>
+
+    <form [formGroup]="residentFormGroup" class="border-forms">
+      <div class="row margin-adaptation-generic">
+        <div class="col-sm-5">
+          <label for="nameRes">Nombre<span class="text-danger"> *</span></label>
           <input
             type="text"
-            formControlName="usernameRes"
+            formControlName="nameRes"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
+            [ngClass]="{ 'is-invalid': submitted && f.nameRes.errors }"
           />
-          <div
-            *ngIf="submitted && f.usernameRes.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.usernameRes.errors.required">
-              Se requiere un username
+          <div *ngIf="submitted && f.nameRes.errors" class="invalid-feedback">
+            <div *ngIf="f.nameRes.errors.required">Se requiere un nombre</div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <label for="lastNameRes">Apellidos<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="lastNameRes"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+          />
+          <div *ngIf="submitted && f.lastNameRes.errors" class="invalid-feedback">
+            <div *ngIf="f.lastNameRes.errors.required">
+              Se requiere un apellido
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="col-sm-5">
-        <label for="phoneRes">Teléfono</label>
-        <input
-          type="number"
-          formControlName="phoneRes"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.phoneRes.errors }"
-        />
-        <div *ngIf="submitted && f.phoneRes.errors" class="invalid-feedback">
-          <div *ngIf="f.phoneRes.errors.required">Se requiere un teléfono</div>
+        <div class="col-sm-5">
+          <label for="usernameRes">Nombre de usuario<span class="text-danger"> *</span></label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+            </div>
+            <input
+              type="text"
+              formControlName="usernameRes"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
+            />
+            <div
+              *ngIf="submitted && f.usernameRes.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.usernameRes.errors.required">
+                Se requiere un nombre de usuario
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-5">
-        <span class="color-danger"
-          >*El residente y propietario serán creados de manera separada
-        </span>
-        <br />
-      </div>
-      <div class="col-sm-5">
-        <button
-          class="btn btn-primary w-100 h-50 margin-buttons-forms"
+        <div class="col-sm-5">
+          <label for="emailRes">Correo electrónico<span class="text-danger"> *</span></label>
+          <input
+            type="text"
+            formControlName="emailRes"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
+          />
+          <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Se requiere un email</div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <label for="phoneRes">Teléfono<span class="text-danger"> *</span></label>
+          <input
+            type="number"
+            formControlName="phoneRes"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.phoneRes.errors }"
+          />
+          <div *ngIf="submitted && f.phoneRes.errors" class="invalid-feedback">
+            <div *ngIf="f.phoneRes.errors.required">Se requiere un teléfono</div>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <button
+          class="btn btn-primary margin-buttons-forms"
           type="button"
           (click)="onSubmitResident()"
-        >
-          Agregar Residente y Propietario <span class="color-danger">*</span>
+          >
+          Guardar Vivienda con Propietario y Residente
         </button>
+        <br />
+        <span class="text-info">
+          Se guardará la vivienda con un Propietario y un Residente
+        </span>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
+  <app-notification></app-notification>
 </div>

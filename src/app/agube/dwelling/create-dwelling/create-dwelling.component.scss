@@ -1,3 +1,17 @@
+@import "../../../../scss/theme/theme";
+@import  "../../../../scss/variables/borders";
+// @use  "../../../../scss/variables/sizes";
+// @use  "../../../../scss/variables/margins";
+
+.form {
+  display: table;
+  text-align: center;
+  width: 50%;
+  margin: 10px auto;
+  // FIXME: use:
+  // width: sizes.$width-x-medium;
+  // margin: margins.$margin-large auto;
+}
 
 .margin-adaptation {
   margin-right: -9%;
@@ -7,8 +21,27 @@
   margin-top: 34px;
 }
 
-
-.color-danger {
-  color: red;
+.border-forms {
+  border: 0px solid lightgray;
 }
 
+@mixin set-form() {
+  background-color: $color-primary-light;
+  @include rounded-small;
+}
+
+.dwelling-form {
+  @include set-form();
+}
+
+.paymaster-form {
+  @include set-form();
+}
+
+.owner-form {
+  @include set-form();
+}
+
+.resident-form {
+  @include set-form();
+}
