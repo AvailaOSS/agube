@@ -1,37 +1,40 @@
-version: "3.8"
-
 services:
-  # Postgres DB
+  # Root services
+  ## Root: DB
   db:
+    hostname: db
     container_name: postgres-db
-    image: postgres
+    image: postgres:13
     ports:
       - 5432:5432
+    volumes:
+      - /private/var/lib/postgresql:/var/lib/postgresql
     env_file:
       - ./docker/dev/.env.db.dev
     networks:
       - backend
 
-  # RabbitMQ
+  ## Root: RabbitMQ
   rabbitmq:
+    hostname: rabbitmq
     container_name: rabbitmq
-    hostname: rabbit
     image: rabbitmq:3.8-management
     ports:
       - 5672:5672
-      # here, we can access rabbitmq management plugin
+      # Management plugin
       - 15672:15672
     env_file:
       - ./docker/dev/.env.rabbit.dev
     networks:
       - backend
 
-  # BE: agube
-  agube-backend:
-    container_name: agube-backend
-    hostname: agube-backend
+  # Backend services
+  ## BE: agube
+  agube-be:
+    hostname: agube-be
+    container_name: agube-be
     image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0:8000
     ports:
       - 8003:8000
       - 5555:5555
@@ -41,8 +44,7 @@ services:
       - EMAIL_PORT=587
       - EMAIL_HOST_USER=$DEV_USER_MAIL
       - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
-    volumes:
-      - .:/availa
+      - REDIRECT_TO=localhost:8080/enable-account?id=
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
@@ -51,16 +53,16 @@ services:
     networks:
       - backend
 
-  # BE: auth
-  auth-backend:
-    container_name: auth-backend
-    hostname: auth-backend
+  ## BE: auth
+  auth-be:
+    hostname: auth-be
+    container_name: auth-be
     image: registry.gitlab.com/availa/proyectos/auth/backend/auth-be
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0:8000
     ports:
       - 8000:8000
-    volumes:
-      - .:/availa
+    environment:
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
@@ -69,18 +71,16 @@ services:
     networks:
       - backend
 
-  # BE: contact-book
-  contact-book-backend:
-    container_name: contact-book-backend
-    hostname: contact-book-backend
+  ## BE: contact-book
+  contact-book-be:
+    hostname: contact-book-be
+    container_name: contact-book-be
     image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0:8000
     ports:
       - 8002:8000
     environment:
       - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
-    volumes:
-      - .:/availa
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
@@ -89,12 +89,12 @@ services:
     networks:
       - backend
 
-  # BE: subscription
-  subscription-backend:
-    container_name: subscription-backend
-    hostname: subscription-backend
+  ## BE: subscription
+  subscription-be:
+    hostname: subscription-be
+    container_name: subscription-be
     image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0:8000
     ports:
       - 8001:8000
     environment:
@@ -104,8 +104,6 @@ services:
       - EMAIL_HOST_USER=$DEV_USER_MAIL
       - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
       - REDIRECT_TO=localhost:8080/enable-account?id=
-    volumes:
-      - .:/availa
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
@@ -114,16 +112,16 @@ services:
     networks:
       - backend
 
-  # BE: task
-  task-backend:
-    container_name: task-backend
-    hostname: task-backend
+  ## BE: task
+  task-be:
+    hostname: task-be
+    container_name: task-be
     image: registry.gitlab.com/availa/proyectos/task/backend/task-be
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0:8000
     ports:
       - 8004:8000
-    volumes:
-      - .:/availa
+    environment:
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
     env_file:
       - ./docker/dev/.env.be.dev
     depends_on:
