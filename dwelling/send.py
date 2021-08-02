@@ -21,8 +21,9 @@ def send_user_creation_email(user: User, email_type: EmailType):
 
     # validate email
     user_email = user.email
-    is_valid = validate_email(user_email, check_format=True, check_blacklist=True, check_dns=True, dns_timeout=1, check_smtp=False)
-    if (is_valid==None):
+    is_valid = validate_email(user_email, check_format=True, check_blacklist=True,
+                              check_dns=True, dns_timeout=1, check_smtp=False)
+    if (is_valid == None):
         raise EmailValidationError(user_email)
     elif not is_valid:
         raise InvalidEmailError(user_email)
@@ -36,7 +37,7 @@ def send_user_creation_email(user: User, email_type: EmailType):
         'username': user.username,
         'first_name': user.first_name,
         'manager_name': manager.user.first_name + ' ' + manager.user.last_name,
-        'redirect_to': 'http://' + settings.REDIRECT_TO + '/' + str(user.id),
+        'redirect_to': 'http://' + settings.REDIRECT_TO + str(user.id),
         'email_contact': settings.EMAIL_HOST_USER,
     }
     content = template.render(context)
