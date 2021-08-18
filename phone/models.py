@@ -6,4 +6,4 @@ class Phone(models.Model):
 
     class Meta:
         ordering = ["phone_number"]
-        db_table = 'phone'
+        db_table = 'agube_phone_phone'

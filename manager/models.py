@@ -9,7 +9,7 @@ class Manager(models.Model):
         User, primary_key=True, on_delete=models.RESTRICT)
 
     class Meta:
-        db_table = 'manager'
+        db_table = 'agube_manager_manager'
 
     def save(self, *args, **kwargs):
         __default_max_daily_consumption = 1000
@@ -31,7 +31,7 @@ class ManagerConfiguration(models.Model):
     max_daily_consumption = models.DecimalField(decimal_places=3, max_digits=8)
 
     class Meta:
-        db_table = 'manager_configuration'
+        db_table = 'agube_manager_configuration'
 
     def save(self, *args, **kwargs):
         """save the Manager and create default config"""
@@ -65,7 +65,7 @@ class HookPrice(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'hook_price'
+        db_table = 'agube_manager_hook_price'
 
     def save(self, *args, **kwargs):
         """save the Hook and save release_date timezone.now()"""
@@ -83,4 +83,4 @@ class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
 
     class Meta:
-        db_table = 'person'
+        db_table = 'agube_manager_person'

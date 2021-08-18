@@ -19,7 +19,7 @@ class Dwelling(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'dwelling'
+        db_table = 'agube_dwelling_dwelling'
 
     def save(self, *args, **kwargs):
         """save the dwelling and save release_date timezone.now()"""
@@ -147,7 +147,7 @@ class Paymaster(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'paymaster'
+        db_table = 'agube_dwelling_paymaster'
 
     def save(self, *args, **kwargs):
         """save the paymaster and check if type is bank iban cannot be null"""
@@ -175,7 +175,7 @@ class DwellingOwner(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'owner'
+        db_table = 'agube_dwelling_owner'
 
     def save(self, *args, **kwargs):
         """save the DwellingOwner, save release_date timezone.now()"""
@@ -201,7 +201,7 @@ class DwellingResident(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'resident'
+        db_table = 'agube_dwelling_resident'
 
     def save(self, *args, **kwargs):
         """save the DwellingResident, save release_date timezone.now()"""
@@ -239,4 +239,4 @@ class DwellingWaterMeter(models.Model):
 
     class Meta:
         ordering = ["water_meter__release_date"]
-        db_table = 'dwelling_water_meter'
+        db_table = 'agube_dwelling_dwelling_water_meter'
