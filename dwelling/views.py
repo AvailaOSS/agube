@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
@@ -17,15 +16,13 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
-from dwelling.exceptions import (IncompatibleUsernameError, InvalidEmailError, EmailValidationError,
-                                 OwnerAlreadyIsResidentError, OwnerIsPaymasterError, PaymasterError,
-                                 UserManagerRequiredError)
+from dwelling.exceptions import (InvalidEmailError, EmailValidationError,
+                                 OwnerAlreadyIsResidentError, UserManagerRequiredError)
 from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
-                                  DwellingResidentSerializer,
-                                  PaymasterSerializer)
+                                  DwellingResidentSerializer)
 
 TAG = 'dwelling'
 
@@ -94,8 +91,7 @@ class DwellingCreateView(generics.CreateAPIView):
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
-class DwellingSetOwnerAsResidentView(generics.GenericAPIView):
-    queryset = Dwelling.objects.all()
+class DwellingSetOwnerAsResidentView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
@@ -144,6 +140,8 @@ class DwellingOwnerView(generics.GenericAPIView):
         try:
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
             owner = dwelling.get_current_owner()
+            if not owner:
+                return Response({'status': 'cannot find Current Owner'}, status=HTTP_404_NOT_FOUND)
             return Response(get_dwelling_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
@@ -156,11 +154,6 @@ class DwellingOwnerView(generics.GenericAPIView):
         try:
             with transaction.atomic():
                 dwelling: Dwelling  = Dwelling.objects.get(id=pk)
-                current_owner = dwelling.get_current_owner()
-                print(current_owner.user)
-                if current_owner and dwelling.is_paymaster(current_owner.user):
-                    current_paymaster = dwelling.get_current_paymaster().user
-                    raise OwnerIsPaymasterError(current_paymaster.username)
                 user = create_user(
                     PersonTag.OWNER, request.data['user'], dwelling.manager)
                 dwelling.change_current_owner(user)
@@ -168,8 +161,6 @@ class DwellingOwnerView(generics.GenericAPIView):
                 return Response(get_dwelling_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        except (PaymasterError, OwnerIsPaymasterError) as e:
-            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
 class DwellingResidentView(generics.GenericAPIView):
@@ -188,6 +179,8 @@ class DwellingResidentView(generics.GenericAPIView):
         try:
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
             resident = dwelling.get_current_resident()
+            if not resident:
+                return Response({'status': 'cannot find current resident'}, status=HTTP_404_NOT_FOUND)
             return Response(get_dwelling_resident_serialized(resident))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
@@ -207,8 +200,6 @@ class DwellingResidentView(generics.GenericAPIView):
             return Response(get_dwelling_resident_serialized(resident))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        except PaymasterError as e:
-            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
 class DwellingWaterMeterView(generics.GenericAPIView):
@@ -288,53 +279,3 @@ class DwellingWaterMeterChunkView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
 
-
-class DwellingPaymasterView(APIView):
-    permission_classes = [IsManagerAuthenticated]
-
-    @swagger_auto_schema(
-        operation_id="getPaymaster",
-        responses={200: PaymasterSerializer(many=False)},
-        tags=[TAG],
-    )
-    def get(self, request, pk):
-        """
-        Return Paymaster info
-        """
-        # Get Dwelling
-        try:
-            dwelling = Dwelling.objects.get(id=pk)
-            return Response(PaymasterSerializer(dwelling.get_current_paymaster(), many=False).data)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-
-    @swagger_auto_schema(
-        operation_id="changePaymaster",
-        request_body=PaymasterSerializer,
-        responses={200: PaymasterSerializer(many=False)},
-        tags=[TAG],
-    )
-    def post(self, request, pk):
-        """
-        change Paymaster info
-        """
-        # Get Dwelling
-        try:
-            with transaction.atomic():
-                dwelling = Dwelling.objects.get(id=pk)
-                # extract data
-                payment_type = request.data['payment_type']
-                iban = request.data['iban']
-                username = request.data['username']
-                # extract user
-                user = User.objects.get(username=username)
-                # change paymaster
-                current_paymaster = dwelling.change_paymaster(
-                    payment_type, iban, user)
-                return Response(PaymasterSerializer(current_paymaster, many=False).data)
-        except ObjectDoesNotExist as e:
-            return Response({'status':  'cannot find user'}, status=HTTP_404_NOT_FOUND)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'}, status=HTTP_404_NOT_FOUND)
-        except IncompatibleUsernameError as e:
-            return Response({'status':  e.message}, status=HTTP_404_NOT_FOUND)

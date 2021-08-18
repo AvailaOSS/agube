@@ -34,24 +34,6 @@ class IncompatibleUsernameError(Exception):
         super().__init__(self.message)
 
 
-class PaymasterError(Exception):
-    """Exception raised when user is paymaster.
-    """
-
-    def __init__(self, username):
-        self.message = "user " + username + " is paymaster."
-        super().__init__(self.message)
-
-
-class OwnerIsPaymasterError(Exception):
-    """Exception raised when owner is paymaster.
-    """
-
-    def __init__(self, username):
-        self.message = "owner " + username + " cannot be changed because is the current paymaster."
-        super().__init__(self.message)
-
-
 class InvalidEmailError(Exception):
     """Exception raised when email invalid or does not exist.
     """

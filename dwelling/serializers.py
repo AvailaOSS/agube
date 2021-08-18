@@ -9,25 +9,9 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterSerializer
 
-from dwelling.assemblers import PersonTag, create_user
 from dwelling.exceptions import (IncompatibleUsernameError,
                                  UserManagerRequiredError)
-from dwelling.models import (Dwelling, DwellingOwner, DwellingResident,
-                             Paymaster)
-
-
-class PaymasterSerializer(ModelSerializer):
-    """
-    Paymaster ModelSerializer
-    """
-    id = ReadOnlyField()
-    username = CharField(max_length=None, min_length=None,
-                         allow_blank=False, trim_whitespace=True)
-
-    class Meta:
-        ref_name = 'Paymaster'
-        model = Paymaster
-        fields = ('id', 'payment_type', 'iban', 'username',)
+from dwelling.models import (Dwelling, DwellingOwner, DwellingResident)
 
 
 class DwellingSerializer(ModelSerializer):
@@ -75,20 +59,6 @@ class DwellingCreateSerializer(ModelSerializer):
         # Create water meter
         dwelling.change_current_water_meter(water_meter_code)
         return dwelling
-
-    @classmethod
-    def create_paymaster(cls, validated_data, dwelling, owner, resident):
-        payment_type = validated_data.pop('payment_type')
-        iban = validated_data.pop('iban')
-        username = validated_data.pop('username')
-        user_paymaster = None
-        if owner.username == username:
-            user_paymaster = owner
-        elif resident.username == username:
-            user_paymaster = resident
-        else:
-            raise IncompatibleUsernameError(username)
-        return dwelling.create_paymaster(payment_type, iban, user_paymaster)
 
     @classmethod
     def create_dwelling_address(cls, validated_data):
