@@ -1,0 +1,131 @@
+version: "3.8"
+
+services:
+  # Postgres Database
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - .env.db
+    networks:
+      - backend
+
+  # RabbitMQ - queue
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:3.8-management
+    ports:
+      - 5672:5672
+      # here, we can access rabbitmq management plugin
+      - 15672:15672
+    env_file:
+      - .env.rabbit
+    networks:
+      - backend
+
+  # Django Backend server
+  # auth-backend:
+  #   hostname: auth-backend
+  #   image: registry.gitlab.com/availa/proyectos/auth/backend/auth-be
+  #   command: python3 manage.py runserver 0.0.0.0:8000
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - .:/availa
+  #   environment:
+  #     - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+  #   env_file:
+  #     - ./docker/.env.be
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #   networks:
+  #     - backend
+  # subscription-backend:
+  #   hostname: subscription-backend
+  #   image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
+  #   command: python3 manage.py runserver 0.0.0.0:8000
+  #   ports:
+  #     - 8001:8000
+  #   volumes:
+  #     - .:/availa
+  #   environment:
+  #     - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+  #     - EMAIL_HOST=smtp.googlemail.com
+  #     - EMAIL_PORT=587
+  #     - EMAIL_HOST_USER=$DEV_USER_MAIL
+  #     - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
+  #     - REDIRECT_TO=localhost:8080/enable-account?id=
+  #   env_file:
+  #     - ./docker/.env.be
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #   networks:
+  #     - backend
+  # contact-book-backend:
+  #   hostname: contact-book-backend
+  #   image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
+  #   # build: E:\git\Availa\proyectos\contact-book\backend\contact-book-be
+  #   command: python3 manage.py runserver 0.0.0.0:8000
+  #   ports:
+  #     - 8002:8000
+  #   volumes:
+  #     - .:/availa
+  #   environment:
+  #     - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+  #   env_file:
+  #     - ./docker/.env.be
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #   networks:
+  #     - backend
+  agube-backend:
+    hostname: agube-backend
+    build:
+      context: ../.
+      dockerfile: Dockerfile
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8003:8000
+      - 5555:5555
+    volumes:
+      - ../.:/availa-agube
+    environment:
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+      - EMAIL_HOST=smtp.googlemail.com
+      - EMAIL_PORT=587
+      - EMAIL_HOST_USER=$DEV_USER_MAIL
+      - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
+      - REDIRECT_TO=localhost:8080/enable-account?id=
+    env_file:
+      - .env.be
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - backend
+  # task-backend:
+  #   container_name: task-backend
+  #   hostname: task-backend
+  #   image: registry.gitlab.com/availa/proyectos/task/backend/task-be
+  #   command: python3 manage.py runserver 0.0.0.0:8000
+  #   ports:
+  #     - 8004:8000
+  #   volumes:
+  #     - .:/availa
+  #   environment:
+  #     - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+  #   env_file:
+  #     - ./docker/.env.be
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+  #   networks:
+  #     - backend
+
+networks:
+  backend:
+    driver: bridge
