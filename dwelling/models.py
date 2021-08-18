@@ -13,8 +13,8 @@ from dwelling.exceptions import (IncompatibleUsernameError, NullIbanError,
 
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
-    manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
-    full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
+    manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
+    full_address: FullAddress = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -62,6 +62,7 @@ class Dwelling(models.Model):
         DwellingResident.objects.create(user=user, dwelling=self)
 
     def get_current_resident(self):
+        # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""
         try:
             return DwellingResident.objects.get(dwelling=self, discharge_date=None)
@@ -110,18 +111,23 @@ class Dwelling(models.Model):
     def set_owner_as_resident(self):
         owner = self.get_current_owner()
         resident = self.get_current_resident()
-        if owner.user == resident.user:
+        if resident and owner.user == resident.user:
             raise OwnerAlreadyIsResidentError()
         self.change_current_resident(owner.user)
 
     def get_current_paymaster(self):
+        # type: (Dwelling) -> Paymaster | None
         try:
             return Paymaster.objects.get(dwelling=self, discharge_date=None)
         except ObjectDoesNotExist:
             return None
 
     def is_paymaster(self, user):
-        return user == self.get_current_paymaster().user
+        paymaster = self.get_current_paymaster()
+        if paymaster:
+            return user == self.get_current_paymaster().user
+        else:
+            return False
 
     def discharge(self):
         """discharge this Dwelling"""

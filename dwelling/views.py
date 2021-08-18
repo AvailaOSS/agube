@@ -22,7 +22,6 @@ from dwelling.exceptions import (IncompatibleUsernameError, InvalidEmailError, E
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling
 from dwelling.serializers import (DwellingCreateSerializer,
-                                  DwellingCreateWithResidentSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
                                   DwellingResidentSerializer,
@@ -95,23 +94,8 @@ class DwellingCreateView(generics.CreateAPIView):
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 
-class DwellingCreateWithResidentView(generics.CreateAPIView):
-    queryset = Dwelling.objects.all()
-    serializer_class = DwellingCreateWithResidentSerializer
-    permission_classes = [IsManagerAuthenticated]
-
-    @swagger_auto_schema(operation_id="createDwellingWithResident", operation_description="create a new Dwelling with Resident")
-    def post(self, request, *args, **kwargs):
-        try:
-            with transaction.atomic():
-                return super().post(request, *args, **kwargs)
-        except (InvalidEmailError, EmailValidationError, UserManagerRequiredError) as e:
-            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
-
-
 class DwellingSetOwnerAsResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
-    serializer_class = DwellingResidentSerializer
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
@@ -120,7 +104,7 @@ class DwellingSetOwnerAsResidentView(generics.GenericAPIView):
     )
     def post(self, request, pk):
         try:
-            dwelling = Dwelling.objects.get(id=pk)
+            dwelling: Dwelling = Dwelling.objects.get(id=pk)
             dwelling.set_owner_as_resident()
             resident = dwelling.get_current_resident()
             return Response(get_dwelling_resident_serialized(resident))
@@ -158,7 +142,7 @@ class DwellingOwnerView(generics.GenericAPIView):
         Get Current Owner
         """
         try:
-            dwelling = Dwelling.objects.get(id=pk)
+            dwelling: Dwelling = Dwelling.objects.get(id=pk)
             owner = dwelling.get_current_owner()
             return Response(get_dwelling_owner_serialized(owner))
         except ObjectDoesNotExist:
@@ -171,10 +155,11 @@ class DwellingOwnerView(generics.GenericAPIView):
         """
         try:
             with transaction.atomic():
-                dwelling = Dwelling.objects.get(id=pk)
-                current_paymaster = dwelling.get_current_paymaster().user
-                current_owner = dwelling.get_current_owner().user
-                if dwelling.is_paymaster(current_owner):
+                dwelling: Dwelling  = Dwelling.objects.get(id=pk)
+                current_owner = dwelling.get_current_owner()
+                print(current_owner.user)
+                if current_owner and dwelling.is_paymaster(current_owner.user):
+                    current_paymaster = dwelling.get_current_paymaster().user
                     raise OwnerIsPaymasterError(current_paymaster.username)
                 user = create_user(
                     PersonTag.OWNER, request.data['user'], dwelling.manager)
@@ -201,7 +186,7 @@ class DwellingResidentView(generics.GenericAPIView):
         Get current Resident
         """
         try:
-            dwelling = Dwelling.objects.get(id=pk)
+            dwelling: Dwelling = Dwelling.objects.get(id=pk)
             resident = dwelling.get_current_resident()
             return Response(get_dwelling_resident_serialized(resident))
         except ObjectDoesNotExist:
@@ -214,7 +199,7 @@ class DwellingResidentView(generics.GenericAPIView):
         """
         try:
             with transaction.atomic():
-                dwelling = Dwelling.objects.get(id=pk)
+                dwelling: Dwelling = Dwelling.objects.get(id=pk)
                 user = create_user(
                     PersonTag.RESIDENT, request.data['user'], dwelling.manager)
                 dwelling.change_current_resident(user)
