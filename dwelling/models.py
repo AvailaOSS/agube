@@ -7,19 +7,18 @@ from login.models import UserAddress
 from manager.models import Manager
 from watermeter.models import WaterMeter
 
-from dwelling.exceptions import (IncompatibleUsernameError, NullIbanError,
-                                 OwnerAlreadyIsResidentError, PaymasterError)
+from dwelling.exceptions import (IncompatibleUsernameError, OwnerAlreadyIsResidentError)
 
 
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
-    manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
-    full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
+    manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
+    full_address: FullAddress = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'dwelling'
+        db_table = 'agube_dwelling_dwelling'
 
     def save(self, *args, **kwargs):
         """save the dwelling and save release_date timezone.now()"""
@@ -34,8 +33,6 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         owner = self.get_current_owner()
-        if owner and self.is_paymaster(owner.user):
-            raise PaymasterError(owner.user.username)
         if owner:
             owner.discharge()
         DwellingOwner.objects.create(user=user, dwelling=self)
@@ -55,13 +52,12 @@ class Dwelling(models.Model):
         user : django.contrib.auth.models.User
             user saved in database"""
         resident = self.get_current_resident()
-        if self.get_current_owner().user != user and (resident and self.is_paymaster(resident.user)):
-            raise PaymasterError(resident.user.username)
         if resident:
             resident.discharge()
         DwellingResident.objects.create(user=user, dwelling=self)
 
     def get_current_resident(self):
+        # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""
         try:
             return DwellingResident.objects.get(dwelling=self, discharge_date=None)
@@ -84,87 +80,18 @@ class Dwelling(models.Model):
         except ObjectDoesNotExist:
             return None
 
-    def create_paymaster(self, payment_type, iban, user_paymaster):
-        # discharge current Paymaster
-        current = self.get_current_paymaster()
-        if current:
-            current.discharge()
-        # create paymaster user
-        return Paymaster.objects.create(
-            dwelling=self, payment_type=payment_type, iban=iban, user=user_paymaster)
-
-    def change_paymaster(self, payment_type, iban, user):
-        # check if user_paymaster is valid
-        owner = self.get_current_owner()
-        if owner and owner.user == user:
-            # create paymaster user
-            return self.create_paymaster(payment_type, iban, user)
-        else:
-            resident = self.get_current_resident()
-            if resident and resident.user == user:
-                # create paymaster user
-                return self.create_paymaster(payment_type, iban, user)
-            else:
-                raise IncompatibleUsernameError(user.username)
-
     def set_owner_as_resident(self):
         owner = self.get_current_owner()
         resident = self.get_current_resident()
-        if owner.user == resident.user:
+        if resident and owner.user == resident.user:
             raise OwnerAlreadyIsResidentError()
         self.change_current_resident(owner.user)
 
-    def get_current_paymaster(self):
-        try:
-            return Paymaster.objects.get(dwelling=self, discharge_date=None)
-        except ObjectDoesNotExist:
-            return None
-
-    def is_paymaster(self, user):
-        return user == self.get_current_paymaster().user
 
     def discharge(self):
         """discharge this Dwelling"""
         self.discharge_date = timezone.now()
         self.save()
-
-
-class Paymaster(models.Model):
-    """A class used to represent an Paymaster"""
-    class PaymentType(models.TextChoices):
-        BANK = "BANK"
-        CASH = "CASH"
-        EXEMPT = "EXEMPT"
-
-    payment_type = models.TextField(
-        choices=PaymentType.choices,
-        default=PaymentType.BANK
-    )
-    iban = models.TextField(null=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-    dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
-    release_date = models.DateTimeField()
-    discharge_date = models.DateTimeField(null=True)
-
-    class Meta:
-        db_table = 'paymaster'
-
-    def save(self, *args, **kwargs):
-        """save the paymaster and check if type is bank iban cannot be null"""
-        self.release_date = timezone.now()
-        if self.payment_type == Paymaster.PaymentType.BANK:
-            if not self.iban:
-                raise NullIbanError(Paymaster.PaymentType.BANK)
-        super(Paymaster, self).save(*args, **kwargs)
-
-    def discharge(self):
-        """discharge this Paymaster"""
-        self.discharge_date = timezone.now()
-        self.save()
-
-    @property
-    def username(self):
-        return self.user.username
 
 
 class DwellingOwner(models.Model):
@@ -175,7 +102,7 @@ class DwellingOwner(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'owner'
+        db_table = 'agube_dwelling_owner'
 
     def save(self, *args, **kwargs):
         """save the DwellingOwner, save release_date timezone.now()"""
@@ -185,11 +112,8 @@ class DwellingOwner(models.Model):
     def discharge(self):
         """discharge this owner"""
         self.discharge_date = timezone.now()
-        dwelling = Dwelling.objects.get(id=self.dwelling.id)
-        # if not paymaster disable user account
-        if not dwelling.is_paymaster(self.user):
-            self.user.is_active = False
-            self.user.save()
+        self.user.is_active = False
+        self.user.save()
         self.save()
 
 
@@ -201,7 +125,7 @@ class DwellingResident(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'resident'
+        db_table = 'agube_dwelling_resident'
 
     def save(self, *args, **kwargs):
         """save the DwellingResident, save release_date timezone.now()"""
@@ -223,10 +147,10 @@ class DwellingResident(models.Model):
     def discharge(self):
         """discharge this resident"""
         self.discharge_date = timezone.now()
-        # if user is Owner or Paymaster do not disable user account
+        # if user is Owner do not disable user account
         dwelling = Dwelling.objects.get(id=self.dwelling.id)
         current_owner = dwelling.get_current_owner().user
-        if self.user != current_owner and not dwelling.is_paymaster(self.user):
+        if self.user != current_owner:
             self.user.is_active = False
             self.user.save()
         self.save()
@@ -239,4 +163,4 @@ class DwellingWaterMeter(models.Model):
 
     class Meta:
         ordering = ["water_meter__release_date"]
-        db_table = 'dwelling_water_meter'
+        db_table = 'agube_dwelling_dwelling_water_meter'

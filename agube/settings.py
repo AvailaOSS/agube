@@ -35,6 +35,8 @@ PUBLIC_APP_NAME = 'Agube'
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+REDIRECT_TO = ''
+PUBLISH_USER_TASKS = []
 
 ALLOWED_HOSTS = []
 

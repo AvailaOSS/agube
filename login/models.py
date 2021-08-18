@@ -12,7 +12,7 @@ class UserAddress(models.Model):
     main = models.BooleanField(default=False)
 
     class Meta:
-        db_table = 'user_address'
+        db_table = 'agube_login_user_address'
 
 
 class UserPhone(models.Model):
@@ -22,7 +22,7 @@ class UserPhone(models.Model):
     main = models.BooleanField(default=False)
 
     class Meta:
-        db_table = 'user_phone'
+        db_table = 'agube_login_user_phone'
 
 
 def update_address_to_not_main(user_id):

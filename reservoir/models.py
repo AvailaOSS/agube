@@ -17,7 +17,7 @@ class Reservoir(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'reservoir'
+        db_table = 'agube_reservoir_reservoir'
 
     def save(self, *args, **kwargs):
         """save the reservoir and save release_date timezone.now()"""
@@ -73,7 +73,7 @@ class ReservoirOwner(models.Model):
     discharge_date = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = 'reservoir_owner'
+        db_table = 'agube_reservoir_reservoir_owner'
 
     def save(self, *args, **kwargs):
         """save the ReservoirOwner, save release_date timezone.now()"""
@@ -93,4 +93,4 @@ class ReservoirWaterMeter(models.Model):
 
     class Meta:
         ordering = ["water_meter__release_date"]
-        db_table = 'reservoir_water_meter'
+        db_table = 'agube_reservoir_reservoir_water_meter'
