@@ -15,7 +15,12 @@ class WaterMeterSerializer(ModelSerializer):
     class Meta:
         ref_name = 'WaterMeter'
         model = WaterMeter
-        fields = ('id', 'code', 'release_date', 'discharge_date',)
+        fields = (
+            'id',
+            'code',
+            'release_date',
+            'discharge_date',
+        )
 
 
 class WaterMeterMeasurementSerializer(ModelSerializer):
@@ -28,7 +33,11 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
     class Meta:
         ref_name = 'WaterMeterMeasurement'
         model = WaterMeterMeasurement
-        fields = ('id', 'measurement', 'date',)
+        fields = (
+            'id',
+            'measurement',
+            'date',
+        )
 
 
 class WaterMeterDetailSerializer(Serializer):

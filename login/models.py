@@ -7,8 +7,9 @@ from phone.models import Phone
 
 class UserAddress(models.Model):
     """A class used to represent an User Full Address"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    full_address = models.ForeignKey(FullAddress, on_delete=models.CASCADE)
+    user: User = models.ForeignKey(User, on_delete=models.CASCADE)
+    full_address: FullAddress = models.ForeignKey(FullAddress,
+                                                  on_delete=models.CASCADE)
     main = models.BooleanField(default=False)
 
     class Meta:
@@ -17,8 +18,8 @@ class UserAddress(models.Model):
 
 class UserPhone(models.Model):
     """A class used to represent an User Phone"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
+    user: User = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone: Phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
     main = models.BooleanField(default=False)
 
     class Meta:
@@ -27,7 +28,8 @@ class UserPhone(models.Model):
 
 def update_address_to_not_main(user_id):
     try:
-        user_address = UserAddress.objects.get(user__id=user_id, main=True)
+        user_address: UserAddress = UserAddress.objects.get(user__id=user_id,
+                                                            main=True)
         user_address.main = False
         user_address.save()
     except ObjectDoesNotExist:
@@ -36,7 +38,8 @@ def update_address_to_not_main(user_id):
 
 def update_phone_to_not_main(user_id):
     try:
-        user_phone = UserPhone.objects.get(user__id=user_id, main=True)
+        user_phone: UserPhone = UserPhone.objects.get(user__id=user_id,
+                                                      main=True)
         user_phone.main = False
         user_phone.save()
     except ObjectDoesNotExist:

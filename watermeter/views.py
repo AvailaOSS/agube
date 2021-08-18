@@ -1,6 +1,6 @@
-from manager.permissions import IsManagerAuthenticated
 from django.utils import timezone
 from drf_yasg.utils import swagger_auto_schema
+from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -19,7 +19,8 @@ class WaterMeterTotalMeasurementView(generics.ListAPIView):
     serializer_class = WaterMeterMeasurementSerializer
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(operation_id="getTotalMeasures", operation_description="get all Measures saved")
+    @swagger_auto_schema(operation_id="getTotalMeasures",
+                         operation_description="get all Measures saved")
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
@@ -37,9 +38,10 @@ class WaterMeterMeasurementView(APIView):
         Return a list of water meter measures.
         """
         # Get Dwelling
-        water_meter = WaterMeter.objects.get(id=pk)
+        water_meter: WaterMeter = WaterMeter.objects.get(id=pk)
         measurements = water_meter.get_measurements()
-        return Response((WaterMeterMeasurementSerializer(measurements, many=True).data))
+        return Response((WaterMeterMeasurementSerializer(measurements,
+                                                         many=True).data))
 
     @swagger_auto_schema(
         operation_id="addWaterMeterMeasure",
@@ -52,7 +54,7 @@ class WaterMeterMeasurementView(APIView):
         Create a new Measurement for this Water Meter
         """
         # Get Water Meter
-        water_meter = WaterMeter.objects.get(id=pk)
+        water_meter: WaterMeter = WaterMeter.objects.get(id=pk)
         # Extract data
         measurement = request.data.pop('measurement')
         date = None
@@ -62,8 +64,10 @@ class WaterMeterMeasurementView(APIView):
             date = timezone.now()
         # Add Water Meter
         try:
-            water_meter_measurement = water_meter.add_measurement(
-                measurement, date=date)
-            return Response((WaterMeterMeasurementSerializer(water_meter_measurement, many=False).data))
+            water_meter_measurement = water_meter.add_measurement(measurement,
+                                                                  date=date)
+            return Response(
+                (WaterMeterMeasurementSerializer(water_meter_measurement,
+                                                 many=False).data))
         except WaterMeterDisabledError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)

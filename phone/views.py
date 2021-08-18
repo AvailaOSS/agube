@@ -1,5 +1,5 @@
-from manager.permissions import IsManagerAuthenticated
 from drf_yasg.utils import swagger_auto_schema
+from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 
 from phone.models import Phone
@@ -11,6 +11,7 @@ class PhoneListView(generics.ListAPIView):
     serializer_class = PhoneSerializer
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(operation_id="getPhones", operation_description="get list of phones")
+    @swagger_auto_schema(operation_id="getPhones",
+                         operation_description="get list of phones")
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)

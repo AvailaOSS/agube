@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-from manager.models import Person
+from manager.models import Manager, Person
 from validate_email import validate_email
 
 from dwelling.exceptions import InvalidEmailError, EmailValidationError
@@ -21,8 +21,12 @@ def send_user_creation_email(user: User, email_type: EmailType):
 
     # validate email
     user_email = user.email
-    is_valid = validate_email(user_email, check_format=True, check_blacklist=True,
-                              check_dns=True, dns_timeout=1, check_smtp=False)
+    is_valid = validate_email(user_email,
+                              check_format=True,
+                              check_blacklist=True,
+                              check_dns=True,
+                              dns_timeout=1,
+                              check_smtp=False)
     if (is_valid == None):
         raise EmailValidationError(user_email)
     elif not is_valid:
@@ -45,17 +49,16 @@ def send_user_creation_email(user: User, email_type: EmailType):
     # build email and send
     affair = 'Bienvenido a ' + app_name
     description = app_name + ' account created'
-    email = EmailMultiAlternatives(
-        affair,
-        description,
-        str(settings.EMAIL_HOST_USER),
-        [user_email]
-    )
+    email = EmailMultiAlternatives(affair, description,
+                                   str(settings.EMAIL_HOST_USER), [user_email])
     email.attach_alternative(content, 'text/html')
     email.send()
 
 
-def publish_user_created(tag, manager, user, phone_number=''):
+def publish_user_created(tag,
+                         manager: Manager,
+                         user: User,
+                         phone_number: str = ''):
     # FIXME: publish when user is disabled
     # publish when phone of user is updated
     # publish when email of user is updated
@@ -66,4 +69,5 @@ def publish_user_created(tag, manager, user, phone_number=''):
         '","phone_number":"' + phone_number + '", "tag":"' + tag.value + '"}'
     for task_config in settings.PUBLISH_USER_TASKS:
         send_task(task_config["task"], [payload],
-                  exchange=task_config["exchange"], routing_key=task_config["routing_key"])
+                  exchange=task_config["exchange"],
+                  routing_key=task_config["routing_key"])

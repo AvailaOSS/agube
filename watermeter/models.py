@@ -19,6 +19,7 @@ class WaterMeter(models.Model):
         super(WaterMeter, self).save(*args, **kwargs)
 
     def add_measurement(self, measurement, date=timezone.now()):
+        # type: (WaterMeter, float, timezone) -> WaterMeterMeasurement
         """water meter add measurement
 
         Parameters
@@ -29,15 +30,23 @@ class WaterMeter(models.Model):
             date of read measurement"""
         if self.discharge_date:
             raise WaterMeterDisabledError()
-        return WaterMeterMeasurement.objects.create(water_meter=self, measurement=measurement, date=date)
+        return WaterMeterMeasurement.objects.create(water_meter=self,
+                                                    measurement=measurement,
+                                                    date=date)
 
     def get_measurements_chunk(self, chunk=5):
+        # type: (WaterMeter) -> list[WaterMeterMeasurement]
         """get list of water meter measurements"""
-        return list(WaterMeterMeasurement.objects.filter(water_meter=self).order_by('-date')[:chunk])
+        return list(
+            WaterMeterMeasurement.objects.filter(
+                water_meter=self).order_by('-date')[:chunk])
 
     def get_measurements(self):
+        # type: (WaterMeter) -> list[WaterMeterMeasurement]
         """get list of water meter measurements"""
-        return list(WaterMeterMeasurement.objects.filter(water_meter=self).order_by('-date'))
+        return list(
+            WaterMeterMeasurement.objects.filter(
+                water_meter=self).order_by('-date'))
 
     def discharge(self):
         """discharge this water meter"""
@@ -49,7 +58,8 @@ class WaterMeterMeasurement(models.Model):
     """A class used to represent an Water Meter Measurement"""
     measurement = models.DecimalField(decimal_places=3, max_digits=8)
     date = models.DateTimeField()
-    water_meter = models.ForeignKey(WaterMeter, on_delete=models.PROTECT)
+    water_meter: WaterMeter = models.ForeignKey(WaterMeter,
+                                                on_delete=models.PROTECT)
 
     class Meta:
         ordering = ["-date"]

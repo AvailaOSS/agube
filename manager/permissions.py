@@ -8,7 +8,7 @@ class IsManagerAuthenticated(BasePermission):
     """
     message = "Only User Manager can execute this operation."
 
-    def has_permission(self, request, view):
+    def has_permission(self, request, view) -> bool:
         try:
             Manager.objects.get(user_id=request.user.id)
             return True

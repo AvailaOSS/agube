@@ -11,7 +11,8 @@ __url_user = [
     path('/<int:pk>/address/<int:full_address_id>',
          UserAddressUpdateDeleteView.as_view()),
     path('/<int:pk>/phone', UserCreatePhoneView.as_view()),
-    path('/<int:pk>/phone/<int:phone_id>', UserPhoneUpdateDeleteView.as_view()),
+    path('/<int:pk>/phone/<int:phone_id>',
+         UserPhoneUpdateDeleteView.as_view()),
 ]
 
 urlpatterns = [

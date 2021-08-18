@@ -1,15 +1,15 @@
-from dwelling.models import Dwelling
-from watermeter.models import WaterMeter
 from address.models import FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from watermeter.models import WaterMeter
 
 
 class Reservoir(models.Model):
     """A class used to represent an Reservoir"""
-    full_address = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
+    full_address: FullAddress = models.ForeignKey(FullAddress,
+                                                  on_delete=models.PROTECT)
     capacity = models.DecimalField(decimal_places=3, max_digits=8)
     inlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
     outlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
@@ -37,25 +37,29 @@ class Reservoir(models.Model):
         ReservoirOwner.objects.create(user=user, reservoir=self)
 
     def get_current_owner(self):
+        # type: (Reservoir) -> ReservoirOwner
         """returns the current reservoir_owner"""
         try:
-            return ReservoirOwner.objects.get(reservoir=self, discharge_date=None)
+            return ReservoirOwner.objects.get(reservoir=self,
+                                              discharge_date=None)
         except ObjectDoesNotExist:
             return None
 
     def change_current_water_meter(self, code):
         # discharge current Water Meter
-        current = self.get_current_water_meter()
+        current: WaterMeter = self.get_current_water_meter()
         if current:
             current.discharge()
         # create new current Water Meter
-        water_meter = WaterMeter.objects.create(code=code)
-        ReservoirWaterMeter.objects.create(
-            reservoir=self, water_meter=water_meter)
+        water_meter: WaterMeter = WaterMeter.objects.create(code=code)
+        ReservoirWaterMeter.objects.create(reservoir=self,
+                                           water_meter=water_meter)
 
     def get_current_water_meter(self):
+        # type: (Reservoir) -> WaterMeter
         try:
-            return ReservoirWaterMeter.objects.get(reservoir=self, water_meter__discharge_date=None).water_meter
+            return ReservoirWaterMeter.objects.get(
+                reservoir=self, water_meter__discharge_date=None).water_meter
         except ObjectDoesNotExist:
             return None
 
@@ -67,8 +71,9 @@ class Reservoir(models.Model):
 
 class ReservoirOwner(models.Model):
     """A class used to represent an Owner-Reservoir ManyToMany"""
-    reservoir = models.ForeignKey(Reservoir, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    reservoir: Reservoir = models.ForeignKey(Reservoir,
+                                             on_delete=models.PROTECT)
+    user: User = models.ForeignKey(User, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -88,8 +93,10 @@ class ReservoirOwner(models.Model):
 
 class ReservoirWaterMeter(models.Model):
     """A class used to represent an Reservoir Water Meter"""
-    reservoir = models.ForeignKey(Reservoir, on_delete=models.RESTRICT)
-    water_meter = models.ForeignKey(WaterMeter, on_delete=models.RESTRICT)
+    reservoir: Reservoir = models.ForeignKey(Reservoir,
+                                             on_delete=models.RESTRICT)
+    water_meter: WaterMeter = models.ForeignKey(WaterMeter,
+                                                on_delete=models.RESTRICT)
 
     class Meta:
         ordering = ["water_meter__release_date"]

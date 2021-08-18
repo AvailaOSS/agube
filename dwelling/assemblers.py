@@ -1,15 +1,17 @@
 from enum import Enum
 
 from address.models import Address, FullAddress
-from address.serializers import FullAddressSerializer
+from address.serializers import AddressSerializer, FullAddressSerializer
 from django.contrib.auth.models import User
 from login.models import UserAddress, UserPhone
-from manager.models import Person
+from login.serializers import UserDetailSerializer
+from manager.models import Manager, Person
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
 
 from dwelling.models import DwellingOwner, DwellingResident
-from dwelling.send import EmailType, publish_user_created, send_user_creation_email
+from dwelling.send import (EmailType, publish_user_created,
+                           send_user_creation_email)
 
 
 class PersonTag(Enum):
@@ -17,32 +19,37 @@ class PersonTag(Enum):
     RESIDENT = "Residente"
 
 
-def create_phone(user, validated_data, main):
+def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
     new_phone = Phone.objects.create(
         phone_number=validated_data.pop('phone_number'))
     UserPhone.objects.create(user=user, phone=new_phone, main=main)
 
 
-def create_address(user, validated_data, main):
+def create_address(user: User, validated_data: AddressSerializer, main: bool):
     # extract address_data
     address_data = validated_data.pop('address')
     # create addres
-    new_address = Address.objects.create(town=address_data.pop(
-        'town'), street=address_data.pop('street'), is_external=address_data.pop('is_external'))
+    new_address = Address.objects.create(
+        town=address_data.pop('town'),
+        street=address_data.pop('street'),
+        is_external=address_data.pop('is_external'))
     # create full address
-    full_address = FullAddress.objects.create(address=new_address, number=validated_data.pop(
-        'number'), flat=validated_data.pop('flat'), gate=validated_data.pop('gate'))
+    full_address = FullAddress.objects.create(
+        address=new_address,
+        number=validated_data.pop('number'),
+        flat=validated_data.pop('flat'),
+        gate=validated_data.pop('gate'))
     # create user address
-    UserAddress.objects.create(
-        user=user, full_address=full_address, main=main)
+    UserAddress.objects.create(user=user, full_address=full_address, main=main)
 
 
-def create_user(tag: PersonTag, validated_data, manager):
+def create_user(tag: PersonTag, validated_data: UserDetailSerializer,
+                manager: Manager):
     # Extract unnecessary data
-    phones = validated_data.pop('phones')
-    addresses = validated_data.pop('address')
+    phones: list[PhoneSerializer] = validated_data.pop('phones')
+    addresses: list[AddressSerializer] = validated_data.pop('address')
     # Create User
-    user = User.objects.create(**validated_data)
+    user: User = User.objects.create(**validated_data)
     user.is_active = False
     user.save()
     # first_iteration will be save as main phone/address
@@ -61,7 +68,7 @@ def create_user(tag: PersonTag, validated_data, manager):
         first_iteration = False
     # Important: create Person after create User
     Person.objects.create(manager=manager, user=user)
-    if PersonTag.OWNER == tag.value :
+    if PersonTag.OWNER == tag.value:
         email_type = EmailType.OWNER_EMAIL
     else:
         email_type = EmailType.RESIDENT_EMAIL
@@ -72,8 +79,8 @@ def create_user(tag: PersonTag, validated_data, manager):
     return user
 
 
-def get_all_user_address_serialized(user):
-    list_of_serialized = []
+def get_all_user_address_serialized(user: User):
+    list_of_serialized: list[FullAddressSerializer] = []
     for address_iteration in UserAddress.objects.filter(user=user):
         full_address = address_iteration.full_address
         data = {
@@ -88,22 +95,20 @@ def get_all_user_address_serialized(user):
             "flat": full_address.flat,
             "gate": full_address.gate
         }
-        list_of_serialized.append(
-            FullAddressSerializer(data, many=False).data)
+        list_of_serialized.append(FullAddressSerializer(data, many=False).data)
 
     return list_of_serialized
 
 
-def get_user_phones_serialized(user):
-    list_of_serialized = []
+def get_user_phones_serialized(user: User):
+    list_of_serialized: list[PhoneSerializer] = []
     for phone_iteration in UserPhone.objects.filter(user=user):
         phone = phone_iteration.phone
         data = {
             "phone_number": phone.phone_number,
             "id": phone.id,
         }
-        list_of_serialized.append(
-            PhoneSerializer(data, many=False).data)
+        list_of_serialized.append(PhoneSerializer(data, many=False).data)
 
     return list_of_serialized
 

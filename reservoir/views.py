@@ -58,7 +58,8 @@ class ReservoirCreateView(generics.CreateAPIView):
     serializer_class = ReservoirCreateSerializer
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(operation_id="createReservoir", operation_description="create a new Reservoir")
+    @swagger_auto_schema(operation_id="createReservoir",
+                         operation_description="create a new Reservoir")
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -75,9 +76,11 @@ class ReservoirView(generics.GenericAPIView):
         """
         try:
             reservoir = Reservoir.objects.get(id=pk)
-            return Response(ReservoirCreateSerializer(reservoir, many=False).data)
+            return Response(
+                ReservoirCreateSerializer(reservoir, many=False).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
 
 
 class ReservoirWaterMeterChunkView(APIView):
@@ -119,7 +122,8 @@ class ReservoirWaterMeterChunkView(APIView):
 
             return Response(WaterMeterDetailSerializer(data, many=False).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
 
 
 class ReservoirOwnerView(generics.GenericAPIView):
@@ -137,7 +141,8 @@ class ReservoirOwnerView(generics.GenericAPIView):
             owner = reservoir.get_current_owner()
             return Response(get_reservoir_owner_serialized(owner))
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
 
 
 class ReservoirWaterMeterView(generics.GenericAPIView):
@@ -158,7 +163,8 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
             water_meter = reservoir.get_current_water_meter()
             return Response(self.get_serializer(water_meter).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(operation_id="changeCurrentReservoirWaterMeter")
     def post(self, request, pk):
@@ -173,4 +179,5 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
             new_water_meter = reservoir.get_current_water_meter()
             return Response(self.get_serializer(new_water_meter).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
