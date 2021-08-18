@@ -2,6 +2,8 @@ DEBUG=1
 
 DJANGO_ALLOWED_HOSTS=localhost
 
+JWT_EXPIRATION_SECONDS=3600
+
 SQL_ENGINE=django.db.backends.postgresql_psycopg2
 SQL_HOST=db
 SQL_PORT=5432
