@@ -14,7 +14,6 @@ import json
 import os
 from pathlib import Path
 
-from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -165,5 +164,5 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_ALGORITHM': 'HS256',
     'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=os.environ.get("JWT_EXPIRATION_SECONDS")),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=int(os.environ.get("JWT_EXPIRATION_SECONDS"))),
 }
