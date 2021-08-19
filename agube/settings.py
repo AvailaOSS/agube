@@ -26,14 +26,14 @@ DEBUG = True
 
 # Celery Configuration Options
 # CELERY_BROKER_URL = "amqp://developer:developer@rabbitmq:5672//"
-# PUBLISH_USER_TASKS = [{"task": "agube.celery.new_user_published", "exchange":"agube_exchange", "routing_key":"agube.user"},{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
+# AGUBE_PUBLISH_USER_TASKS = [{"task": "agube.celery.new_user_published", "exchange":"agube_exchange", "routing_key":"agube.user"},{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
+AGUBE_PUBLISH_USER_TASKS = []
 
 PUBLIC_APP_NAME = 'Agube'
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REDIRECT_TO = ''
-PUBLISH_USER_TASKS = []
 
 ALLOWED_HOSTS = []
 
@@ -150,6 +150,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+# TODO: Remove this in the future, it only should be work in auth project
 JWT_AUTH = {
     'JWT_ALGORITHM': 'HS256',
     'JWT_ALLOW_REFRESH': True,

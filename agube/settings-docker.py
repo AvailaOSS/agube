@@ -29,7 +29,7 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 
 # Celery Configuration Options
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
-PUBLISH_USER_TASKS = json.loads(os.environ.get("PUBLISH_USER_TASKS"))
+AGUBE_PUBLISH_USER_TASKS = json.loads(os.environ.get("AGUBE_PUBLISH_USER_TASKS"))
 
 PUBLIC_APP_NAME = os.environ.get("PUBLIC_APP_NAME")
 
@@ -161,6 +161,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+# TODO: Remove this in the future, it only should be work in auth project
 JWT_AUTH = {
     'JWT_ALGORITHM': 'HS256',
     'JWT_ALLOW_REFRESH': True,
