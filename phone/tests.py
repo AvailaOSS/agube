@@ -4,7 +4,6 @@ from phone.models import Phone
 
 
 class PhoneTestCase(TestCase):
-
     def setUp(self):
         Phone.objects.create(phone_number='999999999')
 

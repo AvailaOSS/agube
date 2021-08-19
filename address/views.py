@@ -11,10 +11,12 @@ class AddressCreateListView(generics.ListAPIView, generics.CreateAPIView):
     serializer_class = AddressSerializer
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(operation_id="getAddress", operation_description="get list of address")
+    @swagger_auto_schema(operation_id="getAddress",
+                         operation_description="get list of address")
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
-    @swagger_auto_schema(operation_id="createAddress", operation_description="create a new Address")
+    @swagger_auto_schema(operation_id="createAddress",
+                         operation_description="create a new Address")
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)

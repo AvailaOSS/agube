@@ -12,7 +12,7 @@ class Address(models.Model):
 
 
 class FullAddress(models.Model):
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address: Address = models.ForeignKey(Address, on_delete=models.CASCADE)
     number = models.PositiveIntegerField()
     flat = models.TextField(null=True)
     gate = models.TextField(null=True)

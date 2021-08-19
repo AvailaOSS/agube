@@ -7,13 +7,14 @@ from login.models import UserAddress
 from manager.models import Manager
 from watermeter.models import WaterMeter
 
-from dwelling.exceptions import (IncompatibleUsernameError, OwnerAlreadyIsResidentError)
+from dwelling.exceptions import OwnerAlreadyIsResidentError
 
 
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
-    full_address: FullAddress = models.ForeignKey(FullAddress, on_delete=models.PROTECT)
+    full_address: FullAddress = models.ForeignKey(FullAddress,
+                                                  on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -25,7 +26,7 @@ class Dwelling(models.Model):
         self.release_date = timezone.now()
         super(Dwelling, self).save(*args, **kwargs)
 
-    def change_current_owner(self, user):
+    def change_current_owner(self, user: User):
         """dwelling add owner
 
         Parameters
@@ -38,9 +39,11 @@ class Dwelling(models.Model):
         DwellingOwner.objects.create(user=user, dwelling=self)
 
     def get_current_owner(self):
+        # type: (Dwelling) -> DwellingOwner
         """returns the current owner in the dwelling"""
         try:
-            return DwellingOwner.objects.get(dwelling=self, discharge_date=None)
+            return DwellingOwner.objects.get(dwelling=self,
+                                             discharge_date=None)
         except ObjectDoesNotExist:
             return None
 
@@ -60,23 +63,25 @@ class Dwelling(models.Model):
         # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""
         try:
-            return DwellingResident.objects.get(dwelling=self, discharge_date=None)
+            return DwellingResident.objects.get(dwelling=self,
+                                                discharge_date=None)
         except ObjectDoesNotExist:
             return None
 
-    def change_current_water_meter(self, code):
+    def change_current_water_meter(self, code: str):
         # discharge current Water Meter
         current = self.get_current_water_meter()
         if current:
             current.discharge()
         # create new current Water Meter
-        water_meter = WaterMeter.objects.create(code=code)
-        DwellingWaterMeter.objects.create(
-            dwelling=self, water_meter=water_meter)
+        water_meter: WaterMeter = WaterMeter.objects.create(code=code)
+        DwellingWaterMeter.objects.create(dwelling=self,
+                                          water_meter=water_meter)
 
-    def get_current_water_meter(self):
+    def get_current_water_meter(self) -> WaterMeter:
         try:
-            return DwellingWaterMeter.objects.get(dwelling=self, water_meter__discharge_date=None).water_meter
+            return DwellingWaterMeter.objects.get(
+                dwelling=self, water_meter__discharge_date=None).water_meter
         except ObjectDoesNotExist:
             return None
 
@@ -87,7 +92,6 @@ class Dwelling(models.Model):
             raise OwnerAlreadyIsResidentError()
         self.change_current_resident(owner.user)
 
-
     def discharge(self):
         """discharge this Dwelling"""
         self.discharge_date = timezone.now()
@@ -96,8 +100,8 @@ class Dwelling(models.Model):
 
 class DwellingOwner(models.Model):
     """A class used to represent an Owner-Dwelling ManyToMany"""
-    dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
+    user: User = models.ForeignKey(User, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -119,8 +123,8 @@ class DwellingOwner(models.Model):
 
 class DwellingResident(models.Model):
     """A class used to represent an Resident-Dwelling ManyToMany"""
-    dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
+    user: User = models.ForeignKey(User, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -141,14 +145,15 @@ class DwellingResident(models.Model):
                 older.save()
         except ObjectDoesNotExist:
             pass
-        UserAddress.objects.create(
-            user=self.user, full_address=self.dwelling.full_address, main=True)
+        UserAddress.objects.create(user=self.user,
+                                   full_address=self.dwelling.full_address,
+                                   main=True)
 
     def discharge(self):
         """discharge this resident"""
         self.discharge_date = timezone.now()
         # if user is Owner do not disable user account
-        dwelling = Dwelling.objects.get(id=self.dwelling.id)
+        dwelling: Dwelling = Dwelling.objects.get(id=self.dwelling.id)
         current_owner = dwelling.get_current_owner().user
         if self.user != current_owner:
             self.user.is_active = False
@@ -158,8 +163,9 @@ class DwellingResident(models.Model):
 
 class DwellingWaterMeter(models.Model):
     """A class used to represent an Dwelling Water Meter"""
-    dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
-    water_meter = models.ForeignKey(WaterMeter, on_delete=models.RESTRICT)
+    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
+    water_meter: WaterMeter = models.ForeignKey(WaterMeter,
+                                                on_delete=models.RESTRICT)
 
     class Meta:
         ordering = ["water_meter__release_date"]

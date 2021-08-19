@@ -13,4 +13,7 @@ class PhoneSerializer(ModelSerializer):
     class Meta:
         ref_name = 'Phone'
         model = Phone
-        fields = ('id', 'phone_number',)
+        fields = (
+            'id',
+            'phone_number',
+        )

@@ -24,8 +24,15 @@ class ReservoirSerializer(ModelSerializer):
     class Meta:
         ref_name = 'Reservoir'
         model = Reservoir
-        fields = ('id', 'full_address', 'release_date',
-                  'discharge_date', 'capacity', 'inlet_flow', 'outlet_flow',)
+        fields = (
+            'id',
+            'full_address',
+            'release_date',
+            'discharge_date',
+            'capacity',
+            'inlet_flow',
+            'outlet_flow',
+        )
 
 
 class ReservoirCreateSerializer(ModelSerializer):
@@ -34,16 +41,26 @@ class ReservoirCreateSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     full_address = FullAddressSerializer(many=False, read_only=False)
-    user_id = PrimaryKeyRelatedField(
-        many=False,  read_only=False, write_only=True, queryset=User.objects.all())
-    water_meter = WaterMeterSerializer(
-        many=False, read_only=False, write_only=True)
+    user_id = PrimaryKeyRelatedField(many=False,
+                                     read_only=False,
+                                     write_only=True,
+                                     queryset=User.objects.all())
+    water_meter = WaterMeterSerializer(many=False,
+                                       read_only=False,
+                                       write_only=True)
 
     class Meta:
         ref_name = 'ReservoirCreate'
         model = Reservoir
-        fields = ('id', 'full_address', 'user_id', 'water_meter',
-                  'capacity', 'inlet_flow', 'outlet_flow',)
+        fields = (
+            'id',
+            'full_address',
+            'user_id',
+            'water_meter',
+            'capacity',
+            'inlet_flow',
+            'outlet_flow',
+        )
 
     def create(self, validated_data):
         # Create address
@@ -53,7 +70,7 @@ class ReservoirCreateSerializer(ModelSerializer):
         user = validated_data.pop('user_id')
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create reservoir
-        reservoir = Reservoir.objects.create(**validated_data)
+        reservoir: Reservoir = Reservoir.objects.create(**validated_data)
         # Add user to Reservoir
         reservoir.change_current_owner(user)
         # Create water meter
@@ -61,12 +78,13 @@ class ReservoirCreateSerializer(ModelSerializer):
         return reservoir
 
     @classmethod
-    def create_reservoir_address(cls, validated_data):
+    def create_reservoir_address(cls, validated_data) -> FullAddress:
         address_data = validated_data.pop('address')
         town = address_data.pop('town')
         street = address_data.pop('street')
-        validated_data['address'] = Address.objects.create(
-            town=town, street=street, is_external=False)
+        validated_data['address'] = Address.objects.create(town=town,
+                                                           street=street,
+                                                           is_external=False)
         return FullAddress.objects.create(**validated_data)
 
 
@@ -83,8 +101,13 @@ class ReservoirOwnerSerializer(ModelSerializer):
     class Meta:
         ref_name = 'Owner'
         model = ReservoirOwner
-        fields = ('id', 'reservoir_id', 'user',
-                  'release_date', 'discharge_date',)
+        fields = (
+            'id',
+            'reservoir_id',
+            'user',
+            'release_date',
+            'discharge_date',
+        )
 
 
 class ReservoirDetailSerializer(Serializer):
@@ -92,28 +115,45 @@ class ReservoirDetailSerializer(Serializer):
     Reservoir Detail ModelSerializer
     """
     id = ReadOnlyField()
-    street = CharField(max_length=None, min_length=None,
-                       allow_blank=False, trim_whitespace=True)
-    number = CharField(max_length=None, min_length=None,
-                       allow_blank=False, trim_whitespace=True)
-    flat = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
-    gate = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
-    town = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
-    capacity = CharField(max_length=None, min_length=None,
-                         allow_blank=False, trim_whitespace=True)
-    inlet_flow = CharField(max_length=None, min_length=None,
-                           allow_blank=False, trim_whitespace=True)
-    outlet_flow = CharField(max_length=None, min_length=None,
-                            allow_blank=False, trim_whitespace=True)
+    street = CharField(max_length=None,
+                       min_length=None,
+                       allow_blank=False,
+                       trim_whitespace=True)
+    number = CharField(max_length=None,
+                       min_length=None,
+                       allow_blank=False,
+                       trim_whitespace=True)
+    flat = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
+    gate = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
+    town = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
+    capacity = CharField(max_length=None,
+                         min_length=None,
+                         allow_blank=False,
+                         trim_whitespace=True)
+    inlet_flow = CharField(max_length=None,
+                           min_length=None,
+                           allow_blank=False,
+                           trim_whitespace=True)
+    outlet_flow = CharField(max_length=None,
+                            min_length=None,
+                            allow_blank=False,
+                            trim_whitespace=True)
 
     class Meta:
         ref_name = 'ReservoirDetail'
 
 
-def get_reservoir_owner_serialized(owner: ReservoirOwner):
+def get_reservoir_owner_serialized(
+        owner: ReservoirOwner) -> ReservoirOwnerSerializer:
     user = owner.user
     data = {
         "id": owner.id,

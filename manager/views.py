@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -23,15 +22,13 @@ class UserIsManagerView(APIView):
         """
         true if user is manager
         """
-        managers = Manager.objects.filter(user__id=self.request.user.id).count()
+        managers = Manager.objects.filter(
+            user__id=self.request.user.id).count()
         is_manager = False
         if managers > 0:
             is_manager = True
-        data = {
-            'is_manager': is_manager
-        }
-        return Response(
-            UserIsManagerSerializer(data, many=False).data)
+        data = {'is_manager': is_manager}
+        return Response(UserIsManagerSerializer(data, many=False).data)
 
 
 class ManagerView(APIView):
@@ -46,9 +43,9 @@ class ManagerView(APIView):
         """
         Get Manager
         """
-        manager = Person.objects.get(user__id=self.request.user.id).manager
-        return Response(
-            ManagerSerializer(manager, many=False).data)
+        manager: Manager = Person.objects.get(
+            user__id=self.request.user.id).manager
+        return Response(ManagerSerializer(manager, many=False).data)
 
 
 class ManagerConfigurationView(APIView):
@@ -63,11 +60,12 @@ class ManagerConfigurationView(APIView):
         """
         Get Manager Configuration
         """
-        configuration = ManagerConfiguration.objects.get(manager__user_id=pk)
+        configuration: ManagerConfiguration = ManagerConfiguration.objects.get(
+            manager__user_id=pk)
         return Response(
             ManagerConfigurationSerializer(configuration, many=False).data)
 
-    @ swagger_auto_schema(
+    @swagger_auto_schema(
         operation_id="updateManagerConfiguration",
         request_body=ManagerConfigurationSerializer,
         responses={200: ManagerConfigurationSerializer(many=False)},
@@ -77,7 +75,8 @@ class ManagerConfigurationView(APIView):
         """
         Update manager configuration
         """
-        configuration = ManagerConfiguration.objects.get(manager__user_id=pk)
+        configuration: ManagerConfiguration = ManagerConfiguration.objects.get(
+            manager__user_id=pk)
         configuration.max_daily_consumption = request.data.pop(
             'max_daily_consumption')
         configuration.save()

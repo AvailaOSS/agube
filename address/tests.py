@@ -4,7 +4,6 @@ from .models import Address, FullAddress
 
 
 class AddressTestCase(TestCase):
-
     def setUp(self):
         Address.objects.create(street='wall street', is_external=False)
         Address.objects.create(street='central park', is_external=True)
@@ -21,10 +20,14 @@ class AddressTestCase(TestCase):
 
 
 class FullAddressTestCase(TestCase):
-
     def setUp(self):
-        address = Address.objects.create(street='wall street', is_external=False)
-        FullAddress.objects.create(address=address, number=57, flat='99', gate='A', town='New York')
+        address = Address.objects.create(street='wall street',
+                                         is_external=False)
+        FullAddress.objects.create(address=address,
+                                   number=57,
+                                   flat='99',
+                                   gate='A',
+                                   town='New York')
         FullAddress.objects.create(address=address, number=56, town='New York')
 
     def test_get_full_address(self):

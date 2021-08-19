@@ -1,6 +1,7 @@
 from django.urls import include, path
 
-from manager.views import (ManagerConfigurationView, ManagerView, UserIsManagerView)
+from manager.views import (ManagerConfigurationView, ManagerView,
+                           UserIsManagerView)
 
 __url_manager = [
     path('/is-manager', UserIsManagerView.as_view()),

@@ -5,8 +5,9 @@ from django.utils import timezone
 
 
 class Manager(models.Model):
-    user = models.OneToOneField(
-        User, primary_key=True, on_delete=models.RESTRICT)
+    user: User = models.OneToOneField(User,
+                                      primary_key=True,
+                                      on_delete=models.RESTRICT)
 
     class Meta:
         db_table = 'agube_manager_manager'
@@ -16,8 +17,8 @@ class Manager(models.Model):
         __default_hook_price = 100
         """save the Manager and create default config"""
         super(Manager, self).save(*args, **kwargs)
-        self.create_default_configuration(
-            __default_max_daily_consumption, __default_hook_price)
+        self.create_default_configuration(__default_max_daily_consumption,
+                                          __default_hook_price)
 
     def create_default_configuration(self, max_daily_consumption, hook_price):
         """create default Manager Configuration"""
@@ -27,7 +28,7 @@ class Manager(models.Model):
 
 
 class ManagerConfiguration(models.Model):
-    manager = models.OneToOneField(Manager, on_delete=models.RESTRICT)
+    manager: Manager = models.OneToOneField(Manager, on_delete=models.RESTRICT)
     max_daily_consumption = models.DecimalField(decimal_places=3, max_digits=8)
 
     class Meta:
@@ -42,13 +43,15 @@ class ManagerConfiguration(models.Model):
         current = self.get_current_hook()
         if current:
             current.discharge()
-        hook_price = HookPrice.objects.create(
+        hook_price: HookPrice = HookPrice.objects.create(
             manager_configuration=self, hook_price=hook_price)
 
     def get_current_hook(self):
+        # type: (ManagerConfiguration) -> HookPrice
         """get current hook"""
         try:
-            return HookPrice.objects.get(manager_configuration=self, discharge_date=None)
+            return HookPrice.objects.get(manager_configuration=self,
+                                         discharge_date=None)
         except ObjectDoesNotExist:
             return None
 
@@ -58,7 +61,7 @@ class ManagerConfiguration(models.Model):
 
 
 class HookPrice(models.Model):
-    manager_configuration = models.ForeignKey(
+    manager_configuration: ManagerConfiguration = models.ForeignKey(
         ManagerConfiguration, on_delete=models.RESTRICT)
     hook_price = models.DecimalField(decimal_places=2, max_digits=8)
     release_date = models.DateTimeField()
@@ -79,8 +82,8 @@ class HookPrice(models.Model):
 
 
 class Person(models.Model):
-    manager = models.ForeignKey(Manager, on_delete=models.RESTRICT)
-    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+    manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT)
+    user: User = models.OneToOneField(User, on_delete=models.RESTRICT)
 
     class Meta:
         db_table = 'agube_manager_person'
