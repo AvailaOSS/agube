@@ -7,10 +7,15 @@ README.md
 env
 venv
 
+#sqlite3
+db.sqlite3
+db.sqlite3-journal
+
 #git
 .git
 .gitignore
 
 #docker
+settings-local.py
 Dockerfile
 docker*
