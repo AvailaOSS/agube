@@ -1,28 +1,77 @@
 Agube
+===
 
-# First step to start project
+## 🚀 start project
+First step to start project
+```
+ django-admin startproject agube
+```
+```
+ python -m venv venv
+```
+```
+ venv\Scripts\activate
+```
+```
+ pip install Django
+```
 
-> django-admin startproject agube
-> python -m venv venv
-> venv\Scripts\activate
-> pip install Django
+## ✂️ shortcuts
+Shortcuts utils for django applications
+```
+ pip freeze > requirements.txt
+```
+```
+ pip install -r requirements.txt
+```
+```
+ python manage.py runserver
+```
+```
+ python manage.py makemigrations
+```
+```
+ python manage.py makemigrations --name [your-name] --empty [your-app]
+```
+```
+ python manage.py migrate
+```
+```
+ python manage.py startapp [your-app-name]
+```
 
-# shortcuts
+## 💿 sqlite3
+run project with local settings and sqlite3 (without docker image)
+```
+ python manage.py runserver --settings agube.settings-local
+```
+```
+ python manage.py migrate --settings agube.settings-local
+```
 
-> pip freeze > requirements.txt
-> pip install -r requirements.txt
-> python manage.py runserver
-> python manage.py makemigrations
-> python manage.py makemigrations --name [your-name] --empty [your-app]
-> python manage.py migrate
-> python manage.py startapp [your-app-name]
+## 🐳 docker
+run project with docker images
+```
+ cd docker
+```
+```
+ docker-compose up
+```
 
-# run celery
-> celery -A agube.celery worker -l INFO
+## 🍆 celery
+run celery to use rabbitmq queues into the application
+```
+ celery -A agube.celery worker -l INFO
+```
 
-# run flower
-> celery -A agube.celery flower --port=5555
+## 🌷 flower
+run flower to show info of rabbitmq queues
+```
+ celery -A agube.celery flower --port=5555
+```
 
-# execute tests with coverage
-
-> pytest --cov --cov-report=html
+## ✅ tests
+execute tests with coverage statistics
+```
+ pytest --cov --cov-report=html
+```

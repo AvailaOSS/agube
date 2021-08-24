@@ -12,7 +12,6 @@ SQL_USER=developer
 SQL_PASSWORD=developer
 
 CELERY_BROKER_URL=amqp://developer:developer@rabbitmq:5672//
-PUBLISH_CLIENT_TASKS = [{"task": "agube.celery.new_user_published", "exchange":"agube_exchange", "routing_key":"agube.user"},{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
-PUBLISH_USER_TASKS = [{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
+AGUBE_PUBLISH_USER_TASKS = [{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
 
 PUBLIC_APP_NAME = Agube

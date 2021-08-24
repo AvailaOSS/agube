@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import datetime
+import json
+import os
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,23 +22,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q32oo=%+f$+$9f10vvg#ysk&azthlts*4phkc(0lezf_sgd6@^'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
 # Celery Configuration Options
-# CELERY_BROKER_URL = "amqp://developer:developer@rabbitmq:5672//"
-# PUBLISH_USER_TASKS = [{"task": "agube.celery.new_user_published", "exchange":"agube_exchange", "routing_key":"agube.user"},{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+AGUBE_PUBLISH_USER_TASKS = json.loads(os.environ.get("AGUBE_PUBLISH_USER_TASKS"))
 
-PUBLIC_APP_NAME = 'Agube'
+PUBLIC_APP_NAME = os.environ.get("PUBLIC_APP_NAME")
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-REDIRECT_TO = ''
-PUBLISH_USER_TASKS = []
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+REDIRECT_TO = os.environ.get("REDIRECT_TO")
+EMAIL_USE_TLS = True  # TODO: check if it should be disabled
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -97,8 +103,13 @@ WSGI_APPLICATION = 'agube.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get("SQL_ENGINE"),
+        'NAME': os.environ.get("SQL_DATABASE"),
+        'USER': os.environ.get("SQL_USER"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD"),
+        'HOST': os.environ.get("SQL_HOST"),
+        'PORT': os.environ.get("SQL_PORT"),
+        'ATOMIC_REQUESTS': True,
     }
 }
 
@@ -150,8 +161,9 @@ REST_FRAMEWORK = {
     ]
 }
 
+# TODO: Remove this in the future, it only should be work in auth project
 JWT_AUTH = {
     'JWT_ALGORITHM': 'HS256',
     'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=int(os.environ.get("JWT_EXPIRATION_SECONDS"))),
 }
