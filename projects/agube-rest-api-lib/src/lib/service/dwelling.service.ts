@@ -12,8 +12,10 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import {
-  HttpClient, HttpEvent, HttpHeaders,
-  HttpResponse
+  HttpClient,
+  HttpEvent,
+  HttpHeaders,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -45,7 +47,6 @@ export class DwellingService {
     }
     this.basePath = this.svcConfig.getBasePath();
   }
-
 
   /**
    * @param consumes string[] mime-types
@@ -112,7 +113,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -197,7 +198,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -282,7 +283,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -318,92 +319,7 @@ export class DwellingService {
 
   /**
    *
-   * change Paymaster info
-   * @param id
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public changePaymaster(
-    id: string,
-    data: Paymaster,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Paymaster>;
-  public changePaymaster(
-    id: string,
-    data: Paymaster,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Paymaster>>;
-  public changePaymaster(
-    id: string,
-    data: Paymaster,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Paymaster>>;
-  public changePaymaster(
-    id: string,
-    data: Paymaster,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling changePaymaster.'
-      );
-    }
-
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling changePaymaster.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.post<Paymaster>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
-      data,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * create a new Dwelling, the owner will be a resident
+   * create a new Dwelling
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -441,7 +357,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -465,80 +381,6 @@ export class DwellingService {
 
     return this.httpClient.post<DwellingCreate>(
       `${this.basePath}/dwelling/create`,
-      data,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * create a new Dwelling with Resident
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public createDwellingWithResident(
-    data: DwellingCreateWithResident,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<DwellingCreateWithResident>;
-  public createDwellingWithResident(
-    data: DwellingCreateWithResident,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<DwellingCreateWithResident>>;
-  public createDwellingWithResident(
-    data: DwellingCreateWithResident,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<DwellingCreateWithResident>>;
-  public createDwellingWithResident(
-    data: DwellingCreateWithResident,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling createDwellingWithResident.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.post<DwellingCreateWithResident>(
-      `${this.basePath}/dwelling/create-with-resident`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -589,7 +431,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -656,7 +498,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -723,7 +565,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -801,7 +643,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -870,7 +712,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -926,7 +768,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -955,100 +797,28 @@ export class DwellingService {
 
   /**
    *
-   * Return Paymaster info
+   *
    * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getPaymaster(
-    id: string,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Paymaster>;
-  public getPaymaster(
-    id: string,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Paymaster>>;
-  public getPaymaster(
-    id: string,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Paymaster>>;
-  public getPaymaster(
-    id: string,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling getPaymaster.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-
-    return this.httpClient.get<Paymaster>(
-      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/paymaster`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   *
-   * @param id A unique integer value identifying this dwelling.
-   * @param data
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
   public setOwnerAsResident(
-    id: number,
-    data: Resident,
+    id: string,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Resident>;
   public setOwnerAsResident(
-    id: number,
-    data: Resident,
+    id: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Resident>>;
   public setOwnerAsResident(
-    id: number,
-    data: Resident,
+    id: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Resident>>;
   public setOwnerAsResident(
-    id: number,
-    data: Resident,
+    id: string,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -1058,12 +828,6 @@ export class DwellingService {
       );
     }
 
-    if (data === null || data === undefined) {
-      throw new Error(
-        'Required parameter data was null or undefined when calling setOwnerAsResident.'
-      );
-    }
-
     let headers = this.defaultHeaders;
 
     // authentication (Basic) required
@@ -1071,7 +835,7 @@ export class DwellingService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password)
       );
     }
 
@@ -1086,18 +850,12 @@ export class DwellingService {
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
 
     return this.httpClient.post<Resident>(
       `${this.basePath}/dwelling/${encodeURIComponent(
         String(id)
       )}/owner-as-resident`,
-      data,
+      null,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
