@@ -14,7 +14,12 @@ class UserSerializer(ModelSerializer):
     class Meta:
         ref_name = 'User'
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email',)
+        fields = (
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+        )
 
 
 class UserDetailSerializer(UserSerializer):
@@ -28,8 +33,14 @@ class UserDetailSerializer(UserSerializer):
     class Meta:
         ref_name = 'UserDetail'
         model = User
-        fields = ('id', 'username', 'first_name',
-                  'last_name', 'email', 'phones', 'address',)
+        fields = (
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'phones',
+            'address',
+        )
 
 
 class UserCustomDetailSerializer(Serializer):
@@ -37,24 +48,42 @@ class UserCustomDetailSerializer(Serializer):
     User Custom Detail ModelSerializer
     """
     id = ReadOnlyField()
-    first_name = CharField(
-        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
-    last_name = CharField(
-        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
-    phone = CharField(
-        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
-    email = CharField(
-        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
-    town = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
-    street = CharField(max_length=None, min_length=None,
-                       allow_blank=False, trim_whitespace=True)
-    number = CharField(max_length=None, min_length=None,
-                       allow_blank=False, trim_whitespace=True)
-    flat = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
-    gate = CharField(max_length=None, min_length=None,
-                     allow_blank=False, trim_whitespace=True)
+    first_name = CharField(max_length=None,
+                           min_length=None,
+                           allow_blank=False,
+                           trim_whitespace=True)
+    last_name = CharField(max_length=None,
+                          min_length=None,
+                          allow_blank=False,
+                          trim_whitespace=True)
+    phone = CharField(max_length=None,
+                      min_length=None,
+                      allow_blank=False,
+                      trim_whitespace=True)
+    email = CharField(max_length=None,
+                      min_length=None,
+                      allow_blank=False,
+                      trim_whitespace=True)
+    town = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
+    street = CharField(max_length=None,
+                       min_length=None,
+                       allow_blank=False,
+                       trim_whitespace=True)
+    number = CharField(max_length=None,
+                       min_length=None,
+                       allow_blank=False,
+                       trim_whitespace=True)
+    flat = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
+    gate = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
 
     class Meta:
         ref_name = 'UserDetailCustom'
@@ -64,8 +93,10 @@ class UserPhoneUpdateSerializer(Serializer):
     """
     User update phone
     """
-    phone = CharField(
-        max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    phone = CharField(max_length=None,
+                      min_length=None,
+                      allow_blank=False,
+                      trim_whitespace=True)
     main = BooleanField()
 
     class Meta:

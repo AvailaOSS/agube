@@ -3,6 +3,8 @@ from enum import Enum
 from address.models import Address, FullAddress
 from address.serializers import AddressSerializer, FullAddressSerializer
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.crypto import get_random_string
 from login.models import UserAddress, UserPhone
 from login.serializers import UserDetailSerializer
 from manager.models import Manager, Person
@@ -48,34 +50,53 @@ def create_user(tag: PersonTag, validated_data: UserDetailSerializer,
     # Extract unnecessary data
     phones: list[PhoneSerializer] = validated_data.pop('phones')
     addresses: list[AddressSerializer] = validated_data.pop('address')
+
+    # Generate activation code for the new user
+    retry = True
+    activation_code = get_random_string(length=6)
+
+    while retry:
+        try:
+            User.objects.get(username=activation_code)
+        except ObjectDoesNotExist:
+            retry = False
+        activation_code = get_random_string(length=6)
+
     # Create User
-    user: User = User.objects.create(**validated_data)
+    user: User = User.objects.create(username=activation_code,
+                                     **validated_data)
     user.is_active = False
     user.save()
+
     # first_iteration will be save as main phone/address
     first_iteration = True
     firstPhone = ''
+
     # Create User Phones
     for phone in phones:
         if first_iteration:
             firstPhone = phone['phone_number']
         create_phone(user, phone, first_iteration)
         first_iteration = False
+
     # Create User Address
     first_iteration = True
     for address in addresses:
         create_address(user, address, first_iteration)
         first_iteration = False
+
     # Important: create Person after create User
     Person.objects.create(manager=manager, user=user)
     if PersonTag.OWNER == tag.value:
         email_type = EmailType.OWNER_EMAIL
     else:
         email_type = EmailType.RESIDENT_EMAIL
+
     # send email to user created
     send_user_creation_email(user, email_type)
     # publish that user was created
     publish_user_created(tag, manager, user, firstPhone)
+
     return user
 
 
