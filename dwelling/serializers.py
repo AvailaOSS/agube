@@ -83,7 +83,8 @@ class DwellingCreateSerializer(ModelSerializer):
         return FullAddress.objects.create(**validated_data)
 
     @classmethod
-    def create_water_meter(cls, dwelling: Dwelling, validated_data) -> WaterMeter:
+    def create_water_meter(cls, dwelling: Dwelling,
+                           validated_data) -> WaterMeter:
         return WaterMeter.objects.create(dwelling=dwelling,
                                          code=validated_data['code'])
 

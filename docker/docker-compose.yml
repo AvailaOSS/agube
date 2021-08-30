@@ -56,7 +56,6 @@ services:
   #     - EMAIL_PORT=587
   #     - EMAIL_HOST_USER=$DEV_USER_MAIL
   #     - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
-  #     - REDIRECT_TO=localhost:8080/enable-account?id=
   #   env_file:
   #     - ./docker/.env.be
   #   depends_on:
@@ -99,7 +98,6 @@ services:
       - EMAIL_PORT=587
       - EMAIL_HOST_USER=$DEV_USER_MAIL
       - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
-      - REDIRECT_TO=localhost:8080/enable-account?id=
     env_file:
       - .env.be
     depends_on:
