@@ -48,31 +48,37 @@ class DwellingListView(APIView):
 
         list_of_serialized: list[DwellingDetailSerializer] = []
         for dwelling in houses:
-            user = dwelling.get_current_resident().user
             water_meter_code: str = dwelling.get_current_water_meter().code
-            user_address: FullAddress = UserAddress.objects.get(
-                user=user, main=True).full_address
+
+            resident_first_name = ''
             user_phone_number = ''
 
-            try:
-                user_phone: UserPhone = UserPhone.objects.get(user=user,
-                                                              main=True)
-                if user_phone:
-                    user_phone_number = user_phone.phone.phone_number
-            except ObjectDoesNotExist:
-                pass
+            has_resident = dwelling.get_current_resident()
+            if has_resident:
+                resident = has_resident.user
+                resident_first_name = resident.first_name
+                try:
+                    user_phone: UserPhone = UserPhone.objects.get(
+                        user=resident, main=True)
+                    if user_phone:
+                        user_phone_number = user_phone.phone.phone_number
+                except ObjectDoesNotExist:
+                    pass
+
+            full_address: FullAddress = dwelling.full_address
 
             data = {
                 'id': dwelling.id,
                 'water_meter_code': water_meter_code,
-                'town': user_address.address.town,
-                'street': user_address.address.street,
-                'number': user_address.number,
-                'flat': user_address.flat,
-                'gate': user_address.gate,
-                'resident_first_name': user.first_name,
+                'town': full_address.address.town,
+                'street': full_address.address.street,
+                'number': full_address.number,
+                'flat': full_address.flat,
+                'gate': full_address.gate,
+                'resident_first_name': resident_first_name,
                 'resident_phone': user_phone_number,
             }
+
             list_of_serialized.append(
                 DwellingDetailSerializer(data, many=False).data)
 
@@ -269,7 +275,8 @@ class DwellingWaterMeterChunkView(APIView):
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
             water_meter = dwelling.get_current_water_meter()
 
-            list_of_water_meter_serialized: list[WaterMeterMeasurementSerializer] = []
+            list_of_water_meter_serialized: list[
+                WaterMeterMeasurementSerializer] = []
             for measurement in water_meter.get_measurements_chunk(chunk):
 
                 data = {
