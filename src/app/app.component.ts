@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
-import { AccountService } from '@availa/auth-fe';
+import { Component } from "@angular/core";
+import { AccountService } from "@availa/auth-fe";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  title = 'angularbootstrap';
+  title = "";
 
-  // FIXME : REMOVE ANY
+  // FIXME: do not use any
   public user: any;
   public toolbarName: string;
+
   constructor(private readonly accountService: AccountService) {
     this.accountService.getUser().subscribe((result) => {
       this.user = result;

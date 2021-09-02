@@ -5,52 +5,32 @@
       <div class="row margin-adaptation">
         <div class="col-sm-5">
           <label for="street">Calle<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="street"
-            class="form-control"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
-          />
+          <input type="text" formControlName="street" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && f.street.errors }" />
           <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
             <div *ngIf="f.street.errors.required">Se requiere una calle</div>
           </div>
         </div>
         <div class="col-sm-2">
           <label for="number">Número<span class="text-danger"> *</span></label>
-          <input
-            type="number"
-            formControlName="number"
-            class="form-control"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.number.errors }"
-          />
+          <input type="number" formControlName="number" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && f.number.errors }" />
           <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
             <div *ngIf="f.number.errors.required">Se requiere un número</div>
           </div>
         </div>
         <div class="col-sm-2">
           <label for="flat">Piso</label>
-          <input
-            type="number"
-            formControlName="flat"
-            class="form-control"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.flat.errors }"
-          />
+          <input type="number" formControlName="flat" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && f.flat.errors }" />
           <div *ngIf="submitted && f.flat.errors" class="invalid-feedback">
             <div *ngIf="f.flat.errors.required">Se requiere una puerta</div>
           </div>
         </div>
         <div class="col-sm-2">
           <label for="gate">Puerta</label>
-          <input
-            type="text"
-            formControlName="gate"
-            class="form-control"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.gate.errors }"
-          />
+          <input type="text" formControlName="gate" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && f.gate.errors }" />
           <div *ngIf="submitted && f.gate.errors" class="invalid-feedback">
             <div *ngIf="f.gate.errors.required">Se requiere una puerta</div>
           </div>
@@ -58,26 +38,16 @@
 
         <div class="col-sm-5" colspan="4">
           <label for="city">Ciudad<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="city"
-            class="form-control"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
-          />
+          <input type="text" formControlName="city" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
           <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
             <div *ngIf="f.city.errors.required">Se requiere una ciudad</div>
           </div>
         </div>
         <div class="col-sm-6">
           <label for="waterMeter">Cód. Contador<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="waterMeter"
-            class="form-control"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
-          />
+          <input type="text" formControlName="waterMeter" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }" />
           <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
             <div *ngIf="f.waterMeter.errors.required">
               Se requiere un código de contador
@@ -95,12 +65,8 @@
       <div class="row margin-adaptation-generic">
         <div class="col-sm-5">
           <label for="iban">Número de cuenta<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="iban"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.iban.errors }"
-          />
+          <input type="text" formControlName="iban" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.iban.errors }" />
           <div *ngIf="submitted && f.iban.errors" class="invalid-feedback">
             <div *ngIf="f.iban.errors.required">Se requiere un iban</div>
           </div>
@@ -108,12 +74,7 @@
 
         <div class="col-sm-5 margin-adaptation-radio">
           <form [formGroup]="radioGroupForm">
-            <div
-              class="btn-group btn-group-toggle"
-              ngbRadioGroup
-              name="radioBasic"
-              formControlName="model"
-            >
+            <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
               <label ngbButtonLabel class="btn-outline-primary">
                 <input ngbButton type="radio" [value]="1" /> Propietario
               </label>
@@ -130,32 +91,20 @@
   <div class="owner-form">
     <h4>Propietario</h4>
 
-    <form
-      [formGroup]="ownerFormGroup"
-      (ngSubmit)="(onSubmitOwner)"
-      class="border-forms"
-    >
+    <form [formGroup]="ownerFormGroup" (ngSubmit)="(onSubmit)" class="border-forms">
       <div class="row margin-adaptation-generic">
         <div class="col-sm-5">
           <label for="name">Nombre<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="name"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-          />
+          <input type="text" formControlName="name" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
           <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
             <div *ngIf="f.name.errors.required">Se requiere un nombre</div>
           </div>
         </div>
         <div class="col-sm-5">
           <label for="lastName">Apellidos<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="lastName"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-          />
+          <input type="text" formControlName="lastName" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
           <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
             <div *ngIf="f.lastName.errors.required">Se requiere un apellido</div>
           </div>
@@ -166,12 +115,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroupPrepend">@</span>
             </div>
-            <input
-              type="text"
-              formControlName="username"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-            />
+            <input type="text" formControlName="username" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
               <div *ngIf="f.username.errors.required">
                 Se requiere un nombre de usuario
@@ -181,60 +126,41 @@
         </div>
         <div class="col-sm-5">
           <label for="email">Correo electrónico<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="email"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-          />
+          <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">Se requiere un email</div>
           </div>
         </div>
         <div class="col-sm-5">
           <label for="phone">Teléfono<span class="text-danger"> *</span></label>
-          <input
-            type="number"
-            formControlName="phone"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
-          />
+          <input type="number" formControlName="phone" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
           <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
             <div *ngIf="f.phone.errors.required">Se requiere un teléfono</div>
           </div>
         </div>
         <div class="col-sm-5">
           <label for="address">
-            Dirección<span class="text-danger"> *</span><span class="text-info"> (1)</span></label
-          >
-          <input
-            type="text"
-            formControlName="address"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
-          />
+            Dirección<span class="text-danger"> *</span><span class="text-info"> (1)</span></label>
+          <input type="text" formControlName="address" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
           <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
             <div *ngIf="f.address.errors.required">Se requiere una dirección</div>
           </div>
         </div>
         <div class="col-sm-10">
-          <button
-          class="btn btn-primary margin-buttons-forms"
-          type="button"
-          (click)="onSubmitOwner()"
-          >
-          Guardar vivienda con sólo Propietario
-          <span class="text-info"></span>
-        </button>
-        <br />
-        <span class="text-info"
-          >El Propietario será el Residente
-        </span>
-        <br />
-        <span class="text-info"
-          >(1) Añadir dirección si el propietario no es el residente
-        </span>
-        <br />
+          <button class="btn btn-primary margin-buttons-forms" type="button" (click)="onSubmit()">
+            Guardar vivienda con sólo Propietario
+            <span class="text-info"></span>
+          </button>
+          <br />
+          <span class="text-info">El Propietario será el Residente
+          </span>
+          <br />
+          <span class="text-info">(1) Añadir dirección si el propietario no es el residente
+          </span>
+          <br />
         </div>
       </div>
     </form>
@@ -247,24 +173,16 @@
       <div class="row margin-adaptation-generic">
         <div class="col-sm-5">
           <label for="nameRes">Nombre<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="nameRes"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.nameRes.errors }"
-          />
+          <input type="text" formControlName="nameRes" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.nameRes.errors }" />
           <div *ngIf="submitted && f.nameRes.errors" class="invalid-feedback">
             <div *ngIf="f.nameRes.errors.required">Se requiere un nombre</div>
           </div>
         </div>
         <div class="col-sm-5">
           <label for="lastNameRes">Apellidos<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="lastNameRes"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-          />
+          <input type="text" formControlName="lastNameRes" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
           <div *ngIf="submitted && f.lastNameRes.errors" class="invalid-feedback">
             <div *ngIf="f.lastNameRes.errors.required">
               Se requiere un apellido
@@ -277,16 +195,9 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroupPrepend">@</span>
             </div>
-            <input
-              type="text"
-              formControlName="usernameRes"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }"
-            />
-            <div
-              *ngIf="submitted && f.usernameRes.errors"
-              class="invalid-feedback"
-            >
+            <input type="text" formControlName="usernameRes" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.usernameRes.errors }" />
+            <div *ngIf="submitted && f.usernameRes.errors" class="invalid-feedback">
               <div *ngIf="f.usernameRes.errors.required">
                 Se requiere un nombre de usuario
               </div>
@@ -295,40 +206,19 @@
         </div>
         <div class="col-sm-5">
           <label for="emailRes">Correo electrónico<span class="text-danger"> *</span></label>
-          <input
-            type="text"
-            formControlName="emailRes"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }"
-          />
+          <input type="text" formControlName="emailRes" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.emailRes.errors }" />
           <div *ngIf="submitted && f.emailRes.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">Se requiere un email</div>
           </div>
         </div>
         <div class="col-sm-5">
           <label for="phoneRes">Teléfono<span class="text-danger"> *</span></label>
-          <input
-            type="number"
-            formControlName="phoneRes"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.phoneRes.errors }"
-          />
+          <input type="number" formControlName="phoneRes" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.phoneRes.errors }" />
           <div *ngIf="submitted && f.phoneRes.errors" class="invalid-feedback">
             <div *ngIf="f.phoneRes.errors.required">Se requiere un teléfono</div>
           </div>
-        </div>
-        <div class="col-sm-10">
-          <button
-          class="btn btn-primary margin-buttons-forms"
-          type="button"
-          (click)="onSubmitResident()"
-          >
-          Guardar Vivienda con Propietario y Residente
-        </button>
-        <br />
-        <span class="text-info">
-          Se guardará la vivienda con un Propietario y un Residente
-        </span>
         </div>
       </div>
     </form>

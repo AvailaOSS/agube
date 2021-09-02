@@ -7,14 +7,12 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
 import { UserDetailPipe } from './pipes/userdetail.pipe';
 import { SidebarConfiguration } from './sidebar/sidebar.configuration';
-import { PaymasterPipe } from './pipes/paymaster.pipe';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
-    PaymasterPipe,
   ],
   imports: [
     CommonModule,
@@ -27,7 +25,6 @@ import { PaymasterPipe } from './pipes/paymaster.pipe';
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
-    PaymasterPipe
   ],
   providers: [SidebarConfiguration],
 })
