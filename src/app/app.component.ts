@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
 import { AccountService } from "@availa/auth-fe";
+import { User } from "@availa/auth-fe/lib/login/models/user";
+import { isNull, isUndefined } from 'lodash';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-root",
@@ -8,14 +11,15 @@ import { AccountService } from "@availa/auth-fe";
 })
 export class AppComponent {
   title = "";
+  hideContactBook = true;
 
-  // FIXME: do not use any
-  public user: any;
-  public toolbarName: string;
+  public user: User;
+  public toolbarName: string = environment.appName;
 
   constructor(private readonly accountService: AccountService) {
     this.accountService.getUser().subscribe((result) => {
       this.user = result;
+      this.hideContactBook = isUndefined(this.user) || isNull(this.user);
     });
   }
 

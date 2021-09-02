@@ -1,17 +1,14 @@
 <div>
   <!-- Sidebar -->
   <app-sidebar [user]="user" (currentComponentName)="getSelectedComponent($event)"></app-sidebar>
-  <!-- /#sidebar-wrapper -->
+
   <!-- Page Content -->
   <div>
     <lib-toolbar [title]="toolbarName"></lib-toolbar>
     <div>
       <router-outlet></router-outlet>
-      <lib-contact-book
-        [userId]="user"
-        [hideContactBook]="false"
-      ></lib-contact-book>
+      <lib-contact-book [userId]="user" [hideContactBook]="hideContactBook"></lib-contact-book>
     </div>
   </div>
-  <!-- /#page-content-wrapper -->
+
 </div>
