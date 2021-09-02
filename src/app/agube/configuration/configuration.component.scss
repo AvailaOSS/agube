@@ -1,5 +1,3 @@
-//@import "../../../styles.scss";
-//@use "../../../scss/variables/borders";
 @use "../../../scss/variables/sizes";
 @use "../../../scss/variables/margins";
 @use "../../../scss/variables/paddings";
@@ -9,7 +7,6 @@
 }
 
 .card-configuration-container {
-  border: 1px solid lightgray;
   margin: margins.$margin-large;
   padding: paddings.$padding-small;
   height: sizes.$height-small;
@@ -20,8 +17,13 @@
   margin-top: -32px;
   width: 19%;
 }
+
 .card-button-position-change {
   float: right;
   margin-top: -42px;
   width: 19%;
+}
+
+.password-description {
+  margin-top: margins.$margin-medium - margins.$margin-x-small;
 }
