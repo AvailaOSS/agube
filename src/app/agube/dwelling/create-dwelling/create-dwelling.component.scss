@@ -1,16 +1,13 @@
+@use "../../../../scss/variables/paddings";
+@use  "../../../../scss/variables/sizes";
+@use  "../../../../scss/variables/margins";
 @import "../../../../scss/theme/theme";
 @import  "../../../../scss/variables/borders";
-// @use  "../../../../scss/variables/sizes";
-// @use  "../../../../scss/variables/margins";
 
 .form {
   display: table;
-  text-align: center;
-  width: 50%;
-  margin: 10px auto;
-  // FIXME: use:
-  // width: sizes.$width-x-medium;
-  // margin: margins.$margin-large auto;
+  width: sizes.$width-x-medium;
+  margin: margins.$margin-x-small auto;
 }
 
 .margin-adaptation {
@@ -31,17 +28,6 @@
 }
 
 .dwelling-form {
-  @include set-form();
-}
-
-.paymaster-form {
-  @include set-form();
-}
-
-.owner-form {
-  @include set-form();
-}
-
-.resident-form {
+  padding: paddings.$padding-small;
   @include set-form();
 }
