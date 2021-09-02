@@ -142,6 +142,10 @@ class DwellingDetailSerializer(Serializer):
                                  min_length=None,
                                  allow_blank=False,
                                  trim_whitespace=True)
+    town = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
     street = CharField(max_length=None,
                        min_length=None,
                        allow_blank=False,
@@ -155,10 +159,6 @@ class DwellingDetailSerializer(Serializer):
                      allow_blank=False,
                      trim_whitespace=True)
     gate = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
-    town = CharField(max_length=None,
                      min_length=None,
                      allow_blank=False,
                      trim_whitespace=True)
