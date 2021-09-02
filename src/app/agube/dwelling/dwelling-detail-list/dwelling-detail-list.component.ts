@@ -1,61 +1,54 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../../agube-route';
-import { BehaviorSubject } from 'rxjs';
-import { Header } from '@availa/table/lib/header';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
+import { DwellingDetail, DwellingService } from "@availa/agube-rest-api";
+import { AgubeRoute } from "../../agube-route";
+import { BehaviorSubject } from "rxjs";
+import { Header } from "@availa/table/lib/header";
 
 @Component({
-  selector: 'app-dwelling-detail-list',
-  templateUrl: './dwelling-detail-list.component.html',
-  styleUrls: ['./dwelling-detail-list.component.scss'],
+  selector: "app-dwelling-detail-list",
+  templateUrl: "./dwelling-detail-list.component.html",
+  styleUrls: ["./dwelling-detail-list.component.scss"],
 })
 export class DwellingDetailListComponent implements OnInit {
-  @Output() sendSelected: EventEmitter<DwellingDetail> =
-    new EventEmitter<DwellingDetail>();
+  @Output() sendSelected: EventEmitter<DwellingDetail> = new EventEmitter<
+    DwellingDetail
+  >();
+
   public keysDwelling: string[] = [];
-  public valuesDwelling: any[] = [];
-  public selectedRowIndex = '';
-  public address: string;
-  public data: string;
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
     [
       {
-        columnDataName: 'water_meter_code',
-        columnName: 'Código Contador',
+        columnDataName: "town",
+        columnName: "Ciudad",
       },
       {
-        columnDataName: 'street',
-        columnName: 'Calle',
+        columnDataName: "water_meter_code",
+        columnName: "Código Contador",
       },
       {
-        columnDataName: 'number',
-        columnName: 'Número',
+        columnDataName: "street",
+        columnName: "Calle",
       },
       {
-        columnDataName: 'flat',
-        columnName: 'Piso',
+        columnDataName: "number",
+        columnName: "Número",
       },
       {
-        columnDataName: 'gate',
-        columnName: 'Puerta',
+        columnDataName: "flat",
+        columnName: "Piso",
       },
       {
-        columnDataName: 'town',
-        columnName: 'Ciudad',
+        columnDataName: "gate",
+        columnName: "Puerta",
       },
       {
-        columnDataName: 'resident_first_name',
-        columnName: 'Nombre Residente',
+        columnDataName: "resident_first_name",
+        columnName: "Nombre Residente",
       },
       {
-        columnDataName: 'resident_phone',
-        columnName: 'Número Telf.',
+        columnDataName: "resident_phone",
+        columnName: "Número Telf.",
       },
     ]
   );
@@ -65,14 +58,13 @@ export class DwellingDetailListComponent implements OnInit {
   constructor(
     private readonly svcCreateNewDWelling: DwellingService,
     private readonly route: Router
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {
       if (value.length !== 0) {
         this.datasource = new BehaviorSubject<any[]>(value);
         this.keysDwelling = Object.keys(value[0]);
-        this.valuesDwelling = Object.values(value);
       }
     });
   }
