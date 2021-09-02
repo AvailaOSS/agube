@@ -19,12 +19,12 @@ export class DwellingDetailListComponent implements OnInit {
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
     [
       {
-        columnDataName: "town",
-        columnName: "Ciudad",
-      },
-      {
         columnDataName: "water_meter_code",
         columnName: "Código Contador",
+      },
+      {
+        columnDataName: "town",
+        columnName: "Ciudad",
       },
       {
         columnDataName: "street",

@@ -27,7 +27,7 @@
     "@availa/contact-book-fe": "~0.0.0",
     "@availa/notification": "~0.0.0",
     "@availa/subscription-fe": "0.0.1",
-    "@availa/table": "~0.0.0",
+    "@availa/table": "0.0.1",
     "@availa/task-fe": "~0.0.0",
     "@availa/toolbar": "0.0.1",
     "@fortawesome/fontawesome-free": "^5.15.1",
