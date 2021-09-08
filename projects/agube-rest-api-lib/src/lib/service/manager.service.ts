@@ -15,19 +15,19 @@ import {
   HttpClient,
   HttpEvent,
   HttpHeaders,
-  HttpResponse
-} from '@angular/common/http';
-import { Injectable, Optional } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Configuration } from '../configuration';
-import { AgubeRestConfigurationService } from '../configuration.service';
-import { Manager } from '../model/manager';
-import { ManagerConfiguration } from '../model/managerConfiguration';
-import { UserIsManager } from '../model/userIsManager';
+  HttpResponse,
+} from "@angular/common/http";
+import { Injectable, Optional } from "@angular/core";
+import { Observable } from "rxjs";
+import { Configuration } from "../configuration";
+import { AgubeRestConfigurationService } from "../configuration.service";
+import { Manager } from "../model/manager";
+import { ManagerConfiguration } from "../model/managerConfiguration";
+import { UserIsManager } from "../model/userIsManager";
 
 @Injectable()
 export class ManagerService {
-  protected basePath = '';
+  protected basePath = "";
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -48,7 +48,7 @@ export class ManagerService {
    * @return true: consumes contains 'multipart/form-data', false: otherwise
    */
   private canConsumeForm(consumes: string[]): boolean {
-    const form = 'multipart/form-data';
+    const form = "multipart/form-data";
     for (const consume of consumes) {
       if (form === consume) {
         return true;
@@ -64,19 +64,19 @@ export class ManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public getManagerByUser(
-    observe?: 'body',
+    observe?: "body",
     reportProgress?: boolean
   ): Observable<Manager>;
   public getManagerByUser(
-    observe?: 'response',
+    observe?: "response",
     reportProgress?: boolean
   ): Observable<HttpResponse<Manager>>;
   public getManagerByUser(
-    observe?: 'events',
+    observe?: "events",
     reportProgress?: boolean
   ): Observable<HttpEvent<Manager>>;
   public getManagerByUser(
-    observe: any = 'body',
+    observe: any = "body",
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
@@ -84,23 +84,23 @@ export class ManagerService {
     // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+        "Authorization",
+        "Basic " +
+          btoa(this.configuration.username + ":" + this.configuration.password)
       );
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ["application/json"];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
+    const consumes: string[] = ["application/json"];
 
     return this.httpClient.get<Manager>(`${this.basePath}/manager/by-user`, {
       withCredentials: this.configuration.withCredentials,
@@ -113,63 +113,50 @@ export class ManagerService {
   /**
    *
    * Get Manager Configuration
-   * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public getManagerConfiguration(
-    id: string,
-    observe?: 'body',
+    observe?: "body",
     reportProgress?: boolean
   ): Observable<ManagerConfiguration>;
   public getManagerConfiguration(
-    id: string,
-    observe?: 'response',
+    observe?: "response",
     reportProgress?: boolean
   ): Observable<HttpResponse<ManagerConfiguration>>;
   public getManagerConfiguration(
-    id: string,
-    observe?: 'events',
+    observe?: "events",
     reportProgress?: boolean
   ): Observable<HttpEvent<ManagerConfiguration>>;
   public getManagerConfiguration(
-    id: string,
-    observe: any = 'body',
+    observe: any = "body",
     reportProgress: boolean = false
   ): Observable<any> {
-    if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling getManagerConfiguration.'
-      );
-    }
-
     let headers = this.defaultHeaders;
 
     // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+        "Authorization",
+        "Basic " +
+          btoa(this.configuration.username + ":" + this.configuration.password)
       );
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ["application/json"];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
+    const consumes: string[] = ["application/json"];
 
     return this.httpClient.get<ManagerConfiguration>(
-      `${this.basePath}/manager/${encodeURIComponent(
-        String(id)
-      )}/configuration`,
+      `${this.basePath}/manager/configuration`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -182,44 +169,33 @@ export class ManagerService {
   /**
    *
    * Update manager configuration
-   * @param id
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public updateManagerConfiguration(
-    id: string,
     data: ManagerConfiguration,
-    observe?: 'body',
+    observe?: "body",
     reportProgress?: boolean
   ): Observable<ManagerConfiguration>;
   public updateManagerConfiguration(
-    id: string,
     data: ManagerConfiguration,
-    observe?: 'response',
+    observe?: "response",
     reportProgress?: boolean
   ): Observable<HttpResponse<ManagerConfiguration>>;
   public updateManagerConfiguration(
-    id: string,
     data: ManagerConfiguration,
-    observe?: 'events',
+    observe?: "events",
     reportProgress?: boolean
   ): Observable<HttpEvent<ManagerConfiguration>>;
   public updateManagerConfiguration(
-    id: string,
     data: ManagerConfiguration,
-    observe: any = 'body',
+    observe: any = "body",
     reportProgress: boolean = false
   ): Observable<any> {
-    if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling updateManagerConfiguration.'
-      );
-    }
-
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling updateManagerConfiguration.'
+        "Required parameter data was null or undefined when calling updateManagerConfiguration."
       );
     }
 
@@ -228,34 +204,32 @@ export class ManagerService {
     // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+        "Authorization",
+        "Basic " +
+          btoa(this.configuration.username + ":" + this.configuration.password)
       );
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ["application/json"];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
+    const consumes: string[] = ["application/json"];
     const httpContentTypeSelected:
       | string
       | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
+      headers = headers.set("Content-Type", httpContentTypeSelected);
     }
 
     return this.httpClient.post<ManagerConfiguration>(
-      `${this.basePath}/manager/${encodeURIComponent(
-        String(id)
-      )}/configuration`,
+      `${this.basePath}/manager/configuration/update`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -273,19 +247,19 @@ export class ManagerService {
    * @param reportProgress flag to report request and response progress.
    */
   public userIsManager(
-    observe?: 'body',
+    observe?: "body",
     reportProgress?: boolean
   ): Observable<UserIsManager>;
   public userIsManager(
-    observe?: 'response',
+    observe?: "response",
     reportProgress?: boolean
   ): Observable<HttpResponse<UserIsManager>>;
   public userIsManager(
-    observe?: 'events',
+    observe?: "events",
     reportProgress?: boolean
   ): Observable<HttpEvent<UserIsManager>>;
   public userIsManager(
-    observe: any = 'body',
+    observe: any = "body",
     reportProgress: boolean = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
@@ -293,23 +267,23 @@ export class ManagerService {
     // authentication (Basic) required
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
-        'Authorization',
-        'Basic ' +
-        btoa(this.configuration.username + ':' + this.configuration.password)
+        "Authorization",
+        "Basic " +
+          btoa(this.configuration.username + ":" + this.configuration.password)
       );
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ["application/json"];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
+      headers = headers.set("Accept", httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
+    const consumes: string[] = ["application/json"];
 
     return this.httpClient.get<UserIsManager>(
       `${this.basePath}/manager/is-manager`,

@@ -2,7 +2,6 @@ export * from './address';
 export * from './dwellingCreate';
 export * from './dwellingDetail';
 export * from './fullAddress';
-export * from './hookPrice';
 export * from './manager';
 export * from './managerConfiguration';
 export * from './owner';
