@@ -21,7 +21,8 @@ class Reservoir(models.Model):
 
     def save(self, *args, **kwargs):
         """save the reservoir and save release_date timezone.now()"""
-        self.release_date = timezone.now()
+        if not self.pk:
+            self.release_date = timezone.now()
         super(Reservoir, self).save(*args, **kwargs)
 
     def change_current_owner(self, user):
@@ -82,7 +83,8 @@ class ReservoirOwner(models.Model):
 
     def save(self, *args, **kwargs):
         """save the ReservoirOwner, save release_date timezone.now()"""
-        self.release_date = timezone.now()
+        if not self.pk:
+            self.release_date = timezone.now()
         super(ReservoirOwner, self).save(*args, **kwargs)
 
     def discharge(self):
