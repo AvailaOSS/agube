@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ManagerService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 
@@ -9,59 +9,48 @@ import { NotificationService } from "@availa/notification";
   styleUrls: ["./parameters-config.component.scss"],
 })
 export class ParametersConfigComponent implements OnInit {
+  public releaseDate: Date;
   public parametersForm: FormGroup;
-  public userId: string;
-  public options = {
-    autoClose: true,
-    keepAfterRouteChange: false,
-  };
 
   constructor(
     private readonly svcManager: ManagerService,
     private formBuilder: FormBuilder,
     private alertService: NotificationService
   ) {
-    //
+    this.createForm();
+  }
+
+  private createForm() {
+    this.parametersForm = this.formBuilder.group({
+      max_daily_consumption: ["", Validators.required],
+      hook_price: ["", Validators.required],
+    });
   }
 
   public ngOnInit(): void {
-    this.parametersForm = this.formBuilder.group({
-      hook_price: new FormControl(),
-      release_date: new FormControl(),
-      max_daily_consumption: new FormControl(),
-    });
-    this.svcManager.getManagerByUser().subscribe((value) => {
-      this.svcManager
-        .getManagerConfiguration(value.user_id)
-        .subscribe((values) => {
-          this.parametersForm
-            .get("hook_price")
-            .setValue(values.hook_price.hook_price);
-          this.parametersForm
-            .get("release_date")
-            .setValue(values.hook_price.release_date.split("T")[0]);
-          this.parametersForm
-            .get("max_daily_consumption")
-            .setValue(values.max_daily_consumption);
-        });
+    this.svcManager.getManagerConfiguration().subscribe((response) => {
+      this.parametersForm
+        .get("max_daily_consumption")
+        .setValue(response.max_daily_consumption);
+      this.parametersForm.get("hook_price").setValue(response.hook_price);
+      this.releaseDate = new Date(response.release_date);
     });
   }
 
   public onSubmit(): void {
+    const options = {
+      autoClose: false,
+      keepAfterRouteChange: false,
+    };
+
     this.svcManager
-      .updateManagerConfiguration(this.userId, {
-        max_daily_consumption: this.parametersForm.value.max_daily_consumption,
-        hook_price: {
-          hook_price: this.parametersForm.value.hook_price,
-        },
-      })
+      .updateManagerConfiguration(this.parametersForm.value)
       .subscribe(
-        (value) => {
-          this.alertService.success("Actualizado con éxito", this.options);
+        (response) => {
+          this.releaseDate = new Date();
+          this.alertService.success("Actualizado con éxito", options);
         },
-        (error) => {
-          this.alertService.error("error", this.options);
-        }
+        (error) => this.alertService.error("error", options)
       );
   }
 }
