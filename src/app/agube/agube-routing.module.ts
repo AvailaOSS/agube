@@ -19,10 +19,10 @@ const routes: Routes = [
   // Dwelling
   { path: AgubeRoute.DWELLING, component: DwellingComponent },
   { path: AgubeRoute.CREATE_DWELLING, component: CreateDwellingComponent },
-  {
-    path: AgubeRoute.CHANGE_PAYMASTER,
-    component: ChangePaymasterComponent,
-  },
+  // {
+  //   path: AgubeRoute.CHANGE_PAYMASTER,
+  //   component: ChangePaymasterComponent,
+  // },
   { path: AgubeRoute.CHANGE_RESIDENT, component: ChangeResidentComponent },
   { path: AgubeRoute.CHANGE_OWNER, component: ChangeOwnerComponent },
   {
