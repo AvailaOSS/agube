@@ -1,36 +1,20 @@
-<div class="table-card table-config">
+<div class="form">
+
+  <h1 class="text-center">
+    {{title}}
+  </h1>
+
   <app-notification></app-notification>
-  <h4>{{ titleFormWaterMeter }}</h4>
-  <form
-    [formGroup]="waterMeterFormGroup"
-    (ngSubmit)="(onSubmit)"
-    class="border-forms"
-  >
-    <div class="row margin-adaptation-generic">
-      <div class="col-sm-5">
-        <label for="waterMeter">Cód.Contador</label>
-        <input
-          type="number"
-          formControlName="waterMeter"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.waterMeter.errors }"
-          [(ngModel)]="waterMeterCode"
-        />
-        <div *ngIf="submitted && f.waterMeter.errors" class="invalid-feedback">
-          <div *ngIf="f.waterMeter.errors.required">
-            Se requiere un Código de contador
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <button
-          class="btn btn-primary w-100 h-50 margin-buttons-forms"
-          type="button"
-          (click)="onSubmit()"
-        >
-          {{ titleFormWaterMeter }}
-        </button>
-      </div>
+
+  <form class="change-water-meter-form" [formGroup]="waterMeterForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="form-group form-row col-md-6">
+      <label for="code">Nuevo Código Contador <span style="color: red;">*</span></label>
+      <input type="text" class="form-control" id="code" formControlName="code" placeholder="A-0123456789">
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="waterMeterForm.pristine || waterMeterForm.invalid">
+        Guardar
+      </button>
     </div>
   </form>
 </div>
