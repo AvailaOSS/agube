@@ -23,7 +23,8 @@ class Dwelling(models.Model):
 
     def save(self, *args, **kwargs):
         """save the dwelling and save release_date timezone.now()"""
-        self.release_date = timezone.now()
+        if not self.pk:
+            self.release_date = timezone.now()
         super(Dwelling, self).save(*args, **kwargs)
 
     def change_current_owner(self, user: User):
@@ -110,7 +111,8 @@ class DwellingOwner(models.Model):
 
     def save(self, *args, **kwargs):
         """save the DwellingOwner, save release_date timezone.now()"""
-        self.release_date = timezone.now()
+        if not self.pk:
+            self.release_date = timezone.now()
         super(DwellingOwner, self).save(*args, **kwargs)
 
     def discharge(self):
@@ -133,7 +135,8 @@ class DwellingResident(models.Model):
 
     def save(self, *args, **kwargs):
         """save the DwellingResident, save release_date timezone.now()"""
-        self.release_date = timezone.now()
+        if not self.pk:
+            self.release_date = timezone.now()
         super(DwellingResident, self).save(*args, **kwargs)
         self.__add_main_address()
 

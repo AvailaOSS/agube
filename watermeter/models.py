@@ -15,7 +15,8 @@ class WaterMeter(models.Model):
 
     def save(self, *args, **kwargs):
         """save the water meter and save release_date datetime.now()"""
-        self.release_date = timezone.now()
+        if not self.pk:
+            self.release_date = timezone.now()
         super(WaterMeter, self).save(*args, **kwargs)
 
     def add_measurement(self, measurement, date=timezone.now()):
