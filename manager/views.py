@@ -1,9 +1,10 @@
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from manager.models import Manager, ManagerConfiguration, Person
+from manager.permissions import IsManagerAuthenticated
 from manager.serializers import (ManagerConfigurationSerializer,
                                  ManagerSerializer, UserIsManagerSerializer)
 
@@ -49,21 +50,27 @@ class ManagerView(APIView):
 
 
 class ManagerConfigurationView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getManagerConfiguration",
         responses={200: ManagerConfigurationSerializer(many=False)},
         tags=[TAG_MANAGER],
     )
-    def get(self, request, pk):
+    def get(self, request):
         """
         Get Manager Configuration
         """
-        configuration: ManagerConfiguration = ManagerConfiguration.objects.get(
-            manager__user_id=pk)
+        manager: Manager = Person.objects.get(
+            user__id=self.request.user.id).manager
+        configuration: ManagerConfiguration = ManagerConfiguration.objects.filter(
+            manager=manager, discharge_date__isnull=True)[0]
         return Response(
             ManagerConfigurationSerializer(configuration, many=False).data)
+
+
+class ManagerConfigurationUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         operation_id="updateManagerConfiguration",
@@ -71,15 +78,15 @@ class ManagerConfigurationView(APIView):
         responses={200: ManagerConfigurationSerializer(many=False)},
         tags=[TAG_MANAGER],
     )
-    def post(self, request, pk):
+    def post(self, request):
         """
         Update manager configuration
         """
-        configuration: ManagerConfiguration = ManagerConfiguration.objects.get(
-            manager__user_id=pk)
-        configuration.max_daily_consumption = request.data.pop(
-            'max_daily_consumption')
-        configuration.save()
-        configuration.create_hook(request.data.pop('hook_price')['hook_price'])
+        manager: Manager = Manager.objects.get(user_id=self.request.user.id)
+
+        # create a new
+        configuration = manager.create_configuration(
+            request.data.pop('max_daily_consumption'),
+            request.data.pop('hook_price'))
         return Response(
             ManagerConfigurationSerializer(configuration, many=False).data)

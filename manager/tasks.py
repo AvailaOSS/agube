@@ -7,7 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from manager.models import Manager, Person
 
 
-@task(autoretry_for=(ObjectDoesNotExist, ),
+@task(throws=(ObjectDoesNotExist, ),
+      autoretry_for=(ObjectDoesNotExist, ),
       retry_backoff=True,
       name="agube.celery.new_user_published",
       queue='agube',
