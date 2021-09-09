@@ -7,12 +7,14 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
 import { UserDetailPipe } from './pipes/userdetail.pipe';
 import { SidebarConfiguration } from './sidebar/sidebar.configuration';
+import { AutoFocusDirective } from './directives/auto-focus.directive';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
+    AutoFocusDirective,
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { SidebarConfiguration } from './sidebar/sidebar.configuration';
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
+    AutoFocusDirective,
   ],
   providers: [SidebarConfiguration],
 })
