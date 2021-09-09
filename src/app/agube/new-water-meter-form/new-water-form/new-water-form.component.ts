@@ -1,42 +1,49 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WaterMeterService } from '@availa/agube-rest-api';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { WaterMeterService } from "@availa/agube-rest-api";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import * as moment from "moment";
 
 @Component({
-  selector: 'app-new-water-form',
-  templateUrl: './new-water-form.component.html',
-  styleUrls: ['./new-water-form.component.scss'],
+  selector: "app-new-water-form",
+  templateUrl: "./new-water-form.component.html",
+  styleUrls: ["./new-water-form.component.scss"],
 })
 export class NewWaterFormComponent implements OnInit {
-  public createReading: FormGroup;
   @Input() public id: any;
+  public readingForm: FormGroup;
+
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private svcWaterMeter: WaterMeterService
-  ) {}
+  ) {
+    //
+  }
 
   ngOnInit(): void {
-    this.createReading = this.formBuilder.group({
-      release_date: ['', Validators.required],
-      measurement: ['', Validators.required],
+    var now = moment();
+    this.readingForm = this.formBuilder.group({
+      date: [now.format("YYYY-MM-DD"), Validators.required],
+      time: [now.format("HH:mm"), Validators.required],
+      measurement: ["", Validators.required],
     });
   }
 
   public cancel(): void {
-    this.activeModal.close('Close click');
+    this.activeModal.close();
   }
 
   public save(): void {
+    const time = moment(this.readingForm.value.time, "HH:mm");
     this.svcWaterMeter
       .addWaterMeterMeasure(this.id, {
-        measurement: this.createReading.value.measurement,
-        date: this.createReading.value.release_date,
-        id: this.id,
+        measurement: this.readingForm.value.measurement,
+        date: moment(this.readingForm.value.date)
+          .add(time.hours(), "hours")
+          .add(time.minutes(), "minutes")
+          .toDate(),
       })
-      .subscribe((response) => {
-        this.activeModal.close(response);
-      });
+      .subscribe((response) => this.activeModal.close(response));
   }
 }
