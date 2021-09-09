@@ -27,27 +27,19 @@ export class PasswordConfigComponent implements OnInit {
     this.passwordForm = this.formBuilder.group({
       username: new FormControl(),
       password: new FormControl(),
-      confirmPassword: new FormControl(),
+      confirm_password: new FormControl(),
     });
   }
 
   public onSubmit(): void {
-    this.svcAuthService
-      .changePassword({
-        username: this.passwordForm.value.username,
-        password: this.passwordForm.value.password,
-        confirm_password: this.passwordForm.value.confirmPassword,
-      })
-      .subscribe(
-        (values) => {
-          this.alertService.success("Actualizado con éxito", this.options);
-        },
-        (error) => {
-          this.alertService.error(
-            "Error al actualizar " + error.error.status,
-            this.options
-          );
-        }
-      );
+    this.svcAuthService.changePassword(this.passwordForm.value).subscribe(
+      (values) =>
+        this.alertService.success("Actualizado con éxito", this.options),
+      (error) =>
+        this.alertService.error(
+          "Error al actualizar " + error.error.status,
+          this.options
+        )
+    );
   }
 }
