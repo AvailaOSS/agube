@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "../../agube-route";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-create-dwelling",

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { DwellingDetail, DwellingService } from "@availa/agube-rest-api";
-import { AgubeRoute } from "../../agube-route";
-import { BehaviorSubject } from "rxjs";
 import { Header } from "@availa/table/lib/header";
+import { BehaviorSubject } from "rxjs";
+import { AgubeRoute } from "../../agube-route";
 
 @Component({
   selector: "app-dwelling-detail-list",
@@ -14,10 +14,15 @@ export class DwellingDetailListComponent implements OnInit {
   @Output() sendSelected: EventEmitter<DwellingDetail> = new EventEmitter<
     DwellingDetail
   >();
-
   public keysDwelling: string[] = [];
-  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
-    [
+  public tableHeader: BehaviorSubject<Header[]>;
+  public datasource: BehaviorSubject<any>;
+
+  constructor(
+    private readonly svcCreateNewDWelling: DwellingService,
+    private readonly route: Router
+  ) {
+    this.tableHeader = new BehaviorSubject<Header[]>([
       {
         columnDataName: "water_meter_code",
         columnName: "Código Contador",
@@ -50,15 +55,8 @@ export class DwellingDetailListComponent implements OnInit {
         columnDataName: "resident_phone",
         columnName: "Número Telf.",
       },
-    ]
-  );
-
-  public datasource: BehaviorSubject<any>;
-
-  constructor(
-    private readonly svcCreateNewDWelling: DwellingService,
-    private readonly route: Router
-  ) {}
+    ]);
+  }
 
   public ngOnInit(): void {
     this.svcCreateNewDWelling.getDwellings().subscribe((value) => {

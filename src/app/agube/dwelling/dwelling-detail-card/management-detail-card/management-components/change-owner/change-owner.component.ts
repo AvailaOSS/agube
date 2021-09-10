@@ -1,18 +1,17 @@
-import { AgubeRoute } from './../../../../../agube-route';
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService, Owner } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isUndefined } from 'lodash';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DwellingService, Owner } from "@availa/agube-rest-api";
+import { NotificationService } from "@availa/notification";
+import { AgubeRoute } from "./../../../../../agube-route";
 
 @Component({
-  selector: 'app-change-owner',
-  templateUrl: './change-owner.component.html',
-  styleUrls: ['./change-owner.component.scss'],
+  selector: "app-change-owner",
+  templateUrl: "./change-owner.component.html",
+  styleUrls: ["./change-owner.component.scss"],
 })
 export class ChangeOwnerComponent implements OnInit {
-  @Input() titleFormOwner?: string = 'Cambio de Propietario';
+  @Input() titleFormOwner?: string = "Cambio de Propietario";
   public ownerFormGroup: FormGroup;
   public submitted = false;
   public options = {
@@ -44,10 +43,10 @@ export class ChangeOwnerComponent implements OnInit {
 
   public ngOnInit(): void {
     this.ownerFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      name: ["", Validators.required],
+      lastName: ["", Validators.required],
+      email: ["", Validators.required],
+      phone: ["", Validators.required],
     });
     this.route.queryParams.subscribe((params) => {
       this.ownerId = params.data;
@@ -56,7 +55,7 @@ export class ChangeOwnerComponent implements OnInit {
     this.svcChangeOwner
       .getCurrentOwner(+this.ownerId)
       .subscribe((value: Owner[]) => {
-        this.owner = value as unknown as Owner;
+        this.owner = (value as unknown) as Owner;
         this.ownerData = this.owner;
         this.name = this.owner.user.first_name;
         this.lastName = this.owner.user.last_name;
@@ -98,10 +97,7 @@ export class ChangeOwnerComponent implements OnInit {
           this.svcRouter.navigate([AgubeRoute.DWELLING]);
         },
         (error) => {
-          this.alertService.error(
-            'Error' + error.error.status,
-            this.options
-          );
+          this.alertService.error("Error" + error.error.status, this.options);
         }
       );
   }

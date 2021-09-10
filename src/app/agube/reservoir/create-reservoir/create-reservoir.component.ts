@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ManagerService, ReservoirService } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../../agube-route';
-import { NotificationService } from '@availa/notification';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ManagerService, ReservoirService } from "@availa/agube-rest-api";
+import { NotificationService } from "@availa/notification";
+import { AgubeRoute } from "../../agube-route";
 
 @Component({
-  selector: 'app-create-reservoir',
-  templateUrl: './create-reservoir.component.html',
-  styleUrls: ['./create-reservoir.component.scss'],
+  selector: "app-create-reservoir",
+  templateUrl: "./create-reservoir.component.html",
+  styleUrls: ["./create-reservoir.component.scss"],
 })
 export class CreateReservoirComponent implements OnInit {
   public createFormGroup: FormGroup;
@@ -35,26 +35,27 @@ export class CreateReservoirComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createFormGroup = this.formBuilder.group({
-      street: ['', Validators.required],
-      number: ['', Validators.required],
-      gate: ['', Validators.required],
-      flat: ['', Validators.required],
-      city: ['', Validators.required],
-      waterMeter: ['', Validators.required],
+      street: ["", Validators.required],
+      number: ["", Validators.required],
+      gate: ["", Validators.required],
+      flat: ["", Validators.required],
+      city: ["", Validators.required],
+      waterMeter: ["", Validators.required],
     });
     this.reservoirFormGroup = this.formBuilder.group({
-      capacity: ['', Validators.required],
-      inlet: ['', Validators.required],
-      outlet: ['', Validators.required],
+      capacity: ["", Validators.required],
+      inlet: ["", Validators.required],
+      outlet: ["", Validators.required],
     });
   }
+
   get f() {
     return this.createFormGroup.controls;
   }
 
   public onSubmitReservoir(): void {
-    console.log('alta', this.createFormGroup.value);
-    console.log('datos', this.reservoirFormGroup.value);
+    console.log("alta", this.createFormGroup.value);
+    console.log("datos", this.reservoirFormGroup.value);
     this.svcCreateNewReservoir
       .createReservoir({
         user_id: +this.userId,
@@ -78,7 +79,7 @@ export class CreateReservoirComponent implements OnInit {
           this.router.navigate([AgubeRoute.RESERVOIR]);
         },
         (error) => {
-          this.alertService.error('Error al actualizar ' + error.error.status);
+          this.alertService.error("Error al actualizar " + error.error.status);
         }
       );
   }

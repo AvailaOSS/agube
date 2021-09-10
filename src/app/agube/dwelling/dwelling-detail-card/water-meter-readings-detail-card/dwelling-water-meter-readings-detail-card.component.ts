@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { DwellingService, WaterMeterMeasurement } from "@availa/agube-rest-api";
-import { BehaviorSubject } from "rxjs";
 import { Header } from "@availa/table/lib/header";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { OnChanges } from "@angular/core";
 import { format } from "date-fns";
+import { BehaviorSubject } from "rxjs";
 import { WaterMeterReadingComponent } from "src/app/agube/water-meter/water-meter-reading/water-meter-reading.component";
 
 @Component({
@@ -15,10 +14,14 @@ import { WaterMeterReadingComponent } from "src/app/agube/water-meter/water-mete
 export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   @Input() public dwellingId: number;
   private chunk = 8;
-
   public datasource: BehaviorSubject<WaterMeterMeasurement[]>;
-  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
-    [
+  public tableHeader: BehaviorSubject<Header[]>;
+
+  constructor(
+    private readonly svcDwelling: DwellingService,
+    private modalService: NgbModal
+  ) {
+    this.tableHeader = new BehaviorSubject<Header[]>([
       {
         columnDataName: "measurement",
         columnName: "Lecturas",
@@ -27,18 +30,7 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
         columnDataName: "date",
         columnName: "Fecha",
       },
-    ]
-  );
-
-  constructor(
-    private readonly svcDwelling: DwellingService,
-    private modalService: NgbModal
-  ) {
-    //
-  }
-
-  ngOnChanges(): void {
-    this.ngOnInit();
+    ]);
   }
 
   public ngOnInit(): void {
@@ -56,6 +48,10 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
           measurements
         );
       });
+  }
+
+  ngOnChanges(): void {
+    this.ngOnInit();
   }
 
   public addReading(): void {
