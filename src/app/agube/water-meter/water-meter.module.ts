@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewWaterFormComponent } from './new-water-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from '@availa/table';
+import { WaterMeterReadingComponent } from './water-meter-reading/water-meter-reading.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
-  declarations: [NewWaterFormComponent],
+  declarations: [WaterMeterReadingComponent],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, TableModule, ComponentsModule],
-  exports: [NewWaterFormComponent],
+  exports: [WaterMeterReadingComponent],
 })
-export class NewWaterFormModule {}
+export class WaterMeterModule {}
