@@ -1,12 +1,21 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { FullAddress } from '@availa/agube-rest-api';
+import { Pipe, PipeTransform } from "@angular/core";
+import { FullAddress } from "@availa/agube-rest-api";
 
 @Pipe({
-  name: 'fullAddress'
+  name: "fullAddress",
 })
 export class FullAddressPipe implements PipeTransform {
-
   transform(fullAddress: FullAddress): string {
-    return fullAddress.address.street + ' ' + fullAddress.number + ', ' + fullAddress.flat + ' ' + fullAddress.gate
+    const flat = fullAddress.flat === null ? "" : fullAddress.flat;
+    const gate = fullAddress.gate === null ? "" : fullAddress.flat;
+    return (
+      fullAddress.address.street +
+      " " +
+      fullAddress.number +
+      ", " +
+      flat +
+      " " +
+      gate
+    );
   }
 }

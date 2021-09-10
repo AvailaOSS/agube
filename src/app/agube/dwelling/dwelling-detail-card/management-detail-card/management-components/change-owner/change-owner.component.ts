@@ -26,7 +26,6 @@ export class ChangeOwnerComponent implements OnInit {
   public name: string;
   public lastName: string;
   public email: string;
-  public username: string;
   public phone: string;
 
   constructor(
@@ -36,6 +35,20 @@ export class ChangeOwnerComponent implements OnInit {
     private readonly alertService: NotificationService,
     private formBuilder: FormBuilder
   ) {
+    //
+  }
+
+  get f() {
+    return this.ownerFormGroup.controls;
+  }
+
+  public ngOnInit(): void {
+    this.ownerFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+    });
     this.route.queryParams.subscribe((params) => {
       this.ownerId = params.data;
       this.userId = params.user_id;
@@ -48,24 +61,12 @@ export class ChangeOwnerComponent implements OnInit {
         this.name = this.owner.user.first_name;
         this.lastName = this.owner.user.last_name;
         this.email = this.owner.user.email;
-        this.username = this.owner.user.username;
         this.owner.user.phones.map((ph) => {
           this.phone = ph.phone_number;
         });
       });
   }
-  get f() {
-    return this.ownerFormGroup.controls;
-  }
-  public ngOnInit(): void {
-    this.ownerFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-    });
-  }
+
   public onSubmit(): void {
     this.svcChangeOwner
       .changeCurrentOwner(+this.ownerId, {
@@ -82,7 +83,6 @@ export class ChangeOwnerComponent implements OnInit {
               gate: this.ownerData.user.address[0].gate,
             },
           ],
-          username: this.ownerFormGroup.value.username,
           phones: [
             {
               phone_number: this.ownerFormGroup.value.phone,

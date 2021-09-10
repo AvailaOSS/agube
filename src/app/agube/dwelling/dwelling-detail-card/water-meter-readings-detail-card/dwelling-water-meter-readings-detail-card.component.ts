@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DwellingService, WaterMeterMeasurement } from '@availa/agube-rest-api';
-import { BehaviorSubject } from 'rxjs';
-import { Header } from '@availa/table/lib/header';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { OnChanges } from '@angular/core';
-import { format } from 'date-fns';
-import { NewWaterFormComponent } from 'src/app/agube/new-water-meter-form/new-water-form/new-water-form.component';
+import { Component, Input, OnInit } from "@angular/core";
+import { DwellingService, WaterMeterMeasurement } from "@availa/agube-rest-api";
+import { BehaviorSubject } from "rxjs";
+import { Header } from "@availa/table/lib/header";
+import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
+import { OnChanges } from "@angular/core";
+import { format } from "date-fns";
+import { NewWaterFormComponent } from "src/app/agube/new-water-meter-form/new-water-form/new-water-form.component";
 @Component({
-  selector: 'app-dwelling-water-meter-readings-detail-card',
-  templateUrl: './dwelling-water-meter-readings-detail-card.component.html',
-  styleUrls: ['./dwelling-water-meter-readings-detail-card.component.scss'],
+  selector: "app-dwelling-water-meter-readings-detail-card",
+  templateUrl: "./dwelling-water-meter-readings-detail-card.component.html",
+  styleUrls: ["./dwelling-water-meter-readings-detail-card.component.scss"],
 })
 export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   @Input() public dwellingId: number;
@@ -19,12 +19,12 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
     [
       {
-        columnDataName: 'measurement',
-        columnName: 'Lecturas',
+        columnDataName: "measurement",
+        columnName: "Lecturas",
       },
       {
-        columnDataName: 'date',
-        columnName: 'Fecha',
+        columnDataName: "date",
+        columnName: "Fecha",
       },
     ]
   );
@@ -35,6 +35,7 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
   ) {
     //
   }
+
   ngOnChanges(): void {
     this.ngOnInit();
   }
@@ -48,13 +49,14 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
       .subscribe((result) => {
         const measurements: any = result.water_meter;
         measurements.map((val) => {
-          val.date = format(new Date(val.date), 'dd/MM/yyyy');
+          val.date = format(new Date(val.date), "HH:mm - dd/MM/yyyy");
         });
         this.datasource = new BehaviorSubject<WaterMeterMeasurement[]>(
           measurements
         );
       });
   }
+
   public addReading(): void {
     this.svcDwelling
       .getCurrentDwellingWaterMeter(this.dwellingId)
@@ -63,7 +65,7 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
           NewWaterFormComponent,
           {
             centered: true,
-            backdrop: 'static',
+            backdrop: "static",
           }
         );
         modal.componentInstance.id = value.id;

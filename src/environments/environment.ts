@@ -2,6 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
+  appName: "Agube",
   apiUrl: 'http://localhost:4200',
   // docker-compose.yml contains port config
   authBackendUrl: 'http://localhost:8000/api/v1/auth',

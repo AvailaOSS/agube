@@ -1,0 +1,22 @@
+<div class="form-row">
+  <h1>Parámetros generales</h1>
+</div>
+<form [formGroup]="parametersForm">
+  <div class="form-group col-md-3">
+    <label for="hook_price">Precio de enganche</label>
+    <input class="form-control" type="number" id="hook_price" formControlName="hook_price" />
+  </div>
+  <div class="form-group col-md-3">
+    <label for="max_daily_consumption">Máximo consumo</label>
+    <input class="form-control" type="number" id="max_daily_consumption" formControlName="max_daily_consumption" />
+  </div>
+  <div class="form-group col-md-3">
+    <label>Última Actualización</label>
+    <input class="form-control" type="datetime" value="{{ releaseDate | date:'short' }}" readonly />
+  </div>
+  <div class="text-right">
+    <button class="btn btn-primary" type="button" (click)="onSubmit()" [disabled]="parametersForm.invalid">
+      Guardar
+    </button>
+  </div>
+</form>

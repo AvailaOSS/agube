@@ -25,7 +25,6 @@ export class ChangeResidentComponent implements OnInit {
   public name: string;
   public lastName: string;
   public email: string;
-  public username: string;
   public phone: string;
 
   constructor(
@@ -35,6 +34,14 @@ export class ChangeResidentComponent implements OnInit {
     private readonly alertService: NotificationService,
     private formBuilder: FormBuilder
   ) {
+    //
+  }
+
+  get f() {
+    return this.residentFormGroup.controls;
+  }
+
+  public ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.residentId = params.data;
       this.userId = params.user_id;
@@ -46,20 +53,13 @@ export class ChangeResidentComponent implements OnInit {
         this.name = value.user.first_name;
         this.lastName = value.user.last_name;
         this.email = value.user.email;
-        this.username = value.user.username;
         value.user.phones.map((ph) => {
           this.phone = ph.phone_number;
         });
       });
-  }
-  get f() {
-    return this.residentFormGroup.controls;
-  }
-  public ngOnInit(): void {
     this.residentFormGroup = this.formBuilder.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
-      username: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],
     });
@@ -81,7 +81,6 @@ export class ChangeResidentComponent implements OnInit {
               gate: this.residentData.user.address[0].gate,
             },
           ],
-          username: this.residentFormGroup.value.username,
           phones: [
             {
               phone_number: this.residentFormGroup.value.phone,

@@ -24,7 +24,7 @@ import { AvailaRoutingModule } from './availa-routing.module';
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
     }),
     SubscriptionModule.forRoot({
-      loginUrl: AuthRoute.LOGIN,
+      loginUrl: AuthRoute.ENABLE_ACCOUNT,
       subscriptionRestconfig: { basePath: environment.subscriptionBackendUrl },
     }),
     ContactBookModule.forRoot({

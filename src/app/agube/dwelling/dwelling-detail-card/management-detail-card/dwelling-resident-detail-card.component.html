@@ -1,17 +1,15 @@
 <div class="card mini-card">
   <p><strong>{{ resident | userDetailName }}</strong></p>
-  <p>Residente</p>
-  <p>Iban: <strong>{{ paymaster | paymaster }}</strong></p>
+  <p>{{dynamicTitle}}</p>
   <div class="d-flex">
-    <button class="btn btn-primary m-1" (click)="changePay()">
-      Cambio Pagador
+    <button class="btn btn-primary btn-sm m-1" (click)="changeResident()">
+      {{dynamicLabel}} Residente
     </button>
-
-    <button class="btn btn-primary m-1" (click)="changeResident()">
-      Cambio Residente
+    <button class="btn btn-primary btn-sm m-1" (click)="changeOwner()">
+      {{dynamicLabel}} Propietario
     </button>
-    <button class="btn btn-primary m-1" (click)="changeOwner()">
-      Cambio Propietario
-    </button>
+    <!-- <button class="btn btn-primary m-1" (click)="changePay()">
+          {{dynamicLabel}} Pagador
+        </button> -->
   </div>
 </div>

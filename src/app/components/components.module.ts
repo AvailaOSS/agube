@@ -7,14 +7,14 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
 import { UserDetailPipe } from './pipes/userdetail.pipe';
 import { SidebarConfiguration } from './sidebar/sidebar.configuration';
-import { PaymasterPipe } from './pipes/paymaster.pipe';
+import { AutoFocusDirective } from './directives/auto-focus.directive';
 
 @NgModule({
   declarations: [
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
-    PaymasterPipe,
+    AutoFocusDirective,
   ],
   imports: [
     CommonModule,
@@ -27,7 +27,7 @@ import { PaymasterPipe } from './pipes/paymaster.pipe';
     WorkInProgressComponent,
     FullAddressPipe,
     UserDetailPipe,
-    PaymasterPipe
+    AutoFocusDirective,
   ],
   providers: [SidebarConfiguration],
 })

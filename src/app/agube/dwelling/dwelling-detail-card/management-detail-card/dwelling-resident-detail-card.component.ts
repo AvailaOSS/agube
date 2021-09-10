@@ -1,17 +1,18 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { AgubeRoute } from '../../../agube-route';
-import { DwellingService, Paymaster, UserDetail } from '@availa/agube-rest-api';
+import { Component, Input, OnInit, OnChanges } from "@angular/core";
+import { Router } from "@angular/router";
+import { AgubeRoute } from "../../../agube-route";
+import { DwellingService, UserDetail } from "@availa/agube-rest-api";
 
 @Component({
-  selector: 'app-dwelling-resident-detail-card',
-  templateUrl: './dwelling-resident-detail-card.component.html',
+  selector: "app-dwelling-resident-detail-card",
+  templateUrl: "./dwelling-resident-detail-card.component.html",
 })
 export class DwellingResidentDetailCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
-  public resident: UserDetail;
-  public paymaster: Paymaster;
+  public resident: UserDetail = undefined;
   public userId: string;
+  public dynamicTitle = this.resident === undefined ? "Sin Residente" : "Residente";
+  public dynamicLabel = this.resident === undefined ? "Añadir" : "Cambiar";
 
   constructor(
     private readonly svcRouter: Router,
@@ -28,9 +29,6 @@ export class DwellingResidentDetailCard implements OnInit, OnChanges {
     this.svcDwelling
       .getCurrentResident(this.dwellingId)
       .subscribe((result) => (this.resident = result.user));
-    this.svcDwelling
-      .getPaymaster(String(this.dwellingId))
-      .subscribe((result) => (this.paymaster = result));;
   }
 
   public changeResident(): void {
@@ -45,9 +43,9 @@ export class DwellingResidentDetailCard implements OnInit, OnChanges {
     });
   }
 
-  public changePay(): void {
-    this.svcRouter.navigate([AgubeRoute.CHANGE_PAYMASTER], {
-      queryParams: { data: this.dwellingId },
-    });
-  }
+  // public changePay(): void {
+  //   this.svcRouter.navigate([AgubeRoute.CHANGE_PAYMASTER], {
+  //     queryParams: { data: this.dwellingId },
+  //   });
+  // }
 }
