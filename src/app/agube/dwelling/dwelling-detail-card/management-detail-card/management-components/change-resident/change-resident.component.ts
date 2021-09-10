@@ -1,17 +1,17 @@
-import { Component, EventEmitter, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService, Resident } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../../../../../agube-route';
-import { NotificationService } from '@availa/notification';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DwellingService, Resident } from "@availa/agube-rest-api";
+import { NotificationService } from "@availa/notification";
+import { AgubeRoute } from "../../../../../agube-route";
 
 @Component({
-  selector: 'app-change-resident',
-  templateUrl: './change-resident.component.html',
-  styleUrls: ['./change-resident.component.scss'],
+  selector: "app-change-resident",
+  templateUrl: "./change-resident.component.html",
+  styleUrls: ["./change-resident.component.scss"],
 })
 export class ChangeResidentComponent implements OnInit {
-  @Input() titleFormResident?: string = 'Cambio de residente';
+  @Input() titleFormResident?: string = "Cambio de residente";
   public residentFormGroup: FormGroup;
   public submitted = false;
   public options = {
@@ -58,10 +58,10 @@ export class ChangeResidentComponent implements OnInit {
         });
       });
     this.residentFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      name: ["", Validators.required],
+      lastName: ["", Validators.required],
+      email: ["", Validators.required],
+      phone: ["", Validators.required],
     });
   }
 
@@ -97,7 +97,7 @@ export class ChangeResidentComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.alertService.error('Error al actualizar', error.error.status);
+          this.alertService.error("Error al actualizar", error.error.status);
         }
       );
   }

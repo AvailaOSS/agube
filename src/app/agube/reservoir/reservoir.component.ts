@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ReservoirDetail } from '@availa/agube-rest-api';
-import { AgubeRoute } from '../agube-route';
+import { Component, OnInit } from "@angular/core";
+import { ReservoirDetail } from "@availa/agube-rest-api";
 
 @Component({
-  selector: 'app-reservoir',
-  templateUrl: './reservoir.component.html',
-  styleUrls: ['./reservoir.component.scss'],
+  selector: "app-reservoir",
+  templateUrl: "./reservoir.component.html",
+  styleUrls: ["./reservoir.component.scss"],
 })
 export class ReservoirComponent implements OnInit {
   public reservoirId: number;
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -1,79 +1,61 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
-import { Header } from '@availa/table/lib/header';
-import { BehaviorSubject } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
+import { ReservoirDetail, ReservoirService } from "@availa/agube-rest-api";
+import { Header } from "@availa/table/lib/header";
+import { BehaviorSubject } from "rxjs";
+import { AgubeRoute } from "../../agube-route";
 
-import { AgubeRoute } from '../../agube-route';
-
-interface DReservoirTableDataSource {
-  readonly id?: string;
-  water_meter_code: string;
-  street: string;
-  number: string;
-  flat: string;
-  gate: string;
-  town: string;
-  resident_first_name: string;
-  resident_phone: string;
-}
 @Component({
-  selector: 'app-reservoir-detail-list',
-  templateUrl: './reservoir-detail-list.component.html',
-  styleUrls: ['./reservoir-detail-list.component.scss'],
+  selector: "app-reservoir-detail-list",
+  templateUrl: "./reservoir-detail-list.component.html",
+  styleUrls: ["./reservoir-detail-list.component.scss"],
 })
 export class ReservoirDetailListComponent implements OnInit {
-  @Output() sendSelected: EventEmitter<ReservoirDetail> =
-    new EventEmitter<ReservoirDetail>();
+  @Output() sendSelected: EventEmitter<ReservoirDetail> = new EventEmitter<
+    ReservoirDetail
+  >();
   public valuesReservoir: string[] = [];
-  public selectedRowIndex = '';
+  public selectedRowIndex = "";
   public address: string;
   public data: string;
   public datasource: BehaviorSubject<any>;
-  public tableHeader: BehaviorSubject<Header[]> = new BehaviorSubject<Header[]>(
-    [
-      {
-        columnDataName: 'street',
-        columnName: 'Calle',
-      },
-      {
-        columnDataName: 'number',
-        columnName: 'Número',
-      },
-      {
-        columnDataName: 'flat',
-        columnName: 'Piso',
-      },
-      {
-        columnDataName: 'gate',
-        columnName: 'Puerta',
-      },
-      {
-        columnDataName: 'capacity',
-        columnName: 'Capacidad',
-      },
-      {
-        columnDataName: 'inlet_flow',
-        columnName: 'Entrada',
-      },
-      {
-        columnDataName: 'outlet_flow',
-        columnName: 'Salida',
-      },
-    ]
-  );
+  public tableHeader: BehaviorSubject<Header[]>;
+
   constructor(
     private readonly svcReservoirService: ReservoirService,
     private readonly router: Router
-  ) {}
+  ) {
+    this.tableHeader = new BehaviorSubject<Header[]>([
+      {
+        columnDataName: "street",
+        columnName: "Calle",
+      },
+      {
+        columnDataName: "number",
+        columnName: "Número",
+      },
+      {
+        columnDataName: "flat",
+        columnName: "Piso",
+      },
+      {
+        columnDataName: "gate",
+        columnName: "Puerta",
+      },
+      {
+        columnDataName: "capacity",
+        columnName: "Capacidad",
+      },
+      {
+        columnDataName: "inlet_flow",
+        columnName: "Entrada",
+      },
+      {
+        columnDataName: "outlet_flow",
+        columnName: "Salida",
+      },
+    ]);
+  }
 
   public ngOnInit(): void {
     this.svcReservoirService.getReservoirs().subscribe((value) => {
@@ -95,6 +77,7 @@ export class ReservoirDetailListComponent implements OnInit {
     );
     this.sendSelected.emit(result);
   }
+
   public addNewReservoir(): void {
     this.router.navigate([AgubeRoute.CREATE_RESERVOIR]);
   }

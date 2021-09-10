@@ -4,11 +4,7 @@
   </button>
 </div>
 <div>
-  <availa-table
-    [datasource]="datasource"
-    [headerDatasource]="tableHeader"
-    [showPaginator]="true"
-    (selected)="selectRow($event)"
-  >
+  <availa-table [datasource]="datasource" [headerDatasource]="tableHeader" [showPaginator]="true"
+    (selected)="selectRow($event)">
   </availa-table>
 </div>

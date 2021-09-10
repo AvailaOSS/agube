@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, OnChanges } from "@angular/core";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AgubeRoute } from "../../../agube-route";
 import { DwellingService, UserDetail } from "@availa/agube-rest-api";
+import { AgubeRoute } from "../../../agube-route";
 
 @Component({
   selector: "app-dwelling-resident-detail-card",
@@ -11,7 +11,8 @@ export class DwellingResidentDetailCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail = undefined;
   public userId: string;
-  public dynamicTitle = this.resident === undefined ? "Sin Residente" : "Residente";
+  public dynamicTitle =
+    this.resident === undefined ? "Sin Residente" : "Residente";
   public dynamicLabel = this.resident === undefined ? "Añadir" : "Cambiar";
 
   constructor(
@@ -42,10 +43,4 @@ export class DwellingResidentDetailCard implements OnInit, OnChanges {
       queryParams: { data: this.dwellingId },
     });
   }
-
-  // public changePay(): void {
-  //   this.svcRouter.navigate([AgubeRoute.CHANGE_PAYMASTER], {
-  //     queryParams: { data: this.dwellingId },
-  //   });
-  // }
 }

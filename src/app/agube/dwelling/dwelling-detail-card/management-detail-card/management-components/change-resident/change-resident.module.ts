@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { ChangeResidentComponent } from './change-resident.component';
-import { NotificationModule } from '@availa/notification';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { NotificationModule } from "@availa/notification";
+import { ChangeResidentComponent } from "./change-resident.component";
 
 @NgModule({
   declarations: [ChangeResidentComponent],
@@ -12,7 +12,7 @@ import { NotificationModule } from '@availa/notification';
     ReactiveFormsModule,
     BrowserModule,
     FormsModule,
-    NotificationModule
+    NotificationModule,
   ],
 })
 export class ChangeResidentModule {}

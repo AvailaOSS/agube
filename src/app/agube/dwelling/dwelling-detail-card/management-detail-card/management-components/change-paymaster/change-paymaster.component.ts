@@ -1,15 +1,15 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DwellingService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
-import { isUndefined } from 'lodash';
-import { AgubeRoute } from '../../../../../agube-route';
+import { Component, EventEmitter, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DwellingService } from "@availa/agube-rest-api";
+import { NotificationService } from "@availa/notification";
+import { isUndefined } from "lodash";
+import { AgubeRoute } from "../../../../../agube-route";
 
 @Component({
-  selector: 'app-change-paymaster',
-  templateUrl: './change-paymaster.component.html',
-  styleUrls: ['./change-paymaster.component.scss'],
+  selector: "app-change-paymaster",
+  templateUrl: "./change-paymaster.component.html",
+  styleUrls: ["./change-paymaster.component.scss"],
 })
 export class ChangePaymasterComponent implements OnInit {
   public registerForm: FormGroup;
@@ -25,8 +25,9 @@ export class ChangePaymasterComponent implements OnInit {
   public phoneRes: string;
   public selectRow: string;
 
-  public formConfigurationData: EventEmitter<string> =
-    new EventEmitter<string>();
+  public formConfigurationData: EventEmitter<string> = new EventEmitter<
+    string
+  >();
 
   constructor(
     private route: ActivatedRoute,
@@ -46,18 +47,20 @@ export class ChangePaymasterComponent implements OnInit {
       numberBank: new FormControl(),
     });
     this.svcChangePay.getCurrentOwner(+this.changePayId).subscribe((owner) => {
-      this.owner = Object.entries(owner)[2][1]['username'];
-      this.addressOwn =
-        Object.entries(owner)[2][1]['address'][0].address.street;
-      this.phoneOwn = Object.entries(owner)[2][1]['phones'][0].phone_number;
+      this.owner = Object.entries(owner)[2][1]["username"];
+      this.addressOwn = Object.entries(owner)[2][1][
+        "address"
+      ][0].address.street;
+      this.phoneOwn = Object.entries(owner)[2][1]["phones"][0].phone_number;
     });
     this.svcChangePay
       .getCurrentResident(+this.changePayId)
       .subscribe((value) => {
-        this.resident = Object.entries(value)[2][1]['username'];
-        this.addressRes =
-          Object.entries(value)[2][1]['address'][0].address.street;
-        this.phoneRes = Object.entries(value)[2][1]['phones'][0].phone_number;
+        this.resident = Object.entries(value)[2][1]["username"];
+        this.addressRes = Object.entries(value)[2][1][
+          "address"
+        ][0].address.street;
+        this.phoneRes = Object.entries(value)[2][1]["phones"][0].phone_number;
       });
   }
 
@@ -65,7 +68,7 @@ export class ChangePaymasterComponent implements OnInit {
     if (!isUndefined(this.selectRow)) {
       // TODO:
     } else {
-      this.alertService.error('Debe de seleccionar un pagador');
+      this.alertService.error("Debe de seleccionar un pagador");
     }
   }
 

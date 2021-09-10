@@ -1,34 +1,29 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { isUndefined } from 'lodash';
-import {
-  ReservoirCreate,
-  ReservoirService,
-  WaterMeter,
-} from '@availa/agube-rest-api';
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { ReservoirCreate, ReservoirService } from "@availa/agube-rest-api";
+import { isUndefined } from "lodash";
 
 @Component({
-  selector: 'app-reservoir-data-detail-card',
-  templateUrl: './reservoir-data-detail-card.component.html',
+  selector: "app-reservoir-data-detail-card",
+  templateUrl: "./reservoir-data-detail-card.component.html",
 })
 export class ReservoirDataComponent implements OnInit, OnChanges {
   @Input() reservoirId: number;
-  public reservoir: ReservoirCreate = {
-    full_address: {
-      address: { street: '', town: '' },
-      number: 0,
-    },
-    user_id: 0,
-    water_meter: { code: '', discharge_date: '' },
-    capacity: '',
-    inlet_flow: '',
-    outlet_flow: '',
-  };
-  public userId: string;
+  public reservoir: ReservoirCreate;
 
-  constructor(private readonly svcReservoir: ReservoirService) {}
-  public ngOnChanges(): void {
-    this.ngOnInit();
+  constructor(private readonly svcReservoir: ReservoirService) {
+    this.reservoir = {
+      full_address: {
+        address: { street: "", town: "" },
+        number: 0,
+      },
+      user_id: 0,
+      water_meter: { code: "", discharge_date: "" },
+      capacity: "",
+      inlet_flow: "",
+      outlet_flow: "",
+    };
   }
+
   public ngOnInit(): void {
     if (!isUndefined(this.reservoirId)) {
       this.svcReservoir.getReservoir(this.reservoirId).subscribe((result) => {
@@ -37,5 +32,9 @@ export class ReservoirDataComponent implements OnInit, OnChanges {
         }
       });
     }
+  }
+
+  public ngOnChanges(): void {
+    this.ngOnInit();
   }
 }

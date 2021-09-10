@@ -1,12 +1,12 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { DwellingService, WaterMeter } from '@availa/agube-rest-api';
-import { Router } from '@angular/router';
-import { AgubeRoute } from 'src/app/agube/agube-route';
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { DwellingService, WaterMeter } from "@availa/agube-rest-api";
+import { AgubeRoute } from "src/app/agube/agube-route";
 
 @Component({
-  selector: 'app-water-meter-enabled-detail-card',
-  templateUrl: './water-meter-enabled-detail-card.component.html',
-  styleUrls: ['./water-meter-enabled-detail-card.component.scss'],
+  selector: "app-water-meter-enabled-detail-card",
+  templateUrl: "./water-meter-enabled-detail-card.component.html",
+  styleUrls: ["./water-meter-enabled-detail-card.component.scss"],
 })
 export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
   // TODO: move to water-meter module
@@ -21,14 +21,14 @@ export class WaterMeterEnabledDetailCardComponent implements OnInit, OnChanges {
     //
   }
 
-  public ngOnChanges(): void {
-    this.ngOnInit();
-  }
-
   public ngOnInit(): void {
     this.svcDwelling
       .getCurrentDwellingWaterMeter(this.dwellingId)
       .subscribe((result) => (this.waterMeter = result));
+  }
+
+  public ngOnChanges(): void {
+    this.ngOnInit();
   }
 
   public changeCount(): void {

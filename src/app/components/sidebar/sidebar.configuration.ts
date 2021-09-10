@@ -1,8 +1,8 @@
 export class SidebarConfiguration {
-    routes: SidebarRoute[];
+  routes: SidebarRoute[];
 }
 
 class SidebarRoute {
-    path: string;
-    name: string;
+  path: string;
+  name: string;
 }

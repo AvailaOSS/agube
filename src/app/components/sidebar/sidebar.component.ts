@@ -1,30 +1,33 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { EventEmitter } from '@angular/core';
-import { SidebarConfiguration } from './sidebar.configuration';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Router } from "@angular/router";
+import { SidebarConfiguration } from "./sidebar.configuration";
+
 interface SelectedComponent {
   path: string;
   name: string;
 }
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.scss"],
 })
-export class SidebarComponent implements OnInit {
-  @Output() public currentComponentName: EventEmitter<string> =
-    new EventEmitter();
-  public menuComponents: SelectedComponent[] = [];
-  public toogleVision = true;
+export class SidebarComponent {
+  @Output() public currentComponentName: EventEmitter<string>;
   @Input() user: any;
+  public menuComponents: SelectedComponent[];
+  public toogleVision;
   public selectComponent: string;
 
-  constructor(private readonly route: Router, private sidebarRoutes: SidebarConfiguration) {
+  constructor(
+    private readonly route: Router,
+    private sidebarRoutes: SidebarConfiguration
+  ) {
+    this.currentComponentName = new EventEmitter();
     this.menuComponents = this.sidebarRoutes.routes;
+    this.menuComponents = [];
+    this.toogleVision = true;
   }
-
-  ngOnInit(): void { }
 
   public selectedComponent(component: SelectedComponent): void {
     this.route.navigate([component.path]);

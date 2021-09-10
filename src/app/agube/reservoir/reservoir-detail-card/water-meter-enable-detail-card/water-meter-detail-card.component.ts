@@ -1,26 +1,24 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { ReservoirService, WaterMeter } from '@availa/agube-rest-api';
-import { AgubeRoute } from 'src/app/agube/agube-route';
-import { Router } from '@angular/router';
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ReservoirService, WaterMeter } from "@availa/agube-rest-api";
+import { AgubeRoute } from "src/app/agube/agube-route";
 
 @Component({
-  selector: 'app-water-mater-detail-card',
-  templateUrl: './water-meter-detail-card.component.html',
-  styleUrls: ['./water-meter-detail-card.component.scss'],
+  selector: "app-water-mater-detail-card",
+  templateUrl: "./water-meter-detail-card.component.html",
+  styleUrls: ["./water-meter-detail-card.component.scss"],
 })
 export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
   @Input() public reservoirId: number;
-  public waterMeter: WaterMeter = {
-    code: '',
-  };
+  public waterMeter: WaterMeter;
 
   constructor(
     private readonly svcReservoir: ReservoirService,
     private readonly svcRouter: Router
-  ) {}
-
-  public ngOnChanges(): void {
-    this.ngOnInit();
+  ) {
+    this.waterMeter = {
+      code: "",
+    };
   }
 
   public ngOnInit(): void {
@@ -29,6 +27,10 @@ export class WaterMeterDetailCardComponent implements OnInit, OnChanges {
       .subscribe((result) => {
         this.waterMeter = result;
       });
+  }
+
+  public ngOnChanges(): void {
+    this.ngOnInit();
   }
 
   public changeReservoir(): void {
