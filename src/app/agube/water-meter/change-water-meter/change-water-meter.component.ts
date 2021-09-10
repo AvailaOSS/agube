@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "src/app/agube/agube-route";
+import { ChangeWaterMeterType } from "./change-water-meter-type.enum";
+import { ChangeWaterMeterService } from "./change-water-meter.service";
 
 @Component({
   selector: "app-change-water-meter",
@@ -17,12 +19,13 @@ export class ChangeWaterMeterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private readonly route: ActivatedRoute,
-    private readonly svcChangeWaterMeter: DwellingService,
-    private readonly alertService: NotificationService,
+    private readonly activedRoute: ActivatedRoute,
+    private readonly svcDwelling: DwellingService,
+    private readonly svcChangeWaterMeter: ChangeWaterMeterService,
+    private readonly svcNotification: NotificationService,
     private readonly router: Router
   ) {
-    this.route.queryParams.subscribe((params) => {
+    this.activedRoute.queryParams.subscribe((params) => {
       this.id = +params.data;
     });
     this.waterMeterForm = this.formBuilder.group({
@@ -31,7 +34,7 @@ export class ChangeWaterMeterComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.svcChangeWaterMeter
+    this.svcDwelling
       .getCurrentDwellingWaterMeter(this.id)
       .subscribe((response) =>
         this.waterMeterForm.get("code").setValue(response.code)
@@ -40,11 +43,13 @@ export class ChangeWaterMeterComponent implements OnInit {
 
   public onSubmit(): void {
     this.svcChangeWaterMeter
-      .changeCurrentDwellingWaterMeter(this.id, this.waterMeterForm.value)
+      .change(this.id, this.waterMeterForm.value, ChangeWaterMeterType.Dwelling)
       .subscribe(
         (value) => this.router.navigate([AgubeRoute.DWELLING]),
         (error) =>
-          this.alertService.error("Error al actualizar " + error.error.status)
+          this.svcNotification.error(
+            "Error al actualizar " + error.error.status
+          )
       );
   }
 }
