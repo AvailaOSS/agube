@@ -10,7 +10,8 @@ import { TableModule } from '@availa/table';
 import { ReservoirDataComponent } from './reservoir-detail-card/management-detail-card/reservoir-data-detail-card.component';
 import { WaterMeterDetailCardComponent } from './reservoir-detail-card/water-meter-enable-detail-card/water-meter-detail-card.component';
 import { ReservoirWaterMeterReadingsDetailCardComponent } from './reservoir-detail-card/reservoir-water-meter-readings-detail-card/reservoir-water-meter-readings-detail-card.component';
-import { ChangeReservoirModule } from './reservoir-detail-card/water-meter-enable-detail-card/change-water-meter/change-water-meter.module';
+import { WaterMeterModule } from '../water-meter/water-meter.module';
+
 @NgModule({
   declarations: [
     ReservoirComponent,
@@ -24,10 +25,10 @@ import { ChangeReservoirModule } from './reservoir-detail-card/water-meter-enabl
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ChangeReservoirModule,
     CreateReservoirModule,
     ComponentsModule,
-    TableModule
+    TableModule,
+    WaterMeterModule,
   ],
   exports: [ReservoirComponent],
 })

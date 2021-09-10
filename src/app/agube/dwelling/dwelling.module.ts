@@ -16,8 +16,7 @@ import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-det
 import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
-import { NewWaterFormModule } from '../new-water-meter-form/new-water-form/new-water-form.module';
-import { ChangeWaterMeterModule } from './dwelling-detail-card/water-meter-enabled-detail-card/change-water-meter/change-water-meter.module';
+import { WaterMeterModule } from '../water-meter/water-meter.module';
 
 @NgModule({
   declarations: [
@@ -35,11 +34,10 @@ import { ChangeWaterMeterModule } from './dwelling-detail-card/water-meter-enabl
     CreateDwellingModule,
     ChangePaymasterModule,
     ChangeOwnerModule,
-    ChangeWaterMeterModule,
     ChangeResidentModule,
     ComponentsModule,
     TableModule,
-    NewWaterFormModule,
+    WaterMeterModule,
   ],
   exports: [DwellingComponent],
 })
