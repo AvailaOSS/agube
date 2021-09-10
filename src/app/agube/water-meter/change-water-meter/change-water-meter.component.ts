@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { DwellingService, WaterMeter } from "@availa/agube-rest-api";
+import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "src/app/agube/agube-route";
 

@@ -6,7 +6,7 @@ import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwell
 import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-owner/change-owner.component';
 import { ChangePaymasterComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-paymaster/change-paymaster.component';
 import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-detail-card/management-components/change-resident/change-resident.component';
-import { ChangeWaterMeterComponent } from './dwelling/dwelling-detail-card/water-meter-enabled-detail-card/change-water-meter/change-water-meter.component';
+import { ChangeWaterMeterComponent } from './water-meter/change-water-meter/change-water-meter.component';
 import { DwellingComponent } from './dwelling/dwelling.component';
 import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
 import { ChangeReservoirComponent } from './reservoir/reservoir-detail-card/water-meter-enable-detail-card/change-water-meter/change-water-meter.component';

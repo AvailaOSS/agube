@@ -16,7 +16,6 @@ import { DwellingDetailListComponent } from './dwelling-detail-list/dwelling-det
 import { DwellingComponent } from './dwelling.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TableModule } from '@availa/table';
-import { ChangeWaterMeterModule } from './dwelling-detail-card/water-meter-enabled-detail-card/change-water-meter/change-water-meter.module';
 import { WaterMeterModule } from '../water-meter/water-meter.module';
 
 @NgModule({
@@ -35,7 +34,6 @@ import { WaterMeterModule } from '../water-meter/water-meter.module';
     CreateDwellingModule,
     ChangePaymasterModule,
     ChangeOwnerModule,
-    ChangeWaterMeterModule,
     ChangeResidentModule,
     ComponentsModule,
     TableModule,
