@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { DwellingService, Resident } from "@availa/agube-rest-api";
+import { Component, Input } from "@angular/core";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "../../../../../agube-route";
 
@@ -10,94 +10,97 @@ import { AgubeRoute } from "../../../../../agube-route";
   templateUrl: "./change-resident.component.html",
   styleUrls: ["./change-resident.component.scss"],
 })
-export class ChangeResidentComponent implements OnInit {
+export class ChangeResidentComponent {
+  @Input() dwellingId: any;
   @Input() titleFormResident?: string = "Cambio de residente";
-  public residentFormGroup: FormGroup;
-  public submitted = false;
-  public options = {
-    autoClose: true,
-    keepAfterRouteChange: false,
-  };
-  public residentId: string;
-  public userId: string;
-  public residentData: any;
-
-  public name: string;
-  public lastName: string;
-  public email: string;
-  public phone: string;
+  title = "Alta Residente";
+  residentForm: FormGroup;
+  userForm: FormGroup;
 
   constructor(
-    private readonly route: ActivatedRoute,
-    private readonly svcRouter: Router,
-    private readonly svcChangeResident: DwellingService,
-    private readonly alertService: NotificationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private readonly router: Router,
+    public readonly svcAlert: NotificationService,
+    private readonly svcCreateNewDWelling: DwellingService
   ) {
-    //
+    this.createForm();
   }
 
-  get f() {
-    return this.residentFormGroup.controls;
+  private createForm() {
+    // {
+    //   "user": {
+    //     "first_name": "string",
+    //     "last_name": "string",
+    //     "email": "user@example.com",
+    //     "phones": [
+    //       {
+    //         "phone_number": "string"
+    //       }
+    //     ],
+    //     "address": [
+    //       {
+    //         "address": {
+    //           "town": "string",
+    //           "street": "string",
+    //           "is_external": true
+    //         },
+    //         "number": 0,
+    //         "flat": "string",
+    //         "gate": "string"
+    //       }
+    //     ]
+    //   }
+    // }
+    this.residentForm = this.formBuilder.group({
+      user: this.formBuilder.group({
+        first_name: ["", Validators.required],
+        last_name: ["", Validators.required],
+        email: ["", Validators.required],
+        phones: this.formBuilder.array([]),
+        address: this.formBuilder.array([]),
+      }),
+    });
+    this.userForm = this.residentForm.controls.user as FormGroup;
+    console.log(this.userForm);
   }
 
-  public ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.residentId = params.data;
-      this.userId = params.user_id;
-    });
-    this.svcChangeResident
-      .getCurrentResident(+this.residentId)
-      .subscribe((value: Resident) => {
-        this.residentData = value;
-        this.name = value.user.first_name;
-        this.lastName = value.user.last_name;
-        this.email = value.user.email;
-        value.user.phones.map((ph) => {
-          this.phone = ph.phone_number;
-        });
-      });
-    this.residentFormGroup = this.formBuilder.group({
-      name: ["", Validators.required],
-      lastName: ["", Validators.required],
-      email: ["", Validators.required],
-      phone: ["", Validators.required],
-    });
+  addPhones() {
+    const phones = this.userForm.controls.phones as FormArray;
+    phones.push(
+      this.formBuilder.group({
+        phone_number: ["", Validators.required],
+      })
+    );
+  }
+
+  addAddress() {
+    const address = this.userForm.controls.address as FormArray;
+    address.push(
+      this.formBuilder.group({
+        number: ["", Validators.required],
+        flat: ["", Validators.required],
+        gate: ["", Validators.required],
+        address: this.formBuilder.group({
+          town: ["", Validators.required],
+          street: ["", Validators.required],
+          is_external: [false, Validators.required],
+        }),
+      })
+    );
   }
 
   public onSubmit(): void {
-    this.svcChangeResident
-      .changeCurrentResident(+this.residentId, {
-        user: {
-          address: [
-            {
-              address: {
-                street: this.residentData.user.address[0].address.street,
-                town: this.residentData.user.address[0].address.town,
-                is_external: true,
-              },
-              number: +this.residentData.user.address[0].number,
-              flat: this.residentData.user.address[0].flat,
-              gate: this.residentData.user.address[0].gate,
-            },
-          ],
-          phones: [
-            {
-              phone_number: this.residentFormGroup.value.phone,
-            },
-          ],
-          email: this.residentFormGroup.value.email,
-          first_name: this.residentFormGroup.value.name,
-          last_name: this.residentFormGroup.value.lastName,
-        },
-      })
+    this.svcCreateNewDWelling
+      .changeCurrentResident(this.dwellingId, this.residentForm.value)
       .subscribe(
         () => {
-          this.svcRouter.navigate([AgubeRoute.DWELLING]);
+          this.router.navigate([AgubeRoute.DWELLING]);
         },
-        (error) => {
-          console.log(error);
-          this.alertService.error("Error al actualizar", error.error.status);
+        (err) => {
+          this.svcAlert.error(JSON.stringify(err.error), {
+            autoClose: false,
+            keepAfterRouteChange: false,
+          });
         }
       );
   }

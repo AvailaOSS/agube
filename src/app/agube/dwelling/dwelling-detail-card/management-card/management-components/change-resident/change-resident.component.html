@@ -1,46 +1,61 @@
-<div class="table-card table-config">
+<div class="form">
+
+  <h1 class="text-center">
+    {{title}}
+  </h1>
+
   <app-notification></app-notification>
-  <h4>{{ titleFormResident }}</h4>
-  <span class="color-danger">*Asegúrese antes de cambiar de residente , que no sea un pagador</span>
-  <form [formGroup]="residentFormGroup" (ngSubmit)="(onSubmit)" class="border-forms">
-    <div class="row margin-adaptation-generic">
-      <div class="col-sm-5">
-        <label for="name">Nombre</label>
-        <input type="text" formControlName="name" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.name.errors }" [(ngModel)]="name" />
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">Se requiere un nombre</div>
+
+  <form class="resident-form" [formGroup]="residentForm" novalidate (ngSubmit)="onSubmit()">
+    <div formGroupName="user">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="town">Nombre <span style="color: red;">*</span></label>
+          <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="John">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="last_name">Apellidos <span style="color: red;">*</span></label>
+          <input type="text" class="form-control" id="last_name" formControlName="last_name"
+            placeholder="Stark Targaryen">
         </div>
       </div>
-      <div class="col-sm-5">
-        <label for="lastName">Apellido</label>
-        <input type="text" formControlName="lastName" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" [(ngModel)]="lastName" />
-        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-          <div *ngIf="f.lastName.errors.required">Se requiere un apellido</div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="email">Email <span style="color: red;">*</span></label>
+          <input type="email" class="form-control" id="email" formControlName="email" placeholder="example@example.com">
         </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="email" />
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Se requiere un email</div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <label for="phone">Teléfono</label>
-        <input type="number" formControlName="phone" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" [(ngModel)]="phone" />
-        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-          <div *ngIf="f.phone.errors.required">Se requiere un teléfono</div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <button class="btn btn-primary w-100 h-50 margin-buttons-forms" type="button" (click)="onSubmit()">
-          {{ titleFormResident }}
-        </button>
       </div>
     </div>
+
+    <div formArrayName="phones" *ngFor="let phone of userForm.controls.phones?.value; let i = index">
+      <ng-container [formGroupName]="i">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="phone_number">Teléfono <span style="color: red;">*</span></label>
+            <input type="text" class="form-control" id="phone_number" formControlName="phone_number"
+              placeholder="666666666">
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- <div formArrayName="address" *ngFor="let creds of residentForm.controls.address?.value; let i = index">
+      <ng-container [formGroupName]="i">
+        <input placeholder="Username" formControlName="username">
+        <input placeholder="Password" formControlName="password">
+      </ng-container>
+    </div> -->
+
+    <button type="button" class="btn btn-primary" (click)="addPhones()">Añadir Teléfono</button>
+    <button type="button" class="btn btn-primary" (click)="addAddress()">Añadir Dirección</button>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary"
+        [disabled]="residentForm.pristine || residentForm.invalid">Guardar</button>
+    </div>
   </form>
+
+  <pre><p>{{ userForm.value | json }}</p></pre>
+  <p>Form status: {{ userForm.status | json }}</p>
+
 </div>
