@@ -1,68 +1,180 @@
 <div class="form">
-
   <h1 class="text-center">
-    {{title}}
+    {{ title }}
   </h1>
 
   <app-notification></app-notification>
 
-  <form class="resident-form" [formGroup]="residentForm" novalidate (ngSubmit)="onSubmit()">
-    <div formGroupName="user">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="town">Nombre <span style="color: red;">*</span></label>
-          <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="John">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="last_name">Apellidos <span style="color: red;">*</span></label>
-          <input type="text" class="form-control" id="last_name" formControlName="last_name"
-            placeholder="Stark Targaryen">
-        </div>
+  <form
+    class="resident-form"
+    [formGroup]="residentForm"
+    novalidate
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="town">Nombre <span style="color: red">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          id="first_name"
+          formControlName="first_name"
+          placeholder="John"
+        />
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="email">Email <span style="color: red;">*</span></label>
-          <input type="email" class="form-control" id="email" formControlName="email" placeholder="example@example.com">
-        </div>
+      <div class="form-group col-md-4">
+        <label for="last_name"
+          >Apellidos <span style="color: red">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="last_name"
+          formControlName="last_name"
+          placeholder="Stark Targaryen"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="email">Email <span style="color: red">*</span></label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="example@example.com"
+        />
       </div>
     </div>
 
-    <div formArrayName="phones" *ngFor="let phone of userForm.controls.phones?.value; let i = index">
-      <ng-container [formGroupName]="i">
+    <div
+      formArrayName="phones"
+      *ngFor="let item of residentForm.get('phones')['controls']; let i = index"
+    >
+      <div [formGroupName]="i">
         <div class="form-row">
           <div class="form-group col-md-4">
-            <label for="phone_number">Teléfono <span style="color: red;">*</span></label>
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <input type="text" class="form-control" id="phone_number" formControlName="phone_number"
-                  placeholder="666666666">
-              </div>
-              <div class="form-group col-md-4">
-                <button type="button" class="btn btn-secondary" (click)="removePhone(i)">Eliminar</button>
-              </div>
-            </div>
+            <label for="phone_number"
+              >Teléfono {{ i + 1 }}: <span style="color: red">*</span></label
+            >
+
+            <input
+              type="number"
+              class="form-control"
+              formControlName="phone_number"
+              placeholder="666666666"
+            />
+          </div>
+          <div></div>
+          <div class="form-group col-md-5 padding-adaptation-forms">
+            <button
+              type="button"
+              class="btn btn-secondary m-1"
+              (click)="removePhone(i)"
+            >
+              Eliminar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="addPhoneButton()"
+            >
+              Agregar Teléfono
+            </button>
           </div>
         </div>
-      </ng-container>
+      </div>
     </div>
+    <div
+      formArrayName="address"
+      *ngFor="
+        let item of residentForm.get('address')['controls'];
+        let i = index
+      "
+    >
+      <div [formGroupName]="i">
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="number"
+              >Número : <span style="color: red">*</span></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              formControlName="number"
+              placeholder="número"
+            />
+          </div>
+          <div class="form-group col-md-2">
+            <label for="flat">Piso : <span style="color: red">*</span></label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="flat"
+              placeholder="piso"
+            />
+          </div>
+          <div class="form-group col-md-2">
+            <label for="gate">Puerta : <span style="color: red">*</span></label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="gate"
+              placeholder="puerta"
+            />
+          </div>
 
-    <!-- <div formArrayName="address" *ngFor="let creds of residentForm.controls.address?.value; let i = index">
-      <ng-container [formGroupName]="i">
-        <input placeholder="Username" formControlName="username">
-        <input placeholder="Password" formControlName="password">
-      </ng-container>
-    </div> -->
 
-    <button type="button" class="btn btn-primary" (click)="addPhones()">Añadir Teléfono</button>
-    <button type="button" class="btn btn-primary" (click)="addAddress()">Añadir Dirección</button>
-
+              <div class="form-group col-md-4">
+                <label for="town"
+                  >Ciudad : <span style="color: red">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="town"
+                  placeholder="ciudad"
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="street"
+                  >Calle : <span style="color: red">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="street"
+                  placeholder="calle"
+                />
+              </div>
+          <div class="form-group col-md-5 padding-adaptation-forms">
+            <button
+              type="button"
+              class="btn btn-secondary m-1"
+              (click)="removeAddress(i)"
+            >
+              Eliminar Dirección
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="addAddressButton()"
+            >
+              Agregar Dirección
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="text-center">
-      <button type="submit" class="btn btn-primary"
-        [disabled]="residentForm.pristine || residentForm.invalid">Guardar</button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="residentForm.pristine || residentForm.invalid"
+      >
+        Guardar
+      </button>
     </div>
   </form>
-
-  <pre><p>{{ userForm.value | json }}</p></pre>
-  <p>Form status: {{ userForm.status | json }}</p>
-
 </div>
