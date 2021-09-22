@@ -61,10 +61,9 @@ export class ChangeResidentComponent {
       }),
     });
     this.userForm = this.residentForm.controls.user as FormGroup;
-    console.log(this.userForm);
   }
 
-  addPhones() {
+  public addPhones() {
     const phones = this.userForm.controls.phones as FormArray;
     phones.push(
       this.formBuilder.group({
@@ -73,7 +72,12 @@ export class ChangeResidentComponent {
     );
   }
 
-  addAddress() {
+  public removePhone(index) {
+    const phones = this.userForm.controls.phones as FormArray;
+    phones.removeAt(index);
+  }
+
+  public addAddress() {
     const address = this.userForm.controls.address as FormArray;
     address.push(
       this.formBuilder.group({
@@ -87,6 +91,11 @@ export class ChangeResidentComponent {
         }),
       })
     );
+  }
+
+  public removeAddress(index) {
+    const phones = this.userForm.controls.phones as FormArray;
+    phones.removeAt(index);
   }
 
   public onSubmit(): void {
