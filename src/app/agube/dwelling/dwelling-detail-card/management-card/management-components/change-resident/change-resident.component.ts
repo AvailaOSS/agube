@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "../../../../../agube-route";
@@ -11,19 +11,22 @@ import { AgubeRoute } from "../../../../../agube-route";
   styleUrls: ["./change-resident.component.scss"],
 })
 export class ChangeResidentComponent {
-  @Input() dwellingId: any;
-  @Input() titleFormResident?: string = "Cambio de residente";
   title = "Alta Residente";
+  dwellingId: number;
   residentForm: FormGroup;
   userForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     public readonly svcAlert: NotificationService,
     private readonly svcCreateNewDWelling: DwellingService
   ) {
     this.createForm();
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.dwellingId = params.data;
+    });
   }
 
   private createForm() {
