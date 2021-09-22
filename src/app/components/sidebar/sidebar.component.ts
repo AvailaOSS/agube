@@ -25,7 +25,6 @@ export class SidebarComponent {
   ) {
     this.currentComponentName = new EventEmitter();
     this.menuComponents = this.sidebarRoutes.routes;
-    this.menuComponents = [];
     this.toogleVision = true;
   }
 
