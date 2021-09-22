@@ -5,7 +5,7 @@ import { TableModule } from "@availa/table";
 import { ComponentsModule } from "../../components/components.module";
 import { WaterMeterModule } from "../water-meter/water-meter.module";
 import { CreateReservoirModule } from "./create-reservoir/create-reservoir.module";
-import { ReservoirDataComponent } from "./reservoir-detail-card/management-detail-card/reservoir-data-detail-card.component";
+import { ReservoirManagementComponent } from "./reservoir-detail-card/management-card/reservoir-management-card.component";
 import { ReservoirDetailCardComponent } from "./reservoir-detail-card/reservoir-detail-card.component";
 import { ReservoirWaterMeterReadingsDetailCardComponent } from "./reservoir-detail-card/reservoir-water-meter-readings-detail-card/reservoir-water-meter-readings-detail-card.component";
 import { WaterMeterDetailCardComponent } from "./reservoir-detail-card/water-meter-enable-detail-card/water-meter-detail-card.component";
@@ -17,7 +17,7 @@ import { ReservoirComponent } from "./reservoir.component";
     ReservoirComponent,
     ReservoirDetailListComponent,
     ReservoirDetailCardComponent,
-    ReservoirDataComponent,
+    ReservoirManagementComponent,
     WaterMeterDetailCardComponent,
     ReservoirWaterMeterReadingsDetailCardComponent,
   ],

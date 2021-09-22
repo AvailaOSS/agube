@@ -4,10 +4,10 @@ import { DwellingService, UserDetail } from "@availa/agube-rest-api";
 import { AgubeRoute } from "../../../agube-route";
 
 @Component({
-  selector: "app-dwelling-resident-detail-card",
-  templateUrl: "./dwelling-resident-detail-card.component.html",
+  selector: "app-dwelling-management-card",
+  templateUrl: "./dwelling-management-card.component.html",
 })
-export class DwellingResidentDetailCard implements OnInit, OnChanges {
+export class DwellingManagementCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail = undefined;
   public userId: string;

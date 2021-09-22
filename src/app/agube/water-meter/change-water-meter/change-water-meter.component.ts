@@ -14,6 +14,7 @@ import { ChangeWaterMeterService } from "./change-water-meter.service";
 })
 export class ChangeWaterMeterComponent implements OnInit {
   @Input() title?: string = "Cambio de Contador";
+  // FIXME:  @Input() ChangeWaterMeterType
   public waterMeterForm: FormGroup;
   public id: number;
 
