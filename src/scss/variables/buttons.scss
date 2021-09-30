@@ -19,7 +19,8 @@
   @include set-btn-primary();
 }
 
-.btn-primary.disabled, .btn-primary:disabled {
+.btn-primary.disabled,
+.btn-primary:disabled {
   @include set-btn-primary();
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus,
@@ -41,6 +42,21 @@
 }
 .btn-secondary:focus {
   @include set-btn-primary($color-secondary);
+}
+
+.btn-danger,
+.btn-danger:active {
+  @include set-btn-primary($color-cuaternary);
+}
+.btn-danger:hover {
+  @include set-btn-primary($color-terciary);
+}
+.btn-danger:not(:disabled):not(.disabled):active,
+.btn-danger:not(:disabled):not(.disabled).active {
+  @include set-btn-primary($color-cuaternary);
+}
+.btn-danger:focus {
+  @include set-btn-primary($color-cuaternary);
 }
 
 button {

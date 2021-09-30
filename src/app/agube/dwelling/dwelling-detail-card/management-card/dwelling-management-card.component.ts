@@ -11,9 +11,9 @@ export class DwellingManagementCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail = undefined;
   public userId: string;
-  public dynamicTitle =
-    this.resident === undefined ? "Sin Residente" : "Residente";
-  public dynamicLabel = this.resident === undefined ? "Añadir" : "Cambiar";
+  public dynamicTitle = "Sin Residente";
+  public dynamicLabelResident = "Añadir";
+  public dynamicLabelOwner = "Añadir";
 
   constructor(
     private readonly svcRouter: Router,
@@ -27,9 +27,11 @@ export class DwellingManagementCard implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    this.svcDwelling
-      .getCurrentResident(this.dwellingId)
-      .subscribe((result) => (this.resident = result.user));
+    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe((result) => {
+      this.resident = result.user;
+      this.dynamicTitle = "Residente";
+      this.dynamicLabelResident = "Cambiar";
+    });
   }
 
   public changeResident(): void {
