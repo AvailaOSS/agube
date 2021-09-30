@@ -26,12 +26,12 @@
   color: $color-black;
 }
 
-.table tr:nth-child(even):hover {
+.table tbody tr:nth-child(even):hover {
   background-color: $color-secondary;
   color: $color-black;
 }
 
-.table tr:nth-child(odd):hover {
+.table tbody tr:nth-child(odd):hover {
   background-color: $color-secondary;
   color: $color-black;
 }
