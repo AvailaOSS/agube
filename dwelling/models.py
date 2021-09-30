@@ -157,8 +157,8 @@ class DwellingResident(models.Model):
         self.discharge_date = timezone.now()
         # if user is Owner do not disable user account
         dwelling: Dwelling = Dwelling.objects.get(id=self.dwelling.id)
-        current_owner = dwelling.get_current_owner().user
-        if self.user != current_owner:
+        current_owner = dwelling.get_current_owner()
+        if current_owner and self.user != current_owner.user:
             self.user.is_active = False
             self.user.save()
         self.save()
