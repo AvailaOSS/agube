@@ -4,16 +4,16 @@ import { DwellingService, UserDetail } from "@availa/agube-rest-api";
 import { AgubeRoute } from "../../../agube-route";
 
 @Component({
-  selector: "app-dwelling-resident-detail-card",
-  templateUrl: "./dwelling-resident-detail-card.component.html",
+  selector: "app-dwelling-management-card",
+  templateUrl: "./dwelling-management-card.component.html",
 })
-export class DwellingResidentDetailCard implements OnInit, OnChanges {
+export class DwellingManagementCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail = undefined;
   public userId: string;
-  public dynamicTitle =
-    this.resident === undefined ? "Sin Residente" : "Residente";
-  public dynamicLabel = this.resident === undefined ? "Añadir" : "Cambiar";
+  public dynamicTitle = "Sin Residente";
+  public dynamicLabelResident = "Añadir";
+  public dynamicLabelOwner = "Añadir";
 
   constructor(
     private readonly svcRouter: Router,
@@ -27,9 +27,11 @@ export class DwellingResidentDetailCard implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    this.svcDwelling
-      .getCurrentResident(this.dwellingId)
-      .subscribe((result) => (this.resident = result.user));
+    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe((result) => {
+      this.resident = result.user;
+      this.dynamicTitle = "Residente";
+      this.dynamicLabelResident = "Cambiar";
+    });
   }
 
   public changeResident(): void {

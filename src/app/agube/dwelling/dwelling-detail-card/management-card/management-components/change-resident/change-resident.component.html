@@ -1,0 +1,108 @@
+<div class="form">
+  <h1 class="text-center">
+    {{ title }}
+  </h1>
+
+  <app-notification></app-notification>
+
+  <form class="resident-form" [formGroup]="residentForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="town">Nombre <span style="color: red">*</span></label>
+        <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="John" />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="last_name">Apellidos <span style="color: red">*</span></label>
+        <input type="text" class="form-control" id="last_name" formControlName="last_name"
+          placeholder="Stark Targaryen" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="email">Email <span style="color: red">*</span></label>
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="example@example.com" />
+      </div>
+    </div>
+    <br>
+
+    <div class="form-row">
+      <label>Teléfonos</label>
+    </div>
+    <div class="form-row">
+      <button type="button" class="btn btn-secondary" (click)="addPhone()">
+        Añadir
+      </button>
+    </div>
+    <br>
+    <div formArrayName="phones" *ngFor="let item of residentForm.get('phones')['controls']; let i = index">
+      <div [formGroupName]="i">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="phone_number">Teléfono {{ i + 1 }}: <span style="color: red">*</span></label>
+            <input type="string" class="form-control" formControlName="phone_number" placeholder="666666666" />
+          </div>
+          <div></div>
+          <div class="form-group col-md-5 padding-adaptation-forms">
+            <button type="button" class="btn btn-danger m-1" (click)="removePhone(i)">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="form-row">
+      <label>Direcciones adicionales</label>
+    </div>
+    <div class="form-row">
+      <button type="button" class="btn btn-secondary" (click)="addAddress()">
+        Añadir
+      </button>
+    </div>
+    <br>
+    <div formArrayName="address" *ngFor="
+        let item of residentForm.get('address')['controls'];
+        let i = index
+      ">
+      <div [formGroupName]="i">
+        <div class="form-row" formGroupName="address">
+          <div class="form-group col-md-4">
+            <label for="town">Ciudad : <span style="color: red">*</span></label>
+            <input type="text" class="form-control" formControlName="town" placeholder="ciudad" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="street">Calle : <span style="color: red">*</span></label>
+            <input type="text" class="form-control" formControlName="street" placeholder="calle" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="number">Número : <span style="color: red">*</span></label>
+            <input type="number" class="form-control" formControlName="number" placeholder="número" />
+          </div>
+          <div class="form-group col-md-2">
+            <label for="flat">Piso : <span style="color: red">*</span></label>
+            <input type="number" class="form-control" formControlName="flat" placeholder="piso" />
+          </div>
+          <div class="form-group col-md-2">
+            <label for="gate">Puerta : <span style="color: red">*</span></label>
+            <input type="text" class="form-control" formControlName="gate" placeholder="puerta" />
+          </div>
+          <div class="form-group col-md-5 padding-adaptation-forms">
+            <button type="button" class="btn btn-danger m-1" (click)="removeAddress(i)">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="residentForm.pristine || residentForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </form>
+
+</div>

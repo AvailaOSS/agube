@@ -3,10 +3,10 @@ import { ReservoirCreate, ReservoirService } from "@availa/agube-rest-api";
 import { isUndefined } from "lodash";
 
 @Component({
-  selector: "app-reservoir-data-detail-card",
-  templateUrl: "./reservoir-data-detail-card.component.html",
+  selector: "app-reservoir-management-card",
+  templateUrl: "./reservoir-management-card.component.html",
 })
-export class ReservoirDataComponent implements OnInit, OnChanges {
+export class ReservoirManagementComponent implements OnInit, OnChanges {
   @Input() reservoirId: number;
   public reservoir: ReservoirCreate;
 
