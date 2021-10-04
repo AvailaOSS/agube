@@ -1,33 +1,32 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import {
-  Form,
   FormArray,
   FormBuilder,
   FormGroup,
-  Validators,
+  Validators
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Address, DwellingService } from "@availa/agube-rest-api";
+import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "../../../../../agube-route";
 
 @Component({
-  selector: "app-change-resident",
-  templateUrl: "./change-resident.component.html",
-  styleUrls: ["./change-resident.component.scss"],
+  selector: "app-change-person",
+  templateUrl: "./change-person.component.html",
+  styleUrls: ["./change-person.component.scss"],
 })
-export class ChangeResidentComponent {
-  title = "Alta Residente";
+export class ChangePersonComponent {
+  title = "Alta Persona";
   dwellingId: number;
-  residentForm: FormGroup;
+  personForm: FormGroup;
   userForm: FormArray;
 
   constructor(
     private formBuilder: FormBuilder,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router,
+    public readonly router: Router,
     public readonly svcAlert: NotificationService,
-    private readonly svcCreateNewDWelling: DwellingService
+    public readonly svcCreateNewDWelling: DwellingService
   ) {
     this.createForm();
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -36,7 +35,7 @@ export class ChangeResidentComponent {
   }
 
   private createForm(): void {
-    this.residentForm = this.formBuilder.group({
+    this.personForm = this.formBuilder.group({
       first_name: ["", Validators.required],
       last_name: ["", Validators.required],
       email: ["", Validators.required],
@@ -52,12 +51,12 @@ export class ChangeResidentComponent {
   }
 
   public addPhone(): void {
-    this.userForm = this.residentForm.get("phones") as FormArray;
+    this.userForm = this.personForm.get("phones") as FormArray;
     this.userForm.push(this.getPhoneForm());
   }
 
   public removePhone(index: number): void {
-    this.userForm = this.residentForm.get("phones") as FormArray;
+    this.userForm = this.personForm.get("phones") as FormArray;
     this.userForm.removeAt(index);
   }
 
@@ -75,19 +74,19 @@ export class ChangeResidentComponent {
   }
 
   public addAddress(): void {
-    this.userForm = this.residentForm.get("address") as FormArray;
+    this.userForm = this.personForm.get("address") as FormArray;
     this.userForm.push(this.getAddressForm());
   }
 
   public removeAddress(index: number): void {
-    this.userForm = this.residentForm.get("address") as FormArray;
+    this.userForm = this.personForm.get("address") as FormArray;
     this.userForm.removeAt(index);
   }
 
   public onSubmit(): void {
     this.svcCreateNewDWelling
       .changeCurrentResident(this.dwellingId, {
-        user: this.residentForm.value,
+        user: this.personForm.value,
       })
       .subscribe(
         () => this.router.navigate([AgubeRoute.DWELLING]),
