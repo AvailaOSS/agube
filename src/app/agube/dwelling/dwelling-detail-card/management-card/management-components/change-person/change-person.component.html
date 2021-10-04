@@ -5,7 +5,7 @@
 
   <app-notification></app-notification>
 
-  <form class="resident-form" [formGroup]="residentForm" novalidate (ngSubmit)="onSubmit()">
+  <form class="person-form" [formGroup]="personForm" novalidate (ngSubmit)="onSubmit()">
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="town">Nombre <span style="color: red">*</span></label>
@@ -34,7 +34,7 @@
       </button>
     </div>
     <br>
-    <div formArrayName="phones" *ngFor="let item of residentForm.get('phones')['controls']; let i = index">
+    <div formArrayName="phones" *ngFor="let item of personForm.get('phones')['controls']; let i = index">
       <div [formGroupName]="i">
         <div class="form-row">
           <div class="form-group col-md-4">
@@ -62,7 +62,7 @@
     </div>
     <br>
     <div formArrayName="address" *ngFor="
-        let item of residentForm.get('address')['controls'];
+        let item of personForm.get('address')['controls'];
         let i = index
       ">
       <div [formGroupName]="i">
@@ -99,7 +99,7 @@
       <br>
     </div>
     <div class="text-center">
-      <button type="submit" class="btn btn-primary" [disabled]="residentForm.pristine || residentForm.invalid">
+      <button type="submit" class="btn btn-primary" [disabled]="personForm.pristine || personForm.invalid">
         Guardar
       </button>
     </div>

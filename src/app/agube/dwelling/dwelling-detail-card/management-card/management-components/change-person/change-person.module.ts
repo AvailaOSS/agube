@@ -3,10 +3,16 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { NotificationModule } from "@availa/notification";
-import { ChangeResidentComponent } from "./change-resident.component";
+import { ChangeOwnerComponent } from "./change-owner/change-owner.component";
+import { ChangePersonComponent } from "./change-person.component";
+import { ChangeResidentComponent } from "./change-resident/change-resident.component";
 
 @NgModule({
-  declarations: [ChangeResidentComponent],
+  declarations: [
+    ChangePersonComponent,
+    ChangeResidentComponent,
+    ChangeOwnerComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -15,4 +21,4 @@ import { ChangeResidentComponent } from "./change-resident.component";
     NotificationModule,
   ],
 })
-export class ChangeResidentModule {}
+export class ChangePersonModule {}
