@@ -1,7 +1,7 @@
-@use  "./margins";
-@use  "./paddings";
-@use  "./borders";
-@use  "./sizes";
+@use "./margins";
+@use "./paddings";
+@use "./borders";
+@use "./sizes";
 
 .table-card {
   min-height: sizes.$height-small;
@@ -16,6 +16,14 @@
 }
 
 .table th,
+.table td {
+  border-top: 0px;
+}
+
+.table th span {
+  cursor: pointer;
+}
+
 .table td {
   border-top: 0px;
   cursor: pointer;
