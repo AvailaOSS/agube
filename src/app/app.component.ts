@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     this.hideContactBook = true;
     this.toolbarName = environment.appName;
   }
+
   public ngOnInit(): void {
     this.accountService.getUser().subscribe((result) => {
       this.user = result;
