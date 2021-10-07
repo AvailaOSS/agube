@@ -9,11 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { HookPrice } from './hookPrice';
-
 
 export interface ManagerConfiguration {
-    readonly id?: string;
-    max_daily_consumption: string;
-    hook_price: HookPrice;
+  readonly id?: string;
+  max_daily_consumption: string;
+  hook_price: string;
+  readonly release_date?: string;
+  readonly discharge_date?: string;
 }
