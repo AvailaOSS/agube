@@ -1,19 +1,20 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { DwellingService, UserDetail } from "@availa/agube-rest-api";
-import { AgubeRoute } from "../../../agube-route";
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DwellingService, UserDetail } from '@availa/agube-rest-api';
+import { AgubeRoute } from '../../../agube-route';
 
 @Component({
-  selector: "app-dwelling-management-card",
-  templateUrl: "./dwelling-management-card.component.html",
+  selector: 'app-dwelling-management-card',
+  templateUrl: './dwelling-management-card.component.html',
 })
 export class DwellingManagementCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail = undefined;
+  public owner: any = undefined;
   public userId: string;
-  public dynamicTitle = "Sin Residente";
-  public dynamicLabelResident = "Añadir";
-  public dynamicLabelOwner = "Añadir";
+  public dynamicTitle = 'Sin Residente';
+  public dynamicLabelResident = 'Añadir';
+  public dynamicLabelOwner = 'Añadir';
 
   constructor(
     private readonly svcRouter: Router,
@@ -27,11 +28,29 @@ export class DwellingManagementCard implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe((result) => {
-      this.resident = result.user;
-      this.dynamicTitle = "Residente";
-      this.dynamicLabelResident = "Cambiar";
-    });
+    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe(
+      (result) => {
+        this.resident = result.user;
+        this.dynamicTitle = 'Residente';
+        this.dynamicLabelResident = 'Cambiar';
+      },
+      () => {
+        this.dynamicTitle = 'Residente';
+        this.dynamicLabelResident = 'Añadir';
+      }
+    );
+    this.svcDwelling.getCurrentOwner(this.dwellingId).subscribe(
+      (result) => {
+        console.log(result);
+        this.owner = result[0];
+        this.dynamicTitle = 'Propietario';
+        this.dynamicLabelOwner = 'Cambiar';
+      },
+      () => {
+        this.dynamicTitle = 'Propietario';
+        this.dynamicLabelOwner = 'Añadir';
+      }
+    );
   }
 
   public changeResident(): void {
