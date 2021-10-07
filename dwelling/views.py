@@ -144,7 +144,8 @@ class DwellingOwnerView(generics.GenericAPIView):
     serializer_class = DwellingOwnerSerializer
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(operation_id="getCurrentOwner")
+    @swagger_auto_schema(operation_id="getCurrentOwner",
+                         responses={200: DwellingOwnerSerializer(many=False)})
     def get(self, request, pk):
         """
         Get Current Owner
