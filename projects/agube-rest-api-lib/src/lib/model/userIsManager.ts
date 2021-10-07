@@ -9,13 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Address } from './address';
 
 
-export interface FullAddress {
-    readonly id?: string;
-    address: Address;
-    number: number;
-    flat?: string;
-    gate?: string;
+export interface UserIsManager { 
+    isManager: boolean;
 }

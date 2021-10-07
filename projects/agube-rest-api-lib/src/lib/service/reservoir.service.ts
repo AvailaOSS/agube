@@ -12,7 +12,10 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import {
-  HttpClient, HttpEvent, HttpHeaders, HttpResponse
+  HttpClient,
+  HttpEvent,
+  HttpHeaders,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';

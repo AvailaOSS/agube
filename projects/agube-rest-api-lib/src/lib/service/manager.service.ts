@@ -12,7 +12,9 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import {
-  HttpClient, HttpEvent, HttpHeaders,
+  HttpClient,
+  HttpEvent,
+  HttpHeaders,
   HttpResponse
 } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
@@ -21,6 +23,7 @@ import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { Manager } from '../model/manager';
 import { ManagerConfiguration } from '../model/managerConfiguration';
+import { UserIsManager } from '../model/userIsManager';
 
 @Injectable()
 export class ManagerService {
@@ -254,6 +257,62 @@ export class ManagerService {
         String(id)
       )}/configuration`,
       data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * true if user is manager
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public userIsManager(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<UserIsManager>;
+  public userIsManager(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<UserIsManager>>;
+  public userIsManager(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<UserIsManager>>;
+  public userIsManager(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+        btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<UserIsManager>(
+      `${this.basePath}/manager/is-manager`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
