@@ -469,17 +469,17 @@ export class DwellingService {
     id: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<Owner>>;
+  ): Observable<Owner>;
   public getCurrentOwner(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<Owner>>>;
+  ): Observable<HttpResponse<Owner>>;
   public getCurrentOwner(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<Owner>>>;
+  ): Observable<HttpEvent<Owner>>;
   public getCurrentOwner(
     id: number,
     observe: any = 'body',
