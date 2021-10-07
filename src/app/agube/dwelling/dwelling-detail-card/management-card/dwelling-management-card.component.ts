@@ -10,7 +10,7 @@ import { AgubeRoute } from '../../../agube-route';
 export class DwellingManagementCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
   public resident: UserDetail = undefined;
-  public owner: any = undefined;
+  public owner: UserDetail = undefined;
   public userId: string;
   public dynamicTitle = 'Sin Residente';
   public dynamicLabelResident = 'Añadir';
@@ -41,8 +41,8 @@ export class DwellingManagementCard implements OnInit, OnChanges {
     );
     this.svcDwelling.getCurrentOwner(this.dwellingId).subscribe(
       (result) => {
-        console.log(result);
-        this.owner = result[0];
+        //TODO : RESULT DEVUELVE OWNER[] sin embargo el resultado no es asi  ...
+        this.owner = result[0].user;
         this.dynamicTitle = 'Propietario';
         this.dynamicLabelOwner = 'Cambiar';
       },
