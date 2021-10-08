@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
     "@availa/agube-rest-api": "0.0.2",
-    "@availa/auth-fe": "0.0.1",
+    "@availa/auth-fe": "0.0.2",
     "@availa/auth-rest-api": "0.0.1",
     "@availa/buttons": "~0.0.0",
     "@availa/contact-book-fe": "0.0.1",

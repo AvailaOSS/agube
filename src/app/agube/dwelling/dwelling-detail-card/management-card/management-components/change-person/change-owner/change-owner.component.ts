@@ -11,7 +11,7 @@ export class ChangeOwnerComponent extends ChangePersonComponent {
   title = 'Alta Propietario';
 
   public onSubmit(): void {
-    this.svcCreateNewDWelling
+    this.svcDWelling
       .changeCurrentOwner(this.dwellingId, {
         user: this.personForm.value,
       })

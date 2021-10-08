@@ -16,13 +16,12 @@ export class ChangePersonComponent {
   personForm: FormGroup;
   userForm: FormArray;
 
-  public name: any;
   constructor(
     private formBuilder: FormBuilder,
     private readonly activatedRoute: ActivatedRoute,
     public readonly router: Router,
     public readonly svcAlert: NotificationService,
-    public readonly svcCreateNewDWelling: DwellingService
+    public readonly svcDWelling: DwellingService
   ) {
     this.createForm();
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -80,7 +79,7 @@ export class ChangePersonComponent {
   }
 
   public onSubmit(): void {
-    this.svcCreateNewDWelling
+    this.svcDWelling
       .changeCurrentResident(this.dwellingId, {
         user: this.personForm.value,
       })

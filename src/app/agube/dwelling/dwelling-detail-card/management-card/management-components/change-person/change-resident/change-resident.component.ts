@@ -11,7 +11,7 @@ export class ChangeResidentComponent extends ChangePersonComponent {
   title = 'Alta Residente';
 
   public onSubmit(): void {
-    this.svcCreateNewDWelling
+    this.svcDWelling
       .changeCurrentResident(this.dwellingId, {
         user: this.personForm.value,
       })

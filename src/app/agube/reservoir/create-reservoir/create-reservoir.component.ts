@@ -1,86 +1,66 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { ManagerService, ReservoirService } from "@availa/agube-rest-api";
-import { NotificationService } from "@availa/notification";
-import { AgubeRoute } from "../../agube-route";
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ReservoirService } from '@availa/agube-rest-api';
+import { AccountService } from '@availa/auth-fe';
+import { User } from '@availa/auth-fe/lib/login/models/user';
+import { NotificationService } from '@availa/notification';
+import { AgubeRoute } from '../../agube-route';
 
 @Component({
-  selector: "app-create-reservoir",
-  templateUrl: "./create-reservoir.component.html",
-  styleUrls: ["./create-reservoir.component.scss"],
+  selector: 'app-create-reservoir',
+  templateUrl: './create-reservoir.component.html',
+  styleUrls: ['./create-reservoir.component.scss'],
 })
-export class CreateReservoirComponent implements OnInit {
-  public createFormGroup: FormGroup;
-  public reservoirFormGroup: FormGroup;
-  public submitted = false;
-  public options = {
-    autoClose: true,
-    keepAfterRouteChange: false,
-  };
-  public username: string;
-  public userId: string;
+export class CreateReservoirComponent {
+  // FIXME: styleUrls is duplicated of change-person.component.scss
+  title = 'Alta Depósito';
+  reservoirForm: FormGroup;
+  userForm: FormArray;
 
   constructor(
-    private router: Router,
-    private readonly svcCreateNewReservoir: ReservoirService,
-    private readonly svcManager: ManagerService,
-    private readonly alertService: NotificationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public readonly router: Router,
+    public readonly svcAlert: NotificationService,
+    public readonly svcReservoir: ReservoirService,
+    public readonly svcAccount: AccountService
   ) {
-    this.svcManager.getManagerByUser().subscribe((value) => {
-      this.userId = value.user_id;
+    this.createForm();
+  }
+
+  private createForm(): void {
+    this.svcAccount.getUser().subscribe((response) => {
+      // FIXME: backend in this case do not required number, flat, gate, inet_flo and outlet_flow for reservoirs
+      this.reservoirForm = this.formBuilder.group({
+        full_address: this.formBuilder.group({
+          address: this.formBuilder.group({
+            town: ['', Validators.required],
+            street: ['', Validators.required],
+            is_external: [false, Validators.required],
+          }),
+          number: [''],
+          flat: [''],
+          gate: [''],
+        }),
+        user_id: [response.user_id, Validators.required],
+        water_meter: this.formBuilder.group({
+          code: ['', Validators.required],
+        }),
+        capacity: ['', Validators.required],
+        inlet_flow: [''],
+        outlet_flow: [''],
+      });
     });
   }
 
-  public ngOnInit(): void {
-    this.createFormGroup = this.formBuilder.group({
-      street: ["", Validators.required],
-      number: ["", Validators.required],
-      gate: ["", Validators.required],
-      flat: ["", Validators.required],
-      city: ["", Validators.required],
-      waterMeter: ["", Validators.required],
-    });
-    this.reservoirFormGroup = this.formBuilder.group({
-      capacity: ["", Validators.required],
-      inlet: ["", Validators.required],
-      outlet: ["", Validators.required],
-    });
-  }
-
-  get f() {
-    return this.createFormGroup.controls;
-  }
-
-  public onSubmitReservoir(): void {
-    console.log("alta", this.createFormGroup.value);
-    console.log("datos", this.reservoirFormGroup.value);
-    this.svcCreateNewReservoir
-      .createReservoir({
-        user_id: +this.userId,
-        full_address: {
-          address: {
-            town: this.createFormGroup.value.city,
-            street: this.createFormGroup.value.street,
-            is_external: true,
-          },
-          number: this.createFormGroup.value.number,
-          flat: this.createFormGroup.value.flat,
-          gate: this.createFormGroup.value.gate,
-        },
-        capacity: this.reservoirFormGroup.value.capacity,
-        outlet_flow: this.reservoirFormGroup.value.outlet,
-        inlet_flow: this.reservoirFormGroup.value.inlet,
-        water_meter: { code: this.createFormGroup.value.waterMeter },
-      })
-      .subscribe(
-        (value) => {
-          this.router.navigate([AgubeRoute.RESERVOIR]);
-        },
-        (error) => {
-          this.alertService.error("Error al actualizar " + error.error.status);
-        }
-      );
+  public onSubmit(): void {
+    this.svcReservoir.createReservoir(this.reservoirForm.value).subscribe(
+      () => this.router.navigate([AgubeRoute.RESERVOIR]),
+      (err) =>
+        this.svcAlert.error(JSON.stringify(err.error), {
+          autoClose: false,
+          keepAfterRouteChange: false,
+        })
+    );
   }
 }
