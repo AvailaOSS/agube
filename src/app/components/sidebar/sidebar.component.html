@@ -20,6 +20,8 @@
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action border-0" style="cursor: pointer"
       *ngFor="let component of menuComponents" (click)="selectedComponent(component)"
-      [ngClass]="component.name == selectComponent ? 'menu-selected' : '' ">{{ component.name }} </span>
+      [ngClass]="component.name == selectComponent ? 'menu-selected' : '' ">
+      <i class="{{component.icon}}"></i>
+      {{ component.name }} </span>
   </div>
 </div>
