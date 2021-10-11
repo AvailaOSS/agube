@@ -87,7 +87,7 @@ def create_user(tag: PersonTag, validated_data: UserDetailSerializer,
 
     # Important: create Person after create User
     Person.objects.create(manager=manager, user=user)
-    if PersonTag.OWNER == tag.value:
+    if PersonTag.OWNER == tag:
         email_type = EmailType.OWNER_EMAIL
     else:
         email_type = EmailType.RESIDENT_EMAIL
