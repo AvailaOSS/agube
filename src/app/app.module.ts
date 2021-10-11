@@ -32,10 +32,10 @@ import { SidebarConfiguration } from "./components/sidebar/sidebar.configuration
       provide: SidebarConfiguration,
       useValue: {
         routes: [
-          { path: AgubeRoute.DWELLING, name: "Viviendas" },
-          { path: AgubeRoute.RESERVOIR, name: "Depósitos" },
-          { path: TaskRoute.INCIDENCE, name: "Incidencias" },
-          { path: AgubeRoute.CONFIG, name: "Configuración" },
+          { path: AgubeRoute.DWELLING, name: "Viviendas", icon: "fas fa-home" },
+          { path: AgubeRoute.RESERVOIR, name: "Depósitos", icon: "fas fa-hand-holding-water" },
+          { path: TaskRoute.INCIDENCE, name: "Incidencias", icon: "fas fa-calendar-alt" },
+          { path: AgubeRoute.CONFIG, name: "Configuración", icon: "fas fa-cog" },
         ],
       },
     },

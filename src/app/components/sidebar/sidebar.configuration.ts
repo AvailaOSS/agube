@@ -5,4 +5,5 @@ export class SidebarConfiguration {
 class SidebarRoute {
   path: string;
   name: string;
+  icon: string;
 }
