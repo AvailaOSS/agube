@@ -1,0 +1,17 @@
+<div class="card mini-card" *ngIf="waterMeter">
+  <p><strong>Contador</strong></p>
+  <p>nº {{ waterMeter.code }}</p>
+  <p>Alta {{ waterMeter.release_date | date: "dd/MM/yyyy" }}</p>
+  <button class="btn btn-primary" (click)="changeWaterMeter()">
+    <i class="fas fa-faucet"></i>
+    Cambio de Contador</button>
+</div>
+<div class="table-card">
+  <button class="btn btn-primary float-right m-1" (click)="addReading()">
+    <i class="fas fa-tasks"></i>
+    Agregar Lecturas</button>
+  <div class="text-center m-1 table-component ">
+    <availa-table [datasource]="datasource" [headerDatasource]="tableHeader" [showPaginator]="false">
+    </availa-table>
+  </div>
+</div>
