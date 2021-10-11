@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DwellingService } from "@availa/agube-rest-api";
 import { NotificationService } from "@availa/notification";
 import { AgubeRoute } from "src/app/agube/agube-route";
-import { ChangeWaterMeterType } from "./change-water-meter-type.enum";
-import { ChangeWaterMeterService } from "./change-water-meter.service";
+import { WaterMeterType } from "../water-meter-type.enum";
+import { WaterMeterManager } from "../water-meter.manager";
 
 @Component({
   selector: "app-change-water-meter",
@@ -22,7 +22,7 @@ export class ChangeWaterMeterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private readonly activedRoute: ActivatedRoute,
     private readonly svcDwelling: DwellingService,
-    private readonly svcChangeWaterMeter: ChangeWaterMeterService,
+    private readonly svcChangeWaterMeter: WaterMeterManager,
     private readonly svcNotification: NotificationService,
     private readonly router: Router
   ) {
@@ -44,7 +44,7 @@ export class ChangeWaterMeterComponent implements OnInit {
 
   public onSubmit(): void {
     this.svcChangeWaterMeter
-      .change(this.id, this.waterMeterForm.value, ChangeWaterMeterType.Dwelling)
+      .change(this.id, this.waterMeterForm.value, WaterMeterType.Dwelling)
       .subscribe(
         (value) => this.router.navigate([AgubeRoute.DWELLING]),
         (error) =>
