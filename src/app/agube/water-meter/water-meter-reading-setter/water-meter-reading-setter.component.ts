@@ -5,11 +5,11 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 
 @Component({
-  selector: "app-water-meter-reading",
-  templateUrl: "./water-meter-reading.component.html",
-  styleUrls: ["./water-meter-reading.component.scss"],
+  selector: "app-water-meter-reading-setter",
+  templateUrl: "./water-meter-reading-setter.component.html",
+  styleUrls: ["./water-meter-reading-setter.component.scss"],
 })
-export class WaterMeterReadingComponent implements OnInit {
+export class WaterMeterReadingSetterComponent implements OnInit {
   @Input() public id: any;
   public readingForm: FormGroup;
 

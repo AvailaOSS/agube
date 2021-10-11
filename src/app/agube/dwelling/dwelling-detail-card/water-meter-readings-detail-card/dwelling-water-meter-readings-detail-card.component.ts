@@ -4,7 +4,7 @@ import { Header } from "@availa/table/lib/header";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { format } from "date-fns";
 import { BehaviorSubject } from "rxjs";
-import { WaterMeterReadingComponent } from "src/app/agube/water-meter/water-meter-reading/water-meter-reading.component";
+import { WaterMeterReadingSetterComponent } from "src/app/agube/water-meter/water-meter-reading-setter/water-meter-reading-setter.component";
 
 @Component({
   selector: "app-dwelling-water-meter-readings-detail-card",
@@ -59,7 +59,7 @@ export class DWellingWaterMeterReadingsComponent implements OnInit, OnChanges {
       .getCurrentDwellingWaterMeter(this.dwellingId)
       .subscribe((value) => {
         const modal: NgbModalRef = this.modalService.open(
-          WaterMeterReadingComponent,
+          WaterMeterReadingSetterComponent,
           {
             centered: true,
             backdrop: "static",

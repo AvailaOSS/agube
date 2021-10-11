@@ -8,7 +8,7 @@ import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { format } from "date-fns";
 import { isUndefined } from "lodash";
 import { BehaviorSubject } from "rxjs";
-import { WaterMeterReadingComponent } from "src/app/agube/water-meter/water-meter-reading/water-meter-reading.component";
+import { WaterMeterReadingSetterComponent } from "src/app/agube/water-meter/water-meter-reading-setter/water-meter-reading-setter.component";
 
 @Component({
   selector: "app-reservoir-water-meter-readings-detail-card",
@@ -67,7 +67,7 @@ export class ReservoirWaterMeterReadingsDetailCardComponent
       .getCurrentReservoirWaterMeter(this.reservoirId)
       .subscribe((value) => {
         const modal: NgbModalRef = this.modalService.open(
-          WaterMeterReadingComponent,
+          WaterMeterReadingSetterComponent,
           {
             centered: true,
             backdrop: "static",
