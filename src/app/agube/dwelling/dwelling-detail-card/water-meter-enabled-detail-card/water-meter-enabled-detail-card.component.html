@@ -1,8 +1,0 @@
-<div class="card mini-card" *ngIf="waterMeter">
-  <p><strong>Contador</strong></p>
-  <p>nº {{ waterMeter.code }}</p>
-  <p>Alta {{ waterMeter.release_date | date: "dd/MM/yyyy" }}</p>
-  <button class="btn btn-primary" (click)="changeCount()">
-    <i class="fas fa-faucet"></i>
-    Cambio de Contador</button>
-</div>
