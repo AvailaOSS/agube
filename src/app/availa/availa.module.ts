@@ -1,14 +1,14 @@
-import { NgModule } from "@angular/core";
-import { AgubeApiModule } from "@availa/agube-rest-api";
-import { AuthModule, AuthRoute } from "@availa/auth-fe";
-import { ContactBookModule } from "@availa/contact-book-fe";
-import { SubscriptionModule, SubscriptionRoute } from "@availa/subscription-fe";
-import { TaskModule } from "@availa/task-fe";
-import { ToolbarModule } from "@availa/toolbar";
-import { environment } from "src/environments/environment";
-import { AgubeRoute } from "../agube/agube-route";
-import { AgubeModule } from "../agube/agube.module";
-import { AvailaRoutingModule } from "./availa-routing.module";
+import { NgModule } from '@angular/core';
+import { AgubeApiModule } from '@availa/agube-rest-api';
+import { AuthModule, AuthRoute } from '@availa/auth-fe';
+import { ContactBookModule } from '@availa/contact-book-fe';
+import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
+import { TaskModule } from '@availa/task-fe';
+import { ToolbarModule } from '@availa/toolbar';
+import { environment } from 'src/environments/environment';
+import { AgubeRoute } from '../agube/agube-route';
+import { AgubeModule } from '../agube/agube.module';
+import { AvailaRoutingModule } from './availa-routing.module';
 
 @NgModule({
   declarations: [],

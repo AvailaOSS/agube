@@ -12,6 +12,8 @@ import { AvailaModule } from "./availa/availa.module";
 import { ComponentsModule } from "./components/components.module";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { SidebarConfiguration } from "./components/sidebar/sidebar.configuration";
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent],
@@ -25,6 +27,8 @@ import { SidebarConfiguration } from "./components/sidebar/sidebar.configuration
     ComponentsModule,
     AvailaModule,
     NgbModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyBootstrapModule,
   ],
   bootstrap: [AppComponent],
   providers: [
