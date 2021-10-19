@@ -26,7 +26,7 @@
     "@availa/buttons": "0.0.2",
     "@availa/contact-book-fe": "0.0.2",
     "@availa/notification": "0.0.1",
-    "@availa/subscription-fe": "0.0.3",
+    "@availa/subscription-fe": "0.0.4",
     "@availa/table": "0.0.2",
     "@availa/task-fe": "0.0.1",
     "@availa/toolbar": "0.0.2",
