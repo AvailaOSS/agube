@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
+from watermeter.models import WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
@@ -96,33 +97,43 @@ class ReservoirWaterMeterChunkView(APIView):
         """
         Return the current Water Meter of Reservoir with measurements chunk.
         """
-        # Get Reservoir
         try:
-            reservoir = Reservoir.objects.get(id=pk)
-            water_meter = reservoir.get_current_water_meter()
+            water_meter = Reservoir.objects.get(
+                id=pk).get_current_water_meter()
 
-            list_of_water_meter_serialized = []
-            for measurement in water_meter.get_measurements_chunk(chunk):
+            measures_serialized = []
 
-                data = {
-                    'id': measurement.id,
-                    'measurement': measurement.measurement,
-                    'date': measurement.date,
-                }
-                list_of_water_meter_serialized.append(
-                    WaterMeterMeasurementSerializer(data, many=False).data)
+            # FIXME: can improve it with .objects.select_related ?
+            for reservoirWaterMeter in ReservoirWaterMeter.objects.filter(
+                    reservoir__id=pk):
+
+                # if len is full do not add more elements
+                if len(measures_serialized) < chunk:
+                    for measurement in WaterMeterMeasurement.objects.filter(
+                            water_meter__id=reservoirWaterMeter.water_meter.id
+                    ).order_by('-date'):
+                        data = {
+                            'id': measurement.id,
+                            'measurement': measurement.measurement,
+                            'date': measurement.date,
+                        }
+                        # if len is full do not add more elements
+                        if len(measures_serialized) < chunk:
+                            measures_serialized.append(
+                                WaterMeterMeasurementSerializer(
+                                    data, many=False).data)
 
             data = {
                 'id': water_meter.id,
                 'code': water_meter.code,
                 'release_date': water_meter.release_date,
                 'discharge_date': water_meter.discharge_date,
-                'water_meter': list_of_water_meter_serialized,
+                'measures': measures_serialized,
             }
 
             return Response(WaterMeterDetailSerializer(data, many=False).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'},
+            return Response({'status': 'cannot find dwelling'},
                             status=HTTP_404_NOT_FOUND)
 
 

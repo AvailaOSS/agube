@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from watermeter.models import WaterMeter
+from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
@@ -20,7 +20,7 @@ from dwelling.assemblers import (PersonTag, create_user,
 from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling
+from dwelling.models import Dwelling, DwellingWaterMeter
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
@@ -269,31 +269,39 @@ class DwellingWaterMeterChunkView(APIView):
     )
     def get(self, request, pk, chunk):
         """
-        Return the current Water Meter with measurements chunk.
+        Return the current Water Meter with total measurements (chunk).
         """
-        # Get Dwelling
         try:
-            dwelling: Dwelling = Dwelling.objects.get(id=pk)
-            water_meter = dwelling.get_current_water_meter()
+            water_meter = Dwelling.objects.get(id=pk).get_current_water_meter()
 
-            list_of_water_meter_serialized: list[
-                WaterMeterMeasurementSerializer] = []
-            for measurement in water_meter.get_measurements_chunk(chunk):
+            measures_serialized = []
 
-                data = {
-                    'id': measurement.id,
-                    'measurement': measurement.measurement,
-                    'date': measurement.date,
-                }
-                list_of_water_meter_serialized.append(
-                    WaterMeterMeasurementSerializer(data, many=False).data)
+            # FIXME: can improve it with .objects.select_related ?
+            for dwellingWaterMeter in DwellingWaterMeter.objects.filter(
+                    dwelling__id=pk):
+
+                # if len is full do not add more elements
+                if len(measures_serialized) < chunk:
+                    for measurement in WaterMeterMeasurement.objects.filter(
+                            water_meter__id=dwellingWaterMeter.water_meter.id
+                    ).order_by('-date'):
+                        data = {
+                            'id': measurement.id,
+                            'measurement': measurement.measurement,
+                            'date': measurement.date,
+                        }
+                        # if len is full do not add more elements
+                        if len(measures_serialized) < chunk:
+                            measures_serialized.append(
+                                WaterMeterMeasurementSerializer(
+                                    data, many=False).data)
 
             data = {
                 'id': water_meter.id,
                 'code': water_meter.code,
                 'release_date': water_meter.release_date,
                 'discharge_date': water_meter.discharge_date,
-                'water_meter': list_of_water_meter_serialized,
+                'measures': measures_serialized,
             }
 
             return Response(WaterMeterDetailSerializer(data, many=False).data)
