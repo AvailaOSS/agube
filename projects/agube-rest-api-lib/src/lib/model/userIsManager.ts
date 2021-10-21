@@ -11,6 +11,6 @@
  */
 
 
-export interface UserIsManager { 
-    isManager: boolean;
+export interface UserIsManager {
+    is_manager: boolean;
 }
