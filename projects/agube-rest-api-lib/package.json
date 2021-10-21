@@ -1,6 +1,6 @@
 {
   "name": "@availa/agube-rest-api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publishConfig": {
     "@availa:registry": "https://gitlab.com/api/v4/projects/23378318/packages/npm/"
   },

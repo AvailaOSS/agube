@@ -142,62 +142,6 @@ export class WaterMeterService {
 
   /**
    *
-   * get all Measures saved
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getTotalMeasures(
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<WaterMeterMeasurement>>;
-  public getTotalMeasures(
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<WaterMeterMeasurement>>>;
-  public getTotalMeasures(
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<WaterMeterMeasurement>>>;
-  public getTotalMeasures(
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-
-    return this.httpClient.get<Array<WaterMeterMeasurement>>(
-      `${this.basePath}/water-meter/measures`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
    * Return a list of water meter measures.
    * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

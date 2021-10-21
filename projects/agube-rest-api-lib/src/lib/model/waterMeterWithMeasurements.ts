@@ -17,5 +17,5 @@ export interface WaterMeterWithMeasurements {
     readonly code?: string;
     readonly release_date?: string;
     readonly discharge_date?: string;
-    water_meter: Array<WaterMeterMeasurement>;
+    measures: Array<WaterMeterMeasurement>;
 }
