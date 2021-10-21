@@ -1,10 +1,8 @@
 from django.urls import include, path
 
-from watermeter.views import (WaterMeterTotalMeasurementView,
-                              WaterMeterMeasurementView)
+from watermeter.views import WaterMeterMeasurementView
 
 __url_water_meter = [
-    path('/measures', WaterMeterTotalMeasurementView.as_view()),
     path('/<int:pk>/measure', WaterMeterMeasurementView.as_view()),
 ]
 

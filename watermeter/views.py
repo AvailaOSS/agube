@@ -14,17 +14,6 @@ from watermeter.serializers import WaterMeterMeasurementSerializer
 TAG = 'water-meter'
 
 
-class WaterMeterTotalMeasurementView(generics.ListAPIView):
-    queryset = WaterMeterMeasurement.objects.all()
-    serializer_class = WaterMeterMeasurementSerializer
-    permission_classes = [AllowAny]
-
-    @swagger_auto_schema(operation_id="getTotalMeasures",
-                         operation_description="get all Measures saved")
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-
 class WaterMeterMeasurementView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
