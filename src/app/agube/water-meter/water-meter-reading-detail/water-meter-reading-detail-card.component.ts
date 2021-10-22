@@ -47,7 +47,7 @@ export class WaterMeterReadingsComponent implements OnInit, OnChanges {
     this.managerWaterMeter
       .getChunk(this.parentId, this.chunk, this.parentType)
       .subscribe((result) => {
-        const measurements: any = result.water_meter;
+        const measurements: any = result.measures;
         measurements.map((val) => {
           val.date = format(new Date(val.date), 'HH:mm - dd/MM/yyyy');
         });
