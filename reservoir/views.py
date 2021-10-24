@@ -21,7 +21,7 @@ TAG = 'reservoir'
 
 
 class ReservoirListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getReservoirs",
@@ -33,7 +33,9 @@ class ReservoirListView(APIView):
         Return a list of all Reservoir Detail.
         """
         # Get Reservoir
-        reservoirs = Reservoir.objects.all()
+        owner_id = self.request.user.id
+        reservoirs: list[Reservoir] = Reservoir.objects.filter(
+            reservoirowner__user_id=owner_id)
 
         list_of_serialized = []
         for reservoir in reservoirs:
