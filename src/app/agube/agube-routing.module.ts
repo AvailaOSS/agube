@@ -1,14 +1,14 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { AgubeRoute } from "./agube-route";
-import { ConfigurationComponent } from "./configuration/configuration.component";
-import { CreateDwellingComponent } from "./dwelling/create-dwelling/create-dwelling.component";
-import { ChangeOwnerComponent } from "./dwelling/dwelling-detail-card/management-card/management-components/change-person/change-owner/change-owner.component";
-import { ChangeResidentComponent } from "./dwelling/dwelling-detail-card/management-card/management-components/change-person/change-resident/change-resident.component";
-import { DwellingComponent } from "./dwelling/dwelling.component";
-import { CreateReservoirComponent } from "./reservoir/create-reservoir/create-reservoir.component";
-import { ReservoirComponent } from "./reservoir/reservoir.component";
-import { ChangeWaterMeterComponent } from "./water-meter/change-water-meter/change-water-meter.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AgubeRoute } from './agube-route';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
+import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-card/management-components/change-person/change-owner/change-owner.component';
+import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-card/management-components/change-person/change-resident/change-resident.component';
+import { DwellingComponent } from './dwelling/dwelling.component';
+import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
+import { ReservoirComponent } from './reservoir/reservoir.component';
+import { ChangeWaterMeterComponent } from './water-meter/change-water-meter/change-water-meter.component';
 
 const routes: Routes = [
   // User

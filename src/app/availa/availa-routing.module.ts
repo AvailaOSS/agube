@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { IncidenceComponent, TaskRoute } from "@availa/task-fe";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { IncidenceComponent, TaskRoute } from '@availa/task-fe';
 
 const routes: Routes = [
   // Task
