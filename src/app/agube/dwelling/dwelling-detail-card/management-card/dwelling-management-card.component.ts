@@ -34,6 +34,10 @@ export class DwellingManagementCard implements OnInit {
       .subscribe((result) => (this.dynamicLabelOwner = 'Cambiar'));
   }
 
+  public ngOnChanges(): void {
+    this.ngOnInit();
+  }
+
   public changeResident(): void {
     this.svcRouter.navigate([AgubeRoute.CHANGE_RESIDENT], {
       queryParams: { data: this.dwellingId },
