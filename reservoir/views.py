@@ -105,25 +105,23 @@ class ReservoirWaterMeterChunkView(APIView):
 
             measures_serialized = []
 
-            # FIXME: can improve it with .objects.select_related ?
-            for reservoirWaterMeter in ReservoirWaterMeter.objects.filter(
-                    reservoir__id=pk):
+            measures = WaterMeterMeasurement.objects.filter(
+                water_meter__in=ReservoirWaterMeter.objects.filter(
+                    reservoir__id=pk).values_list("water_meter"))
+            for measure in measures:
 
                 # if len is full do not add more elements
                 if len(measures_serialized) < chunk:
-                    for measurement in WaterMeterMeasurement.objects.filter(
-                            water_meter__id=reservoirWaterMeter.water_meter.id
-                    ).order_by('-date'):
-                        data = {
-                            'id': measurement.id,
-                            'measurement': measurement.measurement,
-                            'date': measurement.date,
-                        }
-                        # if len is full do not add more elements
-                        if len(measures_serialized) < chunk:
-                            measures_serialized.append(
-                                WaterMeterMeasurementSerializer(
-                                    data, many=False).data)
+                    data = {
+                        'id': measure.id,
+                        'measurement': measure.measurement,
+                        'date': measure.date,
+                    }
+                    # if len is full do not add more elements
+                    if len(measures_serialized) < chunk:
+                        measures_serialized.append(
+                            WaterMeterMeasurementSerializer(data,
+                                                            many=False).data)
 
             data = {
                 'id': water_meter.id,
