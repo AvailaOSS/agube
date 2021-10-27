@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
-from watermeter.exceptions import WaterMeterDisabledError
+from watermeter.exceptions import WaterMeterDisabledError, WaterMeterMeasureInFutureError
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import WaterMeterMeasurementSerializer
 
@@ -58,5 +58,5 @@ class WaterMeterMeasurementView(APIView):
             return Response(
                 (WaterMeterMeasurementSerializer(water_meter_measurement,
                                                  many=False).data))
-        except WaterMeterDisabledError as e:
+        except (WaterMeterDisabledError, WaterMeterMeasureInFutureError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)

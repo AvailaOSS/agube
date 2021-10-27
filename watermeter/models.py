@@ -1,6 +1,6 @@
-from watermeter.exceptions import WaterMeterDisabledError
+from watermeter.exceptions import WaterMeterDisabledError, WaterMeterMeasureInFutureError
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, dateparse
 
 
 class WaterMeter(models.Model):
@@ -31,6 +31,8 @@ class WaterMeter(models.Model):
             date of read measurement"""
         if self.discharge_date:
             raise WaterMeterDisabledError()
+        if dateparse.parse_datetime(date) > timezone.now():
+            raise WaterMeterMeasureInFutureError()
         return WaterMeterMeasurement.objects.create(water_meter=self,
                                                     measurement=measurement,
                                                     date=date)
