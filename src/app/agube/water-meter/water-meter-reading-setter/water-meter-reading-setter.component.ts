@@ -25,7 +25,6 @@ export class WaterMeterReadingSetterComponent implements OnInit {
       validators: {
         validation: [
           { name: 'time-validation', options: { errorPath: 'time' } },
-          { name: 'time-validation', options: { errorPath: 'date' } },
           { name: 'date-validation', options: { errorPath: 'date' } },
         ],
       },
