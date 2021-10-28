@@ -1,15 +1,10 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ChangeDetectionStrategy,
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { WaterMeterService } from '@availa/agube-rest-api';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formatISO, formatISO9075 } from 'date-fns';
-import * as moment from 'moment';
+
 @Component({
   selector: 'app-water-meter-reading-setter',
   templateUrl: './water-meter-reading-setter.component.html',
@@ -17,18 +12,21 @@ import * as moment from 'moment';
 })
 export class WaterMeterReadingSetterComponent implements OnInit {
   @Input() public id: any;
+  @Input() public lastMeasure: any;
   public readingForm: FormGroup = new FormGroup({});
-  model = {
+  public model = {
     date: formatISO(new Date(), { representation: 'date' }),
     time: formatISO9075(new Date(), { representation: 'time' }),
-    measures: 1,
+    measurement: 0,
   };
+
   public fields: FormlyFieldConfig[] = [
     {
       validators: {
         validation: [
-          { name: 'fieldMatch', options: { errorPath: 'date' } },
-          { name: 'fieldMatch', options: { errorPath: 'time' } },
+          { name: 'time-validation', options: { errorPath: 'time' } },
+          { name: 'time-validation', options: { errorPath: 'date' } },
+          { name: 'date-validation', options: { errorPath: 'date' } },
         ],
       },
       fieldGroup: [
@@ -54,7 +52,7 @@ export class WaterMeterReadingSetterComponent implements OnInit {
           key: 'measurement',
           type: 'input',
           templateOptions: {
-            type: 'input',
+            type: 'number',
             label: 'Lectura',
             placeholder: 'Lectura',
             required: true,
@@ -66,10 +64,13 @@ export class WaterMeterReadingSetterComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder,
     private svcWaterMeter: WaterMeterService
   ) {
     //
+  }
+
+  public ngOnInit(): void {
+    this.model.measurement = this.lastMeasure;
   }
 
   public onSubmit(model: any): void {
@@ -87,8 +88,6 @@ export class WaterMeterReadingSetterComponent implements OnInit {
       })
       .subscribe((response) => this.activeModal.close(response));
   }
-
-  public ngOnInit(): void {}
 
   public cancel(): void {
     this.activeModal.close();

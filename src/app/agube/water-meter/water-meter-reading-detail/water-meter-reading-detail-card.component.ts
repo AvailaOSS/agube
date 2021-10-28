@@ -64,28 +64,34 @@ export class WaterMeterReadingsComponent implements OnInit, OnChanges {
   public changeWaterMeter(): void {
     // FIXME: WaterMeterRoute instead of AgubeRoute
     const parameters = { id: this.parentId, type: this.parentType };
-    console.log('Los parametros enviados son', parameters);
     this.svcRouter.navigate([AgubeRoute.CHANGE_WATER_METER], {
       queryParams: parameters,
     });
   }
 
   public addReading(): void {
-    const modal: NgbModalRef = this.modalService.open(
-      WaterMeterReadingSetterComponent,
-      {
-        centered: true,
-        backdrop: 'static',
-      }
-    );
-    modal.componentInstance.id = this.waterMeter.id;
-    modal.result.then(
-      (result) => {
-        this.ngOnInit();
-      },
-      (reason) => {
-        //
-      }
-    );
+    new Promise((resolve) => {
+      this.datasource.subscribe((response) => {
+        resolve(response[0].measurement);
+      });
+    }).then((lastMeasure) => {
+      const modal: NgbModalRef = this.modalService.open(
+        WaterMeterReadingSetterComponent,
+        {
+          centered: true,
+          backdrop: 'static',
+        }
+      );
+      modal.componentInstance.id = this.waterMeter.id;
+      modal.componentInstance.lastMeasure = lastMeasure;
+      modal.result.then(
+        (result) => {
+          this.ngOnInit();
+        },
+        (reason) => {
+          //
+        }
+      );
+    });
   }
 }
