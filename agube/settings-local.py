@@ -149,6 +149,11 @@ REST_FRAMEWORK = {
     ]
 }
 
+SWAGGER_SETTINGS = {
+    'LOGIN_URL' : 'rest_framework:login',
+    'LOGOUT_URL' : 'rest_framework:logout'
+}
+
 # TODO: Remove this in the future, it only should be work in auth project
 JWT_AUTH = {
     'JWT_ALGORITHM': 'HS256',

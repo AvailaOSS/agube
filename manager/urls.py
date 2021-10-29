@@ -5,12 +5,12 @@ from manager.views import (ManagerConfigurationUpdateView,
                            UserIsManagerView)
 
 __url_manager = [
-    path('/is-manager', UserIsManagerView.as_view()),
-    path('/by-user', ManagerView.as_view()),
-    path('/configuration', ManagerConfigurationView.as_view()),
-    path('/configuration/update', ManagerConfigurationUpdateView.as_view()),
+    path('is-manager', UserIsManagerView.as_view()),
+    path('by-user', ManagerView.as_view()),
+    path('configuration', ManagerConfigurationView.as_view()),
+    path('configuration/update', ManagerConfigurationUpdateView.as_view())
 ]
 
 urlpatterns = [
-    path('manager', include(__url_manager)),
+    path('/', include(__url_manager))
 ]
