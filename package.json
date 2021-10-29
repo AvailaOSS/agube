@@ -24,7 +24,7 @@
     "@availa/auth-fe": "0.0.4",
     "@availa/auth-rest-api": "0.0.3",
     "@availa/buttons": "0.0.2",
-    "@availa/contact-book-fe": "0.0.2",
+    "@availa/contact-book-fe": "0.0.3",
     "@availa/notification": "0.0.1",
     "@availa/subscription-fe": "0.0.4",
     "@availa/table": "0.0.2",
