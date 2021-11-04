@@ -1,0 +1,19 @@
+
+.wrapper-reservoir {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10 px;
+  grid-auto-rows: minmax(10 px, auto);
+}
+
+.button-container-reservoir {
+  grid-column: 5/66;
+  grid-row: 1;
+  margin: 4px;
+}
+
+.table-container-reservoir {
+  grid-column: 1/3;
+  grid-row: 1/3;
+  margin: 4px;
+}

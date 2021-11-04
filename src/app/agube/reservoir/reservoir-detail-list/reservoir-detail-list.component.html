@@ -1,10 +1,17 @@
-<div class="m-1">
-  <button class="btn btn-primary float-right" (click)="addNewReservoir()">
-    <i class="fas fa-hand-holding-water"></i>
-    Agregar Depósito
-  </button>
-</div>
-<div>
-  <availa-table [datasource]="datasource" [headerDatasource]="tableHeader" [rows]="[2, 4, 6, 8, 9]"
-    [showPaginator]="true" (selected)="selectRow($event)"></availa-table>
+<div class="wrapper-reservoir">
+  <div class="button-container-reservoir">
+    <button class="btn btn-primary float-right" (click)="addNewReservoir()">
+      <i class="fas fa-hand-holding-water"></i>
+      Agregar Depósito
+    </button>
+  </div>
+  <div class="table-container-reservoir">
+    <availa-table
+      [datasource]="datasource"
+      [headerDatasource]="tableHeader"
+      [rows]="[2, 4, 6, 8, 9]"
+      [showPaginator]="true"
+      (selected)="selectRow($event)"
+    ></availa-table>
+  </div>
 </div>
