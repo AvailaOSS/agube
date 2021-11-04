@@ -35,7 +35,7 @@ urlpatterns = [
     path(base_url + 'dwelling', include(urls_dwelling)),
     path(base_url + 'reservoir', include(urls_reservoir)),
     path(base_url + 'phone', include(urls_phone)),
-    path(base_url + 'watermeter', include(urls_water_meter)),
+    path(base_url + 'water-meter', include(urls_water_meter)),
     path(base_url + 'manager', include(urls_manager)),
     path(base_url + 'user', include(urls_user))
 ]
