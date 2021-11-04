@@ -4,6 +4,7 @@ import { WaterMeter, WaterMeterMeasurement } from '@availa/agube-rest-api';
 import { Header } from '@availa/table/lib/header';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { format } from 'date-fns';
+import { isUndefined } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { AgubeRoute } from '../../agube-route';
 import { WaterMeterReadingSetterComponent } from '../water-meter-reading-setter/water-meter-reading-setter.component';
@@ -72,7 +73,11 @@ export class WaterMeterReadingsComponent implements OnInit, OnChanges {
   public addReading(): void {
     new Promise((resolve) => {
       this.datasource.subscribe((response) => {
-        resolve(response[0].measurement);
+        if (!isUndefined(response[0])) {
+          resolve(response[0].measurement);
+        } else {
+          resolve(response[0]);
+        }
       });
     }).then((lastMeasure) => {
       const modal: NgbModalRef = this.modalService.open(

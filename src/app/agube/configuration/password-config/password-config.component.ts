@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { UserService } from "@availa/auth-rest-api";
-import { NotificationService } from "@availa/notification";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UserService } from '@availa/auth-rest-api';
+import { NotificationService } from '@availa/notification';
 
 @Component({
-  selector: "app-password-config",
-  templateUrl: "./password-config.component.html",
-  styleUrls: ["./password-config.component.scss"],
+  selector: 'app-password-config',
+  templateUrl: './password-config.component.html',
+  styleUrls: ['./password-config.component.scss'],
 })
 export class PasswordConfigComponent implements OnInit {
   public passwordForm: FormGroup;
@@ -34,10 +34,10 @@ export class PasswordConfigComponent implements OnInit {
     };
 
     this.svcAuthService.changePassword(this.passwordForm.value).subscribe(
-      (values) => this.alertService.success("Actualizado con éxito", options),
+      (values) => this.alertService.success('Actualizado con éxito', options),
       (error) =>
         this.alertService.error(
-          "Error al actualizar " + error.error.status,
+          'Error al actualizar ' + error.error.status,
           options
         )
     );

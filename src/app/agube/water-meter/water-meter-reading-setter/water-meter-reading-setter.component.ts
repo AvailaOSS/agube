@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { WaterMeterService } from '@availa/agube-rest-api';
+import { NotificationService } from '@availa/notification';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formatISO, formatISO9075 } from 'date-fns';
@@ -63,7 +64,8 @@ export class WaterMeterReadingSetterComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private svcWaterMeter: WaterMeterService
+    private svcWaterMeter: WaterMeterService,
+    private readonly svcNotification: NotificationService
   ) {
     //
   }
@@ -73,6 +75,11 @@ export class WaterMeterReadingSetterComponent implements OnInit {
   }
 
   public onSubmit(model: any): void {
+    const options = {
+      autoClose: true,
+      keepAfterRouteChange: false,
+    };
+
     const dateModel = new Date(
       model.date.split('-')[0],
       model.date.split('-')[1] - 1,
@@ -85,7 +92,14 @@ export class WaterMeterReadingSetterComponent implements OnInit {
         measurement: model.measurement,
         date: dateModel,
       })
-      .subscribe((response) => this.activeModal.close(response));
+      .subscribe(
+        (response) => {
+          this.activeModal.close(response);
+        },
+        (error) => {
+          this.svcNotification.error('Error ' + error.error.status, options);
+        }
+      );
   }
 
   public cancel(): void {
