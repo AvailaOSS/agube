@@ -2,36 +2,23 @@
   <h4 class="modal-title">Nueva Lectura</h4>
 </div>
 <div class="modal-body">
-  <form [formGroup]="readingForm" novalidate>
-    <div class="form-group form-row col-md-6">
-      <label for="date" class="form-label">Fecha <span style="color: red;">*</span></label>
-      <div class="input-group has-validation">
-        <input type="date" class="form-control" id="date" placeholder="fecha" formControlName="date" />
-      </div>
-    </div>
-    <div class="form-group form-row col-md-6">
-      <label for="time" class="form-label">Hora <span style="color: red;">*</span></label>
-      <div class="input-group has-validation">
-        <input type="time" class="form-control" id="time" placeholder="fecha" formControlName="time" />
-      </div>
-    </div>
-    <div class="form-group form-row col-md-6">
-      <label for="measurement" class="form-label">Lectura <span style="color: red;">*</span></label>
-      <div class="input-group has-validation">
-        <input type="number" class="form-control" id="measurement" placeholder="1000.00" formControlName="measurement"
-          autofocus="autofocus" />
-        <!-- FIXME: autofocus="autofocus" flickering black screen -->
-      </div>
+  <form [formGroup]="readingForm" (ngSubmit)="onSubmit(model)">
+    <formly-form [form]="readingForm" [model]="model" [fields]="fields">
+    </formly-form>
+
+    <div class="modal-footer">
+      <app-notification></app-notification>
+      <button type="button" class="btn btn-primary" (click)="cancel()">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="readingForm.invalid"
+      >
+        <i class="fas fa-save"></i>
+        Guardar
+      </button>
     </div>
   </form>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="cancel()">
-    Cancelar
-  </button>
-  <button type="button" class="btn btn-primary" [disabled]="readingForm.pristine || readingForm.invalid"
-    (click)="save()">
-    <i class="fas fa-save"></i>
-    Guardar
-  </button>
 </div>

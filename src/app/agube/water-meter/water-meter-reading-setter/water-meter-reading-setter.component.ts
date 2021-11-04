@@ -1,49 +1,108 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { WaterMeterService } from "@availa/agube-rest-api";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import * as moment from "moment";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { WaterMeterService } from '@availa/agube-rest-api';
+import { NotificationService } from '@availa/notification';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { formatISO, formatISO9075 } from 'date-fns';
 
 @Component({
-  selector: "app-water-meter-reading-setter",
-  templateUrl: "./water-meter-reading-setter.component.html",
-  styleUrls: ["./water-meter-reading-setter.component.scss"],
+  selector: 'app-water-meter-reading-setter',
+  templateUrl: './water-meter-reading-setter.component.html',
+  styleUrls: ['./water-meter-reading-setter.component.scss'],
 })
 export class WaterMeterReadingSetterComponent implements OnInit {
   @Input() public id: any;
-  public readingForm: FormGroup;
+  @Input() public lastMeasure: any;
+  public readingForm: FormGroup = new FormGroup({});
+  public model = {
+    date: formatISO(new Date(), { representation: 'date' }),
+    time: formatISO9075(new Date(), { representation: 'time' }),
+    measurement: 0,
+  };
+
+  public fields: FormlyFieldConfig[] = [
+    {
+      validators: {
+        validation: [
+          { name: 'time-validation', options: { errorPath: 'time' } },
+          { name: 'date-validation', options: { errorPath: 'date' } },
+        ],
+      },
+      fieldGroup: [
+        {
+          key: 'date',
+          type: 'input',
+          templateOptions: {
+            type: 'date',
+            label: 'Fecha',
+            required: true,
+          },
+        },
+        {
+          key: 'time',
+          type: 'input',
+          templateOptions: {
+            type: 'time',
+            label: 'Hora',
+            required: true,
+          },
+        },
+        {
+          key: 'measurement',
+          type: 'input',
+          templateOptions: {
+            type: 'number',
+            label: 'Lectura',
+            placeholder: 'Lectura',
+            required: true,
+          },
+        },
+      ],
+    },
+  ];
 
   constructor(
     public activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder,
-    private svcWaterMeter: WaterMeterService
+    private svcWaterMeter: WaterMeterService,
+    private readonly svcNotification: NotificationService
   ) {
     //
   }
 
-  ngOnInit(): void {
-    var now = moment();
-    this.readingForm = this.formBuilder.group({
-      date: [now.format("YYYY-MM-DD"), Validators.required],
-      time: [now.format("HH:mm"), Validators.required],
-      measurement: ["", Validators.required],
-    });
+  public ngOnInit(): void {
+    this.model.measurement = this.lastMeasure;
+  }
+
+  public onSubmit(model: any): void {
+    const options = {
+      autoClose: true,
+      keepAfterRouteChange: false,
+    };
+
+    const dateModel = new Date(
+      model.date.split('-')[0],
+      model.date.split('-')[1] - 1,
+      model.date.split('-')[2],
+      model.time.split(':')[0],
+      model.time.split(':')[1]
+    );
+    this.svcWaterMeter
+      .addWaterMeterMeasure(this.id, {
+        measurement: model.measurement,
+        date: dateModel,
+      })
+      .subscribe(
+        (response) => {
+          this.activeModal.close(response);
+        },
+        (error) => {
+          this.svcNotification.error('Error ' + error.error.status, options);
+        }
+      );
   }
 
   public cancel(): void {
     this.activeModal.close();
-  }
-
-  public save(): void {
-    const time = moment(this.readingForm.value.time, "HH:mm");
-    this.svcWaterMeter
-      .addWaterMeterMeasure(this.id, {
-        measurement: this.readingForm.value.measurement,
-        date: moment(this.readingForm.value.date)
-          .add(time.hours(), "hours")
-          .add(time.minutes(), "minutes")
-          .toDate(),
-      })
-      .subscribe((response) => this.activeModal.close(response));
   }
 }

@@ -3,7 +3,9 @@ import {
   DwellingService,
   ReservoirService,
   WaterMeter,
+  WaterMeterWithMeasurements,
 } from '@availa/agube-rest-api';
+import { Observable } from 'rxjs';
 import { WaterMeterType } from './water-meter-type.enum';
 
 @Injectable({
@@ -17,7 +19,11 @@ export class WaterMeterManager {
     //
   }
 
-  public change(id: number, waterMeter: WaterMeter, type: WaterMeterType) {
+  public change(
+    id: number,
+    waterMeter: WaterMeter,
+    type: WaterMeterType
+  ): Observable<WaterMeter> {
     if (type == WaterMeterType.DWELLING) {
       return this.svcDwelling.changeCurrentDwellingWaterMeter(id, waterMeter);
     } else if (type == WaterMeterType.RESERVOIR) {
@@ -27,7 +33,7 @@ export class WaterMeterManager {
     }
   }
 
-  public get(id: number, type: WaterMeterType) {
+  public get(id: number, type: WaterMeterType): Observable<WaterMeter> {
     if (type == WaterMeterType.DWELLING) {
       return this.svcDwelling.getCurrentDwellingWaterMeter(id);
     } else if (type == WaterMeterType.RESERVOIR) {
@@ -37,7 +43,11 @@ export class WaterMeterManager {
     }
   }
 
-  public getChunk(id: number, chunk: number, type: WaterMeterType) {
+  public getChunk(
+    id: number,
+    chunk: number,
+    type: WaterMeterType
+  ): Observable<WaterMeterWithMeasurements> | undefined {
     if (type == WaterMeterType.DWELLING) {
       return this.svcDwelling.getCurrentWaterMeterMeasuresChunk(
         String(chunk),
