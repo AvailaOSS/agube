@@ -13,7 +13,7 @@ import { WaterMeterManager } from '../water-meter.manager';
   styleUrls: ['./change-water-meter.component.scss'],
 })
 export class ChangeWaterMeterComponent implements OnInit {
-  @Input() title?: string = 'Cambio de Contador';
+  @Input() title ? = 'Cambio de Contador';
   public waterMeterForm: FormGroup;
   public id: number;
   private type: WaterMeterType;
@@ -46,7 +46,13 @@ export class ChangeWaterMeterComponent implements OnInit {
     this.managerWaterMeter
       .change(this.id, this.waterMeterForm.value, this.type)
       .subscribe(
-        (value) => this.router.navigate([AgubeRoute.DWELLING]),
+        (value) => {
+          if (+this.type === +WaterMeterType.DWELLING) {
+            this.router.navigate([AgubeRoute.DWELLING]);
+          } else {
+            this.router.navigate([AgubeRoute.RESERVOIR]);
+          }
+        },
         (error) =>
           this.svcNotification.error(
             'Error al actualizar ' + error.error.status

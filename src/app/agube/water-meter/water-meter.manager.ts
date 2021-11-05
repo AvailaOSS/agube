@@ -24,9 +24,9 @@ export class WaterMeterManager {
     waterMeter: WaterMeter,
     type: WaterMeterType
   ): Observable<WaterMeter> {
-    if (type == WaterMeterType.DWELLING) {
+    if (+type === +WaterMeterType.DWELLING) {
       return this.svcDwelling.changeCurrentDwellingWaterMeter(id, waterMeter);
-    } else if (type == WaterMeterType.RESERVOIR) {
+    } else if (+type === +WaterMeterType.RESERVOIR) {
       return this.svcReservoir.changeCurrentReservoirWaterMeter(id, waterMeter);
     } else {
       return undefined;
@@ -34,9 +34,9 @@ export class WaterMeterManager {
   }
 
   public get(id: number, type: WaterMeterType): Observable<WaterMeter> {
-    if (type == WaterMeterType.DWELLING) {
+    if (+type === +WaterMeterType.DWELLING) {
       return this.svcDwelling.getCurrentDwellingWaterMeter(id);
-    } else if (type == WaterMeterType.RESERVOIR) {
+    } else if (+type === +WaterMeterType.RESERVOIR) {
       return this.svcReservoir.getCurrentReservoirWaterMeter(id);
     } else {
       return undefined;
@@ -48,12 +48,12 @@ export class WaterMeterManager {
     chunk: number,
     type: WaterMeterType
   ): Observable<WaterMeterWithMeasurements> | undefined {
-    if (type == WaterMeterType.DWELLING) {
+    if (+type === +WaterMeterType.DWELLING) {
       return this.svcDwelling.getCurrentWaterMeterMeasuresChunk(
         String(chunk),
         String(id)
       );
-    } else if (type == WaterMeterType.RESERVOIR) {
+    } else if (+type === +WaterMeterType.RESERVOIR) {
       return this.svcReservoir.getReservoirCurrentWaterMeterMeasuresChunk(
         String(chunk),
         String(id)
