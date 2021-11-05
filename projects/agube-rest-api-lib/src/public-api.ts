@@ -5,3 +5,4 @@
 export * from './lib/model/models';
 export * from './lib/service/api';
 export * from './lib/agube.api.module';
+export * from './lib/configuration.service';
