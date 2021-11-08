@@ -58,8 +58,8 @@ export class ChangePersonComponent {
   private getAddressForm(): FormGroup {
     return this.formBuilder.group({
       number: ['', Validators.required],
-      flat: ['', Validators.required],
-      gate: ['', Validators.required],
+      flat: [],
+      gate: [],
       address: this.formBuilder.group({
         town: ['', Validators.required],
         street: ['', Validators.required],

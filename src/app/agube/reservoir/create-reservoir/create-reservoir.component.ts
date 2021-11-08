@@ -30,7 +30,7 @@ export class CreateReservoirComponent {
 
   private createForm(): void {
     this.svcAccount.getUser().subscribe((response) => {
-      // FIXME: backend in this case do not required number, flat, gate, inet_flo and outlet_flow for reservoirs
+      // FIXME: backend/reservoir does not require fields: number, inet_flow and outlet_flow
       this.reservoirForm = this.formBuilder.group({
         full_address: this.formBuilder.group({
           address: this.formBuilder.group({
@@ -39,8 +39,8 @@ export class CreateReservoirComponent {
             is_external: [false, Validators.required],
           }),
           number: [''],
-          flat: [''],
-          gate: [''],
+          flat: [],
+          gate: [],
         }),
         user_id: [response.user_id, Validators.required],
         water_meter: this.formBuilder.group({
