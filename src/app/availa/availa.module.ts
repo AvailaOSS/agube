@@ -43,7 +43,6 @@ import { AvailaRoutingModule } from './availa-routing.module';
     AvailaRoutingModule,
   ],
   exports: [
-    AgubeModule,
     AgubeApiModule,
     ToolbarModule,
     AuthModule,

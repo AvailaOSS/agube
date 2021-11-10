@@ -1,19 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Router } from "@angular/router";
-import { DwellingDetail, DwellingService } from "@availa/agube-rest-api";
-import { Header } from "@availa/table/lib/header";
-import { BehaviorSubject } from "rxjs";
-import { AgubeRoute } from "../../agube-route";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
+import { Header } from '@availa/table/lib/header';
+
+import { BehaviorSubject } from 'rxjs';
+import { AgubeRoute } from '../../agube-route';
 
 @Component({
-  selector: "app-dwelling-detail-list",
-  templateUrl: "./dwelling-detail-list.component.html",
-  styleUrls: ["./dwelling-detail-list.component.scss"],
+  selector: 'app-dwelling-detail-list',
+  templateUrl: './dwelling-detail-list.component.html',
+  styleUrls: ['./dwelling-detail-list.component.scss'],
 })
 export class DwellingDetailListComponent implements OnInit {
-  @Output() sendSelected: EventEmitter<DwellingDetail> = new EventEmitter<
-    DwellingDetail
-  >();
+  @Output() sendSelected: EventEmitter<DwellingDetail> =
+    new EventEmitter<DwellingDetail>();
   public keysDwelling: string[] = [];
   public tableHeader: BehaviorSubject<Header[]>;
   public datasource: BehaviorSubject<any>;
@@ -24,36 +24,36 @@ export class DwellingDetailListComponent implements OnInit {
   ) {
     this.tableHeader = new BehaviorSubject<Header[]>([
       {
-        columnDataName: "water_meter_code",
-        columnName: "Código Contador",
+        columnDataName: 'water_meter_code',
+        columnName: 'Código Contador',
       },
       {
-        columnDataName: "town",
-        columnName: "Ciudad",
+        columnDataName: 'town',
+        columnName: 'Ciudad',
       },
       {
-        columnDataName: "street",
-        columnName: "Calle",
+        columnDataName: 'street',
+        columnName: 'Calle',
       },
       {
-        columnDataName: "number",
-        columnName: "Número",
+        columnDataName: 'number',
+        columnName: 'Número',
       },
       {
-        columnDataName: "flat",
-        columnName: "Piso",
+        columnDataName: 'flat',
+        columnName: 'Piso',
       },
       {
-        columnDataName: "gate",
-        columnName: "Puerta",
+        columnDataName: 'gate',
+        columnName: 'Puerta',
       },
       {
-        columnDataName: "resident_first_name",
-        columnName: "Nombre Residente",
+        columnDataName: 'resident_first_name',
+        columnName: 'Nombre Residente',
       },
       {
-        columnDataName: "resident_phone",
-        columnName: "Número Telf.",
+        columnDataName: 'resident_phone',
+        columnName: 'Número Telf.',
       },
     ]);
   }

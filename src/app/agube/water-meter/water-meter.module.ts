@@ -10,7 +10,6 @@ import { NotificationModule } from '@availa/notification';
 import { TableModule } from '@availa/table';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
-import { ComponentsModule } from 'src/app/components/components.module';
 import { ChangeWaterMeterComponent } from './change-water-meter/change-water-meter.component';
 import { WaterMeterReadingsComponent } from './water-meter-reading-detail/water-meter-reading-detail-card.component';
 import {
@@ -31,7 +30,7 @@ import { WaterMeterReadingSetterComponent } from './water-meter-reading-setter/w
     FormsModule,
     TableModule,
     NotificationModule,
-    ComponentsModule,
+    // ComponentsModule,
     FormlyBootstrapModule,
     FormlyModule.forRoot({
       validators: [

@@ -1,8 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { TaskRoute } from '@availa/task-fe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgubeRoute } from './agube/agube-route';
@@ -10,20 +9,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AvailaModule } from './availa/availa.module';
 import { ComponentsModule } from './components/components.module';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SidebarConfiguration } from './components/sidebar/sidebar.configuration';
+import { AgubeModule } from './agube/agube.module';
+import { SidebarModule } from './components/sidebar/sidebar.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgubeApiModule } from '@availa/agube-rest-api';
+
 @NgModule({
-  declarations: [AppComponent, SidebarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
+    SidebarModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     ComponentsModule,
     AvailaModule,
     NgbModule,
+    AppRoutingModule,
+    AgubeModule,
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -31,7 +37,11 @@ import { SidebarConfiguration } from './components/sidebar/sidebar.configuration
       provide: SidebarConfiguration,
       useValue: {
         routes: [
-          { path: AgubeRoute.DWELLING, name: 'Viviendas', icon: 'fas fa-home' },
+          {
+            path: AgubeRoute.DWELLING,
+            name: 'Viviendas',
+            icon: 'fas fa-home',
+          },
           {
             path: AgubeRoute.RESERVOIR,
             name: 'Depósitos',
@@ -51,5 +61,6 @@ import { SidebarConfiguration } from './components/sidebar/sidebar.configuration
       },
     },
   ],
+  exports: [],
 })
 export class AppModule {}

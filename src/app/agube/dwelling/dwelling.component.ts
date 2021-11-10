@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { DwellingDetail } from "@availa/agube-rest-api";
+import { Component } from '@angular/core';
+import { DwellingDetail } from '@availa/agube-rest-api';
 
 @Component({
-  selector: "app-dwelling",
-  templateUrl: "./dwelling.component.html",
-  styleUrls: ["./dwelling.component.scss"],
+  selector: 'app-dwelling',
+  templateUrl: './dwelling.component.html',
+  styleUrls: ['./dwelling.component.scss'],
 })
 export class DwellingComponent {
   public dwellingId: number;
