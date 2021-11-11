@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TaskRoute } from '@availa/task-fe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgubeRoute } from './agube/agube-route';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +13,13 @@ import { AgubeModule } from './agube/agube.module';
 import { SidebarModule } from './components/sidebar/sidebar.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToolbarModule } from '@availa/toolbar';
+import { AuthModule, AuthRoute } from '@availa/auth-fe';
+import { TaskModule, TaskRoute } from '@availa/task-fe';
+import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
+import { ContactBookModule } from '@availa/contact-book-fe';
+import { environment } from 'src/environments/environment';
 import { AgubeApiModule } from '@availa/agube-rest-api';
 
 @NgModule({
@@ -30,6 +36,32 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
     NgbModule,
     AppRoutingModule,
     AgubeModule,
+    AgubeApiModule.forRoot({ basePath: environment.agubeBackendUrl }),
+    ToolbarModule.forRoot({ logOutPageUrl: AuthRoute.LOGIN }),
+    AuthModule.forRoot({
+      authRestconfig: {
+        basePath: environment.authBackendUrl,
+      },
+      afterLoginSuccessUrl: AgubeRoute.DWELLING,
+      createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
+    }),
+    SubscriptionModule.forRoot({
+      loginUrl: AuthRoute.ENABLE_ACCOUNT,
+      subscriptionRestconfig: { basePath: environment.subscriptionBackendUrl },
+    }),
+    ContactBookModule.forRoot({
+      contactBookRestconfig: {
+        basePath: environment.contactBookBackendUrl,
+      },
+    }),
+    TaskModule.forRoot({
+      contactBookRestconfig: {
+        basePath: environment.contactBookBackendUrl,
+      },
+      taskRestconfig: {
+        basePath: environment.taskBackendUrl,
+      },
+    }),
   ],
   bootstrap: [AppComponent],
   providers: [

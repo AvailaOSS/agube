@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IncidenceComponent, TaskRoute } from '@availa/task-fe';
+import { IncidenceComponent } from '@availa/task-fe';
 
 const routes: Routes = [
-  // Task
   {
-    path: TaskRoute.INCIDENCE,
+    path: '',
     component: IncidenceComponent,
   },
 ];

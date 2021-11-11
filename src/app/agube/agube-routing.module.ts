@@ -46,7 +46,12 @@ const routes: Routes = [
         path: AgubeRoute.CREATE_RESERVOIR,
         component: CreateReservoirComponent,
       },
-
+      {
+        path: TaskRoute.INCIDENCE,
+        canActivate: [],
+        loadChildren: () =>
+          import('./../availa/availa.module').then((m) => m.AvailaModule),
+      },
     ],
   },
 ];
