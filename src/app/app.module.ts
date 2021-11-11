@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgubeRoute } from './agube/agube-route';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +12,6 @@ import { AgubeModule } from './agube/agube.module';
 import { SidebarModule } from './components/sidebar/sidebar.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ToolbarModule } from '@availa/toolbar';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
 import { TaskModule, TaskRoute } from '@availa/task-fe';
