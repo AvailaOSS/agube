@@ -30,7 +30,6 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
     FormsModule,
     HttpClientModule,
     ComponentsModule,
-    AvailaModule,
     NgbModule,
     AppRoutingModule,
     AgubeModule,

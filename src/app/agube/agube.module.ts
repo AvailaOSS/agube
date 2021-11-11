@@ -8,7 +8,6 @@ import { AgubeRoutingModule } from './agube-routing.module';
   declarations: [
   ],
   imports: [
-    AgubeApiModule.forRoot({ basePath: environment.agubeBackendUrl }),
     AgubeRoutingModule,
   ],
 })

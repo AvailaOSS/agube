@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { DwellingService, UserDetail } from '@availa/agube-rest-api';
 import { AgubeRoute } from '../../../agube-route';
@@ -7,9 +7,9 @@ import { AgubeRoute } from '../../../agube-route';
   selector: 'app-dwelling-management-card',
   templateUrl: './dwelling-management-card.component.html',
 })
-export class DwellingManagementCard implements OnInit {
+export class DwellingManagementCard implements OnInit, OnChanges {
   @Input() dwellingId: number;
-  public resident: UserDetail = undefined;
+  public resident: UserDetail | string = undefined;
   public owner: any = undefined;
   public userId: string;
   public dynamicTitle = 'Sin Residente';
@@ -24,14 +24,24 @@ export class DwellingManagementCard implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe((result) => {
-      this.resident = result.user;
-      this.dynamicTitle = 'Residente';
-      this.dynamicLabelResident = 'Cambiar';
-    });
-    this.svcDwelling
-      .getCurrentOwner(this.dwellingId)
-      .subscribe((result) => (this.dynamicLabelOwner = 'Cambiar'));
+    this.svcDwelling.getCurrentResident(this.dwellingId).subscribe(
+      (result) => {
+        this.resident = result.user;
+        this.dynamicTitle = 'Residente';
+        this.dynamicLabelResident = 'Cambiar';
+      },
+      () => {
+        this.resident = undefined;
+        this.dynamicTitle = 'Residente';
+        this.dynamicLabelResident = 'Añadir';
+      }
+    );
+    this.svcDwelling.getCurrentOwner(this.dwellingId).subscribe(
+      (result) => (this.dynamicLabelOwner = 'Cambiar'),
+      () => {
+        this.dynamicLabelOwner = 'Añadir';
+      }
+    );
   }
 
   public ngOnChanges(): void {

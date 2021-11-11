@@ -1,6 +1,6 @@
 <div class="card mini-card">
-  <p><strong>{{ resident | userDetailName }}</strong></p>
-  <p>{{dynamicTitle}}</p>
+  <p><strong>{{ resident  | userDetailName  }}</strong></p>
+  <p>{{dynamicTitle || 'Sin residente'}}</p>
   <div class="d-flex">
     <button class="btn btn-primary btn-sm m-1" (click)="changeResident()">
       <i class="fas fa-user"></i>
