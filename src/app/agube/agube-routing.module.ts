@@ -50,7 +50,7 @@ const routes: Routes = [
         path: TaskRoute.INCIDENCE,
         canActivate: [],
         loadChildren: () =>
-          import('./../availa/availa.module').then((m) => m.AvailaModule),
+          import('./task/task.module').then((m) => m.TaskModule),
       },
     ],
   },

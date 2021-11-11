@@ -5,35 +5,29 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgubeRoute } from './agube/agube-route';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AvailaModule } from './availa/availa.module';
 import { ComponentsModule } from './components/components.module';
 import { SidebarConfiguration } from './components/sidebar/sidebar.configuration';
-import { AgubeModule } from './agube/agube.module';
 import { SidebarModule } from './components/sidebar/sidebar.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarModule } from '@availa/toolbar';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
-import { TaskModule, TaskRoute } from '@availa/task-fe';
+import { TaskRoute } from '@availa/task-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
-import { ContactBookModule } from '@availa/contact-book-fe';
 import { environment } from 'src/environments/environment';
-import { AgubeApiModule } from '@availa/agube-rest-api';
+import { CommonModule } from '@angular/common';
+import { AgubeModule } from './agube/agube.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
     SidebarModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     ComponentsModule,
     NgbModule,
-    AppRoutingModule,
     AgubeModule,
-    AgubeApiModule.forRoot({ basePath: environment.agubeBackendUrl }),
+    AppRoutingModule,
     ToolbarModule.forRoot({ logOutPageUrl: AuthRoute.LOGIN }),
     AuthModule.forRoot({
       authRestconfig: {
@@ -45,19 +39,6 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
     SubscriptionModule.forRoot({
       loginUrl: AuthRoute.ENABLE_ACCOUNT,
       subscriptionRestconfig: { basePath: environment.subscriptionBackendUrl },
-    }),
-    ContactBookModule.forRoot({
-      contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl,
-      },
-    }),
-    TaskModule.forRoot({
-      contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl,
-      },
-      taskRestconfig: {
-        basePath: environment.taskBackendUrl,
-      },
     }),
   ],
   bootstrap: [AppComponent],

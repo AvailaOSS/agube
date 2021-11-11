@@ -5,8 +5,17 @@ import { AgubeRoute } from './agube/agube-route';
 import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
 
 const routes: Routes = [
+
   { path: '', pathMatch: 'full', redirectTo: AuthRoute.LOGIN },
   { path: AgubeRoute.WIP, component: WorkInProgressComponent },
+  // {
+  //   path: 'home',
+  //   canActivate: [
+  //     // FIXME: LoginGuard
+  //   ],
+  //   loadChildren: () =>
+  //     import('./agube/agube.module').then((m) => m.AgubeModule),
+  // },
 ];
 
 @NgModule({

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '@availa/auth-fe';
 import { User } from '@availa/auth-fe/lib/login/models/user';
-import { isNull, isUndefined } from 'lodash';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,7 +23,6 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.accountService.getUser().subscribe((result) => {
       this.user = result;
-      this.hideContactBook = isUndefined(this.user) || isNull(this.user);
     });
   }
 
