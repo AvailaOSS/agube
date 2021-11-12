@@ -9,6 +9,8 @@ import { SubRouterComponent } from './subRouter/sub-router.component';
 import { SubRouterModule } from './subRouter/sub-router.module';
 import { ChangeWaterMeterComponent } from './water-meter/change-water-meter/change-water-meter.component';
 import { TaskRoute } from '@availa/task-fe';
+import { ContactBookModule } from '@availa/contact-book-fe';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   {
@@ -57,7 +59,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), SubRouterModule],
+  imports: [
+    RouterModule.forChild(routes),
+    SubRouterModule,
+  ],
   exports: [RouterModule],
 })
 export class AgubeRoutingModule {}

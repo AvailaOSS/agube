@@ -1,7 +1,8 @@
+import { ContactBookModule } from '@availa/contact-book-fe';
 import { NgModule } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
-import { ContactBookModule } from '@availa/contact-book-fe';
+
 import { environment } from 'src/environments/environment';
 import { SubRouterRoutingModule } from './sub-router-routing.module';
 import { SubRouterComponent } from './sub-router.component';
@@ -10,12 +11,8 @@ import { SubRouterComponent } from './sub-router.component';
   declarations: [SubRouterComponent],
   imports: [
     RouterModule,
-    ContactBookModule.forRoot({
-      contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl,
-      },
-    }),
-    SubRouterRoutingModule
+    SubRouterRoutingModule,
+
   ],
   exports: [SubRouterComponent],
 })

@@ -1,6 +1,6 @@
 
 import { NgModule } from '@angular/core';
-import { AgubeApiModule } from '@availa/agube-rest-api';
+import { ContactBookModule } from '@availa/contact-book-fe';
 import { TaskModule } from '@availa/task-fe';
 import { environment } from '../../environments/environment';
 import { AgubeRoutingModule } from './agube-routing.module';
@@ -9,16 +9,6 @@ import { AgubeRoutingModule } from './agube-routing.module';
   declarations: [
   ],
   imports: [
-    AgubeApiModule.forRoot({ basePath: environment.agubeBackendUrl }),
-    TaskModule.forRoot({
-      contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl,
-      },
-      taskRestconfig: {
-        basePath: environment.taskBackendUrl,
-      },
-    }),
-
     AgubeRoutingModule,
   ],
 })
