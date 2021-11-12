@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgubeApiModule } from '@availa/agube-rest-api';
-import { ContactBookModule } from '@availa/contact-book-fe';
 import { TaskModule } from '@availa/task-fe';
-import { environment } from 'src/environments/environment';
 import { AgubeRoute } from './agube/agube-route';
-
+import { ContactBookComponent, ContactBookModule } from '@availa/contact-book-fe';
+import { environment } from 'src/environments/environment';
 import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
 
 const routes: Routes = [
@@ -28,6 +27,11 @@ const routes: Routes = [
       },
       taskRestconfig: {
         basePath: environment.taskBackendUrl,
+      },
+    }),
+    ContactBookModule.forRoot({
+      contactBookRestconfig: {
+        basePath: environment.contactBookBackendUrl,
       },
     }),
 

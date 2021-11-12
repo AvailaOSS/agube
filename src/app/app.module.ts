@@ -15,7 +15,6 @@ import { AuthModule, AuthRoute } from '@availa/auth-fe';
 import { TaskRoute } from '@availa/task-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { environment } from 'src/environments/environment';
-import { ContactBookModule } from '@availa/contact-book-fe';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,13 +40,6 @@ import { ContactBookModule } from '@availa/contact-book-fe';
       loginUrl: AuthRoute.ENABLE_ACCOUNT,
       subscriptionRestconfig: { basePath: environment.subscriptionBackendUrl },
     }),
-    ContactBookModule.forRoot({
-      contactBookRestconfig: {
-        basePath: environment.contactBookBackendUrl,
-      },
-    }),
-
-
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Router } from "@angular/router";
-import { SidebarConfiguration } from "./sidebar.configuration";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SidebarConfiguration } from './sidebar.configuration';
 
 interface SelectedComponent {
   path: string;
@@ -8,9 +8,9 @@ interface SelectedComponent {
 }
 
 @Component({
-  selector: "app-sidebar",
-  templateUrl: "./sidebar.component.html",
-  styleUrls: ["./sidebar.component.scss"],
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
   @Output() public currentComponentName: EventEmitter<string>;
@@ -21,6 +21,7 @@ export class SidebarComponent {
 
   constructor(
     private readonly route: Router,
+    private readonly router: ActivatedRoute,
     private sidebarRoutes: SidebarConfiguration
   ) {
     this.currentComponentName = new EventEmitter();
@@ -29,7 +30,10 @@ export class SidebarComponent {
   }
 
   public selectedComponent(component: SelectedComponent): void {
-    this.route.navigate([component.path]);
+    this.route.navigate([
+      { outlets: { primary: component.path, contactPopup: 'contact' } },
+    ]);
+
     this.currentComponentName.emit(component.name);
     this.selectComponent = component.name;
   }
