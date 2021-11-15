@@ -106,31 +106,31 @@ class UserDwellingDetailView(APIView):
 
         list_of_serialized: list[DwellingDetailSerializer] = []
         for dwelling in set(dwelling_list):
-            user = dwelling.get_current_resident().user
             water_meter_code = dwelling.get_current_water_meter().code
 
-            user_address: FullAddress = UserAddress.objects.get(
-                user=user, main=True).full_address
-
-            user_phone_number = ''
-            try:
-                user_phone: UserPhone = UserPhone.objects.get(user=user,
-                                                              main=True)
-                if user_phone:
-                    user_phone_number = user_phone.phone.phone_number
-            except ObjectDoesNotExist:
-                pass
+            resident_first_name = ''
+            resident_phone_number = ''
+            dwelling_resident : DwellingResident = dwelling.get_current_resident()
+            if dwelling_resident != None:
+                resident_first_name = dwelling_resident.user.first_name
+                try:
+                    user_phone: UserPhone = UserPhone.objects.get(user=dwelling_resident.user,
+                                                                main=True)
+                    if user_phone:
+                        resident_phone_number = user_phone.phone.phone_number
+                except ObjectDoesNotExist:
+                    pass
 
             data = {
                 'id': dwelling.id,
                 'water_meter_code': water_meter_code,
-                'town': user_address.address.town,
-                'street': user_address.address.street,
-                'number': user_address.number,
-                'flat': user_address.flat,
-                'gate': user_address.gate,
-                'resident_first_name': user.first_name,
-                'resident_phone': user_phone_number,
+                'town': dwelling.full_address.address.town,
+                'street': dwelling.full_address.address.street,
+                'number': dwelling.full_address.number,
+                'flat': dwelling.full_address.flat,
+                'gate': dwelling.full_address.gate,
+                'resident_first_name': resident_first_name,
+                'resident_phone': resident_phone_number
             }
             list_of_serialized.append(
                 DwellingDetailSerializer(data, many=False).data)
