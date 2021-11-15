@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TableModule } from '@availa/table';
-import { ComponentsModule } from '../../components/components.module';
+import { ComponentsModule } from '../components/components.module';
 import { WaterMeterModule } from '../water-meter/water-meter.module';
 import { CreateReservoirModule } from './create-reservoir/create-reservoir.module';
 import { ReservoirManagementComponent } from './reservoir-detail-card/management-card/reservoir-management-card.component';
@@ -20,8 +20,8 @@ import { ReservoirComponent } from './reservoir.component';
   imports: [
     CommonModule,
     CreateReservoirModule,
-    ComponentsModule,
     TableModule,
+    ComponentsModule,
     WaterMeterModule,
     ReservoirRoutingModule,
   ],

@@ -1,21 +1,70 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgubeApiModule } from '@availa/agube-rest-api';
-import { TaskModule } from '@availa/task-fe';
-import { AgubeRoute } from './agube/agube-route';
-import { ContactBookComponent, ContactBookModule } from '@availa/contact-book-fe';
+import { TaskModule, TaskRoute } from '@availa/task-fe';
+import {
+  ContactBookComponent,
+  ContactBookModule,
+} from '@availa/contact-book-fe';
 import { environment } from 'src/environments/environment';
-import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
+import { SubRouterComponent } from './subRouter/sub-router.component';
+import { CreateDwellingComponent } from './dwelling/create-dwelling/create-dwelling.component';
+import { ChangeResidentComponent } from './dwelling/dwelling-detail-card/management-card/management-components/change-person/change-resident/change-resident.component';
+import { ChangeOwnerComponent } from './dwelling/dwelling-detail-card/management-card/management-components/change-person/change-owner/change-owner.component';
+import { ChangeWaterMeterComponent } from './water-meter/change-water-meter/change-water-meter.component';
+import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
+import { SubRouterModule } from './subRouter/sub-router.module';
+import { AgubeRoute } from './agube-route';
 
 const routes: Routes = [
-  { path: AgubeRoute.WIP, component: WorkInProgressComponent },
   {
     path: '',
-    canActivate: [],
-    loadChildren: () =>
-      import('./agube/agube.module').then((m) => m.AgubeModule),
+    component: SubRouterComponent,
+    children: [
+      {
+        path: AgubeRoute.CONFIG,
+        canActivate: [],
+        loadChildren: () =>
+          import('./configuration/configuration.module').then(
+            (m) => m.ConfigurationModule
+          ),
+      },
+      {
+        path: AgubeRoute.DWELLING,
+        canActivate: [],
+        loadChildren: () =>
+          import('./dwelling/dwelling.module').then((m) => m.DwellingModule),
+      },
+      { path: AgubeRoute.CREATE_DWELLING, component: CreateDwellingComponent },
+      { path: AgubeRoute.CHANGE_RESIDENT, component: ChangeResidentComponent },
+      { path: AgubeRoute.CHANGE_OWNER, component: ChangeOwnerComponent },
+      {
+        path: AgubeRoute.CHANGE_WATER_METER,
+        component: ChangeWaterMeterComponent,
+      },
+      {
+        path: AgubeRoute.RESERVOIR,
+        canActivate: [],
+        loadChildren: () =>
+          import('./reservoir/reservoir.module').then((m) => m.ReservoirModule),
+      },
+      {
+        path: AgubeRoute.CREATE_RESERVOIR,
+        component: CreateReservoirComponent,
+      },
+      {
+        path: TaskRoute.INCIDENCE,
+        canActivate: [],
+        loadChildren: () =>
+          import('./task/task.module').then((m) => m.TaskModule),
+      },
+      {
+        path: 'contact',
+        component: ContactBookComponent,
+        outlet: 'contactPopup',
+      },
+    ],
   },
-
 ];
 
 @NgModule({
@@ -37,6 +86,6 @@ const routes: Routes = [
 
     RouterModule.forChild(routes),
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, SubRouterModule],
 })
 export class AppRoutingModule {}

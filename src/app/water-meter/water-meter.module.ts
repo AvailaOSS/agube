@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationModule } from '@availa/notification';
 import { TableModule } from '@availa/table';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
@@ -30,7 +25,6 @@ import { WaterMeterReadingSetterComponent } from './water-meter-reading-setter/w
     FormsModule,
     TableModule,
     NotificationModule,
-    // ComponentsModule,
     FormlyBootstrapModule,
     FormlyModule.forRoot({
       validators: [

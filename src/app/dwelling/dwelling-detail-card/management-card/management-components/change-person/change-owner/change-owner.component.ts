@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { AgubeRoute } from 'src/app/agube/agube-route';
+import { AgubeRoute } from 'src/app/agube-route';
 import { ChangePersonComponent } from '../change-person.component';
 
 @Component({
-  selector: 'app-change-resident',
+  selector: 'app-change-owner',
   templateUrl: '../change-person.component.html',
   styleUrls: ['../change-person.component.scss'],
 })
-export class ChangeResidentComponent extends ChangePersonComponent {
-  title = 'Alta Residente';
+export class ChangeOwnerComponent extends ChangePersonComponent {
+  title = 'Alta Propietario';
 
   public onSubmit(): void {
     this.svcDWelling
-      .changeCurrentResident(this.dwellingId, {
+      .changeCurrentOwner(this.dwellingId, {
         user: this.personForm.value,
       })
       .subscribe(
