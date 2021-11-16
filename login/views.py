@@ -5,7 +5,8 @@ from drf_yasg.utils import swagger_auto_schema
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 from login.serializers_external import UserDwellingDetailSerializer
 from phone.models import Phone
-from rest_framework.permissions import AllowAny
+from manager.permissions import IsManagerAuthenticated
+from login.permissions import IsManagerOfUser, IsUserMatch
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
@@ -22,7 +23,7 @@ TAG_USER = 'user'
 
 
 class UserCustomDetailListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getUsersDetails",
@@ -83,7 +84,7 @@ class UserCustomDetailListView(APIView):
 
 
 class UserDwellingDetailView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerOfUser|IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="getDwellingDetail",
@@ -151,7 +152,7 @@ class UserDwellingDetailView(APIView):
         return list_of_serialized
 
 class UserCreatePhoneView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerOfUser|IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="addUserPhone",
@@ -200,7 +201,7 @@ class UserCreatePhoneView(APIView):
 
 
 class UserPhoneUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerOfUser|IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateUserPhone",
@@ -253,7 +254,7 @@ class UserPhoneUpdateDeleteView(APIView):
 
 
 class UserCreateAddressView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerOfUser|IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="addUserAddress",
@@ -326,7 +327,7 @@ class UserCreateAddressView(APIView):
 
 
 class UserAddressUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerOfUser|IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateUserAddress",

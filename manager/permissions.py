@@ -1,16 +1,18 @@
 from manager.models import Manager
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 
-class IsManagerAuthenticated(BasePermission):
+class IsManagerAuthenticated(IsAuthenticated):
     """
-    Allows access only to authenticated users.
+    Allows access only to authenticated managers.
     """
-    message = "Only User Manager can execute this operation."
-
-    def has_permission(self, request, view) -> bool:
+    message = 'The authenticahed user has to be a Manager to execute this operation.'
+    def has_permission(self, request, view):
+        if (not super().has_permission(request, view)):
+            return False
+            
         try:
-            Manager.objects.get(user_id=request.user.id)
+            Manager.objects.get(user=request.user)
             return True
-        except ObjectDoesNotExist:
+        except:
             return False
