@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
-from dwelling.serializers import DwellingDetailSerializer
+from login.serializers_external import UserDwellingDetailSerializer
 from phone.models import Phone
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -87,25 +87,36 @@ class UserDwellingDetailView(APIView):
 
     @swagger_auto_schema(
         operation_id="getDwellingDetail",
-        responses={200: DwellingDetailSerializer(many=True)},
+        responses={200: UserDwellingDetailSerializer(many=True)},
         tags=[TAG_USER],
     )
     def get(self, request, pk):
         """
         Return list of Dwelling assigned to this user
         """
-        dwelling_list: list[Dwelling] = []
-        dwelling_list.extend(
-            list(
+        dwelling_list_as_owner: list[Dwelling] = list(
                 map(lambda owner: owner.dwelling,
-                    DwellingOwner.objects.filter(user__id=pk))))
-        dwelling_list.extend(
-            list(
-                map(lambda resident: resident.dwelling,
-                    DwellingResident.objects.filter(user__id=pk))))
+                    DwellingOwner.objects.filter(user__id=pk)))
 
-        list_of_serialized: list[DwellingDetailSerializer] = []
-        for dwelling in set(dwelling_list):
+        dwelling_list_as_resident: list[Dwelling] = list(
+                map(lambda resident: resident.dwelling,
+                    DwellingResident.objects.filter(user__id=pk)))
+        
+        serialized_data_list: list[UserDwellingDetailSerializer] = []
+        dwelling_owner_resident_set = set(dwelling_list_as_owner).intersection(dwelling_list_as_resident)
+        serialized_data_list.extend(self.__serialize_user_dwelling_data(dwelling_owner_resident_set, True, True))
+
+        dwelling_owner_set = set(dwelling_list_as_owner).difference(dwelling_owner_resident_set)
+        serialized_data_list.extend(self.__serialize_user_dwelling_data(dwelling_owner_set, is_owner=True, is_resident=False))
+
+        dwelling_resident_set = set(dwelling_list_as_resident).difference(dwelling_owner_resident_set)
+        serialized_data_list.extend(self.__serialize_user_dwelling_data(dwelling_resident_set, is_resident=True, is_owner=False))
+
+        return Response(serialized_data_list)
+
+    def __serialize_user_dwelling_data(self, dwelling_list_set, is_owner, is_resident):
+        list_of_serialized: list[UserDwellingDetailSerializer] = []
+        for dwelling in dwelling_list_set:
             water_meter_code = dwelling.get_current_water_meter().code
 
             resident_first_name = ''
@@ -130,13 +141,14 @@ class UserDwellingDetailView(APIView):
                 'flat': dwelling.full_address.flat,
                 'gate': dwelling.full_address.gate,
                 'resident_first_name': resident_first_name,
-                'resident_phone': resident_phone_number
+                'resident_phone': resident_phone_number,
+                'is_owner' : is_owner,
+                'is_resident' : is_resident
             }
             list_of_serialized.append(
-                DwellingDetailSerializer(data, many=False).data)
+                UserDwellingDetailSerializer(data, many=False).data)
 
-        return Response(list_of_serialized)
-
+        return list_of_serialized
 
 class UserCreatePhoneView(APIView):
     permission_classes = [AllowAny]
