@@ -15,6 +15,8 @@ import { ChangeWaterMeterComponent } from './water-meter/change-water-meter/chan
 import { CreateReservoirComponent } from './reservoir/create-reservoir/create-reservoir.component';
 import { SubRouterModule } from './subRouter/sub-router.module';
 import { AgubeRoute } from './agube-route';
+import { UserGuard } from './helpers/user.guard';
+import { ManagerGuard } from './helpers/manager.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +25,8 @@ const routes: Routes = [
     children: [
       {
         path: AgubeRoute.CONFIG,
-        canActivate: [],
+        canLoad: [UserGuard, ManagerGuard],
+        canActivate: [UserGuard, ManagerGuard],
         loadChildren: () =>
           import('./configuration/configuration.module').then(
             (m) => m.ConfigurationModule
@@ -31,7 +34,8 @@ const routes: Routes = [
       },
       {
         path: AgubeRoute.DWELLING,
-        canActivate: [],
+        canLoad: [UserGuard, ManagerGuard],
+        canActivate: [UserGuard, ManagerGuard],
         loadChildren: () =>
           import('./dwelling/dwelling.module').then((m) => m.DwellingModule),
       },
@@ -44,7 +48,8 @@ const routes: Routes = [
       },
       {
         path: AgubeRoute.RESERVOIR,
-        canActivate: [],
+        canLoad: [UserGuard, ManagerGuard],
+        canActivate: [UserGuard, ManagerGuard],
         loadChildren: () =>
           import('./reservoir/reservoir.module').then((m) => m.ReservoirModule),
       },
@@ -54,7 +59,8 @@ const routes: Routes = [
       },
       {
         path: TaskRoute.INCIDENCE,
-        canActivate: [],
+        canLoad: [UserGuard, ManagerGuard],
+        canActivate: [UserGuard, ManagerGuard],
         loadChildren: () =>
           import('./task/task.module').then((m) => m.TaskModule),
       },
@@ -63,6 +69,7 @@ const routes: Routes = [
         component: ContactBookComponent,
         outlet: 'contactPopup',
       },
+
     ],
   },
 ];

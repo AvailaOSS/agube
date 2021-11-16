@@ -7,21 +7,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { SidebarConfiguration } from './components/sidebar/sidebar.configuration';
-import { SidebarModule } from './components/sidebar/sidebar.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarModule } from '@availa/toolbar';
-import { AuthModule, AuthRoute } from '@availa/auth-fe';
+
 import { TaskRoute } from '@availa/task-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { environment } from 'src/environments/environment';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AuthModule, AuthRoute } from '@availa/auth-fe';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    SidebarModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
@@ -70,6 +70,7 @@ import { environment } from 'src/environments/environment';
         ],
       },
     },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   exports: [],
 })

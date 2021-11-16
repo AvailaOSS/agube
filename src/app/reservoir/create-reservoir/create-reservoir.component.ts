@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReservoirService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
-import { User } from '@availa/auth-fe/lib/login/models/user';
 import { NotificationService } from '@availa/notification';
 import { AgubeRoute } from '../../agube-route';
 

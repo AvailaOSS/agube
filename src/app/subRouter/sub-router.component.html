@@ -1,2 +1,7 @@
+
+ <app-sidebar
+ [user]="user"
+ (currentComponentName)="getSelectedComponent($event)"
+></app-sidebar>
 <router-outlet></router-outlet>
 <router-outlet name="contactPopup"></router-outlet>

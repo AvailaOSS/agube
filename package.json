@@ -29,7 +29,7 @@
     "@availa/subscription-fe": "0.0.5",
     "@availa/table": "0.0.3",
     "@availa/task-fe": "0.0.3",
-    "@availa/toolbar": "0.0.2",
+    "@availa/toolbar": "0.0.4",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@ngx-formly/bootstrap": "^5.0.0",

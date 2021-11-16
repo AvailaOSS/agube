@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { AccountService } from '@availa/auth-fe';
 import { User } from '@availa/auth-fe/lib/login/models/user';
 import { environment } from 'src/environments/environment';
@@ -15,11 +15,8 @@ export class AppComponent implements OnInit {
   public toolbarName: string;
 
   constructor(private readonly accountService: AccountService) {
-    this.title = '';
-    this.hideContactBook = true;
     this.toolbarName = environment.appName;
   }
-
   public ngOnInit(): void {
     this.accountService.getUser().subscribe((result) => {
       this.user = result;

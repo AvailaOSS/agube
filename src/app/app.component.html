@@ -1,15 +1,2 @@
-<div>
-  <!-- Sidebar -->
-  <app-sidebar
-    [user]="user"
-    (currentComponentName)="getSelectedComponent($event)"
-  ></app-sidebar>
-
-  <!-- Page Content -->
-  <div>
-    <lib-toolbar [title]="toolbarName"></lib-toolbar>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>
+<lib-toolbar [title]="toolbarName"></lib-toolbar>
+<router-outlet></router-outlet>
