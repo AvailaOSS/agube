@@ -28,7 +28,6 @@ import { AuthModule, AuthRoute } from '@availa/auth-fe';
     ComponentsModule,
     NgbModule,
     AppRoutingModule,
-    ToolbarModule.forRoot({ logOutPageUrl: AuthRoute.LOGIN }),
     AuthModule.forRoot({
       authRestconfig: {
         basePath: environment.authBackendUrl,

@@ -1,2 +1,19 @@
-<lib-toolbar [title]="toolbarName"></lib-toolbar>
+<div  [hidden]="hiddeToolbar">
+  <div class="d-flex col bg-primary">
+    <div class="col py-3" >
+      <span class="py-1" style="color:white"> Bienvenido a {{title}} </span>
+    </div>
+    <div class="col-1 py-3">
+      <span style="color:white">Empresa</span>
+    </div>
+    <div class="col-1 py-3">
+      <span style="color:white">Soporte</span>
+    </div>
+
+    <div class="col-1 py-2">
+      <button appButtonSecondary (click)="goToRegister()">Sing Up</button>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '@availa/auth-fe';
+import { Router } from '@angular/router';
+import { AccountService, AuthRoute } from '@availa/auth-fe';
 import { User } from '@availa/auth-fe/lib/login/models/user';
-import { environment } from 'src/environments/environment';
-
 
 @Component({
   selector: 'app-sub-router',
@@ -12,13 +11,30 @@ export class SubRouterComponent implements OnInit {
   public title: string;
   public user: User;
   public toolbarName: string;
+  public hiddeToolbar: boolean;
 
-  constructor(private readonly accountService: AccountService) {
-  }
+  constructor(
+    private readonly accountService: AccountService,
+    private router: Router
+  ) {}
   public ngOnInit(): void {
-    this.accountService.getUser().subscribe((result) => {
-      this.user = result;
+    this.accountService.getUser().subscribe((value) => {
+      if (value === null) {
+        this.hiddeToolbar = true;
+        this.router.navigate([
+          { outlets: { primary: AuthRoute.LOGIN, contactPopup: null } },
+        ]);
+      } else {
+        this.user = value;
+        this.hiddeToolbar = false;
+      }
     });
+  }
+  public logout(): void {
+    this.accountService.logout();
+    this.router.navigate([
+      { outlets: { primary: AuthRoute.LOGIN, contactPopup: null } },
+    ]);
   }
 
   public getSelectedComponent(componentName: string): void {
