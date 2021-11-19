@@ -17,8 +17,13 @@ import { SubRouterModule } from './subRouter/sub-router.module';
 import { AgubeRoute } from './agube-route';
 import { UserGuard } from './helpers/user.guard';
 import { ManagerGuard } from './helpers/manager.guard';
+import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
+  {
+    path: 'support',
+    component: SupportComponent,
+  },
   {
     path: '',
     component: SubRouterComponent,

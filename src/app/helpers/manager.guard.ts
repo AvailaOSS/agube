@@ -42,7 +42,7 @@ export class ManagerGuard implements CanActivate, CanLoad {
         if (response.is_manager) {
           resolve(true);
         } else {
-          resolve(this.router.parseUrl('client'));
+          resolve(false);
         }
       });
     });

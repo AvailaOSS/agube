@@ -9,16 +9,16 @@ import { ComponentsModule } from './components/components.module';
 import { SidebarConfiguration } from './components/sidebar/sidebar.configuration';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToolbarModule } from '@availa/toolbar';
 
 import { TaskRoute } from '@availa/task-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { environment } from 'src/environments/environment';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
+import { SupportComponent } from './support/support.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SupportComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

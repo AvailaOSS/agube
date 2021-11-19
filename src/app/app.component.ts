@@ -29,4 +29,12 @@ export class AppComponent implements OnInit {
       { outlets: { primary: AuthRoute.LOGIN, contactPopup: null } },
     ]);
   }
+  public goSupport(): void {
+    this.router.navigate([
+      { outlets: { primary: 'support', contactPopup: null } },
+    ]);
+  }
+  public goToWeb(): void {
+    window.location.href = 'https://google.com/about';
+  }
 }
