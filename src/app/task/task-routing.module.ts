@@ -1,0 +1,16 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { IncidenceComponent } from '@availa/task-fe';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: IncidenceComponent,
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class TaskRoutingModule {}

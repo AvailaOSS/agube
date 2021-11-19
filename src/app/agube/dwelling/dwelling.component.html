@@ -1,9 +1,0 @@
-<div class="subgrid">
-  <div class="m-1">
-    <app-dwelling-detail-list (sendSelected)="selectItem($event)">
-    </app-dwelling-detail-list>
-  </div>
-  <div *ngIf="dwellingId != undefined">
-    <app-dwelling-detail-card [dwellingId]="dwellingId"></app-dwelling-detail-card>
-  </div>
-</div>

@@ -1,7 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AuthModule } from '@availa/auth-fe';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { FullAddressPipe } from './pipes/fulladdress.pipe';
@@ -16,7 +13,7 @@ import { WorkInProgressComponent } from './work-in-progress/work-in-progress.com
     UserDetailPipe,
     AutoFocusDirective,
   ],
-  imports: [CommonModule, NgbModule, NgbModalModule, FormsModule, AuthModule],
+  imports: [NgbModule, NgbModalModule],
   exports: [
     WorkInProgressComponent,
     FullAddressPipe,

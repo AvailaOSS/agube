@@ -1,0 +1,29 @@
+@use "../../scss/variables/sizes";
+@use "../../scss/variables/margins";
+@use "../../scss/variables/paddings";
+
+.card-configuration {
+  display: flow-root;
+}
+
+.card-configuration-container {
+  margin: margins.$margin-large;
+  padding: paddings.$padding-small;
+  height: sizes.$height-small;
+}
+
+.card-button-position {
+  float: right;
+  margin-top: -32px;
+  width: 19%;
+}
+
+.card-button-position-change {
+  float: right;
+  margin-top: -42px;
+  width: 19%;
+}
+
+.password-description {
+  margin-top: margins.$margin-medium - margins.$margin-x-small;
+}

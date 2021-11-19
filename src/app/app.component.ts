@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '@availa/auth-fe';
-import { User } from '@availa/auth-fe/lib/login/models/user';
-import { isNull, isUndefined } from 'lodash';
-import { environment } from 'src/environments/environment';
+import { AccountService, AuthRoute } from '@availa/auth-fe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,25 +8,33 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  public title: string;
-  public hideContactBook: boolean;
-  public user: User;
-  public toolbarName: string;
-
-  constructor(private readonly accountService: AccountService) {
-    this.title = '';
-    this.hideContactBook = true;
-    this.toolbarName = environment.appName;
-  }
-
+  public hiddeToolbar: boolean;
+  public title = 'Agube';
+  constructor(
+    private readonly accountService: AccountService,
+    private router: Router
+  ) {}
   public ngOnInit(): void {
-    this.accountService.getUser().subscribe((result) => {
-      this.user = result;
-      this.hideContactBook = isUndefined(this.user) || isNull(this.user);
+    this.accountService.getUser().subscribe((value) => {
+      if (value !== null) {
+        this.hiddeToolbar = true;
+      } else {
+        this.hiddeToolbar = false;
+      }
     });
   }
 
-  public getSelectedComponent(componentName: string): void {
-    this.toolbarName = componentName;
+  public goToRegister(): void {
+    this.router.navigate([
+      { outlets: { primary: AuthRoute.LOGIN, contactPopup: null } },
+    ]);
+  }
+  public goSupport(): void {
+    this.router.navigate([
+      { outlets: { primary: 'support', contactPopup: null } },
+    ]);
+  }
+  public goToWeb(): void {
+    window.location.href = 'https://google.com/about';
   }
 }
