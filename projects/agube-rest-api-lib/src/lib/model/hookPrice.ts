@@ -12,7 +12,7 @@
 
 
 export interface HookPrice {
-    readonly id?: string;
+    readonly id?: number;
     hook_price: string;
     readonly release_date?: string;
     readonly discharge_date?: string;

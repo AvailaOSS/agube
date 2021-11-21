@@ -24,6 +24,7 @@ import { AgubeRestConfigurationService } from '../configuration.service';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { UserAddress } from '../model/userAddress';
 import { UserDetailCustom } from '../model/userDetailCustom';
+import { UserDwellingDetail } from '../model/userDwellingDetail';
 import { UserPhone } from '../model/userPhone';
 
 @Injectable()
@@ -399,17 +400,17 @@ export class UserService {
     id: string,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<DwellingDetail>>;
+  ): Observable<Array<UserDwellingDetail>>;
   public getDwellingDetail(
     id: string,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<DwellingDetail>>>;
+  ): Observable<HttpResponse<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
     id: string,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<DwellingDetail>>>;
+  ): Observable<HttpEvent<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
     id: string,
     observe: any = 'body',

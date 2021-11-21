@@ -11,8 +11,8 @@
  */
 
 
-export interface WaterMeterMeasurement { 
-    readonly id?: string;
+export interface WaterMeterMeasurement {
+    readonly id?: number;
     measurement: string;
     date?: Date;
 }

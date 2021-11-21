@@ -9,15 +9,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { FullAddress } from './fullAddress';
-import { Phone } from './phone';
 
 
-export interface UserDetail {
+export interface UserDwellingDetail {
     readonly id?: number;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
-    phones: Array<Phone>;
-    address: Array<FullAddress>;
+    waterMeterCode: string;
+    town: string;
+    street: string;
+    number: string;
+    flat: string;
+    gate: string;
+    residentFirstName: string;
+    residentPhone: string;
+    isOwner: boolean;
+    isResident: boolean;
 }

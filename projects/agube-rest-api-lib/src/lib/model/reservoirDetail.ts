@@ -12,7 +12,7 @@
 
 
 export interface ReservoirDetail {
-    readonly id?: string;
+    readonly id?: number;
     street: string;
     number: string;
     flat: string;

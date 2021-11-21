@@ -12,7 +12,7 @@
 
 
 export interface Address {
-    readonly id?: string;
+    readonly id?: number;
     town: string;
     street: string;
     is_external?: boolean;

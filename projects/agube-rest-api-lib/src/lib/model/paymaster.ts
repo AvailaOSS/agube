@@ -12,7 +12,7 @@
 
 
 export interface Paymaster {
-    readonly id?: string;
+    readonly id?: number;
     payment_type?: Paymaster.PaymentTypeEnum;
     iban?: string;
     username: string;
