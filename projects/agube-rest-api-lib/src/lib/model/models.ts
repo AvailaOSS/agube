@@ -12,6 +12,7 @@ export * from './resident';
 export * from './userAddress';
 export * from './userDetail';
 export * from './userDetailCustom';
+export * from './userDwellingDetail';
 export * from './userIsManager';
 export * from './userPhone';
 export * from './waterMeter';
