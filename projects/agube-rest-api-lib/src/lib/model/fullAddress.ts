@@ -13,7 +13,7 @@ import { Address } from './address';
 
 
 export interface FullAddress {
-    readonly id?: string;
+    readonly id?: number;
     address: Address;
     number: number;
     flat?: string;

@@ -14,7 +14,7 @@ import { Phone } from './phone';
 
 
 export interface UserDetail {
-    readonly id?: string;
+    readonly id?: number;
     first_name?: string;
     last_name?: string;
     email?: string;

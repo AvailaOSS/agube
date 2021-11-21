@@ -12,7 +12,7 @@
 
 
 export interface DwellingDetail {
-    readonly id?: string;
+    readonly id?: number;
     water_meter_code: string;
     street: string;
     number: string;

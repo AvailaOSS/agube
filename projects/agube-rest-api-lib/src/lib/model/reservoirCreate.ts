@@ -14,7 +14,7 @@ import { WaterMeter } from './waterMeter';
 
 
 export interface ReservoirCreate {
-    readonly id?: string;
+    readonly id?: number;
     full_address: FullAddress;
     user_id: number;
     water_meter: WaterMeter;

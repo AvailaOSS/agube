@@ -14,7 +14,7 @@ import { WaterMeter } from './waterMeter';
 
 
 export interface DwellingCreate {
-    readonly id?: string;
+    readonly id?: number;
     full_address: FullAddress;
     water_meter: WaterMeter;
 }
