@@ -68,25 +68,25 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public addUserAddress(
-    id: string,
+    id: number,
     data: UserAddress,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserAddress>>;
   public addUserAddress(
-    id: string,
+    id: number,
     data: UserAddress,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserAddress>>>;
   public addUserAddress(
-    id: string,
+    id: number,
     data: UserAddress,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserAddress>>>;
   public addUserAddress(
-    id: string,
+    id: number,
     data: UserAddress,
     observe: any = 'body',
     reportProgress: boolean = false
@@ -153,25 +153,25 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public addUserPhone(
-    id: string,
+    id: number,
     data: UserPhone,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserPhone>>;
   public addUserPhone(
-    id: string,
+    id: number,
     data: UserPhone,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserPhone>>>;
   public addUserPhone(
-    id: string,
+    id: number,
     data: UserPhone,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserPhone>>>;
   public addUserPhone(
-    id: string,
+    id: number,
     data: UserPhone,
     observe: any = 'body',
     reportProgress: boolean = false
@@ -238,26 +238,26 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public deleteUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
   public deleteUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public deleteUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public deleteUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -318,26 +318,26 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public deleteUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
   public deleteUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public deleteUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public deleteUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -397,22 +397,22 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public getDwellingDetail(
-    id: string,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserDwellingDetail>>;
   public getDwellingDetail(
-    id: string,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
-    id: string,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
-    id: string,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -464,22 +464,22 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public getUserAddress(
-    id: string,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserAddress>>;
   public getUserAddress(
-    id: string,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserAddress>>>;
   public getUserAddress(
-    id: string,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserAddress>>>;
   public getUserAddress(
-    id: string,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -531,22 +531,22 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public getUserPhone(
-    id: string,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserPhone>>;
   public getUserPhone(
-    id: string,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserPhone>>>;
   public getUserPhone(
-    id: string,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserPhone>>>;
   public getUserPhone(
-    id: string,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -656,29 +656,29 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public updateUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     data: UserAddress,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserAddress>>;
   public updateUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     data: UserAddress,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserAddress>>>;
   public updateUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     data: UserAddress,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserAddress>>>;
   public updateUserAddress(
-    fullAddressId: string,
-    id: string,
+    fullAddressId: number,
+    id: number,
     data: UserAddress,
     observe: any = 'body',
     reportProgress: boolean = false
@@ -754,29 +754,29 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public updateUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     data: UserPhone,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserPhone>>;
   public updateUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     data: UserPhone,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserPhone>>>;
   public updateUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     data: UserPhone,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserPhone>>>;
   public updateUserPhone(
-    id: string,
-    phoneId: string,
+    id: number,
+    phoneId: number,
     data: UserPhone,
     observe: any = 'body',
     reportProgress: boolean = false

@@ -432,26 +432,26 @@ export class ReservoirService {
    * @param reportProgress flag to report request and response progress.
    */
   public getReservoirCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeterWithMeasurements>;
   public getReservoirCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeterWithMeasurements>>;
   public getReservoirCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeterWithMeasurements>>;
   public getReservoirCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {

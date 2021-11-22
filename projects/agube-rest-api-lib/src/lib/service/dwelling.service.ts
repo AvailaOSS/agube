@@ -601,26 +601,26 @@ export class DwellingService {
    * @param reportProgress flag to report request and response progress.
    */
   public getCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeterWithMeasurements>;
   public getCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeterWithMeasurements>>;
   public getCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeterWithMeasurements>>;
   public getCurrentWaterMeterMeasuresChunk(
-    chunk: string,
-    id: string,
+    chunk: number,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -803,22 +803,22 @@ export class DwellingService {
    * @param reportProgress flag to report request and response progress.
    */
   public setOwnerAsResident(
-    id: string,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Resident>;
   public setOwnerAsResident(
-    id: string,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Resident>>;
   public setOwnerAsResident(
-    id: string,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Resident>>;
   public setOwnerAsResident(
-    id: string,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
