@@ -13,14 +13,14 @@
 
 export interface UserDwellingDetail {
     readonly id?: number;
-    waterMeterCode: string;
+    water_meter_code: string;
     town: string;
     street: string;
     number: string;
     flat: string;
     gate: string;
-    residentFirstName: string;
-    residentPhone: string;
-    isOwner: boolean;
-    isResident: boolean;
+    resident_first_name: string;
+    resident_phone: string;
+    is_owner: boolean;
+    is_resident: boolean;
 }

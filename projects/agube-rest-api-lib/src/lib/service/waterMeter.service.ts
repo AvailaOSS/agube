@@ -64,25 +64,25 @@ export class WaterMeterService {
    * @param reportProgress flag to report request and response progress.
    */
   public addWaterMeterMeasure(
-    id: string,
+    id: number,
     data: WaterMeterMeasurement,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeterMeasurement>;
   public addWaterMeterMeasure(
-    id: string,
+    id: number,
     data: WaterMeterMeasurement,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeterMeasurement>>;
   public addWaterMeterMeasure(
-    id: string,
+    id: number,
     data: WaterMeterMeasurement,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeterMeasurement>>;
   public addWaterMeterMeasure(
-    id: string,
+    id: number,
     data: WaterMeterMeasurement,
     observe: any = 'body',
     reportProgress: boolean = false
@@ -148,22 +148,22 @@ export class WaterMeterService {
    * @param reportProgress flag to report request and response progress.
    */
   public getWaterMeterMeasures(
-    id: string,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<WaterMeterMeasurement>>;
   public getWaterMeterMeasures(
-    id: string,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<WaterMeterMeasurement>>>;
   public getWaterMeterMeasures(
-    id: string,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<WaterMeterMeasurement>>>;
   public getWaterMeterMeasures(
-    id: string,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
