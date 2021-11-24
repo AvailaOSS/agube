@@ -56,6 +56,18 @@ class Reservoir(models.Model):
         ReservoirWaterMeter.objects.create(reservoir=self,
                                            water_meter=water_meter)
 
+    def get_historical_water_meter(self) -> WaterMeter:
+        try:
+            dwelling_water_meters = ReservoirWaterMeter.objects.filter(
+                reservoir=self).select_related('water_meter')
+            water_meters = []
+            for dwelling_water_meter in dwelling_water_meters:
+                water_meters.append(dwelling_water_meter.water_meter)
+
+            return water_meters
+        except ObjectDoesNotExist:
+            return []
+
     def get_current_water_meter(self):
         # type: (Reservoir) -> WaterMeter
         try:
