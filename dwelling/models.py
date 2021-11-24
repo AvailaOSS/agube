@@ -86,6 +86,18 @@ class Dwelling(models.Model):
         except ObjectDoesNotExist:
             return None
 
+    def get_historical_water_meter(self) -> WaterMeter:
+        try:
+            dwelling_water_meters = DwellingWaterMeter.objects.filter(
+                dwelling=self).select_related('water_meter')
+            water_meters = []
+            for dwelling_water_meter in dwelling_water_meters:
+                water_meters.append(dwelling_water_meter.water_meter)
+
+            return water_meters
+        except ObjectDoesNotExist:
+            return []
+
     def set_owner_as_resident(self):
         owner = self.get_current_owner()
         resident = self.get_current_resident()
