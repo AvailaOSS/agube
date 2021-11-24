@@ -220,6 +220,47 @@ class DwellingResidentView(generics.GenericAPIView):
                             status=HTTP_404_NOT_FOUND)
 
 
+class DwellingWaterMeterHistoricalView(generics.GenericAPIView):
+    queryset = WaterMeter.objects.all()
+    serializer_class = WaterMeterSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="getCurrentDwellingWaterMeterHistorical",
+        responses={200: WaterMeterSerializer(many=False)},
+    )
+    def get(self, request, pk):
+        try:
+            water_serialized = []
+            dwelling: Dwelling = Dwelling.objects.get(id=pk)
+            water_meters = dwelling.get_historical_water_meter()
+            for water_meter in water_meters:
+                measures = water_meter.get_measurements()
+                measures_serialized = []
+                for measure in measures:
+                    data = {
+                        'id': measure.id,
+                        'measurement': measure.measurement,
+                        'date': measure.date,
+                    }
+                    measures_serialized.append(
+                        WaterMeterMeasurementSerializer(data,
+                                                        many=False).data)
+                data = {
+                    'id': water_meter.id,
+                    'code': water_meter.code,
+                    'release_date': water_meter.release_date,
+                    'discharge_date': water_meter.discharge_date,
+                    'measures': measures_serialized
+                }
+                water_serialized.append(WaterMeterDetailSerializer(data, many=False).data)
+
+            return Response(water_serialized)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'},
+                            status=HTTP_404_NOT_FOUND)
+
+
 class DwellingWaterMeterView(generics.GenericAPIView):
     queryset = WaterMeter.objects.all()
     serializer_class = WaterMeterSerializer

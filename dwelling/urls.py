@@ -4,6 +4,7 @@ from dwelling.views import (DwellingCreateView, DwellingListView,
                             DwellingOwnerView, DwellingResidentView,
                             DwellingSetOwnerAsResidentView, DwellingView,
                             DwellingWaterMeterChunkView,
+                            DwellingWaterMeterHistoricalView,
                             DwellingWaterMeterView)
 
 __url_dwelling = [
@@ -14,6 +15,7 @@ __url_dwelling = [
          DwellingSetOwnerAsResidentView.as_view()),
     path('<int:pk>/resident', DwellingResidentView.as_view()),
     path('<int:pk>/water-meter', DwellingWaterMeterView.as_view()),
+    path('<int:pk>/water-meter/historical', DwellingWaterMeterHistoricalView.as_view()),
     path('<int:pk>/water-meter/<int:chunk>',
          DwellingWaterMeterChunkView.as_view())
 ]
