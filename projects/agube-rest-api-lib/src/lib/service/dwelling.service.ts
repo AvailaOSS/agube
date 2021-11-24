@@ -22,10 +22,8 @@ import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { DwellingCreate } from '../model/dwellingCreate';
-import { DwellingCreateWithResident } from '../model/dwellingCreateWithResident';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { Owner } from '../model/owner';
-import { Paymaster } from '../model/paymaster';
 import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
@@ -49,20 +47,7 @@ export class DwellingService {
   }
 
   /**
-   * @param consumes string[] mime-types
-   * @return true: consumes contains 'multipart/form-data', false: otherwise
-   */
-  private canConsumeForm(consumes: string[]): boolean {
-    const form = 'multipart/form-data';
-    for (const consume of consumes) {
-      if (form === consume) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
+   *
    *
    * Create a new Water Meter and discharge the old Water Meter
    * @param id A unique integer value identifying this water meter.
@@ -119,18 +104,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -204,18 +187,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -289,18 +270,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -363,18 +342,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -437,9 +414,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -449,6 +425,74 @@ export class DwellingService {
 
     return this.httpClient.get<WaterMeter>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   *
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getCurrentDwellingWaterMeterHistorical(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<WaterMeterWithMeasurements>>;
+  public getCurrentDwellingWaterMeterHistorical(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<WaterMeterWithMeasurements>>>;
+  public getCurrentDwellingWaterMeterHistorical(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<WaterMeterWithMeasurements>>>;
+  public getCurrentDwellingWaterMeterHistorical(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getCurrentDwellingWaterMeterHistorical.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<WaterMeterWithMeasurements>>(
+      `${this.basePath}/dwelling/${encodeURIComponent(
+        String(id)
+      )}/water-meter/historical`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -504,9 +548,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -514,7 +557,7 @@ export class DwellingService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<Owner>>(
+    return this.httpClient.get<Owner>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -571,9 +614,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -594,13 +636,13 @@ export class DwellingService {
 
   /**
    *
-   * Return the current Water Meter with measurements chunk.
+   * Return the current Water Meter with total measurements (chunk).
    * @param chunk
    * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getCurrentWaterMeterMeasuresChunk(
+   public getCurrentWaterMeterMeasuresChunk(
     chunk: number,
     id: number,
     observe?: 'body',
@@ -649,9 +691,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -718,9 +759,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -774,9 +814,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -802,7 +841,7 @@ export class DwellingService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public setOwnerAsResident(
+   public setOwnerAsResident(
     id: number,
     observe?: 'body',
     reportProgress?: boolean
@@ -841,9 +880,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
