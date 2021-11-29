@@ -6,6 +6,7 @@ import { TableModule } from '@availa/table';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
 import { ChangeWaterMeterComponent } from './change-water-meter/change-water-meter.component';
+import { WaterMeterHistoricalComponent } from './water-meter-historical/water-meter-historical.component';
 import { WaterMeterReadingsComponent } from './water-meter-reading-detail/water-meter-reading-detail-card.component';
 import {
   DateValidator,
@@ -18,6 +19,7 @@ import { WaterMeterReadingSetterComponent } from './water-meter-reading-setter/w
     WaterMeterReadingsComponent,
     WaterMeterReadingSetterComponent,
     ChangeWaterMeterComponent,
+    WaterMeterHistoricalComponent
   ],
   imports: [
     CommonModule,

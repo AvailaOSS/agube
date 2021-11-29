@@ -10,6 +10,7 @@ import { AgubeRoute } from '../../agube-route';
 import { WaterMeterReadingSetterComponent } from '../water-meter-reading-setter/water-meter-reading-setter.component';
 import { WaterMeterType } from '../water-meter-type.enum';
 import { WaterMeterManager } from '../water-meter.manager';
+import { WaterMeterHistoricalComponent } from '../water-meter-historical/water-meter-historical.component';
 
 @Component({
   selector: 'app-water-meter-reading-detail-card',
@@ -98,5 +99,24 @@ export class WaterMeterReadingsComponent implements OnInit, OnChanges {
         }
       );
     });
+  }
+  public historicalReading(): void {
+    const modal: NgbModalRef = this.modalService.open(
+      WaterMeterHistoricalComponent,
+      {
+        centered: true,
+        backdrop: 'static',
+        scrollable: true,
+      }
+    );
+    modal.componentInstance.id = this.parentId;
+    modal.result.then(
+      (result) => {
+        this.ngOnInit();
+      },
+      (reason) => {
+        //
+      }
+    );
   }
 }
