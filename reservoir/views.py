@@ -155,13 +155,11 @@ class ReservoirOwnerView(generics.GenericAPIView):
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
 class ReservoirWaterMeterHistoricalView(generics.GenericAPIView):
-    queryset = ReservoirWaterMeter.objects.all()
-    serializer_class = WaterMeterSerializer
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentReservoirWaterMeterHistorical",
-        responses={200: WaterMeterSerializer(many=False)},
+        responses={200: WaterMeterSerializer(many=True)},
     )
     def get(self, request, pk):
         try:
