@@ -49,14 +49,11 @@ export class WaterMeterManager {
     type: WaterMeterType
   ): Observable<WaterMeterWithMeasurements> | undefined {
     if (+type === +WaterMeterType.DWELLING) {
-      return this.svcDwelling.getCurrentWaterMeterMeasuresChunk(
-        String(chunk),
-        String(id)
-      );
+      return this.svcDwelling.getCurrentWaterMeterMeasuresChunk(chunk, id);
     } else if (+type === +WaterMeterType.RESERVOIR) {
       return this.svcReservoir.getReservoirCurrentWaterMeterMeasuresChunk(
-        String(chunk),
-        String(id)
+        chunk,
+        id
       );
     } else {
       return undefined;

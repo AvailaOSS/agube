@@ -30,6 +30,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [
+
             ],
             "vendorChunk": true,
             "extractLicenses": false,
