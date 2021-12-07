@@ -13,7 +13,7 @@ class IsManagerOfUser(IsManagerAuthenticated):
             return False
 
         try:
-            Person.objects.get(manager=manager, user__id=view.kwargs.get('pk'))
+            Person.objects.get(manager__user=request.user, user__id=view.kwargs.get('pk'))
             return True
         except:
             return False
