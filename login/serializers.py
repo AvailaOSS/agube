@@ -93,6 +93,7 @@ class UserPhoneUpdateSerializer(Serializer):
     """
     User update phone
     """
+    phone_id = ReadOnlyField()
     phone = CharField(max_length=None,
                       min_length=None,
                       allow_blank=False,
