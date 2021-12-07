@@ -220,7 +220,7 @@ class DwellingResidentView(generics.GenericAPIView):
                             status=HTTP_404_NOT_FOUND)
 
 
-class DwellingWaterMeterHistoricalView(generics.GenericAPIView):
+class DwellingWaterMeterHistoricalView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(

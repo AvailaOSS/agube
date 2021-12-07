@@ -154,7 +154,9 @@ class ReservoirOwnerView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
-class ReservoirWaterMeterHistoricalView(generics.GenericAPIView):
+ 
+                            
+class ReservoirWaterMeterHistoricalView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
