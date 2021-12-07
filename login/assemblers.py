@@ -41,6 +41,7 @@ def get_all_user_phones_serialized(user: User):
     phone_iteration: UserPhone
     for phone_iteration in UserPhone.objects.filter(user=user):
         data = {
+            "phone_id" : phone_iteration.phone.id,
             "phone": phone_iteration.phone.phone_number,
             "main": phone_iteration.main,
         }
