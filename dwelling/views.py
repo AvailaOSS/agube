@@ -220,14 +220,12 @@ class DwellingResidentView(generics.GenericAPIView):
                             status=HTTP_404_NOT_FOUND)
 
 
-class DwellingWaterMeterHistoricalView(generics.GenericAPIView):
-    queryset = WaterMeter.objects.all()
-    serializer_class = WaterMeterSerializer
+class DwellingWaterMeterHistoricalView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentDwellingWaterMeterHistorical",
-        responses={200: WaterMeterSerializer(many=False)},
+        responses={200: WaterMeterDetailSerializer(many=True)},
     )
     def get(self, request, pk):
         try:
