@@ -2,6 +2,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.status import HTTP_404_NOT_FOUND
 
 from manager.models import Manager, ManagerConfiguration, Person
 from manager.permissions import IsManagerAuthenticated
@@ -50,7 +51,7 @@ class ManagerView(APIView):
 
 
 class ManagerConfigurationView(APIView):
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getManagerConfiguration",
@@ -61,10 +62,22 @@ class ManagerConfigurationView(APIView):
         """
         Get Manager Configuration
         """
-        manager: Manager = Person.objects.get(
-            user__id=self.request.user.id).manager
-        configuration: ManagerConfiguration = ManagerConfiguration.objects.filter(
-            manager=manager, discharge_date__isnull=True)[0]
+        manager: Manager
+        try:
+            # Request user is Manager
+            manager = Manager.objects.get(user=request.user)
+        except:
+            # Request user is normal User
+            manager = Person.objects.get(
+                user=request.user).manager
+
+        try:
+            configuration: ManagerConfiguration = ManagerConfiguration.objects.filter(
+                manager=manager, discharge_date__isnull=True)[0]
+        except:
+            return Response({'status': 'No configuration found.'},
+                            status=HTTP_404_NOT_FOUND)
+
         return Response(
             ManagerConfigurationSerializer(configuration, many=False).data)
 
