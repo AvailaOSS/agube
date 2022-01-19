@@ -14,6 +14,7 @@ class UserAddress(models.Model):
 
     class Meta:
         db_table = 'agube_login_user_address'
+        ordering = ['-main']
 
 
 class UserPhone(models.Model):
