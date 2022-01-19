@@ -14,4 +14,5 @@
 export interface UserPhone { 
     phone: string;
     main: boolean;
+    phone_id?: number;
 }
