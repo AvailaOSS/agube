@@ -4,14 +4,8 @@ from login.models import UserAddress, UserPhone
 from login.serializers import UserAddressUpdateSerializer
 
 def get_all_user_full_address_serialized(user: User):
-    list_of_serialized: list[UserAddressUpdateSerializer] = []
-    # Main address in 1st place
-    list_of_serialized = __serialize_user_addresses(UserAddress.objects.filter(user=user, main=True))
-    # Other addresses
-    alternative_address_list = UserAddress.objects.filter(user=user, main=False)
-    if alternative_address_list:
-        list_of_serialized.append(__serialize_user_addresses(alternative_address_list))
-
+    list_of_serialized: list[UserAddressUpdateSerializer] = \
+        __serialize_user_addresses(UserAddress.objects.filter(user=user))
     return list_of_serialized
 
 def __serialize_user_addresses(user_address_list):
