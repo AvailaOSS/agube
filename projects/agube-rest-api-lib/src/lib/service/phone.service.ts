@@ -42,20 +42,6 @@ export class PhoneService {
   }
 
   /**
-   * @param consumes string[] mime-types
-   * @return true: consumes contains 'multipart/form-data', false: otherwise
-   */
-  private canConsumeForm(consumes: string[]): boolean {
-    const form = 'multipart/form-data';
-    for (const consume of consumes) {
-      if (form === consume) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
    *
    * get list of phones
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
