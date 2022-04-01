@@ -202,7 +202,7 @@ class UserCreatePhoneView(APIView):
             "main": userPhone.main,
         }
 
-        return Response(UserPhoneUpdateSerializer(data, many=False))
+        return Response(UserPhoneUpdateSerializer(data, many=False).data)
 
     @swagger_auto_schema(
         operation_id="getUserPhone",
