@@ -157,7 +157,7 @@ class UserCreatePhoneView(APIView):
     @swagger_auto_schema(
         operation_id="addUserPhone",
         request_body=UserPhoneUpdateSerializer,
-        responses={200: UserPhoneUpdateSerializer(many=True)},
+        responses={200: UserPhoneUpdateSerializer(many=False)},
         tags=[TAG_USER],
     )
     def post(self, request, pk):
@@ -175,13 +175,20 @@ class UserCreatePhoneView(APIView):
         # if new is main change others as not main
         if main:
             update_phone_to_not_main(pk)
+
         # create a new user phone
-        UserPhone.objects.create(
+        userPhone = UserPhone.objects.create(
             user=user,
             phone=Phone.objects.create(phone_number=new_phone),
             main=main)
 
-        return Response(get_all_user_phones_serialized(user))
+        data = {
+            "phone_id": userPhone.phone.id,
+            "phone": userPhone.phone.phone_number,
+            "main": userPhone.main,
+        }
+
+        return Response(UserPhoneUpdateSerializer(data, many=False))
 
     @swagger_auto_schema(
         operation_id="getUserPhone",
