@@ -9,6 +9,7 @@
 
 # npm
 .npmrc
+.angular/*
 
 # dependencies
 /node_modules
