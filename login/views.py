@@ -84,7 +84,7 @@ class UserCustomDetailListView(APIView):
 
 
 class UserDwellingDetailView(APIView):
-    permission_classes = [IsManagerOfUser|IsUserMatch]
+    permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="getDwellingDetail",
@@ -96,38 +96,51 @@ class UserDwellingDetailView(APIView):
         Return list of Dwelling assigned to this user
         """
         dwelling_list_as_owner: list[Dwelling] = list(
-                map(lambda owner: owner.dwelling,
-                    DwellingOwner.objects.filter(user__id=pk)))
+            map(lambda owner: owner.dwelling,
+                DwellingOwner.objects.filter(user__id=pk)))
 
         dwelling_list_as_resident: list[Dwelling] = list(
-                map(lambda resident: resident.dwelling,
-                    DwellingResident.objects.filter(user__id=pk)))
-        
+            map(lambda resident: resident.dwelling,
+                DwellingResident.objects.filter(user__id=pk)))
+
         serialized_data_list: list[UserDwellingDetailSerializer] = []
-        dwelling_owner_resident_set = set(dwelling_list_as_owner).intersection(dwelling_list_as_resident)
-        serialized_data_list.extend(self.__serialize_user_dwelling_data(dwelling_owner_resident_set, True, True))
+        dwelling_owner_resident_set = set(dwelling_list_as_owner).intersection(
+            dwelling_list_as_resident)
+        serialized_data_list.extend(
+            self.__serialize_user_dwelling_data(dwelling_owner_resident_set,
+                                                True, True))
 
-        dwelling_owner_set = set(dwelling_list_as_owner).difference(dwelling_owner_resident_set)
-        serialized_data_list.extend(self.__serialize_user_dwelling_data(dwelling_owner_set, is_owner=True, is_resident=False))
+        dwelling_owner_set = set(dwelling_list_as_owner).difference(
+            dwelling_owner_resident_set)
+        serialized_data_list.extend(
+            self.__serialize_user_dwelling_data(dwelling_owner_set,
+                                                is_owner=True,
+                                                is_resident=False))
 
-        dwelling_resident_set = set(dwelling_list_as_resident).difference(dwelling_owner_resident_set)
-        serialized_data_list.extend(self.__serialize_user_dwelling_data(dwelling_resident_set, is_resident=True, is_owner=False))
+        dwelling_resident_set = set(dwelling_list_as_resident).difference(
+            dwelling_owner_resident_set)
+        serialized_data_list.extend(
+            self.__serialize_user_dwelling_data(dwelling_resident_set,
+                                                is_resident=True,
+                                                is_owner=False))
 
         return Response(serialized_data_list)
 
-    def __serialize_user_dwelling_data(self, dwelling_list_set, is_owner, is_resident):
+    def __serialize_user_dwelling_data(self, dwelling_list_set, is_owner,
+                                       is_resident):
         list_of_serialized: list[UserDwellingDetailSerializer] = []
         for dwelling in dwelling_list_set:
             water_meter_code = dwelling.get_current_water_meter().code
 
             resident_first_name = ''
             resident_phone_number = ''
-            dwelling_resident : DwellingResident = dwelling.get_current_resident()
+            dwelling_resident: DwellingResident = dwelling.get_current_resident(
+            )
             if dwelling_resident != None:
                 resident_first_name = dwelling_resident.user.first_name
                 try:
-                    user_phone: UserPhone = UserPhone.objects.get(user=dwelling_resident.user,
-                                                                main=True)
+                    user_phone: UserPhone = UserPhone.objects.get(
+                        user=dwelling_resident.user, main=True)
                     if user_phone:
                         resident_phone_number = user_phone.phone.phone_number
                 except ObjectDoesNotExist:
@@ -143,21 +156,22 @@ class UserDwellingDetailView(APIView):
                 'gate': dwelling.full_address.gate,
                 'resident_first_name': resident_first_name,
                 'resident_phone': resident_phone_number,
-                'is_owner' : is_owner,
-                'is_resident' : is_resident
+                'is_owner': is_owner,
+                'is_resident': is_resident
             }
             list_of_serialized.append(
                 UserDwellingDetailSerializer(data, many=False).data)
 
         return list_of_serialized
 
+
 class UserCreatePhoneView(APIView):
-    permission_classes = [IsManagerOfUser|IsUserMatch]
+    permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="addUserPhone",
         request_body=UserPhoneUpdateSerializer,
-        responses={200: UserPhoneUpdateSerializer(many=True)},
+        responses={200: UserPhoneUpdateSerializer(many=False)},
         tags=[TAG_USER],
     )
     def post(self, request, pk):
@@ -175,13 +189,20 @@ class UserCreatePhoneView(APIView):
         # if new is main change others as not main
         if main:
             update_phone_to_not_main(pk)
+
         # create a new user phone
-        UserPhone.objects.create(
+        userPhone = UserPhone.objects.create(
             user=user,
             phone=Phone.objects.create(phone_number=new_phone),
             main=main)
 
-        return Response(get_all_user_phones_serialized(user))
+        data = {
+            "phone_id": userPhone.phone.id,
+            "phone": userPhone.phone.phone_number,
+            "main": userPhone.main,
+        }
+
+        return Response(UserPhoneUpdateSerializer(data, many=False))
 
     @swagger_auto_schema(
         operation_id="getUserPhone",
@@ -201,7 +222,7 @@ class UserCreatePhoneView(APIView):
 
 
 class UserPhoneUpdateDeleteView(APIView):
-    permission_classes = [IsManagerOfUser|IsUserMatch]
+    permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateUserPhone",
@@ -254,7 +275,7 @@ class UserPhoneUpdateDeleteView(APIView):
 
 
 class UserCreateAddressView(APIView):
-    permission_classes = [IsManagerOfUser|IsUserMatch]
+    permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="addUserAddress",
@@ -327,7 +348,7 @@ class UserCreateAddressView(APIView):
 
 
 class UserAddressUpdateDeleteView(APIView):
-    permission_classes = [IsManagerOfUser|IsUserMatch]
+    permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateUserAddress",
