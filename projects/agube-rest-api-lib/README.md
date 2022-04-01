@@ -1,6 +1,6 @@
 # AgubeRestApiLib
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.4.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.0.
 
 ## Code scaffolding
 
