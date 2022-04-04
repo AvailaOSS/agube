@@ -143,19 +143,19 @@ export class UserService {
     data: UserPhone,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<UserPhone>>;
+  ): Observable<UserPhone>;
   public addUserPhone(
     id: number,
     data: UserPhone,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<UserPhone>>>;
+  ): Observable<HttpResponse<UserPhone>>;
   public addUserPhone(
     id: number,
     data: UserPhone,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<UserPhone>>>;
+  ): Observable<HttpEvent<UserPhone>>;
   public addUserPhone(
     id: number,
     data: UserPhone,
@@ -203,7 +203,7 @@ export class UserService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.post<Array<UserPhone>>(
+    return this.httpClient.post<UserPhone>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/phone`,
       data,
       {
