@@ -81,5 +81,31 @@
         }
        
     }
+  }, 
+  "PASSWORD":{
+    "TITLE":"Contraseña",
+    "FORM":{
+      "USER_NAME":"Nombre de usuario",
+      "PASSWORD":"Contraseña",
+      "CONFIRM_PASSWORD":"Confirmar Contraseña",
+      "BUTTON":{
+        "BUTTON_SAVE":"Guardar",
+        "BUTTON_TOOLTIP":"Cambiar la Contraseña"
+      },
+      "VALIDATIONS":{
+        "USERNAME": "Inserta tu nombre de usuario para confirmar tu identidad",
+        "PASSWORD":{
+          "REQUIRED":"Inserta una contraseña",
+          "MINLENGTH":"La contraseña debe tener al menos 5 caracteres.",
+          "MAXLENGTH":"La contraseña debe tener hasta 16 caracteres."
+        },
+        "CONFIRM_PASSWORD":{
+          "REQUIRED":"Inserta una contraseña de confirmación",
+          "MINLENGTH":"La contraseña de confirmación debe tener al menos 5 caracteres.",
+          "MAXLENGTH":"La contraseña  de confirmación debe tener hasta 16 caracteres.",
+          "NOMATCHED":"La contraseñas no son iguales."
+        }
+      }
+    }
   }
 }

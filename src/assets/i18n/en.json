@@ -80,8 +80,32 @@
           "FIRST_NAME":"Is your name not correct? What's your name?",
           "LAST_NAME":"What are your last names?"
         }
-
-       
+    }
+  },
+  "PASSWORD":{
+    "TITLE":"PASSWORD",
+    "FORM":{
+      "USER_NAME":"Username",
+      "PASSWORD":"Password",
+      "CONFIRM_PASSWORD":"Confirm Password",
+      "BUTTON":{
+        "BUTTON_SAVE":"Save",
+        "BUTTON_TOOLTIP":"Update password"
+      },
+      "VALIDATIONS":{
+        "USERNAME": "Insert your username to confirm your identity",
+        "PASSWORD":{
+          "REQUIRED":"Insert your password",
+          "MINLENGTH":"The password must have at least 5 characters.",
+          "MAXLENGTH":"The password must be up to 16 characters."
+        },
+        "CONFIRM_PASSWORD":{
+          "REQUIRED":"Insert your password",
+          "MINLENGTH":"The password must have at least 5 characters.",
+          "MAXLENGTH":"The password must be up to 16 characters.",
+          "NOMATCHED":"Passwords are not the same."
+        }
+      }
     }
   }
 }
