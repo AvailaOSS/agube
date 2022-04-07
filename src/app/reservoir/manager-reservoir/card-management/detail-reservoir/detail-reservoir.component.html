@@ -1,0 +1,20 @@
+<div *ngIf="reservoir; else noReservoir">
+    <div class="reservoir-info">
+        <div>
+            <mat-icon>opacity</mat-icon>
+            <h2>{{reservoir.capacity}} L</h2> de Capacidad
+        </div>
+        <div>
+            <mat-icon>chevron_right</mat-icon>
+            <h2>{{reservoir.inlet_flow}} m<sup>3</sup></h2>
+            de Entrada
+        </div>
+        <div>
+            <mat-icon>chevron_left</mat-icon>
+            <h2>{{reservoir.outlet_flow}} m<sup>3</sup></h2> de Salida
+        </div>
+    </div>
+</div>
+<ng-template #noReservoir>
+    <h2>Sin Datos</h2>
+</ng-template>

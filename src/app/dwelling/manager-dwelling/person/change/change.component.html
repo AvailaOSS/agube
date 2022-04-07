@@ -1,0 +1,105 @@
+<div class="create-person-page" *ngIf="dwelling">
+    <mat-card class="create-person-page-card">
+        <mat-card-content>
+            <div class="form">
+                <h1>{{dwelling.full_address| fullAddress}}</h1>
+                <div *ngIf="currentPerson; else change">
+                    <h2>Cambio de {{title}}</h2>
+                    <p>El {{title}} actual <strong>{{currentPerson | userDetail}}</strong> será dado de baja</p>
+                </div>
+                <ng-template #change>
+                    <h2>Alta de nuevo {{title}}</h2>
+                </ng-template>
+                <div class="form-content">
+                    <div>
+                        <p>
+                            Datos
+                        </p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="save()" />
+                            <mat-error *ngIf="first_name.invalid">{{errorValidator('first_name')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Apellido/s</mat-label>
+                            <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="save()" />
+                            <mat-error *ngIf="last_name.invalid">{{errorValidator('last_name')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <p>
+                            Información de contacto
+                        </p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Correo electrónico</mat-label>
+                            <input matInput placeholder="stark@industries.com" [formControl]="email"
+                                (keydown.enter)="save()" />
+                            <mat-error *ngIf="email.invalid">{{errorValidator('email')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Teléfono de contacto</mat-label>
+                            <input matInput [formControl]="phone_number" (keydown.enter)="save()" />
+                            <mat-error *ngIf="phone_number.invalid">{{errorValidator('phone_number')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div>
+                        <p>
+                            Dirección adicional
+                        </p>
+                        <div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Ciudad</mat-label>
+                                <input matInput placeholder="Sofía" [formControl]="town" (keydown.enter)="save()" />
+                                <mat-error *ngIf="town.invalid">{{errorValidator('town')}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Calle</mat-label>
+                                <input matInput placeholder="Anthony Edward Stark Street" [formControl]="street"
+                                    (keydown.enter)="save()" />
+                                <mat-error *ngIf="street.invalid">{{errorValidator('street')}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Nº</mat-label>
+                                <input matInput placeholder="IV" [formControl]="number" (keydown.enter)="save()" />
+                                <mat-error *ngIf="number.invalid">{{errorValidator('number')}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Piso</mat-label>
+                                <input matInput placeholder="Tercero" [formControl]="flat" (keydown.enter)="save()" />
+                                <mat-error *ngIf="flat.invalid">{{errorValidator('flat')}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Puerta</mat-label>
+                                <input matInput placeholder="A" [formControl]="gate" (keydown.enter)="save()" />
+                                <mat-error *ngIf="gate.invalid">{{errorValidator('gate')}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+                </div>
+                <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
+                <mat-card-actions [align]="'end'">
+                    <button mat-button matTooltip="No se realizará el cambio de {{title}}" (click)="exit()">
+                        Salir sin Guardar
+                    </button>
+                    <button mat-raised-button color="primary" matTooltip="Realizar el cambio de {{title}}"
+                        (click)="save()" [disabled]="this.personForm.invalid">
+                        <div>
+                            <mat-icon>save</mat-icon>
+                            Guardar
+                        </div>
+                    </button>
+                    <button mat-raised-button color="primary"
+                        matTooltip="Realizar el cambio de {{title}} y volver a la página principal"
+                        (click)="saveAndExit()" [disabled]="this.personForm.invalid">
+                        <div>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Guardar y Salir
+                        </div>
+                    </button>
+                </mat-card-actions>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

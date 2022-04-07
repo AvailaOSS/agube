@@ -1,0 +1,16 @@
+<div class="contact-info">
+    <div *ngIf="resident; else noResident">
+        <h2>
+            {{ resident.user | userDetail}}
+        </h2>
+        <p>
+            Teléfono de contacto <b>{{getMainPhone()}}</b>
+        </p>
+        <p>
+            Alta desde <b>{{resident.release_date | date:'longDate' }}</b>
+        </p>
+    </div>
+    <ng-template #noResident>
+        <h2>Sin Residente</h2>
+    </ng-template>
+</div>

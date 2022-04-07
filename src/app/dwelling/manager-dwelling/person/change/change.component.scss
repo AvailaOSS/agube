@@ -1,0 +1,32 @@
+@import '../../../../../assets/availa/sizes/margins.scss';
+@import '../../../../../assets/availa/sizes/page.scss';
+
+.create-person-page {
+  @include my-page();
+}
+
+.create-person-page-card {
+  @include my-page-column();
+}
+
+.form {
+  padding: $margin-x-medium;
+  .form-content {
+    display: inline-grid;
+    mat-form-field {
+      margin: $margin-x-small;
+    }
+  }
+  mat-card-actions {
+    button {
+      div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        mat-icon {
+          margin-right: $margin-x-small;
+        }
+      }
+    }
+  }
+}

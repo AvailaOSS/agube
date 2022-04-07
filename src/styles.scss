@@ -1,114 +1,37 @@
-/* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
-@import "~@ng-select/ng-select/themes/default.theme.css";
-@import "./scss/theme/theme.scss";
-@import "./scss/variables/borders.scss";
-@import "./scss/variables/buttons.scss";
-@import "./scss/variables/layout.scss";
-@import "./scss/variables/margins.scss";
-@import "./scss/variables/minicards.scss";
-@import "./scss/variables/navbar.scss";
-@import "./scss/variables/paddings.scss";
-@import "./scss/variables/sizes.scss";
-@import "./scss/variables/tables.scss";
-@import "./scss/variables/typography.scss";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
 
+// Plus imports for other components in your app.
+@import 'assets/availa/theme/light';
+@import '@angular/material/theming';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+// @import 'assets/availa/typography/typography.scss';
+// @include mat.core($ubuntu-typography);
+@include mat.core();
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($agube-fe-theme);
+
+.theme-dark {
+  @import 'assets/availa/theme/dark';
+  @include angular-material-theme($my-dark-theme);
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  font-family: 'Ubuntu';
+}
+html,
 body {
-  background-color: $color-white;
+  height: 100%;
+}
+body {
   margin: 0;
-  padding: 0;
-}
-
-.bg-primary {
-  background-color: $color-primary !important;
-  color: $color-white;
-}
-
-.page-item.active .page-link {
-  z-index: 3;
-  color: $color-white;
-  background-color: $color-primary;
-  border-color: $color-primary;
-}
-
-.col-4 {
-  flex: 0 0 20.333333%;
-  max-width: 20.333333%;
-}
-
-.bg-warning {
-  background-color: $color-terciary !important;
-}
-
-.bg-configuration {
-  background-color: $color-cuaternary !important;
-}
-
-.display-flex {
-  display: flex;
-}
-
-.btn-primary:focus,
-.btn-primary.focus {
-  background-color: $color-primary !important;
-  border: 1 solid $color-primary;
-}
-
-.container-login {
-  background-color: $color-primary !important;
-}
-app-login {
-  background-color: $color-primary !important;
-}
-::ng-deep .incidence-fe {
-  margin-top: $margin-large !important;
-  height: $height-x-large;
-  margin-left: $margin-medium;
-  border: 0px solid black;
-  background-color: $color-primary-light;
-}
-::ng-deep .task-fe {
-  margin-top: $margin-x-medium !important;
-  height: $height-large;
-}
-::ng-deep .calendar-fe {
-  margin-top: 70px !important;
-  width: 54%;
-  float: right;
-  margin-right: 110px;
-}
-.border-forms {
-  border: 1px solid lightgray;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.margin-adaptation-generic {
-  margin-right: -21%;
-}
-.margin-buttons-forms {
-  margin-top: 33px;
-}
-
-.color-danger {
-  color: red;
-}
-
-.btn-outline-primary:not(:disabled):not(.disabled):active,
-.btn-outline-primary:not(:disabled):not(.disabled).active,
-.show > .btn-outline-primary.dropdown-toggle {
-  color: $color-terciary;
-  background-color: $color-primary;
-  border-color: $color-primary;
-}
-
-.btn-outline-primary:hover {
-  color: $color-terciary;
-  background-color: $color-primary;
-  border-color: $color-primary;
-}
-
-.btn-outline-primary {
-  color: $color-terciary;
-  border-color: $color-primary;
 }
