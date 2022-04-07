@@ -1,1 +1,9 @@
+<span class="lenguaje-selector">
+    <mat-button-toggle-group [formControl]="selectedLenguaje">
+        <mat-button-toggle *ngFor="let lenguaje of lenguajes" value="{{lenguaje.code}}"
+            matTooltip="{{lenguaje.description}}">
+            <img src="{{lenguaje.flagLink}}" />
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</span>
 <router-outlet></router-outlet>
