@@ -59,113 +59,112 @@
       }
     }
   },
-  "PERSONAL_INFO":{
-    "TITLE":"Datos Personales",
-    "FORM":{
-        "USER_NAME":"Nombre de usuario",
-        "FIRST_NAME":"Nombre",
-        "LAST_NAME":"Apellidos",
-        "EMAIL":"Correo electrónico",
-        "BUTTON":{
-          "BUTTON_SAVE":"Guardar",
-          "BUTTON_TOOLTIP":"Actualiza la información personal"
+  "PERSONAL_INFO": {
+    "TITLE": "Datos Personales",
+    "FORM": {
+      "USER_NAME": "Nombre de usuario",
+      "FIRST_NAME": "Nombre",
+      "LAST_NAME": "Apellidos",
+      "EMAIL": "Correo electrónico",
+      "BUTTON": {
+        "BUTTON_SAVE": "Guardar",
+        "BUTTON_TOOLTIP": "Actualiza la información personal"
+      },
+      "VALIDATIONS": {
+        "USERNAME": "¿No te gusta tu nombre de usuario? ¡Cámbialo!",
+        "EMAIL": {
+          "REQUIRED": "¿Has cambiado de correo? ¡Actualízalo!",
+          "FORMAT_STANDARD": "El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com'"
         },
-        "VALIDATIONS":{
-          "USERNAME": "¿No te gusta tu nombre de usuario? ¡Cámbialo!",
-          "EMAIL":{
-            "REQUIRED":"¿Has cambiado de correo? ¡Actualízalo!",
-            "FORMAT_STANDARD":"El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com'"
-          },
-          "FIRST_NAME":"¿Tu nombre no es correcto? ¿Cómo te llamas?",
-          "LAST_NAME":"¿Cuál son tus Apellidos?"
-        }
-       
-    }
-  }, 
-  "CONTACT_INFO":{
-    "TITLE":"Información de contacto",
-    "PHONES":{
-      "TITLE":"Teléfonos",
-      "BUTTON":{
-        "BUTTON_TOOLTIP":"Añadir nuevo Teléfono"
-      },
-      "FORM":{
-        "ADD_PHONE":"Nuevo Teléfono",
-        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
-        "BUTTON_SAVE_TOOLTIP":"Guardar",
-        "VALIDATIONS":{
-          "REQUIRED":"Inserta un número de contacto",
-          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
-        }
-      },
-      "EDIT_FORM":{
-        "EDIT_PHONE":"Modificar Teléfono",
-        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
-        "BUTTON_SAVE_TOOLTIP":"Guardar",
-        "BUTTON_PRINCIPAL_TOOLTIP":"Poner como favorito",
-        "BUTTON_EDIT_TOOLTIP":"Editar",
-        "BUTTON_DELETE_TOOLTIP":"Borrar",
-        "VALIDATIONS":{
-          "REQUIRED":"Inserta un número de contacto",
-          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
-        }
-      }      
-    },
-    "ADDRESS":{
-      "TITLE":"Direcciones",
-      "BUTTON":{
-        "BUTTON_TOOLTIP":"Añadir nueva Dirección"
-      },
-      "FORM":{
-        "GATE":"Puerta",
-        "FLAT":"Piso",
-        "NUMBER":"Número",
-        "STREET":"Calle",
-        "TOWN":"Ciudad",  
-        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
-        "BUTTON_SAVE_TOOLTIP":"Guardar",
-        "VALIDATIONS":{
-          "GATE":"Escribe el número de Puerta",
-          "NUMBER":"Escribe el número de la Dirección",
-          "STREET":"Escribe la calle a la que corresponde la Vivienda",
-          "TOWN":"Escribe la ciudad en la que se encuentra la Vivienda"
-        }
-      },
-      "EDIT_FORM":{
-        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
-        "BUTTON_SAVE_TOOLTIP":"Guardar",
-        "BUTTON_PRINCIPAL_TOOLTIP":"Poner como favorito",
-        "BUTTON_EDIT_TOOLTIP":"Editar",
-        "BUTTON_DELETE_TOOLTIP":"Borrar",
-        "VALIDATIONS":{
-          "REQUIRED":"Inserta un número de contacto",
-          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
-        }
-      }      
+        "FIRST_NAME": "¿Tu nombre no es correcto? ¿Cómo te llamas?",
+        "LAST_NAME": "¿Cuál son tus Apellidos?"
+      }
     }
   },
-  "PASSWORD":{
-    "TITLE":"Contraseña",
-    "FORM":{
-      "USER_NAME":"Nombre de usuario",
-      "PASSWORD":"Contraseña",
-      "CONFIRM_PASSWORD":"Confirmar Contraseña",
-      "BUTTON":{
-        "BUTTON_SAVE":"Guardar",
-        "BUTTON_TOOLTIP":"Cambiar la Contraseña"
+  "CONTACT_INFO": {
+    "TITLE": "Información de contacto",
+    "PHONES": {
+      "TITLE": "Teléfonos",
+      "BUTTON": {
+        "BUTTON_TOOLTIP": "Añadir nuevo Teléfono"
       },
-      "VALIDATIONS":{
+      "FORM": {
+        "ADD_PHONE": "Nuevo Teléfono",
+        "BUTTON_CLOSE_TOOLTIP": "Cerrar",
+        "BUTTON_SAVE_TOOLTIP": "Guardar",
+        "VALIDATIONS": {
+          "REQUIRED": "Inserta un número de contacto",
+          "PATTERN": "El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      },
+      "EDIT_FORM": {
+        "EDIT_PHONE": "Modificar Teléfono",
+        "BUTTON_CLOSE_TOOLTIP": "Cerrar",
+        "BUTTON_SAVE_TOOLTIP": "Guardar",
+        "BUTTON_PRINCIPAL_TOOLTIP": "Poner como favorito",
+        "BUTTON_EDIT_TOOLTIP": "Editar",
+        "BUTTON_DELETE_TOOLTIP": "Borrar",
+        "VALIDATIONS": {
+          "REQUIRED": "Inserta un número de contacto",
+          "PATTERN": "El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      }
+    },
+    "ADDRESS": {
+      "TITLE": "Direcciones",
+      "BUTTON": {
+        "BUTTON_TOOLTIP": "Añadir nueva Dirección"
+      },
+      "FORM": {
+        "GATE": "Puerta",
+        "FLAT": "Piso",
+        "NUMBER": "Número",
+        "STREET": "Calle",
+        "TOWN": "Ciudad",
+        "BUTTON_CLOSE_TOOLTIP": "Cerrar",
+        "BUTTON_SAVE_TOOLTIP": "Guardar",
+        "VALIDATIONS": {
+          "GATE": "Escribe el número de Puerta",
+          "NUMBER": "Escribe el número de la Dirección",
+          "STREET": "Escribe la calle a la que corresponde la Vivienda",
+          "TOWN": "Escribe la ciudad en la que se encuentra la Vivienda"
+        }
+      },
+      "EDIT_FORM": {
+        "BUTTON_CLOSE_TOOLTIP": "Cerrar",
+        "BUTTON_SAVE_TOOLTIP": "Guardar",
+        "BUTTON_PRINCIPAL_TOOLTIP": "Poner como favorito",
+        "BUTTON_EDIT_TOOLTIP": "Editar",
+        "BUTTON_DELETE_TOOLTIP": "Borrar",
+        "VALIDATIONS": {
+          "REQUIRED": "Inserta un número de contacto",
+          "PATTERN": "El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      }
+    }
+  },
+  "PASSWORD": {
+    "TITLE": "Contraseña",
+    "FORM": {
+      "USER_NAME": "Nombre de usuario",
+      "PASSWORD": "Contraseña",
+      "CONFIRM_PASSWORD": "Confirmar Contraseña",
+      "BUTTON": {
+        "BUTTON_SAVE": "Guardar",
+        "BUTTON_TOOLTIP": "Cambiar la Contraseña"
+      },
+      "VALIDATIONS": {
         "USERNAME": "Inserta tu nombre de usuario para confirmar tu identidad",
-        "PASSWORD":{
-          "REQUIRED":"Inserta una contraseña",
-          "MINLENGTH":"La contraseña debe tener al menos 5 caracteres.",
-          "MAXLENGTH":"La contraseña debe tener hasta 16 caracteres."
+        "PASSWORD": {
+          "REQUIRED": "Inserta una contraseña",
+          "MINLENGTH": "La contraseña debe tener al menos 5 caracteres.",
+          "MAXLENGTH": "La contraseña debe tener hasta 16 caracteres."
         },
-        "CONFIRM_PASSWORD":{
-          "REQUIRED":"Inserta una contraseña de confirmación",
-          "MINLENGTH":"La contraseña de confirmación debe tener al menos 5 caracteres.",
-          "MAXLENGTH":"La contraseña  de confirmación debe tener hasta 16 caracteres.",
-          "NOMATCHED":"La contraseñas no son iguales."
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Inserta una contraseña de confirmación",
+          "MINLENGTH": "La contraseña de confirmación debe tener al menos 5 caracteres.",
+          "MAXLENGTH": "La contraseña  de confirmación debe tener hasta 16 caracteres.",
+          "NOMATCHED": "La contraseñas no son iguales."
         }
       }
     }
