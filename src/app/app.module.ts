@@ -8,8 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { HomeRoute } from './home/home-route';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AgubeApiModule } from '@availa/agube-rest-api';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +35,15 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
     }),
     AgubeApiModule.forRoot({
       basePath: environment.agubeBackendUrl,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => {
+          return new TranslateHttpLoader(http);
+        },
+        deps: [HttpClient],
+      },
     }),
   ],
   providers: [],
