@@ -17,6 +17,7 @@ import { WaterMeterModule } from 'src/app/water-meter/water-meter.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     WaterMeterModule,
     MatDividerModule,
     MatTooltipModule,
+    TranslateModule,
   ],
 })
 export class ManagerDwellingModule {}

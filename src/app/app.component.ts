@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-export interface Lenguajes {
+export interface Language {
   code: string;
   description: string;
   flagLink: string;
@@ -16,7 +16,7 @@ export interface Lenguajes {
 export class AppComponent {
   title = 'agube-fe';
 
-  public lenguajes: Lenguajes[] = [
+  public languages: Language[] = [
     {
       code: 'es',
       description: 'Español',
@@ -29,7 +29,13 @@ export class AppComponent {
     },
   ];
 
-  public selectedLenguaje = new FormControl('');
+  public selectedLanguage = new FormControl('');
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('es');
+  }
+
+  public selectLenguaje(language: Language) {
+    this.translate.use(language.code);
+  }
 }

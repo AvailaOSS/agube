@@ -4,13 +4,13 @@
             {{ resident.user | userDetail}}
         </h2>
         <p>
-            Teléfono de contacto <b>{{getMainPhone()}}</b>
+            {{"DWELLINGS.CARD.RESIDENT.CONTACT_PHONE" | translate}} <b>{{getMainPhone()}}</b>
         </p>
         <p>
-            Alta desde <b>{{resident.release_date | date:'longDate' }}</b>
+            {{"DWELLINGS.CARD.RESIDENT.RELEASE_DATE" | translate}} <b>{{resident.release_date | date:'longDate' }}</b>
         </p>
     </div>
     <ng-template #noResident>
-        <h2>Sin Residente</h2>
+        <h2> {{"DWELLINGS.CARD.RESIDENT.NO_RESIDENT" | translate}}</h2>
     </ng-template>
 </div>

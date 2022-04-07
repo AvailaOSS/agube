@@ -1,7 +1,7 @@
 <div class="water-meter-container" *ngIf="waterMeter; else noWaterMeter">
   <h2>{{waterMeter.code}}</h2>
-  Fecha de alta {{waterMeter.release_date | date:'longDate'}}
+  {{"WATER_METER.RELEASE_DATE" | translate}} {{waterMeter.release_date | date:'longDate'}}
 </div>
 <ng-template #noWaterMeter>
-  <h2>Sin Contador</h2>
+  <h2>{{"WATER_METER.NO_COUNTER" | translate}}</h2>
 </ng-template>

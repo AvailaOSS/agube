@@ -1,0 +1,62 @@
+{
+  "SIDEBAR": {
+    "BUTTONS": {
+      "CLOSE_SESSION": "Cerrar Sesión"
+    },
+    "TITLES": {
+      "PAGE_PROFILE": "Mi Perfil",
+      "PAGE_MY_DWELLING": "Mi Vivienda",
+      "PAGE_DWELLINGS": "Viviendas",
+      "PAGE_RESERVOIRS": "Depósitos",
+      "PAGE_CONFIGURATION": "Configuración"
+    }
+  },
+  "DWELLINGS": {
+    "TABLE": {
+      "TOOLTIP": "Seleccionar",
+      "FILTER": {
+        "TEXT": "Código, Calle, Ciudad, Nº Telefono...",
+        "TOOLTIP": "Buscar",
+        "BUTTON": {
+          "TOOLTIP": "Borrar búsqueda"
+        }
+      },
+      "BUTTON": {
+        "TEXT": "Nueva Vivienda",
+        "TOOLTIP": "Ir a la página de creación de viviendas"
+      }
+    },
+    "CARD": {
+      "RESIDENT": {
+        "TITLE": "Residente",
+        "CONTACT_PHONE": "Teléfono de contacto",
+        "RELEASE_DATE": "Alta desde",
+        "NO_RESIDENT": "Sin Residente"
+      },
+      "BUTTONS": {
+        "CHANGE_WATER_METER_CODE": "Cambio de Contador",
+        "CHANGE_WATER_METER_CODE_TOOLTIP": "Dar de Baja el contador actual y Dar de Alta un nuevo contador",
+        "CHANGE_RESIDENT": "Cambio de Residente",
+        "CHANGE_RESIDENT_TOOLTIP": "Dar de Baja el Residente actual y Dar de Alta uno nuevo",
+        "CHANGE_OWNER": "Cambio de Propietario",
+        "CHANGE_OWNER_TOOLTIP": "Dar de Baja el Propietario actual y Dar de Alta uno nuevo"
+      }
+    }
+  },
+  "WATER_METER": {
+    "CODE": "Código de contador",
+    "RELEASE_DATE": "Fecha de alta",
+    "NO_COUNTER": "Sin Contador",
+    "HEADER": {
+      "FILTER": {
+        "TEXT": " mes-día, año, mes, día",
+        "TOOLTIP": "Buscar",
+        "BUTTON_TOOLTIP": "Borrar búsqueda"
+      },
+      "BUTTON": {
+        "TEXT": "Abrir formulario de Nueva Lectura",
+        "TOOLTIP": "Nueva Lectura"
+      }
+    }
+  }
+}

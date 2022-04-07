@@ -1,0 +1,62 @@
+{
+  "SIDEBAR": {
+    "BUTTONS": {
+      "CLOSE_SESSION": "Close Session"
+    },
+    "TITLES": {
+      "PAGE_PROFILE": "My Profile",
+      "PAGE_MY_DWELLING": "My Dwelling",
+      "PAGE_DWELLINGS": "Dwellings",
+      "PAGE_RESERVOIRS": "Reservoirs",
+      "PAGE_CONFIGURATION": "Configuration"
+    }
+  },
+  "DWELLINGS": {
+    "TABLE": {
+      "TOOLTIP": "Select",
+      "FILTER": {
+        "TEXT": "Code, Street, Town, Phone Nº...",
+        "TOOLTIP": "Search",
+        "BUTTON": {
+          "TOOLTIP": "Clean Search"
+        }
+      },
+      "BUTTON": {
+        "TEXT": "New Dwelling",
+        "TOOLTIP": "Go to the creation dwelling page"
+      }
+    },
+    "CARD": {
+      "RESIDENT": {
+        "TITLE": "Resident",
+        "CONTACT_PHONE": "Contact phone",
+        "RELEASE_DATE": "Since",
+        "NO_RESIDENT": "Without Resident"
+      },
+      "BUTTONS": {
+        "CHANGE_WATER_METER_CODE": "Change Counter",
+        "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter",
+        "CHANGE_RESIDENT": "Change Resident",
+        "CHANGE_RESIDENT_TOOLTIP": "Deregister the current Resident and Register a new one",
+        "CHANGE_OWNER": "Change Owner",
+        "CHANGE_OWNER_TOOLTIP": "Cancel the current Owner and Register a new one"
+      }
+    }
+  },
+  "WATER_METER": {
+    "CODE": "Code counter",
+    "RELEASE_DATE": "Release date",
+    "NO_COUNTER": "None",
+    "HEADER": {
+      "FILTER": {
+        "TEXT": " month-day, year, month, day",
+        "TOOLTIP": "Search",
+        "BUTTON_TOOLTIP": "Clean search"
+      },
+      "BUTTON": {
+        "TEXT": "Open new Reading form",
+        "TOOLTIP": "New Reading"
+      }
+    }
+  }
+}

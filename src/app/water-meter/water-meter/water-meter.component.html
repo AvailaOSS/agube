@@ -1,17 +1,18 @@
 <div class="water-meter-header">
     <mat-form-field appearance="standard">
-        <mat-label>m<sup>3</sup>, mes-día, año, mes, día</mat-label>
-        <input matInput matTooltip="Buscar" matTooltipPosition="right" (keyup)="applyFilter()" [formControl]="filter">
-        <button matSuffix mat-icon-button matTooltip="Borrar búsqueda" *ngIf="filter.value.length > 0"
-            (click)="clearFilter()">
+        <mat-label>m<sup>3</sup>, {{"WATER_METER.HEADER.FILTER.TEXT" | translate}}</mat-label>
+        <input matInput matTooltip="{{'WATER_METER.HEADER.FILTER.TOOLTIP' | translate}}" matTooltipPosition="right"
+            (keyup)="applyFilter()" [formControl]="filter">
+        <button matSuffix mat-icon-button matTooltip="{{'WATER_METER.HEADER.FILTER.BUTTON_TOOLTIP' | translate}}"
+            *ngIf="filter.value.length > 0" (click)="clearFilter()">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
     <div>
-        <button mat-raised-button color="primary" matTooltip="Abrir formulario de Nueva Lectura"
+        <button mat-raised-button color="primary" matTooltip="{{'WATER_METER.HEADER.BUTTON.TOOLTIP' | translate}}"
             (click)="openMeasureDialog()" disabled="{{!this.waterMeterId}}">
             <mat-icon color="accent">alarm_add</mat-icon>
-            Nueva Lectura
+            {{"WATER_METER.HEADER.BUTTON.TEXT" | translate}}
         </button>
     </div>
 </div>
