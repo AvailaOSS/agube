@@ -14,7 +14,7 @@ import { PersonalInfo } from './personal-info';
   styleUrls: ['../client-config.component.scss'],
 })
 export class PersonalInfoComponent implements OnInit {
-  public loadSave: boolean = false; 
+  public loadSave: boolean = false;
   public personalForm: FormGroup;
   public username = new FormControl('', [Validators.required]);
   public email = new FormControl('', [Validators.required, Validators.email]);
@@ -59,25 +59,25 @@ export class PersonalInfoComponent implements OnInit {
     switch (entity) {
       case 'username':
         if (this.username.hasError('required')) {
-          return 'Inserta tu nuevo nombre de usuario';
+          return '¿No te gusta tu nombre de usuario? ¡Cámbialo!';
         }
         return '';
       case 'email':
         if (this.email.hasError('required')) {
-          return 'Inserta tu correo electrónico';
+          return '¿Has cambiado de correo? ¡Actualízalo!';
         }
         if (this.email.hasError('email')) {
-          return 'El email introducido no cumple con el formato tony@stark.com';
+          return 'El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com';
         }
         return '';
       case 'first_name':
         if (this.first_name.hasError('required')) {
-          return 'Inserta tu nombre';
+          return '¿Tu nombre no es correcto? ¿Cómo te llamas?';
         }
         return '';
       case 'last_name':
         if (this.last_name.hasError('required')) {
-          return `Inserta tus apellidos`;
+          return '¿Cuál es tu Apellido?';
         }
         return '';
       default:

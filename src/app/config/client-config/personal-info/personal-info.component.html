@@ -7,11 +7,6 @@
             <mat-error *ngIf="username.invalid">{{errorValidator('username')}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Correo electrónico</mat-label>
-            <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="saveForm()">
-            <mat-error *ngIf="email.invalid">{{errorValidator('email')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
             <mat-label>Nombre </mat-label>
             <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="saveForm()">
             <mat-error *ngIf="first_name.invalid">{{errorValidator('first_name')}}</mat-error>
@@ -20,6 +15,11 @@
             <mat-label>Apellidos</mat-label>
             <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="saveForm()">
             <mat-error *ngIf="last_name.invalid">{{errorValidator('last_name')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="saveForm()">
+            <mat-error *ngIf="email.invalid">{{errorValidator('email')}}</mat-error>
         </mat-form-field>
     </div>
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
