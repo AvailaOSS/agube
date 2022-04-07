@@ -144,8 +144,8 @@
           "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
         }
     }
-  },
-
+  }
+},
   "PASSWORD": {
     "TITLE": "PASSWORD",
     "FORM": {
@@ -173,4 +173,4 @@
     }
   }
   }
-}
+
