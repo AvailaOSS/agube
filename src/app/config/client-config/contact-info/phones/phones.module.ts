@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { NotificationModule } from '@availa/notification';
 import { PhonesComponent } from './phones.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [PhonesComponent, EditPhoneComponent],
@@ -22,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatListModule,
     MatTooltipModule,
+    TranslateModule
   ],
   exports: [PhonesComponent, EditPhoneComponent],
 })

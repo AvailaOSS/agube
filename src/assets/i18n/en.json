@@ -59,51 +59,83 @@
       }
     }
   },
-  "PERSONAL_INFO":{
-    "TITLE":"Personal Data",
-    "FORM":{
-        "USER_NAME":"Username",
-        "FIRST_NAME":"Name",
-        "LAST_NAME":"Last name",
-        "EMAIL":"Email",
-        "BUTTON":{
-          "BUTTON_SAVE":"Save",
-          "BUTTON_TOOLTIP":"Update personal data"
+  "PERSONAL_INFO": {
+    "TITLE": "Personal Data",
+    "FORM": {
+      "USER_NAME": "Username",
+      "FIRST_NAME": "Name",
+      "LAST_NAME": "Last name",
+      "EMAIL": "Email",
+      "BUTTON": {
+        "BUTTON_SAVE": "Save",
+        "BUTTON_TOOLTIP": "Update personal data"
+      },
+
+      "VALIDATIONS": {
+        "USERNAME": "You don't like your username? Change it!",
+        "EMAIL": {
+          "REQUIRED": "Have you changed email? Update it!",
+          "FORMAT_STANDARD": "The entered email does not comply with the standard format, for example: 'tony@stark.com'"
         },
-         
-        "VALIDATIONS":{
-          "USERNAME": "You don't like your username? Change it!",
-          "EMAIL":{
-            "REQUIRED":"Have you changed email? Update it!",
-            "FORMAT_STANDARD":"The entered email does not comply with the standard format, for example: 'tony@stark.com'"
-          },
-          "FIRST_NAME":"Is your name not correct? What's your name?",
-          "LAST_NAME":"What are your last names?"
-        }
+        "FIRST_NAME": "Is your name not correct? What's your name?",
+        "LAST_NAME": "What are your last names?"
+      }
     }
   },
-  "PASSWORD":{
-    "TITLE":"PASSWORD",
-    "FORM":{
-      "USER_NAME":"Username",
-      "PASSWORD":"Password",
-      "CONFIRM_PASSWORD":"Confirm Password",
-      "BUTTON":{
-        "BUTTON_SAVE":"Save",
-        "BUTTON_TOOLTIP":"Update password"
+
+  "CONTACT_INFO": {
+    "TITLE": "Contact Infomation",
+    "PHONES": {
+      "TITLE": "Phones",
+      "BUTTON": {
+        "BUTTON_TOOLTIP": "Add New Phone"
       },
-      "VALIDATIONS":{
+      "FORM": {
+        "ADD_PHONE": "New Phone",
+        "BUTTON_CLOSE_TOOLTIP": "Close",
+        "BUTTON_SAVE_TOOLTIP": "Save",
+        "VALIDATIONS": {
+          "REQUIRED": "Insert a contact number",
+          "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
+        }
+      },
+      "EDIT_FORM":{
+        "EDIT_PHONE":"Modify Phone",
+        "BUTTON_CLOSE_TOOLTIP":"Close",
+        "BUTTON_SAVE_TOOLTIP":"Save",
+        "BUTTON_PRINCIPAL_TOOLTIP":"Put favorite phone",
+        "BUTTON_EDIT_TOOLTIP":"Edit",
+        "BUTTON_DELETE_TOOLTIP":"Delete",
+        "VALIDATIONS":{
+          "REQUIRED": "Insert a contact number",
+          "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
+        }
+      }
+    }
+  },
+
+  "PASSWORD": {
+    "TITLE": "PASSWORD",
+    "FORM": {
+      "USER_NAME": "Username",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "BUTTON": {
+        "BUTTON_SAVE": "Save",
+        "BUTTON_TOOLTIP": "Update password"
+      },
+      "VALIDATIONS": {
         "USERNAME": "Insert your username to confirm your identity",
-        "PASSWORD":{
-          "REQUIRED":"Insert your password",
-          "MINLENGTH":"The password must have at least 5 characters.",
-          "MAXLENGTH":"The password must be up to 16 characters."
+        "PASSWORD": {
+          "REQUIRED": "Insert your password",
+          "MINLENGTH": "The password must have at least 5 characters.",
+          "MAXLENGTH": "The password must be up to 16 characters."
         },
-        "CONFIRM_PASSWORD":{
-          "REQUIRED":"Insert your password",
-          "MINLENGTH":"The password must have at least 5 characters.",
-          "MAXLENGTH":"The password must be up to 16 characters.",
-          "NOMATCHED":"Passwords are not the same."
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Insert your password",
+          "MINLENGTH": "The password must have at least 5 characters.",
+          "MAXLENGTH": "The password must be up to 16 characters.",
+          "NOMATCHED": "Passwords are not the same."
         }
       }
     }

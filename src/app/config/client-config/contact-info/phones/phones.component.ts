@@ -97,10 +97,10 @@ export class PhonesComponent {
     switch (entity) {
       case 'newPhone':
         let invalidPattern =
-          'El número de contacto no cumple con el formato 196320819 o +XX 196320819';
+          'CONTACT_INFO.PHONES.FORM.VALIDATIONS.PATTERN';
 
         if (this.newPhone.hasError('required')) {
-          return 'Inserta un número de contacto';
+          return 'CONTACT_INFO.PHONES.FORM.VALIDATIONS.REQUIRED';
         }
         if (this.newPhone.hasError('pattern')) {
           return invalidPattern;

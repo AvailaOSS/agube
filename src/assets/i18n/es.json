@@ -82,6 +82,36 @@
        
     }
   }, 
+  "CONTACT_INFO":{
+    "TITLE":"Información de contacto",
+    "PHONES":{
+      "TITLE":"Teléfonos",
+      "BUTTON":{
+        "BUTTON_TOOLTIP":"Añadir nuevo Teléfono"
+      },
+      "FORM":{
+        "ADD_PHONE":"Nuevo Teléfono",
+        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
+        "BUTTON_SAVE_TOOLTIP":"Guardar",
+        "VALIDATIONS":{
+          "REQUIRED":"Inserta un número de contacto",
+          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      },
+      "EDIT_FORM":{
+        "EDIT_PHONE":"Modificar Teléfono",
+        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
+        "BUTTON_SAVE_TOOLTIP":"Guardar",
+        "BUTTON_PRINCIPAL_TOOLTIP":"Poner como favorito",
+        "BUTTON_EDIT_TOOLTIP":"Editar",
+        "BUTTON_DELETE_TOOLTIP":"Borrar",
+        "VALIDATIONS":{
+          "REQUIRED":"Inserta un número de contacto",
+          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      }      
+    }
+  },
   "PASSWORD":{
     "TITLE":"Contraseña",
     "FORM":{

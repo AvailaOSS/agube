@@ -1,7 +1,7 @@
 <mat-list>
     <div class="edit-phones-header">
-        <h3>Teléfonos</h3>
-        <button mat-mini-fab color="accent" matTooltip="Añadir nuevo Teléfono" matTooltipPosition="right"
+        <h3>{{'CONTACT_INFO.PHONES.TITLE' |translate}}</h3>
+        <button mat-mini-fab color="accent" matTooltip="{{'CONTACT_INFO.PHONES.BUTTON.BUTTON_TOOLTIP' |translate}}" matTooltipPosition="right"
             (click)="openClosePhoneForm()">
             <mat-icon>add</mat-icon>
         </button>
@@ -10,16 +10,17 @@
         <div class="editable-form">
             <!-- <div class="phone-form"> -->
             <mat-form-field appearance="fill">
-                <mat-label>Nuevo Teléfono</mat-label>
+                <mat-label>{{'CONTACT_INFO.PHONES.FORM.ADD_PHONE' |translate}}</mat-label>
                 <input matInput placeholder="555555555" [formControl]="newPhone" (keydown.enter)="savePhone()">
-                <mat-error *ngIf="newPhone.invalid">{{errorValidator('newPhone')}}</mat-error>
+                <mat-error *ngIf="newPhone.invalid">{{errorValidator('newPhone') | translate}}</mat-error>
             </mat-form-field>
             <!-- </div> -->
             <div class="phone-buttons">
-                <button mat-icon-button matTooltip="Cerrar" matTooltipPosition="above" (click)="openClosePhoneForm()">
+                <button mat-icon-button matTooltip="{{'CONTACT_INFO.PHONES.FORM.BUTTON_CLOSE_TOOLTIP' |translate}}" matTooltipPosition="above"
+                 (click)="openClosePhoneForm()">
                     <mat-icon>close</mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Guardar" matTooltipPosition="above" (click)="savePhone()"
+                <button mat-icon-button matTooltip="{{'CONTACT_INFO.PHONES.FORM.BUTTON_SAVE_TOOLTIP' |translate}}" matTooltipPosition="above" (click)="savePhone()"
                     [disabled]="this.newPhone.invalid">
                     <mat-icon>save</mat-icon>
                 </button>
