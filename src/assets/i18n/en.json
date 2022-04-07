@@ -111,6 +111,38 @@
           "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
         }
       }
+    },
+    "ADDRESS":{
+      "TITLE": "Address",
+      "BUTTON":{
+        "BUTTON_TOOLTIP":"Add new Address"
+      },
+      "FORM":{
+        "GATE":"Gate",
+        "FLAT":"Flat",
+        "NUMBER":"Number",
+        "STREET":"Street",
+        "TOWN":"City",  
+        "BUTTON_CLOSE_TOOLTIP":"Close",
+        "BUTTON_SAVE_TOOLTIP":"Save",
+        "VALIDATIONS":{
+          "GATE":"Write the gate number",
+          "NUMBER":"Write the address number",
+          "STREET":"Write the street to which the House corresponds",
+          "TOWN":"Write the city in which the House is located"
+        }
+      },
+      "EDIT_FORM":{
+        "EDIT_ADDRESS":"Modify Address",
+        "BUTTON_CLOSE_TOOLTIP":"Close",
+        "BUTTON_SAVE_TOOLTIP":"Save",
+        "BUTTON_PRINCIPAL_TOOLTIP":"Put favorite address",
+        "BUTTON_EDIT_TOOLTIP":"Edit",
+        "BUTTON_DELETE_TOOLTIP":"Delete",
+        "VALIDATIONS":{
+          "REQUIRED":"Inserta un número de contacto",
+          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
     }
   },
 
@@ -139,5 +171,6 @@
         }
       }
     }
+  }
   }
 }

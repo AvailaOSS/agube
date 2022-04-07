@@ -110,6 +110,38 @@
           "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
         }
       }      
+    },
+    "ADDRESS":{
+      "TITLE":"Direcciones",
+      "BUTTON":{
+        "BUTTON_TOOLTIP":"Añadir nueva Dirección"
+      },
+      "FORM":{
+        "GATE":"Puerta",
+        "FLAT":"Piso",
+        "NUMBER":"Número",
+        "STREET":"Calle",
+        "TOWN":"Ciudad",  
+        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
+        "BUTTON_SAVE_TOOLTIP":"Guardar",
+        "VALIDATIONS":{
+          "GATE":"Escribe el número de Puerta",
+          "NUMBER":"Escribe el número de la Dirección",
+          "STREET":"Escribe la calle a la que corresponde la Vivienda",
+          "TOWN":"Escribe la ciudad en la que se encuentra la Vivienda"
+        }
+      },
+      "EDIT_FORM":{
+        "BUTTON_CLOSE_TOOLTIP":"Cerrar",
+        "BUTTON_SAVE_TOOLTIP":"Guardar",
+        "BUTTON_PRINCIPAL_TOOLTIP":"Poner como favorito",
+        "BUTTON_EDIT_TOOLTIP":"Editar",
+        "BUTTON_DELETE_TOOLTIP":"Borrar",
+        "VALIDATIONS":{
+          "REQUIRED":"Inserta un número de contacto",
+          "PATTERN":"El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      }      
     }
   },
   "PASSWORD":{

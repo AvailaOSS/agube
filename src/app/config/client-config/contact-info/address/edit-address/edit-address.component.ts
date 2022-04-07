@@ -132,22 +132,22 @@ export class EditAddressComponent {
     switch (entity) {
       case 'gate':
         if (this.gate.hasError('required')) {
-          return 'Escribe el número de Puerta';
+          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.GATE';
         }
         return '';
       case 'number':
         if (this.number.hasError('required')) {
-          return 'Escribe el número de la Dirección';
+          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.NUMBER';
         }
         return '';
       case 'street':
         if (this.street.hasError('required')) {
-          return 'Escribe la calle a la que corresponde la Vivienda';
+          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.STREET';
         }
         return '';
       case 'town':
         if (this.town.hasError('required')) {
-          return 'Escribe la ciudad en la que se encuentra la Vivienda';
+          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.TOWN';
         }
         return '';
       default:
