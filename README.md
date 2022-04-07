@@ -1,78 +1,27 @@
-# Agube - Water Management
+# AgubeFe
 
-Frontend SPA for Agube - Water Management using Angular Framework.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
-<br>
+## Development server
 
-## 🏡 Frontend
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-___
+## Code scaffolding
 
-- ## ⏬ How to install
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-  _Ensure that you already have [node](https://nodejs.org/es/) installed in to your computer_
+## Build
 
-  Go to folder and run the follow command:
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-  > npm install
+## Running unit tests
 
-- ## 🚀 How to Run
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-  After install, run the follow command:
+## Running end-to-end tests
 
-  > npm run start
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-<br>
+## Further help
 
-## 💻 Backend
-
-___
-
-This application is built with several interconnected microservices. It is developed with [python 3](https://www.python.org), [django](https://www.djangoproject.com/), [DRF](https://www.django-rest-framework.org/) and [docker](https://www.docker.com/) among other libraries.
-
-- ## ⏬ Installation and Running
-
-  Before install, ensure that you already have  [docker](https://www.docker.com/) installed into your computer and then follow the next steps.
-
-  Run docker and exec:
-
-  > docker-compose up
-
-  Now, into each docker container run the follow commands:
-
-  - ## Auth
-
-    run migrations
-      > python manage.py migrate
-
-  - ## Subscription
-
-    run migrations
-      > python manage.py migrate
-
-    create permissions
-      > python manage.py migrate_permissions --group unlimited --content_type_ids 7 8 9 10 11 12 13
-      > python manage.py migrate_permissions --group limited --content_type_ids 9 10 11 12 13
-
-  - ## Contact Book
-
-    run migrations
-      > python manage.py migrate
-
-    run celery
-      > celery -A contactbook.celery worker -l INFO
-
-  - ## Agube
-
-    run migrations
-      > python manage.py migrate
-
-    run celery
-      > celery -A agube.celery worker -l INFO
-
-  - ## Task
-
-    run migrations
-      > python manage.py migrate
-
-  All already works!
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

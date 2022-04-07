@@ -1,0 +1,6 @@
+@import '../assets/availa/sizes/margins.scss';
+
+::ng-deep .login-form,
+::ng-deep .enable-form {
+  margin-top: $margin-medium;
+}

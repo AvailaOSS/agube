@@ -1,0 +1,35 @@
+<mat-list>
+    <div class="edit-phones-header">
+        <h3>Teléfonos</h3>
+        <button mat-mini-fab color="accent" matTooltip="Añadir nuevo Teléfono" matTooltipPosition="right"
+            (click)="openClosePhoneForm()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <span *ngIf="canAddPhone" class="add-phone">
+        <div class="editable-form">
+            <!-- <div class="phone-form"> -->
+            <mat-form-field appearance="fill">
+                <mat-label>Nuevo Teléfono</mat-label>
+                <input matInput placeholder="555555555" [formControl]="newPhone" (keydown.enter)="savePhone()">
+                <mat-error *ngIf="newPhone.invalid">{{errorValidator('newPhone')}}</mat-error>
+            </mat-form-field>
+            <!-- </div> -->
+            <div class="phone-buttons">
+                <button mat-icon-button matTooltip="Cerrar" matTooltipPosition="above" (click)="openClosePhoneForm()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Guardar" matTooltipPosition="above" (click)="savePhone()"
+                    [disabled]="this.newPhone.invalid">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    </span>
+    <div *ngFor="let phone of phones" class="list-phones">
+        <app-edit-phone (event)="refreshPhones($event)" (deleteEvent)="phoneDeleted($event)" class="phone"
+            [phone]="phone" [userId]="userId"></app-edit-phone>
+        <mat-divider></mat-divider>
+    </div>
+</mat-list>

@@ -1,0 +1,69 @@
+<div class="create-dwelling-page">
+    <mat-card class="create-dwelling-page-card">
+        <mat-card-content>
+            <div class="form">
+                <h1>Da de Alta una nueva Vivienda</h1>
+                <div class="form-content">
+                    <div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Código de contador</mat-label>
+                            <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" />
+                            <mat-error *ngIf="code.invalid">{{errorValidator('code')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Ciudad</mat-label>
+                            <input matInput placeholder="Sofía" [formControl]="town" (keydown.enter)="save()" />
+                            <mat-error *ngIf="town.invalid">{{errorValidator('town')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Calle</mat-label>
+                            <input matInput placeholder="Anthony Edward Stark Street" [formControl]="street"
+                                (keydown.enter)="save()" />
+                            <mat-error *ngIf="street.invalid">{{errorValidator('street')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Nº</mat-label>
+                            <input matInput placeholder="IV" [formControl]="number" (keydown.enter)="save()" />
+                            <mat-error *ngIf="number.invalid">{{errorValidator('number')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Piso</mat-label>
+                            <input matInput placeholder="Tercero" [formControl]="flat" (keydown.enter)="save()" />
+                            <mat-error *ngIf="flat.invalid">{{errorValidator('flat')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Puerta</mat-label>
+                            <input matInput placeholder="A" [formControl]="gate" (keydown.enter)="save()" />
+                            <mat-error *ngIf="gate.invalid">{{errorValidator('gate')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
+                <mat-card-actions [align]="'end'">
+                    <button mat-button matTooltip="No se guardarán los datos" (click)="exit()">
+                        Salir sin Guardar
+                    </button>
+                    <button mat-raised-button color="primary" matTooltip="Crear nueva Vivienda" (click)="save()"
+                        [disabled]="this.dwellingForm.invalid">
+                        <div>
+                            <mat-icon>save</mat-icon>
+                            Guardar
+                        </div>
+                    </button>
+                    <button mat-raised-button color="primary"
+                        matTooltip="Crear nueva Vivienda y volver a la pantalla principal" (click)="saveAndExit()"
+                        [disabled]="this.dwellingForm.invalid">
+                        <div>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Guardar y Salir
+                        </div>
+                    </button>
+                </mat-card-actions>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

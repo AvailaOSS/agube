@@ -1,0 +1,15 @@
+@mixin my-page($columns: 2) {
+  height: 90%;
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+@mixin my-page-column($columnIndex: 1, $totalColumns: 2) {
+  grid-column: #{$columnIndex + " / " + $totalColumns};
+  -ms-grid-column: #{$columnIndex + " / " + $totalColumns};
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+}

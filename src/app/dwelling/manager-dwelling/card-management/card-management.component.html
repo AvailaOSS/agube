@@ -1,0 +1,47 @@
+<mat-card class="card-management" *ngIf="dwellingDetail">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>
+                {{dwellingDetail | dwellingDetail}}
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        Código de contador
+        <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="dwellingDetail.id"
+            [type]="type?.type">
+        </app-water-meter-content>
+        Residente
+        <app-resident-content [dwellingId]="dwellingDetail.id"></app-resident-content>
+        <div class="buttons-management">
+            <button mat-raised-button color="primary"
+                matTooltip="Dar de Baja el contador actual y Dar de Alta un nuevo contador"
+                (click)="openChangeWaterMeter()">
+                <div>
+                    <mat-icon>update</mat-icon>
+                    Cambio de Contador
+                </div>
+            </button>
+            <button mat-raised-button color="primary"
+                matTooltip="Dar de Baja el Residente actual y Dar de Alta uno nuevo" (click)="goToChangeResident()">
+                <div>
+                    <mat-icon>escalator_warning</mat-icon>
+                    Cambio de Residente
+                </div>
+            </button>
+            <button mat-raised-button color="primary"
+                matTooltip="Dar de Baja el Propietario actual y Dar de Alta uno nuevo" (click)="goToChangeOwner()">
+                <div>
+                    <mat-icon>hail</mat-icon>
+                    Cambio de Propietario
+                </div>
+            </button>
+        </div>
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="water-meter-container">
+            <app-water-meter [waterMeterId]="waterMeterId!" [type]="type"></app-water-meter>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,33 @@
+<mat-card class="card-management" *ngIf="reservoirDetail">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>
+                {{reservoirDetail | reservoirDetail}}
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        Código de contador
+        <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="reservoirDetail.id"
+            [type]="type?.type">
+        </app-water-meter-content>
+        Datos
+        <app-detail-reservoir [reservoirId]="reservoirDetail.id"></app-detail-reservoir>
+        <div class="buttons-management">
+            <button mat-raised-button color="primary"
+                matTooltip="Dar de Baja el contador actual y Dar de Alta un nuevo contador"
+                (click)="openChangeWaterMeter()">
+                <div>
+                    <mat-icon>update</mat-icon>
+                    Cambio de Contador
+                </div>
+            </button>
+        </div>
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="water-meter-container">
+            <app-water-meter [waterMeterId]="waterMeterId!" [type]="type"></app-water-meter>
+        </div>
+    </mat-card-content>
+</mat-card>

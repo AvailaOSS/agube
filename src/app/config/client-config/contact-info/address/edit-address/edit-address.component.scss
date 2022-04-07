@@ -1,0 +1,21 @@
+@import '../../../../../../assets/availa/sizes/margins.scss';
+
+.edited-form {
+  display: flex;
+  align-items: center;
+  .is-principal {
+    margin-left: $margin-small;
+  }
+}
+
+.editable-form {
+  display: flex;
+  .address-form {
+    mat-form-field {
+      margin: $margin-small $margin-small $margin-small 0;
+    }
+  }
+  .address-buttons {
+    display: flex;
+  }
+}

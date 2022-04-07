@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Realizando cambio de Contador</h1>
+
+<div mat-dialog-content class="form-content">
+    <p>
+        {{currentCode}}
+    </p>
+    <mat-icon>swap_horiz</mat-icon>
+    <mat-form-field appearance="fill">
+        <mat-label>Nuevo Contador</mat-label>
+        <input matInput placeholder="0-123456789" [formControl]="code" autofocus (keydown.enter)="save()">
+        <mat-error *ngIf="code.invalid">{{errorValidator('code')}}</mat-error>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions [align]="'end'" class="button-actions">
+    <button mat-button matTooltip="No se guardarán los datos" (click)="close()">Cerrar sin Guardar</button>
+    <button mat-raised-button color="primary"
+        matTooltip="Dar de Baja el contador actual y Dar de Alta un nuevo contador" (click)="save()"
+        disabled="{{waterMeterForm.invalid}}">
+        <div>
+            <mat-icon>save</mat-icon>
+            Guardar
+        </div>
+    </button>
+</div>

@@ -1,0 +1,30 @@
+@use './colors.scss' as color;
+
+$accent-palette: (
+  50: #e1f5fd,
+  100: #b2e4fa,
+  200: #7fd3f7,
+  300: #4bc2f3,
+  400: #1db5f2,
+  500: #00a7f0,
+  600: #009ae1,
+  700: #0087ce,
+  800: #0076ba,
+  900: #005698,
+  contrast: (
+    50: color.$dark-primary-text,
+    100: color.$dark-primary-text,
+    200: color.$dark-primary-text,
+    300: color.$dark-primary-text,
+    400: color.$dark-primary-text,
+    500: color.$dark-primary-text,
+    600: color.$dark-primary-text,
+    700: color.$dark-primary-text,
+    800: color.$dark-primary-text,
+    900: color.$dark-primary-text,
+    A100: color.$dark-primary-text,
+    A200: color.$dark-primary-text,
+    A400: color.$dark-primary-text,
+    A700: color.$dark-primary-text,
+  ),
+);

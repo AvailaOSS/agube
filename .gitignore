@@ -1,14 +1,16 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-node_modules
+
 # compiled output
 /dist
 /tmp
 /out-tsc
+
 # Only exists if Bazel was run
 /bazel-out
 
 # node
 .npmrc
+.angular/*
 
 # dependencies
 /node_modules
@@ -27,7 +29,7 @@ speed-measure-plugin*.json
 *.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
+.vscode*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
