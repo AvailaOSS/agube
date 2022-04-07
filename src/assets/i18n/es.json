@@ -58,5 +58,28 @@
         "TOOLTIP": "Nueva Lectura"
       }
     }
+  },
+  "PERSONAL_INFO":{
+    "TITLE":"Datos Personales",
+    "FORM":{
+        "USER_NAME":"Nombre de usuario",
+        "FIRST_NAME":"Nombre",
+        "LAST_NAME":"Apellidos",
+        "EMAIL":"Correo electrónico",
+        "BUTTON":{
+          "BUTTON_SAVE":"Guardar",
+          "BUTTON_TOOLTIP":"Actualiza la información personal"
+        },
+        "VALIDATIONS":{
+          "USERNAME": "¿No te gusta tu nombre de usuario? ¡Cámbialo!",
+          "EMAIL":{
+            "REQUIRED":"¿Has cambiado de correo? ¡Actualízalo!",
+            "FORMAT_STANDARD":"El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com'"
+          },
+          "FIRST_NAME":"¿Tu nombre no es correcto? ¿Cómo te llamas?",
+          "LAST_NAME":"¿Cuál son tus Apellidos?"
+        }
+       
+    }
   }
 }

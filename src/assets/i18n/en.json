@@ -58,5 +58,30 @@
         "TOOLTIP": "New Reading"
       }
     }
+  },
+  "PERSONAL_INFO":{
+    "TITLE":"Personal Data",
+    "FORM":{
+        "USER_NAME":"Username",
+        "FIRST_NAME":"Name",
+        "LAST_NAME":"Last name",
+        "EMAIL":"Email",
+        "BUTTON":{
+          "BUTTON_SAVE":"Save",
+          "BUTTON_TOOLTIP":"Update personal data"
+        },
+         
+        "VALIDATIONS":{
+          "USERNAME": "You don't like your username? Change it!",
+          "EMAIL":{
+            "REQUIRED":"Have you changed email? Update it!",
+            "FORMAT_STANDARD":"The entered email does not comply with the standard format, for example: 'tony@stark.com'"
+          },
+          "FIRST_NAME":"Is your name not correct? What's your name?",
+          "LAST_NAME":"What are your last names?"
+        }
+
+       
+    }
   }
 }
