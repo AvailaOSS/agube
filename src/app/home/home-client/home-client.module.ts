@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [HomeClientComponent],
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSlideToggleModule,
   ],
 })
 export class HomeClientModule {}

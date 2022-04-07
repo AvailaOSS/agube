@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [HomeManagerComponent],
@@ -23,7 +23,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCardModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
 })
 export class HomeManagerModule {}
