@@ -19,7 +19,7 @@ export class ResidentComponent extends ChangeComponent {
       svcDwelling: DwellingService
   ) {
     super(router, route, formBuilder, svcNotification, svcDwelling);
-    this.title = 'Residente';
+    this.title = 'PERSON.RESIDENT';
   }
 
   override ngOnInit() {
@@ -84,12 +84,5 @@ export class ResidentComponent extends ChangeComponent {
   private loadCurrentResident(){
     this.svcDwelling.getCurrentResident(this.dwellingId)
       .subscribe(response => this.currentPerson = response.user);
-  }
-
-  private resetForm() {
-    this.first_name.setValue('');
-    this.last_name.setValue('');
-    this.email.setValue('');
-    this.phone_number.setValue('');
   }
 }
