@@ -91,27 +91,27 @@ export class CreateComponent {
     switch (entity) {
       case 'code':
         if (this.code.hasError('required')) {
-          return 'Revisa cuál es el código del contador de agua de la Vivienda';
-        }
-        return '';
-      case 'gate':
-        if (this.gate.hasError('required')) {
-          return 'Escribe el número de de Puerta';
-        }
-        return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'Escribe el número de la Dirección';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'Escribe la calle a la que corresponde la Vivienda';
+          return 'NEW_DWELLING.FORM.CODE_COUNTER.VALIDATION';
         }
         return '';
       case 'town':
         if (this.town.hasError('required')) {
-          return 'Escribe la ciudad en la que se encuentra la Vivienda';
+          return 'NEW_DWELLING.FORM.TOWN.VALIDATION';
+        }
+        return '';
+      case 'street':
+        if (this.street.hasError('required')) {
+          return 'NEW_DWELLING.FORM.STREET.VALIDATION';
+        }
+        return '';
+      case 'number':
+        if (this.number.hasError('required')) {
+          return 'NEW_DWELLING.FORM.NUMBER.VALIDATION';
+        }
+        return '';
+      case 'gate':
+        if (this.gate.hasError('required')) {
+          return 'NEW_DWELLING.FORM.GATE.VALIDATION';
         }
         return '';
       default:

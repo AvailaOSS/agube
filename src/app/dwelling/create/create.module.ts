@@ -10,6 +10,7 @@ import { NotificationModule } from '@availa/notification';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -25,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatProgressBarModule,
     MatTooltipModule,
     MatIconModule,
+    TranslateModule,
   ],
 })
 export class CreateModule {}

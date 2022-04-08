@@ -43,6 +43,48 @@
       }
     }
   },
+  "NEW_DWELLING": {
+    "TITLE": "Register a new Home",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Counter code",
+        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
+      },
+      "TOWN": {
+        "TEXT": "Town",
+        "VALIDATION": "Write the city in which the Dwelling is located"
+      },
+      "STREET": {
+        "TEXT": "Street",
+        "VALIDATION": "Write the street to which the Dwelling corresponds"
+      },
+      "NUMBER": {
+        "TEXT": "Nº",
+        "VALIDATION": "Write the address number"
+      },
+      "FLAT": {
+        "TEXT": "Flat"
+      },
+      "GATE": {
+        "TEXT": "Gate",
+        "VALIDATION": "Write the door number"
+      },
+      "BUTTONS": {
+        "CLOSE": {
+          "TEXT": "Exit without saving",
+          "TOOLTIP": "Data will not be saved"
+        },
+        "SAVE": {
+          "TEXT": "Save",
+          "TOOLTIP": "Create new Dwelling"
+        },
+        "SAVE_AND_CLOSE": {
+          "TEXT": "Save and exit",
+          "TOOLTIP": "Create new Dwelling and return to the main screen"
+        }
+      }
+    }
+  },
   "WATER_METER": {
     "CODE": "Code counter",
     "RELEASE_DATE": "Release date",
