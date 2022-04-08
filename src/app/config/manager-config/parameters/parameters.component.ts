@@ -67,12 +67,12 @@ export class ParametersComponent implements OnInit {
     switch (entity) {
       case 'hook_price':
         if (this.hook_price.hasError('required')) {
-          return 'El precio de enganche no puede estar vacio';
+          return 'MANAGER_CONFIG.PARAMETERS.FORM.HOOK_PRICE.VALIDATION';
         }
         return '';
       case 'max_daily_consumption':
         if (this.max_daily_consumption.hasError('required')) {
-          return `El consumo máximo diario no puede estar vacio`;
+          return 'MANAGER_CONFIG.PARAMETERS.FORM.MAX_DAILY_CONSUMPTION.VALIDATION';
         }
         return '';
       default:

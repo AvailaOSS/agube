@@ -59,6 +59,26 @@
       }
     }
   },
+  "MANAGER_CONFIG": {
+    "PARAMETERS": {
+      "TITLE": "General parameters",
+      "FORM": {
+        "HOOK_PRICE": {
+          "TEXT": "Hook price",
+          "VALIDATION": "The Hook price cannot be empty"
+        },
+        "MAX_DAILY_CONSUMPTION": {
+          "TEXT": "Maximum daily consumption",
+          "VALIDATION": "The maximum daily consumption cannot be empty"
+        },
+        "BUTTON": {
+          "TEXT": "Save",
+          "DESCRIPTION": "Last update",
+          "TOOLTIP": "Update General parameters"
+        }
+      }
+    }
+  },
   "PERSONAL_INFO": {
     "TITLE": "Personal Data",
     "FORM": {
@@ -70,7 +90,6 @@
         "BUTTON_SAVE": "Save",
         "BUTTON_TOOLTIP": "Update personal data"
       },
-
       "VALIDATIONS": {
         "USERNAME": "You don't like your username? Change it!",
         "EMAIL": {
