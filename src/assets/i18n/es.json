@@ -57,6 +57,37 @@
         "TEXT": "Abrir formulario de Nueva Lectura",
         "TOOLTIP": "Nueva Lectura"
       }
+    },
+    "MEASURE_DIALOG": {
+      "TITLE": "Nueva Lectura",
+      "FORM": {
+        "MEASURE": {
+          "TEXT": "Medida en",
+          "VALIDATION": "Revisa la lecutra que marca el contador de la vivienda"
+        },
+        "DATE": {
+          "TEXT": "Fecha",
+          "VALIDATION": {
+            "REQUIRED": "Es obligatorio introducir una fecha",
+            "DATE_IN_FUTURE": "La fecha introducida no puede ser posterior a la fecha actual"
+          }
+        },
+        "HOUR_MINUTES": {
+          "HOUR_TEXT": "Hora",
+          "MINUTES_TEXT": "Minutos",
+          "VALIDATION": "Necesitamos la hora y los minutos en la que se tomó la Lectura"
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Cerrar sin Guardar",
+            "TOOLTIP": "No se guardarán los datos"
+          },
+          "SAVE": {
+            "TEXT": "Guardar",
+            "TOOLTIP": "Guardar datos y cerrar pantalla"
+          }
+        }
+      }
     }
   },
   "PERSONAL_INFO": {

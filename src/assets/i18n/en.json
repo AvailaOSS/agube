@@ -57,6 +57,37 @@
         "TEXT": "Open new Reading form",
         "TOOLTIP": "New Reading"
       }
+    },
+    "MEASURE_DIALOG": {
+      "TITLE": "New Reading",
+      "FORM": {
+        "MEASURE": {
+          "TEXT": "Measure in",
+          "VALIDATION": "Check the reading that marks the meter of the house"
+        },
+        "DATE": {
+          "TEXT": "Date",
+          "VALIDATION": {
+            "REQUIRED": "It is mandatory to enter a date",
+            "DATE_IN_FUTURE": "The date entered cannot be later than the current date"
+          }
+        },
+        "HOUR_MINUTES": {
+          "HOUR_TEXT": "Hour",
+          "MINUTES_TEXT": "Minutes",
+          "VALIDATION": "We need the hour and minutes in which the Reading was taken"
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Close without saving",
+            "TOOLTIP": "Data will not be saved"
+          },
+          "SAVE": {
+            "TEXT": "Save",
+            "TOOLTIP": "Save data and close screen"
+          }
+        }
+      }
     }
   },
   "PERSONAL_INFO": {
