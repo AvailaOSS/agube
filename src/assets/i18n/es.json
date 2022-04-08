@@ -361,8 +361,8 @@
       "DATA": {
         "TITLE": "Datos",
         "CAPACITY": "de Capacidad",
-        "INLET_FLOW": "de Entrada de agua ",
-        "OUTLET_FLOW": "de Salida de agua"
+        "INLET_FLOW": "de Entrada",
+        "OUTLET_FLOW": "de Salida"
       },
       "BUTTONS": {
         "CHANGE_WATER_METER_CODE": "Cambio de Contador",

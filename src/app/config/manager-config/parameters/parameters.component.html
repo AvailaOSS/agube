@@ -6,22 +6,17 @@
             <input class="form-right-align" matInput placeholder="1000.50" [formControl]="hook_price" autofocus
                 (keydown.enter)="saveParameters()">
             <span matSuffix>€&nbsp;</span>
+            <mat-error *ngIf="hook_price.invalid">{{errorValidator('hook_price')|translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>{{"MANAGER_CONFIG.PARAMETERS.FORM.MAX_DAILY_CONSUMPTION.TEXT" |translate}}</mat-label>
             <input class="form-right-align" matInput placeholder="1000" [formControl]="max_daily_consumption"
                 (keydown.enter)="saveParameters()">
             <span matSuffix>L&nbsp;</span>
+            <mat-error *ngIf="max_daily_consumption.invalid">{{errorValidator('max_daily_consumption')|translate}}
+            </mat-error>
         </mat-form-field>
     </div>
-
-    <span>
-        <mat-error *ngIf="hook_price.invalid">{{errorValidator('hook_price')|translate}}</mat-error>
-        <br>
-        <mat-error *ngIf="max_daily_consumption.invalid">{{errorValidator('max_daily_consumption')|translate}}
-        </mat-error>
-    </span>
-
     <mat-card-actions [align]="'end'">
         <span mat-line class="button-save-info">
             <span>

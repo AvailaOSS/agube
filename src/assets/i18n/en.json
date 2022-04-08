@@ -361,9 +361,9 @@
     "CARD": {
       "DATA": {
         "TITLE": "Data",
-        "CAPACITY": "Capacity",
-        "INLET_FLOW": " Water inlet ",
-        "OUTLET_FLOW": "Water outlet"
+        "CAPACITY": "of Capacity",
+        "INLET_FLOW": "inlet Flow",
+        "OUTLET_FLOW": "outlet Flow"
       },
       "BUTTONS": {
         "CHANGE_WATER_METER_CODE": "Change Counter",
