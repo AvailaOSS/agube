@@ -103,6 +103,7 @@
         "BUTTON_CLOSE_TOOLTIP": "Close",
         "BUTTON_SAVE_TOOLTIP": "Save",
         "BUTTON_PRINCIPAL_TOOLTIP": "Put favorite phone",
+        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorite",
         "BUTTON_EDIT_TOOLTIP": "Edit",
         "BUTTON_DELETE_TOOLTIP": "Delete",
         "VALIDATIONS": {
@@ -136,6 +137,7 @@
         "BUTTON_CLOSE_TOOLTIP": "Close",
         "BUTTON_SAVE_TOOLTIP": "Save",
         "BUTTON_PRINCIPAL_TOOLTIP": "Put favorite address",
+        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorite",
         "BUTTON_EDIT_TOOLTIP": "Edit",
         "BUTTON_DELETE_TOOLTIP": "Delete",
         "VALIDATIONS": {

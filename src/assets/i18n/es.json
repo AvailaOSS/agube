@@ -102,6 +102,7 @@
         "BUTTON_CLOSE_TOOLTIP": "Cerrar",
         "BUTTON_SAVE_TOOLTIP": "Guardar",
         "BUTTON_PRINCIPAL_TOOLTIP": "Poner como favorito",
+        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorito",
         "BUTTON_EDIT_TOOLTIP": "Editar",
         "BUTTON_DELETE_TOOLTIP": "Borrar",
         "VALIDATIONS": {
@@ -134,6 +135,7 @@
         "BUTTON_CLOSE_TOOLTIP": "Cerrar",
         "BUTTON_SAVE_TOOLTIP": "Guardar",
         "BUTTON_PRINCIPAL_TOOLTIP": "Poner como favorito",
+        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorito",
         "BUTTON_EDIT_TOOLTIP": "Editar",
         "BUTTON_DELETE_TOOLTIP": "Borrar",
         "VALIDATIONS": {

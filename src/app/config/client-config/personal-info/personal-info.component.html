@@ -2,7 +2,7 @@
     <h1>{{"PERSONAL_INFO.TITLE"|translate}}</h1>
     <div class="form-content">
         <mat-form-field appearance="fill">
-            <mat-label>{{"PERSONAL_INFO.TITLE"|translate}}</mat-label>
+            <mat-label>{{"PERSONAL_INFO.FORM.USER_NAME"|translate}}</mat-label>
             <input matInput placeholder="Iroman" [formControl]="username" (keydown.enter)="saveForm()" autofocus>
             <mat-error *ngIf="username.invalid">{{errorValidator("username") | translate}}</mat-error>
         </mat-form-field>

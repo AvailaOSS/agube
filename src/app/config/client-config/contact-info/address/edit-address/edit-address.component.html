@@ -45,7 +45,7 @@
         <span mat-subheader class="is-principal">{{ address!.address.main ? 'Principal' : '' }}</span>
     </div>
     <div>
-        <button mat-icon-button *ngIf="address!.address.main; else notMainAddress" matTooltip="Favorito"
+        <button mat-icon-button *ngIf="address!.address.main; else notMainAddress" matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_PRINCIPAL_STAR_TOOLTIP'|translate}}"
             (click)="setAddressAsMain()">
             <mat-icon>star</mat-icon>
         </button>

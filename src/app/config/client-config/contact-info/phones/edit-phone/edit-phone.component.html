@@ -23,7 +23,7 @@
         <span mat-subheader class="is-principal">{{ phone!.phone.main ? 'Principal' : '' }}</span>
     </div>
     <div>
-        <button mat-icon-button *ngIf="phone!.phone.main; else notMainPhone" matTooltip="{{'CONTACT_INFO.PHONES.EDIT_FORM.BUTTON_PRINCIPAL_TOOLTIP' | translate}}"
+        <button mat-icon-button *ngIf="phone!.phone.main; else notMainPhone" matTooltip="{{'CONTACT_INFO.PHONES.EDIT_FORM.BUTTON_PRINCIPAL_STAR_TOOLTIP' | translate}}"
             (click)="setPhoneAsMain()">
             <mat-icon>star</mat-icon>
         </button>
