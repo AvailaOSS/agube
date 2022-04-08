@@ -57,6 +57,25 @@
         "TEXT": "Open new Reading form",
         "TOOLTIP": "New Reading"
       }
+    },
+    "DIALOG": {
+      "TITLE": "Making a change of Water Meter",
+      "FORM": {
+        "NEW_WATER_METER": {
+          "TEXT": "New Water Meter",
+          "VALIDATION": "Check counter code"
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Close without saving",
+            "TOOLTIP": "Data will not be saved"
+          },
+          "SAVE": {
+            "TEXT": "Save",
+            "TOOLTIP": "Deregister the current counter and Register a new counter"
+          }
+        }
+      }
     }
   },
   "PERSONAL_INFO": {
