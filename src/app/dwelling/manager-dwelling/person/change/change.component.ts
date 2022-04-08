@@ -19,7 +19,8 @@ import { NotificationService } from '@availa/notification';
   styleUrls: ['./change.component.scss'],
 })
 export class ChangeComponent implements OnInit {
-  public title: string = 'Persona';
+  public title: string = 'PERSON.PERSON';
+  public typePerson = { typePerson: this.title };
   public personForm: FormGroup;
   public first_name = new FormControl('', [Validators.required]);
   public last_name = new FormControl('', [Validators.required]);
@@ -69,23 +70,23 @@ export class ChangeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.svcDwelling
       .getDwelling(this.dwellingId)
       .subscribe((response) => (this.dwelling = response));
   }
 
-  save() {
+  public save() {
     if (this.personForm.invalid) {
       return;
     }
   }
 
-  exit() {
+  public exit() {
     this.router.navigate(['manager/dwellings']);
   }
 
-  saveAndExit() {
+  public saveAndExit() {
     this.save();
     this.exit();
   }
@@ -94,28 +95,30 @@ export class ChangeComponent implements OnInit {
     switch (entity) {
       case 'first_name':
         if (this.first_name.hasError('required')) {
-          return 'Escribe el Nombre del ' + this.title;
+          return 'PERSON.CHANGE.FORM.DATA.FIRST_NAME.VALIDATION.' + this.title;
         }
         return '';
       case 'last_name':
         if (this.last_name.hasError('required')) {
-          return 'Escribe el Apellido del ' + this.title;
+          return 'PERSON.CHANGE.FORM.DATA.LAST_NAME.VALIDATION.' + this.title;
         }
         return '';
       case 'email':
         if (this.email.hasError('required')) {
-          return 'Inserta el correo electrónico del ' + this.title;
+          return (
+            'PERSON.CHANGE.FORM.CONTACT_INFO.EMAIL.VALIDATION.REQUIRED.' + this.title
+          );
         }
         if (this.email.hasError('email')) {
-          return 'El email introducido no cumple con el formato stark@industries.com';
+          return 'PERSON.CHANGE.FORM.CONTACT_INFO.EMAIL.VALIDATION.EMAIL_FORMAT';
         }
         return '';
       case 'phone_number':
         let invalidPattern =
-          'El número de contacto no cumple con el formato 196320819 o +XX 196320819';
+          'PERSON.CHANGE.FORM.CONTACT_INFO.CONTACT_PHONE.VALIDATION.REQUIRED';
 
         if (this.phone_number.hasError('required')) {
-          return 'Inserta un número de contacto';
+          return 'PERSON.CHANGE.FORM.CONTACT_INFO.CONTACT_PHONE.VALIDATION.PHONE_FORMAT';
         }
         if (this.phone_number.hasError('pattern')) {
           return invalidPattern;
@@ -130,5 +133,12 @@ export class ChangeComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  protected resetForm() {
+    this.first_name.setValue('');
+    this.last_name.setValue('');
+    this.email.setValue('');
+    this.phone_number.setValue('');
   }
 }

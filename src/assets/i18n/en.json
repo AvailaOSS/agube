@@ -1,0 +1,425 @@
+{
+  "SIDEBAR": {
+    "BUTTONS": {
+      "CLOSE_SESSION": "Close Session"
+    },
+    "TITLES": {
+      "PAGE_PROFILE": "My Profile",
+      "PAGE_MY_DWELLING": "My Dwelling",
+      "PAGE_DWELLINGS": "Dwellings",
+      "PAGE_RESERVOIRS": "Reservoirs",
+      "PAGE_CONFIGURATION": "Configuration"
+    }
+  },
+  "DWELLINGS": {
+    "TABLE": {
+      "TOOLTIP": "Select",
+      "FILTER": {
+        "TEXT": "Code, Street, Town, Phone Nº...",
+        "TOOLTIP": "Search",
+        "BUTTON": {
+          "TOOLTIP": "Clean Search"
+        }
+      },
+      "BUTTON": {
+        "TEXT": "New Dwelling",
+        "TOOLTIP": "Go to the creation dwelling page"
+      }
+    },
+    "CARD": {
+      "RESIDENT": {
+        "TITLE": "Resident",
+        "CONTACT_PHONE": "Contact phone",
+        "RELEASE_DATE": "Since",
+        "NO_RESIDENT": "Without Resident"
+      },
+      "BUTTONS": {
+        "CHANGE_WATER_METER_CODE": "Change Counter",
+        "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter",
+        "CHANGE_RESIDENT": "Change Resident",
+        "CHANGE_RESIDENT_TOOLTIP": "Deregister the current Resident and Register a new one",
+        "CHANGE_OWNER": "Change Owner",
+        "CHANGE_OWNER_TOOLTIP": "Cancel the current Owner and Register a new one"
+      }
+    }
+  },
+  "PERSON": {
+    "PERSON": "Person",
+    "OWNER": "Owner",
+    "RESIDENT": "Resident",
+    "CHANGE": {
+      "TITLE_1": "Change of",
+      "TITLE_2": "Register a new",
+      "SUBTITLE_1": "The current",
+      "SUBTITLE_2": "",
+      "SUBTITLE_3": "will be discharged",
+      "FORM": {
+        "DATA": {
+          "TITLE": "Data",
+          "FIRST_NAME": {
+            "TEXT": "First Name",
+            "VALIDATION.PERSON.RESIDENT": "Write the name of the Resident",
+            "VALIDATION.PERSON.OWNER": "Write the name of the Owner"
+          },
+          "LAST_NAME": {
+            "TEXT": "Surnames",
+            "VALIDATION.PERSON.RESIDENT": "Write the last name of Resident",
+            "VALIDATION.PERSON.OWNER": "Write the last name of Owner"
+          }
+        },
+        "CONTACT_INFO": {
+          "TITLE": "Contact information",
+          "EMAIL": {
+            "TEXT": "Email",
+            "VALIDATION": {
+              "REQUIRED.PERSON.RESIDENT": "Insert the email of Resident",
+              "REQUIRED.PERSON.OWNER": "Insert the email of Owner",
+              "EMAIL_FORMAT": "The email entered does not comply with the format stark@industries.com"
+            }
+          },
+          "CONTACT_PHONE": {
+            "TEXT": "Telephone contact",
+            "VALIDATION": {
+              "REQUIRED": "Insert a contact number",
+              "PHONE_FORMAT": "The contact number does not comply with the format 196320819 or +XX 196320819"
+            }
+          }
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Exit without saving",
+            "TOOLTIP": "The change will not be made"
+          },
+          "SAVE": {
+            "TEXT": "Save",
+            "TOOLTIP": "Make the change of"
+          },
+          "SAVE_AND_CLOSE": {
+            "TEXT": "Save and exit",
+            "TOOLTIP": "and return to the main page"
+          }
+        }
+      }
+    }
+  },
+  "NEW_DWELLING": {
+    "TITLE": "Register a new Home",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Counter code",
+        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
+      },
+      "TOWN": {
+        "TEXT": "Town",
+        "VALIDATION": "Write the city in which the Dwelling is located"
+      },
+      "STREET": {
+        "TEXT": "Street",
+        "VALIDATION": "Write the street to which the Dwelling corresponds"
+      },
+      "NUMBER": {
+        "TEXT": "Nº",
+        "VALIDATION": "Write the address number"
+      },
+      "FLAT": {
+        "TEXT": "Flat"
+      },
+      "GATE": {
+        "TEXT": "Gate",
+        "VALIDATION": "Write the door number"
+      },
+      "BUTTONS": {
+        "CLOSE": {
+          "TEXT": "Exit without saving",
+          "TOOLTIP": "Data will not be saved"
+        },
+        "SAVE": {
+          "TEXT": "Save",
+          "TOOLTIP": "Create new Dwelling"
+        },
+        "SAVE_AND_CLOSE": {
+          "TEXT": "Save and exit",
+          "TOOLTIP": "Create new Dwelling and return to the main screen"
+        }
+      }
+    }
+  },
+  "WATER_METER": {
+    "CODE": "Code counter",
+    "RELEASE_DATE": "Release date",
+    "NO_COUNTER": "None",
+    "HEADER": {
+      "FILTER": {
+        "TEXT": " month-day, year, month, day",
+        "TOOLTIP": "Search",
+        "BUTTON_TOOLTIP": "Clean search"
+      },
+      "BUTTON": {
+        "TEXT": "Open new Reading form",
+        "TOOLTIP": "New Reading"
+      }
+    },
+    "DIALOG": {
+      "TITLE": "Making a change of Water Meter",
+      "FORM": {
+        "NEW_WATER_METER": {
+          "TEXT": "New Water Meter",
+          "VALIDATION": "Check counter code"
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Close without saving",
+            "TOOLTIP": "Data will not be saved"
+          },
+          "SAVE": {
+            "TEXT": "Save",
+            "TOOLTIP": "Deregister the current counter and Register a new counter"
+          }
+        }
+      }
+    },
+    "MEASURE_DIALOG": {
+      "TITLE": "New Reading",
+      "FORM": {
+        "MEASURE": {
+          "TEXT": "Measure in",
+          "VALIDATION": "Check the reading that marks the meter of the house"
+        },
+        "DATE": {
+          "TEXT": "Date",
+          "VALIDATION": {
+            "REQUIRED": "It is mandatory to enter a date",
+            "DATE_IN_FUTURE": "The date entered cannot be later than the current date"
+          }
+        },
+        "HOUR_MINUTES": {
+          "HOUR_TEXT": "Hour",
+          "MINUTES_TEXT": "Minutes",
+          "VALIDATION": "We need the hour and minutes in which the Reading was taken"
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Close without saving",
+            "TOOLTIP": "Data will not be saved"
+          },
+          "SAVE": {
+            "TEXT": "Save",
+            "TOOLTIP": "Save data and close screen"
+          }
+        }
+      }
+    }
+  },
+  "MANAGER_CONFIG": {
+    "PARAMETERS": {
+      "TITLE": "General parameters",
+      "FORM": {
+        "HOOK_PRICE": {
+          "TEXT": "Hook price",
+          "VALIDATION": "The Hook price cannot be empty"
+        },
+        "MAX_DAILY_CONSUMPTION": {
+          "TEXT": "Maximum daily consumption",
+          "VALIDATION": "The maximum daily consumption cannot be empty"
+        },
+        "BUTTON": {
+          "TEXT": "Save",
+          "DESCRIPTION": "Last update",
+          "TOOLTIP": "Update General parameters"
+        }
+      }
+    }
+  },
+  "PERSONAL_INFO": {
+    "TITLE": "Personal Data",
+    "FORM": {
+      "USER_NAME": "Username",
+      "FIRST_NAME": "Name",
+      "LAST_NAME": "Last name",
+      "EMAIL": "Email",
+      "BUTTON": {
+        "BUTTON_SAVE": "Save",
+        "BUTTON_TOOLTIP": "Update personal data"
+      },
+      "VALIDATIONS": {
+        "USERNAME": "You don't like your username? Change it!",
+        "EMAIL": {
+          "REQUIRED": "Have you changed email? Update it!",
+          "FORMAT_STANDARD": "The entered email does not comply with the standard format, for example: 'tony@stark.com'"
+        },
+        "FIRST_NAME": "Is your name not correct? What's your name?",
+        "LAST_NAME": "What are your last names?"
+      }
+    }
+  },
+  "CONTACT_INFO": {
+    "TITLE": "Contact Infomation",
+    "PHONES": {
+      "TITLE": "Phones",
+      "BUTTON": {
+        "BUTTON_TOOLTIP": "Add New Phone"
+      },
+      "FORM": {
+        "ADD_PHONE": "New Phone",
+        "BUTTON_CLOSE_TOOLTIP": "Close",
+        "BUTTON_SAVE_TOOLTIP": "Save",
+        "VALIDATIONS": {
+          "REQUIRED": "Insert a contact number",
+          "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
+        }
+      },
+      "EDIT_FORM": {
+        "EDIT_PHONE": "Modify Phone",
+        "BUTTON_CLOSE_TOOLTIP": "Close",
+        "BUTTON_SAVE_TOOLTIP": "Save",
+        "BUTTON_PRINCIPAL_TOOLTIP": "Put favorite phone",
+        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorite",
+        "BUTTON_EDIT_TOOLTIP": "Edit",
+        "BUTTON_DELETE_TOOLTIP": "Delete",
+        "VALIDATIONS": {
+          "REQUIRED": "Insert a contact number",
+          "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
+        }
+      }
+    },
+    "ADDRESS": {
+      "TITLE": "Address",
+      "BUTTON": {
+        "BUTTON_TOOLTIP": "Add new Address"
+      },
+      "FORM": {
+        "GATE": "Gate",
+        "FLAT": "Flat",
+        "NUMBER": "Number",
+        "STREET": "Street",
+        "TOWN": "City",
+        "BUTTON_CLOSE_TOOLTIP": "Close",
+        "BUTTON_SAVE_TOOLTIP": "Save",
+        "VALIDATIONS": {
+          "GATE": "Write the gate number",
+          "NUMBER": "Write the address number",
+          "STREET": "Write the street to which the House corresponds",
+          "TOWN": "Write the city in which the House is located"
+        }
+      },
+      "EDIT_FORM": {
+        "EDIT_ADDRESS": "Modify Address",
+        "BUTTON_CLOSE_TOOLTIP": "Close",
+        "BUTTON_SAVE_TOOLTIP": "Save",
+        "BUTTON_PRINCIPAL_TOOLTIP": "Put favorite address",
+        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorite",
+        "BUTTON_EDIT_TOOLTIP": "Edit",
+        "BUTTON_DELETE_TOOLTIP": "Delete",
+        "VALIDATIONS": {
+          "REQUIRED": "Inserta un número de contacto",
+          "PATTERN": "El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+        }
+      }
+    }
+  },
+  "PASSWORD": {
+    "TITLE": "PASSWORD",
+    "FORM": {
+      "USER_NAME": "Username",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "BUTTON": {
+        "BUTTON_SAVE": "Save",
+        "BUTTON_TOOLTIP": "Update password"
+      },
+      "VALIDATIONS": {
+        "USERNAME": "Insert your username to confirm your identity",
+        "PASSWORD": {
+          "REQUIRED": "Insert your password",
+          "MINLENGTH": "The password must have at least 5 characters.",
+          "MAXLENGTH": "The password must be up to 16 characters."
+        },
+        "CONFIRM_PASSWORD": {
+          "REQUIRED": "Insert your password",
+          "MINLENGTH": "The password must have at least 5 characters.",
+          "MAXLENGTH": "The password must be up to 16 characters.",
+          "NOMATCHED": "Passwords are not the same."
+        }
+      }
+    }
+  },
+  "RESERVOIR": {
+    "TABLE": {
+      "TOOLTIP": "Select",
+      "FILTER": {
+        "TEXT": "Code, Street, Town, Phone Nº...",
+        "TOOLTIP": "Search",
+        "BUTTON": {
+          "TOOLTIP": "Clean Search"
+        }
+      },
+      "BUTTON": {
+        "TEXT": "New Reservoir",
+        "TOOLTIP": "Go to the creation reservoir page"
+      }
+    },
+    "CARD": {
+      "DATA": {
+        "TITLE": "Data",
+        "CAPACITY": "of Capacity",
+        "INLET_FLOW": "inlet Flow",
+        "OUTLET_FLOW": "outlet Flow"
+      },
+      "BUTTONS": {
+        "CHANGE_WATER_METER_CODE": "Change Counter",
+        "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter"
+      }
+    },
+    "CREATE": {
+      "TITLE": "Register a new Reservoir",
+      "FORM": {
+        "WATER_METER_CODE": {
+          "TEXT": "Code counter",
+          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
+        },
+        "GATE": {
+          "TEXT": "Gate",
+          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
+        },
+        "FLAT": {
+          "TEXT": "Flat",
+          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
+        },
+
+        "NUMBER": {
+          "TEXT": "Number",
+          "VALIDATION": "Write the address number"
+        },
+        "STREET": {
+          "TEXT": "Street",
+          "VALIDATION": "Write the street to which the Reservoir corresponds "
+        },
+        "TOWN": {
+          "TEXT": "Town",
+          "VALIDATION": "Write the city in which the Reservoir is located"
+        },
+        "CAPACITY": {
+          "TEXT": "Capacity",
+          "VALIDATION": "Write the total capacity of the Reservoir"
+        },
+
+        "INLET_FLOW": {
+          "TEXT": " Water inlet",
+          "VALIDATION": "Write the Repository input stream"
+        },
+        "OUTLET_FLOW": {
+          "TEXT": "Water outlet",
+          "VALIDATION": "Write the output flow of the Repository"
+        },
+        "BUTTONS": {
+          "BUTTON_EXIT": "Exit without saving",
+          "BUTTON_EXIT_TOOLTIP": "Data will not be saved",
+          "BUTTON_SAVE": "Save",
+          "BUTTON_SAVE_TOOLTIP": "Create new Reservoir",
+          "BUTTON_SAVE_EXIT": "Save and Exit",
+          "BUTTON_SAVE_EXIT_TOOLTIP": "Create new Deposit and return to Reservoir table"
+        }
+      }
+    }
+  }
+}

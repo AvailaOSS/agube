@@ -1,37 +1,34 @@
 <div class="form">
-    <h1>Parámetros generales</h1>
+    <h1>{{"MANAGER_CONFIG.PARAMETERS.TITLE" |translate}}</h1>
     <div class="form-content">
         <mat-form-field appearance="fill">
-            <mat-label>Precio de enganche</mat-label>
+            <mat-label>{{"MANAGER_CONFIG.PARAMETERS.FORM.HOOK_PRICE.TEXT" |translate}}</mat-label>
             <input class="form-right-align" matInput placeholder="1000.50" [formControl]="hook_price" autofocus
                 (keydown.enter)="saveParameters()">
             <span matSuffix>€&nbsp;</span>
+            <mat-error *ngIf="hook_price.invalid">{{errorValidator('hook_price')|translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Máximo consumo diario</mat-label>
+            <mat-label>{{"MANAGER_CONFIG.PARAMETERS.FORM.MAX_DAILY_CONSUMPTION.TEXT" |translate}}</mat-label>
             <input class="form-right-align" matInput placeholder="1000" [formControl]="max_daily_consumption"
                 (keydown.enter)="saveParameters()">
             <span matSuffix>L&nbsp;</span>
+            <mat-error *ngIf="max_daily_consumption.invalid">{{errorValidator('max_daily_consumption')|translate}}
+            </mat-error>
         </mat-form-field>
     </div>
-
-    <span>
-        <mat-error *ngIf="hook_price.invalid">{{errorValidator('hook_price')}}</mat-error>
-        <br>
-        <mat-error *ngIf="max_daily_consumption.invalid">{{errorValidator('max_daily_consumption')}}</mat-error>
-    </span>
-
     <mat-card-actions [align]="'end'">
         <span mat-line class="button-save-info">
             <span>
-                Última actualización {{releaseDate |date:'longDate'}} {{releaseDate |date:'shortTime'}}
+                {{"MANAGER_CONFIG.PARAMETERS.FORM.BUTTON.DESCRIPTION" |translate}} {{releaseDate
+                |date:'longDate'}} {{releaseDate |date:'shortTime'}}
             </span>
         </span>
-        <button mat-raised-button color="primary" matTooltip="Actualizar Parámetros generales"
-            (click)="saveParameters()">
+        <button mat-raised-button color="primary"
+            matTooltip="{{'MANAGER_CONFIG.PARAMETERS.FORM.BUTTON.TOOLTIP' |translate}}" (click)="saveParameters()">
             <div>
                 <mat-icon>save</mat-icon>
-                Guardar
+                {{"MANAGER_CONFIG.PARAMETERS.FORM.BUTTON.TEXT" |translate}}
             </div>
         </button>
     </mat-card-actions>

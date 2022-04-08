@@ -12,7 +12,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-stroked-button color="warn" (click)="closeSession()">
-                        Cerrar sesión
+                        {{ "SIDEBAR.BUTTONS.CLOSE_SESSION"| translate}}
                     </button>
                 </mat-card-actions>
             </mat-card>
@@ -20,7 +20,7 @@
             <mat-selection-list #shoes [multiple]="false">
                 <mat-list-option *ngFor="let page of pages" [value]="page" (click)="selectPage(page)">
                     <mat-icon mat-list-icon>{{ page.icon }}</mat-icon>
-                    <div mat-line>{{ page.title }}</div>
+                    <div mat-line>{{ page.title | translate}}</div>
                 </mat-list-option>
             </mat-selection-list>
         </div>

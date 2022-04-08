@@ -16,6 +16,7 @@ import { CardManagementComponent } from './card-management/card-management.compo
 import { DetailReservoirComponent } from './card-management/detail-reservoir/detail-reservoir.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     WaterMeterModule,
     MatTooltipModule,
+    TranslateModule
   ],
 })
 export class ManagerReservoirModule {}

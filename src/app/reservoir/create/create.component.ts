@@ -103,37 +103,37 @@ export class CreateComponent {
     switch (entity) {
       case 'code':
         if (this.code.hasError('required')) {
-          return 'Revisa cuál es el código del contador de agua del Depósito';
+          return 'RESERVOIR.CREATE.FORM.WATER_METER_CODE.VALIDATION';
         }
         return '';
       case 'number':
         if (this.number.hasError('required')) {
-          return 'Escribe el número de la dirección';
+          return 'RESERVOIR.CREATE.FORM.NUMBER.VALIDATION';
         }
         return '';
       case 'street':
         if (this.street.hasError('required')) {
-          return 'Escribe la calle a la que corresponde el Depósito';
+          return 'RESERVOIR.CREATE.FORM.STREET.VALIDATION';
         }
         return '';
       case 'town':
         if (this.town.hasError('required')) {
-          return 'Escribe la ciudad en la que se encuentra el Depósito';
+          return 'RESERVOIR.CREATE.FORM.TOWN.VALIDATION';
         }
         return '';
       case 'capacity':
         if (this.capacity.hasError('required')) {
-          return 'Escribe la capacidad total del Depósito';
+          return 'RESERVOIR.CREATE.FORM.CAPACITY.VALIDATION';
         }
         return '';
       case 'inletFlow':
         if (this.inletFlow.hasError('required')) {
-          return 'Escribe el flujo de entrada del Depósito';
+          return 'RESERVOIR.CREATE.FORM.INLET_FLOW.VALIDATION';
         }
         return '';
       case 'outletFlow':
         if (this.outletFlow.hasError('required')) {
-          return 'Escribe el flujo de salida del Depósito';
+          return 'RESERVOIR.CREATE.FORM.OUTLET_FLOW.VALIDATION';
         }
         return '';
       default:

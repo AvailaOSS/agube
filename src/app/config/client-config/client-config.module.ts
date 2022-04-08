@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PasswordComponent } from './password/password.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     PhonesModule,
     AddressModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    TranslateModule
   ],
 })
 export class ClientConfigModule {}

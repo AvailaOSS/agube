@@ -84,32 +84,32 @@ export class PasswordComponent {
     switch (entity) {
       case 'username':
         if (this.username.hasError('required')) {
-          return 'Inserta tu nombre de usuario para confirmar tu identidad';
+          return 'PASSWORD.FORM.VALIDATIONS.USERNAME';
         }
         return '';
       case 'password':
         if (this.password.hasError('required')) {
-          return 'Inserta una contraseña';
+          return 'PASSWORD.FORM.VALIDATIONS.PASSWORD.REQUIRED';
         }
         if (this.password.hasError('minlength')) {
-          return 'La contraseña debe tener al menos 5 caracteres.';
+          return 'PASSWORD.FORM.VALIDATIONS.PASSWORD.MINLENGTH';
         }
         if (this.password.hasError('maxlength')) {
-          return 'La contraseña debe tener hasta 16 caracteres.';
+          return 'PASSWORD.FORM.VALIDATIONS.PASSWORD.MAXLENGTH';
         }
         return '';
       case 'confirmPassword':
         if (this.confirmPassword.hasError('required')) {
-          return 'Inserta una contraseña de confirmación';
+          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.REQUIRED';
         }
         if (this.confirmPassword.hasError('minlength')) {
-          return 'La contraseña de confirmación debe tener al menos 5 caracteres.';
+          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.MINLENGTH';
         }
         if (this.confirmPassword.hasError('maxlength')) {
-          return 'La contraseña  de confirmación debe tener hasta 16 caracteres.';
+          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.MAXLENGTH';
         }
         if (this.confirmPassword.hasError('noMatched')) {
-          return 'La contraseñas no son iguales.';
+          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.NOMATCHED';
         }
         return '';
       default:

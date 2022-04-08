@@ -99,15 +99,15 @@ export class MeasureDialogComponent {
     switch (entity) {
       case 'measurement':
         if (this.measurement.hasError('required')) {
-          return 'Revisa la lecutra que marca el contador de la vivienda';
+          return 'WATER_METER.MEASURE_DIALOG.FORM.MEASURE.VALIDATION';
         }
         return '';
       case 'date':
         if (this.date.hasError('required')) {
-          return 'Es obligatorio introducir una fecha';
+          return 'WATER_METER.MEASURE_DIALOG.FORM.DATE.VALIDATION.REQUIRED';
         }
         if (this.date.hasError('dateInFuture')) {
-          return 'La fecha introducida no puede ser posterior a la fecha actual';
+          return 'WATER_METER.MEASURE_DIALOG.FORM.DATE.VALIDATION.DATE_IN_FUTURE';
         }
         return '';
       case 'minutes':
@@ -116,7 +116,7 @@ export class MeasureDialogComponent {
           this.hour.hasError('required') ||
           this.minutes.hasError('required')
         ) {
-          return 'Necesitamos la hora y los minutos en la que se tomó la Lectura';
+          return 'WATER_METER.MEASURE_DIALOG.FORM.HOUR_MINUTES.VALIDATION';
         }
         return '';
       default:

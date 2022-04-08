@@ -1,33 +1,33 @@
 <div class="form">
-    <h1>Datos personales</h1>
+    <h1>{{"PERSONAL_INFO.TITLE"|translate}}</h1>
     <div class="form-content">
         <mat-form-field appearance="fill">
-            <mat-label>Nombre de usuario</mat-label>
+            <mat-label>{{"PERSONAL_INFO.FORM.USER_NAME"|translate}}</mat-label>
             <input matInput placeholder="Iroman" [formControl]="username" (keydown.enter)="saveForm()" autofocus>
-            <mat-error *ngIf="username.invalid">{{errorValidator('username')}}</mat-error>
+            <mat-error *ngIf="username.invalid">{{errorValidator("username") | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Nombre </mat-label>
+            <mat-label>{{"PERSONAL_INFO.FORM.FIRST_NAME"|translate}} </mat-label>
             <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="saveForm()">
-            <mat-error *ngIf="first_name.invalid">{{errorValidator('first_name')}}</mat-error>
+            <mat-error *ngIf="first_name.invalid">{{errorValidator("first_name") |translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Apellidos</mat-label>
+            <mat-label>{{"PERSONAL_INFO.FORM.LAST_NAME"|translate}}</mat-label>
             <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="saveForm()">
-            <mat-error *ngIf="last_name.invalid">{{errorValidator('last_name')}}</mat-error>
+            <mat-error *ngIf="last_name.invalid">{{errorValidator("last_name")|translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Correo electrónico</mat-label>
+            <mat-label>{{"PERSONAL_INFO.FORM.EMAIL"|translate}}</mat-label>
             <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="saveForm()">
-            <mat-error *ngIf="email.invalid">{{errorValidator('email')}}</mat-error>
+            <mat-error *ngIf="email.invalid">{{errorValidator("email")|translate}}</mat-error>
         </mat-form-field>
     </div>
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
     <mat-card-actions [align]="'end'">
-        <button mat-raised-button color="primary" matTooltip="Actualizar datos personales" (click)="saveForm()" [disabled]="personalForm.invalid">
+        <button mat-raised-button color="primary" matTooltip="{{ 'PERSONAL_INFO.FORM.BUTTON.BUTTON_TOOLTIP' | translate }}" (click)="saveForm()" [disabled]="personalForm.invalid">
             <div>
                 <mat-icon>save</mat-icon>
-                Guardar
+                {{ 'PERSONAL_INFO.FORM.BUTTON.BUTTON_SAVE' | translate }}
             </div>
         </button>
     </mat-card-actions>

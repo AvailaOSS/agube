@@ -11,6 +11,7 @@ import { AddressComponent } from './address.component';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [AddressComponent, EditAddressComponent],
@@ -26,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PipesModule,
     MatDividerModule,
     MatTooltipModule,
+    TranslateModule
   ],
   exports: [AddressComponent, EditAddressComponent],
 })

@@ -13,6 +13,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ChangeComponent, ResidentComponent, OwnerComponent],
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatProgressBarModule,
     MatTooltipModule,
     MatIconModule,
+    TranslateModule,
   ],
 })
 export class PersonModule {}

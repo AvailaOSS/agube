@@ -10,6 +10,7 @@ import { CreateRoutingModule } from './create-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -25,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatProgressBarModule,
     MatTooltipModule,
+    TranslateModule
   ],
   exports: [CreateComponent],
 })

@@ -59,25 +59,25 @@ export class PersonalInfoComponent implements OnInit {
     switch (entity) {
       case 'username':
         if (this.username.hasError('required')) {
-          return '¿No te gusta tu nombre de usuario? ¡Cámbialo!';
+          return 'PERSONAL_INFO.FORM.VALIDATIONS.USERNAME';
         }
         return '';
       case 'email':
         if (this.email.hasError('required')) {
-          return '¿Has cambiado de correo? ¡Actualízalo!';
+          return 'PERSONAL_INFO.FORM.VALIDATIONS.EMAIL.REQUIRED';
         }
         if (this.email.hasError('email')) {
-          return 'El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com';
+          return 'PERSONAL_INFO.FORM.VALIDATIONS.EMAIL.FORMAT_STANDARD';
         }
         return '';
       case 'first_name':
         if (this.first_name.hasError('required')) {
-          return '¿Tu nombre no es correcto? ¿Cómo te llamas?';
+          return 'PERSONAL_INFO.FORM.VALIDATIONS.FIRST_NAME';
         }
         return '';
       case 'last_name':
         if (this.last_name.hasError('required')) {
-          return '¿Cuál es tu Apellido?';
+          return 'PERSONAL_INFO.FORM.VALIDATIONS.LAST_NAME';
         }
         return '';
       default:

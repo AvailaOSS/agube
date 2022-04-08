@@ -81,7 +81,7 @@ export class WaterMeterChangeDialogComponent {
     switch (entity) {
       case 'code':
         if (this.code.hasError('required')) {
-          return 'Revisa el código del contador';
+          return 'WATER_METER.DIALOG.FORM.NEW_WATER_METER.VALIDATION';
         }
         return '';
       default:
