@@ -59,6 +59,26 @@
       }
     }
   },
+  "MANAGER_CONFIG": {
+    "PARAMETERS": {
+      "TITLE": "Parámetros generales",
+      "FORM": {
+        "HOOK_PRICE": {
+          "TEXT": "Precio de enganche",
+          "VALIDATION": "El precio de enganche no puede estar vacio"
+        },
+        "MAX_DAILY_CONSUMPTION": {
+          "TEXT": "Máximo consumo diario",
+          "VALIDATION": "El consumo máximo diario no puede estar vacio"
+        },
+        "BUTTON": {
+          "TEXT": "Guardar",
+          "DESCRIPTION": "Última actualización",
+          "TOOLTIP": "Actualizar Parámetros generales"
+        }
+      }
+    }
+  },
   "PERSONAL_INFO": {
     "TITLE": "Datos Personales",
     "FORM": {
