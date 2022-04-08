@@ -102,6 +102,48 @@
       }
     }
   },
+  "NEW_DWELLING": {
+    "TITLE": "Da de Alta una nueva Vivienda",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Código de contador",
+        "VALIDATION": "Revisa cuál es el código del contador de agua de la Vivienda"
+      },
+      "TOWN": {
+        "TEXT": "Ciudad",
+        "VALIDATION": "Escribe la ciudad en la que se encuentra la Vivienda"
+      },
+      "STREET": {
+        "TEXT": "Calle",
+        "VALIDATION": "Escribe la calle a la que corresponde la Vivienda"
+      },
+      "NUMBER": {
+        "TEXT": "Nº",
+        "VALIDATION": "Escribe el número de la Dirección"
+      },
+      "FLAT": {
+        "TEXT": "Piso"
+      },
+      "GATE": {
+        "TEXT": "Puerta",
+        "VALIDATION": "Escribe el número de de Puerta"
+      },
+      "BUTTONS": {
+        "CLOSE": {
+          "TEXT": "Salir sin Guardar",
+          "TOOLTIP": "No se guardarán los datos"
+        },
+        "SAVE": {
+          "TEXT": "Guardar",
+          "TOOLTIP": "Crear nueva Vivienda"
+        },
+        "SAVE_AND_CLOSE": {
+          "TEXT": "Guardar y Salir",
+          "TOOLTIP": "Crear nueva Vivienda y volver a la pantalla principal"
+        }
+      }
+    }
+  },
   "WATER_METER": {
     "CODE": "Código de contador",
     "RELEASE_DATE": "Fecha de alta",
