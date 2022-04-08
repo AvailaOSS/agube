@@ -2,20 +2,20 @@
     <mat-card-header>
         <div>
             <mat-form-field appearance="standard">
-                <mat-label>Calle, Ciudad, Capacidad...</mat-label>
-                <input matInput matTooltip="Buscar" matTooltipPosition="right" (keyup)="applyFilter()"
-                    [formControl]="filter">
-                <button matSuffix mat-icon-button matTooltip="Borrar búsqueda" *ngIf="filter.value.length > 0"
-                    (click)="clearFilter()">
+                <mat-label>{{'RESERVOIR.TABLE.FILTER.TEXT'|translate}}</mat-label>
+                <input matInput matTooltip="{{'RESERVOIR.TABLE.FILTER.TOOLTIP'|translate}}" matTooltipPosition="right"
+                    (keyup)="applyFilter()" [formControl]="filter">
+                <button matSuffix mat-icon-button matTooltip="{{'RESERVOIR.TABLE.FILTER.BUTTON.TOOLTIP'|translate}}"
+                    *ngIf="filter.value.length > 0" (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
         </div>
         <div [align]="'end'">
-            <button mat-raised-button color="primary" matTooltip="Ir a la página de creación de depósitos"
+            <button mat-raised-button color="primary" matTooltip="{{'RESERVOIR.TABLE.BUTTON.TOOLTIP'|translate}}"
                 (click)="goToNewReservoir()">
                 <mat-icon color="accent">water_drop</mat-icon>
-                Nuevo Depósito
+                {{'RESERVOIR.TABLE.BUTTON.TEXT'|translate}}
             </button>
         </div>
     </mat-card-header>
@@ -45,8 +45,9 @@
                 <td mat-cell *matCellDef="let element">{{element | reservoirDetail }}</td>
             </ng-container>
 
-            <tr mat-row class="table-row" matTooltip="Seleccionar" (click)="selectElement(row)"
-                *matRowDef="let row; columns: displayedColumns;" [ngClass]="row === isSelected ? 'selected-row' : ''">
+            <tr mat-row class="table-row" matTooltip="{{'RESERVOIR.TABLE.TOOLTIP'|translate}}"
+                (click)="selectElement(row)" *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="row === isSelected ? 'selected-row' : ''">
             </tr>
 
         </table>
