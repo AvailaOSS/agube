@@ -43,6 +43,65 @@
       }
     }
   },
+  "PERSON": {
+    "PERSON": "Person",
+    "OWNER": "Owner",
+    "RESIDENT": "Resident",
+    "CHANGE": {
+      "TITLE_1": "Change of",
+      "TITLE_2": "Register a new",
+      "SUBTITLE_1": "The current",
+      "SUBTITLE_2": "",
+      "SUBTITLE_3": "will be discharged",
+      "FORM": {
+        "DATA": {
+          "TITLE": "Data",
+          "FIRST_NAME": {
+            "TEXT": "First Name",
+            "VALIDATION.PERSON.RESIDENT": "Write the name of the Resident",
+            "VALIDATION.PERSON.OWNER": "Write the name of the Owner"
+          },
+          "LAST_NAME": {
+            "TEXT": "Surnames",
+            "VALIDATION.PERSON.RESIDENT": "Write the last name of Resident",
+            "VALIDATION.PERSON.OWNER": "Write the last name of Owner"
+          }
+        },
+        "CONTACT_INFO": {
+          "TITLE": "Contact information",
+          "EMAIL": {
+            "TEXT": "Email",
+            "VALIDATION": {
+              "REQUIRED.PERSON.RESIDENT": "Insert the email of Resident",
+              "REQUIRED.PERSON.OWNER": "Insert the email of Owner",
+              "EMAIL_FORMAT": "The email entered does not comply with the format stark@industries.com"
+            }
+          },
+          "CONTACT_PHONE": {
+            "TEXT": "Telephone contact",
+            "VALIDATION": {
+              "REQUIRED": "Insert a contact number",
+              "PHONE_FORMAT": "The contact number does not comply with the format 196320819 or +XX 196320819"
+            }
+          }
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Exit without saving",
+            "TOOLTIP": "The change will not be made"
+          },
+          "SAVE": {
+            "TEXT": "Save",
+            "TOOLTIP": "Make the change of"
+          },
+          "SAVE_AND_CLOSE": {
+            "TEXT": "Save and exit",
+            "TOOLTIP": "and return to the main page"
+          }
+        }
+      }
+    }
+  },
   "WATER_METER": {
     "CODE": "Code counter",
     "RELEASE_DATE": "Release date",

@@ -43,6 +43,65 @@
       }
     }
   },
+  "PERSON": {
+    "PERSON": "Persona",
+    "OWNER": "Propietario",
+    "RESIDENT": "Residente",
+    "CHANGE": {
+      "TITLE_1": "Cambio de",
+      "TITLE_2": "Alta de nuevo",
+      "SUBTITLE_1": "El",
+      "SUBTITLE_2": "actual",
+      "SUBTITLE_3": "será dado de baja",
+      "FORM": {
+        "DATA": {
+          "TITLE": "Datos",
+          "FIRST_NAME": {
+            "TEXT": "Nombre",
+            "VALIDATION.PERSON.RESIDENT": "Escribe el Nombre del Residente",
+            "VALIDATION.PERSON.OWNER": "Escribe el Nombre del Propietario"
+          },
+          "LAST_NAME": {
+            "TEXT": "Apellido/s",
+            "VALIDATION.PERSON.RESIDENT": "Escribe el Apellido del Residente",
+            "VALIDATION.PERSON.OWNER": "Escribe el Apellido del Propietario"
+          }
+        },
+        "CONTACT_INFO": {
+          "TITLE": "Información de contacto",
+          "EMAIL": {
+            "TEXT": "Correo electrónico",
+            "VALIDATION": {
+              "REQUIRED.PERSON.RESIDENT": "Inserta el correo electrónico del Residente",
+              "REQUIRED.PERSON.OWNER": "Inserta el correo electrónico del Propietario",
+              "EMAIL_FORMAT": "El email introducido no cumple con el formato stark@industries.com"
+            }
+          },
+          "CONTACT_PHONE": {
+            "TEXT": "Teléfono de contacto",
+            "VALIDATION": {
+              "REQUIRED": "Inserta un número de contacto",
+              "PHONE_FORMAT": "El número de contacto no cumple con el formato 196320819 o +XX 196320819"
+            }
+          }
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Salir sin Guardar",
+            "TOOLTIP": "No se realizará el cambio de"
+          },
+          "SAVE": {
+            "TEXT": "Guardar",
+            "TOOLTIP": "Realizar el cambio de"
+          },
+          "SAVE_AND_CLOSE": {
+            "TEXT": "Guardar y Salir",
+            "TOOLTIP": "y volver a la página principal"
+          }
+        }
+      }
+    }
+  },
   "WATER_METER": {
     "CODE": "Código de contador",
     "RELEASE_DATE": "Fecha de alta",
