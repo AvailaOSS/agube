@@ -57,6 +57,25 @@
         "TEXT": "Abrir formulario de Nueva Lectura",
         "TOOLTIP": "Nueva Lectura"
       }
+    },
+    "DIALOG": {
+      "TITLE": "Realizando cambio de Contador",
+      "FORM": {
+        "NEW_WATER_METER": {
+          "TEXT": "Nuevo Contador",
+          "VALIDATION": "Revisa el código del contador"
+        },
+        "BUTTONS": {
+          "CLOSE": {
+            "TEXT": "Cerrar sin Guardar",
+            "TOOLTIP": "No se guardarán los datos"
+          },
+          "SAVE": {
+            "TEXT": "Guardar",
+            "TOOLTIP": "Dar de Baja el contador actual y Dar de Alta un nuevo contador"
+          }
+        }
+      }
     }
   },
   "MANAGER_CONFIG": {
