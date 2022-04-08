@@ -7,19 +7,19 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        Código de contador
+        {{'WATER_METER.CODE'|translate}}
         <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="reservoirDetail.id"
             [type]="type?.type">
         </app-water-meter-content>
-        Datos
+        {{'RESERVOIR.CARD.DATA.TITLE' | translate}}
         <app-detail-reservoir [reservoirId]="reservoirDetail.id"></app-detail-reservoir>
         <div class="buttons-management">
             <button mat-raised-button color="primary"
-                matTooltip="Dar de Baja el contador actual y Dar de Alta un nuevo contador"
+                matTooltip="{{'RESERVOIR.CARD.BUTTONS.CHANGE_WATER_METER_CODE_TOOLTIP'|translate}}"
                 (click)="openChangeWaterMeter()">
                 <div>
                     <mat-icon>update</mat-icon>
-                    Cambio de Contador
+                    {{'RESERVOIR.CARD.BUTTONS.CHANGE_WATER_METER_CODE'|translate}}
                 </div>
             </button>
         </div>

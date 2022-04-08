@@ -172,5 +172,84 @@
         }
       }
     }
+  },
+  "RESERVOIR": {
+    "TABLE": {
+      "TOOLTIP": "Select",
+      "FILTER": {
+        "TEXT": "Code, Street, Town, Phone Nº...",
+        "TOOLTIP": "Search",
+        "BUTTON": {
+          "TOOLTIP": "Clean Search"
+        }
+      },
+      "BUTTON": {
+        "TEXT": "New Reservoir",
+        "TOOLTIP": "Go to the creation reservoir page"
+      }
+    },
+    "CARD": {
+      "DATA": {
+        "TITLE": "Data",
+        "CAPACITY": "Capacity",
+        "INLET_FLOW": " Water inlet ",
+        "OUTLET_FLOW": "Water outlet"
+      },
+      "BUTTONS": {
+        "CHANGE_WATER_METER_CODE": "Change Counter",
+        "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter"
+      }
+    },
+    "CREATE": {
+      "TITLE": "Register a new Reservoir",
+      "FORM": {
+        "WATER_METER_CODE": {
+          "TEXT": "Code counter",
+          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
+        },
+        "GATE": {
+          "TEXT": "Gate",
+          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
+        },
+        "FLAT": {
+          "TEXT": "Flat",
+          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
+        },
+
+        "NUMBER": {
+          "TEXT": "Number",
+          "VALIDATION": "Write the address number"
+        },
+        "STREET": {
+          "TEXT": "Street",
+          "VALIDATION": "Write the street to which the Reservoir corresponds "
+        },
+        "TOWN": {
+          "TEXT": "Town",
+          "VALIDATION": "Write the city in which the Reservoir is located"
+        },
+        "CAPACITY": {
+          "TEXT": "Capacity",
+          "VALIDATION": "Write the total capacity of the Reservoir"
+        },
+
+        "INLET_FLOW": {
+          "TEXT": " Water inlet",
+          "VALIDATION": "Write the Repository input stream"
+        },
+        "OUTLET_FLOW": {
+          "TEXT": "Water outlet",
+          "VALIDATION": "Write the output flow of the Repository"
+        },
+        "BUTTONS": {
+          "BUTTON_EXIT": "Exit without saving",
+          "BUTTON_EXIT_TOOLTIP": "Data will not be saved",
+          "BUTTON_SAVE": "Save",
+          "BUTTON_SAVE_TOOLTIP": "Create new Reservoir",
+          "BUTTON_SAVE_EXIT": "Save and Exit",
+          "BUTTON_SAVE_EXIT_TOOLTIP": "Create new Deposit and return to Reservoir table"
+        }
+      }
+    }
   }
 }
