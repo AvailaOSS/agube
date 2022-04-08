@@ -1,5 +1,5 @@
 # Node build
-FROM node:14 AS nodebuilder
+FROM node:16.14.2 AS nodebuilder
 
 WORKDIR /availa-agube
 

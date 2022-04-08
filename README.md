@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## 🐋 Publish In Docker
+
+Publish Frontend Image into Gitlab Registry
+
+> docker build -t registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe .
+
+> docker push registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe
