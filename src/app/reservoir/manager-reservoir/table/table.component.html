@@ -1,22 +1,29 @@
 <mat-card class="table-card">
     <mat-card-header>
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label>{{'RESERVOIR.TABLE.FILTER.TEXT'|translate}}</mat-label>
-                <input matInput matTooltip="{{'RESERVOIR.TABLE.FILTER.TOOLTIP'|translate}}" matTooltipPosition="right"
-                    (keyup)="applyFilter()" [formControl]="filter">
-                <button matSuffix mat-icon-button matTooltip="{{'RESERVOIR.TABLE.FILTER.BUTTON.TOOLTIP'|translate}}"
-                    *ngIf="filter.value.length > 0" (click)="clearFilter()">
-                    <mat-icon>close</mat-icon>
+        <mat-card-title>
+            <h2>
+                {{ "RESERVOIR.TABLE.TITLE" | translate}}
+            </h2>
+        </mat-card-title>
+        <div class="filter">
+            <div>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'RESERVOIR.TABLE.FILTER.TEXT'|translate}}</mat-label>
+                    <input matInput matTooltip="{{'RESERVOIR.TABLE.FILTER.TOOLTIP'|translate}}"
+                        matTooltipPosition="right" (keyup)="applyFilter()" [formControl]="filter">
+                    <button matSuffix mat-icon-button matTooltip="{{'RESERVOIR.TABLE.FILTER.BUTTON.TOOLTIP'|translate}}"
+                        *ngIf="filter.value.length > 0" (click)="clearFilter()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div [align]="'end'">
+                <button mat-raised-button color="primary" matTooltip="{{'RESERVOIR.TABLE.BUTTON.TOOLTIP'|translate}}"
+                    (click)="goToNewReservoir()">
+                    <mat-icon color="accent">water_drop</mat-icon>
+                    {{'RESERVOIR.TABLE.BUTTON.TEXT'|translate}}
                 </button>
-            </mat-form-field>
-        </div>
-        <div [align]="'end'">
-            <button mat-raised-button color="primary" matTooltip="{{'RESERVOIR.TABLE.BUTTON.TOOLTIP'|translate}}"
-                (click)="goToNewReservoir()">
-                <mat-icon color="accent">water_drop</mat-icon>
-                {{'RESERVOIR.TABLE.BUTTON.TEXT'|translate}}
-            </button>
+            </div>
         </div>
     </mat-card-header>
     <mat-card-content>

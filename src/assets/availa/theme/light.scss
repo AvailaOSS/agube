@@ -94,3 +94,9 @@ $agube-fe-theme: mat.define-light-theme(
 .mat-dialog-actions {
   float: right;
 }
+
+h1,
+h2,
+h3 {
+  color: mat.get-color-from-palette($agube-fe-primary, 600);
+}

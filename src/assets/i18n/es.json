@@ -13,6 +13,7 @@
   },
   "DWELLINGS": {
     "TABLE": {
+      "TITLE": "Lista de Depósitos",
       "TOOLTIP": "Seleccionar",
       "FILTER": {
         "TEXT": "Código, Calle, Ciudad, Nº Telefono...",
@@ -344,6 +345,7 @@
   },
   "RESERVOIR": {
     "TABLE": {
+      "TITLE": "Lista de Depósitos",
       "TOOLTIP": "Seleccionar",
       "FILTER": {
         "TEXT": "Calle, Ciudad, Capacidad...",

@@ -13,6 +13,7 @@
   },
   "DWELLINGS": {
     "TABLE": {
+      "TITLE": "Dwelling's List",
       "TOOLTIP": "Select",
       "FILTER": {
         "TEXT": "Code, Street, Town, Phone Nº...",
@@ -345,6 +346,7 @@
   },
   "RESERVOIR": {
     "TABLE": {
+      "TITLE": "Reservoir's List",
       "TOOLTIP": "Select",
       "FILTER": {
         "TEXT": "Code, Street, Town, Phone Nº...",
