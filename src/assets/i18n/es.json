@@ -370,7 +370,7 @@
       }
     },
     "CREATE": {
-      "TITLE": "Da de Alta una nuevo Depósito",
+      "TITLE": "Da de Alta un nuevo Depósito",
       "FORM": {
         "WATER_METER_CODE": {
           "TEXT": "Código de Contador",
