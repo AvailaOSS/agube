@@ -1,4 +1,9 @@
 {
+  "LENGUAGE": {
+    "GALICIAN": "Gallego",
+    "SPANISH": "Español",
+    "ENGLISH": "Inglés"
+  },
   "SIDEBAR": {
     "BUTTONS": {
       "CLOSE_SESSION": "Cerrar Sesión"

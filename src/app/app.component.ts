@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface Language {
@@ -18,24 +17,31 @@ export class AppComponent {
 
   public languages: Language[] = [
     {
+      code: 'ga',
+      description: 'LENGUAGE.GALICIAN',
+      flagLink:
+        'https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Galicia.svg',
+    },
+    {
       code: 'es',
-      description: 'Español',
-      flagLink: 'http://country.io/static/flags/48/es.png',
+      description: 'LENGUAGE.SPANISH',
+      flagLink: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg',
     },
     {
       code: 'en',
-      description: 'English',
-      flagLink: 'http://country.io/static/flags/48/gb.png',
+      description: 'LENGUAGE.ENGLISH',
+      flagLink: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
     },
   ];
 
-  public selectedLanguage = new FormControl('');
+  public selectedLanguage: Language = this.languages[1];
 
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('es');
+    translate.setDefaultLang(this.selectedLanguage.code);
   }
 
   public selectLenguaje(language: Language) {
+    this.selectedLanguage = language;
     this.translate.use(language.code);
   }
 }

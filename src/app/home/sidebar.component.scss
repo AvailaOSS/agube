@@ -32,8 +32,9 @@
   padding: $margin-medium;
   .theme-button {
     position: fixed;
-    top: 1%;
-    right: 0.5%;
+    top: 1.5%;
+    right: 4%;
+    margin-right: 10px;
     display: flex;
     align-items: center;
     mat-icon{
