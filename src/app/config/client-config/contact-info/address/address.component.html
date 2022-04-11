@@ -16,7 +16,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>{{'CONTACT_INFO.ADDRESS.FORM.FLAT'|translate}}</mat-label>
-                    <input matInput placeholder="Tercero" [formControl]="flat" (keydown.enter)="saveAddress()" />
+                    <input matInput placeholder="3" [formControl]="flat" (keydown.enter)="saveAddress()" />
                     <mat-error *ngIf="flat.invalid">{{errorValidator('flat')|translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
