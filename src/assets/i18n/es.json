@@ -21,7 +21,7 @@
       "TITLE": "Lista de Depósitos",
       "TOOLTIP": "Seleccionar",
       "FILTER": {
-        "TEXT": "Código, Calle, Ciudad, Nº Telefono...",
+        "TEXT": "Código, Calle, Ciudad, Nº Teléfono...",
         "TOOLTIP": "Buscar",
         "BUTTON": {
           "TOOLTIP": "Borrar búsqueda"
@@ -51,12 +51,12 @@
   },
   "PERSON": {
     "PERSON": "Persona",
-    "OWNER": "Propietario",
+    "OWNER": "Propietario/a",
     "RESIDENT": "Residente",
     "CHANGE": {
       "TITLE_1": "Cambio de",
-      "TITLE_2": "Alta de nuevo",
-      "SUBTITLE_1": "El",
+      "TITLE_2": "Alta de nuevo/a",
+      "SUBTITLE_1": "El/La",
       "SUBTITLE_2": "actual",
       "SUBTITLE_3": "será dado de baja",
       "FORM": {
@@ -65,12 +65,12 @@
           "FIRST_NAME": {
             "TEXT": "Nombre",
             "VALIDATION.PERSON.RESIDENT": "Escribe el Nombre del Residente",
-            "VALIDATION.PERSON.OWNER": "Escribe el Nombre del Propietario"
+            "VALIDATION.PERSON.OWNER": "Escribe el Nombre del Propietario/a"
           },
           "LAST_NAME": {
             "TEXT": "Apellido/s",
             "VALIDATION.PERSON.RESIDENT": "Escribe el Apellido del Residente",
-            "VALIDATION.PERSON.OWNER": "Escribe el Apellido del Propietario"
+            "VALIDATION.PERSON.OWNER": "Escribe el Apellido del Propietario/a"
           }
         },
         "CONTACT_INFO": {
@@ -79,7 +79,7 @@
             "TEXT": "Correo electrónico",
             "VALIDATION": {
               "REQUIRED.PERSON.RESIDENT": "Inserta el correo electrónico del Residente",
-              "REQUIRED.PERSON.OWNER": "Inserta el correo electrónico del Propietario",
+              "REQUIRED.PERSON.OWNER": "Inserta el correo electrónico del Propietario/a",
               "EMAIL_FORMAT": "El email introducido no cumple con el formato stark@industries.com"
             }
           },
@@ -132,7 +132,7 @@
       },
       "GATE": {
         "TEXT": "Puerta",
-        "VALIDATION": "Escribe el número de de Puerta"
+        "VALIDATION": "Escribe el número de Puerta"
       },
       "BUTTONS": {
         "CLOSE": {
@@ -342,8 +342,8 @@
         "CONFIRM_PASSWORD": {
           "REQUIRED": "Inserta una contraseña de confirmación",
           "MINLENGTH": "La contraseña de confirmación debe tener al menos 5 caracteres.",
-          "MAXLENGTH": "La contraseña  de confirmación debe tener hasta 16 caracteres.",
-          "NOMATCHED": "La contraseñas no son iguales."
+          "MAXLENGTH": "La contraseña de confirmación debe tener hasta 16 caracteres.",
+          "NOMATCHED": "Las contraseñas no son iguales."
         }
       }
     }
