@@ -6,7 +6,7 @@ WORKDIR /availa-agube
 # Install dependencies
 COPY package*.json .
 COPY .npmrc .
-RUN npm ci
+RUN npm install
 
 # Copy code
 COPY . .
