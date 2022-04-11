@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
-import { HomeRoute } from './home/home-route';
+import { SidebarRoute } from './page/home/sidebar-route';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AgubeApiModule } from '@availa/agube-rest-api';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -34,7 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       authRestconfig: {
         basePath: environment.authBackendUrl,
       },
-      afterLoginSuccessUrl: HomeRoute.MANAGER,
+      afterLoginSuccessUrl: SidebarRoute.MANAGER,
       createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
     }),
     AgubeApiModule.forRoot({

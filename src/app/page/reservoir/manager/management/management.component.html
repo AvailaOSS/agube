@@ -1,0 +1,33 @@
+<mat-card class="card-management" *ngIf="reservoirDetail">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>
+                {{reservoirDetail | reservoirDetail}}
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        {{'WATER_METER.CODE'|translate}}
+        <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="reservoirDetail.id"
+            [type]="type?.type">
+        </app-water-meter-content>
+        {{'RESERVOIR.CARD.DATA.TITLE' | translate}}
+        <app-reservoir-resume [reservoirId]="reservoirDetail.id"></app-reservoir-resume>
+        <div class="buttons-management">
+            <button mat-raised-button color="primary"
+                matTooltip="{{'RESERVOIR.CARD.BUTTONS.CHANGE_WATER_METER_CODE_TOOLTIP'|translate}}"
+                (click)="openChangeWaterMeter()">
+                <div>
+                    <mat-icon>update</mat-icon>
+                    {{'RESERVOIR.CARD.BUTTONS.CHANGE_WATER_METER_CODE'|translate}}
+                </div>
+            </button>
+        </div>
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="water-meter-container">
+            <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type"></app-water-meter-detail>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,51 @@
+@import "../../../../../../assets/availa/sizes/margins.scss";
+
+mat-list {
+  mat-divider {
+    position: inherit;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.edit-phones-header {
+  display: flex;
+  align-items: center;
+  padding-left: $margin-x-small;
+  button {
+    margin-left: $margin-small;
+  }
+}
+
+.editable-form {
+  display: flex;
+  margin-left: $margin-x-medium;
+  .phone-form {
+    width: 100%;
+    mat-form-field {
+      margin: $margin-small;
+    }
+  }
+  .phone-buttons {
+    display: flex;
+  }
+}
+
+.add-phone {
+  mat-divider {
+    position: inherit;
+    margin: 0 auto;
+    width: 45%;
+  }
+}
+
+.phone {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.list-phones {
+  padding-left: $margin-x-medium;
+  padding-right: $margin-x-medium;
+}
