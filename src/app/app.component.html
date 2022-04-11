@@ -1,9 +1,13 @@
 <span class="language-selector">
-    <mat-button-toggle-group [formControl]="selectedLanguage">
-        <mat-button-toggle *ngFor="let language of languages" value="{{language.code}}"
-            matTooltip="{{language.description}}" (click)="selectLenguaje(language)">
+    <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+        <img src="{{selectedLanguage.flagLink}}" />
+        <mat-icon color="primary">keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item matTooltip="{{language.description | translate}}" matTooltipPosition="left"
+            class="lenguage-image-button" *ngFor="let language of languages" (click)="selectLenguaje(language)">
             <img src="{{language.flagLink}}" />
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+        </button>
+    </mat-menu>
 </span>
 <router-outlet></router-outlet>

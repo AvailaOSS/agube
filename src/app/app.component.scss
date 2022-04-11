@@ -1,16 +1,25 @@
+@import '../assets/availa/sizes/margins.scss';
+
 .language-selector {
   position: absolute;
-  top: 0%;
-  right: 5.5%;
+  top: 0.7%;
+  right: 2%;
   z-index: 9999;
   img {
-    width: 25px;
+    width: $margin-x-medium;
   }
-  .mat-button-toggle-group {
-    border: none;
+}
+.lenguage-image-button {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  img {
+    width: 50px;
+    height: 33px;
+    margin-top: $margin-x-small;
   }
-  .mat-button-toggle {
-    background: none;
-    border: none;
-  }
+}
+
+::ng-deep.mat-menu-panel {
+  min-width: 80px !important;
 }

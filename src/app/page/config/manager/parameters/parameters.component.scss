@@ -1,0 +1,14 @@
+@import '../../../../../assets/availa/sizes/margins.scss';
+
+.button-save-info {
+  margin-right: $margin-small;
+  display: table;
+  span {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.form-right-align {
+  text-align: right;
+}

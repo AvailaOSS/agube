@@ -1,0 +1,5 @@
+<div class="manager-reservoir-page">
+    <app-table class="manager-reservoir-page-table" (selectedElement)="readSelected($event)"></app-table>
+    <app-page-reservoir-management class="manager-reservoir-page-card" [reservoirDetail]="element">
+    </app-page-reservoir-management>
+</div>

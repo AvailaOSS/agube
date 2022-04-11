@@ -15,8 +15,8 @@ const routes: Routes = [
     canLoad: [UserGuard, ManagerGuard],
     canActivate: [UserGuard, ManagerGuard],
     loadChildren: () =>
-      import('./home/home-manager/home-manager.module').then(
-        (m) => m.HomeManagerModule
+      import('./page/home/manager/manager-page.module').then(
+        (m) => m.ManagerPageModule
       ),
   },
   {
@@ -24,9 +24,7 @@ const routes: Routes = [
     canLoad: [UserGuard],
     canActivate: [UserGuard],
     loadChildren: () =>
-      import('./home/home-client/home-client.module').then(
-        (m) => m.HomeClientModule
-      ),
+      import('./page/home/client/client.module').then((m) => m.ClientModule),
   },
 ];
 

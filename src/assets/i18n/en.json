@@ -1,4 +1,9 @@
 {
+  "LENGUAGE": {
+    "GALICIAN": "Galician",
+    "SPANISH": "Spanish",
+    "ENGLISH": "English"
+  },
   "SIDEBAR": {
     "BUTTONS": {
       "CLOSE_SESSION": "Close Session"
@@ -13,6 +18,7 @@
   },
   "DWELLINGS": {
     "TABLE": {
+      "TITLE": "Dwelling's List",
       "TOOLTIP": "Select",
       "FILTER": {
         "TEXT": "Code, Street, Town, Phone Nº...",
@@ -345,6 +351,7 @@
   },
   "RESERVOIR": {
     "TABLE": {
+      "TITLE": "Reservoir's List",
       "TOOLTIP": "Select",
       "FILTER": {
         "TEXT": "Code, Street, Town, Phone Nº...",

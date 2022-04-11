@@ -1,4 +1,4 @@
-import { HomeRoute } from './../home/home-route';
+import { SidebarRoute } from './../page/home/sidebar-route';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router, UrlTree } from '@angular/router';
 import { ManagerService } from '@availa/agube-rest-api';
@@ -28,7 +28,7 @@ export class ManagerGuard implements CanActivate, CanLoad {
         if (response.is_manager) {
           resolve(true);
         } else {
-          resolve(this.router.parseUrl(HomeRoute.CLIENT));
+          resolve(this.router.parseUrl(SidebarRoute.CLIENT));
         }
       });
     });
