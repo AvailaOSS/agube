@@ -8,5 +8,14 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+document
+  .getElementById('googleKey')
+  ?.setAttribute(
+    'src',
+    'https://maps.googleapis.com/maps/api/js?key=' +
+      environment.googleMapsApiKey
+);
+  
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));

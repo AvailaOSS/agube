@@ -2,7 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientComponent } from './client.component';
 
-const routes: Routes = [{ path: '', component: ClientComponent }];
+const routes: Routes = [
+  // { path: '', component: ClientComponent },
+  {
+    path: '',
+    loadChildren: () =>
+      import('../detail/detail.module').then((m) => m.DetailModule),
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
