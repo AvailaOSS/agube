@@ -65,7 +65,10 @@ export class StreetViewComponent implements OnInit, AfterViewInit {
 
     streetView.setOptions({
       position: { lat: this.location.latitude, lng: this.location.longitude },
-      pov: { heading: -20, pitch: -10 },
+      pov: {
+        heading: this.location.horizontalDegree,
+        pitch: this.location.verticalDegree,
+      },
     });
 
     streetView.setVisible(true);
