@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule, AuthRoute, HttpLoaderFactory } from '@availa/auth-fe';
+import { AuthModule, AuthRoute } from '@availa/auth-fe';
 
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { SidebarRoute } from './page/home/sidebar-route';
@@ -16,7 +16,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new MultiTranslateHttpLoader(http, [
+    { prefix: './../assets/i18n/', suffix: '.json' },
+    { prefix: './src/assets/auth/', suffix: '.json' },
+  ]);
+}
 
 @NgModule({
   declarations: [AppComponent],

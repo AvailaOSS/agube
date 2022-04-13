@@ -32,9 +32,9 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/@availa/auth-fe/src/lib/assets/i18n/",
-                "output": "./src/assets/test/"
-                
+                "input": "node_modules/@availa/auth-fe/assets/i18n/",
+                "output": "./src/assets/auth/"
+
               }
             ],
             "styles": ["src/styles.scss"],
