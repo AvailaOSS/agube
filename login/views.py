@@ -1,12 +1,14 @@
 from address.models import Address, FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from address.serializers import FullAddressSerializer
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 from login.serializers_external import UserDwellingDetailSerializer
 from phone.models import Phone
 from manager.permissions import IsManagerAuthenticated
 from login.permissions import IsManagerOfUser, IsUserMatch
+from phone.serializers import PhoneSerializer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
@@ -17,7 +19,7 @@ from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
 from login.serializers import (UserAddressUpdateSerializer,
                                UserCustomDetailSerializer,
-                               UserPhoneUpdateSerializer)
+                               UserDetailSerializer, UserPhoneUpdateSerializer)
 
 TAG_USER = 'user'
 
@@ -81,6 +83,33 @@ class UserCustomDetailListView(APIView):
                 UserCustomDetailSerializer(data, many=False).data)
 
         return Response(list_of_serialized)
+
+
+class UserCustomDetailView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+
+    @swagger_auto_schema(
+        operation_id="getUserDetail",
+        responses={200: UserDetailSerializer(many=False)},
+        tags=[TAG_USER],
+    )
+    def get(self, request, pk):
+        """
+        Return user information details.
+        """
+        user = request.user
+
+        phone = UserPhone.objects.get(user=user, main=True)
+
+        data = {
+            "id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "email": user.email,
+            "main_phone": phone.phone,
+        }
+
+        return Response(UserDetailSerializer(data, many=False).data)
 
 
 class UserDwellingDetailView(APIView):
@@ -280,7 +309,7 @@ class UserCreateAddressView(APIView):
     @swagger_auto_schema(
         operation_id="addUserAddress",
         request_body=UserAddressUpdateSerializer,
-        responses={200: UserAddressUpdateSerializer(many=True)},
+        responses={200: UserAddressUpdateSerializer(many=False)},
         tags=[TAG_USER],
     )
     def post(self, request, pk):
@@ -299,9 +328,9 @@ class UserCreateAddressView(APIView):
         if main:
             update_address_to_not_main(pk)
         # create a new full address
-        self.create_address(user, full_address, main)
+        created_user_address = self.create_address(user, full_address, main)
 
-        return Response(get_all_user_full_address_serialized(user))
+        return Response(UserAddressUpdateSerializer(created_user_address).data)
 
     @classmethod
     def create_address(cls, user, validated_data, main):
@@ -326,9 +355,9 @@ class UserCreateAddressView(APIView):
             address=new_address, number=number, flat=flat, gate=gate)
 
         # Create User Full Address
-        UserAddress.objects.create(user=user,
-                                   full_address=new_full_address,
-                                   main=main)
+        return UserAddress.objects.create(user=user,
+                                          full_address=new_full_address,
+                                          main=main)
 
     @swagger_auto_schema(
         operation_id="getUserAddress",

@@ -1,10 +1,11 @@
 from django.urls import include, path
 
 from login.views import (UserAddressUpdateDeleteView, UserCreateAddressView,
-                         UserCreatePhoneView, UserCustomDetailListView,
+                         UserCreatePhoneView, UserCustomDetailListView, UserCustomDetailView,
                          UserDwellingDetailView, UserPhoneUpdateDeleteView)
 
 __url_user = [
+    path('<int:pk>', UserCustomDetailView.as_view()),
     path('<int:pk>/dwelling', UserDwellingDetailView.as_view()),
     path('<int:pk>/address', UserCreateAddressView.as_view()),
     path('<int:pk>/address/<int:full_address_id>',

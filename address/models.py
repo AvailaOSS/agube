@@ -13,9 +13,9 @@ class Address(models.Model):
 
 class FullAddress(models.Model):
     address: Address = models.ForeignKey(Address, on_delete=models.CASCADE)
-    number = models.PositiveIntegerField()
-    flat = models.TextField(null=True)
-    gate = models.TextField(null=True)
+    number = models.PositiveIntegerField(null=True, blank=True)
+    flat = models.TextField(null=True, blank=True)
+    gate = models.TextField(null=True, blank=True)
 
     class Meta:
         ordering = ["address__town", "address__street", "number"]

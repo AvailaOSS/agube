@@ -5,7 +5,6 @@ from rest_framework.views import APIView
 from rest_framework.status import HTTP_404_NOT_FOUND
 
 from manager.models import Manager, ManagerConfiguration, Person
-from manager.permissions import IsManagerAuthenticated
 from manager.serializers import (ManagerConfigurationSerializer,
                                  ManagerSerializer, UserIsManagerSerializer)
 

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
 from login.models import UserAddress, UserPhone
-from login.serializers import UserDetailSerializer
+from login.serializers import UserCreateSerializer
 from manager.models import Manager, Person
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
@@ -45,7 +45,7 @@ def create_address(user: User, validated_data: AddressSerializer, main: bool):
     UserAddress.objects.create(user=user, full_address=full_address, main=main)
 
 
-def create_user(tag: PersonTag, validated_data: UserDetailSerializer,
+def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
                 manager: Manager):
     # Extract unnecessary data
     phones: list[PhoneSerializer] = validated_data.pop('phones')

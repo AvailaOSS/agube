@@ -2,27 +2,27 @@ version: "3.8"
 
 services:
   # Postgres Database
-  db:
-    image: postgres:13
-    ports:
-      - 5432:5432
-    env_file:
-      - .env.db
-    networks:
-      - backend
+  # db:
+  #   image: postgres:13
+  #   ports:
+  #     - 5432:5432
+  #   env_file:
+  #     - .env.db
+  #   networks:
+  #     - backend
 
   # RabbitMQ - queue
-  rabbitmq:
-    hostname: rabbitmq
-    image: rabbitmq:3.8-management
-    ports:
-      - 5672:5672
-      # here, we can access rabbitmq management plugin
-      - 15672:15672
-    env_file:
-      - .env.rabbit
-    networks:
-      - backend
+  # rabbitmq:
+  #   hostname: rabbitmq
+  #   image: rabbitmq:3.8-management
+  #   ports:
+  #     - 5672:5672
+  #     # here, we can access rabbitmq management plugin
+  #     - 15672:15672
+  #   env_file:
+  #     - .env.rabbit
+  #   networks:
+  #     - backend
 
   # Django Backend server
   # auth-backend:
@@ -81,8 +81,8 @@ services:
   #     - rabbitmq
   #   networks:
   #     - backend
-  agube-backend:
-    hostname: agube-backend
+  agube-be:
+    hostname: agube-be
     build:
       context: ../.
       dockerfile: Dockerfile
@@ -100,9 +100,9 @@ services:
       - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
     env_file:
       - .env.be
-    depends_on:
-      - db
-      - rabbitmq
+    # depends_on:
+    #   - db
+    #   - rabbitmq
     networks:
       - backend
   # task-backend:
