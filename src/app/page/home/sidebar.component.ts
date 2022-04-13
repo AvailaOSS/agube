@@ -1,3 +1,4 @@
+import { UserDetail, UserService } from '@availa/agube-rest-api';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -14,7 +15,7 @@ import { ThemeMode } from './theme-mode';
 })
 export class SidebarComponent {
   public pages: SidebarConfig[] = [];
-  public user: User | undefined;
+  public user: UserDetail | undefined;
 
   public toggleControl = new FormControl(false);
 
@@ -26,11 +27,14 @@ export class SidebarComponent {
   constructor(
     protected router: Router,
     protected readonly accountService: AccountService,
-    protected overlayContainer: OverlayContainer
+    protected overlayContainer: OverlayContainer,
+    private svcUser: UserService
   ) {
     //FIXME: add pipe with first name and last name
-    this.accountService.getUser().subscribe((response) => {
-      this.user = response;
+    this.accountService.getUser().subscribe((userResponse) => {
+      this.svcUser
+        .getUserDetail(String(userResponse?.user_id))
+        .subscribe((response) => (this.user = response));
     });
     this.toggleControl.valueChanges.subscribe((isDarkMode) => {
       if (isDarkMode) {

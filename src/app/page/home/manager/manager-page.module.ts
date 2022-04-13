@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TranslateModule } from '@ngx-translate/core';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   declarations: [ManagerPageComponent],
@@ -26,6 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     MatSlideToggleModule,
     TranslateModule,
+    PipesModule,
   ],
 })
 export class ManagerPageModule {}
