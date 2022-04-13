@@ -1,3 +1,5 @@
+import { AccountService } from '@availa/auth-fe';
+import { UserService } from '@availa/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -25,7 +27,9 @@ export class PersonalInfoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private svcNotification: NotificationService
+    private svcNotification: NotificationService,
+    private svcAccount: AccountService,
+    private svcUser: UserService
   ) {
     this.personalForm = this.formBuilder.group({
       username: this.username,
@@ -36,7 +40,16 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //FIXME: Receive data to initialize
+    this.svcAccount.getUser().subscribe((userResponse) =>
+      this.svcUser
+        .getUserDetail(String(userResponse!.user_id))
+        .subscribe((response) => {
+          this.username.setValue(userResponse?.username);
+          this.email.setValue(response.email);
+          this.first_name.setValue(response.first_name);
+          this.last_name.setValue(response.last_name);
+        })
+    );
   }
 
   saveForm() {
