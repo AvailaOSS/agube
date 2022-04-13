@@ -10,6 +10,7 @@ export * from './reservoirCreate';
 export * from './reservoirDetail';
 export * from './resident';
 export * from './userAddress';
+export * from './userCreate';
 export * from './userDetail';
 export * from './userDetailCustom';
 export * from './userDwellingDetail';
