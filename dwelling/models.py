@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from geolocation.models import Geolocation
 from login.models import UserAddress
 from manager.models import Manager
 from watermeter.models import WaterMeter
@@ -185,3 +186,13 @@ class DwellingWaterMeter(models.Model):
     class Meta:
         ordering = ["water_meter__release_date"]
         db_table = 'agube_dwelling_dwelling_water_meter'
+
+
+class DwellingGeolocation(models.Model):
+    """A class used to represent an Dwelling Water Meter"""
+    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
+    geolocation: Geolocation = models.ForeignKey(Geolocation,
+                                                on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'agube_dwelling_dwelling_geolocation'

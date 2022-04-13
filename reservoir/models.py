@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from geolocation.models import Geolocation
 from watermeter.models import WaterMeter
 
 
@@ -115,3 +116,14 @@ class ReservoirWaterMeter(models.Model):
     class Meta:
         ordering = ["water_meter__release_date"]
         db_table = 'agube_reservoir_reservoir_water_meter'
+
+
+class ReservoirGeolocation(models.Model):
+    """A class used to represent an Reservoir Water Meter"""
+    reservoir: Reservoir = models.ForeignKey(Reservoir,
+                                             on_delete=models.RESTRICT)
+    geolocation: Geolocation = models.ForeignKey(Geolocation,
+                                                 on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'agube_reservoir_reservoir_geolocation'
