@@ -381,14 +381,6 @@
           "TEXT": "Código de Contador",
           "VALIDATION": "Revisa cal é o código do contador de auga do Depósito"
         },
-
-        "GATE": {
-          "TEXT": "Porta"
-        },
-        "FLAT": {
-          "TEXT": "Piso"
-        },
-
         "NUMBER": {
           "TEXT": "Numero",
           "VALIDATION": "Escribe o número da dirección"

@@ -31,18 +31,6 @@
                     </div>
                     <div>
                         <mat-form-field appearance="fill">
-                            <mat-label>{{'RESERVOIR.CREATE.FORM.FLAT.TEXT'|translate}}</mat-label>
-                            <input matInput placeholder="3" [formControl]="flat" (keydown.enter)="save()" />
-                            <mat-error *ngIf="flat.invalid">{{errorValidator('flat')|translate}}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{'RESERVOIR.CREATE.FORM.GATE.TEXT'|translate}}</mat-label>
-                            <input matInput placeholder="A" [formControl]="gate" (keydown.enter)="save()" />
-                            <mat-error *ngIf="gate.invalid">{{errorValidator('gate')}}</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <mat-form-field appearance="fill">
                             <mat-label>{{'RESERVOIR.CREATE.FORM.CAPACITY.TEXT'|translate}}</mat-label>
                             <input matInput placeholder="1000" type="number" [formControl]="capacity"
                                 (keydown.enter)="save()" />

@@ -18,9 +18,7 @@ import { AccountService } from '@availa/auth-fe';
 export class CreateComponent {
   public reservoirForm: FormGroup;
   public code = new FormControl('', [Validators.required]);
-  public gate = new FormControl('', []);
-  public flat = new FormControl('', []);
-  public number = new FormControl('', [Validators.required]);
+  public number = new FormControl('', []);
   public street = new FormControl('', [Validators.required]);
   public town = new FormControl('', [Validators.required]);
   public capacity = new FormControl('', [Validators.required]);
@@ -48,8 +46,6 @@ export class CreateComponent {
           street: this.street,
         }),
         number: this.number,
-        flat: this.flat,
-        gate: this.gate,
       }),
       water_meter: this.formBuilder.group({
         code: this.code,
@@ -106,11 +102,6 @@ export class CreateComponent {
           return 'RESERVOIR.CREATE.FORM.WATER_METER_CODE.VALIDATION';
         }
         return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.NUMBER.VALIDATION';
-        }
-        return '';
       case 'street':
         if (this.street.hasError('required')) {
           return 'RESERVOIR.CREATE.FORM.STREET.VALIDATION';
@@ -142,8 +133,6 @@ export class CreateComponent {
   }
 
   private resetForm() {
-    this.gate.setValue('');
-    this.flat.setValue('');
     this.number.setValue('');
     this.town.setValue('');
     this.street.setValue('');
@@ -156,8 +145,6 @@ export class CreateComponent {
   private onSave() {
     let reservoir: ReservoirCreate = {
       full_address: {
-        gate: this.gate.value,
-        flat: this.flat.value,
         number: this.number.value,
         address: {
           is_external: false,

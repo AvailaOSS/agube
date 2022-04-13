@@ -382,15 +382,6 @@
           "TEXT": "Code counter",
           "VALIDATION": "Check what is the code of the water meter of the Reservoir"
         },
-        "GATE": {
-          "TEXT": "Gate",
-          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
-        },
-        "FLAT": {
-          "TEXT": "Flat",
-          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
-        },
-
         "NUMBER": {
           "TEXT": "Number",
           "VALIDATION": "Write the address number"
