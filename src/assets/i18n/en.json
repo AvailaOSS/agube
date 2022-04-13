@@ -131,8 +131,7 @@
         "TEXT": "Flat"
       },
       "GATE": {
-        "TEXT": "Gate",
-        "VALIDATION": "Write the door number"
+        "TEXT": "Gate"
       },
       "BUTTONS": {
         "CLOSE": {

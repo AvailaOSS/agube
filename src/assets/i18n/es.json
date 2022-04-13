@@ -131,8 +131,7 @@
         "TEXT": "Piso"
       },
       "GATE": {
-        "TEXT": "Puerta",
-        "VALIDATION": "Escribe el número de Puerta"
+        "TEXT": "Puerta"
       },
       "BUTTONS": {
         "CLOSE": {

@@ -17,7 +17,7 @@ import { NotificationService } from '@availa/notification';
 export class CreateComponent {
   public dwellingForm: FormGroup;
   public code = new FormControl('', [Validators.required]);
-  public gate = new FormControl('', [Validators.required]);
+  public gate = new FormControl('', []);
   public flat = new FormControl('', []);
   public number = new FormControl('', [Validators.required]);
   public street = new FormControl('', [Validators.required]);
@@ -107,11 +107,6 @@ export class CreateComponent {
       case 'number':
         if (this.number.hasError('required')) {
           return 'NEW_DWELLING.FORM.NUMBER.VALIDATION';
-        }
-        return '';
-      case 'gate':
-        if (this.gate.hasError('required')) {
-          return 'NEW_DWELLING.FORM.GATE.VALIDATION';
         }
         return '';
       default:
