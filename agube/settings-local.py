@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'watermeter',
     'dwelling',
     'reservoir',
+    'geolocation',
 ]
 
 MIDDLEWARE = [
@@ -106,19 +107,22 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -150,8 +154,8 @@ REST_FRAMEWORK = {
 }
 
 SWAGGER_SETTINGS = {
-    'LOGIN_URL' : 'rest_framework:login',
-    'LOGOUT_URL' : 'rest_framework:logout'
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout'
 }
 
 # TODO: Remove this in the future, it only should be work in auth project

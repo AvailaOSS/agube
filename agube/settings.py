@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'watermeter',
     'dwelling',
     'reservoir',
+    'geolocation',
 ]
 
 MIDDLEWARE = [
