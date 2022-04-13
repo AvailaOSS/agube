@@ -2,7 +2,7 @@ from address.models import Address, FullAddress
 from address.serializers import FullAddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from login.serializers import UserDetailSerializer
+from login.serializers import UserCreateSerializer
 from manager.models import Manager
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
@@ -95,7 +95,7 @@ class DwellingOwnerSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     dwelling_id = PrimaryKeyRelatedField(many=False, read_only=True)
-    user = UserDetailSerializer(many=False)
+    user = UserCreateSerializer(many=False)
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
 
@@ -117,7 +117,7 @@ class DwellingResidentSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     dwelling_id = PrimaryKeyRelatedField(many=False, read_only=True)
-    user = UserDetailSerializer(many=False)
+    user = UserCreateSerializer(many=False)
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
 

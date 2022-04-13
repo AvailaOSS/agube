@@ -22,6 +22,27 @@ class UserSerializer(ModelSerializer):
         )
 
 
+class UserCreateSerializer(UserSerializer):
+    """
+    User Detail, phone + address ModelSerializer
+    """
+    id = ReadOnlyField()
+    phones = PhoneSerializer(many=True, read_only=False)
+    address = FullAddressSerializer(required=False, many=True, read_only=False)
+
+    class Meta:
+        ref_name = 'UserDetail'
+        model = User
+        fields = (
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'phones',
+            'address',
+        )
+
+
 class UserDetailSerializer(UserSerializer):
     """
     User Detail, phone + address ModelSerializer
