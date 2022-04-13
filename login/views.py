@@ -309,7 +309,7 @@ class UserCreateAddressView(APIView):
     @swagger_auto_schema(
         operation_id="addUserAddress",
         request_body=UserAddressUpdateSerializer,
-        responses={200: UserAddressUpdateSerializer(many=True)},
+        responses={200: UserAddressUpdateSerializer(many=False)},
         tags=[TAG_USER],
     )
     def post(self, request, pk):
@@ -328,9 +328,9 @@ class UserCreateAddressView(APIView):
         if main:
             update_address_to_not_main(pk)
         # create a new full address
-        self.create_address(user, full_address, main)
+        created_user_address = self.create_address(user, full_address, main)
 
-        return Response(get_all_user_full_address_serialized(user))
+        return Response(UserAddressUpdateSerializer(created_user_address).data)
 
     @classmethod
     def create_address(cls, user, validated_data, main):
@@ -355,9 +355,9 @@ class UserCreateAddressView(APIView):
             address=new_address, number=number, flat=flat, gate=gate)
 
         # Create User Full Address
-        UserAddress.objects.create(user=user,
-                                   full_address=new_full_address,
-                                   main=main)
+        return UserAddress.objects.create(user=user,
+                                          full_address=new_full_address,
+                                          main=main)
 
     @swagger_auto_schema(
         operation_id="getUserAddress",
