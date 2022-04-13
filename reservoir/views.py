@@ -1,6 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from geolocation.models import Geolocation
+from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
+from login.permissions import IsManagerOfUser, IsUserMatch
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -11,7 +14,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from reservoir.models import Reservoir, ReservoirWaterMeter
+from reservoir.models import Reservoir, ReservoirGeolocation, ReservoirWaterMeter
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
                                    ReservoirOwnerSerializer,
@@ -133,8 +136,9 @@ class ReservoirWaterMeterChunkView(APIView):
 
             return Response(WaterMeterDetailSerializer(data, many=False).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'},
-                            status=HTTP_404_NOT_FOUND)
+            return Response(
+                {'status': 'cannot find current water meter measures'},
+                status=HTTP_404_NOT_FOUND)
 
 
 class ReservoirOwnerView(generics.GenericAPIView):
@@ -154,8 +158,8 @@ class ReservoirOwnerView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
- 
-                            
+
+
 class ReservoirWaterMeterHistoricalView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
@@ -178,8 +182,7 @@ class ReservoirWaterMeterHistoricalView(APIView):
                         'date': measure.date,
                     }
                     measures_serialized.append(
-                        WaterMeterMeasurementSerializer(data,
-                                                        many=False).data)
+                        WaterMeterMeasurementSerializer(data, many=False).data)
                 data = {
                     'id': water_meter.id,
                     'code': water_meter.code,
@@ -187,13 +190,13 @@ class ReservoirWaterMeterHistoricalView(APIView):
                     'discharge_date': water_meter.discharge_date,
                     'measures': measures_serialized
                 }
-                water_serialized.append(WaterMeterDetailSerializer(data, many=False).data)
+                water_serialized.append(
+                    WaterMeterDetailSerializer(data, many=False).data)
 
             return Response(water_serialized)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
-
 
 
 class ReservoirWaterMeterView(generics.GenericAPIView):
@@ -231,4 +234,63 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
             return Response(self.get_serializer(new_water_meter).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
+
+
+class ReservoirGeolocationView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+    serializer_class = GeolocationSerializer
+
+    @swagger_auto_schema(
+        operation_id="getReservoirGeolocation",
+        responses={200: GeolocationSerializer(many=False)},
+        tags=[TAG],
+    )
+    def get(self, request, pk):
+        """
+        Return the Reservoir geolocation.
+        """
+        try:
+            geolocation = ReservoirGeolocation.objects.get(
+                reservoir__id=pk).geolocation
+
+            return Response(
+                GeolocationSerializer(geolocation, many=False).data)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find geolocation'},
+                            status=HTTP_404_NOT_FOUND)
+
+    @swagger_auto_schema(
+        operation_id="postReservoirGeolocation",
+        request_body=GeolocationSerializer,
+        responses={200: GeolocationSerializer(many=False)},
+        tags=[TAG],
+    )
+    def post(self, request, pk):
+        """
+        Create and Return the Reservoir geolocation.
+        """
+        try:
+            reservoir = Reservoir.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
+
+        try:
+            geolocation = Geolocation.objects.create(
+                latitude=request.data.pop('latitude'),
+                longitude=request.data.pop('longitude'),
+                zoom=request.data.pop('zoom'),
+                horizontalDegree=request.data.pop('horizontalDegree'),
+                verticalDegree=request.data.pop('verticalDegree'),
+            )
+
+            reservoirGeolocation = ReservoirGeolocation.objects.create(
+                reservoir=reservoir, geolocation=geolocation)
+
+            return Response(
+                GeolocationSerializer(reservoirGeolocation.geolocation,
+                                      many=False).data)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find geolocation'},
                             status=HTTP_404_NOT_FOUND)

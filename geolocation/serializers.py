@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer, ReadOnlyField
 from geolocation.models import Geolocation
 
 
-class Geolocation(ModelSerializer):
+class GeolocationSerializer(ModelSerializer):
     """
     Geolocation ModelSerializer
     """

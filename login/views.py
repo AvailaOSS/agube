@@ -1,14 +1,12 @@
 from address.models import Address, FullAddress
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from address.serializers import FullAddressSerializer
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 from login.serializers_external import UserDwellingDetailSerializer
 from phone.models import Phone
 from manager.permissions import IsManagerAuthenticated
 from login.permissions import IsManagerOfUser, IsUserMatch
-from phone.serializers import PhoneSerializer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
