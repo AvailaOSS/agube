@@ -20,8 +20,9 @@ import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new MultiTranslateHttpLoader(http, [
-    { prefix: './../assets/i18n/', suffix: '.json' },
+    { prefix: '../assets/i18n/', suffix: '.json' },
     { prefix: './src/assets/auth/', suffix: '.json' },
+    { prefix: './src/assets/contact-book/', suffix: '.json' },
   ]);
 }
 
@@ -58,10 +59,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       ],
       isolate: true,
     }),
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
     MatTooltipModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

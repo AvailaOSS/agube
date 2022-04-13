@@ -34,7 +34,11 @@
                 "glob": "**/*",
                 "input": "node_modules/@availa/auth-fe/assets/i18n/",
                 "output": "./src/assets/auth/"
-
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@availa/contact-book-fe/assets/i18n/",
+                "output": "./src/assets/contact-book/"
               }
             ],
             "styles": ["src/styles.scss"],
