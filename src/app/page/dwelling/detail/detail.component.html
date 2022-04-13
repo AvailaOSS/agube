@@ -1,4 +1,17 @@
-<div *ngIf="apiLoaded | async">
-  <google-map height="400px" width="400px">
-  </google-map>
+<div class="detail-page" *ngIf="dwelling">
+    <div class="page-content">
+        <mat-card>
+            <mat-card-content>
+                <div>
+                    <h1 class="title">
+                        {{dwelling | dwellingDetail}}
+                    </h1>
+                    <div class="resident-info">
+                        Hola soy el residente
+                    </div>
+                </div>
+                <app-street-view [location]="location"></app-street-view>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

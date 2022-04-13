@@ -35,7 +35,6 @@ export class EditComponent {
   constructor(
     private svcNotification: NotificationService,
     private svcUser: UserService,
-
     private formBuilder: FormBuilder
   ) {
     this.fullAddressForm = formBuilder.group({
@@ -53,8 +52,6 @@ export class EditComponent {
     if (!this.address) {
       return;
     }
-
-    console.log(this.address);
 
     let userAddress: UserAddress = {
       main: this.address.address.main,

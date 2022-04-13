@@ -1,0 +1,24 @@
+@import '../../../../assets/availa/sizes/page.scss';
+@import '../../../../assets/availa/sizes/margins.scss';
+
+.detail-page {
+  @include my-page($columns: 1);
+  width: 80%;
+}
+
+.page-content {
+  @include my-page-column($columnIndex: 1, $totalColumns: 1);
+  .mat-card-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .title {
+      margin-top: $margin-x-medium;
+      margin-left: $margin-small;
+    }
+    .resident-info {
+      margin-top: $margin-x-medium;
+      margin-left: $margin-x-medium;
+    }
+  }
+}

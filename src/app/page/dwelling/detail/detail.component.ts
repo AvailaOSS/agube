@@ -1,57 +1,36 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
-import { catchError, map, Observable, of } from 'rxjs';
-import { environment } from '../../../../environments/environment.dev';
-import { MapLocation } from './map-location';
+import { UserDwellingDetail, UserService } from '@availa/agube-rest-api';
+import { AccountService } from '@availa/auth-fe';
+import { Component, OnInit } from '@angular/core';
+import { MapLocation } from 'src/app/components/street-view/map-location';
 
 @Component({
   selector: 'app-page-dwelling-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements AfterViewInit {
-  location: MapLocation = {
+export class DetailComponent implements OnInit {
+  public location: MapLocation = {
     latitude: 42.2291769,
     longitude: -8.719337,
     zoom: 15,
     horizontalDegree: -20,
     verticalDegree: -10,
+    height: '500px',
   };
 
-  @ViewChild(GoogleMap) map: GoogleMap | undefined;
+  public dwelling: UserDwellingDetail | undefined;
 
-  apiLoaded: Observable<boolean>;
-
-  constructor(private httpClient: HttpClient) {
-    this.apiLoaded = httpClient
-      .jsonp(
-        'https://maps.googleapis.com/maps/api/js?key=' +
-          environment.googleMapsApiKey,
-        'callback'
-      )
-      .pipe(
-        map(() => {
-          console.log('NO ERROR');
-        }),
-        catchError((error: any) => {
-          console.log('ERROR', error);
-          return of(error);
-        })
-      );
-  }
-
-  ngAfterViewInit() {
-    if (!this.map) {
-      return;
-    }
-    const streetView = this.map.getStreetView();
-
-    streetView.setOptions({
-      position: { lat: this.location.latitude, lng: this.location.longitude },
-      pov: { heading: -20, pitch: -10 },
+  constructor(
+    private svcAccount: AccountService,
+    private svcUser: UserService
+  ) {
+    this.dwelling = undefined;
+    this.svcAccount.getUser().subscribe((user) => {
+      this.svcUser
+        .getDwellingDetail(user!.user_id)
+        .subscribe((dwelling) => (this.dwelling = dwelling[0]));
     });
-
-    streetView.setVisible(true);
   }
+
+  ngOnInit(): void {}
 }

@@ -3,19 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { DetailRoutingModule } from './detail-routing.module';
 import { DetailComponent } from './detail.component';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientModule } from '@angular/common/http';
-
+import { StreetViewModule } from 'src/app/components/street-view/street-view.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
-  declarations: [
-    DetailComponent
-  ],
+  declarations: [DetailComponent],
   imports: [
     CommonModule,
     DetailRoutingModule,
-    GoogleMapsModule,
-    HttpClientModule
-  ]
+    StreetViewModule,
+    MatCardModule,
+    MatButtonModule,
+    PipesModule,
+  ],
 })
-export class DetailModule { }
+export class DetailModule {}
