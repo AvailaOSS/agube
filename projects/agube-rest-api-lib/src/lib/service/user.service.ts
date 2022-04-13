@@ -23,6 +23,7 @@ import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { UserAddress } from '../model/userAddress';
+import { UserDetail } from '../model/userDetail';
 import { UserDetailCustom } from '../model/userDetailCustom';
 import { UserDwellingDetail } from '../model/userDwellingDetail';
 import { UserPhone } from '../model/userPhone';
@@ -58,19 +59,19 @@ export class UserService {
     data: UserAddress,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<UserAddress>>;
+  ): Observable<UserAddress>;
   public addUserAddress(
     id: number,
     data: UserAddress,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<UserAddress>>>;
+  ): Observable<HttpResponse<UserAddress>>;
   public addUserAddress(
     id: number,
     data: UserAddress,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<UserAddress>>>;
+  ): Observable<HttpEvent<UserAddress>>;
   public addUserAddress(
     id: number,
     data: UserAddress,
@@ -500,6 +501,73 @@ export class UserService {
 
     return this.httpClient.get<Array<UserAddress>>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/address`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Return user information details.
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserDetail(
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<UserDetail>;
+  public getUserDetail(
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<UserDetail>>;
+  public getUserDetail(
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<UserDetail>>;
+  public getUserDetail(
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getUserDetail.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<UserDetail>(
+      `${this.basePath}/user/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

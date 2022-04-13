@@ -15,7 +15,7 @@ import { Address } from './address';
 export interface FullAddress {
     readonly id?: number;
     address: Address;
-    number: number;
+    number?: number;
     flat?: string;
     gate?: string;
 }
