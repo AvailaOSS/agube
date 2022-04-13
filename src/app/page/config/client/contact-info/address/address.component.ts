@@ -25,7 +25,7 @@ export class AddressComponent {
   public street = new FormControl('', [Validators.required]);
   public number = new FormControl('', [Validators.required]);
   public flat = new FormControl('', []);
-  public gate = new FormControl('', [Validators.required]);
+  public gate = new FormControl('', []);
 
   constructor(
     protected formBuilder: FormBuilder,
@@ -73,8 +73,7 @@ export class AddressComponent {
 
     this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
       next: (response) => {
-        // FIXME: instead of addressList.push newUserAddress get this from the responde but response not should return a list
-        this.addressList.push({ address: newUserAddress, isEditable: false });
+        this.addressList.push({ address: response, isEditable: false });
         this.canAddAddress = !this.canAddAddress;
         this.town.setValue('');
         this.street.setValue('');
@@ -90,7 +89,7 @@ export class AddressComponent {
     if (!address) {
       return;
     }
-    
+
     const index = this.addressList
       .map((a) => {
         return a.address.id;
@@ -124,11 +123,6 @@ export class AddressComponent {
 
   public errorValidator(entity: string) {
     switch (entity) {
-      case 'gate':
-        if (this.gate.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.GATE';
-        }
-        return '';
       case 'number':
         if (this.number.hasError('required')) {
           return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.NUMBER';

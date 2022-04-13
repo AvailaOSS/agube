@@ -302,7 +302,6 @@
         "BUTTON_CLOSE_TOOLTIP": "Close",
         "BUTTON_SAVE_TOOLTIP": "Save",
         "VALIDATIONS": {
-          "GATE": "Write the gate number",
           "NUMBER": "Write the address number",
           "STREET": "Write the street to which the House corresponds",
           "TOWN": "Write the city in which the House is located"

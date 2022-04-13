@@ -302,7 +302,6 @@
         "BUTTON_CLOSE_TOOLTIP": "Cerrar",
         "BUTTON_SAVE_TOOLTIP": "Guardar",
         "VALIDATIONS": {
-          "GATE": "Escribe el número de Puerta",
           "NUMBER": "Escribe el número de la Dirección",
           "STREET": "Escribe la calle a la que corresponde la Vivienda",
           "TOWN": "Escribe la ciudad en la que se encuentra la Vivienda"
