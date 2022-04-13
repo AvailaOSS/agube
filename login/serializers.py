@@ -24,14 +24,14 @@ class UserSerializer(ModelSerializer):
 
 class UserCreateSerializer(UserSerializer):
     """
-    User Detail, phone + address ModelSerializer
+    User Create, phone + address ModelSerializer
     """
     id = ReadOnlyField()
     phones = PhoneSerializer(many=True, read_only=False)
     address = FullAddressSerializer(required=False, many=True, read_only=False)
 
     class Meta:
-        ref_name = 'UserDetail'
+        ref_name = 'UserCreate'
         model = User
         fields = (
             'id',
