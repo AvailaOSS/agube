@@ -3,6 +3,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
 from login.models import UserAddress, UserPhone
+from login.permissions import IsManagerOfUser, IsUserMatch
+from geolocation.models import Geolocation
+from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -20,7 +23,7 @@ from dwelling.assemblers import (PersonTag, create_user,
 from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling, DwellingWaterMeter
+from dwelling.models import Dwelling, DwellingGeolocation, DwellingWaterMeter
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
@@ -242,8 +245,7 @@ class DwellingWaterMeterHistoricalView(APIView):
                         'date': measure.date,
                     }
                     measures_serialized.append(
-                        WaterMeterMeasurementSerializer(data,
-                                                        many=False).data)
+                        WaterMeterMeasurementSerializer(data, many=False).data)
                 data = {
                     'id': water_meter.id,
                     'code': water_meter.code,
@@ -251,7 +253,8 @@ class DwellingWaterMeterHistoricalView(APIView):
                     'discharge_date': water_meter.discharge_date,
                     'measures': measures_serialized
                 }
-                water_serialized.append(WaterMeterDetailSerializer(data, many=False).data)
+                water_serialized.append(
+                    WaterMeterDetailSerializer(data, many=False).data)
 
             return Response(water_serialized)
         except ObjectDoesNotExist:
@@ -344,4 +347,58 @@ class DwellingWaterMeterChunkView(APIView):
             return Response(WaterMeterDetailSerializer(data, many=False).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'},
+                            status=HTTP_404_NOT_FOUND)
+
+
+class DwellingGeolocationView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+    serializer_class = GeolocationSerializer
+
+    @swagger_auto_schema(operation_id="gerDwellingGeolocation",
+                         responses={200: GeolocationSerializer(many=False)},
+                         tags=[TAG])
+    def get(self, request, pk):
+        """
+        Return the Dwelling geolocation
+        """
+
+        try:
+            geolocation = DwellingGeolocation.objects.get(
+                dwelling__id=pk).geolocation
+            return Response(
+                GeolocationSerializer(geolocation, many=False).data)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find geolocation'},
+                            status=HTTP_404_NOT_FOUND)
+
+    @swagger_auto_schema(
+        operation_id="postDwellingGeolocation",
+        request_body=GeolocationSerializer,
+        responses={200: GeolocationSerializer(many=False)},
+        tags=[TAG],
+    )
+    def post(self, request, pk):
+        """
+        Create and Return the dwelling geolocation.
+        """
+        try:
+            dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find geolocation'},
+                            status=HTTP_404_NOT_FOUND)
+        try:
+            geolocation = Geolocation.objects.create(
+                latitude=request.data.pop('latitude'),
+                longitude=request.data.pop('longitude'),
+                zoom=request.data.pop('zoom'),
+                horizontalDegree=request.data.pop('horizontalDegree'),
+                verticalDegree=request.data.pop('verticalDegree'),
+            )
+            dwellingGeolocation = DwellingGeolocation.objects.create(
+                dwelling=dwelling, geolocation=geolocation)
+            return Response(
+                GeolocationSerializer(dwellingGeolocation.geolocation,
+                                      many=False).data)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find geolocation'},
                             status=HTTP_404_NOT_FOUND)
