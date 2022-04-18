@@ -1,18 +1,14 @@
 .selector-geolocation-map {
   display: flex;
-  mat-list-item {
-    cursor: pointer;
+  
+  mat-selection-list {
+    width: 40%;
+    mat-list-option{
+      padding: 15px 0px 15px 0px;
+    }
   }
-  mat-list-item:hover {
-    background-color: aqua;
-  }
-  mat-list-item:active {
-    background-color: red;
-  }
-  .selected-item {
-    background: blue;
-    color: green
-    
+  #map {
+    height: 500px;
+    width: 100%;
   }
 }
-

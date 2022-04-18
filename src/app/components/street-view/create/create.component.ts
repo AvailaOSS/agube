@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FullAddress } from '@availa/agube-rest-api';
 import { Observable } from 'rxjs';
 import { FullAddressPipe } from 'src/app/pipes/full-address.pipe';
+import * as L from 'leaflet';
 
 interface GeocoderResponse {
   status: string;
@@ -16,11 +16,11 @@ interface GeocoderResponse {
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, AfterViewInit {
   @Input() public id: number | undefined;
   @Input() public address: FullAddress | undefined;
 
-  @ViewChild(GoogleMap) map!: GoogleMap;
+  private map: any;
 
   public selectedStreetCandidate: any;
   public streetCandidates: any[] = [];
@@ -37,6 +37,10 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.initializeMap();
+  }
+
   public selectCandidate(candidate: any) {
     this.selectedStreetCandidate = candidate;
   }
@@ -47,5 +51,25 @@ export class CreateComponent implements OnInit {
     return this.http.get<GeocoderResponse>(
       CreateComponent.mapURL + term + CreateComponent.sufixMapURL
     );
+  }
+
+  private initializeMap(): void {
+    this.map = L.map('map', {
+      center: [39.8282, -98.5795],
+      zoom: 3,
+    });
+
+    const tiles = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        maxZoom: 18,
+        minZoom: 3,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }
+    );
+
+    tiles.addTo(this.map);
+    console.log('hoal', this.map);
   }
 }

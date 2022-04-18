@@ -13,6 +13,7 @@
   padding: $margin-x-medium;
   .form-content {
     display: inline-grid;
+    width: 100%;
     mat-form-field {
       margin: $margin-x-small;
     }
