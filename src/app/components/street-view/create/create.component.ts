@@ -16,7 +16,7 @@ interface GeocoderResponse {
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit, AfterViewInit {
+export class CreateComponent implements AfterViewInit {
   @Input() public id: number | undefined;
   @Input() public address: FullAddress | undefined;
 
@@ -30,19 +30,25 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
   constructor(private http: HttpClient, private pipeAddress: FullAddressPipe) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.getLocation(this.address!).subscribe((response: any) => {
       this.streetCandidates = response;
       this.selectedStreetCandidate = response[0];
+      this.initializeMap(
+        this.selectedStreetCandidate.lat,
+        this.selectedStreetCandidate.lon
+      );
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.initializeMap();
   }
 
   public selectCandidate(candidate: any) {
     this.selectedStreetCandidate = candidate;
+    console.log(this.selectedStreetCandidate);
+    this.map.remove();
+    this.initializeMap(
+      this.selectedStreetCandidate.lat,
+      this.selectedStreetCandidate.lon
+    );
   }
 
   private getLocation(address: FullAddress): Observable<GeocoderResponse> {
@@ -53,23 +59,21 @@ export class CreateComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private initializeMap(): void {
+  private initializeMap(lat: number, lon: number): void {
+    console.log(this.selectedStreetCandidate);
     this.map = L.map('map', {
-      center: [39.8282, -98.5795],
-      zoom: 3,
+      center: [lat, lon],
+      zoom: 15,
     });
 
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+        minZoom: 13,
       }
     );
 
     tiles.addTo(this.map);
-    console.log('hoal', this.map);
   }
 }

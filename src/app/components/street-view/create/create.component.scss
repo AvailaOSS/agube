@@ -1,10 +1,13 @@
 .selector-geolocation-map {
   display: flex;
-  
   mat-selection-list {
     width: 40%;
-    mat-list-option{
-      padding: 15px 0px 15px 0px;
+    mat-list-option {
+      padding: 10px 0px 10px 0px;
+      div {
+        display: flex;
+        align-items: center;
+      }
     }
   }
   #map {

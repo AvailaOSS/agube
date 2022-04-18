@@ -1,7 +1,10 @@
 <div *ngIf="id && address" class="selector-geolocation-map">
     <mat-selection-list [multiple]="false">
         <mat-list-option *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)">
-            {{candidate.display_name}}
+            <div>
+                <mat-icon>place</mat-icon>
+                {{candidate.display_name}}
+            </div>
         </mat-list-option>
     </mat-selection-list>
     <div id="map"></div>

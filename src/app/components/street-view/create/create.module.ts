@@ -6,6 +6,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { FullAddressPipe } from 'src/app/pipes/full-address.pipe';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -15,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
     HttpClientModule,
     PipesModule,
     MatListModule,
+    MatIconModule,
   ],
   exports: [CreateComponent],
   providers: [FullAddressPipe],
