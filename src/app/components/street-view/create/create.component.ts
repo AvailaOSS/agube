@@ -27,7 +27,7 @@ export class CreateComponent implements AfterViewInit {
 
   private static mapURLLatLng: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapURL: string = `https://nominatim.openstreetmap.org/search.php?q=`;
-  private static sufixMapURL: string = `&polygon_geojson=1&format=jsonv2`;
+  private static sufixMapURL: string = `&polygon_geojson=1&limit=7&format=jsonv2`;
 
   constructor(private http: HttpClient, private pipeAddress: FullAddressPipe) {}
 
