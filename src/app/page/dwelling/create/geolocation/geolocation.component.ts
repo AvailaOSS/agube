@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-geolocation',
   templateUrl: './geolocation.component.html',
-  styleUrls: ['./geolocation.component.scss']
+  styleUrls: ['./geolocation.component.scss','../create.component.scss']
 })
 export class GeolocationComponent implements OnInit {
 

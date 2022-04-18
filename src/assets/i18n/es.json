@@ -151,6 +151,9 @@
           "TOOLTIP": "Crear nueva Vivienda y volver a la pantalla principal"
         }
       }
+    },
+    "GEOLOCATION": {
+      "TITLE": "Localización geográfica"
     }
   },
   "WATER_METER": {

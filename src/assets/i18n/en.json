@@ -151,6 +151,9 @@
           "TOOLTIP": "Create new Dwelling and return to the main screen"
         }
       }
+    },
+    "GEOLOCATION": {
+      "TITLE": "Geographical location"
     }
   },
   "WATER_METER": {

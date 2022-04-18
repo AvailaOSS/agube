@@ -151,6 +151,9 @@
           "TOOLTIP": "Crear nova Vivenda e volver á pantalla principal"
         }
       }
+    },
+    "GEOLOCATION": {
+      "TITLE": "Localización xeográfica"
     }
   },
   "WATER_METER": {
