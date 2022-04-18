@@ -6,19 +6,13 @@
   $clickedFontColor: black
 ) {
   mat-selection-list {
-    mat-list-option:hover {
-      background: $hover;
-      color: $noClickedFontColor;
-    }
-
-    mat-list-option:active {
-      background: $active;
-      color: $noClickedFontColor;
-    }
-
-    .mat-list-single-selected-option {
-      background: $clicked;
+    .mat-list-single-selected-option:hover {
+      background: $hover !important;
       color: $clickedFontColor;
     }
+  }
+  mat-selection-list .mat-list-single-selected-option {
+    background: $clicked !important;
+    color: $clickedFontColor !important;
   }
 }
