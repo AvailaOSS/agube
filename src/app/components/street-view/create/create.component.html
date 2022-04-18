@@ -7,5 +7,8 @@
             </div>
         </mat-list-option>
     </mat-selection-list>
-    <div id="map"></div>
+    <div>
+        <h3 *ngIf="selectedStreetCandidate">{{selectedStreetCandidate.display_name}}</h3>
+        <div id="map"></div>
+    </div>
 </div>

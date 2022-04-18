@@ -25,6 +25,7 @@ export class CreateComponent implements AfterViewInit {
   public selectedStreetCandidate: any;
   public streetCandidates: any[] = [];
 
+  private static mapURLLatLng: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapURL: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static sufixMapURL: string = `&polygon_geojson=1&format=jsonv2`;
 
@@ -44,7 +45,6 @@ export class CreateComponent implements AfterViewInit {
   public selectCandidate(candidate: any) {
     this.selectedStreetCandidate = candidate;
     console.log(this.selectedStreetCandidate);
-    this.map.remove();
     this.initializeMap(
       this.selectedStreetCandidate.lat,
       this.selectedStreetCandidate.lon
@@ -59,7 +59,22 @@ export class CreateComponent implements AfterViewInit {
     );
   }
 
+  private getLocationByCoordinate(
+    lat: number,
+    lon: number
+  ): Observable<GeocoderResponse> {
+    return this.http.get<GeocoderResponse>(
+      CreateComponent.mapURLLatLng +
+        `lat=${lat}&lon=${lon}` +
+        CreateComponent.sufixMapURL
+    );
+  }
+
   private initializeMap(lat: number, lon: number): void {
+    if (this.map) {
+      this.map.remove();
+    }
+
     this.map = L.map('map', {
       center: [lat, lon],
       zoom: 18,
@@ -67,19 +82,23 @@ export class CreateComponent implements AfterViewInit {
 
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 19,
-        minZoom: 13,
-      }
+      { maxZoom: 19, minZoom: 13 }
     );
 
     tiles.addTo(this.map);
 
     L.circle([lat, lon], {
-      color: 'red',
-      fillColor: '#f03',
       fillOpacity: 0.5,
       radius: 10,
     }).addTo(this.map);
+
+    this.map.on('click', (e: any) => {
+      let lat = e.latlng.lat;
+      let lng = e.latlng.lng;
+      this.initializeMap(lat, lng);
+      this.getLocationByCoordinate(lat, lng).subscribe(
+        (response) => (this.selectedStreetCandidate = response)
+      );
+    });
   }
 }
