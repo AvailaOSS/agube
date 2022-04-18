@@ -7,6 +7,9 @@ import { FullAddress } from '@availa/agube-rest-api';
 export class FullAddressPipe implements PipeTransform {
   transform(fullAddress: FullAddress, mode?: string): string {
     const address = fullAddress.address;
+    if (mode && mode == 'geolocation') {
+      return address.town + ', ' + address.street;
+    }
     if (mode && mode == 'short') {
       return (
         address.street +

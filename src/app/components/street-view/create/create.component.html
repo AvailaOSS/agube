@@ -1,5 +1,9 @@
-<div *ngIf="id && address">
-    <p>Street view {{id}} {{address | json}}</p>
+<div *ngIf="id && address" class="selector-geolocation-map">
+    <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)">
+            {{candidate.display_name}}
+        </mat-list-option>
+    </mat-selection-list>
     <google-map height="500px">
     </google-map>
 </div>

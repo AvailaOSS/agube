@@ -5,7 +5,7 @@ import { AddressPersistantService } from './address-persistant.service';
 @Component({
   selector: 'app-geolocation',
   templateUrl: './geolocation.component.html',
-  styleUrls: ['./geolocation.component.scss', '../create.component.scss'],
+  styleUrls: ['./geolocation.component.scss'],
 })
 export class GeolocationComponent implements OnInit {
   public entity: EntityPersistantData | undefined;

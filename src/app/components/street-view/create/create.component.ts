@@ -1,9 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { FullAddress } from '@availa/agube-rest-api';
+import { Observable } from 'rxjs';
+import { FullAddressPipe } from 'src/app/pipes/full-address.pipe';
 
-function callback(results: any, status: any) {
-  console.log(results, status);
+interface GeocoderResponse {
+  status: string;
+  error_message: string;
+  results: google.maps.GeocoderResult[];
 }
 
 @Component({
@@ -17,22 +22,30 @@ export class CreateComponent implements OnInit {
 
   @ViewChild(GoogleMap) map!: GoogleMap;
 
-  constructor() {}
+  public selectedStreetCandidate: any;
+  public streetCandidates: any[] = [];
+
+  private static mapURL: string = `https://nominatim.openstreetmap.org/search.php?q=`;
+  private static sufixMapURL: string = `&polygon_geojson=1&format=jsonv2`;
+
+  constructor(private http: HttpClient, private pipeAddress: FullAddressPipe) {}
 
   ngOnInit(): void {
-    var request = {
-      query: 'Museum of Contemporary Art Australia',
-      fields: [
-        'photos',
-        'formatted_address',
-        'name',
-        'rating',
-        'opening_hours',
-        'geometry',
-      ],
-    };
+    this.getLocation(this.address!).subscribe((response: any) => {
+      this.streetCandidates = response;
+      this.selectedStreetCandidate = response[0];
+    });
+  }
 
-    let svcPlaces = new google.maps.places.PlacesService(this.map.googleMap!);
-    svcPlaces.findPlaceFromQuery(request, callback);
+  public selectCandidate(candidate: any) {
+    this.selectedStreetCandidate = candidate;
+  }
+
+  private getLocation(address: FullAddress): Observable<GeocoderResponse> {
+    const term: string = this.pipeAddress.transform(address, 'geolocation');
+    console.log(term);
+    return this.http.get<GeocoderResponse>(
+      CreateComponent.mapURL + term + CreateComponent.sufixMapURL
+    );
   }
 }

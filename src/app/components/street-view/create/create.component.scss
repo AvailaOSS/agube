@@ -1,0 +1,18 @@
+.selector-geolocation-map {
+  display: flex;
+  mat-list-item {
+    cursor: pointer;
+  }
+  mat-list-item:hover {
+    background-color: aqua;
+  }
+  mat-list-item:active {
+    background-color: red;
+  }
+  .selected-item {
+    background: blue;
+    color: green
+    
+  }
+}
+

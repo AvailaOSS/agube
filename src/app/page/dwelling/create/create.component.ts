@@ -73,20 +73,25 @@ export class CreateComponent {
   }
 
   public saveAndContinue() {
-    this.loadingPost = true;
+    // this.loadingPost = true;
 
-    this.onSave().subscribe({
-      next: (response) => {
-        this.addressPersistante.persist({ entity: response });
-        this.resetForm();
-        this.loadingPost = false;
-        this.router.navigate(['manager/dwellings/create/geolocation']);
-      },
-      error: (error) => {
-        this.svcNotification.warning({ message: error });
-        this.loadingPost = false;
-      },
-    });
+    this.svcDwelling
+      .getDwelling(1)
+      .subscribe((response) =>
+        this.addressPersistante.persist({ entity: response })
+      );
+    // this.onSave().subscribe({
+    //   next: (response) => {
+    // this.addressPersistante.persist({ entity: response });
+    //     this.resetForm();
+    //     this.loadingPost = false;
+    this.router.navigate(['manager/dwellings/create/geolocation']);
+    //   },
+    //   error: (error) => {
+    //     this.svcNotification.warning({ message: error });
+    //     this.loadingPost = false;
+    //   },
+    // });
   }
 
   public saveAndExit() {
