@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { CreateModule as StreetViewCreateModule } from '../../../components/street-view/create/create.module';
 import { GeolocationComponent } from './geolocation/geolocation.component';
+import { PipesModule } from '../../../pipes/pipes.module';
 
 @NgModule({
   declarations: [CreateComponent, GeolocationComponent],
@@ -30,6 +31,7 @@ import { GeolocationComponent } from './geolocation/geolocation.component';
     MatIconModule,
     TranslateModule,
     StreetViewCreateModule,
+    PipesModule,
   ],
 })
 export class CreateModule {}

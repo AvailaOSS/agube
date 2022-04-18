@@ -1,1 +1,5 @@
-<p>Street view create works!</p>
+<div *ngIf="id && address">
+    <p>Street view {{id}} {{address | json}}</p>
+    <google-map height="500px">
+    </google-map>
+</div>
