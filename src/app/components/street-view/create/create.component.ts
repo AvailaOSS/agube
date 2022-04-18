@@ -60,10 +60,9 @@ export class CreateComponent implements AfterViewInit {
   }
 
   private initializeMap(lat: number, lon: number): void {
-    console.log(this.selectedStreetCandidate);
     this.map = L.map('map', {
       center: [lat, lon],
-      zoom: 15,
+      zoom: 18,
     });
 
     const tiles = L.tileLayer(
@@ -75,5 +74,12 @@ export class CreateComponent implements AfterViewInit {
     );
 
     tiles.addTo(this.map);
+
+    L.circle([lat, lon], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 10,
+    }).addTo(this.map);
   }
 }
