@@ -142,6 +142,10 @@
           "TEXT": "Gardar",
           "TOOLTIP": "Crear nova Vivenda"
         },
+        "SAVE_AND_CONTINUE": {
+          "TEXT": "Gardar e Continuar",
+          "TOOLTIP": "Crear nova Vivenda e Agregar unha localización xeográfica"
+        },
         "SAVE_AND_CLOSE": {
           "TEXT": "Gardar e Saír",
           "TOOLTIP": "Crear nova Vivenda e volver á pantalla principal"

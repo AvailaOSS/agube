@@ -142,6 +142,10 @@
           "TEXT": "Save",
           "TOOLTIP": "Create new Dwelling"
         },
+        "SAVE_AND_CONTINUE": {
+          "TEXT": "Save and Continue",
+          "TOOLTIP": "Create new Home and Add a geographic location"
+        },
         "SAVE_AND_CLOSE": {
           "TEXT": "Save and exit",
           "TOOLTIP": "Create new Dwelling and return to the main screen"

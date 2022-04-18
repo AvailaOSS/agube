@@ -71,6 +71,23 @@ export class CreateComponent {
     this.router.navigate(['manager/dwellings']);
   }
 
+  public saveAndContinue() {
+    this.router.navigate(['manager/dwellings/create/geolocation']);
+    // this.loadingPost = true;
+
+    // this.onSave().subscribe({
+    //   next: (response) => {
+    //     this.resetForm();
+    //     this.loadingPost = false;
+    //     this.exit();
+    //   },
+    //   error: (error) => {
+    //     this.svcNotification.warning({ message: error });
+    //     this.loadingPost = false;
+    //   },
+    // });
+  }
+
   public saveAndExit() {
     this.loadingPost = true;
 

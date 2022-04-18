@@ -11,9 +11,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { CreateModule as StreetViewCreateModule } from '../../../components/street-view/create/create.module';
+import { GeolocationComponent } from './geolocation/geolocation.component';
 
 @NgModule({
-  declarations: [CreateComponent],
+  declarations: [CreateComponent, GeolocationComponent],
   imports: [
     CommonModule,
     CreateRoutingModule,
@@ -27,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatTooltipModule,
     MatIconModule,
     TranslateModule,
+    StreetViewCreateModule,
   ],
 })
 export class CreateModule {}
