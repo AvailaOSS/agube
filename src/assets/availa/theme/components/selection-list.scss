@@ -7,7 +7,7 @@
 ) {
   mat-selection-list {
     .mat-list-single-selected-option:hover {
-      background: $hover !important;
+      background: $active;
       color: $clickedFontColor;
     }
   }
