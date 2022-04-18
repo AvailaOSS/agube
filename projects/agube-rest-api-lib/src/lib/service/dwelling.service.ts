@@ -20,6 +20,7 @@ import {
 import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
+import { Geolocation } from '../model/geolocation';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingDetail } from '../model/dwellingDetail';
@@ -104,18 +105,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -189,18 +188,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -274,18 +271,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -348,18 +343,16 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -367,6 +360,71 @@ export class DwellingService {
     return this.httpClient.post<DwellingCreate>(
       `${this.basePath}/dwelling/create`,
       data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+  /**
+   *
+   * Return the Dwelling geolocation
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public gerDwellingGeolocation(
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Geolocation>;
+  public gerDwellingGeolocation(
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Geolocation>>;
+  public gerDwellingGeolocation(
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Geolocation>>;
+  public gerDwellingGeolocation(
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling gerDwellingGeolocation.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Geolocation>(
+      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/geolocation`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -422,9 +480,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -489,9 +546,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -558,9 +614,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -625,9 +680,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -703,9 +757,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -772,9 +825,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -828,9 +880,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -895,9 +946,8 @@ export class DwellingService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
