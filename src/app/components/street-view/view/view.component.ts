@@ -13,8 +13,8 @@ import { MapLocation } from './map-location';
 
 @Component({
   selector: 'app-street-view',
-  templateUrl: './street-view.component.html',
-  styleUrls: ['./street-view.component.scss'],
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss'],
 })
 export class StreetViewComponent implements OnInit, AfterViewInit {
   @Input() public location: MapLocation | undefined;
