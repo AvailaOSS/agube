@@ -161,7 +161,7 @@ class DwellingResident(models.Model):
         except ObjectDoesNotExist:
             pass
         UserAddress.objects.create(user=self.user,
-                                   full_address=self.dwelling.full_address,
+                                   address=self.dwelling.address,
                                    main=True)
 
     def discharge(self):
