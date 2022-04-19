@@ -14,7 +14,7 @@ from phone.serializers import PhoneSerializer
 from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
-
+from geolocation.models import Geolocation
 
 class PersonTag(Enum):
     OWNER = "Propietario"
