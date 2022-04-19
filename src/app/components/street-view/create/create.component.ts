@@ -28,11 +28,11 @@ export class CreateComponent implements AfterViewInit {
   public streetCandidates: LocationResponse[] = [];
 
   // filter
-  public filter: FormControl = new FormControl('', Validators.required);
-  public street: FormControl = new FormControl('', Validators.required);
-  public number: FormControl = new FormControl('', Validators.required);
-  public flat: FormControl = new FormControl('', Validators.required);
-  public gate: FormControl = new FormControl('', Validators.required);
+  public filter: FormControl;
+  public street: FormControl;
+  public number: FormControl;
+  public flat: FormControl;
+  public gate: FormControl;
 
   // You can override this url for use other maps
   private static mapViewUrl: string =
@@ -48,7 +48,13 @@ export class CreateComponent implements AfterViewInit {
     showCircle: false,
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.street = new FormControl('', Validators.required);
+    this.filter = new FormControl('', Validators.required);
+    this.number = new FormControl('', Validators.required);
+    this.flat = new FormControl('', Validators.required);
+    this.gate = new FormControl('', Validators.required);
+  }
 
   ngAfterViewInit(): void {
     this.initializeMap(this.resetMapLocation);
@@ -59,7 +65,10 @@ export class CreateComponent implements AfterViewInit {
       this.candidateComponents?.deselectAll();
       this.streetCandidates = response;
       this.selectedStreetCandidate = response[0];
+      console.log(this.selectedStreetCandidate);
       this.filter.setValue(this.selectedStreetCandidate.display_name);
+      this.street.setValue(this.selectedStreetCandidate.address.road);
+      this.number.setValue(this.selectedStreetCandidate.address.house_number);
       this.initializeMap({
         lat: this.selectedStreetCandidate.lat,
         lon: this.selectedStreetCandidate.lon,
@@ -77,6 +86,8 @@ export class CreateComponent implements AfterViewInit {
   public selectCandidate(candidate: LocationResponse) {
     this.selectedStreetCandidate = candidate;
     this.filter.setValue(this.selectedStreetCandidate.display_name);
+    this.street.setValue(this.selectedStreetCandidate.address.road);
+    this.number.setValue(this.selectedStreetCandidate.address.house_number);
     this.initializeMap({
       lat: this.selectedStreetCandidate.lat,
       lon: this.selectedStreetCandidate.lon,
@@ -147,6 +158,10 @@ export class CreateComponent implements AfterViewInit {
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
           this.filter.setValue(this.selectedStreetCandidate.display_name);
+          this.street.setValue(this.selectedStreetCandidate.address.road);
+          this.number.setValue(
+            this.selectedStreetCandidate.address.house_number
+          );
         }
       );
     });
