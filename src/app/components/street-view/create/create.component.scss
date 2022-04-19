@@ -4,6 +4,7 @@
   width: 100%;
   .address-form-geolocation {
     display: flex;
+    margin-bottom: 15px;
     mat-form-field:first-child {
       width: 60%;
     }
@@ -23,7 +24,7 @@
   div {
     width: 100%;
     #map {
-      height: 600px;
+      height: 500px;
       width: 100%;
     }
   }

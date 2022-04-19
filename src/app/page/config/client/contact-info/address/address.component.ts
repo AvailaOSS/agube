@@ -53,7 +53,7 @@ export class AddressComponent {
   }
 
   public saveAddress() {
-    if (this.fullAddressForm.hasError('required')) {
+    if (this.fullAddressForm.invalid) {
       return;
     }
 

@@ -108,17 +108,14 @@
       }
     }
   },
-  "NEW_DWELLING": {
-    "TITLE": "Da de Alta una nueva Vivienda",
+  "STREET_VIEW": {
+    "FILTER": {
+      "TEXT": "Calle, CP, Ciudad, Provincia...",
+      "TOOLTIP": "Busca una localización",
+      "TOOLTIP_CLEAR": "Borrar y Reiniciar búsqueda",
+      "VALIDATION": "Realiza una búsqueda y nos encargaremos de obtener los datos necesarios"
+    },
     "FORM": {
-      "CODE_COUNTER": {
-        "TEXT": "Código de contador",
-        "VALIDATION": "Revisa cuál es el código del contador de agua de la Vivienda"
-      },
-      "TOWN": {
-        "TEXT": "Ciudad",
-        "VALIDATION": "Escribe la ciudad en la que se encuentra la Vivienda"
-      },
       "STREET": {
         "TEXT": "Calle",
         "VALIDATION": "Escribe la calle a la que corresponde la Vivienda"
@@ -132,6 +129,19 @@
       },
       "GATE": {
         "TEXT": "Puerta"
+      }
+    },
+    "MAP": {
+      "CLICK": "Haz Click para marcar la dirección",
+      "LIST_SELECTOR": { "TOOLTIP": "Seleccionar" }
+    }
+  },
+  "NEW_DWELLING": {
+    "TITLE": "Da de Alta una nueva Vivienda",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Código de contador",
+        "VALIDATION": "Revisa cuál es el código del contador de agua de la Vivienda"
       },
       "BUTTONS": {
         "CLOSE": {
@@ -141,10 +151,6 @@
         "SAVE": {
           "TEXT": "Guardar",
           "TOOLTIP": "Crear nueva Vivienda"
-        },
-        "SAVE_AND_CONTINUE": {
-          "TEXT": "Guardar y Continuar",
-          "TOOLTIP": "Crear nueva Vivienda y Agregar una localización geográfica"
         },
         "SAVE_AND_CLOSE": {
           "TEXT": "Guardar y Salir",

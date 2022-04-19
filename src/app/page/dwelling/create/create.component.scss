@@ -13,6 +13,9 @@
   padding: $margin-small;
   .form-content {
     margin: $margin-x-small;
+    mat-form-field {
+      margin-bottom: $margin-x-small;
+    }
   }
   mat-card-actions {
     button {

@@ -108,17 +108,14 @@
       }
     }
   },
-  "NEW_DWELLING": {
-    "TITLE": "Register a new Home",
+  "STREET_VIEW": {
+    "FILTER": {
+      "TEXT": "Street, Post Code, Town, Province...",
+      "TOOLTIP": "Search localization",
+      "TOOLTIP_CLEAR": "Clean and Reset Search",
+      "VALIDATION": "Perform a search and we will take care of obtaining the necessary data"
+    },
     "FORM": {
-      "CODE_COUNTER": {
-        "TEXT": "Counter code",
-        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
-      },
-      "TOWN": {
-        "TEXT": "Town",
-        "VALIDATION": "Write the city in which the Dwelling is located"
-      },
       "STREET": {
         "TEXT": "Street",
         "VALIDATION": "Write the street to which the Dwelling corresponds"
@@ -132,6 +129,19 @@
       },
       "GATE": {
         "TEXT": "Gate"
+      }
+    },
+    "MAP": {
+      "CLICK": "Click to mark the address",
+      "LIST_SELECTOR": { "TOOLTIP": "Select" }
+    }
+  },
+  "NEW_DWELLING": {
+    "TITLE": "Register a new Dwelling",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Counter code",
+        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
       },
       "BUTTONS": {
         "CLOSE": {
@@ -141,10 +151,6 @@
         "SAVE": {
           "TEXT": "Save",
           "TOOLTIP": "Create new Dwelling"
-        },
-        "SAVE_AND_CONTINUE": {
-          "TEXT": "Save and Continue",
-          "TOOLTIP": "Create new Home and Add a geographic location"
         },
         "SAVE_AND_CLOSE": {
           "TEXT": "Save and exit",

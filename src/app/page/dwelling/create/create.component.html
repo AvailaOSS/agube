@@ -9,7 +9,7 @@
                         <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" />
                         <mat-error *ngIf="code.invalid">{{errorValidator('code') | translate}}</mat-error>
                     </mat-form-field>
-                    <app-street-view-create>
+                    <app-street-view-create (addressForm)="addressFormReceive($event)">
                     </app-street-view-create>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
@@ -20,7 +20,7 @@
                     </button>
                     <button mat-raised-button color="primary"
                         matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.SAVE.TOOLTIP' | translate}}" (click)="save()"
-                        [disabled]="this.dwellingForm.invalid">
+                        [disabled]="!this.dwellingForm || this.dwellingForm.invalid">
                         <div>
                             <mat-icon>save</mat-icon>
                             {{"NEW_DWELLING.FORM.BUTTONS.SAVE.TEXT" | translate}}
@@ -28,7 +28,7 @@
                     </button>
                     <button mat-raised-button color="primary"
                         matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.SAVE_AND_CLOSE.TOOLTIP' | translate}}"
-                        (click)="saveAndExit()" [disabled]="this.dwellingForm.invalid">
+                        (click)="saveAndExit()" [disabled]="!this.dwellingForm || this.dwellingForm.invalid">
                         <div>
                             <mat-icon>exit_to_app</mat-icon>
                             {{"NEW_DWELLING.FORM.BUTTONS.SAVE_AND_CLOSE.TEXT" | translate}}

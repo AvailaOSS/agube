@@ -15,7 +15,8 @@ import { NotificationService } from '@availa/notification';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent {
-  public dwellingForm: FormGroup;
+  public dwellingForm: FormGroup | undefined;
+  public waterMeter: FormGroup;
   public code = new FormControl('', [Validators.required]);
   public gate = new FormControl('', []);
   public flat = new FormControl('', []);
@@ -31,16 +32,14 @@ export class CreateComponent {
     private svcNotification: NotificationService,
     private svcDwelling: DwellingService
   ) {
+    this.waterMeter = this.formBuilder.group({
+      code: this.code,
+    });
+  }
+
+  public addressFormReceive(addressGroup: FormGroup) {
     this.dwellingForm = this.formBuilder.group({
-      full_address: formBuilder.group({
-        address: formBuilder.group({
-          town: this.town,
-          street: this.street,
-        }),
-        number: this.number,
-        flat: this.flat,
-        gate: this.gate,
-      }),
+      address: addressGroup,
       water_meter: this.formBuilder.group({
         code: this.code,
       }),
@@ -48,7 +47,7 @@ export class CreateComponent {
   }
 
   public save() {
-    if (this.dwellingForm.invalid) {
+    if (!this.dwellingForm || this.dwellingForm.invalid) {
       return;
     }
 
