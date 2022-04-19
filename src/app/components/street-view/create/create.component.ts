@@ -1,22 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  HostBinding,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { FullAddress } from '@availa/agube-rest-api';
 import { Observable } from 'rxjs';
 import { FullAddressPipe } from 'src/app/pipes/full-address.pipe';
 import * as L from 'leaflet';
 import { OverlayContainer } from '@angular/cdk/overlay';
-
-interface GeocoderResponse {
-  status: string;
-  error_message: string;
-  results: google.maps.GeocoderResult[];
-}
+import { MapEvent } from './map-event';
+import { LocationResponse } from './location-response';
 
 @Component({
   selector: 'app-street-view-create',
@@ -26,15 +16,22 @@ interface GeocoderResponse {
 export class CreateComponent implements AfterViewInit {
   @Input() public id: number | undefined;
   @Input() public address: FullAddress | undefined;
-  @HostBinding('class') className: any;
+
+  public zoom: number = 18;
+  private zoomMax: number = 19;
+  private zoomMin: number = 13;
+
   private map: any;
 
-  public selectedStreetCandidate: any;
-  public streetCandidates: any[] = [];
+  public selectedStreetCandidate: LocationResponse | undefined;
+  public streetCandidates: LocationResponse[] = [];
 
-  private static mapURLLatLng: string = `https://nominatim.openstreetmap.org/reverse?`;
-  private static mapURL: string = `https://nominatim.openstreetmap.org/search.php?q=`;
-  private static sufixMapURL: string = `&polygon_geojson=1&limit=7&format=jsonv2`;
+  // You can override this url for use other maps
+  private static mapViewUrl: string =
+    'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
+  private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
+  private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
+  private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
 
   constructor(
     private http: HttpClient,
@@ -43,43 +40,48 @@ export class CreateComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.getLocation(this.address!).subscribe((response: any) => {
-      this.streetCandidates = response;
-      this.selectedStreetCandidate = response[0];
-      this.initializeMap(
-        this.selectedStreetCandidate.lat,
-        this.selectedStreetCandidate.lon
-      );
-    });
-
-    console.log(this.className);
+    this.getLocation(this.address!).subscribe(
+      (response: LocationResponse[]) => {
+        this.streetCandidates = response;
+        if (response) {
+          this.selectedStreetCandidate = response[0];
+        }
+        if (!this.selectedStreetCandidate) {
+          return;
+        }
+        this.initializeMap(
+          this.selectedStreetCandidate.lat,
+          this.selectedStreetCandidate.lon
+        );
+      }
+    );
   }
 
-  public selectCandidate(candidate: any) {
+  public selectCandidate(candidate: LocationResponse) {
     this.selectedStreetCandidate = candidate;
-    console.log(this.selectedStreetCandidate);
     this.initializeMap(
       this.selectedStreetCandidate.lat,
       this.selectedStreetCandidate.lon
     );
   }
 
-  private getLocation(address: FullAddress): Observable<GeocoderResponse> {
+  private getLocation(address: FullAddress): Observable<LocationResponse[]> {
     const term: string = this.pipeAddress.transform(address, 'geolocation');
-    console.log(term);
-    return this.http.get<GeocoderResponse>(
-      CreateComponent.mapURL + term + CreateComponent.sufixMapURL
+    return this.http.get<LocationResponse[]>(
+      CreateComponent.mapSearchUrlPrefix +
+        term +
+        CreateComponent.mapSearchUrlSufix
     );
   }
 
   private getLocationByCoordinate(
     lat: number,
     lon: number
-  ): Observable<GeocoderResponse> {
-    return this.http.get<GeocoderResponse>(
-      CreateComponent.mapURLLatLng +
+  ): Observable<LocationResponse> {
+    return this.http.get<LocationResponse>(
+      CreateComponent.mapSearchCoordinatesUrlPrefix +
         `lat=${lat}&lon=${lon}` +
-        CreateComponent.sufixMapURL
+        CreateComponent.mapSearchUrlSufix
     );
   }
 
@@ -90,27 +92,15 @@ export class CreateComponent implements AfterViewInit {
 
     this.map = L.map('map', {
       center: [lat, lon],
-      zoom: 18,
+      zoom: this.zoom,
     });
 
-    const tiles = L.tileLayer(
-      // 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', //Hybrid
-      { maxZoom: 19, minZoom: 13 }
-    );
+    const tiles = L.tileLayer(CreateComponent.mapViewUrl, {
+      maxZoom: this.zoomMax,
+      minZoom: this.zoomMin,
+    });
 
     tiles.addTo(this.map);
-
-    //DARK MODEs
-    // const Stadia_AlidadeSmoothDark = L.tileLayer(
-    //   'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
-    //   {
-    //     maxZoom: 20,
-    //     attribution:
-    //       '© <a href="https://stadiamaps.com/">Stadia Maps</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a> © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-    //   }
-    // );
-    // Stadia_AlidadeSmoothDark.addTo(this.map);
 
     L.circle([lat, lon], {
       fillColor: '#7fd3f7',
@@ -118,13 +108,18 @@ export class CreateComponent implements AfterViewInit {
       radius: 10,
     }).addTo(this.map);
 
-    this.map.on('click', (e: any) => {
+    this.map.on('click', (e: MapEvent) => {
+      if (e.sourceTarget._animateToZoom) {
+        this.zoom = e.sourceTarget._animateToZoom;
+      }
+
       let lat = e.latlng.lat;
       let lng = e.latlng.lng;
       this.initializeMap(lat, lng);
 
       this.getLocationByCoordinate(lat, lng).subscribe(
-        (response) => (this.selectedStreetCandidate = response)
+        (response: LocationResponse) =>
+          (this.selectedStreetCandidate = response)
       );
     });
   }
