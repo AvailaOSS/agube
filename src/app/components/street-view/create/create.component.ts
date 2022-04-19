@@ -22,6 +22,7 @@ import { MatSelectionList } from '@angular/material/list';
 import { ConfigureMap } from './configure-map';
 import { NumberSymbol } from '@angular/common';
 import { OnChanges, OnInit } from '@angular/core';
+import { AddressEmitter } from './address-emitter';
 
 @Component({
   selector: 'app-street-view-create',
@@ -33,8 +34,8 @@ export class CreateComponent implements AfterViewInit, OnInit {
     | MatSelectionList
     | undefined;
 
-  @Output() public addressForm: EventEmitter<FormGroup> =
-    new EventEmitter<FormGroup>();
+  @Output() public addressForm: EventEmitter<AddressEmitter> =
+    new EventEmitter<AddressEmitter>();
 
   public selectedStreetCandidate: LocationResponse | undefined;
   public streetCandidates: LocationResponse[] = [];
@@ -78,9 +79,14 @@ export class CreateComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.addressFormGroup.valueChanges.subscribe((response: FormGroup) =>
-      this.addressForm.emit(this.addressFormGroup)
-    );
+    this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
+      if (this.selectedStreetCandidate) {
+        this.addressForm.emit({
+          addressFormGroup: this.addressFormGroup,
+          location: this.selectedStreetCandidate,
+        });
+      }
+    });
   }
 
   ngAfterViewInit(): void {

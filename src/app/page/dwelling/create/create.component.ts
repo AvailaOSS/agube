@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { AddressEmitter } from '../../../components/street-view/create/address-emitter';
+import { LocationResponse } from 'src/app/components/street-view/create/location-response';
 
 @Component({
   selector: 'app-page-dwelling-create',
@@ -16,44 +18,32 @@ import { NotificationService } from '@availa/notification';
 })
 export class CreateComponent {
   public dwellingForm: FormGroup | undefined;
-  public waterMeter: FormGroup;
   public code = new FormControl('', [Validators.required]);
-  public gate = new FormControl('', []);
-  public flat = new FormControl('', []);
-  public number = new FormControl('', [Validators.required]);
-  public street = new FormControl('', [Validators.required]);
-  public town = new FormControl('', [Validators.required]);
 
   public loadingPost = false;
 
+  private location: LocationResponse | undefined;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private svcNotification: NotificationService,
     private svcDwelling: DwellingService
-  ) {
-    this.waterMeter = this.formBuilder.group({
-      code: this.code,
-    });
-  }
+  ) {}
 
-  public addressFormReceive(addressGroup: FormGroup) {
+  public addressFormReceive(addressEmitter:AddressEmitter ) {
     this.dwellingForm = this.formBuilder.group({
-      address: addressGroup,
+      address: addressEmitter.addressFormGroup,
       water_meter: this.formBuilder.group({
         code: this.code,
       }),
     });
+    this.location = addressEmitter.location;
   }
 
   public save() {
-    if (!this.dwellingForm || this.dwellingForm.invalid) {
-      return;
-    }
-
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -72,7 +62,7 @@ export class CreateComponent {
   public saveAndExit() {
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -92,52 +82,38 @@ export class CreateComponent {
           return 'NEW_DWELLING.FORM.CODE_COUNTER.VALIDATION';
         }
         return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'NEW_DWELLING.FORM.TOWN.VALIDATION';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'NEW_DWELLING.FORM.STREET.VALIDATION';
-        }
-        return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'NEW_DWELLING.FORM.NUMBER.VALIDATION';
-        }
-        return '';
       default:
         return '';
     }
   }
 
   private resetForm() {
-    this.gate.setValue('');
-    this.flat.setValue('');
-    this.number.setValue('');
-    this.town.setValue('');
-    this.street.setValue('');
     this.code.setValue('');
   }
 
   private onSave() {
-    let dwelling: DwellingCreate = {
-      full_address: {
-        gate: this.gate.value,
-        flat: this.flat.value,
-        number: this.number.value,
-        address: {
-          is_external: false,
-          town: this.town.value,
-          street: this.street.value,
-        },
-      },
-      water_meter: {
-        code: this.code.value,
-      },
-    };
+    if (!this.dwellingForm || this.dwellingForm.invalid) {
+      return;
+    }
+    console.log(this.dwellingForm.value);
+    console.log(this.location);
+    
+    // let dwelling: DwellingCreate = {
+    //   full_address: {
+    //     gate: ,
+    //     flat: ,
+    //     number: ,
+    //     address: {
+    //       is_external: false,
+    //       town: ,
+    //       street: ,
+    //     },
+    //   },
+    //   water_meter: {
+    //     code: this.code.value,
+    //   },
+    // };
 
-    return this.svcDwelling.createDwelling(dwelling);
+    return this.svcDwelling.createDwelling(this.dwellingForm.value);
   }
 }
