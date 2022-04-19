@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { AddressPersistantService } from './geolocation/address-persistant.service';
 
 @Component({
   selector: 'app-page-dwelling-create',
@@ -28,7 +27,6 @@ export class CreateComponent {
 
   constructor(
     private router: Router,
-    private addressPersistante: AddressPersistantService,
     private formBuilder: FormBuilder,
     private svcNotification: NotificationService,
     private svcDwelling: DwellingService
@@ -70,28 +68,6 @@ export class CreateComponent {
 
   public exit() {
     this.router.navigate(['manager/dwellings']);
-  }
-
-  public saveAndContinue() {
-    // this.loadingPost = true;
-
-    this.svcDwelling
-      .getDwelling(1)
-      .subscribe((response) =>
-        this.addressPersistante.persist({ entity: response })
-      );
-    // this.onSave().subscribe({
-    //   next: (response) => {
-    // this.addressPersistante.persist({ entity: response });
-    //     this.resetForm();
-    //     this.loadingPost = false;
-    this.router.navigate(['manager/dwellings/create/geolocation']);
-    //   },
-    //   error: (error) => {
-    //     this.svcNotification.warning({ message: error });
-    //     this.loadingPost = false;
-    //   },
-    // });
   }
 
   public saveAndExit() {

@@ -1,5 +1,5 @@
-<div *ngIf="id && address" class="selector-geolocation-map">
-    <mat-form-field  appearance="standard">
+<div class="selector-geolocation-map">
+    <mat-form-field appearance="standard">
         <mat-label>Buscar</mat-label>
         <input matInput type="text" (keyup.enter)="filtering()" [formControl]="filter">
         <button matSuffix mat-icon-button *ngIf="filter.value" (click)="clearFilter()">
@@ -7,7 +7,7 @@
         </button>
     </mat-form-field>
     <div class="filter-results">
-        <mat-selection-list  [multiple]="false">
+        <mat-selection-list [multiple]="false">
             <mat-list-option *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)">
                 <div>
                     <mat-icon>place</mat-icon>

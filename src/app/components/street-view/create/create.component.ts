@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
-import { FullAddress } from '@availa/agube-rest-api';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
 import { MapEvent } from './map-event';
@@ -15,8 +14,6 @@ import { ConfigureMap } from './configure-map';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements AfterViewInit {
-  @Input() public id: number | undefined;
-  @Input() public address: FullAddress | undefined;
 
   @ViewChild(MatSelectionList) public candidateComponents:
     | MatSelectionList
