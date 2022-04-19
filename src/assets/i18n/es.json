@@ -18,7 +18,7 @@
   },
   "DWELLINGS": {
     "TABLE": {
-      "TITLE": "Lista de Depósitos",
+      "TITLE": "Lista de Viviendas",
       "TOOLTIP": "Seleccionar",
       "FILTER": {
         "TEXT": "Código, Calle, Ciudad, Nº Teléfono...",

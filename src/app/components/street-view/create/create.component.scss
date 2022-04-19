@@ -1,23 +1,27 @@
-@import '../../../../assets/availa/sizes/margins.scss';
+@import "../../../../assets/availa/sizes/margins.scss";
 
 .selector-geolocation-map {
-  display: flex;
   margin: $margin-small;
-  mat-selection-list {
-    width: 40%;
-    margin-right: $margin-x-medium;
-    mat-list-option {
-      padding: $margin-small 0 $margin-small 0;
-      div {
-        display: flex;
-        align-items: center;
+  width: 100%;
+  mat-form-field {
+    width: 60%;
+  }
+  .filter-results {
+    display: flex;
+    mat-selection-list {
+      width: 60%;
+      mat-list-option {
+        div {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
   div {
     width: 100%;
     #map {
-      height: 500px;
+      height: 600px;
       width: 100%;
     }
   }

@@ -2,8 +2,7 @@
     <mat-card class="create-geolocation-page-card">
         <mat-card-content>
             <div class="form">
-                <h1>{{entity.entity.full_address | fullAddress}}</h1>
-                <h2>{{'NEW_DWELLING.GEOLOCATION.TITLE' | translate}}</h2>
+                <h1>{{'NEW_DWELLING.GEOLOCATION.TITLE' | translate}}</h1>
                 <div class="form-content">
                     <app-street-view-create [id]="entity.entity.id" [address]="entity.entity.full_address">
                     </app-street-view-create>

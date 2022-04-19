@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { FullAddress } from '@availa/agube-rest-api';
 import { Observable } from 'rxjs';
-import { FullAddressPipe } from 'src/app/pipes/full-address.pipe';
 import * as L from 'leaflet';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { MapEvent } from './map-event';
 import { LocationResponse } from './location-response';
+import { FormControl, Validators } from '@angular/forms';
+import { MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'app-street-view-create',
@@ -17,6 +17,10 @@ export class CreateComponent implements AfterViewInit {
   @Input() public id: number | undefined;
   @Input() public address: FullAddress | undefined;
 
+  @ViewChild(MatSelectionList) public candidateComponents:
+    | MatSelectionList
+    | undefined;
+
   public zoom: number = 18;
   private zoomMax: number = 19;
   private zoomMin: number = 13;
@@ -26,6 +30,9 @@ export class CreateComponent implements AfterViewInit {
   public selectedStreetCandidate: LocationResponse | undefined;
   public streetCandidates: LocationResponse[] = [];
 
+  // filter
+  public filter: FormControl = new FormControl('', Validators.required);
+
   // You can override this url for use other maps
   private static mapViewUrl: string =
     'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
@@ -33,19 +40,13 @@ export class CreateComponent implements AfterViewInit {
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
 
-  constructor(
-    private http: HttpClient,
-    private pipeAddress: FullAddressPipe,
-    protected overlayContainer: OverlayContainer
-  ) {}
+  constructor(private http: HttpClient) {}
 
   ngAfterViewInit(): void {
     this.getLocation(this.address!).subscribe(
       (response: LocationResponse[]) => {
         this.streetCandidates = response;
-        if (response) {
-          this.selectedStreetCandidate = response[0];
-        }
+        this.selectedStreetCandidate = response[0];
         if (!this.selectedStreetCandidate) {
           return;
         }
@@ -57,19 +58,44 @@ export class CreateComponent implements AfterViewInit {
     );
   }
 
+  public filtering() {
+    this.getLocationBySearch().subscribe((response) => {
+      this.candidateComponents?.deselectAll();
+      this.streetCandidates = response;
+      this.selectedStreetCandidate = response[0];
+      this.filter.setValue(this.selectedStreetCandidate.display_name);
+      this.initializeMap(
+        this.selectedStreetCandidate.lat,
+        this.selectedStreetCandidate.lon
+      );
+    });
+  }
+
+  public clearFilter() {
+    // reset map values
+  }
+
   public selectCandidate(candidate: LocationResponse) {
     this.selectedStreetCandidate = candidate;
+    this.filter.setValue(this.selectedStreetCandidate.display_name);
     this.initializeMap(
       this.selectedStreetCandidate.lat,
       this.selectedStreetCandidate.lon
     );
   }
 
-  private getLocation(address: FullAddress): Observable<LocationResponse[]> {
-    const term: string = this.pipeAddress.transform(address, 'geolocation');
+  private getLocationBySearch(): Observable<LocationResponse[]> {
     return this.http.get<LocationResponse[]>(
       CreateComponent.mapSearchUrlPrefix +
-        term +
+        this.filter.value +
+        CreateComponent.mapSearchUrlSufix
+    );
+  }
+
+  private getLocation(address: FullAddress): Observable<LocationResponse[]> {
+    return this.http.get<LocationResponse[]>(
+      CreateComponent.mapSearchUrlPrefix +
+        address.address.town +
         CreateComponent.mapSearchUrlSufix
     );
   }
@@ -118,8 +144,10 @@ export class CreateComponent implements AfterViewInit {
       this.initializeMap(lat, lng);
 
       this.getLocationByCoordinate(lat, lng).subscribe(
-        (response: LocationResponse) =>
-          (this.selectedStreetCandidate = response)
+        (response: LocationResponse) => {
+          this.selectedStreetCandidate = response;
+          this.filter.setValue(this.selectedStreetCandidate.display_name);
+        }
       );
     });
   }

@@ -11,6 +11,9 @@
 
 .form {
   padding: $margin-x-medium;
+  h1 {
+    margin: 0;
+  }
   .form-content {
     display: inline-grid;
     width: 100%;

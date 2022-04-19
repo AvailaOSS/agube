@@ -1,14 +1,20 @@
 <div *ngIf="id && address" class="selector-geolocation-map">
-    <mat-selection-list [multiple]="false">
-        <mat-list-option *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)">
-            <div>
-                <mat-icon>place</mat-icon>
-                {{candidate.display_name}}
-            </div>
-        </mat-list-option>
-    </mat-selection-list>
-    <div>
-        <h3 *ngIf="selectedStreetCandidate">{{selectedStreetCandidate.display_name}}</h3>
+    <mat-form-field  appearance="standard">
+        <mat-label>Buscar</mat-label>
+        <input matInput type="text" (keyup.enter)="filtering()" [formControl]="filter">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <div class="filter-results">
+        <mat-selection-list  [multiple]="false">
+            <mat-list-option *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)">
+                <div>
+                    <mat-icon>place</mat-icon>
+                    {{candidate.display_name}}
+                </div>
+            </mat-list-option>
+        </mat-selection-list>
         <div id="map"></div>
     </div>
 </div>
