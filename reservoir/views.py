@@ -155,6 +155,9 @@ class ReservoirOwnerView(generics.GenericAPIView):
         try:
             reservoir = Reservoir.objects.get(id=pk)
             owner = reservoir.get_current_owner()
+            if not owner:
+                return Response({'status': 'cannot find Current Owner'},
+                                status=HTTP_404_NOT_FOUND)
             return Response(get_reservoir_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
@@ -235,63 +238,4 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
             return Response(self.get_serializer(new_water_meter).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
-                            status=HTTP_404_NOT_FOUND)
-
-
-class ReservoirGeolocationView(APIView):
-    permission_classes = [IsManagerOfUser | IsUserMatch]
-    serializer_class = GeolocationSerializer
-
-    @swagger_auto_schema(
-        operation_id="getReservoirGeolocation",
-        responses={200: GeolocationSerializer(many=False)},
-        tags=[TAG],
-    )
-    def get(self, request, pk):
-        """
-        Return the Reservoir geolocation.
-        """
-        try:
-            geolocation = ReservoirGeolocation.objects.get(
-                reservoir__id=pk).geolocation
-
-            return Response(
-                GeolocationSerializer(geolocation, many=False).data)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find geolocation'},
-                            status=HTTP_404_NOT_FOUND)
-
-    @swagger_auto_schema(
-        operation_id="postReservoirGeolocation",
-        request_body=GeolocationSerializer,
-        responses={200: GeolocationSerializer(many=False)},
-        tags=[TAG],
-    )
-    def post(self, request, pk):
-        """
-        Create and Return the Reservoir geolocation.
-        """
-        try:
-            reservoir = Reservoir.objects.get(id=pk)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'},
-                            status=HTTP_404_NOT_FOUND)
-
-        try:
-            geolocation = Geolocation.objects.create(
-                latitude=request.data.pop('latitude'),
-                longitude=request.data.pop('longitude'),
-                zoom=request.data.pop('zoom'),
-                horizontalDegree=request.data.pop('horizontalDegree'),
-                verticalDegree=request.data.pop('verticalDegree'),
-            )
-
-            reservoirGeolocation = ReservoirGeolocation.objects.create(
-                reservoir=reservoir, geolocation=geolocation)
-
-            return Response(
-                GeolocationSerializer(reservoirGeolocation.geolocation,
-                                      many=False).data)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find geolocation'},
                             status=HTTP_404_NOT_FOUND)
