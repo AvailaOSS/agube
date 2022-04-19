@@ -2,7 +2,7 @@
     <mat-form-field  appearance="standard">
         <mat-label>Buscar</mat-label>
         <input matInput type="text" (keyup.enter)="filtering()" [formControl]="filter">
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+        <button matSuffix mat-icon-button *ngIf="filter.value" (click)="clearFilter()">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>

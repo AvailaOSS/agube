@@ -72,7 +72,7 @@ export class CreateComponent implements AfterViewInit {
   }
 
   public clearFilter() {
-    // reset map values
+    this.filter.setValue('');
   }
 
   public selectCandidate(candidate: LocationResponse) {
