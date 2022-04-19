@@ -110,15 +110,13 @@ class UserDwellingDetailView(APIView):
                         resident_phone_number = user_phone.phone.phone_number
                 except ObjectDoesNotExist:
                     pass
-
+            address: Address = dwelling.address
             data = {
                 'id': dwelling.id,
                 'water_meter_code': water_meter_code,
-                'town': dwelling.full_address.address.town,
-                'street': dwelling.full_address.address.street,
-                'number': dwelling.full_address.number,
-                'flat': dwelling.full_address.flat,
-                'gate': dwelling.full_address.gate,
+                'city': address.city,
+                'road': address.road,
+                'number': address.number,
                 'resident_first_name': resident_first_name,
                 'resident_phone': resident_phone_number,
                 'is_owner': is_owner,
