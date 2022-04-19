@@ -1,4 +1,4 @@
-from address.models import FullAddress
+from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -14,8 +14,7 @@ from dwelling.exceptions import OwnerAlreadyIsResidentError
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
-    full_address: FullAddress = models.ForeignKey(FullAddress,
-                                                  on_delete=models.PROTECT)
+    address: Address = models.ForeignKey(Address, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -186,13 +185,3 @@ class DwellingWaterMeter(models.Model):
     class Meta:
         ordering = ["water_meter__release_date"]
         db_table = 'agube_dwelling_dwelling_water_meter'
-
-
-class DwellingGeolocation(models.Model):
-    """A class used to represent an Dwelling Water Meter"""
-    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
-    geolocation: Geolocation = models.ForeignKey(Geolocation,
-                                                on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'agube_dwelling_dwelling_geolocation'

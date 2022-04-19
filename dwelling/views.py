@@ -1,4 +1,4 @@
-from address.models import FullAddress
+from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
@@ -23,7 +23,7 @@ from dwelling.assemblers import (PersonTag, create_user,
 from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling, DwellingGeolocation, DwellingWaterMeter
+from dwelling.models import Dwelling, DwellingWaterMeter
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
@@ -68,16 +68,13 @@ class DwellingListView(APIView):
                 except ObjectDoesNotExist:
                     pass
 
-            full_address: FullAddress = dwelling.full_address
-
+            address: Address = dwelling.address
             data = {
                 'id': dwelling.id,
+                'city':  address.city,
+                'road': address.road,
+                'number': address.number,
                 'water_meter_code': water_meter_code,
-                'town': full_address.address.town,
-                'street': full_address.address.street,
-                'number': full_address.number,
-                'flat': full_address.flat,
-                'gate': full_address.gate,
                 'resident_first_name': resident_first_name,
                 'resident_phone': user_phone_number,
             }
@@ -347,58 +344,4 @@ class DwellingWaterMeterChunkView(APIView):
             return Response(WaterMeterDetailSerializer(data, many=False).data)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'},
-                            status=HTTP_404_NOT_FOUND)
-
-
-class DwellingGeolocationView(APIView):
-    permission_classes = [IsManagerOfUser | IsUserMatch]
-    serializer_class = GeolocationSerializer
-
-    @swagger_auto_schema(operation_id="gerDwellingGeolocation",
-                         responses={200: GeolocationSerializer(many=False)},
-                         tags=[TAG])
-    def get(self, request, pk):
-        """
-        Return the Dwelling geolocation
-        """
-
-        try:
-            geolocation = DwellingGeolocation.objects.get(
-                dwelling__id=pk).geolocation
-            return Response(
-                GeolocationSerializer(geolocation, many=False).data)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find geolocation'},
-                            status=HTTP_404_NOT_FOUND)
-
-    @swagger_auto_schema(
-        operation_id="postDwellingGeolocation",
-        request_body=GeolocationSerializer,
-        responses={200: GeolocationSerializer(many=False)},
-        tags=[TAG],
-    )
-    def post(self, request, pk):
-        """
-        Create and Return the dwelling geolocation.
-        """
-        try:
-            dwelling = Dwelling.objects.get(id=pk)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find geolocation'},
-                            status=HTTP_404_NOT_FOUND)
-        try:
-            geolocation = Geolocation.objects.create(
-                latitude=request.data.pop('latitude'),
-                longitude=request.data.pop('longitude'),
-                zoom=request.data.pop('zoom'),
-                horizontalDegree=request.data.pop('horizontalDegree'),
-                verticalDegree=request.data.pop('verticalDegree'),
-            )
-            dwellingGeolocation = DwellingGeolocation.objects.create(
-                dwelling=dwelling, geolocation=geolocation)
-            return Response(
-                GeolocationSerializer(dwellingGeolocation.geolocation,
-                                      many=False).data)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find geolocation'},
                             status=HTTP_404_NOT_FOUND)

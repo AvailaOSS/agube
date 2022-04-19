@@ -1,5 +1,5 @@
-from address.models import Address, FullAddress
-from address.serializers import FullAddressSerializer
+from address.models import Address
+from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from dwelling.assemblers import (get_all_user_address_serialized,
                                  get_user_phones_serialized)
@@ -19,14 +19,14 @@ class ReservoirSerializer(ModelSerializer):
     id = ReadOnlyField()
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
-    full_address = FullAddressSerializer(many=False, read_only=False)
+    address = AddressSerializer(many=False, read_only=False)
 
     class Meta:
         ref_name = 'Reservoir'
         model = Reservoir
         fields = (
             'id',
-            'full_address',
+            'address',
             'release_date',
             'discharge_date',
             'capacity',
@@ -40,7 +40,7 @@ class ReservoirCreateSerializer(ModelSerializer):
     Reservoir Create ModelSerializer
     """
     id = ReadOnlyField()
-    full_address = FullAddressSerializer(many=False, read_only=False)
+    address = AddressSerializer(many=False, read_only=False)
     user_id = PrimaryKeyRelatedField(many=False,
                                      read_only=False,
                                      write_only=True,
@@ -54,7 +54,7 @@ class ReservoirCreateSerializer(ModelSerializer):
         model = Reservoir
         fields = (
             'id',
-            'full_address',
+            'address',
             'user_id',
             'water_meter',
             'capacity',
@@ -65,7 +65,7 @@ class ReservoirCreateSerializer(ModelSerializer):
     def create(self, validated_data):
         # Create address
         validated_data['full_address'] = self.create_reservoir_address(
-            validated_data.pop('full_address'))
+            validated_data.pop('address'))
         # Extract user_id & water_meter_code
         user = validated_data.pop('user_id')
         water_meter_code = validated_data.pop('water_meter')['code']
@@ -78,14 +78,8 @@ class ReservoirCreateSerializer(ModelSerializer):
         return reservoir
 
     @classmethod
-    def create_reservoir_address(cls, validated_data) -> FullAddress:
-        address_data = validated_data.pop('address')
-        town = address_data.pop('town')
-        street = address_data.pop('street')
-        validated_data['address'] = Address.objects.create(town=town,
-                                                           street=street,
-                                                           is_external=False)
-        return FullAddress.objects.create(**validated_data)
+    def create_reservoir_address(cls, validated_data) -> Address:
+        return Address.objects.create(**validated_data)
 
 
 class ReservoirOwnerSerializer(ModelSerializer):
@@ -115,26 +109,22 @@ class ReservoirDetailSerializer(Serializer):
     Reservoir Detail ModelSerializer
     """
     id = ReadOnlyField()
-    street = CharField(max_length=None,
-                       min_length=None,
-                       allow_blank=False,
-                       trim_whitespace=True)
+    city = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
+    road = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
     number = CharField(max_length=None,
                        min_length=None,
                        allow_blank=False,
                        trim_whitespace=True)
-    flat = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
-    gate = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
-    town = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
+    water_meter_code = CharField(max_length=None,
+                                 min_length=None,
+                                 allow_blank=False,
+                                 trim_whitespace=True)
     capacity = CharField(max_length=None,
                          min_length=None,
                          allow_blank=False,

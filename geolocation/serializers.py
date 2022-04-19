@@ -17,6 +17,6 @@ class GeolocationSerializer(ModelSerializer):
             'latitude',
             'longitude',
             'zoom',
-            'horizontalDegree',
-            'verticalDegree',
+            'horizontal_degree',
+            'vertical_degree',
         )

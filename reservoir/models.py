@@ -1,4 +1,4 @@
-from address.models import FullAddress
+from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -9,8 +9,7 @@ from watermeter.models import WaterMeter
 
 class Reservoir(models.Model):
     """A class used to represent an Reservoir"""
-    full_address: FullAddress = models.ForeignKey(FullAddress,
-                                                  on_delete=models.PROTECT)
+    address: Address = models.ForeignKey(Address, on_delete=models.PROTECT)
     capacity = models.DecimalField(decimal_places=3, max_digits=8)
     inlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
     outlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
@@ -56,6 +55,13 @@ class Reservoir(models.Model):
         water_meter: WaterMeter = WaterMeter.objects.create(code=code)
         ReservoirWaterMeter.objects.create(reservoir=self,
                                            water_meter=water_meter)
+
+    def get_current_water_meter(self) -> WaterMeter:
+        try:
+            return ReservoirWaterMeter.objects.get(
+                reservoir=self, water_meter__discharge_date=None).water_meter
+        except ObjectDoesNotExist:
+            return None
 
     def get_historical_water_meter(self) -> WaterMeter:
         try:
@@ -116,14 +122,3 @@ class ReservoirWaterMeter(models.Model):
     class Meta:
         ordering = ["water_meter__release_date"]
         db_table = 'agube_reservoir_reservoir_water_meter'
-
-
-class ReservoirGeolocation(models.Model):
-    """A class used to represent an Reservoir Water Meter"""
-    reservoir: Reservoir = models.ForeignKey(Reservoir,
-                                             on_delete=models.RESTRICT)
-    geolocation: Geolocation = models.ForeignKey(Geolocation,
-                                                 on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'agube_reservoir_reservoir_geolocation'

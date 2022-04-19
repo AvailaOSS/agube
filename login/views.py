@@ -1,4 +1,4 @@
-from address.models import Address, FullAddress
+from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
@@ -16,71 +16,9 @@ from login.assemblers import (get_all_user_full_address_serialized,
 from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
 from login.serializers import (UserAddressUpdateSerializer,
-                               UserCustomDetailSerializer,
                                UserDetailSerializer, UserPhoneUpdateSerializer)
 
 TAG_USER = 'user'
-
-
-class UserCustomDetailListView(APIView):
-    permission_classes = [IsManagerAuthenticated]
-
-    @swagger_auto_schema(
-        operation_id="getUsersDetails",
-        responses={200: UserCustomDetailSerializer(many=True)},
-        tags=[TAG_USER],
-    )
-    def get(self, request):
-        """
-        Return list of users with custom details.
-        """
-        list_of_serialized: list[UserCustomDetailSerializer] = []
-        for user in User.objects.all():
-
-            try:
-                # FIXME: if user is manager, user_address is null...
-                # TODO: allow that user manager add a main address
-                town = ''
-                street = ''
-                number = ''
-                flat = ''
-                gate = ''
-                user_address = UserAddress.objects.get(user=user,
-                                                       main=True).full_address
-                if user_address:
-                    town = user_address.address.town,
-                    street = user_address.address.street,
-                    number = user_address.number,
-                    flat = user_address.flat,
-                    gate = user_address.gate
-            except ObjectDoesNotExist:
-                pass
-
-            user_phone_number = ''
-            try:
-                user_phone: UserPhone = UserPhone.objects.get(user=user,
-                                                              main=True)
-                if user_phone:
-                    user_phone_number = user_phone.phone.phone_number
-            except ObjectDoesNotExist:
-                pass
-
-            data = {
-                "id": user.id,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "phone": user_phone_number,
-                "email": user.email,
-                "town": town,
-                "street": street,
-                "number": number,
-                "flat": flat,
-                "gate": gate
-            }
-            list_of_serialized.append(
-                UserCustomDetailSerializer(data, many=False).data)
-
-        return Response(list_of_serialized)
 
 
 class UserCustomDetailView(APIView):
@@ -393,7 +331,7 @@ class UserAddressUpdateDeleteView(APIView):
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
         # extract data
-        full_address = request.data.pop('full_address')
+        address_json = request.data.pop('address')
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
@@ -401,22 +339,25 @@ class UserAddressUpdateDeleteView(APIView):
         # update phone with new data
         try:
             user_address: UserAddress = UserAddress.objects.get(
-                user__id=pk, full_address__id=full_address_id)
+                user__id=pk, address__id=address_id)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user full address'},
                             status=HTTP_404_NOT_FOUND)
-        address = full_address.pop('address')
-        user_address.full_address.address.town = address.pop('town')
-        user_address.full_address.address.street = address.pop('street')
-        user_address.full_address.address.is_external = address.pop(
-            'is_external')
-        user_address.full_address.address.save()
-        user_address.full_address.number = full_address.pop('number')
-        user_address.full_address.flat = full_address.pop('flat')
-        user_address.full_address.gate = full_address.pop('gate')
-        user_address.full_address.save()
-        user_address.main = main
-        user_address.save()
+        address_data = address_json.pop('address')
+        update_this_address = user_address.address
+        update_this_address.city = address_data.pop('city')
+        update_this_address.country = address_data.pop('country')
+        update_this_address.city_district = address_data.pop('city_district')
+        update_this_address.municipality = address_data.pop('municipality')
+        update_this_address.postcode = address_data.pop('postcode')
+        update_this_address.province = address_data.pop('province')
+        update_this_address.state = address_data.pop('state')
+        update_this_address.village = address_data.pop('village')
+        update_this_address.road = address_data.pop('road')
+        update_this_address.number = address_data.pop('number')
+        update_this_address.flat = address_data.pop('flat')
+        update_this_address.gate = address_data.pop('gate')
+        update_this_address.save()
 
         return Response(get_all_user_full_address_serialized(user))
 

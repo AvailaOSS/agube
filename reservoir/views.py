@@ -14,7 +14,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from reservoir.models import Reservoir, ReservoirGeolocation, ReservoirWaterMeter
+from reservoir.models import Reservoir, ReservoirWaterMeter
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
                                    ReservoirOwnerSerializer,
@@ -42,13 +42,14 @@ class ReservoirListView(APIView):
 
         list_of_serialized = []
         for reservoir in reservoirs:
+            water_meter_code: str = reservoir.get_current_water_meter().code
+            address: Address = reservoir.address
             data = {
                 'id': reservoir.id,
-                'town': reservoir.full_address.address.town,
-                'street': reservoir.full_address.address.street,
-                'number': reservoir.full_address.number,
-                'flat': reservoir.full_address.flat,
-                'gate': reservoir.full_address.gate,
+                'city': address.city,
+                'road': address.road,
+                'number': address.number,
+                'water_meter_code': water_meter_code,
                 'capacity': str(reservoir.capacity),
                 'inlet_flow': str(reservoir.inlet_flow),
                 'outlet_flow': str(reservoir.outlet_flow),

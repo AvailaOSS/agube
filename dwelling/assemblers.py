@@ -1,7 +1,7 @@
 from enum import Enum
 
-from address.models import Address, FullAddress
-from address.serializers import AddressSerializer, FullAddressSerializer
+from address.models import Address
+from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
@@ -29,20 +29,32 @@ def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
 
 def create_address(user: User, validated_data: AddressSerializer, main: bool):
     # extract address_data
-    address_data = validated_data.pop('address')
-    # create addres
+    geolocation_data = validated_data.pop('geolocation')
+    # create geolocation
+    new_geolocation = Geolocation.objects.create(
+        latitude=geolocation_data.pop('latitude'),
+        longitude=geolocation_data.pop('longitude'),
+        zoom=geolocation_data.pop('zoom'),
+        horizontal_degree=geolocation_data.pop('horizontal_degree'),
+        vertical_degree=geolocation_data.pop('vertical_degree'))
+    # create address
     new_address = Address.objects.create(
-        town=address_data.pop('town'),
-        street=address_data.pop('street'),
-        is_external=address_data.pop('is_external'))
-    # create full address
-    full_address = FullAddress.objects.create(
-        address=new_address,
+        geolocation=new_geolocation,
+        is_external=validated_data.pop('is_external'),
+        city=validated_data.pop('city'),
+        country=validated_data.pop('country'),
+        city_district=validated_data.pop('city_district'),
+        municipality=validated_data.pop('municipality'),
+        postcode=validated_data.pop('postcode'),
+        province=validated_data.pop('province'),
+        state=validated_data.pop('state'),
+        village=validated_data.pop('village'),
+        road=validated_data.pop('road'),
         number=validated_data.pop('number'),
         flat=validated_data.pop('flat'),
         gate=validated_data.pop('gate'))
     # create user address
-    UserAddress.objects.create(user=user, full_address=full_address, main=main)
+    UserAddress.objects.create(user=user, address=new_address, main=main)
 
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
@@ -101,22 +113,36 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
 
 
 def get_all_user_address_serialized(user: User):
-    list_of_serialized: list[FullAddressSerializer] = []
+    list_of_serialized: list[AddressSerializer] = []
     for address_iteration in UserAddress.objects.filter(user=user):
-        full_address = address_iteration.full_address
-        data = {
-            "id": full_address.id,
-            "address": {
-                "id": full_address.address.id,
-                "town": full_address.address.town,
-                "street": full_address.address.street,
-                "is_external": full_address.address.is_external
-            },
-            "number": full_address.number,
-            "flat": full_address.flat,
-            "gate": full_address.gate
+        address = address_iteration.address
+        geo = address.geolocation
+        geo_data = {
+            "id": geo.id,
+            "latitude": geo.latitude,
+            "longitude": geo.longitude,
+            "zoom": geo.zoom,
+            "horizontal_degree": geo.horizontal_degree,
+            "vertical_degree": geo.vertical_degree,
         }
-        list_of_serialized.append(FullAddressSerializer(data, many=False).data)
+        data = {
+            "id": address.id,
+            "geolocation": geo_data,
+            "is_external": address.is_external,
+            "city": address.city,
+            "country": address.country,
+            "city_district": address.city_district,
+            "municipality": address.municipality,
+            "postcode": address.postcode,
+            "province": address.province,
+            "state": address.state,
+            "village": address.village,
+            "road": address.road,
+            "number": address.number,
+            "flat": address.flat,
+            "gate": address.gate
+        }
+        list_of_serialized.append(AddressSerializer(data, many=False).data)
 
     return list_of_serialized
 
