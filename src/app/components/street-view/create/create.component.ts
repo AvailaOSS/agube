@@ -14,7 +14,6 @@ import { ConfigureMap } from './configure-map';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements AfterViewInit {
-
   @ViewChild(MatSelectionList) public candidateComponents:
     | MatSelectionList
     | undefined;
@@ -30,6 +29,10 @@ export class CreateComponent implements AfterViewInit {
 
   // filter
   public filter: FormControl = new FormControl('', Validators.required);
+  public street: FormControl = new FormControl('', Validators.required);
+  public number: FormControl = new FormControl('', Validators.required);
+  public flat: FormControl = new FormControl('', Validators.required);
+  public gate: FormControl = new FormControl('', Validators.required);
 
   // You can override this url for use other maps
   private static mapViewUrl: string =
