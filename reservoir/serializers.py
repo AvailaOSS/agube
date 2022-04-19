@@ -10,7 +10,7 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirOwner
-
+from geolocation.models import Geolocation
 
 class ReservoirSerializer(ModelSerializer):
     """
@@ -64,7 +64,7 @@ class ReservoirCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         # Create address
-        validated_data['full_address'] = self.create_reservoir_address(
+        validated_data['address'] = self.create_reservoir_address(
             validated_data.pop('address'))
         # Extract user_id & water_meter_code
         user = validated_data.pop('user_id')
@@ -79,7 +79,31 @@ class ReservoirCreateSerializer(ModelSerializer):
 
     @classmethod
     def create_reservoir_address(cls, validated_data) -> Address:
-        return Address.objects.create(**validated_data)
+        geolocation_data = validated_data.pop('geolocation')
+        new_geolocation = Geolocation.objects.create(
+            latitude=geolocation_data.pop('latitude'),
+            longitude=geolocation_data.pop('longitude'),
+            zoom=geolocation_data.pop('zoom'),
+            horizontal_degree=geolocation_data.pop('horizontal_degree'),
+            vertical_degree=geolocation_data.pop('vertical_degree'))
+        
+        new_address = Address.objects.create(
+            geolocation=new_geolocation,
+            is_external=validated_data.pop('is_external'),
+            city=validated_data.pop('city'),
+            country=validated_data.pop('country'),
+            city_district=validated_data.pop('city_district'),
+            municipality=validated_data.pop('municipality'),
+            postcode=validated_data.pop('postcode'),
+            province=validated_data.pop('province'),
+            state=validated_data.pop('state'),
+            village=validated_data.pop('village'),
+            road=validated_data.pop('road'),
+            number=validated_data.pop('number'),
+            flat=validated_data.pop('flat'),
+            gate=validated_data.pop('gate'))
+        return new_address
+       
 
 
 class ReservoirOwnerSerializer(ModelSerializer):
