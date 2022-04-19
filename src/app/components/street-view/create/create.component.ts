@@ -7,6 +7,7 @@ import { MapEvent } from './map-event';
 import { LocationResponse } from './location-response';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
+import { ConfigureMap } from './configure-map';
 
 @Component({
   selector: 'app-street-view-create',
@@ -23,7 +24,7 @@ export class CreateComponent implements AfterViewInit {
 
   public zoom: number = 18;
   private zoomMax: number = 19;
-  private zoomMin: number = 13;
+  private zoomMin: number = 6;
 
   private map: any;
 
@@ -40,22 +41,17 @@ export class CreateComponent implements AfterViewInit {
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
 
+  private resetMapLocation: ConfigureMap = {
+    lat: 39.92666,
+    lon: -2.33976,
+    zoom: 6,
+    showCircle: false,
+  };
+
   constructor(private http: HttpClient) {}
 
   ngAfterViewInit(): void {
-    this.getLocation(this.address!).subscribe(
-      (response: LocationResponse[]) => {
-        this.streetCandidates = response;
-        this.selectedStreetCandidate = response[0];
-        if (!this.selectedStreetCandidate) {
-          return;
-        }
-        this.initializeMap(
-          this.selectedStreetCandidate.lat,
-          this.selectedStreetCandidate.lon
-        );
-      }
-    );
+    this.initializeMap(this.resetMapLocation);
   }
 
   public filtering() {
@@ -64,38 +60,35 @@ export class CreateComponent implements AfterViewInit {
       this.streetCandidates = response;
       this.selectedStreetCandidate = response[0];
       this.filter.setValue(this.selectedStreetCandidate.display_name);
-      this.initializeMap(
-        this.selectedStreetCandidate.lat,
-        this.selectedStreetCandidate.lon
-      );
+      this.initializeMap({
+        lat: this.selectedStreetCandidate.lat,
+        lon: this.selectedStreetCandidate.lon,
+        zoom: this.zoom,
+        showCircle: true,
+      });
     });
   }
 
   public clearFilter() {
     this.filter.setValue('');
+    this.initializeMap(this.resetMapLocation);
   }
 
   public selectCandidate(candidate: LocationResponse) {
     this.selectedStreetCandidate = candidate;
     this.filter.setValue(this.selectedStreetCandidate.display_name);
-    this.initializeMap(
-      this.selectedStreetCandidate.lat,
-      this.selectedStreetCandidate.lon
-    );
+    this.initializeMap({
+      lat: this.selectedStreetCandidate.lat,
+      lon: this.selectedStreetCandidate.lon,
+      zoom: this.zoom,
+      showCircle: true,
+    });
   }
 
   private getLocationBySearch(): Observable<LocationResponse[]> {
     return this.http.get<LocationResponse[]>(
       CreateComponent.mapSearchUrlPrefix +
         this.filter.value +
-        CreateComponent.mapSearchUrlSufix
-    );
-  }
-
-  private getLocation(address: FullAddress): Observable<LocationResponse[]> {
-    return this.http.get<LocationResponse[]>(
-      CreateComponent.mapSearchUrlPrefix +
-        address.address.town +
         CreateComponent.mapSearchUrlSufix
     );
   }
@@ -111,14 +104,14 @@ export class CreateComponent implements AfterViewInit {
     );
   }
 
-  private initializeMap(lat: number, lon: number): void {
+  private initializeMap(conf: ConfigureMap): void {
     if (this.map) {
       this.map.remove();
     }
-
     this.map = L.map('map', {
-      center: [lat, lon],
-      zoom: this.zoom,
+      center: [conf.lat, conf.lon],
+      doubleClickZoom: false,
+      zoom: conf.zoom,
     });
 
     const tiles = L.tileLayer(CreateComponent.mapViewUrl, {
@@ -128,22 +121,29 @@ export class CreateComponent implements AfterViewInit {
 
     tiles.addTo(this.map);
 
-    L.circle([lat, lon], {
-      fillColor: '#7fd3f7',
-      fillOpacity: 0.5,
-      radius: 10,
-    }).addTo(this.map);
+    let circle: L.Circle | undefined = undefined;
+    if (conf.showCircle) {
+      circle = L.circle([conf.lat, conf.lon], {
+        fillColor: '#7fd3f7',
+        fillOpacity: 0.5,
+        radius: 10,
+      }).addTo(this.map);
+    }
 
     this.map.on('click', (e: MapEvent) => {
       if (e.sourceTarget._animateToZoom) {
         this.zoom = e.sourceTarget._animateToZoom;
       }
 
-      let lat = e.latlng.lat;
-      let lng = e.latlng.lng;
-      this.initializeMap(lat, lng);
+      conf.lat = e.latlng.lat;
+      conf.lon = e.latlng.lng;
 
-      this.getLocationByCoordinate(lat, lng).subscribe(
+      if (circle) {
+        this.map.removeLayer(circle);
+      }
+      this.initializeMap(conf);
+
+      this.getLocationByCoordinate(conf.lat, conf.lon).subscribe(
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
           this.filter.setValue(this.selectedStreetCandidate.display_name);
