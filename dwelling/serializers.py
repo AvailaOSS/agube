@@ -154,4 +154,4 @@ class DwellingDetailSerializer(Serializer):
                                trim_whitespace=True)
 
     class Meta:
-        ref_name = 'MyDwellingDetail'
+        ref_name = 'DwellingDetail'
