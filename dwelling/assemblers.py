@@ -15,7 +15,10 @@ from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
 from geolocation.models import Geolocation
+from address.assembler import create_address
 
+
+# FIXME: the user methods must be moved to login app
 class PersonTag(Enum):
     OWNER = "Propietario"
     RESIDENT = "Residente"
@@ -27,34 +30,12 @@ def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
     UserPhone.objects.create(user=user, phone=new_phone, main=main)
 
 
-def create_address(user: User, validated_data: AddressSerializer, main: bool):
-    # extract address_data
-    geolocation_data = validated_data.pop('geolocation')
-    # create geolocation
-    new_geolocation = Geolocation.objects.create(
-        latitude=geolocation_data.pop('latitude'),
-        longitude=geolocation_data.pop('longitude'),
-        zoom=geolocation_data.pop('zoom'),
-        horizontal_degree=geolocation_data.pop('horizontal_degree'),
-        vertical_degree=geolocation_data.pop('vertical_degree'))
-    # create address
-    new_address = Address.objects.create(
-        geolocation=new_geolocation,
-        is_external=validated_data.pop('is_external'),
-        city=validated_data.pop('city'),
-        country=validated_data.pop('country'),
-        city_district=validated_data.pop('city_district'),
-        municipality=validated_data.pop('municipality'),
-        postcode=validated_data.pop('postcode'),
-        province=validated_data.pop('province'),
-        state=validated_data.pop('state'),
-        village=validated_data.pop('village'),
-        road=validated_data.pop('road'),
-        number=validated_data.pop('number'),
-        flat=validated_data.pop('flat'),
-        gate=validated_data.pop('gate'))
+def create_user_address(user: User, validated_data: AddressSerializer,
+                        main: bool):
     # create user address
-    UserAddress.objects.create(user=user, address=new_address, main=main)
+    return UserAddress.objects.create(user=user,
+                               address=create_address(validated_data),
+                               main=main)
 
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
@@ -94,7 +75,7 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
     # Create User Address
     first_iteration = True
     for address in addresses:
-        create_address(user, address, first_iteration)
+        create_user_address(user, address, first_iteration)
         first_iteration = False
 
     # Important: create Person after create User

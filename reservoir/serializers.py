@@ -11,6 +11,7 @@ from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirOwner
 from geolocation.models import Geolocation
+from address.assembler import create_address
 
 class ReservoirSerializer(ModelSerializer):
     """
@@ -44,6 +45,8 @@ class ReservoirCreateSerializer(ModelSerializer):
     user_id = PrimaryKeyRelatedField(many=False,
                                      read_only=False,
                                      write_only=True,
+                                     required=False,
+                                     allow_null=True,
                                      queryset=User.objects.all())
     water_meter = WaterMeterSerializer(many=False,
                                        read_only=False,
@@ -67,43 +70,20 @@ class ReservoirCreateSerializer(ModelSerializer):
         validated_data['address'] = self.create_reservoir_address(
             validated_data.pop('address'))
         # Extract user_id & water_meter_code
-        user = validated_data.pop('user_id')
+        user = validated_data.get('user_id')
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create reservoir
         reservoir: Reservoir = Reservoir.objects.create(**validated_data)
         # Add user to Reservoir
-        reservoir.change_current_owner(user)
+        if (user):
+            reservoir.change_current_owner(user)
         # Create water meter
         reservoir.change_current_water_meter(water_meter_code)
         return reservoir
 
     @classmethod
     def create_reservoir_address(cls, validated_data) -> Address:
-        geolocation_data = validated_data.pop('geolocation')
-        new_geolocation = Geolocation.objects.create(
-            latitude=geolocation_data.pop('latitude'),
-            longitude=geolocation_data.pop('longitude'),
-            zoom=geolocation_data.pop('zoom'),
-            horizontal_degree=geolocation_data.pop('horizontal_degree'),
-            vertical_degree=geolocation_data.pop('vertical_degree'))
-        
-        new_address = Address.objects.create(
-            geolocation=new_geolocation,
-            is_external=validated_data.pop('is_external'),
-            city=validated_data.pop('city'),
-            country=validated_data.pop('country'),
-            city_district=validated_data.pop('city_district'),
-            municipality=validated_data.pop('municipality'),
-            postcode=validated_data.pop('postcode'),
-            province=validated_data.pop('province'),
-            state=validated_data.pop('state'),
-            village=validated_data.pop('village'),
-            road=validated_data.pop('road'),
-            number=validated_data.pop('number'),
-            flat=validated_data.pop('flat'),
-            gate=validated_data.pop('gate'))
-        return new_address
-       
+        return create_address(validated_data)
 
 
 class ReservoirOwnerSerializer(ModelSerializer):

@@ -2,22 +2,23 @@ from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from dwelling.assemblers import create_user_address
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
-from login.serializers_external import UserDwellingDetailSerializer
-from phone.models import Phone
+from geolocation.models import Geolocation
 from manager.permissions import IsManagerAuthenticated
-from login.permissions import IsManagerOfUser, IsUserMatch
+from phone.models import Phone
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from geolocation.models import Geolocation
-
+from address.serializers import AddressSerializer
 from login.assemblers import (get_all_user_full_address_serialized,
                               get_all_user_phones_serialized)
 from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
+from login.permissions import IsManagerOfUser, IsUserMatch
 from login.serializers import (UserAddressUpdateSerializer,
                                UserDetailSerializer, UserPhoneUpdateSerializer)
+from login.serializers_external import UserDwellingDetailSerializer
 
 TAG_USER = 'user'
 
@@ -262,40 +263,9 @@ class UserCreateAddressView(APIView):
         # if new is main change others as not main
         if main:
             update_address_to_not_main(pk)
-        # create a new full address
-        created_user_address = self.create_address(user, address, main)
-
+        # create a new address
+        created_user_address = create_user_address(user, address, main)
         return Response(UserAddressUpdateSerializer(created_user_address).data)
-
-    @classmethod
-    def create_address(cls, user, validated_data, main):
-        geolocation_data = validated_data.pop('geolocation')
-    # create geolocation
-        new_geolocation = Geolocation.objects.create(
-            latitude=geolocation_data.pop('latitude'),
-            longitude=geolocation_data.pop('longitude'),
-            zoom=geolocation_data.pop('zoom'),
-            horizontal_degree=geolocation_data.pop('horizontal_degree'),
-            vertical_degree=geolocation_data.pop('vertical_degree'))
-        # Extract Address data
-        new_address = Address.objects.create(
-            geolocation=new_geolocation,
-            is_external=validated_data.pop('is_external'),
-            city=validated_data.pop('city'),
-            country=validated_data.pop('country'),
-            city_district=validated_data.pop('city_district'),
-            municipality=validated_data.pop('municipality'),
-            postcode=validated_data.pop('postcode'),
-            province=validated_data.pop('province'),
-            state=validated_data.pop('state'),
-            village=validated_data.pop('village'),
-            road=validated_data.pop('road'),
-            number=validated_data.pop('number'),
-            flat=validated_data.pop('flat'),
-            gate=validated_data.pop('gate'))
-        return UserAddress.objects.create(user=user,
-                                          address=new_address,
-                                          main=main)
 
     @swagger_auto_schema(
         operation_id="getUserAddress",
@@ -320,10 +290,10 @@ class UserAddressUpdateDeleteView(APIView):
     @swagger_auto_schema(
         operation_id="updateUserAddress",
         request_body=UserAddressUpdateSerializer,
-        responses={200: UserAddressUpdateSerializer(many=True)},
+        responses={200: UserAddressUpdateSerializer(many=False)},
         tags=[TAG_USER],
     )
-    def put(self, request, pk, full_address_id):
+    def put(self, request, pk, address_id):
         """
         Update user address
         """
@@ -333,7 +303,7 @@ class UserAddressUpdateDeleteView(APIView):
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
         # extract data
-        address_json = request.data.pop('address')
+        address_data = request.data.pop('address')
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
@@ -343,48 +313,55 @@ class UserAddressUpdateDeleteView(APIView):
             user_address: UserAddress = UserAddress.objects.get(
                 user__id=pk, address__id=address_id)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find user full address'},
+            return Response({'status': 'cannot find user address'},
                             status=HTTP_404_NOT_FOUND)
-        address_data = address_json.pop('address')
-        update_this_address = user_address.address
-        update_this_address.city = address_data.pop('city')
-        update_this_address.country = address_data.pop('country')
-        update_this_address.city_district = address_data.pop('city_district')
-        update_this_address.municipality = address_data.pop('municipality')
-        update_this_address.postcode = address_data.pop('postcode')
-        update_this_address.province = address_data.pop('province')
-        update_this_address.state = address_data.pop('state')
-        update_this_address.village = address_data.pop('village')
-        update_this_address.road = address_data.pop('road')
-        update_this_address.number = address_data.pop('number')
-        update_this_address.flat = address_data.pop('flat')
-        update_this_address.gate = address_data.pop('gate')
-        update_this_address.save()
 
-        return Response(get_all_user_full_address_serialized(user))
+        update_this_address = user_address.address
+        update_this_address.city = address_data.get('city')
+        update_this_address.country = address_data.get('country')
+        update_this_address.city_district = address_data.get('city_district')
+        update_this_address.municipality = address_data.get('municipality')
+        update_this_address.postcode = address_data.get('postcode')
+        update_this_address.province = address_data.get('province')
+        update_this_address.state = address_data.get('state')
+        update_this_address.village = address_data.get('village')
+        update_this_address.road = address_data.get('road')
+        update_this_address.number = address_data.get('number')
+        update_this_address.flat = address_data.get('flat')
+        update_this_address.gate = address_data.get('gate')
+        update_this_address.save()
+        user_address.main = main
+        user_address.save()
+
+        data = {
+            "id": user_address.id,
+            "address": AddressSerializer(update_this_address).data,
+            'main': user_address.main,
+        }
+
+        return Response(UserAddressUpdateSerializer(data, many=False).data)
 
     @swagger_auto_schema(
         operation_id="deleteUserAddress",
         tags=[TAG_USER],
     )
-    def delete(self, request, pk, full_address_id):
+    def delete(self, request, pk, address_id):
         """
         Delete User address
         """
         try:
             user_address: UserAddress = UserAddress.objects.get(
-                user__id=pk, full_address__id=full_address_id)
+                user__id=pk, address__id=address_id)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user full address'},
                             status=HTTP_404_NOT_FOUND)
-        user_address = UserAddress.objects.get(
-            user__id=pk, full_address__id=full_address_id)
+        user_address = UserAddress.objects.get(user__id=pk,
+                                               address__id=address_id)
         if user_address.main:
             return Response({'status': 'cannot delete main address'},
                             status=HTTP_404_NOT_FOUND)
-        full_address = user_address.full_address
+        address = user_address.address
         user_address.delete()
-        if full_address.address.is_external:
-            full_address.delete()
-            full_address.address.delete()
+        if address.is_external:
+            address.delete()
         return Response({'status': 'delete successfull!'})
