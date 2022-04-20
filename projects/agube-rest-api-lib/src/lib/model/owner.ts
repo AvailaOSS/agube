@@ -12,7 +12,7 @@
 import { UserCreate } from './userCreate';
 
 export interface Owner {
-  readonly id?: number;
+  readonly id?: string;
   readonly dwelling_id?: number;
   user: UserCreate;
   readonly release_date?: string;

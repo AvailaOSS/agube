@@ -9,12 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { FullAddress } from './fullAddress';
+import { Address } from './address';
 import { WaterMeter } from './waterMeter';
 
-
 export interface DwellingCreate {
-    readonly id?: number;
-    full_address: FullAddress;
-    water_meter: WaterMeter;
+  readonly id?: string;
+  address: Address;
+  water_meter: WaterMeter;
 }

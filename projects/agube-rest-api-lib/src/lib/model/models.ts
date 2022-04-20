@@ -1,7 +1,7 @@
 export * from './address';
 export * from './dwellingCreate';
 export * from './dwellingDetail';
-export * from './fullAddress';
+export * from './geolocation';
 export * from './manager';
 export * from './managerConfiguration';
 export * from './owner';
@@ -12,7 +12,6 @@ export * from './resident';
 export * from './userAddress';
 export * from './userCreate';
 export * from './userDetail';
-export * from './userDetailCustom';
 export * from './userDwellingDetail';
 export * from './userIsManager';
 export * from './userPhone';

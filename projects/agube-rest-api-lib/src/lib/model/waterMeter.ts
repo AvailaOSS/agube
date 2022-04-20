@@ -10,10 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export interface WaterMeter {
-    readonly id?: number;
-    code: string;
-    readonly release_date?: string;
-    readonly discharge_date?: string;
+  readonly id?: string;
+  code: string;
+  readonly release_date?: string;
+  readonly discharge_date?: string;
 }

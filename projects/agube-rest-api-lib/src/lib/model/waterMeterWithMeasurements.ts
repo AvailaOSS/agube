@@ -11,11 +11,10 @@
  */
 import { WaterMeterMeasurement } from './waterMeterMeasurement';
 
-
 export interface WaterMeterWithMeasurements {
-    readonly id?: number;
-    readonly code?: string;
-    readonly release_date?: string;
-    readonly discharge_date?: string;
-    measures: Array<WaterMeterMeasurement>;
+  readonly id?: string;
+  readonly code?: string;
+  readonly release_date?: string;
+  readonly discharge_date?: string;
+  measures: Array<WaterMeterMeasurement>;
 }

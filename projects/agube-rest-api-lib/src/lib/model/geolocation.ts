@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface Geolocation { 
-    readonly id?: string;
-    latitude: string;
-    longitude: string;
-    zoom: number;
-    horizontalDegree?: number;
-    verticalDegree?: number;
+export interface Geolocation {
+  readonly id?: string;
+  latitude: string;
+  longitude: string;
+  zoom: number;
+  horizontal_degree?: number;
+  vertical_degree?: number;
 }

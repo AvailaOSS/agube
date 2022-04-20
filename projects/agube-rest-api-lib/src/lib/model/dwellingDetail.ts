@@ -10,15 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export interface DwellingDetail {
-    readonly id?: number;
-    water_meter_code: string;
-    street: string;
-    number: string;
-    flat: string;
-    gate: string;
-    town: string;
-    resident_first_name: string;
-    resident_phone: string;
+  readonly id?: string;
+  city: string;
+  road: string;
+  number: string;
+  water_meter_code: string;
+  resident_first_name: string;
+  resident_phone: string;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 export interface Manager {
-    readonly user_id?: number;
+  readonly user_id?: string;
 }

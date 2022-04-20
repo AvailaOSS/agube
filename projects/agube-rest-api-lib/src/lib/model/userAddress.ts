@@ -9,10 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { FullAddress } from './fullAddress';
+import { Address } from './address';
 
-export interface UserAddress {
-  readonly id?: number;
-  full_address: FullAddress;
-  main: boolean;
+
+export interface UserAddress { 
+    readonly id?: string;
+    address: Address;
+    main: boolean;
 }

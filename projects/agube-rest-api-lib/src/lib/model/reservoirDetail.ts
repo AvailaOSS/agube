@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 export interface ReservoirDetail {
-    readonly id?: number;
-    street: string;
-    number: string;
-    flat: string;
-    gate: string;
-    town: string;
-    capacity: string;
-    inlet_flow: string;
-    outlet_flow: string;
+  readonly id?: string;
+  city: string;
+  road: string;
+  number: string;
+  water_meter_code: string;
+  capacity: string;
+  inlet_flow: string;
+  outlet_flow: string;
 }

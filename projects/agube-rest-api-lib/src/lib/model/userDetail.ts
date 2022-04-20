@@ -12,7 +12,7 @@
 import { Phone } from './phone';
 
 export interface UserDetail {
-  readonly id?: number;
+  readonly id?: string;
   first_name?: string;
   last_name?: string;
   email?: string;
