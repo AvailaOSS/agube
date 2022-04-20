@@ -4,11 +4,14 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
+import { AddressEmitter } from 'src/app/components/street-view/create/address-emitter';
+import { LocationResponse } from 'src/app/components/street-view/create/location-response';
 
 @Component({
   selector: 'app-page-reservoir-create',
@@ -16,11 +19,8 @@ import { AccountService } from '@availa/auth-fe';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent {
-  public reservoirForm: FormGroup;
+  public reservoirForm: FormGroup | undefined;
   public code = new FormControl('', [Validators.required]);
-  public number = new FormControl('', []);
-  public street = new FormControl('', [Validators.required]);
-  public town = new FormControl('', [Validators.required]);
   public capacity = new FormControl('', [Validators.required]);
   public inletFlow = new FormControl('', [Validators.required]);
   public outletFlow = new FormControl('', [Validators.required]);
@@ -28,7 +28,7 @@ export class CreateComponent {
   @Input() public userId: number = -1;
 
   public loadingPost = false;
-
+  private location: LocationResponse | undefined;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -39,14 +39,12 @@ export class CreateComponent {
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
     });
+  }
+
+  public addressFormReceive(addressEmitter: AddressEmitter) {
+    console.log(addressEmitter);
     this.reservoirForm = this.formBuilder.group({
-      full_address: formBuilder.group({
-        address: formBuilder.group({
-          town: this.town,
-          street: this.street,
-        }),
-        number: this.number,
-      }),
+      address: addressEmitter.addressFormGroup,
       water_meter: this.formBuilder.group({
         code: this.code,
       }),
@@ -54,16 +52,13 @@ export class CreateComponent {
       inletFlow: this.inletFlow,
       outletFlow: this.outletFlow,
     });
+    this.location = addressEmitter.location;
   }
 
   public save() {
-    if (this.reservoirForm.invalid) {
-      return;
-    }
-
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -82,7 +77,7 @@ export class CreateComponent {
   public saveAndExit() {
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -100,16 +95,6 @@ export class CreateComponent {
       case 'code':
         if (this.code.hasError('required')) {
           return 'RESERVOIR.CREATE.FORM.WATER_METER_CODE.VALIDATION';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.STREET.VALIDATION';
-        }
-        return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.TOWN.VALIDATION';
         }
         return '';
       case 'capacity':
@@ -133,9 +118,6 @@ export class CreateComponent {
   }
 
   private resetForm() {
-    this.number.setValue('');
-    this.town.setValue('');
-    this.street.setValue('');
     this.code.setValue('');
     this.capacity.setValue('');
     this.outletFlow.setValue('');
@@ -143,27 +125,38 @@ export class CreateComponent {
   }
 
   private onSave() {
+    if (
+      !this.reservoirForm ||
+      this.reservoirForm.invalid ||
+      !this.location ||
+      !this.location.address
+    ) {
+      return;
+    }
+    // console.log(this.dwellingForm.value);
+    let address = this.location.address;
+
     let reservoir: ReservoirCreate = {
       address: {
-        city: '',
-        city_district: '',
-        country: '',
+        city: address.city,
+        city_district: address.city_district,
+        country: address.country,
         geolocation: {
-          latitude: '',
-          longitude: '',
-          zoom: 0,
+          latitude: String(this.location.lat),
+          longitude: String(this.location.lon),
+          zoom: this.location.zoom,
           horizontal_degree: 0,
           vertical_degree: 0,
         },
-        municipality: '',
-        postcode: '',
-        province: '',
-        state: '',
-        flat: '',
-        gate: '',
-        number: 0,
-        road: '',
-        village: '',
+        municipality: address.municipality,
+        postcode: address.postcode,
+        province: address.province,
+        state: address.state,
+        flat: this.getOptionalValue(this.reservoirForm.get('address')!, 'flat'),
+        gate: this.getOptionalValue(this.reservoirForm.get('address')!, 'gate'),
+        number: this.reservoirForm.get('address')!.get('number')!.value,
+        road: this.reservoirForm.get('address')!.get('street')!.value,
+        village: address.village,
         is_external: false,
       },
       water_meter: {
@@ -176,5 +169,14 @@ export class CreateComponent {
     };
 
     return this.svcReservoir.createReservoir(reservoir);
+  }
+
+  private getOptionalValue(formGroup: AbstractControl, extract: string) {
+    let value = undefined;
+    let form = formGroup.get(extract);
+    if (form) {
+      value = form.value;
+    }
+    return value;
   }
 }

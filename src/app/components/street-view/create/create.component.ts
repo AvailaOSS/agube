@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
   EventEmitter,
+  Input,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
@@ -27,6 +28,8 @@ import { AddressEmitter } from './address-emitter';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements AfterViewInit, OnInit {
+  @Input() public mapHeight? = '500px';
+
   @ViewChild(MatSelectionList) public candidateComponents:
     | MatSelectionList
     | undefined;
@@ -78,6 +81,7 @@ export class CreateComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
       if (this.selectedStreetCandidate) {
+        this.fillMissingAddress(this.selectedStreetCandidate);
         this.addressForm.emit({
           addressFormGroup: this.addressFormGroup,
           location: this.selectedStreetCandidate,
@@ -222,6 +226,22 @@ export class CreateComponent implements AfterViewInit, OnInit {
         return '';
       default:
         return '';
+    }
+  }
+
+  private fillMissingAddress(location: LocationResponse) {
+    // city in isolated places can be empty
+    if (!location.address.city) {
+      // fill isolated city with municipality place
+      location.address.city = location.address.municipality;
+    }
+
+    // city_district in isolated places can be empty
+    // fill isolated city_district with municipality place
+    if (!location.address.city_district && location.address.village) {
+      location.address.city_district = location.address.village;
+    } else if (!location.address.city_district && !location.address.village) {
+      location.address.city_district = location.address.municipality;
     }
   }
 }

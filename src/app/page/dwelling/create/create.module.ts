@@ -31,7 +31,6 @@ import { PipesModule } from '../../../pipes/pipes.module';
     TranslateModule,
     StreetViewCreateModule,
     PipesModule,
-    TranslateModule
   ],
 })
 export class CreateModule {}
