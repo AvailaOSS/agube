@@ -276,7 +276,10 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   private fillFormControls(location: LocationResponse) {
-    console.log(location);
+    if (!location.zoom) {
+      location.zoom = CreateComponent.zoom;
+    }
+
     // FIXME: move this in one pipe
     this.filter.setValue(location.display_name);
 
@@ -311,6 +314,10 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
 
     if (!location.address.postcode) {
       location.address.postcode = '0000';
+    }
+
+    if (!location.address.city_district) {
+      location.address.city_district = city;
     }
   }
 

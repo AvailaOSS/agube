@@ -1,4 +1,4 @@
-@import '../../../../../assets/availa/sizes/margins.scss';
+@import "../../../../../assets/availa/sizes/margins.scss";
 
 .table-card {
   max-width: 100%;
@@ -25,5 +25,6 @@
   }
   mat-card-content {
     margin: 0px $margin-x-medium $margin-x-medium $margin-x-medium;
+    height: 65%;
   }
 }
