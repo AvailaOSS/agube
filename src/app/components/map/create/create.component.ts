@@ -78,8 +78,6 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes['resetForm']);
-
     if (
       (changes['resetForm'].currentValue &&
         !changes['resetForm'].previousValue) ||

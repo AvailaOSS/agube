@@ -5,7 +5,7 @@ import {
 } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { Component, OnInit } from '@angular/core';
-import { MapLocation } from 'src/app/components/street-view/view/map-location';
+import { MapLocation } from 'src/app/components/map/view/map-location';
 
 @Component({
   selector: 'app-page-dwelling-detail',
