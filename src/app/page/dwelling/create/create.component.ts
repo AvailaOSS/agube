@@ -5,6 +5,7 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
@@ -30,7 +31,7 @@ export class CreateComponent {
     private svcDwelling: DwellingService
   ) {}
 
-  public addressFormReceive(addressEmitter:AddressEmitter ) {
+  public addressFormReceive(addressEmitter: AddressEmitter) {
     this.dwellingForm = this.formBuilder.group({
       address: addressEmitter.addressFormGroup,
       water_meter: this.formBuilder.group({
@@ -92,28 +93,55 @@ export class CreateComponent {
   }
 
   private onSave() {
-    if (!this.dwellingForm || this.dwellingForm.invalid) {
+    if (
+      !this.dwellingForm ||
+      this.dwellingForm.invalid ||
+      !this.location ||
+      !this.location.address
+    ) {
       return;
     }
-    console.log(this.dwellingForm.value);
-    console.log(this.location);
-    
-    // let dwelling: DwellingCreate = {
-    //   full_address: {
-    //     gate: ,
-    //     flat: ,
-    //     number: ,
-    //     address: {
-    //       is_external: false,
-    //       town: ,
-    //       street: ,
-    //     },
-    //   },
-    //   water_meter: {
-    //     code: this.code.value,
-    //   },
-    // };
 
-    return this.svcDwelling.createDwelling(this.dwellingForm.value);
+    // console.log(this.dwellingForm.value);
+    let address = this.location.address;
+
+    let dwelling: DwellingCreate = {
+      address: {
+        city: address.city,
+        city_district: address.city_district,
+        country: address.country,
+        geolocation: {
+          latitude: String(this.location.lat),
+          longitude: String(this.location.lon),
+          zoom: this.location.zoom,
+          horizontal_degree: 0,
+          vertical_degree: 0,
+        },
+        municipality: address.municipality,
+        postcode: address.postcode,
+        province: address.province,
+        state: address.state,
+        flat: this.getOptionalValue(this.dwellingForm.get('address')!, 'flat'),
+        gate: this.getOptionalValue(this.dwellingForm.get('address')!, 'gate'),
+        number: this.dwellingForm.get('address')!.get('number')!.value,
+        road: this.dwellingForm.get('address')!.get('street')!.value,
+        village: address.village,
+        is_external: false,
+      },
+      water_meter: {
+        code: this.code.value,
+      },
+    };
+
+    return this.svcDwelling.createDwelling(dwelling);
+  }
+
+  private getOptionalValue(formGroup: AbstractControl, extract: string) {
+    let value = undefined;
+    let form = formGroup.get(extract);
+    if (form) {
+      value = form.value;
+    }
+    return value;
   }
 }

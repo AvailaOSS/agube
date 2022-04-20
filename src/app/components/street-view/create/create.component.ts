@@ -5,7 +5,6 @@ import {
   Output,
   ViewChild,
   EventEmitter,
-  SimpleChanges,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
@@ -16,12 +15,10 @@ import {
   FormGroup,
   Validators,
   FormBuilder,
-  AbstractControl,
 } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
 import { ConfigureMap } from './configure-map';
-import { NumberSymbol } from '@angular/common';
-import { OnChanges, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { AddressEmitter } from './address-emitter';
 
 @Component({
@@ -98,6 +95,7 @@ export class CreateComponent implements AfterViewInit, OnInit {
       this.candidateComponents?.deselectAll();
       this.streetCandidates = response;
       this.selectedStreetCandidate = response[0];
+
       this.filter.setValue(this.selectedStreetCandidate.display_name);
       this.street.setValue(this.selectedStreetCandidate.address.road);
       this.number.setValue(this.selectedStreetCandidate.address.house_number);
@@ -194,6 +192,7 @@ export class CreateComponent implements AfterViewInit, OnInit {
       this.getLocationByCoordinate(clickConf.lat, clickConf.lon).subscribe(
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
+          this.selectedStreetCandidate.zoom = userZoom;
           this.filter.setValue(this.selectedStreetCandidate.display_name);
           this.street.setValue(this.selectedStreetCandidate.address.road);
           this.number.setValue(

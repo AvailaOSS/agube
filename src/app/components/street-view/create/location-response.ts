@@ -2,6 +2,7 @@ export interface LocationResponse {
   display_name: string;
   lat: number;
   lon: number;
+  zoom: number;
   address: Address;
 }
 
