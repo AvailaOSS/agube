@@ -1,9 +1,19 @@
-@import '../../../../assets/availa/sizes/page.scss';
-@import '../../../../assets/availa/sizes/margins.scss';
+@import "../../../../assets/availa/sizes/page.scss";
+@import "../../../../assets/availa/sizes/margins.scss";
 
 .detail-page {
   @include my-page($columns: 1);
-  width: 80%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1850px) {
+  .mat-card-content {
+    display: block;
+    justify-content: center !important;
+    .dwelling-info {
+      width: 100% !important;
+    }
+  }
 }
 
 .page-content {
@@ -12,13 +22,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    .title {
-      margin-top: $margin-x-medium;
-      margin-left: $margin-small;
-    }
-    .resident-info {
-      margin-top: $margin-x-medium;
-      margin-left: $margin-x-medium;
+    .dwelling-info {
+      width: 65%;
+
+      .title {
+        margin-top: $margin-x-medium;
+        margin-left: $margin-small;
+      }
+      .resident-info {
+        margin-top: $margin-x-medium;
+        margin-left: $margin-x-medium;
+      }
     }
   }
 }

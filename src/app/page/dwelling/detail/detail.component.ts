@@ -1,4 +1,8 @@
-import { UserDwellingDetail, UserService } from '@availa/agube-rest-api';
+import {
+  UserService,
+  DwellingService,
+  DwellingCreate,
+} from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { Component, OnInit } from '@angular/core';
 import { MapLocation } from 'src/app/components/street-view/view/map-location';
@@ -18,19 +22,36 @@ export class DetailComponent implements OnInit {
     height: '500px',
   };
 
-  public dwelling: UserDwellingDetail | undefined;
+  public dwelling: DwellingCreate | undefined;
 
   constructor(
     private svcAccount: AccountService,
-    private svcUser: UserService
+    private svcUser: UserService,
+    private svcDwelling: DwellingService
   ) {
     this.dwelling = undefined;
+  }
+
+  ngOnInit(): void {
     this.svcAccount.getUser().subscribe((user) => {
       this.svcUser
         .getDwellingDetail(user!.user_id)
-        .subscribe((dwelling) => (this.dwelling = dwelling[0]));
+        .subscribe((dwellingDetail) => {
+          this.svcDwelling
+            .getDwelling(dwellingDetail[0].id!)
+            .subscribe((dwelling) => {
+              this.dwelling = dwelling;
+              let geolocation = this.dwelling.address.geolocation
+              this.location = {
+                latitude: +geolocation.latitude,
+                longitude: +geolocation.longitude,
+                zoom: 15,
+                horizontalDegree: 0,
+                verticalDegree: 0,
+                height: '500px',
+              };
+            });
+        });
     });
   }
-
-  ngOnInit(): void {}
 }

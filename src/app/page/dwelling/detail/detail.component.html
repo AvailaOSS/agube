@@ -1,17 +1,20 @@
 <div class="detail-page" *ngIf="dwelling">
-    <div class="page-content">
-        <mat-card>
-            <mat-card-content>
-                <div>
-                    <h1 class="title">
-                        {{dwelling | dwellingDetail}}
-                    </h1>
-                    <div class="resident-info">
-                        Hola soy el residente
-                    </div>
-                </div>
-                <app-street-view [location]="location"></app-street-view>
-            </mat-card-content>
-        </mat-card>
-    </div>
+  <div class="page-content">
+    <mat-card>
+      <mat-card-content>
+        <div class="dwelling-info">
+          <h1 class="title">
+            {{dwelling.address | address }}
+          </h1>
+          <div class="resident-info">
+            Hola soy el residente
+            <pre>
+              {{dwelling.address | json }}
+            </pre>
+          </div>
+        </div>
+        <app-street-view [location]="location"></app-street-view>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
