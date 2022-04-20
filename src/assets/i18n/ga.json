@@ -112,6 +112,7 @@
     "FILTER": {
       "TEXT": "Rúa, CP, Cidade, Provincia...",
       "TOOLTIP": "Preme a tecla Intro para buscar",
+      "TOOLTIP_GO": "Ir",
       "TOOLTIP_CLEAR": "Borrar e Reiniciar búsqueda",
       "VALIDATION": "Realiza unha búsqueda e encargarémosnos de obter os datos precisos"
     },

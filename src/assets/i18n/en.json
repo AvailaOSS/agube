@@ -112,6 +112,7 @@
     "FILTER": {
       "TEXT": "Street, Post Code, Town, Province...",
       "TOOLTIP": "Press enter key to search",
+      "TOOLTIP_GO": "Go",
       "TOOLTIP_CLEAR": "Clean and Reset Search",
       "VALIDATION": "Perform a search and we will take care of obtaining the necessary data"
     },

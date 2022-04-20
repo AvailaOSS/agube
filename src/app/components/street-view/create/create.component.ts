@@ -55,7 +55,7 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
 
   private static zoom: number = 18;
   private static zoomMax: number = 19;
-  private static zoomMin: number = 6;
+  private static zoomMin: number = 4;
 
   private map: any;
 
@@ -241,7 +241,6 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
           this.selectedStreetCandidate.zoom = userZoom;
-
           this.fillFormControls(this.selectedStreetCandidate);
         }
       );
@@ -277,14 +276,28 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   private fillFormControls(location: LocationResponse) {
+    // FIXME: move this in one pipe
     this.filter.setValue(location.display_name);
 
     if (this.street) {
       this.street.setValue(location.address.road);
     }
 
-    if (this.number) {
+    if (this.number && !this.number.value) {
       this.number.setValue(location.address.house_number);
+    }
+
+    let prov = location.address.city;
+    if (!prov) {
+      prov = location.address.state;
+    }
+
+    if (!prov) {
+      prov = location.address.country;
+    }
+
+    if (!location.address.province) {
+      location.address.province = prov;
     }
   }
 

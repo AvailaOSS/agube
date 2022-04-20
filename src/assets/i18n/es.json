@@ -112,6 +112,7 @@
     "FILTER": {
       "TEXT": "Calle, CP, Ciudad, Provincia...",
       "TOOLTIP": "Presiona tecla enter para buscar",
+      "TOOLTIP_GO": "Ir",
       "TOOLTIP_CLEAR": "Borrar y Reiniciar búsqueda",
       "VALIDATION": "Realiza una búsqueda y nos encargaremos de obtener los datos necesarios"
     },

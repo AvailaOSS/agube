@@ -4,8 +4,12 @@
       <mat-label>{{'STREET_VIEW.FILTER.TEXT'| translate}}</mat-label>
       <input matInput type="text" matTooltip="{{'STREET_VIEW.FILTER.TOOLTIP'| translate}}" (keyup.enter)="filtering()"
         [formControl]="filter">
-      <button matSuffix mat-icon-button *ngIf="filter.value" matTooltip="{{'STREET_VIEW.FILTER.TOOLTIP_CLEAR'| translate}}"
-        (click)="clearFilter()">
+      <button matSuffix mat-icon-button *ngIf="filter.value" matTooltip="{{'STREET_VIEW.FILTER.TOOLTIP_GO'| translate}}"
+        (click)="filtering()">
+        <mat-icon>gps_fixed</mat-icon>
+      </button>
+      <button matSuffix mat-icon-button *ngIf="filter.value"
+        matTooltip="{{'STREET_VIEW.FILTER.TOOLTIP_CLEAR'| translate}}" (click)="clearFilter()">
         <mat-icon>close</mat-icon>
       </button>
       <mat-error *ngIf="filter.invalid">{{errorValidator('filter')|translate}}</mat-error>
@@ -34,10 +38,11 @@
   <div class="filter-results">
     <mat-selection-list [multiple]="false">
       <mat-list-option matTooltip="{{'STREET_VIEW.MAP.LIST_SELECTOR.TOOLTIP'|translate}}"
-        *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)" (mouseout)="mouseIsOut()" (mouseover)="mouseIsOver(candidate)">
+        *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)" (mouseout)="mouseIsOut()"
+        (mouseover)="mouseIsOver(candidate)">
         <div>
           <mat-icon>place</mat-icon>
-          {{candidate.display_name}}
+          {{candidate.display_name | slice:0:100}}
         </div>
       </mat-list-option>
     </mat-selection-list>
