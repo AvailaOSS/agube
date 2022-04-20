@@ -169,7 +169,7 @@ class ReservoirWaterMeterHistoricalView(APIView):
 
     @swagger_auto_schema(
         operation_id="getCurrentReservoirWaterMeterHistorical",
-        responses={200: WaterMeterSerializer(many=True)},
+        responses={200: WaterMeterDetailSerializer(many=True)},
     )
     def get(self, request, pk):
         try:
