@@ -5,4 +5,5 @@ export interface MapLocation {
   horizontalDegree: number;
   verticalDegree: number;
   height: string; //ex. 400px
+  width: string; //ex. 400px
 }

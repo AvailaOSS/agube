@@ -13,14 +13,7 @@ import { MapLocation } from 'src/app/components/street-view/view/map-location';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  public location: MapLocation = {
-    latitude: 42.2291769,
-    longitude: -8.719337,
-    zoom: 15,
-    horizontalDegree: -20,
-    verticalDegree: -10,
-    height: '500px',
-  };
+  public location: MapLocation | undefined;
 
   public dwelling: DwellingCreate | undefined;
 
@@ -41,7 +34,7 @@ export class DetailComponent implements OnInit {
             .getDwelling(dwellingDetail[0].id!)
             .subscribe((dwelling) => {
               this.dwelling = dwelling;
-              let geolocation = this.dwelling.address.geolocation
+              let geolocation = this.dwelling.address.geolocation;
               this.location = {
                 latitude: +geolocation.latitude,
                 longitude: +geolocation.longitude,
@@ -49,6 +42,7 @@ export class DetailComponent implements OnInit {
                 horizontalDegree: 0,
                 verticalDegree: 0,
                 height: '500px',
+                width: '500px',
               };
             });
         });
