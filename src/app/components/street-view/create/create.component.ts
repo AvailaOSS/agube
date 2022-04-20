@@ -6,6 +6,8 @@ import {
   ViewChild,
   EventEmitter,
   Input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
@@ -28,9 +30,10 @@ import { InputForm } from './input-form';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements AfterViewInit, OnInit {
+export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() public mapHeight? = '500px';
   @Input() public inputForm!: InputForm;
+  @Input() public resetForm: boolean = false;
 
   @ViewChild(MatSelectionList) public candidateComponents:
     | MatSelectionList
@@ -70,7 +73,21 @@ export class CreateComponent implements AfterViewInit, OnInit {
     showCircle: false,
   };
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+    //
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes['resetForm']);
+
+    if (
+      (changes['resetForm'].currentValue &&
+        !changes['resetForm'].previousValue) ||
+      changes['resetForm'].currentValue != changes['resetForm'].previousValue
+    ) {
+      this.resetThisComponent();
+    }
+  }
 
   ngOnInit(): void {
     if (!this.inputForm) {
@@ -251,6 +268,12 @@ export class CreateComponent implements AfterViewInit, OnInit {
       default:
         return '';
     }
+  }
+
+  private resetThisComponent() {
+    this.number?.setValue('');
+    this.flat?.setValue('');
+    this.gate?.setValue('');
   }
 
   private fillFormControls(location: LocationResponse) {

@@ -31,6 +31,8 @@ export class CreateComponent {
     gate: new FormControl(''),
   };
 
+  public resetChildForm: boolean = false;
+
   private location: LocationResponse | undefined;
 
   constructor(
@@ -98,6 +100,7 @@ export class CreateComponent {
   }
 
   private resetForm() {
+    this.resetChildForm = !this.resetChildForm;
     this.code.setValue('');
   }
 
