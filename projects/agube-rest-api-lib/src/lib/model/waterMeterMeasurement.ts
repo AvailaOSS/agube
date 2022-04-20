@@ -11,7 +11,7 @@
  */
 
 export interface WaterMeterMeasurement {
-  readonly id?: string;
+  readonly id?: number;
   measurement: string;
   date?: Date;
 }

@@ -11,7 +11,7 @@
  */
 
 export interface ManagerConfiguration {
-  readonly id?: string;
+  readonly id?: number;
   max_daily_consumption: string;
   hook_price: string;
   readonly release_date?: string;

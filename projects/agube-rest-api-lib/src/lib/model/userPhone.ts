@@ -11,7 +11,7 @@
  */
 
 export interface UserPhone {
-  readonly phone_id?: string;
+  readonly phone_id?: number;
   phone: string;
   main: boolean;
 }

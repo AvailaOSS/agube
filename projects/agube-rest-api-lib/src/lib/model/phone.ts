@@ -11,6 +11,6 @@
  */
 
 export interface Phone {
-  readonly id?: string;
+  readonly id?: number;
   phone_number: string;
 }

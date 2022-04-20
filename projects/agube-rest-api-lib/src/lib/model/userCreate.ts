@@ -13,7 +13,7 @@ import { Address } from './address';
 import { Phone } from './phone';
 
 export interface UserCreate {
-  readonly id?: string;
+  readonly id?: number;
   first_name?: string;
   last_name?: string;
   email?: string;

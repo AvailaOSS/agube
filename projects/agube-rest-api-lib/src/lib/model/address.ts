@@ -12,7 +12,7 @@
 import { Geolocation } from './geolocation';
 
 export interface Address {
-  readonly id?: string;
+  readonly id?: number;
   is_external?: boolean;
   geolocation: Geolocation;
   city: string;

@@ -13,7 +13,7 @@ import { Address } from './address';
 
 
 export interface UserAddress { 
-    readonly id?: string;
+    readonly id?: number;
     address: Address;
     main: boolean;
 }

@@ -11,7 +11,7 @@
  */
 
 export interface Geolocation {
-  readonly id?: string;
+  readonly id?: number;
   latitude: string;
   longitude: string;
   zoom: number;

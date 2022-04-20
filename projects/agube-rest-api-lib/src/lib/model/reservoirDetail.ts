@@ -11,7 +11,7 @@
  */
 
 export interface ReservoirDetail {
-  readonly id?: string;
+  readonly id?: number;
   city: string;
   road: string;
   number: string;

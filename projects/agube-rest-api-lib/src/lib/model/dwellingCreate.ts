@@ -13,7 +13,7 @@ import { Address } from './address';
 import { WaterMeter } from './waterMeter';
 
 export interface DwellingCreate {
-  readonly id?: string;
+  readonly id?: number;
   address: Address;
   water_meter: WaterMeter;
 }

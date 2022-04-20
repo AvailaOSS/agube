@@ -11,5 +11,5 @@
  */
 
 export interface Manager {
-  readonly user_id?: string;
+  readonly user_id?: number;
 }
