@@ -7,15 +7,11 @@ import { DwellingDetail } from '@availa/agube-rest-api';
 export class DwellingDetailPipe implements PipeTransform {
   transform(dwellingDetail: DwellingDetail): string {
     return (
-      dwellingDetail.street +
-      ', ' +
-      dwellingDetail.town +
+      dwellingDetail.road +
       ', ' +
       dwellingDetail.number +
       ', ' +
-      dwellingDetail.flat +
-      ' ' +
-      dwellingDetail.gate
+      dwellingDetail.city
     );
   }
 }

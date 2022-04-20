@@ -57,32 +57,32 @@ export class AddressComponent {
       return;
     }
 
-    let newUserAddress: UserAddress = {
-      main: false,
-      full_address: {
-        address: {
-          street: this.street.value,
-          town: this.town.value,
-          is_external: false,
-        },
-        number: this.number.value,
-        flat: this.flat.value,
-        gate: this.gate.value,
-      },
-    };
+    // let newUserAddress: UserAddress = {
+    //   main: false,
+    //   full_address: {
+    //     address: {
+    //       street: this.street.value,
+    //       town: this.town.value,
+    //       is_external: false,
+    //     },
+    //     number: this.number.value,
+    //     flat: this.flat.value,
+    //     gate: this.gate.value,
+    //   },
+    // };
 
-    this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
-      next: (response) => {
-        this.addressList.push({ address: response, isEditable: false });
-        this.canAddAddress = !this.canAddAddress;
-        this.town.setValue('');
-        this.street.setValue('');
-        this.number.setValue('');
-        this.flat.setValue('');
-        this.gate.setValue('');
-      },
-      error: (error) => this.svcNotification.warning({ message: error }),
-    });
+    // this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
+    //   next: (response) => {
+    //     this.addressList.push({ address: response, isEditable: false });
+    //     this.canAddAddress = !this.canAddAddress;
+    //     this.town.setValue('');
+    //     this.street.setValue('');
+    //     this.number.setValue('');
+    //     this.flat.setValue('');
+    //     this.gate.setValue('');
+    //   },
+    //   error: (error) => this.svcNotification.warning({ message: error }),
+    // });
   }
 
   public refreshAddress(address: UserAddress | undefined) {
@@ -106,19 +106,19 @@ export class AddressComponent {
   }
 
   public addressDeleted(addressId: number | undefined) {
-    if (!addressId) {
-      return;
-    }
+    // if (!addressId) {
+    //   return;
+    // }
 
-    const index = this.addressList
-      .map((p) => {
-        return p.address.id;
-      })
-      .indexOf(addressId, 0);
+    // const index = this.addressList
+    //   .map((p) => {
+    //     return p.address.id;
+    //   })
+    //   .indexOf(addressId, 0);
 
-    if (index > -1) {
-      this.addressList.splice(index, 1);
-    }
+    // if (index > -1) {
+    //   this.addressList.splice(index, 1);
+    // }
   }
 
   public errorValidator(entity: string) {

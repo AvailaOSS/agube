@@ -7,15 +7,11 @@ import { ReservoirDetail } from '@availa/agube-rest-api';
 export class ReservoirDetailPipe implements PipeTransform {
   transform(reservoirDetail: ReservoirDetail): string {
     return (
-      reservoirDetail.street +
-      ', ' +
-      reservoirDetail.town +
+      reservoirDetail.road +
       ', ' +
       reservoirDetail.number +
       ', ' +
-      reservoirDetail.flat +
-      ' ' +
-      reservoirDetail.gate
+      reservoirDetail.city
     );
   }
 }

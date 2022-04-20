@@ -4,7 +4,7 @@ import { CreateComponent } from './create.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { FullAddressPipe } from 'src/app/pipes/full-address.pipe';
+import { AddressPipe } from 'src/app/pipes/address.pipe';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -27,9 +27,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   exports: [CreateComponent],
-  providers: [FullAddressPipe],
+  providers: [AddressPipe],
 })
 export class CreateModule {}

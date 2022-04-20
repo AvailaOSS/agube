@@ -144,13 +144,27 @@ export class CreateComponent {
 
   private onSave() {
     let reservoir: ReservoirCreate = {
-      full_address: {
-        number: this.number.value,
-        address: {
-          is_external: false,
-          town: this.town.value,
-          street: this.street.value,
+      address: {
+        city: '',
+        city_district: '',
+        country: '',
+        geolocation: {
+          latitude: '',
+          longitude: '',
+          zoom: 0,
+          horizontal_degree: 0,
+          vertical_degree: 0,
         },
+        municipality: '',
+        postcode: '',
+        province: '',
+        state: '',
+        flat: '',
+        gate: '',
+        number: 0,
+        road: '',
+        village: '',
+        is_external: false,
       },
       water_meter: {
         code: this.code.value,

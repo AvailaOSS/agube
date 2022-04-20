@@ -33,7 +33,7 @@ export class SidebarComponent {
     //FIXME: add pipe with first name and last name
     this.accountService.getUser().subscribe((userResponse) => {
       this.svcUser
-        .getUserDetail(String(userResponse?.user_id))
+        .getUserDetail(userResponse!.user_id)
         .subscribe((response) => (this.user = response));
     });
     this.toggleControl.valueChanges.subscribe((isDarkMode) => {

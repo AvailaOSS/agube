@@ -49,41 +49,41 @@ export class EditComponent {
   }
 
   public updateAddress() {
-    if (!this.address) {
-      return;
-    }
+    // if (!this.address) {
+    //   return;
+    // }
 
-    let userAddress: UserAddress = {
-      main: this.address.address.main,
-      id: this.address.address.id,
-      full_address: {
-        address: {
-          street: this.street.value,
-          town: this.town.value,
-          is_external: this.address.address.full_address.address.is_external,
-        },
-        number: this.number.value,
-        flat: this.flat.value,
-        gate: this.gate.value,
-      },
-    };
+    // let userAddress: UserAddress = {
+    //   main: this.address.address.main,
+    //   id: this.address.address.id,
+    //   full_address: {
+    //     address: {
+    //       street: this.street.value,
+    //       town: this.town.value,
+    //       is_external: this.address.address.address.address.is_external,
+    //     },
+    //     number: this.number.value,
+    //     flat: this.flat.value,
+    //     gate: this.gate.value,
+    //   },
+    // };
 
-    this.svcUser
-      .updateUserAddress(
-        this.address.address.full_address.id!,
-        this.userId!,
-        userAddress
-      )
-      .subscribe({
-        next: (response) => {
-          this.updatedEvent.next(userAddress);
-          this.address!.isEditable = !this.address!.isEditable;
-        },
-        error: (error) =>
-          this.svcNotification.warning({
-            message: error,
-          }),
-      });
+    // this.svcUser
+    //   .updateUserAddress(
+    //     this.address.address.address.id!,
+    //     this.userId!,
+    //     userAddress
+    //   )
+    //   .subscribe({
+    //     next: (response) => {
+    //       this.updatedEvent.next(userAddress);
+    //       this.address!.isEditable = !this.address!.isEditable;
+    //     },
+    //     error: (error) =>
+    //       this.svcNotification.warning({
+    //         message: error,
+    //       }),
+    //   });
   }
 
   public setAddressAsMain() {
@@ -99,12 +99,12 @@ export class EditComponent {
     if (!this.address) {
       return;
     }
-    this.town.setValue(this.address.address.full_address.address.town);
-    this.street.setValue(this.address.address.full_address.address.street);
-    this.number.setValue(this.address.address.full_address.number);
-    this.flat.setValue(this.address.address.full_address.flat);
-    this.gate.setValue(this.address.address.full_address.gate);
-    this.address.isEditable = !this.address.isEditable;
+    // this.town.setValue(this.address.address.address.town);
+    // this.street.setValue(this.address.address.address.street);
+    // this.number.setValue(this.address.address.address.number);
+    // this.flat.setValue(this.address.address.address.flat);
+    // this.gate.setValue(this.address.address.address.gate);
+    // this.address.isEditable = !this.address.isEditable;
   }
 
   public deleteAddress() {
@@ -113,7 +113,7 @@ export class EditComponent {
     }
 
     this.svcUser
-      .deleteUserAddress(this.address.address.full_address.id!, this.userId!)
+      .deleteUserAddress(this.address.address.address.id!, this.userId!)
       .subscribe({
         next: (response) => {
           this.deleteEvent.next(this.address!.address.id);

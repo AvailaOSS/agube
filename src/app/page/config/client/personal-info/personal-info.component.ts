@@ -42,7 +42,7 @@ export class PersonalInfoComponent implements OnInit {
   ngOnInit(): void {
     this.svcAccount.getUser().subscribe((userResponse) =>
       this.svcUser
-        .getUserDetail(String(userResponse!.user_id))
+        .getUserDetail(userResponse!.user_id)
         .subscribe((response) => {
           this.username.setValue(userResponse?.username);
           this.email.setValue(response.email);

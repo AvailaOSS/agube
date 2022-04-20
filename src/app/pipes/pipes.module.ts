@@ -1,7 +1,7 @@
 import { UserDetailPipe } from './user-detail.pipe';
 import { NgModule } from '@angular/core';
 import { DwellingDetailPipe } from './dwelling-detail.pipe';
-import { FullAddressPipe } from './full-address.pipe';
+import { AddressPipe } from './address.pipe';
 import { WaterMeterMeasurementPipe } from './water-meter-measurement.pipe';
 import { ReservoirDetailPipe } from './reservoir-detail.pipe';
 
@@ -9,14 +9,14 @@ import { ReservoirDetailPipe } from './reservoir-detail.pipe';
   imports: [],
   declarations: [
     DwellingDetailPipe,
-    FullAddressPipe,
+    AddressPipe,
     ReservoirDetailPipe,
     UserDetailPipe,
     WaterMeterMeasurementPipe,
   ],
   exports: [
     DwellingDetailPipe,
-    FullAddressPipe,
+    AddressPipe,
     ReservoirDetailPipe,
     UserDetailPipe,
     WaterMeterMeasurementPipe,

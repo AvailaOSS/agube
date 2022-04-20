@@ -35,7 +35,7 @@ export class ResidentComponent extends ChangeComponent {
       email: this.email.value,
       phones: [{ phone_number: this.phone_number.value }],
       address: [
-        this.dwelling!.full_address,
+        this.dwelling!.address,
         // {
         //   address: {
         //     town: 'string',

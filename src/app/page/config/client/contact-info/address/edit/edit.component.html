@@ -41,7 +41,7 @@
 
 <ng-template #editableAddress>
     <div class="edited-form">
-        <h4>{{address!.address.full_address | fullAddress }}</h4>
+        <h4>{{address!.address.address| address }}</h4>
         <span mat-subheader class="is-principal">{{ address!.address.main ? 'Principal' : '' }}</span>
     </div>
     <div>
