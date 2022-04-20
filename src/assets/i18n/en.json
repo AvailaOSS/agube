@@ -364,7 +364,12 @@
   "RESERVOIR": {
     "TABLE": {
       "TITLE": "Reservoir's List",
-      "TOOLTIP": "Select",
+      "TOOLTIP": {
+        "CAPACITY": "Capacity",
+        "INLET_FLOW": "Inlet Flow",
+        "OUTLET_FLOW": "Outlet Flow",
+        "FULL_ADDRESS": "Address"
+      },
       "FILTER": {
         "TEXT": "Code, Street, Town, Phone Nº...",
         "TOOLTIP": "Search",

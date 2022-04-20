@@ -360,7 +360,12 @@
   "RESERVOIR": {
     "TABLE": {
       "TITLE": "Lista de Depósitos",
-      "TOOLTIP": "Seleccionar",
+      "TOOLTIP": {
+        "CAPACITY": "Capacidade",
+        "INLET_FLOW": "Fluxo de Entrada",
+        "OUTLET_FLOW": "Fluxo de Saída",
+        "FULL_ADDRESS": "Dirección"
+      },
       "FILTER": {
         "TEXT": "Rúa, Cidade, Capacidade...",
         "TOOLTIP": "Buscar",

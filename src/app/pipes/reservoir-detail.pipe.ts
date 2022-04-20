@@ -6,12 +6,12 @@ import { ReservoirDetail } from '@availa/agube-rest-api';
 })
 export class ReservoirDetailPipe implements PipeTransform {
   transform(reservoirDetail: ReservoirDetail): string {
-    return (
-      reservoirDetail.road +
-      ', ' +
-      reservoirDetail.number +
-      ', ' +
-      reservoirDetail.city
-    );
+    let number = '';
+
+    if (reservoirDetail.number) {
+      number = ', ' + reservoirDetail.number;
+    }
+
+    return reservoirDetail.road + number + ', ' + reservoirDetail.city;
   }
 }
