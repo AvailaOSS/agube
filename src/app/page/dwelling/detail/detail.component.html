@@ -13,7 +13,26 @@
             </pre>
           </div>
         </div>
-        <app-street-view [location]="location"></app-street-view>
+        <div class="dwelling-map">
+          <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle (click)="mode = 'map'" matTooltip="{{'DWELLING_DETAIL.MAP.TOOLTIP_MAP'|translate}}"
+              matTooltipPosition="left">
+              <mat-icon>map</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle (click)="mode = 'streetView'"
+              matTooltip="{{'DWELLING_DETAIL.MAP.TOOLTIP_STREET_VIEW'|translate}}" matTooltipPosition="right">
+              <mat-icon>360</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <div *ngIf="mode=='map'; else showStreetView">
+            <app-map [configureMap]="configureMap"></app-map>
+          </div>
+          <ng-template #showStreetView>
+            <app-street-view [location]="location"></app-street-view>
+          </ng-template>
+        </div>
+
       </mat-card-content>
     </mat-card>
   </div>

@@ -163,6 +163,12 @@
       "TITLE": "Geographical location"
     }
   },
+  "DWELLING_DETAIL":{
+    "MAP":{
+      "TOOLTIP_MAP":"Map",
+      "TOOLTIP_STREET_VIEW":"Street View"
+    }
+  },
   "WATER_METER": {
     "CODE": "Code counter",
     "RELEASE_DATE": "Release date",

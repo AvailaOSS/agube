@@ -160,6 +160,12 @@
       }
     }
   },
+  "DWELLING_DETAIL":{
+    "MAP":{
+      "TOOLTIP_MAP":"Mapa",
+      "TOOLTIP_STREET_VIEW":"Vista da Rúa"
+    }
+  },
   "WATER_METER": {
     "CODE": "Código de contador",
     "RELEASE_DATE": "Data de alta",
