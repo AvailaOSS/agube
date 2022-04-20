@@ -33,8 +33,11 @@ export class CreateComponent {
 
   @Input() public userId: number = -1;
 
+  public resetChildForm: boolean = false;
   public loadingPost = false;
+
   private location: LocationResponse | undefined;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

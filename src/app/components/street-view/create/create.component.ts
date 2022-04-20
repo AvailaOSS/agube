@@ -276,6 +276,7 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   private fillFormControls(location: LocationResponse) {
+    console.log(location);
     // FIXME: move this in one pipe
     this.filter.setValue(location.display_name);
 
@@ -287,17 +288,29 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
       this.number.setValue(location.address.house_number);
     }
 
-    let prov = location.address.city;
-    if (!prov) {
-      prov = location.address.state;
+    let city = location.address.city;
+    if (!city) {
+      city = location.address.state;
     }
 
-    if (!prov) {
-      prov = location.address.country;
+    if (!city) {
+      city = location.address.country;
+    }
+
+    if (!location.address.city) {
+      location.address.city = city;
     }
 
     if (!location.address.province) {
-      location.address.province = prov;
+      location.address.province = city;
+    }
+
+    if (!location.address.municipality) {
+      location.address.municipality = city;
+    }
+
+    if (!location.address.postcode) {
+      location.address.postcode = '0000';
     }
   }
 

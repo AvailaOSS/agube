@@ -12,7 +12,8 @@
           <div class="form-reservoir">
             <mat-form-field appearance="fill">
               <mat-label>{{'RESERVOIR.CREATE.FORM.CAPACITY.TEXT'|translate}}</mat-label>
-              <input matInput placeholder="1000" type="number" [formControl]="capacity" (keydown.enter)="save()" />
+              <input matInput placeholder="1000" type="number" max="99999" [formControl]="capacity"
+                (keydown.enter)="save()" />
               <span matPrefix>
                 <mat-icon>opacity</mat-icon>
               </span>
@@ -21,7 +22,8 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>{{'RESERVOIR.CREATE.FORM.INLET_FLOW.TEXT'|translate}}</mat-label>
-              <input matInput placeholder="1000" type="number" [formControl]="inletFlow" (keydown.enter)="save()" />
+              <input matInput placeholder="1000" type="number" max="99999" [formControl]="inletFlow"
+                (keydown.enter)="save()" />
               <span matPrefix>
                 <mat-icon>arrow_forward_ios</mat-icon>
               </span>
@@ -30,7 +32,8 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>{{'RESERVOIR.CREATE.FORM.OUTLET_FLOW.TEXT'|translate}}</mat-label>
-              <input matInput placeholder="1000" type="number" [formControl]="outletFlow" (keydown.enter)="save()" />
+              <input matInput placeholder="1000" type="number" max="99999" [formControl]="outletFlow"
+                (keydown.enter)="save()" />
               <span matPrefix>
                 <mat-icon>arrow_back_ios</mat-icon>
               </span>
@@ -39,7 +42,7 @@
             </mat-form-field>
           </div>
           <app-street-view-create (addressForm)="addressFormReceive($event)" [mapHeight]="'400px'"
-            [inputForm]="inputForm">
+            [inputForm]="inputForm" [resetForm]="resetChildForm">
           </app-street-view-create>
 
         </div>
