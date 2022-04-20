@@ -70,7 +70,7 @@ class ReservoirCreateSerializer(ModelSerializer):
         validated_data['address'] = self.create_reservoir_address(
             validated_data.pop('address'))
         # Extract user_id & water_meter_code
-        user = validated_data.get('user_id')
+        user = validated_data.pop('user_id')
         water_meter_code = validated_data.pop('water_meter')['code']
         # Create reservoir
         reservoir: Reservoir = Reservoir.objects.create(**validated_data)
