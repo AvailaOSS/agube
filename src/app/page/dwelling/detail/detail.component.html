@@ -3,14 +3,11 @@
     <mat-card>
       <mat-card-content>
         <div class="dwelling-info">
-          <h1 class="title">
-            {{dwelling.address | address }}
+          <h1>
+            {{ dwelling.address | address }}
           </h1>
-          <div class="resident-info">
-            Hola soy el residente
-            <pre>
-              {{dwelling.address | json }}
-            </pre>
+          <div>
+            <app-address [address]="dwelling.address"></app-address>
           </div>
         </div>
         <div class="dwelling-map">

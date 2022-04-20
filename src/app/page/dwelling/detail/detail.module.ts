@@ -12,9 +12,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
-  declarations: [DetailComponent],
+  declarations: [DetailComponent, AddressComponent],
   imports: [
     CommonModule,
     DetailRoutingModule,

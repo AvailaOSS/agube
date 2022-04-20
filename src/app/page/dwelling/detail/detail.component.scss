@@ -24,19 +24,16 @@
     justify-content: space-between;
     width: 100%;
     .dwelling-info {
-      width: 65%;
-      .title {
-        margin-top: $margin-x-medium;
+      width: 60%;
+      margin-top: $margin-x-medium;
+      margin-left: $margin-x-medium;
+      div {
         margin-left: $margin-small;
-      }
-      .resident-info {
-        margin-top: $margin-x-medium;
-        margin-left: $margin-x-medium;
       }
     }
     .dwelling-map {
       width: 35%;
-      mat-button-toggle-group{
+      mat-button-toggle-group {
         display: flex;
         justify-content: center;
         text-align: center;
