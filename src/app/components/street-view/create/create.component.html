@@ -2,28 +2,30 @@
   <div class="address-form-geolocation">
     <mat-form-field appearance="standard">
       <mat-label>{{'STREET_VIEW.FILTER.TEXT'| translate}}</mat-label>
-      <input matInput type="text" (keyup.enter)="filtering()" [formControl]="filter">
-      <button matSuffix mat-icon-button *ngIf="filter.value" (click)="clearFilter()">
+      <input matInput type="text" matTooltip="{{'STREET_VIEW.FILTER.TOOLTIP'| translate}}" (keyup.enter)="filtering()"
+        [formControl]="filter">
+      <button matSuffix mat-icon-button *ngIf="filter.value" matTooltip="{{'STREET_VIEW.FILTER.TOOLTIP_CLEAR'| translate}}"
+        (click)="clearFilter()">
         <mat-icon>close</mat-icon>
       </button>
       <mat-error *ngIf="filter.invalid">{{errorValidator('filter')|translate}}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="street">
       <mat-label>{{'STREET_VIEW.FORM.STREET.TEXT'| translate}}</mat-label>
       <input matInput type="text" [formControl]="street">
       <mat-error *ngIf="street.invalid">{{errorValidator('street')|translate}}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="number">
       <mat-label>{{'STREET_VIEW.FORM.NUMBER.TEXT'| translate}}</mat-label>
       <input matInput type="text" [formControl]="number">
       <mat-error *ngIf="number.invalid">{{errorValidator('number')|translate}}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="flat">
       <mat-label>{{'STREET_VIEW.FORM.FLAT.TEXT'| translate}}</mat-label>
       <input matInput type="text" [formControl]="flat">
       <mat-error *ngIf="flat.invalid">{{errorValidator('flat')|translate}}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="gate">
       <mat-label>{{'STREET_VIEW.FORM.GATE.TEXT'| translate}}</mat-label>
       <input matInput type="text" [formControl]="gate">
       <mat-error *ngIf="gate.invalid">{{errorValidator('gate')|translate}}</mat-error>
@@ -32,7 +34,7 @@
   <div class="filter-results">
     <mat-selection-list [multiple]="false">
       <mat-list-option matTooltip="{{'STREET_VIEW.MAP.LIST_SELECTOR.TOOLTIP'|translate}}"
-        *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)">
+        *ngFor="let candidate of streetCandidates" (click)="selectCandidate(candidate)" (mouseout)="mouseIsOut()" (mouseover)="mouseIsOver(candidate)">
         <div>
           <mat-icon>place</mat-icon>
           {{candidate.display_name}}

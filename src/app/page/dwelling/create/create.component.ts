@@ -11,6 +11,7 @@ import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AddressEmitter } from '../../../components/street-view/create/address-emitter';
 import { LocationResponse } from 'src/app/components/street-view/create/location-response';
+import { InputForm } from 'src/app/components/street-view/create/input-form';
 
 @Component({
   selector: 'app-page-dwelling-create',
@@ -23,7 +24,15 @@ export class CreateComponent {
 
   public loadingPost = false;
 
+  public inputForm: InputForm = {
+    street: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+    flat: new FormControl(''),
+    gate: new FormControl(''),
+  };
+
   private location: LocationResponse | undefined;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

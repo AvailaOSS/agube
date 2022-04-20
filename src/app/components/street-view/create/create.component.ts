@@ -21,6 +21,7 @@ import { MatSelectionList } from '@angular/material/list';
 import { ConfigureMap } from './configure-map';
 import { OnInit } from '@angular/core';
 import { AddressEmitter } from './address-emitter';
+import { InputForm } from './input-form';
 
 @Component({
   selector: 'app-street-view-create',
@@ -29,6 +30,7 @@ import { AddressEmitter } from './address-emitter';
 })
 export class CreateComponent implements AfterViewInit, OnInit {
   @Input() public mapHeight? = '500px';
+  @Input() public inputForm!: InputForm;
 
   @ViewChild(MatSelectionList) public candidateComponents:
     | MatSelectionList
@@ -41,12 +43,12 @@ export class CreateComponent implements AfterViewInit, OnInit {
   public streetCandidates: LocationResponse[] = [];
 
   // filter
-  public addressFormGroup: FormGroup;
+  public addressFormGroup: FormGroup | undefined;
   public filter: FormControl = new FormControl('', Validators.required);
-  public street: FormControl = new FormControl('', Validators.required);
-  public number: FormControl = new FormControl('', Validators.required);
-  public flat: FormControl = new FormControl('');
-  public gate: FormControl = new FormControl('');
+  public street: FormControl | undefined;
+  public number: FormControl | undefined;
+  public flat: FormControl | undefined;
+  public gate: FormControl | undefined;
 
   private static zoom: number = 18;
   private static zoomMax: number = 19;
@@ -68,22 +70,28 @@ export class CreateComponent implements AfterViewInit, OnInit {
     showCircle: false,
   };
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    if (!this.inputForm) {
+      throw new Error('inputForm is neccessary for this component');
+    }
+    this.street = this.inputForm.street;
+    this.number = this.inputForm.number;
+    this.flat = this.inputForm.flat;
+    this.gate = this.inputForm.gate;
     this.addressFormGroup = this.formBuilder.group({
-      street: this.street,
       filter: this.filter,
+      street: this.street,
       number: this.number,
       flat: this.flat,
       gate: this.gate,
     });
-  }
-
-  ngOnInit(): void {
     this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
       if (this.selectedStreetCandidate) {
         this.fillMissingAddress(this.selectedStreetCandidate);
         this.addressForm.emit({
-          addressFormGroup: this.addressFormGroup,
+          addressFormGroup: this.addressFormGroup!,
           location: this.selectedStreetCandidate,
         });
       }
@@ -99,10 +107,7 @@ export class CreateComponent implements AfterViewInit, OnInit {
       this.candidateComponents?.deselectAll();
       this.streetCandidates = response;
       this.selectedStreetCandidate = response[0];
-
-      this.filter.setValue(this.selectedStreetCandidate.display_name);
-      this.street.setValue(this.selectedStreetCandidate.address.road);
-      this.number.setValue(this.selectedStreetCandidate.address.house_number);
+      this.fillFormControls(this.selectedStreetCandidate);
       this.initializeMap({
         lat: this.selectedStreetCandidate.lat,
         lon: this.selectedStreetCandidate.lon,
@@ -117,11 +122,30 @@ export class CreateComponent implements AfterViewInit, OnInit {
     this.initializeMap(CreateComponent.resetMapLocation);
   }
 
+  public mouseIsOver(candidate: LocationResponse) {
+    this.initializeMap({
+      lat: candidate.lat,
+      lon: candidate.lon,
+      zoom: CreateComponent.zoom,
+      showCircle: true,
+    });
+  }
+
+  public mouseIsOut() {
+    if (!this.selectedStreetCandidate) {
+      return;
+    }
+    this.initializeMap({
+      lat: this.selectedStreetCandidate.lat,
+      lon: this.selectedStreetCandidate.lon,
+      zoom: CreateComponent.zoom,
+      showCircle: true,
+    });
+  }
+
   public selectCandidate(candidate: LocationResponse) {
     this.selectedStreetCandidate = candidate;
-    this.filter.setValue(this.selectedStreetCandidate.display_name);
-    this.street.setValue(this.selectedStreetCandidate.address.road);
-    this.number.setValue(this.selectedStreetCandidate.address.house_number);
+    this.fillFormControls(this.selectedStreetCandidate);
     this.initializeMap({
       lat: this.selectedStreetCandidate.lat,
       lon: this.selectedStreetCandidate.lon,
@@ -175,6 +199,9 @@ export class CreateComponent implements AfterViewInit, OnInit {
       }).addTo(this.map);
     }
 
+    if (this.filter.invalid) {
+      return;
+    }
     this.map.on('click', (e: MapEvent) => {
       let userZoom = CreateComponent.zoom;
       if (e.sourceTarget._animateToZoom) {
@@ -197,11 +224,8 @@ export class CreateComponent implements AfterViewInit, OnInit {
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
           this.selectedStreetCandidate.zoom = userZoom;
-          this.filter.setValue(this.selectedStreetCandidate.display_name);
-          this.street.setValue(this.selectedStreetCandidate.address.road);
-          this.number.setValue(
-            this.selectedStreetCandidate.address.house_number
-          );
+
+          this.fillFormControls(this.selectedStreetCandidate);
         }
       );
     });
@@ -210,22 +234,34 @@ export class CreateComponent implements AfterViewInit, OnInit {
   public errorValidator(entity: string) {
     switch (entity) {
       case 'filter':
-        if (this.number.hasError('required')) {
+        if (this.filter && this.filter.hasError('required')) {
           return 'STREET_VIEW.FILTER.VALIDATION';
         }
         return '';
       case 'number':
-        if (this.number.hasError('required')) {
+        if (this.number && this.number.hasError('required')) {
           return 'STREET_VIEW.FORM.NUMBER.VALIDATION';
         }
         return '';
       case 'street':
-        if (this.street.hasError('required')) {
+        if (this.street && this.street.hasError('required')) {
           return 'STREET_VIEW.FORM.STREET.VALIDATION';
         }
         return '';
       default:
         return '';
+    }
+  }
+
+  private fillFormControls(location: LocationResponse) {
+    this.filter.setValue(location.display_name);
+
+    if (this.street) {
+      this.street.setValue(location.address.road);
+    }
+
+    if (this.number) {
+      this.number.setValue(location.address.house_number);
     }
   }
 

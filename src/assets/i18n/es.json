@@ -111,14 +111,14 @@
   "STREET_VIEW": {
     "FILTER": {
       "TEXT": "Calle, CP, Ciudad, Provincia...",
-      "TOOLTIP": "Busca una localización",
+      "TOOLTIP": "Presiona tecla enter para buscar",
       "TOOLTIP_CLEAR": "Borrar y Reiniciar búsqueda",
       "VALIDATION": "Realiza una búsqueda y nos encargaremos de obtener los datos necesarios"
     },
     "FORM": {
       "STREET": {
         "TEXT": "Calle",
-        "VALIDATION": "Escribe la calle a la que corresponde la Vivienda"
+        "VALIDATION": "Escribe la calle que le corresponde"
       },
       "NUMBER": {
         "TEXT": "Nº",

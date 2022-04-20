@@ -12,6 +12,7 @@ import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/components/street-view/create/address-emitter';
 import { LocationResponse } from 'src/app/components/street-view/create/location-response';
+import { InputForm } from '../../../components/street-view/create/input-form';
 
 @Component({
   selector: 'app-page-reservoir-create',
@@ -24,6 +25,11 @@ export class CreateComponent {
   public capacity = new FormControl('', [Validators.required]);
   public inletFlow = new FormControl('', [Validators.required]);
   public outletFlow = new FormControl('', [Validators.required]);
+
+  public inputForm: InputForm = {
+    street: new FormControl('', Validators.required),
+    number: new FormControl(''),
+  };
 
   @Input() public userId: number = -1;
 
@@ -42,7 +48,6 @@ export class CreateComponent {
   }
 
   public addressFormReceive(addressEmitter: AddressEmitter) {
-    console.log(addressEmitter);
     this.reservoirForm = this.formBuilder.group({
       address: addressEmitter.addressFormGroup,
       water_meter: this.formBuilder.group({

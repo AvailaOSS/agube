@@ -38,7 +38,8 @@
               <mat-error *ngIf="outletFlow.invalid">{{errorValidator('outletFlow')|translate}}</mat-error>
             </mat-form-field>
           </div>
-          <app-street-view-create (addressForm)="addressFormReceive($event)" [mapHeight]="'400px'">
+          <app-street-view-create (addressForm)="addressFormReceive($event)" [mapHeight]="'400px'"
+            [inputForm]="inputForm">
           </app-street-view-create>
 
         </div>

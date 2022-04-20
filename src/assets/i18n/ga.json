@@ -111,7 +111,7 @@
   "STREET_VIEW": {
     "FILTER": {
       "TEXT": "Rúa, CP, Cidade, Provincia...",
-      "TOOLTIP": "Busca unha localización",
+      "TOOLTIP": "Preme a tecla Intro para buscar",
       "TOOLTIP_CLEAR": "Borrar e Reiniciar búsqueda",
       "VALIDATION": "Realiza unha búsqueda e encargarémosnos de obter os datos precisos"
     },
