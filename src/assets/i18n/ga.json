@@ -160,10 +160,27 @@
       }
     }
   },
-  "DWELLING_DETAIL":{
-    "MAP":{
-      "TOOLTIP_MAP":"Mapa",
-      "TOOLTIP_STREET_VIEW":"Vista da Rúa"
+  "DWELLING_DETAIL": {
+    "DETAIL_INFO": {
+      "USER": {
+        "TITLE_RESIDENT":"Residente",
+        "TITLE_OWNER":"Propietario",
+        "FIRST_NAME": "Nome",
+        "LAST_NAME": "Apelidos",
+        "EMAIL": "Correo electrónico",
+        "PHONE_NUMBER": "Nº de teléfono"
+      }
+    },
+    "MAP": {
+      "TOOLTIP_MAP": "Mapa",
+      "TOOLTIP_STREET_VIEW": "Vista da Rúa"
+    },
+    "NO_DWELLING_DETAIL": {
+      "TEXT": " Aún no tes vivendas asignadas",
+      "BUTTON": {
+        "TOOLTIP": "Ir á páxina de creación de vivendas",
+        "TEXT": "Nova Vivenda"
+      }
     }
   },
   "WATER_METER": {

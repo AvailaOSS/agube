@@ -19,6 +19,7 @@
 @use "components/scrollbar" as scrollbar;
 @use "components/contacts" as availa-contacts;
 @use "components/selection-list" as selection-list;
+@use "components/icon" as icon;
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -42,6 +43,15 @@ $agube-fe-theme: mat.define-light-theme(
     ),
   )
 );
+
+@include icon.mat-icon(
+  $primary: mat.get-color-from-palette($agube-fe-primary, 700),
+  $accent: mat.get-color-from-palette($agube-fe-accent, 200)
+);
+
+.mat-icon-button .mat-icon {
+  color: mat.get-color-from-palette($agube-fe-primary, 600) !important;
+}
 
 @include selection-list.mat-selection-list(
   $hover: mat.get-color-from-palette($agube-fe-accent, 50),

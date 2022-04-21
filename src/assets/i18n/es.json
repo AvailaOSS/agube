@@ -163,10 +163,27 @@
       "TITLE": "Localización geográfica"
     }
   },
-  "DWELLING_DETAIL":{
-    "MAP":{
-      "TOOLTIP_MAP":"Mapa",
-      "TOOLTIP_STREET_VIEW":"Vista Callejera"
+  "DWELLING_DETAIL": {
+    "DETAIL_INFO": {
+      "USER": {
+        "TITLE_RESIDENT":"Residente",
+        "TITLE_OWNER":"Propietario",
+        "FIRST_NAME": "Nombre",
+        "LAST_NAME": "Apellidos",
+        "EMAIL": "Correo Electrónico",
+        "PHONE_NUMBER": "Nº de teléfono"
+      }
+    },
+    "MAP": {
+      "TOOLTIP_MAP": "Mapa",
+      "TOOLTIP_STREET_VIEW": "Vista Callejera"
+    },
+    "NO_DWELLING_DETAIL": {
+      "TEXT": "Aún no tienes viviendas asignadas",
+      "BUTTON": {
+        "TOOLTIP": "Ir a la página de creación de viviendas",
+        "TEXT": "Nueva Vivienda"
+      }
     }
   },
   "WATER_METER": {

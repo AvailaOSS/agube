@@ -163,10 +163,27 @@
       "TITLE": "Geographical location"
     }
   },
-  "DWELLING_DETAIL":{
-    "MAP":{
-      "TOOLTIP_MAP":"Map",
-      "TOOLTIP_STREET_VIEW":"Street View"
+  "DWELLING_DETAIL": {
+    "DETAIL_INFO": {
+      "USER": {
+        "TITLE_RESIDENT":"Resident",
+        "TITLE_OWNER":"Owner",
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "EMAIL": "Email",
+        "PHONE_NUMBER": "Phone number"
+      }
+    },
+    "MAP": {
+      "TOOLTIP_MAP": "Map",
+      "TOOLTIP_STREET_VIEW": "Street View"
+    },
+    "NO_DWELLING_DETAIL": {
+      "TEXT": "You still do not have assigned Dwelling",
+      "BUTTON": {
+        "TOOLTIP": "Go to the creation dwelling page",
+        "TEXT": "New Dwelling"
+      }
     }
   },
   "WATER_METER": {

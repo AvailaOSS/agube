@@ -8,6 +8,7 @@ import { AccountService } from '@availa/auth-fe';
 import { Component, OnInit } from '@angular/core';
 import { MapLocation } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-dwelling-detail',
@@ -15,14 +16,21 @@ import { ConfigureMap } from '../../../components/map/map/configure-map';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  public location: MapLocation | undefined;
-  public configureMap: ConfigureMap | undefined;
-
+  public userId: number | undefined;
   public dwelling: DwellingCreate | undefined;
 
+  // map
+  public location: MapLocation | undefined;
+  public configureMap: ConfigureMap | undefined;
+  // map config
   public mode: string = 'map';
-  public userId: number | undefined;
+  private mapZoomDefault: number = 15;
+  private mapStreetViewPositionDegree: number = 0;
+  private mapHeight: string = '500px';
+  private mapWidth: string = this.mapHeight;
+
   constructor(
+    private router: Router,
     private svcAccount: AccountService,
     private svcUser: UserService,
     private svcDwelling: DwellingService
@@ -36,6 +44,9 @@ export class DetailComponent implements OnInit {
       this.svcUser
         .getDwellingDetail(this.userId!)
         .subscribe((dwellingDetail) => {
+          if (!dwellingDetail.length) {
+            return;
+          }
           this.svcDwelling
             .getDwelling(dwellingDetail[0].id!)
             .subscribe((dwelling) => {
@@ -45,6 +56,10 @@ export class DetailComponent implements OnInit {
             });
         });
     });
+  }
+
+  public goToNewDwelling() {
+    this.router.navigate(['manager/dwellings/create']);
   }
 
   private configureMaps(geolocation: Geolocation) {
@@ -57,11 +72,11 @@ export class DetailComponent implements OnInit {
     this.location = {
       latitude: +geolocation.latitude,
       longitude: +geolocation.longitude,
-      zoom: 15,
-      horizontalDegree: 0,
-      verticalDegree: 0,
-      height: '500px',
-      width: '500px',
+      zoom: this.mapZoomDefault,
+      horizontalDegree: this.mapStreetViewPositionDegree,
+      verticalDegree: this.mapStreetViewPositionDegree,
+      height: this.mapHeight,
+      width: this.mapWidth,
     };
   }
 }

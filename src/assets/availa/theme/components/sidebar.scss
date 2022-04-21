@@ -1,3 +1,4 @@
+@use "icon";
 @mixin mat-sidebar(
   $primary,
   $primary_accent,
@@ -23,9 +24,7 @@
         color: $warning-palette-alternative;
       }
     }
-    .mat-icon {
-      color: $primary_accent;
-    }
+    @include icon.mat-icon($primary: $primary_accent, $accent: $primary_accent);
     .mat-line {
       color: $secondary_accent;
     }
