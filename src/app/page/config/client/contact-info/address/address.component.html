@@ -5,9 +5,9 @@
             matTooltipPosition="right" (click)="openCloseAddressForm()">
             <mat-icon>{{canAddAddress ? 'close' : 'add'}}</mat-icon>
         </button>
-        <div class="address-buttons" *ngIf="canAddAddress && addressForm">
+        <div class="address-buttons" *ngIf="canAddAddress && addressEmitter && addressEmitter.addressFormGroup">
             <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.FORM.BUTTON_SAVE_TOOLTIP'|translate}}"
-                matTooltipPosition="above" (click)="saveAddress()" [disabled]="addressForm.invalid">
+                matTooltipPosition="above" (click)="saveAddress()" [disabled]="addressEmitter.addressFormGroup.invalid">
                 <mat-icon>save</mat-icon>
             </button>
         </div>

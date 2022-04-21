@@ -1,17 +1,9 @@
+import { NotificationService } from '@availa/notification';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { UserService, UserAddress } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
-import { NotificationService } from '@availa/notification';
-import { AddressEmitter } from 'src/app/components/map/create/address-emitter';
-import { InputForm } from 'src/app/components/map/create/input-form';
-import { ConfigureMap } from 'src/app/components/map/map/configure-map';
-import { LocationResponse } from 'src/app/components/map/map/location-response';
+import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableAddress } from './edit/editable-address';
 
 @Component({
@@ -19,47 +11,24 @@ import { EditableAddress } from './edit/editable-address';
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
 })
-export class AddressComponent {
+export class AddressComponent extends CreateAddress {
   public userId: number = -1;
+
   public addressList: EditableAddress[] = [];
 
-  public addressForm: FormGroup | undefined;
-
-  public inputForm: InputForm = {
-    street: new FormControl('', Validators.required),
-    number: new FormControl('', Validators.required),
-    flat: new FormControl(''),
-    gate: new FormControl(''),
-  };
-
-  public resetChildForm: boolean = false;
   public canAddAddress: boolean = false;
 
-  // Map configuration for select Address
-  public configureMap: ConfigureMap = {
-    lat: 39.92666,
-    lon: -2.33976,
-    zoom: 6,
-    showCircle: false,
-    height: '500px',
-  };
-
-  private location: LocationResponse | undefined;
-
   constructor(
-    protected formBuilder: FormBuilder,
-    private svcAccount: AccountService,
-    private svcUser: UserService
+    protected svcNotification: NotificationService,
+    protected svcAccount: AccountService,
+    protected svcUser: UserService,
+    protected override formBuilder: FormBuilder,
   ) {
+    super(formBuilder);
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
       this.getAddressList(this.userId);
     });
-  }
-
-  public addressFormReceive(addressEmitter: AddressEmitter) {
-    this.addressForm = addressEmitter.addressFormGroup;
-    this.location = addressEmitter.location;
   }
 
   public openCloseAddressForm() {
@@ -68,32 +37,18 @@ export class AddressComponent {
   }
 
   public saveAddress() {
-    console.log(this.addressForm);
-    // let newUserAddress: UserAddress = {
-    //   main: false,
-    //   full_address: {
-    //     address: {
-    //       street: this.street.value,
-    //       town: this.town.value,
-    //       is_external: false,
-    //     },
-    //     number: this.number.value,
-    //     flat: this.flat.value,
-    //     gate: this.gate.value,
-    //   },
-    // };
-    // this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
-    //   next: (response) => {
-    //     this.addressList.push({ address: response, isEditable: false });
-    //     this.canAddAddress = !this.canAddAddress;
-    //     this.town.setValue('');
-    //     this.street.setValue('');
-    //     this.number.setValue('');
-    //     this.flat.setValue('');
-    //     this.gate.setValue('');
-    //   },
-    //   error: (error) => this.svcNotification.warning({ message: error }),
-    // });
+    let newUserAddress: UserAddress = {
+      address: this.getAddress(),
+      main: false,
+    };
+
+    this.svcUser.addUserAddress(this.userId, newUserAddress ).subscribe({
+      next: (response) => {
+        this.addressList.push({ address: response, isEditable: false });
+        this.openCloseAddressForm();
+      },
+      error: (error) => this.svcNotification.warning({ message: error }),
+    });
   }
 
   public refreshAddress(address: UserAddress | undefined) {

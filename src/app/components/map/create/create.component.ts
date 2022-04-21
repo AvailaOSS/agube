@@ -19,7 +19,7 @@ import {
 } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
 import { OnInit } from '@angular/core';
-import { AddressEmitter } from './address-emitter';
+import { AddressEmitter } from '../../../utils/address/address-emitter';
 import { InputForm } from './input-form';
 import { MapComponent } from '../map/map.component';
 import { ConfigureMap } from '../map/configure-map';
