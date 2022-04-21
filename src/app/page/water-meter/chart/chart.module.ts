@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleChartModule } from '../../../components/map/chart/google-chart.module';
 import { ChartComponent } from './chart.component';
+import { GoogleChartModule } from 'src/app/components/chart/google-chart.module';
 
 @NgModule({
   declarations: [ChartComponent],

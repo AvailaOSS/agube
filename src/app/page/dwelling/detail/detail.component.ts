@@ -10,12 +10,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
 import { Router } from '@angular/router';
-import { GoogleChartConfigure } from '../../../components/map/chart/google-chart-configure';
 import {
   WaterMeterWithMeasurements,
-  WaterMeterMeasurement,
   ManagerConfiguration,
 } from '@availa/agube-rest-api';
+import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-configure';
 @Component({
   selector: 'app-page-dwelling-detail',
   templateUrl: './detail.component.html',
