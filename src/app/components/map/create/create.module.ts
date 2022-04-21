@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MapModule } from '../map/map.module';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -28,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     TranslateModule,
     MatTooltipModule,
+    MapModule,
   ],
   exports: [CreateComponent],
   providers: [AddressPipe],

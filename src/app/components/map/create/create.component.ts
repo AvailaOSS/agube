@@ -24,14 +24,17 @@ import { ConfigureMap } from './configure-map';
 import { OnInit } from '@angular/core';
 import { AddressEmitter } from './address-emitter';
 import { InputForm } from './input-form';
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-street-view-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
-  @Input() public mapHeight? = '500px';
+export class CreateComponent
+  extends MapComponent
+  implements AfterViewInit, OnInit, OnChanges
+{
   @Input() public inputForm!: InputForm;
   @Input() public resetForm: boolean = false;
 
@@ -42,7 +45,6 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   @Output() public addressForm: EventEmitter<AddressEmitter> =
     new EventEmitter<AddressEmitter>();
 
-  public selectedStreetCandidate: LocationResponse | undefined;
   public streetCandidates: LocationResponse[] = [];
 
   // filter
@@ -53,15 +55,7 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   public flat: FormControl | undefined;
   public gate: FormControl | undefined;
 
-  private static zoom: number = 18;
-  private static zoomMax: number = 19;
-  private static zoomMin: number = 4;
-
-  private map: any;
-
   // You can override this url for use other maps
-  private static mapViewUrl: string =
-    'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
   private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
@@ -74,7 +68,7 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
   };
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
-    //
+    super();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -113,7 +107,7 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
     });
   }
 
-  ngAfterViewInit(): void {
+  override ngAfterViewInit(): void {
     this.initializeMap(CreateComponent.resetMapLocation);
   }
 
@@ -169,26 +163,29 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
     });
   }
 
-  private getLocationBySearch(): Observable<LocationResponse[]> {
-    return this.http.get<LocationResponse[]>(
-      CreateComponent.mapSearchUrlPrefix +
-        this.filter.value +
-        CreateComponent.mapSearchUrlSufix
-    );
+  public errorValidator(entity: string) {
+    switch (entity) {
+      case 'filter':
+        if (this.filter && this.filter.hasError('required')) {
+          return 'STREET_VIEW.FILTER.VALIDATION';
+        }
+        return '';
+      case 'number':
+        if (this.number && this.number.hasError('required')) {
+          return 'STREET_VIEW.FORM.NUMBER.VALIDATION';
+        }
+        return '';
+      case 'street':
+        if (this.street && this.street.hasError('required')) {
+          return 'STREET_VIEW.FORM.STREET.VALIDATION';
+        }
+        return '';
+      default:
+        return '';
+    }
   }
 
-  private getLocationByCoordinate(
-    lat: number,
-    lon: number
-  ): Observable<LocationResponse> {
-    return this.http.get<LocationResponse>(
-      CreateComponent.mapSearchCoordinatesUrlPrefix +
-        `lat=${lat}&lon=${lon}` +
-        CreateComponent.mapSearchUrlSufix
-    );
-  }
-
-  private initializeMap(conf: ConfigureMap): void {
+  protected override initializeMap(conf: ConfigureMap): void {
     if (this.map) {
       this.map.remove();
     }
@@ -245,26 +242,23 @@ export class CreateComponent implements AfterViewInit, OnInit, OnChanges {
     });
   }
 
-  public errorValidator(entity: string) {
-    switch (entity) {
-      case 'filter':
-        if (this.filter && this.filter.hasError('required')) {
-          return 'STREET_VIEW.FILTER.VALIDATION';
-        }
-        return '';
-      case 'number':
-        if (this.number && this.number.hasError('required')) {
-          return 'STREET_VIEW.FORM.NUMBER.VALIDATION';
-        }
-        return '';
-      case 'street':
-        if (this.street && this.street.hasError('required')) {
-          return 'STREET_VIEW.FORM.STREET.VALIDATION';
-        }
-        return '';
-      default:
-        return '';
-    }
+  private getLocationBySearch(): Observable<LocationResponse[]> {
+    return this.http.get<LocationResponse[]>(
+      CreateComponent.mapSearchUrlPrefix +
+        this.filter.value +
+        CreateComponent.mapSearchUrlSufix
+    );
+  }
+
+  private getLocationByCoordinate(
+    lat: number,
+    lon: number
+  ): Observable<LocationResponse> {
+    return this.http.get<LocationResponse>(
+      CreateComponent.mapSearchCoordinatesUrlPrefix +
+        `lat=${lat}&lon=${lon}` +
+        CreateComponent.mapSearchUrlSufix
+    );
   }
 
   private resetThisComponent() {

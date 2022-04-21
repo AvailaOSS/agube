@@ -34,7 +34,6 @@ export class DetailComponent implements OnInit {
       this.svcUser
         .getDwellingDetail(user!.user_id)
         .subscribe((dwellingDetail) => {
-          console.log(dwellingDetail)
           this.svcDwelling
             .getDwelling(dwellingDetail[0].id!)
             .subscribe((dwelling) => {
