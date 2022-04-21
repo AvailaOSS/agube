@@ -8,23 +8,22 @@ import * as L from 'leaflet';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements  AfterViewInit {
+export class MapComponent implements AfterViewInit {
   @Input() public mapHeight? = '500px';
   @Input() public configureMap: ConfigureMap | undefined;
 
   public selectedStreetCandidate: LocationResponse | undefined;
 
-  private myMap: any;
+  protected map: any;
 
-  private static zoom: number = 18;
-  private static zoomMax: number = 19;
-  private static zoomMin: number = 4;
+  protected static zoom: number = 18;
+  protected static zoomMax: number = 19;
+  protected static zoomMin: number = 4;
 
-  private static mapViewUrl: string =
+  protected static mapViewUrl: string =
     'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
 
   constructor() {}
-
 
   ngAfterViewInit(): void {
     if (!this.configureMap) {
@@ -33,11 +32,11 @@ export class MapComponent implements  AfterViewInit {
     this.initializeMap(this.configureMap);
   }
 
-  private initializeMap(conf: ConfigureMap): void {
-    if (this.myMap) {
-      this.myMap.remove();
+  protected initializeMap(conf: ConfigureMap): void {
+    if (this.map) {
+      this.map.remove();
     }
-    this.myMap = L.map('myMap', {
+    this.map = L.map('map', {
       center: [conf.lat, conf.lon],
       doubleClickZoom: false,
       zoom: conf.zoom,
@@ -49,7 +48,7 @@ export class MapComponent implements  AfterViewInit {
       minZoom: MapComponent.zoomMin,
     });
 
-    tiles.addTo(this.myMap);
+    tiles.addTo(this.map);
 
     let circle: L.Circle | undefined = undefined;
     if (conf.showCircle) {
@@ -57,7 +56,7 @@ export class MapComponent implements  AfterViewInit {
         fillColor: '#7fd3f7',
         fillOpacity: 0.5,
         radius: 10,
-      }).addTo(this.myMap);
+      }).addTo(this.map);
     }
   }
 }
