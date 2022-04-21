@@ -12,8 +12,8 @@ export function addressGenerator(emitter: AddressEmitter): Address {
     city_district: address.city_district,
     country: address.country,
     geolocation: {
-      latitude: String(location.lat),
-      longitude: String(location.lon),
+      latitude: location.lat,
+      longitude: location.lon,
       zoom: location.zoom,
       horizontal_degree: 0,
       vertical_degree: 0,

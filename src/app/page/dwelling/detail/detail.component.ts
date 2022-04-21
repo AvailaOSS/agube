@@ -63,8 +63,8 @@ export class DetailComponent implements OnInit {
 
   private configureMaps(geolocation: Geolocation) {
     this.configureMap = {
-      lat: +geolocation.latitude,
-      lon: +geolocation.longitude,
+      lat: geolocation.latitude,
+      lon: geolocation.longitude,
       zoom: geolocation.zoom,
       showCircle: true,
       height: this.mapHeight,

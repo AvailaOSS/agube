@@ -19,7 +19,8 @@
     </span>
     <div *ngFor="let address of addressList" class="list-address">
         <app-address-editable (updatedEvent)="refreshAddress($event)" (deleteEvent)="addressDeleted($event)"
-            class="address" [address]="address" [userId]="userId"></app-address-editable>
+            class="address" [address]="address" [userId]="userId">
+        </app-address-editable>
         <mat-divider></mat-divider>
     </div>
 </mat-list>

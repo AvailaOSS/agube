@@ -56,33 +56,21 @@ export class AddressComponent extends CreateAddress {
       return;
     }
 
-    const index = this.addressList
-      .map((a) => {
-        return a.address.id;
-      })
-      .indexOf(address.id, 0);
-
-    if (index > -1) {
-      this.addressList.splice(index, 1);
-      this.addressList.push({
-        address: address,
-        isEditable: false,
-      });
-    }
+    this.getAddressList(this.userId);
   }
 
   public addressDeleted(addressId: number | undefined) {
-    // if (!addressId) {
-    //   return;
-    // }
-    // const index = this.addressList
-    //   .map((p) => {
-    //     return p.address.id;
-    //   })
-    //   .indexOf(addressId, 0);
-    // if (index > -1) {
-    //   this.addressList.splice(index, 1);
-    // }
+    if (!addressId) {
+      return;
+    }
+    const index = this.addressList
+      .map((p) => {
+        return p.address.id;
+      })
+      .indexOf(addressId, 0);
+    if (index > -1) {
+      this.addressList.splice(index, 1);
+    }
   }
 
   private getAddressList(userId: number) {

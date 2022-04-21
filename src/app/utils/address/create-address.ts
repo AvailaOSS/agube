@@ -17,8 +17,8 @@ export class CreateAddress {
 
   // Map configuration for select Address
   public configureMap: ConfigureMap = {
-    lat: 39.92666,
-    lon: -2.33976,
+    lat: "39.92666",
+    lon: "-2.33976",
     zoom: 6,
     showCircle: false,
     height: '500px',

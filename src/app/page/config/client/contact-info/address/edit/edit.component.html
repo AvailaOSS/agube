@@ -1,63 +1,47 @@
-<span *ngIf="address && address.isEditable; else editableAddress">
+<span *ngIf="address && address.isEditable; else noEditableAddress">
     <div class="editable-form">
         <div class="address-form">
-            <mat-form-field appearance="fill">
-                <mat-label>{{'CONTACT_INFO.ADDRESS.FORM.GATE'|translate}}</mat-label>
-                <input matInput placeholder="A" [formControl]="gate" (keydown.enter)="updateAddress()">
-                <mat-error *ngIf="gate.invalid">{{errorValidator('gate')|translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{'CONTACT_INFO.ADDRESS.FORM.FLAT'|translate}}</mat-label>
-                <input matInput placeholder="3" [formControl]="flat" (keydown.enter)="updateAddress()">
-                <mat-error *ngIf="flat.invalid">{{errorValidator('flat')|translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{'CONTACT_INFO.ADDRESS.FORM.NUMBER'|translate}}</mat-label>
-                <input matInput placeholder="IV" [formControl]="number" (keydown.enter)="updateAddress()">
-                <mat-error *ngIf="number.invalid">{{errorValidator('number')|translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{'CONTACT_INFO.ADDRESS.FORM.STREET'|translate}}</mat-label>
-                <input matInput placeholder="Anthony Edward Stark Street" [formControl]="street"
-                    (keydown.enter)="updateAddress()">
-                <mat-error *ngIf="street.invalid">{{errorValidator('street')|translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{'CONTACT_INFO.ADDRESS.FORM.TOWN'|translate}}</mat-label>
-                <input matInput placeholder="Sofía" [formControl]="town" (keydown.enter)="updateAddress()">
-                <mat-error *ngIf="town.invalid">{{errorValidator('town') |translate}}</mat-error>
-            </mat-form-field>
+            <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
+                [inputForm]="inputForm" [resetForm]="resetChildForm">
+            </app-map-location-create>
         </div>
         <div class="address-buttons">
-            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.FORM.BUTTON_CLOSE_TOOLTIP'|translate}}" (click)="openEditableAddressForm()">
+            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.FORM.BUTTON_CLOSE_TOOLTIP'|translate}}"
+                (click)="openEditableAddressForm()">
                 <mat-icon>close</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.FORM.BUTTON_SAVE_TOOLTIP'|translate}}"(click)="updateAddress()" [disabled]="fullAddressForm.invalid">
+            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.FORM.BUTTON_SAVE_TOOLTIP'|translate}}"
+                (click)="updateAddress()" *ngIf="addressEmitter && addressEmitter.addressFormGroup"
+                [disabled]="addressEmitter.addressFormGroup.invalid">
                 <mat-icon>save</mat-icon>
             </button>
         </div>
     </div>
 </span>
 
-<ng-template #editableAddress>
+<ng-template #noEditableAddress>
     <div class="edited-form">
         <h4>{{address!.address.address| address }}</h4>
         <span mat-subheader class="is-principal">{{ address!.address.main ? 'Principal' : '' }}</span>
     </div>
     <div>
-        <button mat-icon-button *ngIf="address!.address.main; else notMainAddress" matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_PRINCIPAL_STAR_TOOLTIP'|translate}}"
+        <button mat-icon-button *ngIf="address!.address.main; else notMainAddress"
+            matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_PRINCIPAL_STAR_TOOLTIP'|translate}}"
             (click)="setAddressAsMain()">
             <mat-icon>star</mat-icon>
         </button>
         <ng-template #notMainAddress>
-            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_PRINCIPAL_TOOLTIP'|translate}}" (click)="setAddressAsMain()">
+            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_PRINCIPAL_TOOLTIP'|translate}}"
+                (click)="setAddressAsMain()">
                 <mat-icon>star_border</mat-icon>
             </button>
         </ng-template>
-        <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_EDIT_TOOLTIP'|translate}}" (click)="openEditableAddressForm()">
+        <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_EDIT_TOOLTIP'|translate}}"
+            (click)="openEditableAddressForm()">
             <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_DELETE_TOOLTIP'|translate}}" (click)="deleteAddress()">
+        <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.EDIT_FORM.BUTTON_DELETE_TOOLTIP'|translate}}"
+            (click)="deleteAddress()">
             <mat-icon>delete</mat-icon>
         </button>
     </div>

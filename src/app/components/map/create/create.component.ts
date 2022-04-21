@@ -188,7 +188,7 @@ export class CreateComponent
     }
 
     this.map = L.map('map', {
-      center: [conf.lat, conf.lon],
+      center: [+conf.lat, +conf.lon],
       doubleClickZoom: false,
       zoom: conf.zoom,
     });
@@ -202,7 +202,7 @@ export class CreateComponent
 
     let circle: L.Circle | undefined = undefined;
     if (conf.showCircle) {
-      circle = L.circle([conf.lat, conf.lon], {
+      circle = L.circle([+conf.lat, +conf.lon], {
         fillColor: '#7fd3f7',
         fillOpacity: 0.5,
         radius: 10,
@@ -231,7 +231,7 @@ export class CreateComponent
       }
       this.initializeMap(clickConf);
 
-      this.getLocationByCoordinate(clickConf.lat, clickConf.lon).subscribe(
+      this.getLocationByCoordinate(+clickConf.lat, +clickConf.lon).subscribe(
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
           this.selectedStreetCandidate.zoom = userZoom;
