@@ -9,8 +9,8 @@
             <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" />
             <mat-error *ngIf="code.invalid">{{errorValidator('code') | translate}}</mat-error>
           </mat-form-field>
-          <app-street-view-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap" [inputForm]="inputForm" [resetForm]="resetChildForm">
-          </app-street-view-create>
+          <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap" [inputForm]="inputForm" [resetForm]="resetChildForm">
+          </app-map-location-create>
         </div>
         <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
         <mat-card-actions [align]="'end'">

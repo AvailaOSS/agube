@@ -27,7 +27,7 @@ import { MapEvent } from '../map/map-event';
 import { LocationResponse } from '../map/location-response';
 
 @Component({
-  selector: 'app-street-view-create',
+  selector: 'app-map-location-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
