@@ -5,22 +5,22 @@
     <span>
       Código:
       <h3>
-        {{googleChartConfigure.water_meter.code}}
+        {{googleChartConfigure.arrayToDataTable[0].code}}
       </h3>
     </span>
     <span>
       Fecha de alta:
       <h3>
-        {{googleChartConfigure.water_meter.release_date | date:'dd/MM/yyyy HH:ss'}}
+        {{googleChartConfigure.arrayToDataTable[0].release_date | date:'dd/MM/yyyy HH:ss'}}
       </h3>
     </span>
     <span>
       Fecha de baja:
-      <h3> {{googleChartConfigure.water_meter.discharge_date| date:'dd/MM/yyyy HH:ss' }}</h3>
+      <h3> {{googleChartConfigure.arrayToDataTable[0].water_meter_measurement.discharge_date| date:'dd/MM/yyyy HH:ss' }}</h3>
     </span>
     <span>
       Máx. Consumo Diario:
-      <h3> {{googleChartConfigure!.consumeToday!.max_daily_consumption }}</h3>
+      <h3> {{googleChartConfigure!.arrayToDataTable[0]!.consumeToday.max_daily_consumption }}</h3>
     </span>
 
   </div>

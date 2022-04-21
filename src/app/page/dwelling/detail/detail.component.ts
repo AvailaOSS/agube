@@ -67,7 +67,7 @@ export class DetailComponent implements OnInit {
             .subscribe((dwelling) => {
               this.dwelling = dwelling;
               this.svcDwelling
-                .getCurrentWaterMeterMeasuresChunk(dwelling.id!, 2)
+                .getCurrentWaterMeterMeasuresChunk( 4,this.dwelling.id!)
                 .subscribe((responseWaterMeterMeasurement) => {
                   if (!responseWaterMeterMeasurement) {
                     return;
@@ -96,6 +96,11 @@ export class DetailComponent implements OnInit {
     waterMeterMeasurement: WaterMeterWithMeasurements,
     consumeToday: ManagerConfiguration
   ) {
+    let sum = 0;
+    for (let i = 0; i < waterMeterMeasurement.measures.length; i++) {
+      sum += +waterMeterMeasurement.measures[i].measurement;
+  }
+   console.log(sum)
     this.chartGoogleConsume = {
       id: String(waterMeterMeasurement.id!),
       options: {
@@ -108,13 +113,14 @@ export class DetailComponent implements OnInit {
         yellowTo: 90,
       },
 
-      water_meter: {
+      arrayToDataTable: [{
         code: waterMeterMeasurement.code!,
         discharge_date: waterMeterMeasurement.discharge_date,
         release_date: waterMeterMeasurement.release_date,
-      },
-      water_meter_measurement: waterMeterMeasurement,
-      consumeToday,
+        water_meter_measurement: waterMeterMeasurement,
+        water_meter_measurementConsume: sum,
+        consumeToday,
+      }],
     };
   }
   private configureMaps(geolocation: Geolocation) {
