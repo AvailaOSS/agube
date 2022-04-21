@@ -29,6 +29,10 @@
       margin-left: $margin-x-medium;
       div {
         margin-left: $margin-small;
+        display: flex;
+        .dwelling-resident {
+          margin-left: $margin-medium;
+        }
       }
     }
     .dwelling-map {

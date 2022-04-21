@@ -13,9 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddressComponent } from './address/address.component';
+import { ResidentComponent } from './resident/resident.component';
 
 @NgModule({
-  declarations: [DetailComponent, AddressComponent],
+  declarations: [DetailComponent, AddressComponent, ResidentComponent],
   imports: [
     CommonModule,
     DetailRoutingModule,

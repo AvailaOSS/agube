@@ -4,7 +4,7 @@ import { Address } from '@availa/agube-rest-api';
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss'],
+  styleUrls: ['../info.component.scss'],
 })
 export class AddressComponent implements OnInit {
   @Input() public address: Address | undefined;

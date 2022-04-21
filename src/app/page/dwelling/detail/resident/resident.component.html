@@ -1,0 +1,26 @@
+<div class="detail-info" *ngIf="userDetail">
+  <span>
+    Nombre:
+    <h3>
+      {{userDetail.first_name }}
+    </h3>
+  </span>
+  <span>
+    Apellidos:
+    <h3>
+      {{userDetail.last_name }}
+    </h3>
+  </span>
+  <span>
+    Correo Electrónico:
+    <h3>
+      {{userDetail.email }}
+    </h3>
+  </span>
+  <span>
+    Nº de Teléfono:
+    <h3>
+      {{userDetail.main_phone.phone_number }}
+    </h3>
+  </span>
+</div>

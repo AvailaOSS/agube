@@ -21,6 +21,7 @@ export class DetailComponent implements OnInit {
   public dwelling: DwellingCreate | undefined;
 
   public mode: string = 'map';
+  public userId: number | undefined;
   constructor(
     private svcAccount: AccountService,
     private svcUser: UserService,
@@ -31,8 +32,9 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.svcAccount.getUser().subscribe((user) => {
+      this.userId = user?.user_id;
       this.svcUser
-        .getDwellingDetail(user!.user_id)
+        .getDwellingDetail(this.userId!)
         .subscribe((dwellingDetail) => {
           this.svcDwelling
             .getDwelling(dwellingDetail[0].id!)

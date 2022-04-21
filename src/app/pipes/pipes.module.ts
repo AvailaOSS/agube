@@ -4,9 +4,10 @@ import { DwellingDetailPipe } from './dwelling-detail.pipe';
 import { AddressPipe } from './address.pipe';
 import { WaterMeterMeasurementPipe } from './water-meter-measurement.pipe';
 import { ReservoirDetailPipe } from './reservoir-detail.pipe';
+import { CommonModule, SlicePipe } from '@angular/common';
 
 @NgModule({
-  imports: [],
+  imports: [CommonModule],
   declarations: [
     DwellingDetailPipe,
     AddressPipe,
@@ -14,6 +15,7 @@ import { ReservoirDetailPipe } from './reservoir-detail.pipe';
     UserDetailPipe,
     WaterMeterMeasurementPipe,
   ],
+  providers: [SlicePipe],
   exports: [
     DwellingDetailPipe,
     AddressPipe,

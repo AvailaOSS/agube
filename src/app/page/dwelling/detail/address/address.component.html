@@ -1,30 +1,34 @@
-<div class="address" *ngIf="address" style="width: 50%;">
-  <span class="address-property">
+<div class="detail-info" *ngIf="address">
+  <span>
+    Coordenadas: <h3>{{address | address:'geolocation' }}</h3>
+  </span>
+  <span>
     Pais: <h3>{{address.country}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Comunidad: <h3>{{address.state}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Provincia: <h3>{{address.province}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Ciudad: <h3>{{address.city}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Pueblo: <h3>{{address.village}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Municipio: <h3>{{address.municipality}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Barrio: <h3>{{address.city_district}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Código Postal: <h3>{{address.postcode}}</h3>
   </span>
-  <span class="address-property">
+  <span>
     Calle: <h3>{{address | address:'short'}}</h3>
   </span>
+
 
 </div>

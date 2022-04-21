@@ -1,3 +1,4 @@
+import { SlicePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Address } from '@availa/agube-rest-api';
 
@@ -5,10 +6,17 @@ import { Address } from '@availa/agube-rest-api';
   name: 'address',
 })
 export class AddressPipe implements PipeTransform {
+  slice: SlicePipe;
+  constructor(slice: SlicePipe) {
+    this.slice = slice;
+  }
+
   transform(address: Address, mode?: string): string {
     if (mode && mode == 'geolocation') {
       return (
-        address.geolocation.latitude + ', ' + address.geolocation.longitude
+        this.slice.transform(address.geolocation.latitude, 0, 7) +
+        ', ' +
+        this.slice.transform(address.geolocation.longitude, 0, 7)
       );
     }
 
