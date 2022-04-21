@@ -163,12 +163,26 @@
   "DWELLING_DETAIL": {
     "DETAIL_INFO": {
       "USER": {
-        "TITLE_RESIDENT":"Residente",
-        "TITLE_OWNER":"Propietario",
+        "TITLE_RESIDENT": "Residente",
+        "TITLE_OWNER": "Propietario",
         "FIRST_NAME": "Nome",
         "LAST_NAME": "Apelidos",
         "EMAIL": "Correo electrónico",
         "PHONE_NUMBER": "Nº de teléfono"
+      }
+    },
+    "ADDRESS": {
+      "FORM": {
+        "COORDINATES": "Coordenadas",
+        "COUNTRY": "País",
+        "STATE": "Comunidade",
+        "PROVINCE": "Provincia",
+        "CITY": "Cidade",
+        "VILLAGE": "Pobo",
+        "MUNICIPALITY": "Municipio",
+        "CITY_DISTRICT": "Barrio",
+        "POSTAL_CODE": "Código Postal",
+        "STREET": "Rúa"
       }
     },
     "MAP": {

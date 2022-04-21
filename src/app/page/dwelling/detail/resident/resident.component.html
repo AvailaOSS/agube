@@ -29,5 +29,8 @@
   </span>
 </div>
 <ng-template #noUser>
-  <h2>Sin {{title}}</h2>
+  <h2>
+    <mat-icon>{{title.icon}}</mat-icon>
+    Sin {{title.title | translate}}
+  </h2>
 </ng-template>

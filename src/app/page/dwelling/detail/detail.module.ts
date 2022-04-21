@@ -15,9 +15,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AddressComponent } from './address/address.component';
 import { ResidentComponent } from './resident/resident.component';
 import { OwnerComponent } from './owner/owner.component';
+import { ChartModule as WaterMeterChartModule } from '../../water-meter/chart/chart.module';
 
 @NgModule({
-  declarations: [DetailComponent, AddressComponent, ResidentComponent, OwnerComponent],
+  declarations: [
+    DetailComponent,
+    AddressComponent,
+    ResidentComponent,
+    OwnerComponent,
+  ],
   imports: [
     CommonModule,
     DetailRoutingModule,
@@ -29,7 +35,8 @@ import { OwnerComponent } from './owner/owner.component';
     MatButtonToggleModule,
     MatIconModule,
     MatTooltipModule,
-    TranslateModule
+    TranslateModule,
+    WaterMeterChartModule,
   ],
 })
 export class DetailModule {}

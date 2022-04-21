@@ -1,0 +1,19 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: bisque;
+  .chart-content {
+    display: flex;
+    margin: 0 auto;
+    .dot {
+      height: 250px;
+      width: 250px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
