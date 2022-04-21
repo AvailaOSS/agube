@@ -10,7 +10,7 @@ import {
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AddressEmitter } from '../../../components/map/create/address-emitter';
-import { LocationResponse } from 'src/app/components/map/create/location-response';
+import { LocationResponse } from 'src/app/components/map/map/location-response';
 import { InputForm } from 'src/app/components/map/create/input-form';
 
 @Component({

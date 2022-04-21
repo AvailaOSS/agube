@@ -11,7 +11,7 @@ import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/components/map/create/address-emitter';
-import { LocationResponse } from 'src/app/components/map/create/location-response';
+import { LocationResponse } from 'src/app/components/map/map/location-response';
 import { InputForm } from '../../../components/map/create/input-form';
 
 @Component({

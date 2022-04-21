@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { LocationResponse } from '../create/location-response';
+import { LocationResponse } from './location-response';
 import { ConfigureMap } from './configure-map';
 import * as L from 'leaflet';
 

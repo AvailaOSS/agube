@@ -11,8 +11,6 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
-import { MapEvent } from './map-event';
-import { LocationResponse } from './location-response';
 import {
   FormControl,
   FormGroup,
@@ -20,11 +18,13 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
-import { ConfigureMap } from './configure-map';
 import { OnInit } from '@angular/core';
 import { AddressEmitter } from './address-emitter';
 import { InputForm } from './input-form';
 import { MapComponent } from '../map/map.component';
+import { ConfigureMap } from '../map/configure-map';
+import { MapEvent } from '../map/map-event';
+import { LocationResponse } from '../map/location-response';
 
 @Component({
   selector: 'app-street-view-create',
