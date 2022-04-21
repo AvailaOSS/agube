@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { GoogleChartComponent } from '../../../components/map/chart/google-chart.component';
+import { WaterMeterService } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-water-meter-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  templateUrl: '../../../components/map/chart/google-chart.component.html',
+  styleUrls: ['../../../components/map/chart/google-chart.component.scss'],
 })
-export class ChartComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+export class ChartComponent extends GoogleChartComponent implements OnChanges {
+  constructor() {
+    super();
   }
+  ngOnChanges(): void {
+    if (!this.googleChartConfigure) {
+      return;
+    }
 
+    super.ngOnInit();
+  }
 }

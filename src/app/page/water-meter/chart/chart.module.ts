@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GoogleChartModule } from '../../../components/map/chart/google-chart.module';
 import { ChartComponent } from './chart.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ChartComponent],
-  imports: [CommonModule, MatMenuModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, GoogleChartModule],
   exports: [ChartComponent],
 })
 export class ChartModule {}
