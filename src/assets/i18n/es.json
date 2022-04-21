@@ -53,6 +53,8 @@
     "PERSON": "Persona",
     "OWNER": "Propietario/a",
     "RESIDENT": "Residente",
+    "WARNING_1": "Se va a enviar un correo electrónico al nuevo/a",
+    "WARNING_2": "con el código de activación para activar la cuenta",
     "CHANGE": {
       "TITLE_1": "Cambio de",
       "TITLE_2": "Alta de nuevo/a",
