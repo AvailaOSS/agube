@@ -4,8 +4,8 @@ export interface MapEvent {
 }
 
 interface LatLng {
-  lat: number;
-  lng: number;
+  lat: string;
+  lng: string;
 }
 
 interface AnimateToZoom {

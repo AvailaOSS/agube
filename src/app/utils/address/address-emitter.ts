@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { LocationResponse } from '../map/location-response';
+import { LocationResponse } from '../../components/map/map/location-response';
 
 export interface AddressEmitter {
   addressFormGroup: FormGroup;

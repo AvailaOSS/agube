@@ -1,6 +1,6 @@
 export interface ConfigureMap {
-  lat: number;
-  lon: number;
+  lat: string;
+  lon: string;
   zoom: number;
   showCircle: boolean;
   height: string;

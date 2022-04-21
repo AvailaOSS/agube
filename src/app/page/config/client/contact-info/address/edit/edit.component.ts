@@ -1,12 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { UserAddress, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableAddress } from './editable-address';
 
 @Component({
@@ -14,76 +10,53 @@ import { EditableAddress } from './editable-address';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent {
+export class EditComponent extends CreateAddress {
   private infoMessage: string = 'Esta funcionalidad aún no está disponible';
 
   @Input() public userId: number | undefined;
   @Input() public address: EditableAddress | undefined;
 
-  @Output() public updatedEvent: EventEmitter<UserAddress | undefined> =
-    new EventEmitter<UserAddress | undefined>();
-  @Output() public deleteEvent: EventEmitter<number | undefined> =
-    new EventEmitter<number | undefined>();
-
-  public fullAddressForm: FormGroup;
-  public town = new FormControl('', [Validators.required]);
-  public street = new FormControl('', [Validators.required]);
-  public number = new FormControl('', [Validators.required]);
-  public flat = new FormControl('', []);
-  public gate = new FormControl('', [Validators.required]);
+  @Output() public updatedEvent: EventEmitter<
+    UserAddress | undefined
+  > = new EventEmitter<UserAddress | undefined>();
+  @Output() public deleteEvent: EventEmitter<
+    number | undefined
+  > = new EventEmitter<number | undefined>();
 
   constructor(
-    private svcNotification: NotificationService,
-    private svcUser: UserService,
-    private formBuilder: FormBuilder
+    protected svcNotification: NotificationService,
+    protected svcUser: UserService,
+    protected override formBuilder: FormBuilder,
   ) {
-    this.fullAddressForm = formBuilder.group({
-      address: formBuilder.group({
-        town: this.town,
-        street: this.street,
-      }),
-      number: this.number,
-      flat: this.flat,
-      gate: this.gate,
-    });
+    super(formBuilder);
   }
 
   public updateAddress() {
-    // if (!this.address) {
-    //   return;
-    // }
+    if (!this.address) {
+      return;
+    }
 
-    // let userAddress: UserAddress = {
-    //   main: this.address.address.main,
-    //   id: this.address.address.id,
-    //   full_address: {
-    //     address: {
-    //       street: this.street.value,
-    //       town: this.town.value,
-    //       is_external: this.address.address.address.address.is_external,
-    //     },
-    //     number: this.number.value,
-    //     flat: this.flat.value,
-    //     gate: this.gate.value,
-    //   },
-    // };
+    let updateUserAddress : UserAddress = {
+      address: this.getAddress(),
+      main: false
+    }
 
-    // this.svcUser
-    //   .updateUserAddress(
-    //     this.address.address.address.id!,
-    //     this.userId!,
-    //     userAddress
-    //   )
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.updatedEvent.next(userAddress);
-    //       this.address!.isEditable = !this.address!.isEditable;
-    //     },
-    //     error: (error) =>
-    //       this.svcNotification.warning({
-    //         message: error,
-    //       }),
-    //   });
+    this.svcUser
+      .updateUserAddress(
+        this.address.address.address.id!,
+        this.userId!,
+        updateUserAddress
+      )
+      .subscribe({
+        next: (response) => {
+          this.updatedEvent.next(updateUserAddress);
+          this.address!.isEditable = !this.address!.isEditable;
+        },
+        error: (error) =>
+          this.svcNotification.warning({
+            message: error,
+          }),
+      });
   }
 
   public setAddressAsMain() {
@@ -99,19 +72,28 @@ export class EditComponent {
     if (!this.address) {
       return;
     }
-    // this.town.setValue(this.address.address.address.town);
-    // this.street.setValue(this.address.address.address.street);
-    // this.number.setValue(this.address.address.address.number);
-    // this.flat.setValue(this.address.address.address.flat);
-    // this.gate.setValue(this.address.address.address.gate);
-    // this.address.isEditable = !this.address.isEditable;
+
+    const geolocation = this.address.address.address.geolocation;
+    this.configureMap = {
+      lat: geolocation.latitude,
+      lon: geolocation.longitude,
+      zoom: geolocation.zoom,
+      showCircle: true,
+      height: '350px',
+    }
+
+    const address = this.address.address.address;
+    this.inputForm.street.setValue(address.road);
+    this.inputForm.number?.setValue(address.number);
+    this.inputForm.flat?.setValue(address.flat);
+    this.inputForm.gate?.setValue(address.gate);
+    this.address.isEditable = !this.address.isEditable;
   }
 
   public deleteAddress() {
     if (!this.address) {
       return;
     }
-
     this.svcUser
       .deleteUserAddress(this.address.address.address.id!, this.userId!)
       .subscribe({
@@ -123,32 +105,5 @@ export class EditComponent {
             message: error,
           }),
       });
-  }
-
-  public errorValidator(entity: string) {
-    switch (entity) {
-      case 'gate':
-        if (this.gate.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.GATE';
-        }
-        return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.NUMBER';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.STREET';
-        }
-        return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.TOWN';
-        }
-        return '';
-      default:
-        return '';
-    }
   }
 }
