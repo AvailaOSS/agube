@@ -8,6 +8,10 @@ import {
 import { UserService, UserAddress } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
+import { AddressEmitter } from 'src/app/components/map/create/address-emitter';
+import { InputForm } from 'src/app/components/map/create/input-form';
+import { ConfigureMap } from 'src/app/components/map/map/configure-map';
+import { LocationResponse } from 'src/app/components/map/map/location-response';
 import { EditableAddress } from './edit/editable-address';
 
 @Component({
@@ -18,45 +22,53 @@ import { EditableAddress } from './edit/editable-address';
 export class AddressComponent {
   public userId: number = -1;
   public addressList: EditableAddress[] = [];
+
+  public addressForm: FormGroup | undefined;
+
+  public inputForm: InputForm = {
+    street: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+    flat: new FormControl(''),
+    gate: new FormControl(''),
+  };
+
+  public resetChildForm: boolean = false;
   public canAddAddress: boolean = false;
 
-  public fullAddressForm: FormGroup;
-  public town = new FormControl('', [Validators.required]);
-  public street = new FormControl('', [Validators.required]);
-  public number = new FormControl('', [Validators.required]);
-  public flat = new FormControl('', []);
-  public gate = new FormControl('', []);
+  // Map configuration for select Address
+  public configureMap: ConfigureMap = {
+    lat: 39.92666,
+    lon: -2.33976,
+    zoom: 6,
+    showCircle: false,
+    height: '500px',
+  };
+
+  private location: LocationResponse | undefined;
 
   constructor(
     protected formBuilder: FormBuilder,
     private svcAccount: AccountService,
-    private svcUser: UserService,
-    private svcNotification: NotificationService
+    private svcUser: UserService
   ) {
-    this.fullAddressForm = formBuilder.group({
-      address: formBuilder.group({
-        town: this.town,
-        street: this.street,
-      }),
-      number: this.number,
-      flat: this.flat,
-      gate: this.gate,
-    });
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
       this.getAddressList(this.userId);
     });
   }
 
+  public addressFormReceive(addressEmitter: AddressEmitter) {
+    this.addressForm = addressEmitter.addressFormGroup;
+    this.location = addressEmitter.location;
+  }
+
   public openCloseAddressForm() {
     this.canAddAddress = !this.canAddAddress;
+    this.resetChildForm = !this.resetChildForm;
   }
 
   public saveAddress() {
-    if (this.fullAddressForm.invalid) {
-      return;
-    }
-
+    console.log(this.addressForm);
     // let newUserAddress: UserAddress = {
     //   main: false,
     //   full_address: {
@@ -70,7 +82,6 @@ export class AddressComponent {
     //     gate: this.gate.value,
     //   },
     // };
-
     // this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
     //   next: (response) => {
     //     this.addressList.push({ address: response, isEditable: false });
@@ -109,38 +120,14 @@ export class AddressComponent {
     // if (!addressId) {
     //   return;
     // }
-
     // const index = this.addressList
     //   .map((p) => {
     //     return p.address.id;
     //   })
     //   .indexOf(addressId, 0);
-
     // if (index > -1) {
     //   this.addressList.splice(index, 1);
     // }
-  }
-
-  public errorValidator(entity: string) {
-    switch (entity) {
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.NUMBER';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.STREET';
-        }
-        return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.TOWN';
-        }
-        return '';
-      default:
-        return '';
-    }
   }
 
   private getAddressList(userId: number) {
