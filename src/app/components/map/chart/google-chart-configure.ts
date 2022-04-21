@@ -1,6 +1,10 @@
+import { WaterMeter, WaterMeterMeasurement, WaterMeterWithMeasurements, ManagerConfiguration } from '@availa/agube-rest-api';
 export interface GoogleChartConfigure {
   id: string;
   options: Options;
+  water_meter: WaterMeter;
+  water_meter_measurement?: WaterMeterWithMeasurements;
+  consumeToday: ManagerConfiguration
 }
 
 export interface Options {

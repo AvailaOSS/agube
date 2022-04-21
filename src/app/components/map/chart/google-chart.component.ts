@@ -12,18 +12,21 @@ export class GoogleChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (!this.googleChartConfigure) {
-      throw new Error('id Form Component is mandatory');
-    }
     this.drawChart();
   }
 
   drawChart() {
     google.charts.load('current', { packages: ['gauge'] });
     google.charts.setOnLoadCallback(() => {
-      var data = google.visualization.arrayToDataTable([
+      let data = google.visualization.arrayToDataTable([
         ['Label', 'Value'],
-        ['Consumo', 80],
+        [
+          'Consumo',
+          (+this.googleChartConfigure!.consumeToday!.max_daily_consumption -
+            +this.googleChartConfigure!.water_meter_measurement!.measures![0]
+              .measurement!) /
+            100,
+        ],
       ]);
       if (!this.googleChartConfigure) {
         return;
