@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
 import { Router } from '@angular/router';
-
+import { GoogleChartConfigure } from '../../../components/map/chart/google-chart-configure';
 @Component({
   selector: 'app-page-dwelling-detail',
   templateUrl: './detail.component.html',
@@ -28,6 +28,30 @@ export class DetailComponent implements OnInit {
   private mapStreetViewPositionDegree: number = 0;
   private mapHeight: string = '500px';
 
+  public chartGoogleConsume: GoogleChartConfigure = {
+    id: 'chart_div_1',
+    options: {
+      width: 500,
+      height: 200,
+      redFrom: 80,
+      redTo: 100,
+      yellowFrom: 50,
+      yellowTo: 80,
+      minorTicks: 10,
+    },
+  };
+  public chartGoogleConsume2: GoogleChartConfigure = {
+    id: 'chart_div_2',
+    options: {
+      width: 500,
+      height: 200,
+      redFrom: 90,
+      redTo: 100,
+      yellowFrom: 70,
+      yellowTo: 90,
+      minorTicks: 10,
+    },
+  };
   constructor(
     private router: Router,
     private svcAccount: AccountService,

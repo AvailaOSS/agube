@@ -1,0 +1,10 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+
+  .chart-content {
+    display: flex;
+    background-color: aquamarine;
+  }
+}
