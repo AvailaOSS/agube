@@ -320,6 +320,15 @@ class UserAddressUpdateDeleteView(APIView):
             return Response({'status': 'cannot find user address'},
                             status=HTTP_404_NOT_FOUND)
 
+        geolocation_data = address_data.get('geolocation')
+        update_this_geolocation = user_address.address.geolocation
+        update_this_geolocation.latitude = geolocation_data.get('latitude')
+        update_this_geolocation.longitude = geolocation_data.get('longitude')
+        update_this_geolocation.zoom = geolocation_data.get('zoom')
+        update_this_geolocation.horizontal_degree = geolocation_data.get('horizontal_degree')
+        update_this_geolocation.vertical_degree = geolocation_data.get('vertical_degree')
+        update_this_geolocation.save()
+
         update_this_address = user_address.address
         update_this_address.city = address_data.get('city')
         update_this_address.country = address_data.get('country')
