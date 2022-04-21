@@ -17,6 +17,7 @@
             </mat-error>
         </mat-form-field>
     </div>
+    <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
     <mat-card-actions [align]="'end'">
         <span mat-line class="button-save-info">
             <span>
@@ -25,7 +26,7 @@
             </span>
         </span>
         <button mat-raised-button color="primary"
-            matTooltip="{{'MANAGER_CONFIG.PARAMETERS.FORM.BUTTON.TOOLTIP' |translate}}" (click)="saveParameters()">
+            matTooltip="{{'MANAGER_CONFIG.PARAMETERS.FORM.BUTTON.TOOLTIP' |translate}}" (click)="saveParameters()" [disabled]="parametersForm.invalid || loadSave">
             <div>
                 <mat-icon>save</mat-icon>
                 {{"MANAGER_CONFIG.PARAMETERS.FORM.BUTTON.TEXT" |translate}}
