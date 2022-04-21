@@ -1,4 +1,4 @@
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Address } from '@availa/agube-rest-api';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
@@ -26,7 +26,7 @@ export class CreateAddress {
 
   public addressEmitter: AddressEmitter | undefined;
 
-  constructor(protected formBuilder: FormBuilder) {}
+  constructor() {}
 
   public addressFormReceive(addressEmitter: AddressEmitter) {
     this.addressEmitter = addressEmitter;
