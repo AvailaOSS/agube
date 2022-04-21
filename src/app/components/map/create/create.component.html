@@ -46,7 +46,7 @@
         </div>
       </mat-list-option>
     </mat-selection-list>
-    <div id="map" [ngStyle]="{'height': mapHeight}" matTooltip="{{'STREET_VIEW.MAP.CLICK'|translate}}"
+    <div id="map" [ngStyle]="{'height': configureMap?.height}" matTooltip="{{'STREET_VIEW.MAP.CLICK'|translate}}"
       matTooltipPosition="left" [matTooltipDisabled]="filter.invalid"></div>
   </div>
 </div>

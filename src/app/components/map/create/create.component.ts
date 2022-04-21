@@ -60,13 +60,6 @@ export class CreateComponent
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
 
-  private static resetMapLocation: ConfigureMap = {
-    lat: 39.92666,
-    lon: -2.33976,
-    zoom: 6,
-    showCircle: false,
-  };
-
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
     super();
   }
@@ -108,7 +101,7 @@ export class CreateComponent
   }
 
   override ngAfterViewInit(): void {
-    this.initializeMap(CreateComponent.resetMapLocation);
+    this.initializeMap(this.configureMap!);
   }
 
   public filtering() {
@@ -122,13 +115,14 @@ export class CreateComponent
         lon: this.selectedStreetCandidate.lon,
         zoom: CreateComponent.zoom,
         showCircle: true,
+        height: this.configureMap!.height,
       });
     });
   }
 
   public clearFilter() {
     this.filter.setValue('');
-    this.initializeMap(CreateComponent.resetMapLocation);
+    this.initializeMap(this.configureMap!);
   }
 
   public mouseIsOver(candidate: LocationResponse) {
@@ -137,6 +131,7 @@ export class CreateComponent
       lon: candidate.lon,
       zoom: CreateComponent.zoom,
       showCircle: true,
+      height: this.configureMap!.height,
     });
   }
 
@@ -149,6 +144,7 @@ export class CreateComponent
       lon: this.selectedStreetCandidate.lon,
       zoom: CreateComponent.zoom,
       showCircle: true,
+      height: this.configureMap!.height,
     });
   }
 
@@ -160,6 +156,7 @@ export class CreateComponent
       lon: this.selectedStreetCandidate.lon,
       zoom: CreateComponent.zoom,
       showCircle: true,
+      height: this.configureMap!.height,
     });
   }
 
@@ -189,6 +186,7 @@ export class CreateComponent
     if (this.map) {
       this.map.remove();
     }
+
     this.map = L.map('map', {
       center: [conf.lat, conf.lon],
       doubleClickZoom: false,
@@ -225,6 +223,7 @@ export class CreateComponent
         lon: e.latlng.lng,
         zoom: userZoom,
         showCircle: true,
+        height: conf.height,
       };
 
       if (circle) {

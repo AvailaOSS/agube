@@ -9,7 +9,6 @@ import * as L from 'leaflet';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements AfterViewInit {
-  @Input() public mapHeight? = '500px';
   @Input() public configureMap: ConfigureMap | undefined;
 
   public selectedStreetCandidate: LocationResponse | undefined;

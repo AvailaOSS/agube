@@ -12,6 +12,7 @@ import { NotificationService } from '@availa/notification';
 import { AddressEmitter } from '../../../components/map/create/address-emitter';
 import { LocationResponse } from 'src/app/components/map/map/location-response';
 import { InputForm } from 'src/app/components/map/create/input-form';
+import { ConfigureMap } from '../../../components/map/map/configure-map';
 
 @Component({
   selector: 'app-page-dwelling-create',
@@ -32,6 +33,14 @@ export class CreateComponent {
   };
 
   public resetChildForm: boolean = false;
+
+  public configureMap: ConfigureMap = {
+    lat: 39.92666,
+    lon: -2.33976,
+    zoom: 6,
+    showCircle: false,
+    height: '500px',
+  };
 
   private location: LocationResponse | undefined;
 

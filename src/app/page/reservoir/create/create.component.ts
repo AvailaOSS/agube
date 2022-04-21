@@ -13,6 +13,7 @@ import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/components/map/create/address-emitter';
 import { LocationResponse } from 'src/app/components/map/map/location-response';
 import { InputForm } from '../../../components/map/create/input-form';
+import { ConfigureMap } from '../../../components/map/map/configure-map';
 
 @Component({
   selector: 'app-page-reservoir-create',
@@ -35,6 +36,14 @@ export class CreateComponent {
 
   public resetChildForm: boolean = false;
   public loadingPost = false;
+
+  public configureMap: ConfigureMap = {
+    lat: 39.92666,
+    lon: -2.33976,
+    zoom: 6,
+    showCircle: false,
+    height: '400px',
+  };
 
   private location: LocationResponse | undefined;
 

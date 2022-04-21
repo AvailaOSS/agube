@@ -6,7 +6,7 @@ import {
 } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { Component, OnInit } from '@angular/core';
-import { MapLocation } from 'src/app/components/map/view/map-location';
+import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
 import { Router } from '@angular/router';
 
@@ -20,14 +20,13 @@ export class DetailComponent implements OnInit {
   public dwelling: DwellingCreate | undefined;
 
   // map
-  public location: MapLocation | undefined;
+  public configureView: ConfigureView | undefined;
   public configureMap: ConfigureMap | undefined;
   // map config
   public mode: string = 'map';
   private mapZoomDefault: number = 15;
   private mapStreetViewPositionDegree: number = 0;
   private mapHeight: string = '500px';
-  private mapWidth: string = this.mapHeight;
 
   constructor(
     private router: Router,
@@ -68,15 +67,15 @@ export class DetailComponent implements OnInit {
       lon: +geolocation.longitude,
       zoom: geolocation.zoom,
       showCircle: true,
+      height: this.mapHeight,
     };
-    this.location = {
+    this.configureView = {
       latitude: +geolocation.latitude,
       longitude: +geolocation.longitude,
       zoom: this.mapZoomDefault,
       horizontalDegree: this.mapStreetViewPositionDegree,
       verticalDegree: this.mapStreetViewPositionDegree,
       height: this.mapHeight,
-      width: this.mapWidth,
     };
   }
 }

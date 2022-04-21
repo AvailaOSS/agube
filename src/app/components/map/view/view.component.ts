@@ -9,7 +9,7 @@ import {
 import { GoogleMap } from '@angular/google-maps';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MapLocation } from './map-location';
+import { ConfigureView } from './map-location';
 
 @Component({
   selector: 'app-street-view',
@@ -17,7 +17,7 @@ import { MapLocation } from './map-location';
   styleUrls: ['./view.component.scss'],
 })
 export class StreetViewComponent implements OnInit, AfterViewInit {
-  @Input() public location: MapLocation | undefined;
+  @Input() public configureView: ConfigureView | undefined;
 
   @ViewChild(GoogleMap) map: GoogleMap | undefined;
 
@@ -28,7 +28,7 @@ export class StreetViewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (!this.location) {
+    if (!this.configureView) {
       throw new Error('This component needs location object');
     }
   }
@@ -53,7 +53,7 @@ export class StreetViewComponent implements OnInit, AfterViewInit {
   }
 
   private configureStreetView() {
-    if (!this.location) {
+    if (!this.configureView) {
       return;
     }
 
@@ -64,10 +64,13 @@ export class StreetViewComponent implements OnInit, AfterViewInit {
     const streetView = this.map.getStreetView();
 
     streetView.setOptions({
-      position: { lat: this.location.latitude, lng: this.location.longitude },
+      position: {
+        lat: this.configureView.latitude,
+        lng: this.configureView.longitude,
+      },
       pov: {
-        heading: this.location.horizontalDegree,
-        pitch: this.location.verticalDegree,
+        heading: this.configureView.horizontalDegree,
+        pitch: this.configureView.verticalDegree,
       },
     });
 
