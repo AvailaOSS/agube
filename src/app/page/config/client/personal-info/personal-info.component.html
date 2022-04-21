@@ -25,7 +25,7 @@
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
     <mat-card-actions [align]="'end'">
         <button mat-raised-button color="primary" matTooltip="{{ 'PERSONAL_INFO.FORM.BUTTON.BUTTON_TOOLTIP' | translate }}" (click)="saveForm()" [disabled]="personalForm.invalid">
-            <div>
+            <div >
                 <mat-icon>save</mat-icon>
                 {{ 'PERSONAL_INFO.FORM.BUTTON.BUTTON_SAVE' | translate }}
             </div>
