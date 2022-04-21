@@ -35,7 +35,7 @@ class UserCustomDetailView(APIView):
         """
         Return user information details.
         """
-        user = request.user
+        user = User.objects.get(id=pk)
 
         phone = UserPhone.objects.get(user=user, main=True)
 
@@ -63,12 +63,16 @@ class UserDwellingDetailView(APIView):
         Return list of Dwelling assigned to this user
         """
         dwelling_list_as_owner: list[Dwelling] = list(
-            map(lambda owner: owner.dwelling,
-                DwellingOwner.objects.filter(user__id=pk)))
+            map(
+                lambda owner: owner.dwelling,
+                DwellingOwner.objects.filter(user__id=pk).exclude(
+                    discharge_date__isnull=False)))
 
         dwelling_list_as_resident: list[Dwelling] = list(
-            map(lambda resident: resident.dwelling,
-                DwellingResident.objects.filter(user__id=pk)))
+            map(
+                lambda resident: resident.dwelling,
+                DwellingResident.objects.filter(user__id=pk).exclude(
+                    discharge_date__isnull=False)))
 
         serialized_data_list: list[UserDwellingDetailSerializer] = []
         dwelling_owner_resident_set = set(dwelling_list_as_owner).intersection(
