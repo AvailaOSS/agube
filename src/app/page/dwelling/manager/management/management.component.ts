@@ -33,6 +33,11 @@ export class ManagementComponent {
     };
   }
 
+  public goToMyDwelling() {
+    this.router.navigate(['/manager/home/client/dwellings'], {
+      queryParams: { dwellingId: this.dwellingDetail?.id },
+    });
+  }
   public openChangeWaterMeter() {
     if (!this.waterMeterId) {
       return;

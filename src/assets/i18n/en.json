@@ -40,6 +40,7 @@
         "NO_RESIDENT": "Without Resident"
       },
       "BUTTONS": {
+        "GO_DWELLING_TOOLTIP": "Go to Dwelling",
         "CHANGE_WATER_METER_CODE": "Change Counter",
         "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter",
         "CHANGE_RESIDENT": "Change Resident",

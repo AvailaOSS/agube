@@ -40,6 +40,7 @@
         "NO_RESIDENT": "Sen Residente"
       },
       "BUTTONS": {
+        "GO_DWELLING_TOOLTIP": "Ir á Vivenda",
         "CHANGE_WATER_METER_CODE": "Cambio de Contador",
         "CHANGE_WATER_METER_CODE_TOOLTIP": "Dar de Baixa o contador actual e Dar de Alta un novo contador",
         "CHANGE_RESIDENT": "Cambio de Residente",
