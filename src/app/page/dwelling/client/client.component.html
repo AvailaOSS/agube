@@ -1,1 +1,54 @@
-client-dwelling works!
+<div *ngIf="loading; else noDwelling">
+  <div class="title">
+    <h1>Seleccione una de las viviendas para ver más detalles</h1>
+  </div>
+
+  <div class="dwelling-detail">
+    <button mat-stroked-button class="button" *ngFor="let dwelling of dwellings" (click)="goToDwellingDetail(dwelling)">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <h3>{{dwelling | dwellingDetail | slice:0:10}}...</h3>
+          </mat-card-title>
+          <mat-card-subtitle>Contador: {{dwelling.water_meter_code}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <div *ngIf="dwelling.is_owner">
+            <mat-icon>hail</mat-icon>
+            Propietario
+          </div>
+          <div class="resident" *ngIf="dwelling.is_resident">
+            <div class="icons">
+              <mat-icon>escalator_warning</mat-icon>
+              <span>
+                Residente
+              </span>
+              <div>
+                <mat-icon>call</mat-icon>
+                {{dwelling.resident_phone}}
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </button>
+  </div>
+</div>
+<ng-template #noDwelling>
+  <div class="no-dwelling">
+    <div class="no-dwelling-text">
+      <h2>
+        {{'DWELLING_DETAIL.NO_DWELLING_DETAIL.TEXT'|translate}}
+      </h2>
+      <mat-icon class="alert-no-dwelling">assignment_late</mat-icon>
+    </div>
+    <div >
+      <button mat-raised-button color="primary"
+        matTooltip="{{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TOOLTIP' | translate }}">
+        <mat-icon>add_business</mat-icon>
+        {{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TEXT' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

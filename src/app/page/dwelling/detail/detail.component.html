@@ -1,7 +1,7 @@
 <div class="detail-page">
   <div class="page-content">
     <mat-card *ngIf="!loading; else pageLoading">
-      <mat-card-content *ngIf="dwelling; else noDwelling">
+      <mat-card-content *ngIf="dwelling">
         <div class="dwelling-info">
           <h1>
             {{ dwelling.address | address }}
@@ -39,25 +39,6 @@
         </div>
 
       </mat-card-content>
-      <ng-template #noDwelling>
-        <div class="no-dwelling">
-          <div class="no-dwelling-text">
-
-            <h2>
-              {{'DWELLING_DETAIL.NO_DWELLING_DETAIL.TEXT'|translate}}
-            </h2>
-            <mat-icon class="alert-no-dwelling">assignment_late</mat-icon>
-          </div>
-          <div>
-            <button mat-raised-button color="primary"
-              matTooltip="{{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TOOLTIP' | translate }}"
-              (click)="goToNewDwelling()">
-              <mat-icon>add_business</mat-icon>
-              {{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TEXT' | translate }}
-            </button>
-          </div>
-        </div>
-      </ng-template>
     </mat-card>
     <ng-template #pageLoading>
       <mat-spinner ></mat-spinner>

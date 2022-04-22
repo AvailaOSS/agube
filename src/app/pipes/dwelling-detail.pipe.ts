@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DwellingDetail } from '@availa/agube-rest-api';
+import { DwellingDetail, UserDwellingDetail } from '@availa/agube-rest-api';
 
 @Pipe({
   name: 'dwellingDetail',
 })
 export class DwellingDetailPipe implements PipeTransform {
-  transform(dwellingDetail: DwellingDetail): string {
+  transform(dwellingDetail: DwellingDetail | UserDwellingDetail): string {
     return (
       dwellingDetail.road +
       ', ' +
