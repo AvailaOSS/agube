@@ -1,6 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from geolocation.models import Geolocation
+from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
+from login.permissions import IsManagerOfUser, IsUserMatch
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -39,13 +42,14 @@ class ReservoirListView(APIView):
 
         list_of_serialized = []
         for reservoir in reservoirs:
+            water_meter_code: str = reservoir.get_current_water_meter().code
+            address: Address = reservoir.address
             data = {
                 'id': reservoir.id,
-                'town': reservoir.full_address.address.town,
-                'street': reservoir.full_address.address.street,
-                'number': reservoir.full_address.number,
-                'flat': reservoir.full_address.flat,
-                'gate': reservoir.full_address.gate,
+                'city': address.city,
+                'road': address.road,
+                'number': address.number,
+                'water_meter_code': water_meter_code,
                 'capacity': str(reservoir.capacity),
                 'inlet_flow': str(reservoir.inlet_flow),
                 'outlet_flow': str(reservoir.outlet_flow),
@@ -133,8 +137,9 @@ class ReservoirWaterMeterChunkView(APIView):
 
             return Response(WaterMeterDetailSerializer(data, many=False).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find dwelling'},
-                            status=HTTP_404_NOT_FOUND)
+            return Response(
+                {'status': 'cannot find current water meter measures'},
+                status=HTTP_404_NOT_FOUND)
 
 
 class ReservoirOwnerView(generics.GenericAPIView):
@@ -150,18 +155,21 @@ class ReservoirOwnerView(generics.GenericAPIView):
         try:
             reservoir = Reservoir.objects.get(id=pk)
             owner = reservoir.get_current_owner()
+            if not owner:
+                return Response({'status': 'cannot find Current Owner'},
+                                status=HTTP_404_NOT_FOUND)
             return Response(get_reservoir_owner_serialized(owner))
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
- 
-                            
+
+
 class ReservoirWaterMeterHistoricalView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentReservoirWaterMeterHistorical",
-        responses={200: WaterMeterSerializer(many=True)},
+        responses={200: WaterMeterDetailSerializer(many=True)},
     )
     def get(self, request, pk):
         try:
@@ -178,8 +186,7 @@ class ReservoirWaterMeterHistoricalView(APIView):
                         'date': measure.date,
                     }
                     measures_serialized.append(
-                        WaterMeterMeasurementSerializer(data,
-                                                        many=False).data)
+                        WaterMeterMeasurementSerializer(data, many=False).data)
                 data = {
                     'id': water_meter.id,
                     'code': water_meter.code,
@@ -187,13 +194,13 @@ class ReservoirWaterMeterHistoricalView(APIView):
                     'discharge_date': water_meter.discharge_date,
                     'measures': measures_serialized
                 }
-                water_serialized.append(WaterMeterDetailSerializer(data, many=False).data)
+                water_serialized.append(
+                    WaterMeterDetailSerializer(data, many=False).data)
 
             return Response(water_serialized)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
-
 
 
 class ReservoirWaterMeterView(generics.GenericAPIView):

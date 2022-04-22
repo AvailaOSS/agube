@@ -15,7 +15,8 @@ __url_dwelling = [
          DwellingSetOwnerAsResidentView.as_view()),
     path('<int:pk>/resident', DwellingResidentView.as_view()),
     path('<int:pk>/water-meter', DwellingWaterMeterView.as_view()),
-    path('<int:pk>/water-meter/historical', DwellingWaterMeterHistoricalView.as_view()),
+    path('<int:pk>/water-meter/historical',
+         DwellingWaterMeterHistoricalView.as_view()),
     path('<int:pk>/water-meter/<int:chunk>',
          DwellingWaterMeterChunkView.as_view())
 ]

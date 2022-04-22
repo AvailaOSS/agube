@@ -1,88 +1,26 @@
-from address.models import Address, FullAddress
+from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from address.serializers import FullAddressSerializer
 from drf_yasg.utils import swagger_auto_schema
+from dwelling.assemblers import create_user_address
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
-from login.serializers_external import UserDwellingDetailSerializer
-from phone.models import Phone
+from geolocation.models import Geolocation
 from manager.permissions import IsManagerAuthenticated
-from login.permissions import IsManagerOfUser, IsUserMatch
-from phone.serializers import PhoneSerializer
+from phone.models import Phone
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-
+from address.serializers import AddressSerializer
 from login.assemblers import (get_all_user_full_address_serialized,
                               get_all_user_phones_serialized)
 from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
+from login.permissions import IsManagerOfUser, IsUserMatch
 from login.serializers import (UserAddressUpdateSerializer,
-                               UserCustomDetailSerializer,
                                UserDetailSerializer, UserPhoneUpdateSerializer)
+from login.serializers_external import UserDwellingDetailSerializer
 
 TAG_USER = 'user'
-
-
-class UserCustomDetailListView(APIView):
-    permission_classes = [IsManagerAuthenticated]
-
-    @swagger_auto_schema(
-        operation_id="getUsersDetails",
-        responses={200: UserCustomDetailSerializer(many=True)},
-        tags=[TAG_USER],
-    )
-    def get(self, request):
-        """
-        Return list of users with custom details.
-        """
-        list_of_serialized: list[UserCustomDetailSerializer] = []
-        for user in User.objects.all():
-
-            try:
-                # FIXME: if user is manager, user_address is null...
-                # TODO: allow that user manager add a main address
-                town = ''
-                street = ''
-                number = ''
-                flat = ''
-                gate = ''
-                user_address = UserAddress.objects.get(user=user,
-                                                       main=True).full_address
-                if user_address:
-                    town = user_address.address.town,
-                    street = user_address.address.street,
-                    number = user_address.number,
-                    flat = user_address.flat,
-                    gate = user_address.gate
-            except ObjectDoesNotExist:
-                pass
-
-            user_phone_number = ''
-            try:
-                user_phone: UserPhone = UserPhone.objects.get(user=user,
-                                                              main=True)
-                if user_phone:
-                    user_phone_number = user_phone.phone.phone_number
-            except ObjectDoesNotExist:
-                pass
-
-            data = {
-                "id": user.id,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "phone": user_phone_number,
-                "email": user.email,
-                "town": town,
-                "street": street,
-                "number": number,
-                "flat": flat,
-                "gate": gate
-            }
-            list_of_serialized.append(
-                UserCustomDetailSerializer(data, many=False).data)
-
-        return Response(list_of_serialized)
 
 
 class UserCustomDetailView(APIView):
@@ -97,7 +35,7 @@ class UserCustomDetailView(APIView):
         """
         Return user information details.
         """
-        user = request.user
+        user = User.objects.get(id=pk)
 
         phone = UserPhone.objects.get(user=user, main=True)
 
@@ -125,12 +63,16 @@ class UserDwellingDetailView(APIView):
         Return list of Dwelling assigned to this user
         """
         dwelling_list_as_owner: list[Dwelling] = list(
-            map(lambda owner: owner.dwelling,
-                DwellingOwner.objects.filter(user__id=pk)))
+            map(
+                lambda owner: owner.dwelling,
+                DwellingOwner.objects.filter(user__id=pk).exclude(
+                    discharge_date__isnull=False)))
 
         dwelling_list_as_resident: list[Dwelling] = list(
-            map(lambda resident: resident.dwelling,
-                DwellingResident.objects.filter(user__id=pk)))
+            map(
+                lambda resident: resident.dwelling,
+                DwellingResident.objects.filter(user__id=pk).exclude(
+                    discharge_date__isnull=False)))
 
         serialized_data_list: list[UserDwellingDetailSerializer] = []
         dwelling_owner_resident_set = set(dwelling_list_as_owner).intersection(
@@ -174,15 +116,13 @@ class UserDwellingDetailView(APIView):
                         resident_phone_number = user_phone.phone.phone_number
                 except ObjectDoesNotExist:
                     pass
-
+            address: Address = dwelling.address
             data = {
                 'id': dwelling.id,
                 'water_meter_code': water_meter_code,
-                'town': dwelling.full_address.address.town,
-                'street': dwelling.full_address.address.street,
-                'number': dwelling.full_address.number,
-                'flat': dwelling.full_address.flat,
-                'gate': dwelling.full_address.gate,
+                'city': address.city,
+                'road': address.road,
+                'number': address.number,
                 'resident_first_name': resident_first_name,
                 'resident_phone': resident_phone_number,
                 'is_owner': is_owner,
@@ -314,7 +254,7 @@ class UserCreateAddressView(APIView):
     )
     def post(self, request, pk):
         """
-        Add new User Full Address
+        Add new User Address
         """
         try:
             user = User.objects.get(id=pk)
@@ -322,42 +262,14 @@ class UserCreateAddressView(APIView):
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
         # extract data
-        full_address = request.data.pop('full_address')
+        address = request.data.pop('address')
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
             update_address_to_not_main(pk)
-        # create a new full address
-        created_user_address = self.create_address(user, full_address, main)
-
+        # create a new address
+        created_user_address = create_user_address(user, address, main)
         return Response(UserAddressUpdateSerializer(created_user_address).data)
-
-    @classmethod
-    def create_address(cls, user, validated_data, main):
-        # Extract Address data
-        address_data = validated_data.pop('address')
-        town = address_data.pop('town')
-        street = address_data.pop('street')
-        is_external = address_data.pop('is_external')
-
-        # Create Address
-        new_address = Address.objects.create(town=town,
-                                             street=street,
-                                             is_external=is_external)
-
-        # Extract Full Address data
-        number = validated_data.pop('number')
-        flat = validated_data.pop('flat')
-        gate = validated_data.pop('gate')
-
-        # Create Full Address
-        new_full_address: FullAddress = FullAddress.objects.create(
-            address=new_address, number=number, flat=flat, gate=gate)
-
-        # Create User Full Address
-        return UserAddress.objects.create(user=user,
-                                          full_address=new_full_address,
-                                          main=main)
 
     @swagger_auto_schema(
         operation_id="getUserAddress",
@@ -382,10 +294,10 @@ class UserAddressUpdateDeleteView(APIView):
     @swagger_auto_schema(
         operation_id="updateUserAddress",
         request_body=UserAddressUpdateSerializer,
-        responses={200: UserAddressUpdateSerializer(many=True)},
+        responses={200: UserAddressUpdateSerializer(many=False)},
         tags=[TAG_USER],
     )
-    def put(self, request, pk, full_address_id):
+    def put(self, request, pk, address_id):
         """
         Update user address
         """
@@ -395,7 +307,7 @@ class UserAddressUpdateDeleteView(APIView):
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
         # extract data
-        full_address = request.data.pop('full_address')
+        address_data = request.data.pop('address')
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
@@ -403,47 +315,66 @@ class UserAddressUpdateDeleteView(APIView):
         # update phone with new data
         try:
             user_address: UserAddress = UserAddress.objects.get(
-                user__id=pk, full_address__id=full_address_id)
+                user__id=pk, address__id=address_id)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find user full address'},
+            return Response({'status': 'cannot find user address'},
                             status=HTTP_404_NOT_FOUND)
-        address = full_address.pop('address')
-        user_address.full_address.address.town = address.pop('town')
-        user_address.full_address.address.street = address.pop('street')
-        user_address.full_address.address.is_external = address.pop(
-            'is_external')
-        user_address.full_address.address.save()
-        user_address.full_address.number = full_address.pop('number')
-        user_address.full_address.flat = full_address.pop('flat')
-        user_address.full_address.gate = full_address.pop('gate')
-        user_address.full_address.save()
+
+        geolocation_data = address_data.get('geolocation')
+        update_this_geolocation = user_address.address.geolocation
+        update_this_geolocation.latitude = geolocation_data.get('latitude')
+        update_this_geolocation.longitude = geolocation_data.get('longitude')
+        update_this_geolocation.zoom = geolocation_data.get('zoom')
+        update_this_geolocation.horizontal_degree = geolocation_data.get('horizontal_degree')
+        update_this_geolocation.vertical_degree = geolocation_data.get('vertical_degree')
+        update_this_geolocation.save()
+
+        update_this_address = user_address.address
+        update_this_address.city = address_data.get('city')
+        update_this_address.country = address_data.get('country')
+        update_this_address.city_district = address_data.get('city_district')
+        update_this_address.municipality = address_data.get('municipality')
+        update_this_address.postcode = address_data.get('postcode')
+        update_this_address.province = address_data.get('province')
+        update_this_address.state = address_data.get('state')
+        update_this_address.village = address_data.get('village')
+        update_this_address.road = address_data.get('road')
+        update_this_address.number = address_data.get('number')
+        update_this_address.flat = address_data.get('flat')
+        update_this_address.gate = address_data.get('gate')
+        update_this_address.save()
         user_address.main = main
         user_address.save()
 
-        return Response(get_all_user_full_address_serialized(user))
+        data = {
+            "id": user_address.id,
+            "address": AddressSerializer(update_this_address).data,
+            'main': user_address.main,
+        }
+
+        return Response(UserAddressUpdateSerializer(data, many=False).data)
 
     @swagger_auto_schema(
         operation_id="deleteUserAddress",
         tags=[TAG_USER],
     )
-    def delete(self, request, pk, full_address_id):
+    def delete(self, request, pk, address_id):
         """
         Delete User address
         """
         try:
             user_address: UserAddress = UserAddress.objects.get(
-                user__id=pk, full_address__id=full_address_id)
+                user__id=pk, address__id=address_id)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user full address'},
                             status=HTTP_404_NOT_FOUND)
-        user_address = UserAddress.objects.get(
-            user__id=pk, full_address__id=full_address_id)
+        user_address = UserAddress.objects.get(user__id=pk,
+                                               address__id=address_id)
         if user_address.main:
             return Response({'status': 'cannot delete main address'},
                             status=HTTP_404_NOT_FOUND)
-        full_address = user_address.full_address
+        address = user_address.address
         user_address.delete()
-        if full_address.address.is_external:
-            full_address.delete()
-            full_address.address.delete()
+        if address.is_external:
+            address.delete()
         return Response({'status': 'delete successfull!'})

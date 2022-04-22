@@ -11,7 +11,8 @@ __url_reservoir = [
     path('<int:pk>', ReservoirView.as_view()),
     path('<int:pk>/owner', ReservoirOwnerView.as_view()),
     path('<int:pk>/water-meter', ReservoirWaterMeterView.as_view()),
-     path('<int:pk>/water-meter/historical', ReservoirWaterMeterHistoricalView.as_view()),
+    path('<int:pk>/water-meter/historical',
+         ReservoirWaterMeterHistoricalView.as_view()),
     path('<int:pk>/water-meter/<int:chunk>',
          ReservoirWaterMeterChunkView.as_view())
 ]

@@ -1,7 +1,7 @@
 from enum import Enum
 
-from address.models import Address, FullAddress
-from address.serializers import AddressSerializer, FullAddressSerializer
+from address.models import Address
+from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
@@ -14,8 +14,11 @@ from phone.serializers import PhoneSerializer
 from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
+from geolocation.models import Geolocation
+from address.assembler import create_address
 
 
+# FIXME: the user methods must be moved to login app
 class PersonTag(Enum):
     OWNER = "Propietario"
     RESIDENT = "Residente"
@@ -27,22 +30,12 @@ def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
     UserPhone.objects.create(user=user, phone=new_phone, main=main)
 
 
-def create_address(user: User, validated_data: AddressSerializer, main: bool):
-    # extract address_data
-    address_data = validated_data.pop('address')
-    # create addres
-    new_address = Address.objects.create(
-        town=address_data.pop('town'),
-        street=address_data.pop('street'),
-        is_external=address_data.pop('is_external'))
-    # create full address
-    full_address = FullAddress.objects.create(
-        address=new_address,
-        number=validated_data.pop('number'),
-        flat=validated_data.pop('flat'),
-        gate=validated_data.pop('gate'))
+def create_user_address(user: User, validated_data: AddressSerializer,
+                        main: bool):
     # create user address
-    UserAddress.objects.create(user=user, full_address=full_address, main=main)
+    return UserAddress.objects.create(user=user,
+                               address=create_address(validated_data),
+                               main=main)
 
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
@@ -82,7 +75,7 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
     # Create User Address
     first_iteration = True
     for address in addresses:
-        create_address(user, address, first_iteration)
+        create_user_address(user, address, first_iteration)
         first_iteration = False
 
     # Important: create Person after create User
@@ -101,22 +94,36 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
 
 
 def get_all_user_address_serialized(user: User):
-    list_of_serialized: list[FullAddressSerializer] = []
+    list_of_serialized: list[AddressSerializer] = []
     for address_iteration in UserAddress.objects.filter(user=user):
-        full_address = address_iteration.full_address
-        data = {
-            "id": full_address.id,
-            "address": {
-                "id": full_address.address.id,
-                "town": full_address.address.town,
-                "street": full_address.address.street,
-                "is_external": full_address.address.is_external
-            },
-            "number": full_address.number,
-            "flat": full_address.flat,
-            "gate": full_address.gate
+        address = address_iteration.address
+        geo = address.geolocation
+        geo_data = {
+            "id": geo.id,
+            "latitude": geo.latitude,
+            "longitude": geo.longitude,
+            "zoom": geo.zoom,
+            "horizontal_degree": geo.horizontal_degree,
+            "vertical_degree": geo.vertical_degree,
         }
-        list_of_serialized.append(FullAddressSerializer(data, many=False).data)
+        data = {
+            "id": address.id,
+            "geolocation": geo_data,
+            "is_external": address.is_external,
+            "city": address.city,
+            "country": address.country,
+            "city_district": address.city_district,
+            "municipality": address.municipality,
+            "postcode": address.postcode,
+            "province": address.province,
+            "state": address.state,
+            "village": address.village,
+            "road": address.road,
+            "number": address.number,
+            "flat": address.flat,
+            "gate": address.gate
+        }
+        list_of_serialized.append(AddressSerializer(data, many=False).data)
 
     return list_of_serialized
 

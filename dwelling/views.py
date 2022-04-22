@@ -1,8 +1,11 @@
-from address.models import FullAddress
+from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
 from login.models import UserAddress, UserPhone
+from rest_framework.permissions import IsAuthenticated
+from geolocation.models import Geolocation
+from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -65,16 +68,13 @@ class DwellingListView(APIView):
                 except ObjectDoesNotExist:
                     pass
 
-            full_address: FullAddress = dwelling.full_address
-
+            address: Address = dwelling.address
             data = {
                 'id': dwelling.id,
+                'city': address.city,
+                'road': address.road,
+                'number': address.number,
                 'water_meter_code': water_meter_code,
-                'town': full_address.address.town,
-                'street': full_address.address.street,
-                'number': full_address.number,
-                'flat': full_address.flat,
-                'gate': full_address.gate,
                 'resident_first_name': resident_first_name,
                 'resident_phone': user_phone_number,
             }
@@ -142,7 +142,7 @@ class DwellingView(generics.GenericAPIView):
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingOwnerSerializer
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(operation_id="getCurrentOwner",
                          responses={200: DwellingOwnerSerializer(many=False)})
@@ -182,7 +182,7 @@ class DwellingOwnerView(generics.GenericAPIView):
 class DwellingResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingResidentSerializer
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentResident",
@@ -242,8 +242,7 @@ class DwellingWaterMeterHistoricalView(APIView):
                         'date': measure.date,
                     }
                     measures_serialized.append(
-                        WaterMeterMeasurementSerializer(data,
-                                                        many=False).data)
+                        WaterMeterMeasurementSerializer(data, many=False).data)
                 data = {
                     'id': water_meter.id,
                     'code': water_meter.code,
@@ -251,7 +250,8 @@ class DwellingWaterMeterHistoricalView(APIView):
                     'discharge_date': water_meter.discharge_date,
                     'measures': measures_serialized
                 }
-                water_serialized.append(WaterMeterDetailSerializer(data, many=False).data)
+                water_serialized.append(
+                    WaterMeterDetailSerializer(data, many=False).data)
 
             return Response(water_serialized)
         except ObjectDoesNotExist:

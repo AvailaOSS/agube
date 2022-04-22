@@ -1,15 +1,15 @@
-from address.models import FullAddress
+from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from geolocation.models import Geolocation
 from watermeter.models import WaterMeter
 
 
 class Reservoir(models.Model):
     """A class used to represent an Reservoir"""
-    full_address: FullAddress = models.ForeignKey(FullAddress,
-                                                  on_delete=models.PROTECT)
+    address: Address = models.ForeignKey(Address, on_delete=models.PROTECT)
     capacity = models.DecimalField(decimal_places=3, max_digits=8)
     inlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
     outlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
@@ -55,6 +55,13 @@ class Reservoir(models.Model):
         water_meter: WaterMeter = WaterMeter.objects.create(code=code)
         ReservoirWaterMeter.objects.create(reservoir=self,
                                            water_meter=water_meter)
+
+    def get_current_water_meter(self) -> WaterMeter:
+        try:
+            return ReservoirWaterMeter.objects.get(
+                reservoir=self, water_meter__discharge_date=None).water_meter
+        except ObjectDoesNotExist:
+            return None
 
     def get_historical_water_meter(self) -> WaterMeter:
         try:

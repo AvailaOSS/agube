@@ -1,5 +1,5 @@
-from address.models import Address, FullAddress
-from address.serializers import FullAddressSerializer
+from address.models import Address
+from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from login.serializers import UserCreateSerializer
@@ -13,6 +13,8 @@ from watermeter.serializers import WaterMeterSerializer
 from dwelling.exceptions import UserManagerRequiredError
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 
+from address.assembler import create_address
+
 
 class DwellingSerializer(ModelSerializer):
     """
@@ -21,14 +23,14 @@ class DwellingSerializer(ModelSerializer):
     id = ReadOnlyField()
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
-    full_address = FullAddressSerializer(many=False, read_only=False)
+    address = AddressSerializer(many=False, read_only=False)
 
     class Meta:
         ref_name = 'Dwelling'
         model = Dwelling
         fields = (
             'id',
-            'full_address',
+            'address',
             'release_date',
             'discharge_date',
         )
@@ -39,7 +41,7 @@ class DwellingCreateSerializer(ModelSerializer):
     Dwelling Create ModelSerializer
     """
     id = ReadOnlyField()
-    full_address = FullAddressSerializer(many=False, read_only=False)
+    address = AddressSerializer(many=False, read_only=False)
     water_meter = WaterMeterSerializer(many=False,
                                        read_only=False,
                                        write_only=True)
@@ -49,7 +51,7 @@ class DwellingCreateSerializer(ModelSerializer):
         model = Dwelling
         fields = (
             'id',
-            'full_address',
+            'address',
             'water_meter',
         )
 
@@ -60,8 +62,8 @@ class DwellingCreateSerializer(ModelSerializer):
         except ObjectDoesNotExist:
             raise UserManagerRequiredError()
         # Create address
-        validated_data['full_address'] = self.create_dwelling_address(
-            validated_data.pop('full_address'))
+        validated_data['address'] = self.create_dwelling_address(
+            validated_data.pop('address'))
         # Extract water_meter_code
         water_meter_code: WaterMeterSerializer = validated_data.pop(
             'water_meter')['code']
@@ -73,20 +75,8 @@ class DwellingCreateSerializer(ModelSerializer):
         return dwelling
 
     @classmethod
-    def create_dwelling_address(cls, validated_data) -> FullAddress:
-        address_data = validated_data.pop('address')
-        town = address_data.pop('town')
-        street = address_data.pop('street')
-        validated_data['address'] = Address.objects.create(town=town,
-                                                           street=street,
-                                                           is_external=False)
-        return FullAddress.objects.create(**validated_data)
-
-    @classmethod
-    def create_water_meter(cls, dwelling: Dwelling,
-                           validated_data) -> WaterMeter:
-        return WaterMeter.objects.create(dwelling=dwelling,
-                                         code=validated_data['code'])
+    def create_dwelling_address(cls, validated_data) -> Address:
+        return create_address(validated_data)
 
 
 class DwellingOwnerSerializer(ModelSerializer):
@@ -138,30 +128,22 @@ class DwellingDetailSerializer(Serializer):
     Dwelling Detail ModelSerializer
     """
     id = ReadOnlyField()
-    water_meter_code = CharField(max_length=None,
-                                 min_length=None,
-                                 allow_blank=False,
-                                 trim_whitespace=True)
-    town = CharField(max_length=None,
+    city = CharField(max_length=None,
                      min_length=None,
                      allow_blank=False,
                      trim_whitespace=True)
-    street = CharField(max_length=None,
-                       min_length=None,
-                       allow_blank=False,
-                       trim_whitespace=True)
+    road = CharField(max_length=None,
+                     min_length=None,
+                     allow_blank=False,
+                     trim_whitespace=True)
     number = CharField(max_length=None,
                        min_length=None,
                        allow_blank=False,
                        trim_whitespace=True)
-    flat = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
-    gate = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
+    water_meter_code = CharField(max_length=None,
+                                 min_length=None,
+                                 allow_blank=False,
+                                 trim_whitespace=True)
     resident_first_name = CharField(max_length=None,
                                     min_length=None,
                                     allow_blank=False,
