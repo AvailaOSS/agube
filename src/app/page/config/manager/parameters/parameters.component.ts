@@ -22,6 +22,8 @@ export class ParametersComponent implements OnInit {
 
   public releaseDate: Date | undefined = undefined;
 
+  private static seconds: number = 1000;
+
   constructor(
     private readonly svcManager: ManagerService,
     private formBuilder: FormBuilder,
@@ -55,7 +57,7 @@ export class ParametersComponent implements OnInit {
         setInterval(() => {
           this.responseManager(response);
           this.loadSave = false;
-        }, 5000);
+        }, ParametersComponent.seconds);
       },
       error: (error) => {
         this.svcNotification.warning({ message: error }, 8);

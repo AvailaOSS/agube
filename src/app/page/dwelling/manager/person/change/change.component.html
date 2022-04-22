@@ -12,15 +12,9 @@
             <strong>{{currentPerson | userDetail}}</strong> {{"PERSON.CHANGE.SUBTITLE_3" | translate }}
 
           </p>
-          <mat-card-subtitle>* {{'PERSON.WARNING_1'| translate}} {{title | translate}} {{'PERSON.WARNING_2'|
-            translate}}*
-          </mat-card-subtitle>
         </div>
         <ng-template #change>
           <h2>{{"PERSON.CHANGE.TITLE_2" | translate }} {{title | translate}}</h2>
-          <mat-card-subtitle>* {{'PERSON.WARNING_1'| translate}} {{title | translate}} {{'PERSON.WARNING_2'|
-            translate}}*
-          </mat-card-subtitle>
         </ng-template>
         <div class="form-content">
           <div>
@@ -91,6 +85,11 @@
                         </div>
                     </div> -->
         </div>
+        <br/>
+
+        <mat-card-subtitle class="save-info">* {{'PERSON.WARNING_1'| translate}} {{title | translate}} {{'PERSON.WARNING_2'|
+          translate}}*
+        </mat-card-subtitle>
         <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
         <mat-card-actions [align]="'end'">
           <button mat-button
@@ -99,9 +98,9 @@
             {{"PERSON.CHANGE.FORM.BUTTONS.CLOSE.TEXT" | translate}}
           </button>
           <button mat-raised-button color="primary"
-            matTooltip="{{'PERSON.CHANGE.FORM.BUTTONS.SAVE.TOOLTIP' | translate}} {{title | translate}}"
-            (click)="save()" [disabled]="this.personForm.invalid">
-            <div>
+          matTooltip="{{'PERSON.CHANGE.FORM.BUTTONS.SAVE.TOOLTIP' | translate}} {{title | translate}}"
+          (click)="save()" [disabled]="this.personForm.invalid">
+          <div>
               <mat-icon>save</mat-icon>
               {{"PERSON.CHANGE.FORM.BUTTONS.SAVE.TEXT" | translate}}
             </div>
