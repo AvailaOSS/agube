@@ -9,15 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
- import { FullAddress } from './fullAddress';
- import { Phone } from './phone';
-
+import { Address } from './address';
+import { Phone } from './phone';
 
 export interface UserCreate {
-    readonly id?: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
-    phones: Array<Phone>;
-    address?: Array<FullAddress>;
+  readonly id?: number;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  phones: Array<Phone>;
+  address?: Array<Address>;
 }

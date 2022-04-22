@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 export interface UserIsManager {
-    is_manager: boolean;
+  is_manager: boolean;
 }

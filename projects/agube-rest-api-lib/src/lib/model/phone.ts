@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-
 export interface Phone {
-    readonly id?: number;
-    phone_number: string;
+  readonly id?: number;
+  phone_number: string;
 }

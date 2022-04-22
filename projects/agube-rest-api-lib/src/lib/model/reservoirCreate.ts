@@ -9,16 +9,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { FullAddress } from './fullAddress';
+import { Address } from './address';
 import { WaterMeter } from './waterMeter';
 
-
 export interface ReservoirCreate {
-    readonly id?: number;
-    full_address: FullAddress;
-    user_id: number;
-    water_meter: WaterMeter;
-    capacity: string;
-    inlet_flow: string;
-    outlet_flow: string;
+  readonly id?: number;
+  address: Address;
+  user_id?: number;
+  water_meter: WaterMeter;
+  capacity: string;
+  inlet_flow: string;
+  outlet_flow: string;
 }

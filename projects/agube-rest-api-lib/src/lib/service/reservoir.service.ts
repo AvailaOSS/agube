@@ -21,7 +21,6 @@ import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
-import { Geolocation } from '../model/geolocation';
 import { Owner } from '../model/owner';
 import { ReservoirCreate } from '../model/reservoirCreate';
 import { ReservoirDetail } from '../model/reservoirDetail';
@@ -103,18 +102,16 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -179,18 +176,16 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -253,9 +248,8 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -320,9 +314,8 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -346,7 +339,7 @@ export class ReservoirService {
   /**
    *
    *
-   * @param id A unique integer value identifying this reservoir water meter.
+   * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -354,17 +347,17 @@ export class ReservoirService {
     id: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<WaterMeter>;
+  ): Observable<Array<WaterMeterWithMeasurements>>;
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<WaterMeter>>;
+  ): Observable<HttpResponse<Array<WaterMeterWithMeasurements>>>;
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<WaterMeter>>;
+  ): Observable<HttpEvent<Array<WaterMeterWithMeasurements>>>;
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe: any = 'body',
@@ -389,9 +382,8 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -399,7 +391,7 @@ export class ReservoirService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<WaterMeter>(
+    return this.httpClient.get<Array<WaterMeterWithMeasurements>>(
       `${this.basePath}/reservoir/${encodeURIComponent(
         String(id)
       )}/water-meter/historical`,
@@ -458,9 +450,8 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -536,9 +527,8 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -558,53 +548,6 @@ export class ReservoirService {
       }
     );
   }
-   /**
-     * 
-     * Return the Reservoir geolocation.
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getReservoirGeolocation(id: string, observe?: 'body', reportProgress?: boolean): Observable<Geolocation>;
-    public getReservoirGeolocation(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Geolocation>>;
-    public getReservoirGeolocation(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Geolocation>>;
-    public getReservoirGeolocation(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getReservoirGeolocation.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Geolocation>(`${this.basePath}/reservoir/${encodeURIComponent(String(id))}/geolocation`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
 
   /**
    *
@@ -641,9 +584,8 @@ export class ReservoirService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
