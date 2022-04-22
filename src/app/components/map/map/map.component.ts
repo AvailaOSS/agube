@@ -15,9 +15,9 @@ export class MapComponent implements AfterViewInit {
 
   protected map: any;
 
-  protected static zoom: number = 18;
-  protected static zoomMax: number = 19;
-  protected static zoomMin: number = 4;
+  public static zoom: number = 18;
+  public static zoomMax: number = 19;
+  public static zoomMin: number = 4;
 
   protected static mapViewUrl: string =
     'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';

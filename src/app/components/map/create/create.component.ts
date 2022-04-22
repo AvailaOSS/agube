@@ -106,6 +106,9 @@ export class CreateComponent
 
   public filtering() {
     this.getLocationBySearch().subscribe((response) => {
+      if(!response.length) {
+        return;
+      }
       this.candidateComponents?.deselectAll();
       this.streetCandidates = response;
       this.selectedStreetCandidate = response[0];
@@ -113,7 +116,7 @@ export class CreateComponent
       this.initializeMap({
         lat: this.selectedStreetCandidate.lat,
         lon: this.selectedStreetCandidate.lon,
-        zoom: CreateComponent.zoom,
+        zoom: MapComponent.zoom,
         showCircle: true,
         height: this.configureMap!.height,
       });
@@ -129,7 +132,7 @@ export class CreateComponent
     this.initializeMap({
       lat: candidate.lat,
       lon: candidate.lon,
-      zoom: CreateComponent.zoom,
+      zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
     });
@@ -142,7 +145,7 @@ export class CreateComponent
     this.initializeMap({
       lat: this.selectedStreetCandidate.lat,
       lon: this.selectedStreetCandidate.lon,
-      zoom: CreateComponent.zoom,
+      zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
     });
@@ -154,7 +157,7 @@ export class CreateComponent
     this.initializeMap({
       lat: this.selectedStreetCandidate.lat,
       lon: this.selectedStreetCandidate.lon,
-      zoom: CreateComponent.zoom,
+      zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
     });
@@ -194,8 +197,8 @@ export class CreateComponent
     });
 
     const tiles = L.tileLayer(CreateComponent.mapViewUrl, {
-      maxZoom: CreateComponent.zoomMax,
-      minZoom: CreateComponent.zoomMin,
+      maxZoom: MapComponent.zoomMax,
+      minZoom: MapComponent.zoomMin,
     });
 
     tiles.addTo(this.map);
@@ -213,7 +216,7 @@ export class CreateComponent
       return;
     }
     this.map.on('click', (e: MapEvent) => {
-      let userZoom = CreateComponent.zoom;
+      let userZoom = MapComponent.zoom;
       if (e.sourceTarget._animateToZoom) {
         userZoom = e.sourceTarget._animateToZoom;
       }
@@ -268,7 +271,7 @@ export class CreateComponent
 
   private fillFormControls(location: LocationResponse) {
     if (!location.zoom) {
-      location.zoom = CreateComponent.zoom;
+      location.zoom = MapComponent.zoom;
     }
 
     // FIXME: move this in one pipe
