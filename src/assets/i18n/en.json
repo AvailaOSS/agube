@@ -40,6 +40,7 @@
         "NO_RESIDENT": "Without Resident"
       },
       "BUTTONS": {
+        "GO_DWELLING_TOOLTIP": "Go to Dwelling",
         "CHANGE_WATER_METER_CODE": "Change Counter",
         "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter",
         "CHANGE_RESIDENT": "Change Resident",
@@ -53,6 +54,8 @@
     "PERSON": "Person",
     "OWNER": "Owner",
     "RESIDENT": "Resident",
+    "WARNING_1": "An email will be sent to the new",
+    "WARNING_2": "with the activation code to activate the account",
     "CHANGE": {
       "TITLE_1": "Change of",
       "TITLE_2": "Register a new",
@@ -108,17 +111,15 @@
       }
     }
   },
-  "NEW_DWELLING": {
-    "TITLE": "Register a new Home",
+  "STREET_VIEW": {
+    "FILTER": {
+      "TEXT": "Street, Post Code, Town, Province...",
+      "TOOLTIP": "Press enter key to search",
+      "TOOLTIP_GO": "Go",
+      "TOOLTIP_CLEAR": "Clean and Reset Search",
+      "VALIDATION": "Perform a search and we will take care of obtaining the necessary data"
+    },
     "FORM": {
-      "CODE_COUNTER": {
-        "TEXT": "Counter code",
-        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
-      },
-      "TOWN": {
-        "TEXT": "Town",
-        "VALIDATION": "Write the city in which the Dwelling is located"
-      },
       "STREET": {
         "TEXT": "Street",
         "VALIDATION": "Write the street to which the Dwelling corresponds"
@@ -131,8 +132,20 @@
         "TEXT": "Flat"
       },
       "GATE": {
-        "TEXT": "Gate",
-        "VALIDATION": "Write the door number"
+        "TEXT": "Gate"
+      }
+    },
+    "MAP": {
+      "CLICK": "Click to mark the address",
+      "LIST_SELECTOR": { "TOOLTIP": "Select" }
+    }
+  },
+  "NEW_DWELLING": {
+    "TITLE": "Register a new Dwelling",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Counter code",
+        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
       },
       "BUTTONS": {
         "CLOSE": {
@@ -147,6 +160,46 @@
           "TEXT": "Save and exit",
           "TOOLTIP": "Create new Dwelling and return to the main screen"
         }
+      }
+    },
+    "GEOLOCATION": {
+      "TITLE": "Geographical location"
+    }
+  },
+  "DWELLING_DETAIL": {
+    "DETAIL_INFO": {
+      "USER": {
+        "TITLE_RESIDENT": "Resident",
+        "TITLE_OWNER": "Owner",
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "EMAIL": "Email",
+        "PHONE_NUMBER": "Phone number"
+      }
+    },
+    "ADDRESS": {
+      "FORM": {
+        "COORDINATES": "Coordinates",
+        "COUNTRY": "Country",
+        "STATE": "State",
+        "PROVINCE": "Province",
+        "CITY": "City",
+        "VILLAGE": "Village",
+        "MUNICIPALITY": "Municipality",
+        "CITY_DISTRICT": "City district",
+        "POSTAL_CODE": "Postal Code",
+        "STREET": "Street"
+      }
+    },
+    "MAP": {
+      "TOOLTIP_MAP": "Map",
+      "TOOLTIP_STREET_VIEW": "Street View"
+    },
+    "NO_DWELLING_DETAIL": {
+      "TEXT": "You still do not have assigned Dwelling",
+      "BUTTON": {
+        "TOOLTIP": "Go to the creation dwelling page",
+        "TEXT": "New Dwelling"
       }
     }
   },
@@ -302,7 +355,6 @@
         "BUTTON_CLOSE_TOOLTIP": "Close",
         "BUTTON_SAVE_TOOLTIP": "Save",
         "VALIDATIONS": {
-          "GATE": "Write the gate number",
           "NUMBER": "Write the address number",
           "STREET": "Write the street to which the House corresponds",
           "TOWN": "Write the city in which the House is located"
@@ -352,7 +404,12 @@
   "RESERVOIR": {
     "TABLE": {
       "TITLE": "Reservoir's List",
-      "TOOLTIP": "Select",
+      "TOOLTIP": {
+        "CAPACITY": "Capacity",
+        "INLET_FLOW": "Inlet Flow",
+        "OUTLET_FLOW": "Outlet Flow",
+        "FULL_ADDRESS": "Address"
+      },
       "FILTER": {
         "TEXT": "Code, Street, Town, Phone Nº...",
         "TOOLTIP": "Search",
@@ -384,15 +441,6 @@
           "TEXT": "Code counter",
           "VALIDATION": "Check what is the code of the water meter of the Reservoir"
         },
-        "GATE": {
-          "TEXT": "Gate",
-          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
-        },
-        "FLAT": {
-          "TEXT": "Flat",
-          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
-        },
-
         "NUMBER": {
           "TEXT": "Number",
           "VALIDATION": "Write the address number"

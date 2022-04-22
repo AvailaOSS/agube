@@ -12,6 +12,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { CreateModule as MapCreateModule } from 'src/app/components/map/create/create.module';
 
 @NgModule({
   declarations: [AddressComponent, EditComponent],
@@ -27,7 +28,8 @@ import { TranslateModule } from '@ngx-translate/core';
     PipesModule,
     MatDividerModule,
     MatTooltipModule,
-    TranslateModule
+    TranslateModule,
+    MapCreateModule,
   ],
   exports: [AddressComponent, EditComponent],
 })

@@ -18,7 +18,7 @@
   },
   "DWELLINGS": {
     "TABLE": {
-      "TITLE": "Lista de Depósitos",
+      "TITLE": "Lista de Vivendas",
       "TOOLTIP": "Seleccionar",
       "FILTER": {
         "TEXT": "Código, Rúa, Cidade, Nº Telfono...",
@@ -40,6 +40,7 @@
         "NO_RESIDENT": "Sen Residente"
       },
       "BUTTONS": {
+        "GO_DWELLING_TOOLTIP": "Ir á Vivenda",
         "CHANGE_WATER_METER_CODE": "Cambio de Contador",
         "CHANGE_WATER_METER_CODE_TOOLTIP": "Dar de Baixa o contador actual e Dar de Alta un novo contador",
         "CHANGE_RESIDENT": "Cambio de Residente",
@@ -53,6 +54,8 @@
     "PERSON": "Persoa",
     "OWNER": "Propietario/a",
     "RESIDENT": "Residente",
+    "WARNING_1": "Se va a enviar un correo electrónico ó novo/a",
+    "WARNING_2": "có código de activación para activar a conta",
     "CHANGE": {
       "TITLE_1": "Cambio de",
       "TITLE_2": "Alta de novo/a",
@@ -108,17 +111,15 @@
       }
     }
   },
-  "NEW_DWELLING": {
-    "TITLE": "Da de Alta unha nova Vivenda",
+  "STREET_VIEW": {
+    "FILTER": {
+      "TEXT": "Rúa, CP, Cidade, Provincia...",
+      "TOOLTIP": "Preme a tecla Intro para buscar",
+      "TOOLTIP_GO": "Ir",
+      "TOOLTIP_CLEAR": "Borrar e Reiniciar búsqueda",
+      "VALIDATION": "Realiza unha búsqueda e encargarémosnos de obter os datos precisos"
+    },
     "FORM": {
-      "CODE_COUNTER": {
-        "TEXT": "Código de contador",
-        "VALIDATION": "Revisa cal é o código do contador de auga da Vivenda"
-      },
-      "TOWN": {
-        "TEXT": "Cidade",
-        "VALIDATION": "Escribe a cidade na que se encontra a Vivenda"
-      },
       "STREET": {
         "TEXT": "Rúa",
         "VALIDATION": "Escribe a rúa correspondente á Vivenda"
@@ -131,8 +132,20 @@
         "TEXT": "Piso"
       },
       "GATE": {
-        "TEXT": "Porta",
-        "VALIDATION": "Escribe o número da Porta"
+        "TEXT": "Porta"
+      }
+    },
+    "MAP": {
+      "CLICK": "Clica para marcar a dirección",
+      "LIST_SELECTOR": { "TOOLTIP": "Seleccionar" }
+    }
+  },
+  "NEW_DWELLING": {
+    "TITLE": "Da de Alta unha nova Vivenda",
+    "FORM": {
+      "CODE_COUNTER": {
+        "TEXT": "Código de contador",
+        "VALIDATION": "Revisa cal é o código do contador de auga da Vivenda"
       },
       "BUTTONS": {
         "CLOSE": {
@@ -147,6 +160,43 @@
           "TEXT": "Gardar e Saír",
           "TOOLTIP": "Crear nova Vivenda e volver á pantalla principal"
         }
+      }
+    }
+  },
+  "DWELLING_DETAIL": {
+    "DETAIL_INFO": {
+      "USER": {
+        "TITLE_RESIDENT": "Residente",
+        "TITLE_OWNER": "Propietario",
+        "FIRST_NAME": "Nome",
+        "LAST_NAME": "Apelidos",
+        "EMAIL": "Correo electrónico",
+        "PHONE_NUMBER": "Nº de teléfono"
+      }
+    },
+    "ADDRESS": {
+      "FORM": {
+        "COORDINATES": "Coordenadas",
+        "COUNTRY": "País",
+        "STATE": "Comunidade",
+        "PROVINCE": "Provincia",
+        "CITY": "Cidade",
+        "VILLAGE": "Pobo",
+        "MUNICIPALITY": "Municipio",
+        "CITY_DISTRICT": "Barrio",
+        "POSTAL_CODE": "Código Postal",
+        "STREET": "Rúa"
+      }
+    },
+    "MAP": {
+      "TOOLTIP_MAP": "Mapa",
+      "TOOLTIP_STREET_VIEW": "Vista da Rúa"
+    },
+    "NO_DWELLING_DETAIL": {
+      "TEXT": " Aún no tes vivendas asignadas",
+      "BUTTON": {
+        "TOOLTIP": "Ir á páxina de creación de vivendas",
+        "TEXT": "Nova Vivenda"
       }
     }
   },
@@ -302,7 +352,6 @@
         "BUTTON_CLOSE_TOOLTIP": "Pechar",
         "BUTTON_SAVE_TOOLTIP": "Gardar",
         "VALIDATIONS": {
-          "GATE": "Escribe o número da Porta",
           "NUMBER": "Escribe o número da Dirección",
           "STREET": "Escribe a rúa correspondente á Vivenda",
           "TOWN": "Escribe a cidade na que se encontra á Vivenda"
@@ -351,7 +400,12 @@
   "RESERVOIR": {
     "TABLE": {
       "TITLE": "Lista de Depósitos",
-      "TOOLTIP": "Seleccionar",
+      "TOOLTIP": {
+        "CAPACITY": "Capacidade",
+        "INLET_FLOW": "Fluxo de Entrada",
+        "OUTLET_FLOW": "Fluxo de Saída",
+        "FULL_ADDRESS": "Dirección"
+      },
       "FILTER": {
         "TEXT": "Rúa, Cidade, Capacidade...",
         "TOOLTIP": "Buscar",
@@ -383,14 +437,6 @@
           "TEXT": "Código de Contador",
           "VALIDATION": "Revisa cal é o código do contador de auga do Depósito"
         },
-
-        "GATE": {
-          "TEXT": "Porta"
-        },
-        "FLAT": {
-          "TEXT": "Piso"
-        },
-
         "NUMBER": {
           "TEXT": "Numero",
           "VALIDATION": "Escribe o número da dirección"

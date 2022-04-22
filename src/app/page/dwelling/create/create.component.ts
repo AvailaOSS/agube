@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import {
   FormGroup,
@@ -8,54 +8,47 @@ import {
 } from '@angular/forms';
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { CreateAddress } from 'src/app/utils/address/create-address';
+import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 
 @Component({
   selector: 'app-page-dwelling-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent {
-  public dwellingForm: FormGroup;
+export class CreateComponent extends CreateAddress {
+  public dwellingForm: FormGroup | undefined;
   public code = new FormControl('', [Validators.required]);
-  public gate = new FormControl('', [Validators.required]);
-  public flat = new FormControl('', []);
-  public number = new FormControl('', [Validators.required]);
-  public street = new FormControl('', [Validators.required]);
-  public town = new FormControl('', [Validators.required]);
 
   public loadingPost = false;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private svcNotification: NotificationService,
-    private svcDwelling: DwellingService
+    private svcDwelling: DwellingService,
+    private formBuilder: FormBuilder
   ) {
+    super();
+  }
+
+  public override addressFormReceive(addressEmitter: AddressEmitter) {
+    super.addressFormReceive(addressEmitter);
     this.dwellingForm = this.formBuilder.group({
-      full_address: formBuilder.group({
-        address: formBuilder.group({
-          town: this.town,
-          street: this.street,
-        }),
-        number: this.number,
-        flat: this.flat,
-        gate: this.gate,
-      }),
+      address: addressEmitter.addressFormGroup,
       water_meter: this.formBuilder.group({
         code: this.code,
       }),
     });
   }
 
-  public save() {
-    if (this.dwellingForm.invalid) {
-      return;
-    }
+  public exit() {
+    this.router.navigate(['manager/dwellings']);
+  }
 
+  public save() {
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -67,14 +60,10 @@ export class CreateComponent {
     });
   }
 
-  public exit() {
-    this.router.navigate(['manager/dwellings']);
-  }
-
   public saveAndExit() {
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -94,52 +83,19 @@ export class CreateComponent {
           return 'NEW_DWELLING.FORM.CODE_COUNTER.VALIDATION';
         }
         return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'NEW_DWELLING.FORM.TOWN.VALIDATION';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'NEW_DWELLING.FORM.STREET.VALIDATION';
-        }
-        return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'NEW_DWELLING.FORM.NUMBER.VALIDATION';
-        }
-        return '';
-      case 'gate':
-        if (this.gate.hasError('required')) {
-          return 'NEW_DWELLING.FORM.GATE.VALIDATION';
-        }
-        return '';
       default:
         return '';
     }
   }
 
   private resetForm() {
-    this.gate.setValue('');
-    this.flat.setValue('');
-    this.number.setValue('');
-    this.town.setValue('');
-    this.street.setValue('');
+    this.resetChildForm = !this.resetChildForm;
     this.code.setValue('');
   }
 
   private onSave() {
     let dwelling: DwellingCreate = {
-      full_address: {
-        gate: this.gate.value,
-        flat: this.flat.value,
-        number: this.number.value,
-        address: {
-          is_external: false,
-          town: this.town.value,
-          street: this.street.value,
-        },
-      },
+      address: this.getAddress(),
       water_meter: {
         code: this.code.value,
       },

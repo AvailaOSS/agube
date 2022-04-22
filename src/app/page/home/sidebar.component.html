@@ -5,10 +5,10 @@
                 <mat-card-title>
                     <h1>AGUBE</h1>
                 </mat-card-title>
-                <mat-card-content>
+                <mat-card-content *ngIf="user">
                     <div mat-card-avatar class="example-header-image"></div>
-                    <p>{{ user!.username }}</p>
-                    <mat-card-subtitle>{{ user!.email }}</mat-card-subtitle>
+                    <p>{{ user | userDetail }}</p>
+                    <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-stroked-button color="warn" (click)="closeSession()">

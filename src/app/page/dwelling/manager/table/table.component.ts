@@ -1,33 +1,41 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TableReloadService } from './table-reload.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = [
     'water_meter_code',
     'full_address',
     'resident_first_name',
     'resident_phone',
   ];
-  public dataSource: MatTableDataSource<
-    DwellingDetail
-  > = new MatTableDataSource();
+  public dataSource: MatTableDataSource<DwellingDetail> =
+    new MatTableDataSource();
 
   public isSelected: DwellingDetail | undefined = undefined;
 
-  @Output() public selectedElement: EventEmitter<
-    DwellingDetail | undefined
-  > = new EventEmitter<DwellingDetail | undefined>();
+  @Output() public selectedElement: EventEmitter<DwellingDetail | undefined> =
+    new EventEmitter<DwellingDetail | undefined>();
 
   public filter = new FormControl('');
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private router: Router,
@@ -36,13 +44,16 @@ export class TableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //FIXME: set pagination into table
-    this.loadDwellings();
     this.svcTableReload.reload().subscribe((reload) => {
       if (reload) {
         this.loadDwellings();
       }
     });
+  }
+
+  ngAfterViewInit() {
+
+    this.loadDwellings();
   }
 
   public goToNewDwelling() {
@@ -66,6 +77,7 @@ export class TableComponent implements OnInit {
   private loadDwellings() {
     this.svcDwelling.getDwellings().subscribe((response) => {
       this.dataSource = new MatTableDataSource(response);
+      this.dataSource.paginator = this.paginator!;
     });
   }
 }

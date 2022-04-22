@@ -9,20 +9,17 @@ import { Router } from '@angular/router';
 import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
+import { AddressEmitter } from 'src/app/utils/address/address-emitter';
+import { CreateAddress } from 'src/app/utils/address/create-address';
 
 @Component({
   selector: 'app-page-reservoir-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent {
-  public reservoirForm: FormGroup;
+export class CreateComponent extends CreateAddress {
+  public reservoirForm: FormGroup | undefined;
   public code = new FormControl('', [Validators.required]);
-  public gate = new FormControl('', []);
-  public flat = new FormControl('', []);
-  public number = new FormControl('', [Validators.required]);
-  public street = new FormControl('', [Validators.required]);
-  public town = new FormControl('', [Validators.required]);
   public capacity = new FormControl('', [Validators.required]);
   public inletFlow = new FormControl('', [Validators.required]);
   public outletFlow = new FormControl('', [Validators.required]);
@@ -33,24 +30,22 @@ export class CreateComponent {
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder,
     private svcNotification: NotificationService,
     private svcReservoir: ReservoirService,
-    private svcAccount: AccountService
+    private svcAccount: AccountService,
+    private formBuilder: FormBuilder
   ) {
+    super();
+    this.configureMap.height = '400px';
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
     });
+  }
+
+  public override addressFormReceive(addressEmitter: AddressEmitter) {
+    super.addressFormReceive(addressEmitter);
     this.reservoirForm = this.formBuilder.group({
-      full_address: formBuilder.group({
-        address: formBuilder.group({
-          town: this.town,
-          street: this.street,
-        }),
-        number: this.number,
-        flat: this.flat,
-        gate: this.gate,
-      }),
+      address: addressEmitter.addressFormGroup,
       water_meter: this.formBuilder.group({
         code: this.code,
       }),
@@ -61,13 +56,9 @@ export class CreateComponent {
   }
 
   public save() {
-    if (this.reservoirForm.invalid) {
-      return;
-    }
-
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -86,7 +77,7 @@ export class CreateComponent {
   public saveAndExit() {
     this.loadingPost = true;
 
-    this.onSave().subscribe({
+    this.onSave()!.subscribe({
       next: (response) => {
         this.resetForm();
         this.loadingPost = false;
@@ -104,21 +95,6 @@ export class CreateComponent {
       case 'code':
         if (this.code.hasError('required')) {
           return 'RESERVOIR.CREATE.FORM.WATER_METER_CODE.VALIDATION';
-        }
-        return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.NUMBER.VALIDATION';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.STREET.VALIDATION';
-        }
-        return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.TOWN.VALIDATION';
         }
         return '';
       case 'capacity':
@@ -142,11 +118,6 @@ export class CreateComponent {
   }
 
   private resetForm() {
-    this.gate.setValue('');
-    this.flat.setValue('');
-    this.number.setValue('');
-    this.town.setValue('');
-    this.street.setValue('');
     this.code.setValue('');
     this.capacity.setValue('');
     this.outletFlow.setValue('');
@@ -154,17 +125,12 @@ export class CreateComponent {
   }
 
   private onSave() {
+    if (!this.reservoirForm || this.reservoirForm.invalid) {
+      return;
+    }
+
     let reservoir: ReservoirCreate = {
-      full_address: {
-        gate: this.gate.value,
-        flat: this.flat.value,
-        number: this.number.value,
-        address: {
-          is_external: false,
-          town: this.town.value,
-          street: this.street.value,
-        },
-      },
+      address: this.getAddress(),
       water_meter: {
         code: this.code.value,
       },

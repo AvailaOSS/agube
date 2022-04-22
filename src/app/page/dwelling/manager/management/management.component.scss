@@ -8,6 +8,11 @@
     h1 {
       margin: $margin-small 0 $margin-small 0;
     }
+    flex-direction: column;
+    mat-card-title{
+      display: flex;
+      justify-content: space-between;
+    }
   }
   mat-card-content {
     min-width: 100%;

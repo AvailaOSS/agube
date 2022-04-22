@@ -1,0 +1,44 @@
+<div class="detail-info" *ngIf="address">
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.COORDINATES'|translate}}
+    <h3>{{address | address:'geolocation' }}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.COUNTRY'|translate}}
+    <h3>{{address.country}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.STATE'|translate}}
+    <h3>{{address.state}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.PROVINCE'|translate}}
+    <h3>{{address.province}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.CITY'|translate}}
+    <h3>{{address.city}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.VILLAGE'|translate}}
+    <h3>{{address.village}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.MUNICIPALITY'|translate}}
+    <h3>{{address.municipality}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.CITY_DISTRICT'|translate}}
+    <h3>{{address.city_district}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.POSTAL_CODE'|translate}}
+    <h3>{{address.postcode}}</h3>
+  </span>
+  <span>
+    {{'DWELLING_DETAIL.ADDRESS.FORM.STREET'|translate}}
+    <h3>{{address | address:'short'}}</h3>
+  </span>
+
+
+</div>

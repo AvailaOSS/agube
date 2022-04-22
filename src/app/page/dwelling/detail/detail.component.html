@@ -1,1 +1,47 @@
-dwelling works!
+<div class="detail-page">
+  <div class="page-content">
+    <mat-card *ngIf="!loading; else pageLoading">
+      <mat-card-content *ngIf="dwelling">
+        <div class="dwelling-info">
+          <h1>
+            {{ dwelling.address | address }}
+          </h1>
+          <div class="dwelling-content-info">
+            <app-address [address]="dwelling.address"></app-address>
+            <div class="dwelling-resident">
+              <app-owner [dwellingId]="dwelling.id"></app-owner>
+              <app-resident [dwellingId]="dwelling.id"></app-resident>
+            </div>
+          </div>
+          <div>
+            <app-water-meter-chart [googleChartConfigure]="chartGoogleConsume">
+            </app-water-meter-chart>
+          </div>
+        </div>
+        <div class="dwelling-map">
+          <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle (click)="mode = 'map'" matTooltip="{{'DWELLING_DETAIL.MAP.TOOLTIP_MAP'|translate}}"
+              matTooltipPosition="left">
+              <mat-icon>map</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle (click)="mode = 'streetView'"
+              matTooltip="{{'DWELLING_DETAIL.MAP.TOOLTIP_STREET_VIEW'|translate}}" matTooltipPosition="right">
+              <mat-icon>360</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <div *ngIf="mode=='map'; else showStreetView">
+            <app-map [configureMap]="configureMap"></app-map>
+          </div>
+          <ng-template #showStreetView>
+            <app-street-view [configureView]="configureView"></app-street-view>
+          </ng-template>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+    <ng-template #pageLoading>
+      <mat-spinner ></mat-spinner>
+    </ng-template>
+  </div>
+</div>

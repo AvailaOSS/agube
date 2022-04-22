@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DwellingService, UserDetail } from '@availa/agube-rest-api';
+import { DwellingService, UserCreate } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { ChangeComponent } from '../change.component';
 
@@ -29,13 +29,13 @@ export class ResidentComponent extends ChangeComponent {
 
   private onSave() {
     this.loadingPost = true;
-    let user: UserDetail = {
+    let user: UserCreate = {
       first_name: this.first_name.value,
       last_name: this.last_name.value,
       email: this.email.value,
       phones: [{ phone_number: this.phone_number.value }],
       address: [
-        this.dwelling!.full_address,
+        this.dwelling!.address,
         // {
         //   address: {
         //     town: 'string',

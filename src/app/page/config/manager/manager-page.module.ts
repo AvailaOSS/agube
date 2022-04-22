@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [ManagerPageComponent, ParametersComponent],
@@ -27,6 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     MatInputModule,
     MatTooltipModule,
+    MatProgressBarModule,
     TranslateModule,
   ],
 })

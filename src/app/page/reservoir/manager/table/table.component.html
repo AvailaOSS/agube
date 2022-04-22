@@ -1,64 +1,73 @@
 <mat-card class="table-card">
-    <mat-card-header>
-        <mat-card-title>
-            <h2>
-                {{ "RESERVOIR.TABLE.TITLE" | translate}}
-            </h2>
-        </mat-card-title>
-        <div class="filter">
-            <div>
-                <mat-form-field appearance="standard">
-                    <mat-label>{{'RESERVOIR.TABLE.FILTER.TEXT'|translate}}</mat-label>
-                    <input matInput matTooltip="{{'RESERVOIR.TABLE.FILTER.TOOLTIP'|translate}}"
-                        matTooltipPosition="right" (keyup)="applyFilter()" [formControl]="filter">
-                    <button matSuffix mat-icon-button matTooltip="{{'RESERVOIR.TABLE.FILTER.BUTTON.TOOLTIP'|translate}}"
-                        *ngIf="filter.value.length > 0" (click)="clearFilter()">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </mat-form-field>
-            </div>
-            <div [align]="'end'">
-                <button mat-raised-button color="primary" matTooltip="{{'RESERVOIR.TABLE.BUTTON.TOOLTIP'|translate}}"
-                    (click)="goToNewReservoir()">
-                    <mat-icon color="accent">water_drop</mat-icon>
-                    {{'RESERVOIR.TABLE.BUTTON.TEXT'|translate}}
-                </button>
-            </div>
-        </div>
-    </mat-card-header>
-    <mat-card-content>
+  <mat-card-header>
+    <mat-card-title>
+      <h2>
+        {{ "RESERVOIR.TABLE.TITLE" | translate}}
+      </h2>
+    </mat-card-title>
+    <div class="filter">
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>{{'RESERVOIR.TABLE.FILTER.TEXT'|translate}}</mat-label>
+          <input matInput matTooltip="{{'RESERVOIR.TABLE.FILTER.TOOLTIP'|translate}}" matTooltipPosition="right"
+            (keyup)="applyFilter()" [formControl]="filter">
+          <button matSuffix mat-icon-button matTooltip="{{'RESERVOIR.TABLE.FILTER.BUTTON.TOOLTIP'|translate}}"
+            *ngIf="filter.value.length > 0" (click)="clearFilter()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div [align]="'end'">
+        <button mat-raised-button color="primary" matTooltip="{{'RESERVOIR.TABLE.BUTTON.TOOLTIP'|translate}}"
+          (click)="goToNewReservoir()">
+          <mat-icon>water_drop</mat-icon>
+          {{'RESERVOIR.TABLE.BUTTON.TEXT'|translate}}
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
 
-        <table mat-table [dataSource]="dataSource">
-            <!-- capacity -->
-            <ng-container matColumnDef="capacity">
-                <th mat-header-cell *matHeaderCellDef>capacity</th>
-                <td mat-cell *matCellDef="let element">{{element.capacity}} L</td>
-            </ng-container>
+    <table mat-table [dataSource]="dataSource">
+      <!-- capacity -->
+      <ng-container matColumnDef="capacity">
+        <th mat-header-cell *matHeaderCellDef>capacity</th>
+        <td mat-cell *matCellDef="let element" matTooltip="{{'RESERVOIR.TABLE.TOOLTIP.CAPACITY'|translate}}">
+          {{element.capacity}} L
+        </td>
+      </ng-container>
 
-            <!-- inlet_flow-->
-            <ng-container matColumnDef="inlet_flow">
-                <th mat-header-cell *matHeaderCellDef>inlet_flow</th>
-                <td mat-cell *matCellDef="let element">{{element.inlet_flow}} m<sup>3</sup></td>
-            </ng-container>
-            <!-- outlet_flow -->
-            <ng-container matColumnDef="outlet_flow">
-                <th mat-header-cell *matHeaderCellDef>outlet_flow</th>
-                <td mat-cell *matCellDef="let element">{{element.outlet_flow}} m<sup>3</sup></td>
-            </ng-container>
+      <!-- inlet_flow-->
+      <ng-container matColumnDef="inlet_flow">
+        <th mat-header-cell *matHeaderCellDef>inlet_flow</th>
+        <td mat-cell *matCellDef="let element" matTooltip="{{'RESERVOIR.TABLE.TOOLTIP.INLET_FLOW'|translate}}">
+          {{element.inlet_flow}} m<sup>3</sup></td>
+      </ng-container>
+      <!-- outlet_flow -->
+      <ng-container matColumnDef="outlet_flow">
+        <th mat-header-cell *matHeaderCellDef>outlet_flow</th>
+        <td mat-cell *matCellDef="let element" matTooltip="{{'RESERVOIR.TABLE.TOOLTIP.OUTLET_FLOW'|translate}}">
+          {{element.outlet_flow}} m<sup>3</sup></td>
+      </ng-container>
 
-            <!-- full_address -->
-            <ng-container matColumnDef="full_address">
-                <th mat-header-cell *matHeaderCellDef>full_address</th>
-                <td mat-cell *matCellDef="let element">{{element | reservoirDetail }}</td>
-            </ng-container>
+      <!-- full_address -->
+      <ng-container matColumnDef="full_address">
+        <th mat-header-cell *matHeaderCellDef>full_address</th>
+        <td mat-cell *matCellDef="let element" matTooltip="{{'RESERVOIR.TABLE.TOOLTIP.FULL_ADDRESS'|translate}}">
+          {{element | reservoirDetail }}</td>
+      </ng-container>
 
-            <tr mat-row class="table-row" matTooltip="{{'RESERVOIR.TABLE.TOOLTIP'|translate}}"
-                (click)="selectElement(row)" *matRowDef="let row; columns: displayedColumns;"
-                [ngClass]="row === isSelected ? 'selected-row' : ''">
-            </tr>
+      <tr mat-row class="table-row" (click)="selectElement(row)" *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="row === isSelected ? 'selected-row' : ''">
+      </tr>
 
-        </table>
+    </table>
 
-    </mat-card-content>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <mat-paginator [pageSize]="12" showFirstLastButtons>
+    </mat-paginator>
+  </mat-card-actions>
 
 </mat-card>

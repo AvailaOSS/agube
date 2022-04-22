@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { CreateModule as StreetViewCreateModule } from '../../../components/map/create/create.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -26,7 +28,9 @@ import { TranslateModule } from '@ngx-translate/core';
     MatIconModule,
     MatProgressBarModule,
     MatTooltipModule,
-    TranslateModule
+    StreetViewCreateModule,
+    TranslateModule,
+    PipesModule,
   ],
   exports: [CreateComponent],
 })

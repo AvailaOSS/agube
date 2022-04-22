@@ -1,48 +1,51 @@
 <mat-card class="card-management" *ngIf="dwellingDetail">
-    <mat-card-header>
-        <mat-card-title>
-            <h1>
-                {{dwellingDetail | dwellingDetail}}
-            </h1>
-        </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        {{"WATER_METER.CODE" | translate}}
-        <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="dwellingDetail.id"
-            [type]="type?.type">
-        </app-water-meter-content>
-        {{"DWELLINGS.CARD.RESIDENT.TITLE" | translate}}
-        <app-resident-content [dwellingId]="dwellingDetail.id"></app-resident-content>
-        <div class="buttons-management">
-            <button mat-raised-button color="primary"
-                matTooltip="{{'DWELLINGS.CARD.BUTTONS.CHANGE_WATER_METER_CODE_TOOLTIP' | translate}}"
-                (click)="openChangeWaterMeter()">
-                <div>
-                    <mat-icon>update</mat-icon>
-                    {{"DWELLINGS.CARD.BUTTONS.CHANGE_WATER_METER_CODE" | translate}}
-                </div>
-            </button>
-            <button mat-raised-button color="primary"
-                matTooltip="{{'DWELLINGS.CARD.BUTTONS.CHANGE_RESIDENT_TOOLTIP' | translate}}"
-                (click)="goToChangeResident()">
-                <div>
-                    <mat-icon>escalator_warning</mat-icon>
-                    {{"DWELLINGS.CARD.BUTTONS.CHANGE_RESIDENT" | translate}}
-                </div>
-            </button>
-            <button mat-raised-button color="primary"
-                matTooltip="{{'DWELLINGS.CARD.BUTTONS.CHANGE_OWNER_TOOLTIP' | translate}}" (click)="goToChangeOwner()">
-                <div>
-                    <mat-icon>hail</mat-icon>
-                    {{"DWELLINGS.CARD.BUTTONS.CHANGE_OWNER" | translate}}
-                </div>
-            </button>
+  <mat-card-header>
+    <mat-card-title>
+      <h1>
+        {{dwellingDetail | dwellingDetail}}
+      </h1>
+      <button mat-fab (click)="goToDwellingDetail()"
+       matTooltip="{{'DWELLINGS.CARD.BUTTONS.GO_DWELLING_TOOLTIP'|translate}}">
+        <mat-icon>store</mat-icon>
+      </button>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{"WATER_METER.CODE" | translate}}
+    <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="dwellingDetail.id"
+      [type]="type?.type">
+    </app-water-meter-content>
+    {{"DWELLINGS.CARD.RESIDENT.TITLE" | translate}}
+    <app-resident-content [dwellingId]="dwellingDetail.id"></app-resident-content>
+    <div class="buttons-management">
+      <button mat-raised-button color="primary"
+        matTooltip="{{'DWELLINGS.CARD.BUTTONS.CHANGE_WATER_METER_CODE_TOOLTIP' | translate}}"
+        (click)="openChangeWaterMeter()">
+        <div>
+          <mat-icon>update</mat-icon>
+          {{"DWELLINGS.CARD.BUTTONS.CHANGE_WATER_METER_CODE" | translate}}
         </div>
-        <div class="divider">
-            <mat-divider></mat-divider>
+      </button>
+      <button mat-raised-button color="primary"
+        matTooltip="{{'DWELLINGS.CARD.BUTTONS.CHANGE_RESIDENT_TOOLTIP' | translate}}" (click)="goToChangeResident()">
+        <div>
+          <mat-icon>escalator_warning</mat-icon>
+          {{"DWELLINGS.CARD.BUTTONS.CHANGE_RESIDENT" | translate}}
         </div>
-        <div class="water-meter-container">
-            <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type"></app-water-meter-detail>
+      </button>
+      <button mat-raised-button color="primary"
+        matTooltip="{{'DWELLINGS.CARD.BUTTONS.CHANGE_OWNER_TOOLTIP' | translate}}" (click)="goToChangeOwner()">
+        <div>
+          <mat-icon>hail</mat-icon>
+          {{"DWELLINGS.CARD.BUTTONS.CHANGE_OWNER" | translate}}
         </div>
-    </mat-card-content>
+      </button>
+    </div>
+    <div class="divider">
+      <mat-divider></mat-divider>
+    </div>
+    <div class="water-meter-container">
+      <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type"></app-water-meter-detail>
+    </div>
+  </mat-card-content>
 </mat-card>

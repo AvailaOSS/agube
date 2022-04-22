@@ -1,20 +1,20 @@
-@import '../../../../assets/availa/sizes/margins.scss';
-@import '../../../../assets/availa/sizes/page.scss';
+@import "../../../../assets/availa/sizes/margins.scss";
+@import "../../../../assets/availa/sizes/page.scss";
 
 .create-dwelling-page {
-  @include my-page();
+  @include my-page(1);
 }
 
 .create-dwelling-page-card {
-  @include my-page-column();
+  @include my-page-column(1, 1);
 }
 
 .form {
-  padding: $margin-x-medium;
+  padding: $margin-small;
   .form-content {
-    display: inline-grid;
+    margin: $margin-x-small;
     mat-form-field {
-      margin: $margin-x-small;
+      margin-bottom: $margin-x-small;
     }
   }
   mat-card-actions {

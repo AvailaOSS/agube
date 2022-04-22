@@ -19,9 +19,8 @@ export class ManagementComponent {
   public resident: Resident | undefined = undefined;
   public waterMeterId: number | undefined;
 
-  @Output() waterMeterChangeEvent: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
+  @Output() waterMeterChangeEvent: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
 
   constructor(private router: Router, public dialog: MatDialog) {}
 
@@ -31,6 +30,12 @@ export class ManagementComponent {
       id: this.dwellingDetail?.id!,
       type: WaterMeterType.DWELLING,
     };
+  }
+
+  public goToDwellingDetail() {
+    this.router.navigate(['/manager/home/manager/client/dwellings/detail'], {
+      queryParams: { dwellingId: this.dwellingDetail?.id },
+    });
   }
 
   public openChangeWaterMeter() {

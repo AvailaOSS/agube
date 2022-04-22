@@ -18,6 +18,8 @@
 @use "components/snack-bar" as snack-bar;
 @use "components/scrollbar" as scrollbar;
 @use "components/contacts" as availa-contacts;
+@use "components/selection-list" as selection-list;
+@use "components/icon" as icon;
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -41,6 +43,19 @@ $my-dark-theme: mat.define-dark-theme(
       warn: $agube-fe-warn,
     ),
   )
+);
+
+@include icon.mat-icon(
+  $primary: mat.get-color-from-palette($agube-fe-accent, 100),
+  $accent: mat.get-color-from-palette($agube-fe-primary, 700)
+);
+
+@include selection-list.mat-selection-list(
+  $hover: mat.get-color-from-palette($agube-fe-primary, 500),
+  $active: mat.get-color-from-palette($agube-fe-primary, 400),
+  $clicked: mat.get-color-from-palette($agube-fe-primary, 700),
+  $noClickedFontColor: mat.get-color-from-palette($agube-fe-accent, 200),
+  $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
 );
 
 @include table.mat-table(

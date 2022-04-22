@@ -1,71 +1,40 @@
 <div class="create-dwelling-page">
-    <mat-card class="create-dwelling-page-card">
-        <mat-card-content>
-            <div class="form">
-                <h1>{{"NEW_DWELLING.TITLE" | translate}}</h1>
-                <div class="form-content">
-                    <div>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{"NEW_DWELLING.FORM.CODE_COUNTER.TEXT" | translate}}</mat-label>
-                            <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" />
-                            <mat-error *ngIf="code.invalid">{{errorValidator('code') | translate}}</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{"NEW_DWELLING.FORM.TOWN.TEXT" | translate}}</mat-label>
-                            <input matInput placeholder="Sofía" [formControl]="town" (keydown.enter)="save()" />
-                            <mat-error *ngIf="town.invalid">{{errorValidator('town') | translate}}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{"NEW_DWELLING.FORM.STREET.TEXT" | translate}}</mat-label>
-                            <input matInput placeholder="Anthony Edward Stark Street" [formControl]="street"
-                                (keydown.enter)="save()" />
-                            <mat-error *ngIf="street.invalid">{{errorValidator('street') | translate}}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{"NEW_DWELLING.FORM.NUMBER.TEXT" | translate}}</mat-label>
-                            <input matInput placeholder="IV" [formControl]="number" (keydown.enter)="save()" />
-                            <mat-error *ngIf="number.invalid">{{errorValidator('number') | translate}}</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{"NEW_DWELLING.FORM.FLAT.TEXT" | translate}}</mat-label>
-                            <input matInput placeholder="3" [formControl]="flat" (keydown.enter)="save()" />
-                            <mat-error *ngIf="flat.invalid">{{errorValidator('flat') | translate}}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{"NEW_DWELLING.FORM.GATE.TEXT" | translate}}</mat-label>
-                            <input matInput placeholder="A" [formControl]="gate" (keydown.enter)="save()" />
-                            <mat-error *ngIf="gate.invalid">{{errorValidator('gate') | translate}}</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
-                <mat-card-actions [align]="'end'">
-                    <button mat-button matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.CLOSE.TOOLTIP' | translate}}"
-                        (click)="exit()">
-                        {{"NEW_DWELLING.FORM.BUTTONS.CLOSE.TEXT" | translate}}
-                    </button>
-                    <button mat-raised-button color="primary"
-                        matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.SAVE.TOOLTIP' | translate}}" (click)="save()"
-                        [disabled]="this.dwellingForm.invalid">
-                        <div>
-                            <mat-icon>save</mat-icon>
-                            {{"NEW_DWELLING.FORM.BUTTONS.SAVE.TEXT" | translate}}
-                        </div>
-                    </button>
-                    <button mat-raised-button color="primary"
-                        matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.SAVE_AND_CLOSE.TOOLTIP' | translate}}"
-                        (click)="saveAndExit()" [disabled]="this.dwellingForm.invalid">
-                        <div>
-                            <mat-icon>exit_to_app</mat-icon>
-                            {{"NEW_DWELLING.FORM.BUTTONS.SAVE_AND_CLOSE.TEXT" | translate}}
-                        </div>
-                    </button>
-                </mat-card-actions>
+  <mat-card class="create-dwelling-page-card">
+    <mat-card-content>
+      <div class="form">
+        <h1>{{"NEW_DWELLING.TITLE" | translate}}</h1>
+        <div class="form-content">
+          <mat-form-field appearance="fill">
+            <mat-label>{{"NEW_DWELLING.FORM.CODE_COUNTER.TEXT" | translate}}</mat-label>
+            <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" />
+            <mat-error *ngIf="code.invalid">{{errorValidator('code') | translate}}</mat-error>
+          </mat-form-field>
+          <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap" [inputForm]="inputForm" [resetForm]="resetChildForm">
+          </app-map-location-create>
+        </div>
+        <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
+        <mat-card-actions [align]="'end'">
+          <button mat-button matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.CLOSE.TOOLTIP' | translate}}" (click)="exit()">
+            {{"NEW_DWELLING.FORM.BUTTONS.CLOSE.TEXT" | translate}}
+          </button>
+          <button mat-raised-button color="primary"
+            matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.SAVE.TOOLTIP' | translate}}" (click)="save()"
+            [disabled]="!this.dwellingForm || this.dwellingForm.invalid">
+            <div>
+              <mat-icon>save</mat-icon>
+              {{"NEW_DWELLING.FORM.BUTTONS.SAVE.TEXT" | translate}}
             </div>
-        </mat-card-content>
-    </mat-card>
+          </button>
+          <button mat-raised-button color="primary"
+            matTooltip="{{'NEW_DWELLING.FORM.BUTTONS.SAVE_AND_CLOSE.TOOLTIP' | translate}}" (click)="saveAndExit()"
+            [disabled]="!this.dwellingForm || this.dwellingForm.invalid">
+            <div>
+              <mat-icon>exit_to_app</mat-icon>
+              {{"NEW_DWELLING.FORM.BUTTONS.SAVE_AND_CLOSE.TEXT" | translate}}
+            </div>
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -18,6 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { WaterMeterDialogComponent } from './dialog/dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { ChartModule } from './chart/chart.module';
+import { GoogleChartModule } from 'src/app/components/chart/google-chart.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatTooltipModule,
     TranslateModule,
+    ChartModule,
+    GoogleChartModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   exports: [DetailComponent, ContentComponent],

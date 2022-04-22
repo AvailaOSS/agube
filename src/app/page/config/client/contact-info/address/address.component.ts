@@ -1,13 +1,8 @@
+import { NotificationService } from '@availa/notification';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
 import { UserService, UserAddress } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
-import { NotificationService } from '@availa/notification';
+import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableAddress } from './edit/editable-address';
 
 @Component({
@@ -15,33 +10,19 @@ import { EditableAddress } from './edit/editable-address';
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
 })
-export class AddressComponent {
+export class AddressComponent extends CreateAddress {
   public userId: number = -1;
+
   public addressList: EditableAddress[] = [];
+
   public canAddAddress: boolean = false;
 
-  public fullAddressForm: FormGroup;
-  public town = new FormControl('', [Validators.required]);
-  public street = new FormControl('', [Validators.required]);
-  public number = new FormControl('', [Validators.required]);
-  public flat = new FormControl('', []);
-  public gate = new FormControl('', [Validators.required]);
-
   constructor(
-    protected formBuilder: FormBuilder,
-    private svcAccount: AccountService,
-    private svcUser: UserService,
-    private svcNotification: NotificationService
+    protected svcNotification: NotificationService,
+    protected svcAccount: AccountService,
+    protected svcUser: UserService
   ) {
-    this.fullAddressForm = formBuilder.group({
-      address: formBuilder.group({
-        town: this.town,
-        street: this.street,
-      }),
-      number: this.number,
-      flat: this.flat,
-      gate: this.gate,
-    });
+    super();
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
       this.getAddressList(this.userId);
@@ -50,37 +31,19 @@ export class AddressComponent {
 
   public openCloseAddressForm() {
     this.canAddAddress = !this.canAddAddress;
+    this.resetChildForm = !this.resetChildForm;
   }
 
   public saveAddress() {
-    if (this.fullAddressForm.hasError('required')) {
-      return;
-    }
-
     let newUserAddress: UserAddress = {
+      address: this.getAddress(),
       main: false,
-      full_address: {
-        address: {
-          street: this.street.value,
-          town: this.town.value,
-          is_external: false,
-        },
-        number: this.number.value,
-        flat: this.flat.value,
-        gate: this.gate.value,
-      },
     };
 
     this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
       next: (response) => {
-        // FIXME: instead of addressList.push newUserAddress get this from the responde but response not should return a list
-        this.addressList.push({ address: newUserAddress, isEditable: false });
-        this.canAddAddress = !this.canAddAddress;
-        this.town.setValue('');
-        this.street.setValue('');
-        this.number.setValue('');
-        this.flat.setValue('');
-        this.gate.setValue('');
+        this.addressList.push({ address: response, isEditable: false });
+        this.openCloseAddressForm();
       },
       error: (error) => this.svcNotification.warning({ message: error }),
     });
@@ -90,62 +53,21 @@ export class AddressComponent {
     if (!address) {
       return;
     }
-    
-    const index = this.addressList
-      .map((a) => {
-        return a.address.id;
-      })
-      .indexOf(address.id, 0);
 
-    if (index > -1) {
-      this.addressList.splice(index, 1);
-      this.addressList.push({
-        address: address,
-        isEditable: false,
-      });
-    }
+    this.getAddressList(this.userId);
   }
 
   public addressDeleted(addressId: number | undefined) {
     if (!addressId) {
       return;
     }
-
     const index = this.addressList
       .map((p) => {
         return p.address.id;
       })
       .indexOf(addressId, 0);
-
     if (index > -1) {
       this.addressList.splice(index, 1);
-    }
-  }
-
-  public errorValidator(entity: string) {
-    switch (entity) {
-      case 'gate':
-        if (this.gate.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.GATE';
-        }
-        return '';
-      case 'number':
-        if (this.number.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.NUMBER';
-        }
-        return '';
-      case 'street':
-        if (this.street.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.STREET';
-        }
-        return '';
-      case 'town':
-        if (this.town.hasError('required')) {
-          return 'CONTACT_INFO.ADDRESS.FORM.VALIDATIONS.TOWN';
-        }
-        return '';
-      default:
-        return '';
     }
   }
 

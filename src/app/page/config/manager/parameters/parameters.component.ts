@@ -7,21 +7,22 @@ import {
 } from '@angular/forms';
 import { ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { flatMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-parameters',
   templateUrl: './parameters.component.html',
-  styleUrls: [
-    './parameters.component.scss',
-    '../manager-page.component.scss',
-  ],
+  styleUrls: ['./parameters.component.scss', '../manager-page.component.scss'],
 })
 export class ParametersComponent implements OnInit {
+  public loadSave: boolean = false;
   public parametersForm: FormGroup;
   public hook_price = new FormControl('', [Validators.required]);
   public max_daily_consumption = new FormControl('', [Validators.required]);
 
   public releaseDate: Date | undefined = undefined;
+
+  private static seconds: number = 1000;
 
   constructor(
     private readonly svcManager: ManagerService,
@@ -46,19 +47,21 @@ export class ParametersComponent implements OnInit {
   }
 
   saveParameters() {
+    this.loadSave = true;
     let config: ManagerConfiguration = {
       hook_price: this.hook_price.value,
       max_daily_consumption: this.max_daily_consumption.value,
     };
     this.svcManager.updateManagerConfiguration(config).subscribe({
       next: (response) => {
-        this.releaseDate =
-          response.release_date === undefined
-            ? undefined
-            : new Date(response.release_date);
+        setInterval(() => {
+          this.responseManager(response);
+          this.loadSave = false;
+        }, ParametersComponent.seconds);
       },
       error: (error) => {
         this.svcNotification.warning({ message: error }, 8);
+        this.loadSave = false;
       },
     });
   }
@@ -78,5 +81,11 @@ export class ParametersComponent implements OnInit {
       default:
         return '';
     }
+  }
+  private responseManager(responseManger: ManagerConfiguration) {
+    this.releaseDate =
+      responseManger.release_date === undefined
+        ? undefined
+        : new Date(responseManger.release_date);
   }
 }

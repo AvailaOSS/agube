@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {
   DwellingService,
   DwellingCreate,
-  UserDetail,
+  UserCreate,
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 
@@ -38,7 +38,7 @@ export class ChangeComponent implements OnInit {
   // public gate = new FormControl('', [Validators.required]);
 
   public dwelling: DwellingCreate | undefined;
-  public currentPerson: UserDetail | undefined;
+  public currentPerson: UserCreate | undefined;
 
   public dwellingId: number = -1;
 

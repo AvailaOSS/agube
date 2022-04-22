@@ -1,5 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
@@ -18,11 +25,12 @@ export class TableComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<ReservoirDetail> = new MatTableDataSource();
   public isSelected: ReservoirDetail | undefined = undefined;
-  @Output() public selectedElement: EventEmitter<
-    ReservoirDetail | undefined
-  > = new EventEmitter<ReservoirDetail | undefined>();
+  @Output() public selectedElement: EventEmitter<ReservoirDetail | undefined> =
+    new EventEmitter<ReservoirDetail | undefined>();
 
   public filter = new FormControl('');
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private router: Router, private svcReservoir: ReservoirService) {}
 
@@ -52,6 +60,7 @@ export class TableComponent implements OnInit {
   private loadReservoirs() {
     this.svcReservoir.getReservoirs().subscribe((response) => {
       this.dataSource = new MatTableDataSource(response);
+      this.dataSource.paginator = this.paginator!;
     });
   }
 }

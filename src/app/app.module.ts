@@ -6,16 +6,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
+
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { SidebarRoute } from './page/home/sidebar-route';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AgubeApiModule } from '@availa/agube-rest-api';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new MultiTranslateHttpLoader(http, [
+    { prefix: '../assets/i18n/', suffix: '.json' },
+    { prefix: './src/assets/auth/', suffix: '.json' },
+    { prefix: './src/assets/contact-book/', suffix: '.json' },
+  ]);
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,18 +50,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       basePath: environment.agubeBackendUrl,
     }),
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) => {
-          return new TranslateHttpLoader(http);
+      loader: [
+        {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
         },
-        deps: [HttpClient],
-      },
+      ],
+      isolate: true,
     }),
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
     MatTooltipModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

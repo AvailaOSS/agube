@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { WaterMeterModule } from '../../water-meter/water-meter.module';
     WaterMeterModule,
     MatTooltipModule,
     TranslateModule,
+    MatPaginatorModule,
   ],
 })
 export class ManagerModule {}
