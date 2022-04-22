@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
 from login.models import UserAddress, UserPhone
-from login.permissions import IsManagerOfUser, IsUserMatch
+from rest_framework.permissions import IsAuthenticated
 from geolocation.models import Geolocation
 from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
@@ -71,7 +71,7 @@ class DwellingListView(APIView):
             address: Address = dwelling.address
             data = {
                 'id': dwelling.id,
-                'city':  address.city,
+                'city': address.city,
                 'road': address.road,
                 'number': address.number,
                 'water_meter_code': water_meter_code,
@@ -142,7 +142,7 @@ class DwellingView(generics.GenericAPIView):
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingOwnerSerializer
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(operation_id="getCurrentOwner",
                          responses={200: DwellingOwnerSerializer(many=False)})
@@ -182,7 +182,7 @@ class DwellingOwnerView(generics.GenericAPIView):
 class DwellingResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
     serializer_class = DwellingResidentSerializer
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentResident",
