@@ -26,9 +26,9 @@ export class CreateComponent extends CreateAddress {
     private router: Router,
     private svcNotification: NotificationService,
     private svcDwelling: DwellingService,
-    protected override formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
-    super(formBuilder);
+    super();
   }
 
   public override addressFormReceive(addressEmitter: AddressEmitter) {
@@ -94,7 +94,7 @@ export class CreateComponent extends CreateAddress {
   }
 
   private onSave() {
-     let dwelling: DwellingCreate = {
+    let dwelling: DwellingCreate = {
       address: this.getAddress(),
       water_meter: {
         code: this.code.value,

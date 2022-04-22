@@ -33,9 +33,9 @@ export class CreateComponent extends CreateAddress {
     private svcNotification: NotificationService,
     private svcReservoir: ReservoirService,
     private svcAccount: AccountService,
-    protected override formBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {
-    super(formBuilder);
+    super();
     this.configureMap.height = '400px';
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;

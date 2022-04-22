@@ -1,6 +1,5 @@
 import { NotificationService } from '@availa/notification';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { UserService, UserAddress } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { CreateAddress } from '../../../../../utils/address/create-address';
@@ -21,10 +20,9 @@ export class AddressComponent extends CreateAddress {
   constructor(
     protected svcNotification: NotificationService,
     protected svcAccount: AccountService,
-    protected svcUser: UserService,
-    protected override formBuilder: FormBuilder,
+    protected svcUser: UserService
   ) {
-    super(formBuilder);
+    super();
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
       this.getAddressList(this.userId);
@@ -42,7 +40,7 @@ export class AddressComponent extends CreateAddress {
       main: false,
     };
 
-    this.svcUser.addUserAddress(this.userId, newUserAddress ).subscribe({
+    this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
       next: (response) => {
         this.addressList.push({ address: response, isEditable: false });
         this.openCloseAddressForm();

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { UserAddress, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
@@ -16,19 +15,16 @@ export class EditComponent extends CreateAddress {
   @Input() public userId: number | undefined;
   @Input() public address: EditableAddress | undefined;
 
-  @Output() public updatedEvent: EventEmitter<
-    UserAddress | undefined
-  > = new EventEmitter<UserAddress | undefined>();
-  @Output() public deleteEvent: EventEmitter<
-    number | undefined
-  > = new EventEmitter<number | undefined>();
+  @Output() public updatedEvent: EventEmitter<UserAddress | undefined> =
+    new EventEmitter<UserAddress | undefined>();
+  @Output() public deleteEvent: EventEmitter<number | undefined> =
+    new EventEmitter<number | undefined>();
 
   constructor(
     protected svcNotification: NotificationService,
-    protected svcUser: UserService,
-    protected override formBuilder: FormBuilder,
+    protected svcUser: UserService
   ) {
-    super(formBuilder);
+    super();
   }
 
   public updateAddress() {
@@ -36,10 +32,10 @@ export class EditComponent extends CreateAddress {
       return;
     }
 
-    let updateUserAddress : UserAddress = {
+    let updateUserAddress: UserAddress = {
       address: this.getAddress(),
-      main: false
-    }
+      main: false,
+    };
 
     this.svcUser
       .updateUserAddress(
@@ -80,7 +76,7 @@ export class EditComponent extends CreateAddress {
       zoom: geolocation.zoom,
       showCircle: true,
       height: '350px',
-    }
+    };
 
     const address = this.address.address.address;
     this.inputForm.street.setValue(address.road);
