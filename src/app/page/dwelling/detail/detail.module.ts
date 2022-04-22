@@ -16,6 +16,7 @@ import { AddressComponent } from './address/address.component';
 import { ResidentComponent } from './resident/resident.component';
 import { OwnerComponent } from './owner/owner.component';
 import { ChartModule as WaterMeterChartModule } from '../../water-meter/chart/chart.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ChartModule as WaterMeterChartModule } from '../../water-meter/chart/ch
     MatTooltipModule,
     TranslateModule,
     WaterMeterChartModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class DetailModule {}

@@ -17,7 +17,7 @@ export class ClientComponent extends SidebarComponent {
       {
         navigationRoute: 'client/dwellings',
         title: 'Mi Vivienda',
-        icon: 'cottage',
+        icon: 'store',
       },
     ];
   }

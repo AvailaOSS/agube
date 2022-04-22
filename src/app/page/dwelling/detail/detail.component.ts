@@ -9,12 +9,13 @@ import { AccountService } from '@availa/auth-fe';
 import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   WaterMeterWithMeasurements,
   ManagerConfiguration,
 } from '@availa/agube-rest-api';
 import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-configure';
+
 @Component({
   selector: 'app-page-dwelling-detail',
   templateUrl: './detail.component.html',
@@ -22,6 +23,7 @@ import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-conf
 })
 export class DetailComponent implements OnInit {
   public userId: number | undefined;
+  public dwellingId: number | undefined;
   public dwelling: DwellingCreate | undefined;
 
   // map
@@ -33,6 +35,10 @@ export class DetailComponent implements OnInit {
   private mapStreetViewPositionDegree: number = 0;
   private mapHeight: string = '500px';
 
+  public chartGoogleConsume!: GoogleChartConfigure;
+
+  public loading: boolean = false;
+
   private static options = {
     width: 500,
     height: 200,
@@ -42,15 +48,20 @@ export class DetailComponent implements OnInit {
     yellowTo: 90,
     minorTicks: 10,
   };
-  public chartGoogleConsume!: GoogleChartConfigure;
+
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private svcAccount: AccountService,
     private svcUser: UserService,
     private svcDwelling: DwellingService,
     private readonly svcManager: ManagerService
   ) {
+    this.loading = true;
     this.dwelling = undefined;
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.dwellingId = +params['dwellingId'];
+    });
   }
 
   ngOnInit(): void {
@@ -60,14 +71,17 @@ export class DetailComponent implements OnInit {
         .getDwellingDetail(this.userId!)
         .subscribe((dwellingDetail) => {
           if (!dwellingDetail.length) {
+            this.loading = false;
             return;
           }
-          this.svcDwelling
-            .getDwelling(dwellingDetail[0].id!)
-            .subscribe((dwelling) => {
+          if (!this.dwellingId) {
+            this.dwellingId = +dwellingDetail[0].id!;
+          }
+          this.svcDwelling.getDwelling(this.dwellingId).subscribe({
+            next: (dwelling) => {
               this.dwelling = dwelling;
               this.svcDwelling
-                .getCurrentWaterMeterMeasuresChunk( 4,this.dwelling.id!)
+                .getCurrentWaterMeterMeasuresChunk(4, this.dwelling.id!)
                 .subscribe((responseWaterMeterMeasurement) => {
                   if (!responseWaterMeterMeasurement) {
                     return;
@@ -83,7 +97,10 @@ export class DetailComponent implements OnInit {
                 });
               let geolocation = this.dwelling.address.geolocation;
               this.configureMaps(geolocation);
-            });
+              this.loading = false;
+            },
+            error: (error) => (this.loading = false),
+          });
         });
     });
   }
@@ -99,8 +116,8 @@ export class DetailComponent implements OnInit {
     let sum = 0;
     for (let i = 0; i < waterMeterMeasurement.measures.length; i++) {
       sum += +waterMeterMeasurement.measures[i].measurement;
-  }
-   console.log(sum)
+    }
+    console.log(sum);
     this.chartGoogleConsume = {
       id: String(waterMeterMeasurement.id!),
       options: {
@@ -113,14 +130,16 @@ export class DetailComponent implements OnInit {
         yellowTo: 90,
       },
 
-      arrayToDataTable: [{
-        code: waterMeterMeasurement.code!,
-        discharge_date: waterMeterMeasurement.discharge_date,
-        release_date: waterMeterMeasurement.release_date,
-        water_meter_measurement: waterMeterMeasurement,
-        water_meter_measurementConsume: sum,
-        consumeToday,
-      }],
+      arrayToDataTable: [
+        {
+          code: waterMeterMeasurement.code!,
+          discharge_date: waterMeterMeasurement.discharge_date,
+          release_date: waterMeterMeasurement.release_date,
+          water_meter_measurement: waterMeterMeasurement,
+          water_meter_measurementConsume: sum,
+          consumeToday,
+        },
+      ],
     };
   }
   private configureMaps(geolocation: Geolocation) {
