@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  UserDwellingDetail,
-  UserService,
-  ManagerService,
-} from '@availa/agube-rest-api';
+import { UserDwellingDetail, UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { User } from '@availa/auth-fe/lib/login/models/user';
 
@@ -18,15 +14,12 @@ export class ClientComponent implements OnInit {
   public user: User | undefined;
   public loading: boolean = false;
 
-  // private static UrlStringManager: string =
-  //   './manager/home/client/dwellings/detail';
-  private static UrlStringClient: string = './client/dwellings/detail';
+  private static UrlStringClient: string = '/detail';
 
   constructor(
     private router: Router,
     private svcAccount: AccountService,
-    private svcUser: UserService,
-    private svcManager: ManagerService
+    private svcUser: UserService
   ) {
     this.dwellings = [];
     this.loading = true;
@@ -49,8 +42,12 @@ export class ClientComponent implements OnInit {
   }
 
   public goToDwellingDetail(dwelling: UserDwellingDetail) {
-      this.routeString(ClientComponent.UrlStringClient, dwelling);
+    this.routeString(
+      this.router.url + ClientComponent.UrlStringClient,
+      dwelling
+    );
   }
+
   private routeString(name: string, dwelling: UserDwellingDetail) {
     return this.router.navigate([name], {
       queryParams: { dwellingId: dwelling.id },
