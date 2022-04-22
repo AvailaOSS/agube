@@ -34,7 +34,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'client/dwellings',
+        path: 'manager/client/dwellings',
         loadChildren: () =>
           import('../../../dwelling/client/client.module').then(
             (m) => m.ClientModule
