@@ -1,11 +1,9 @@
 import {
-  UserService,
   DwellingService,
   DwellingCreate,
   Geolocation,
   ManagerService,
 } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
 import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
@@ -52,8 +50,6 @@ export class DetailComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private svcAccount: AccountService,
-    private svcUser: UserService,
     private svcDwelling: DwellingService,
     private readonly svcManager: ManagerService
   ) {
@@ -65,43 +61,30 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.svcAccount.getUser().subscribe((user) => {
-      this.userId = user?.user_id;
-      this.svcUser
-        .getDwellingDetail(this.userId!)
-        .subscribe((dwellingDetail) => {
-          if (!dwellingDetail.length) {
-            this.loading = false;
-            return;
-          }
-          if (!this.dwellingId) {
-            this.dwellingId = +dwellingDetail[0].id!;
-          }
-          this.svcDwelling.getDwelling(this.dwellingId).subscribe({
-            next: (dwelling) => {
-              this.dwelling = dwelling;
-              this.svcDwelling
-                .getCurrentWaterMeterMeasuresChunk(4, this.dwelling.id!)
-                .subscribe((responseWaterMeterMeasurement) => {
-                  if (!responseWaterMeterMeasurement) {
-                    return;
-                  }
-                  this.svcManager
-                    .getManagerConfiguration()
-                    .subscribe((response) => {
-                      this.configureWaterMeterCharts(
-                        responseWaterMeterMeasurement,
-                        response
-                      );
-                    });
-                });
-              let geolocation = this.dwelling.address.geolocation;
-              this.configureMaps(geolocation);
-              this.loading = false;
-            },
-            error: (error) => (this.loading = false),
+    if (!this.dwellingId) {
+      return;
+    }
+    this.svcDwelling.getDwelling(this.dwellingId).subscribe({
+      next: (dwelling) => {
+        this.dwelling = dwelling;
+        this.svcDwelling
+          .getCurrentWaterMeterMeasuresChunk(4, this.dwelling.id!)
+          .subscribe((responseWaterMeterMeasurement) => {
+            if (!responseWaterMeterMeasurement) {
+              return;
+            }
+            this.svcManager.getManagerConfiguration().subscribe((response) => {
+              this.configureWaterMeterCharts(
+                responseWaterMeterMeasurement,
+                response
+              );
+            });
           });
-        });
+        let geolocation = this.dwelling.address.geolocation;
+        this.configureMaps(geolocation);
+        this.loading = false;
+      },
+      error: (error) => (this.loading = false),
     });
   }
 
@@ -117,7 +100,7 @@ export class DetailComponent implements OnInit {
     for (let i = 0; i < waterMeterMeasurement.measures.length; i++) {
       sum += +waterMeterMeasurement.measures[i].measurement;
     }
-    console.log(sum);
+
     this.chartGoogleConsume = {
       id: String(waterMeterMeasurement.id!),
       options: {
@@ -142,6 +125,7 @@ export class DetailComponent implements OnInit {
       ],
     };
   }
+
   private configureMaps(geolocation: Geolocation) {
     this.configureMap = {
       lat: geolocation.latitude,
