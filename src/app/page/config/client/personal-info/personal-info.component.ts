@@ -1,6 +1,6 @@
 import { AccountService } from '@availa/auth-fe';
 import { UserService } from '@availa/agube-rest-api';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-personal-info',
@@ -25,6 +26,8 @@ export class PersonalInfoComponent implements OnInit {
 
   public releaseDate: Date | undefined = undefined;
 
+  private logOut: Subscription | undefined;
+
   constructor(
     private formBuilder: FormBuilder,
     private svcNotification: NotificationService,
@@ -40,7 +43,11 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.svcAccount.getUser().subscribe((userResponse) =>
+    this.logOut = this.svcAccount.getUser().subscribe((userResponse) => {
+      if (!userResponse) {
+        return;
+      }
+
       this.svcUser
         .getUserDetail(userResponse!.user_id)
         .subscribe((response) => {
@@ -48,8 +55,8 @@ export class PersonalInfoComponent implements OnInit {
           this.email.setValue(response.email);
           this.first_name.setValue(response.first_name);
           this.last_name.setValue(response.last_name);
-        })
-    );
+        });
+    });
   }
 
   saveForm() {

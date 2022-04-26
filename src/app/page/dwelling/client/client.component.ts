@@ -37,6 +37,11 @@ export class ClientComponent implements OnInit {
       .subscribe((response) => (this.userIsManager = response.is_manager));
     this.svcAccount.getUser().subscribe((user) => {
       this.user = user;
+
+      if (!user) {
+        return;
+      }
+
       this.svcUser.getDwellingDetail(user!.user_id).subscribe({
         next: (response) => {
           if (!response.length) {

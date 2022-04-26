@@ -24,6 +24,9 @@ export class AddressComponent extends CreateAddress {
   ) {
     super();
     this.svcAccount.getUser().subscribe((response) => {
+      if (!response) {
+        return;
+      }
       this.userId = response!.user_id;
       this.getAddressList(this.userId);
     });
