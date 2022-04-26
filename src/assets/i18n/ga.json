@@ -161,6 +161,24 @@
           "TOOLTIP": "Crear nova Vivenda e volver á pantalla principal"
         }
       }
+    },
+    "GEOLOCATION": {
+      "TITLE": "Localización geográfica"
+    }
+  },
+  "DWELLING_CLIENT": {
+    "TITLE": "Seleccione unha das vivendas para ver máis detalles",
+    "INFO": {
+      "COUNTER": "Contador",
+      "OWNER": "Propietario",
+      "RESIDENT": "Residente"
+    },
+    "NO_DWELLING": {
+      "TEXT": "Aún non tes vivendas asignadas",
+      "BUTTON": {
+        "TOOLTIP": "Ir a páxina da creación de vivendas",
+        "TEXT": "Nova Vivenda"
+      }
     }
   },
   "DWELLING_DETAIL": {
@@ -191,13 +209,6 @@
     "MAP": {
       "TOOLTIP_MAP": "Mapa",
       "TOOLTIP_STREET_VIEW": "Vista da Rúa"
-    },
-    "NO_DWELLING_DETAIL": {
-      "TEXT": " Aún no tes vivendas asignadas",
-      "BUTTON": {
-        "TOOLTIP": "Ir á páxina de creación de vivendas",
-        "TEXT": "Nova Vivenda"
-      }
     }
   },
   "WATER_METER": {

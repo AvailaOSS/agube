@@ -166,6 +166,21 @@
       "TITLE": "Localización geográfica"
     }
   },
+  "DWELLING_CLIENT": {
+    "TITLE": "Seleccione una de las viviendas para ver más detalles",
+    "INFO": {
+      "COUNTER": "Contador",
+      "OWNER": "Propietario",
+      "RESIDENT": "Residente"
+    },
+    "NO_DWELLING": {
+      "TEXT": "Aún no tienes viviendas asignadas",
+      "BUTTON": {
+        "TOOLTIP": "Ir a la página de creación de viviendas",
+        "TEXT": "Nueva Vivienda"
+      }
+    }
+  },
   "DWELLING_DETAIL": {
     "DETAIL_INFO": {
       "USER": {
@@ -194,13 +209,6 @@
     "MAP": {
       "TOOLTIP_MAP": "Mapa",
       "TOOLTIP_STREET_VIEW": "Vista Callejera"
-    },
-    "NO_DWELLING_DETAIL": {
-      "TEXT": "Aún no tienes viviendas asignadas",
-      "BUTTON": {
-        "TOOLTIP": "Ir a la página de creación de viviendas",
-        "TEXT": "Nueva Vivienda"
-      }
     }
   },
   "WATER_METER": {
