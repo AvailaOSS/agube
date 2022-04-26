@@ -4,7 +4,6 @@ import { Component, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService, AuthRoute } from '@availa/auth-fe';
-import { User } from '@availa/auth-fe/lib/login/models/user';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
 
@@ -32,8 +31,11 @@ export class SidebarComponent {
   ) {
     //FIXME: add pipe with first name and last name
     this.accountService.getUser().subscribe((userResponse) => {
+      if (!userResponse || !userResponse.user_id) {
+        return;
+      }
       this.svcUser
-        .getUserDetail(userResponse!.user_id)
+        .getUserDetail(userResponse.user_id)
         .subscribe((response) => (this.user = response));
     });
     this.toggleControl.valueChanges.subscribe((isDarkMode) => {
@@ -46,13 +48,12 @@ export class SidebarComponent {
   }
 
   public selectPage(select: SidebarConfig) {
-    console.log(select)
+    console.log(select);
     this.router.navigate([select.navigationRoute]);
   }
 
   public closeSession() {
     this.accountService.logout();
-    this.router.navigate([{ outlets: { primary: AuthRoute.LOGIN } }]);
   }
 
   private overlayDialog(themeMode: ThemeMode, oldThemeMode: ThemeMode) {

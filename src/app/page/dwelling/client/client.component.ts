@@ -28,6 +28,11 @@ export class ClientComponent implements OnInit {
   ngOnInit(): void {
     this.svcAccount.getUser().subscribe((user) => {
       this.user = user;
+
+      if (!user) {
+        return;
+      }
+
       this.svcUser.getDwellingDetail(user!.user_id).subscribe({
         next: (response) => {
           if (!response.length) {
