@@ -166,6 +166,21 @@
       "TITLE": "Geographical location"
     }
   },
+  "DWELLING_CLIENT": {
+    "TITLE": "Select one of the houses to see more details",
+    "INFO": {
+      "COUNTER": "Water Meter",
+      "OWNER": "Owner",
+      "RESIDENT": "Resident"
+    },
+    "NO_DWELLING": {
+      "TEXT": "You still do not have assigned Dwelling",
+      "BUTTON": {
+        "TOOLTIP": "Go to the creation dwelling page",
+        "TEXT": "New Dwelling"
+      }
+    }
+  },
   "DWELLING_DETAIL": {
     "DETAIL_INFO": {
       "USER": {
@@ -194,13 +209,6 @@
     "MAP": {
       "TOOLTIP_MAP": "Map",
       "TOOLTIP_STREET_VIEW": "Street View"
-    },
-    "NO_DWELLING_DETAIL": {
-      "TEXT": "You still do not have assigned Dwelling",
-      "BUTTON": {
-        "TOOLTIP": "Go to the creation dwelling page",
-        "TEXT": "New Dwelling"
-      }
     }
   },
   "WATER_METER": {

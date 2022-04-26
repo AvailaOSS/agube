@@ -57,7 +57,7 @@ export class PasswordComponent {
     });
   }
 
-  savePassword() {
+  public savePassword() {
     if (this.passwordForm.invalid) {
       return;
     }

@@ -27,7 +27,12 @@ export class PhonesComponent {
     private svcNotification: NotificationService
   ) {
     this.svcAccount.getUser().subscribe((response) => {
+      if (!response) {
+        return;
+      }
+
       this.userId = response!.user_id;
+
       this.getPhones(this.userId);
     });
   }
@@ -96,8 +101,7 @@ export class PhonesComponent {
   public errorValidator(entity: string) {
     switch (entity) {
       case 'newPhone':
-        let invalidPattern =
-          'CONTACT_INFO.PHONES.FORM.VALIDATIONS.PATTERN';
+        let invalidPattern = 'CONTACT_INFO.PHONES.FORM.VALIDATIONS.PATTERN';
 
         if (this.newPhone.hasError('required')) {
           return 'CONTACT_INFO.PHONES.FORM.VALIDATIONS.REQUIRED';
