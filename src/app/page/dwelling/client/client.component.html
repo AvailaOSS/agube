@@ -8,7 +8,7 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>
-            <h3>{{dwelling | dwellingDetail | slice:0:10}}...</h3>
+            <h3>{{dwelling | dwellingDetail }}</h3>
           </mat-card-title>
           <mat-card-subtitle>Contador: {{dwelling.water_meter_code}}</mat-card-subtitle>
         </mat-card-header>
@@ -43,9 +43,9 @@
       </h2>
       <mat-icon class="alert-no-dwelling">assignment_late</mat-icon>
     </div>
-    <div >
+    <div *ngIf="userIsManager">
       <button mat-raised-button color="primary"
-        matTooltip="{{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TOOLTIP' | translate }}">
+        matTooltip="{{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TOOLTIP' | translate }}" (click)="goToNewDwelling()">
         <mat-icon>add_business</mat-icon>
         {{ 'DWELLING_DETAIL.NO_DWELLING_DETAIL.BUTTON.TEXT' | translate }}
       </button>

@@ -1,6 +1,6 @@
 <div class="detail-page">
   <div class="page-content">
-    <mat-card *ngIf="!loading; else pageLoading">
+    <mat-card *ngIf="!loading">
       <mat-card-content *ngIf="dwelling">
         <div class="dwelling-info">
           <h1>
@@ -40,8 +40,5 @@
 
       </mat-card-content>
     </mat-card>
-    <ng-template #pageLoading>
-      <mat-spinner ></mat-spinner>
-    </ng-template>
   </div>
 </div>
