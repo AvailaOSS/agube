@@ -100,10 +100,10 @@ export class EditComponent {
     switch (entity) {
       case 'newPhone':
         let invalidPattern =
-          'CONTACT_INFO.PHONES.EDIT_FORM.VALIDATIONS.PATTERN';
+          'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
 
         if (this.newPhone.hasError('required')) {
-          return 'CONTACT_INFO.PHONES.EDIT_FORM.VALIDATIONS.REQUIRED';
+          return 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED';
         }
         if (this.newPhone.hasError('pattern')) {
           return invalidPattern;

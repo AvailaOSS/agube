@@ -101,10 +101,10 @@ export class PhonesComponent {
   public errorValidator(entity: string) {
     switch (entity) {
       case 'newPhone':
-        let invalidPattern = 'CONTACT_INFO.PHONES.FORM.VALIDATIONS.PATTERN';
-
+        let invalidPattern =
+          'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
         if (this.newPhone.hasError('required')) {
-          return 'CONTACT_INFO.PHONES.FORM.VALIDATIONS.REQUIRED';
+          return 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED';
         }
         if (this.newPhone.hasError('pattern')) {
           return invalidPattern;

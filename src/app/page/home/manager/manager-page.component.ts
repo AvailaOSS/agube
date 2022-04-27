@@ -11,27 +11,27 @@ export class ManagerPageComponent extends SidebarComponent {
     this.pages = [
       {
         navigationRoute: 'manager/home/client/config',
-        title: 'SIDEBAR.TITLES.PAGE_PROFILE',
+        title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
         icon: 'person',
       },
       {
         navigationRoute: 'manager/home/manager/client/dwellings',
-        title: 'SIDEBAR.TITLES.PAGE_MY_DWELLING',
+        title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
         icon: 'store',
       },
       {
         navigationRoute: 'manager/home/dwellings',
-        title: 'SIDEBAR.TITLES.PAGE_DWELLINGS',
+        title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
         icon: 'holiday_village',
       },
       {
         navigationRoute: 'manager/home/reservoirs',
-        title: 'SIDEBAR.TITLES.PAGE_RESERVOIRS',
+        title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESERVOIRS',
         icon: 'water_drop',
       },
       {
         navigationRoute: 'manager/home/config',
-        title: 'SIDEBAR.TITLES.PAGE_CONFIGURATION',
+        title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
         icon: 'settings',
       },
     ];

@@ -3,7 +3,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService, AuthRoute } from '@availa/auth-fe';
+import { AccountService } from '@availa/auth-fe';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
 

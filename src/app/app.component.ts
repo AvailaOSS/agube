@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
-export interface Language {
-  code: string;
-  description: string;
-  flagLink: string;
-}
+import { Language } from './utils/language';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +8,6 @@ export interface Language {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'agube-fe';
-
   public languages: Language[] = [
     {
       code: 'ga',
@@ -25,12 +18,14 @@ export class AppComponent {
     {
       code: 'es',
       description: 'LENGUAGE.SPANISH',
-      flagLink: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg',
+      flagLink:
+        'https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg',
     },
     {
       code: 'en',
       description: 'LENGUAGE.ENGLISH',
-      flagLink: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
+      flagLink:
+        'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
     },
   ];
 

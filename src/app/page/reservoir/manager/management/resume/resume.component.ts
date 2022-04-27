@@ -10,22 +10,20 @@ export class ResumeComponent implements OnChanges {
   @Input() public reservoirId: number | undefined;
   public reservoir: ReservoirCreate | undefined = undefined;
 
-  constructor(private svcReservoir: ReservoirService) { }
+  constructor(private svcReservoir: ReservoirService) {}
+
   ngOnChanges(): void {
     if (!this.reservoirId) {
-      return
+      return;
     }
 
     this.svcReservoir.getReservoir(this.reservoirId).subscribe({
       next: (response) => {
-        this.reservoir = response
+        this.reservoir = response;
       },
       error: () => {
-        this.reservoir = undefined
-      }
+        this.reservoir = undefined;
+      },
     });
   }
-
-
-
 }

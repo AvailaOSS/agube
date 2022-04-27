@@ -79,25 +79,25 @@ export class PersonalInfoComponent implements OnInit {
     switch (entity) {
       case 'username':
         if (this.username.hasError('required')) {
-          return 'PERSONAL_INFO.FORM.VALIDATIONS.USERNAME';
-        }
-        return '';
-      case 'email':
-        if (this.email.hasError('required')) {
-          return 'PERSONAL_INFO.FORM.VALIDATIONS.EMAIL.REQUIRED';
-        }
-        if (this.email.hasError('email')) {
-          return 'PERSONAL_INFO.FORM.VALIDATIONS.EMAIL.FORMAT_STANDARD';
+          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.USERNAME.VALIDATION.REQUIRED';
         }
         return '';
       case 'first_name':
         if (this.first_name.hasError('required')) {
-          return 'PERSONAL_INFO.FORM.VALIDATIONS.FIRST_NAME';
+          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED';
         }
         return '';
       case 'last_name':
         if (this.last_name.hasError('required')) {
-          return 'PERSONAL_INFO.FORM.VALIDATIONS.LAST_NAME';
+          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.LAST_NAME.VALIDATION.REQUIRED';
+        }
+        return '';
+      case 'email':
+        if (this.email.hasError('required')) {
+          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.REQUIRED';
+        }
+        if (this.email.hasError('email')) {
+          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD';
         }
         return '';
       default:

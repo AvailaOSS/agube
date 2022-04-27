@@ -19,7 +19,7 @@ export class OwnerComponent extends ChangeComponent {
     svcDwelling: DwellingService
   ) {
     super(router, route, formBuilder, svcNotification, svcDwelling);
-    this.title = 'PERSON.OWNER';
+    this.title = 'GENERAL.TEXT.OWNER';
   }
 
   override ngOnInit() {
@@ -36,16 +36,6 @@ export class OwnerComponent extends ChangeComponent {
       phones: [{ phone_number: this.phone_number.value }],
       address: [
         this.dwelling!.address,
-        // {
-        //   address: {
-        //     town: 'string',
-        //     street: 'string',
-        //     is_external: false,
-        //   },
-        //   number: 7,
-        //   flat: 'string',
-        //   gate: 'string',
-        // },
       ],
     };
     return this.svcDwelling.changeCurrentOwner(this.dwellingId,  {user})

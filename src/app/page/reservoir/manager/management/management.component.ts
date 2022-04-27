@@ -19,7 +19,7 @@ export class ManagementComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  loadWaterMeter(waterMeterId: number) {
+  public loadWaterMeter(waterMeterId: number) {
     this.waterMeterId = waterMeterId;
     this.type = {
       id: this.reservoirDetail?.id!,
@@ -27,7 +27,7 @@ export class ManagementComponent {
     };
   }
 
-  openChangeWaterMeter() {
+  public openChangeWaterMeter() {
     if (!this.waterMeterId) {
       return;
     }

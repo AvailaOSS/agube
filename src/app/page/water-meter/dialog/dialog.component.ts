@@ -73,7 +73,7 @@ export class WaterMeterDialogComponent {
     this.dialogRef.close();
   }
 
-  @HostListener('window:keyup.esc') onKeyUp() {
+  @HostListener('window:keyup.esc') public onKeyUp() {
     this.close();
   }
 
@@ -81,7 +81,7 @@ export class WaterMeterDialogComponent {
     switch (entity) {
       case 'code':
         if (this.code.hasError('required')) {
-          return 'WATER_METER.DIALOG.FORM.NEW_WATER_METER.VALIDATION';
+          return 'PAGE.WATER_METER.DIALOG.NEW_WATER_METER.VALIDATION';
         }
         return '';
       default:

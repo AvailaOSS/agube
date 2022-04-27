@@ -86,7 +86,7 @@ export class MeasureDialogComponent {
     this.dialogRef.close(reload);
   }
 
-  @HostListener('window:keyup.esc') onKeyUp() {
+  @HostListener('window:keyup.esc') public onKeyUp() {
     this.close(false);
   }
 
@@ -99,15 +99,15 @@ export class MeasureDialogComponent {
     switch (entity) {
       case 'measurement':
         if (this.measurement.hasError('required')) {
-          return 'WATER_METER.MEASURE_DIALOG.FORM.MEASURE.VALIDATION';
+          return 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MEASURE.VALIDATION.REQUIRED';
         }
         return '';
       case 'date':
         if (this.date.hasError('required')) {
-          return 'WATER_METER.MEASURE_DIALOG.FORM.DATE.VALIDATION.REQUIRED';
+          return 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.REQUIRED';
         }
         if (this.date.hasError('dateInFuture')) {
-          return 'WATER_METER.MEASURE_DIALOG.FORM.DATE.VALIDATION.DATE_IN_FUTURE';
+          return 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.DATE_IN_FUTURE';
         }
         return '';
       case 'minutes':
@@ -116,7 +116,7 @@ export class MeasureDialogComponent {
           this.hour.hasError('required') ||
           this.minutes.hasError('required')
         ) {
-          return 'WATER_METER.MEASURE_DIALOG.FORM.HOUR_MINUTES.VALIDATION';
+          return 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED';
         }
         return '';
       default:
