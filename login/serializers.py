@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from phone.serializers import PhoneSerializer
 from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
+from configurethemelang.serializers import ConfigureThemeLangSerializer
+from configurethemelang.models import ConfigureThemeLang
+
 
 
 class UserSerializer(ModelSerializer):
@@ -62,6 +65,22 @@ class UserDetailSerializer(UserSerializer):
             'last_name',
             'email',
             'main_phone',
+        )
+
+
+class UserDetailConfigSerializer(UserSerializer):
+    """
+    User Detail, phone + address ModelSerializer
+    """
+    id = ReadOnlyField()
+   
+
+    class Meta:
+        ref_name = 'UserDetailConfigure'
+        model = ConfigureThemeLang
+        fields = (
+            'mode',
+            'lang'
         )
 
 

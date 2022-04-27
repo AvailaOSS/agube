@@ -17,9 +17,10 @@ from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
 from login.permissions import IsManagerOfUser, IsUserMatch
 from login.serializers import (UserAddressUpdateSerializer,
-                               UserDetailSerializer, UserPhoneUpdateSerializer)
+                               UserDetailSerializer, UserPhoneUpdateSerializer,
+                               UserDetailConfigSerializer)
 from login.serializers_external import UserDwellingDetailSerializer
-
+from configurethemelang.models import ConfigureThemeLang
 TAG_USER = 'user'
 
 
@@ -48,6 +49,29 @@ class UserCustomDetailView(APIView):
         }
 
         return Response(UserDetailSerializer(data, many=False).data)
+
+
+class UserDetailConfigView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+
+    @swagger_auto_schema(
+        operation_id="getUserDetailConfig",
+        responses={200: UserDetailConfigSerializer(many=False)},
+        tags=[TAG_USER],
+    )
+    def get(self, request, pk):
+        """
+        Return user information details.
+        """
+        user = User.objects.get(id=pk)
+        configure = ConfigureThemeLang.objects.get(id=pk)
+        data = {
+            "manager_id": user.id,
+            'mode':configure.mode,
+            'lang':configure.lang
+        }
+
+        return Response(UserDetailConfigSerializer(data, many=False).data)
 
 
 class UserDwellingDetailView(APIView):
@@ -325,8 +349,10 @@ class UserAddressUpdateDeleteView(APIView):
         update_this_geolocation.latitude = geolocation_data.get('latitude')
         update_this_geolocation.longitude = geolocation_data.get('longitude')
         update_this_geolocation.zoom = geolocation_data.get('zoom')
-        update_this_geolocation.horizontal_degree = geolocation_data.get('horizontal_degree')
-        update_this_geolocation.vertical_degree = geolocation_data.get('vertical_degree')
+        update_this_geolocation.horizontal_degree = geolocation_data.get(
+            'horizontal_degree')
+        update_this_geolocation.vertical_degree = geolocation_data.get(
+            'vertical_degree')
         update_this_geolocation.save()
 
         update_this_address = user_address.address
