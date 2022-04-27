@@ -1,16 +1,13 @@
 <div class="contact-info">
     <div *ngIf="resident; else noResident">
-        <h2>
-            {{ resident.user | userDetail}}
-        </h2>
+        <h2>{{ resident.user | userDetail }}</h2>
+        <p>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.PHONE_NUMBER' | translate }} <b>{{ getMainPhone() }}</b></p>
         <p>
-            {{"DWELLINGS.CARD.RESIDENT.CONTACT_PHONE" | translate}} <b>{{getMainPhone()}}</b>
-        </p>
-        <p>
-            {{"DWELLINGS.CARD.RESIDENT.RELEASE_DATE" | translate}} <b>{{resident.release_date | date:'longDate' }}</b>
+            {{ 'PAGE.DWELLING.MANAGER.MANAGEMENT.RESIDENT_CONTENT.RELEASE_DATE' | translate }}
+            <b>{{ resident.release_date | date:'longDate' }}</b>
         </p>
     </div>
     <ng-template #noResident>
-        <h2> {{"DWELLINGS.CARD.RESIDENT.NO_RESIDENT" | translate}}</h2>
+        <h2>{{ 'PAGE.DWELLING.MANAGER.MANAGEMENT.RESIDENT_CONTENT.NO_RESIDENT' | translate }}</h2>
     </ng-template>
 </div>

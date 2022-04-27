@@ -11,12 +11,12 @@ export class ClientComponent extends SidebarComponent {
     this.pages = [
       {
         navigationRoute: 'client/config',
-        title: 'Mi Perfil',
+        title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
         icon: 'person',
       },
       {
         navigationRoute: 'client/dwellings',
-        title: 'Mi Vivienda',
+        title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
         icon: 'store',
       },
     ];

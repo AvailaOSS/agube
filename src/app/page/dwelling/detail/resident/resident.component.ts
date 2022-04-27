@@ -6,7 +6,6 @@ import {
 } from '@availa/agube-rest-api';
 import { PersonTitle } from './person-title';
 
-
 @Component({
   selector: 'app-resident',
   templateUrl: './resident.component.html',
@@ -16,7 +15,7 @@ export class ResidentComponent implements OnInit {
   @Input() public dwellingId: number | undefined;
 
   public title: PersonTitle = {
-    title: 'DWELLING_DETAIL.DETAIL_INFO.USER.TITLE_RESIDENT',
+    title: 'GENERAL.TEXT.RESIDENT',
     icon: 'escalator_warning',
   };
   public userDetail: UserDetail | undefined;

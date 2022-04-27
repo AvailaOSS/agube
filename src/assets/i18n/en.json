@@ -1,488 +1,188 @@
 {
-  "LENGUAGE": {
-    "GALICIAN": "Galician",
-    "SPANISH": "Spanish",
-    "ENGLISH": "English"
-  },
-  "SIDEBAR": {
-    "BUTTONS": {
-      "CLOSE_SESSION": "Close Session"
-    },
-    "TITLES": {
-      "PAGE_PROFILE": "My Profile",
-      "PAGE_MY_DWELLING": "My Dwelling",
-      "PAGE_DWELLINGS": "Dwellings",
-      "PAGE_RESERVOIRS": "Reservoirs",
-      "PAGE_CONFIGURATION": "Configuration"
-    }
-  },
-  "DWELLINGS": {
-    "TABLE": {
-      "TITLE": "Dwelling's List",
-      "TOOLTIP": "Select",
-      "FILTER": {
-        "TEXT": "Code, Street, Town, Phone Nº...",
-        "TOOLTIP": "Search",
-        "BUTTON": {
-          "TOOLTIP": "Clean Search"
-        }
-      },
-      "BUTTON": {
-        "TEXT": "New Dwelling",
-        "TOOLTIP": "Go to the creation dwelling page"
-      }
-    },
-    "CARD": {
-      "RESIDENT": {
-        "TITLE": "Resident",
-        "CONTACT_PHONE": "Contact phone",
-        "RELEASE_DATE": "Since",
-        "NO_RESIDENT": "Without Resident"
-      },
-      "BUTTONS": {
-        "GO_DWELLING_TOOLTIP": "Go to Dwelling",
-        "CHANGE_WATER_METER_CODE": "Change Counter",
-        "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter",
-        "CHANGE_RESIDENT": "Change Resident",
-        "CHANGE_RESIDENT_TOOLTIP": "Deregister the current Resident and Register a new one",
-        "CHANGE_OWNER": "Change Owner",
-        "CHANGE_OWNER_TOOLTIP": "Cancel the current Owner and Register a new one"
-      }
-    }
-  },
-  "PERSON": {
-    "PERSON": "Person",
-    "OWNER": "Owner",
-    "RESIDENT": "Resident",
-    "WARNING_1": "An email will be sent to the new",
-    "WARNING_2": "with the activation code to activate the account",
-    "CHANGE": {
-      "TITLE_1": "Change of",
-      "TITLE_2": "Register a new",
-      "SUBTITLE_1": "The current",
-      "SUBTITLE_2": "",
-      "SUBTITLE_3": "will be discharged",
-      "FORM": {
-        "DATA": {
-          "TITLE": "Data",
-          "FIRST_NAME": {
-            "TEXT": "First Name",
-            "VALIDATION.PERSON.RESIDENT": "Write the name of the Resident",
-            "VALIDATION.PERSON.OWNER": "Write the name of the Owner"
-          },
-          "LAST_NAME": {
-            "TEXT": "Surnames",
-            "VALIDATION.PERSON.RESIDENT": "Write the last name of Resident",
-            "VALIDATION.PERSON.OWNER": "Write the last name of Owner"
-          }
-        },
-        "CONTACT_INFO": {
-          "TITLE": "Contact information",
-          "EMAIL": {
-            "TEXT": "Email",
-            "VALIDATION": {
-              "REQUIRED.PERSON.RESIDENT": "Insert the email of Resident",
-              "REQUIRED.PERSON.OWNER": "Insert the email of Owner",
-              "EMAIL_FORMAT": "The email entered does not comply with the format stark@industries.com"
-            }
-          },
-          "CONTACT_PHONE": {
-            "TEXT": "Telephone contact",
-            "VALIDATION": {
-              "REQUIRED": "Insert a contact number",
-              "PHONE_FORMAT": "The contact number does not comply with the format 196320819 or +XX 196320819"
-            }
-          }
-        },
-        "BUTTONS": {
-          "CLOSE": {
-            "TEXT": "Exit without saving",
-            "TOOLTIP": "The change will not be made"
-          },
-          "SAVE": {
-            "TEXT": "Save",
-            "TOOLTIP": "Make the change of"
-          },
-          "SAVE_AND_CLOSE": {
-            "TEXT": "Save and exit",
-            "TOOLTIP": "and return to the main page"
-          }
-        }
-      }
-    }
-  },
-  "STREET_VIEW": {
-    "FILTER": {
-      "TEXT": "Street, Post Code, Town, Province...",
-      "TOOLTIP": "Press enter key to search",
-      "TOOLTIP_GO": "Go",
-      "TOOLTIP_CLEAR": "Clean and Reset Search",
-      "VALIDATION": "Perform a search and we will take care of obtaining the necessary data"
-    },
-    "FORM": {
-      "STREET": {
-        "TEXT": "Street",
-        "VALIDATION": "Write the street to which the Dwelling corresponds"
-      },
-      "NUMBER": {
-        "TEXT": "Nº",
-        "VALIDATION": "Write the address number"
-      },
-      "FLAT": {
-        "TEXT": "Flat"
-      },
-      "GATE": {
-        "TEXT": "Gate"
-      }
-    },
-    "MAP": {
-      "CLICK": "Click to mark the address",
-      "LIST_SELECTOR": { "TOOLTIP": "Select" }
-    }
-  },
-  "NEW_DWELLING": {
-    "TITLE": "Register a new Dwelling",
-    "FORM": {
-      "CODE_COUNTER": {
-        "TEXT": "Counter code",
-        "VALIDATION": "Check what is the code of the water meter of the Dwelling"
-      },
-      "BUTTONS": {
-        "CLOSE": {
-          "TEXT": "Exit without saving",
-          "TOOLTIP": "Data will not be saved"
-        },
-        "SAVE": {
-          "TEXT": "Save",
-          "TOOLTIP": "Create new Dwelling"
-        },
-        "SAVE_AND_CLOSE": {
-          "TEXT": "Save and exit",
-          "TOOLTIP": "Create new Dwelling and return to the main screen"
-        }
-      }
-    },
-    "GEOLOCATION": {
-      "TITLE": "Geographical location"
-    }
-  },
-  "DWELLING_CLIENT": {
-    "TITLE": "Select one of the houses to see more details",
-    "INFO": {
-      "COUNTER": "Water Meter",
-      "OWNER": "Owner",
-      "RESIDENT": "Resident"
-    },
-    "NO_DWELLING": {
-      "TEXT": "You still do not have assigned Dwelling",
-      "BUTTON": {
-        "TOOLTIP": "Go to the creation dwelling page",
-        "TEXT": "New Dwelling"
-      }
-    }
-  },
-  "DWELLING_DETAIL": {
-    "DETAIL_INFO": {
-      "USER": {
-        "TITLE_RESIDENT": "Resident",
-        "TITLE_OWNER": "Owner",
-        "FIRST_NAME": "First Name",
-        "LAST_NAME": "Last Name",
-        "EMAIL": "Email",
-        "PHONE_NUMBER": "Phone number"
-      }
-    },
-    "ADDRESS": {
-      "FORM": {
-        "COORDINATES": "Coordinates",
-        "COUNTRY": "Country",
-        "STATE": "State",
-        "PROVINCE": "Province",
-        "CITY": "City",
-        "VILLAGE": "Village",
-        "MUNICIPALITY": "Municipality",
-        "CITY_DISTRICT": "City district",
-        "POSTAL_CODE": "Postal Code",
-        "STREET": "Street"
-      }
-    },
-    "MAP": {
-      "TOOLTIP_MAP": "Map",
-      "TOOLTIP_STREET_VIEW": "Street View"
-    }
-  },
-  "WATER_METER": {
-    "CODE": "Code counter",
-    "RELEASE_DATE": "Release date",
-    "NO_COUNTER": "None",
-    "HEADER": {
-      "FILTER": {
-        "TEXT": " month-day, year, month, day",
-        "TOOLTIP": "Search",
-        "BUTTON_TOOLTIP": "Clean search"
-      },
-      "BUTTON": {
-        "TEXT": "Open new Reading form",
-        "TOOLTIP": "New Reading"
-      }
-    },
-    "DIALOG": {
-      "TITLE": "Making a change of Water Meter",
-      "FORM": {
-        "NEW_WATER_METER": {
-          "TEXT": "New Water Meter",
-          "VALIDATION": "Check counter code"
-        },
-        "BUTTONS": {
-          "CLOSE": {
-            "TEXT": "Close without saving",
-            "TOOLTIP": "Data will not be saved"
-          },
-          "SAVE": {
-            "TEXT": "Save",
-            "TOOLTIP": "Deregister the current counter and Register a new counter"
-          }
-        }
-      }
-    },
-    "MEASURE_DIALOG": {
-      "TITLE": "New Reading",
-      "FORM": {
-        "MEASURE": {
-          "TEXT": "Measure in",
-          "VALIDATION": "Check the reading that marks the meter of the house"
-        },
-        "DATE": {
-          "TEXT": "Date",
-          "VALIDATION": {
-            "REQUIRED": "It is mandatory to enter a date",
-            "DATE_IN_FUTURE": "The date entered cannot be later than the current date"
-          }
-        },
-        "HOUR_MINUTES": {
-          "HOUR_TEXT": "Hour",
-          "MINUTES_TEXT": "Minutes",
-          "VALIDATION": "We need the hour and minutes in which the Reading was taken"
-        },
-        "BUTTONS": {
-          "CLOSE": {
-            "TEXT": "Close without saving",
-            "TOOLTIP": "Data will not be saved"
-          },
-          "SAVE": {
-            "TEXT": "Save",
-            "TOOLTIP": "Save data and close screen"
-          }
-        }
-      }
-    }
-  },
-  "MANAGER_CONFIG": {
-    "PARAMETERS": {
-      "TITLE": "General parameters",
-      "FORM": {
-        "HOOK_PRICE": {
-          "TEXT": "Hook price",
-          "VALIDATION": "The Hook price cannot be empty"
-        },
-        "MAX_DAILY_CONSUMPTION": {
-          "TEXT": "Maximum daily consumption",
-          "VALIDATION": "The maximum daily consumption cannot be empty"
-        },
-        "BUTTON": {
-          "TEXT": "Save",
-          "DESCRIPTION": "Last update",
-          "TOOLTIP": "Update General parameters"
-        }
-      }
-    }
-  },
-  "PERSONAL_INFO": {
-    "TITLE": "Personal Data",
-    "FORM": {
-      "USER_NAME": "Username",
-      "FIRST_NAME": "Name",
-      "LAST_NAME": "Last name",
-      "EMAIL": "Email",
-      "BUTTON": {
-        "BUTTON_SAVE": "Save",
-        "BUTTON_TOOLTIP": "Update personal data"
-      },
-      "VALIDATIONS": {
-        "USERNAME": "You don't like your username? Change it!",
-        "EMAIL": {
-          "REQUIRED": "Have you changed email? Update it!",
-          "FORMAT_STANDARD": "The entered email does not comply with the standard format, for example: 'tony@stark.com'"
-        },
-        "FIRST_NAME": "Is your name not correct? What's your name?",
-        "LAST_NAME": "What are your last names?"
-      }
-    }
-  },
-  "CONTACT_INFO": {
-    "TITLE": "Contact Infomation",
-    "PHONES": {
-      "TITLE": "Phones",
-      "BUTTON": {
-        "BUTTON_TOOLTIP": "Add New Phone"
-      },
-      "FORM": {
-        "ADD_PHONE": "New Phone",
-        "BUTTON_CLOSE_TOOLTIP": "Close",
-        "BUTTON_SAVE_TOOLTIP": "Save",
-        "VALIDATIONS": {
-          "REQUIRED": "Insert a contact number",
-          "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
-        }
-      },
-      "EDIT_FORM": {
-        "EDIT_PHONE": "Modify Phone",
-        "BUTTON_CLOSE_TOOLTIP": "Close",
-        "BUTTON_SAVE_TOOLTIP": "Save",
-        "BUTTON_PRINCIPAL_TOOLTIP": "Put favorite phone",
-        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorite",
-        "BUTTON_EDIT_TOOLTIP": "Edit",
-        "BUTTON_DELETE_TOOLTIP": "Delete",
-        "VALIDATIONS": {
-          "REQUIRED": "Insert a contact number",
-          "PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819"
-        }
-      }
-    },
-    "ADDRESS": {
-      "TITLE": "Address",
-      "BUTTON": {
-        "BUTTON_TOOLTIP": "Add new Address"
-      },
-      "FORM": {
-        "GATE": "Gate",
-        "FLAT": "Flat",
-        "NUMBER": "Number",
-        "STREET": "Street",
-        "TOWN": "City",
-        "BUTTON_CLOSE_TOOLTIP": "Close",
-        "BUTTON_SAVE_TOOLTIP": "Save",
-        "VALIDATIONS": {
-          "NUMBER": "Write the address number",
-          "STREET": "Write the street to which the House corresponds",
-          "TOWN": "Write the city in which the House is located"
-        }
-      },
-      "EDIT_FORM": {
-        "EDIT_ADDRESS": "Modify Address",
-        "BUTTON_CLOSE_TOOLTIP": "Close",
-        "BUTTON_SAVE_TOOLTIP": "Save",
-        "BUTTON_PRINCIPAL_TOOLTIP": "Put favorite address",
-        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorite",
-        "BUTTON_EDIT_TOOLTIP": "Edit",
-        "BUTTON_DELETE_TOOLTIP": "Delete",
-        "VALIDATIONS": {
-          "REQUIRED": "Inserta un número de contacto",
-          "PATTERN": "El número de contacto no cumple con el formato 196320819 o +XX 196320819"
-        }
-      }
-    }
-  },
-  "PASSWORD": {
-    "TITLE": "PASSWORD",
-    "FORM": {
-      "USER_NAME": "Username",
-      "PASSWORD": "Password",
-      "CONFIRM_PASSWORD": "Confirm Password",
-      "BUTTON": {
-        "BUTTON_SAVE": "Save",
-        "BUTTON_TOOLTIP": "Update password"
-      },
-      "VALIDATIONS": {
-        "USERNAME": "Insert your username to confirm your identity",
-        "PASSWORD": {
-          "REQUIRED": "Insert your password",
-          "MINLENGTH": "The password must have at least 5 characters.",
-          "MAXLENGTH": "The password must be up to 16 characters."
-        },
-        "CONFIRM_PASSWORD": {
-          "REQUIRED": "Insert your password",
-          "MINLENGTH": "The password must have at least 5 characters.",
-          "MAXLENGTH": "The password must be up to 16 characters.",
-          "NOMATCHED": "Passwords are not the same."
-        }
-      }
-    }
-  },
-  "RESERVOIR": {
-    "TABLE": {
-      "TITLE": "Reservoir's List",
-      "TOOLTIP": {
-        "CAPACITY": "Capacity",
-        "INLET_FLOW": "Inlet Flow",
-        "OUTLET_FLOW": "Outlet Flow",
-        "FULL_ADDRESS": "Address"
-      },
-      "FILTER": {
-        "TEXT": "Code, Street, Town, Phone Nº...",
-        "TOOLTIP": "Search",
-        "BUTTON": {
-          "TOOLTIP": "Clean Search"
-        }
-      },
-      "BUTTON": {
-        "TEXT": "New Reservoir",
-        "TOOLTIP": "Go to the creation reservoir page"
-      }
-    },
-    "CARD": {
-      "DATA": {
-        "TITLE": "Data",
-        "CAPACITY": "of Capacity",
-        "INLET_FLOW": "inlet Flow",
-        "OUTLET_FLOW": "outlet Flow"
-      },
-      "BUTTONS": {
-        "CHANGE_WATER_METER_CODE": "Change Counter",
-        "CHANGE_WATER_METER_CODE_TOOLTIP": "Deregister the current counter and Register a new counter"
-      }
-    },
-    "CREATE": {
-      "TITLE": "Register a new Reservoir",
-      "FORM": {
-        "WATER_METER_CODE": {
-          "TEXT": "Code counter",
-          "VALIDATION": "Check what is the code of the water meter of the Reservoir"
-        },
-        "NUMBER": {
-          "TEXT": "Number",
-          "VALIDATION": "Write the address number"
-        },
-        "STREET": {
-          "TEXT": "Street",
-          "VALIDATION": "Write the street to which the Reservoir corresponds "
-        },
-        "TOWN": {
-          "TEXT": "Town",
-          "VALIDATION": "Write the city in which the Reservoir is located"
-        },
-        "CAPACITY": {
-          "TEXT": "Capacity",
-          "VALIDATION": "Write the total capacity of the Reservoir"
-        },
-
-        "INLET_FLOW": {
-          "TEXT": " Water inlet",
-          "VALIDATION": "Write the Repository input stream"
-        },
-        "OUTLET_FLOW": {
-          "TEXT": "Water outlet",
-          "VALIDATION": "Write the output flow of the Repository"
-        },
-        "BUTTONS": {
-          "BUTTON_EXIT": "Exit without saving",
-          "BUTTON_EXIT_TOOLTIP": "Data will not be saved",
-          "BUTTON_SAVE": "Save",
-          "BUTTON_SAVE_TOOLTIP": "Create new Reservoir",
-          "BUTTON_SAVE_EXIT": "Save and Exit",
-          "BUTTON_SAVE_EXIT_TOOLTIP": "Create new Deposit and return to Reservoir table"
-        }
-      }
-    }
-  }
+  "LENGUAGE.GALICIAN": "Galician",
+  "LENGUAGE.SPANISH": "Spanish",
+  "LENGUAGE.ENGLISH": "English",
+  "GENERAL.TEXT.RESIDENT": "Resident",
+  "GENERAL.TEXT.OWNER": "Owner",
+  "GENERAL.TEXT.WATER_METER": "Water Meter",
+  "GENERAL.TEXT.DWELLING": "Dwelling",
+  "GENERAL.TEXT.RESERVOIR": "Reservoir",
+  "GENERAL.TEXT.USERNAME": "User Name",
+  "GENERAL.TEXT.FIRST_NAME": "First Name",
+  "GENERAL.TEXT.LAST_NAME": "Last Name",
+  "GENERAL.TEXT.EMAIL": "Email",
+  "GENERAL.BUTTON.CLOSE_WITHOUT_SAVING": "Close without saving",
+  "GENERAL.BUTTON.EXIT_WITHOUT_SAVING": "Exit without saving",
+  "GENERAL.BUTTON.SAVE": "Save",
+  "GENERAL.BUTTON.SAVE_AND_EXIT": "Save and Exit",
+  "GENERAL.BUTTON.CLOSE": "Exit",
+  "GENERAL.BUTTON.EDIT": "Edit",
+  "GENERAL.BUTTON.DELETE": "Erase",
+  "APP.CHANGE_LANGUAGE": "Change Language",
+  "APP.THEME.CHANGE": "Change Theme",
+  "APP.THEME.LIGHT": "Light Theme",
+  "APP.THEME.DARK": "Dark Theme",
+  "COMPONENTS.MAP.CREATE.FILTER.TEXT": "Street, Post Code, Town, Province...",
+  "COMPONENTS.MAP.CREATE.FILTER.VALIDATION": "Perform a search and we will take care of obtaining the necessary data",
+  "COMPONENTS.MAP.CREATE.FILTER.TOOLTIP": "Press enter key to search",
+  "COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP": "Go",
+  "COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP": "Clean and Reset Search",
+  "COMPONENTS.MAP.CREATE.FORM.STREET.TEXT": "Road",
+  "COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION": "Write the street to which the Dwelling corresponds",
+  "COMPONENTS.MAP.CREATE.FORM.NUMBER.TEXT": "nº",
+  "COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION": "Write the address number",
+  "COMPONENTS.MAP.CREATE.FORM.FLAT.TEXT": "Flat",
+  "COMPONENTS.MAP.CREATE.FORM.GATE.TEXT": "Gate",
+  "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Select",
+  "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Click to mark the address",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.TITLE": "Contact Infomation",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE": "Address",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD": "Add new Address",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.IS_PRINCIPAL": "Main",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.FAVORITE": "Favorite",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.BUTTON.FAVORITE": "Put Favorite",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.TITLE": "Phones",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.BUTTON.ADD": "Add New Phone",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM": "New Phone",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN": "The contact number does not comply with the format 196320819 or +XX 196320819",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED": "Insert a contact number",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.PHONE": "Modify Phone",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.IS_PRINCIPAL": "Main",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.FAVORITE": "Favorite",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.BUTTON.FAVORITE": "Put Favorite",
+  "PAGE.CONFIG.CLIENT.PASSWORD.TITLE": "Password",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME": "Username",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME.VALIDATION": "Insert your username to confirm your identity",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.REQUIRED": "Insert your password",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MINLENGTH": "The password must have at least 5 characters.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MAXLENGTH": "The password must be up to 16 characters.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD": "Confirm Password",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.REQUIRED": "Insert a confirmation password",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH": "The confirmation password must have at least 5 characters.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH": "The confirmation password must be up to 16 characters.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.NOMATCHED": "Passwords are not the same.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.BUTTON.SAVE": "Save new Password",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE": "Personal information",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.USERNAME.VALIDATION.REQUIRED": "You don't like your username? Change it!",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED": "Is your name not correct? What's your name?",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.LAST_NAME.VALIDATION.REQUIRED": "What are your last names?",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.REQUIRED": "Have you changed email? Update it!",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "The entered email does not comply with the standard format, for example: tony@stark.com'",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Update personal information",
+  "PAGE.CONFIG.MANAGER.TITLE": "General parameters",
+  "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Hook price",
+  "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "The deposit price cannot be empty",
+  "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION": "Maximum daily consumption",
+  "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION.VALIDATION.REQUIRED": "The maximum daily consumption cannot be empty",
+  "PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION": "Last update",
+  "PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP": "Update General Parameters",
+  "PAGE.DWELLING.CLIENT.TITLE": "Select one of the houses to see more details",
+  "PAGE.DWELLING.CLIENT.NO_DWELLING.TEXT": "You still do not have assigned homes",
+  "PAGE.DWELLING.CLIENT.NO_DWELLING.BUTTON": "New Home",
+  "PAGE.DWELLING.CLIENT.NO_DWELLING.BUTTON.TOOLTIP": "Go to the Home Creation page",
+  "PAGE.DWELLING.CREATE.TITLE": "Register a new Home",
+  "PAGE.DWELLING.CREATE.CODE_COUNTER": "Water Meter Code",
+  "PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION": "Check what is the code of the water meter of the House",
+  "PAGE.DWELLING.CREATE.BUTTON.SAVE.TOOLTIP": "Create new House",
+  "PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP": "Data will not be saved",
+  "PAGE.DWELLING.CREATE.BUTTON.SAVE_AND_CLOSE.TOOLTIP": "Create new House and return to the main screen",
+  "PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP": "Map",
+  "PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP": "Street View",
+  "PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER": "Phone Number",
+  "PAGE.DWELLING.DETAIL.ADDRESS.COORDINATES": "Coordinates",
+  "PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY": "Country",
+  "PAGE.DWELLING.DETAIL.ADDRESS.STATE": "State",
+  "PAGE.DWELLING.DETAIL.ADDRESS.PROVINCE": "Province",
+  "PAGE.DWELLING.DETAIL.ADDRESS.CITY": "City",
+  "PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE": "Village",
+  "PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY": "Municipality",
+  "PAGE.DWELLING.DETAIL.ADDRESS.CITY_DISTRICT": "City District",
+  "PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE": "Postal Code",
+  "PAGE.DWELLING.DETAIL.ADDRESS.STREET": "Street",
+  "PAGE.DWELLING.MANAGER.TABLE.TITLE": "Housing List",
+  "PAGE.DWELLING.MANAGER.TABLE.FILTER": "Code, Street, City, Phone Number...",
+  "PAGE.DWELLING.MANAGER.TABLE.FILTER.TOOLTIP": "Search",
+  "PAGE.DWELLING.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP": "Clean filter",
+  "PAGE.DWELLING.MANAGER.TABLE.BUTTON.NEW_DWELLING": "New Home",
+  "PAGE.DWELLING.MANAGER.TABLE.BUTTON.NEW_DWELLING.TOOLTIP": "Go to the home creation page",
+  "PAGE.DWELLING.MANAGER.TABLE.ROW.ADDRESS": "Address",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_1": "Change of",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_2": "Sign up Again",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_1": "He",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_2": "current",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3": "will be discharged",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.TITLE": "Data",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.PHONE_NUMBER": "Telephone contact",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_1": "An email will be sent to the new",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_2": "with the activation code to activate the account",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.CLOSE.TOOLTIP": "The change will not be made",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP": "Make the change of",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE_AND_CLOSE.TOOLTIP": "and return to the main page",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FIRST_NAME.VALIDATION.GENERAL.TEXT.RESIDENT": "Enter the Resident's Name",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FIRST_NAME.VALIDATION.GENERAL.TEXT.OWNER": "Write the Name of the Owner",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.GENERAL.TEXT.RESIDENT": "Insert the Resident's email",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.GENERAL.TEXT.OWNER": "Insert the owner's email",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.REQUIRED": "Insert a contact number",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.EMAIL_FORMAT": "The email entered does not comply with the format stark@industries.com",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.RESIDENT_CONTENT.RELEASE_DATE": "Release since",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.RESIDENT_CONTENT.NO_RESIDENT": "Without Resident",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.GO_DWELLING_TOOLTIP": "Go to Housing",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE": "Change Water Meter",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE.TOOLTIP": "Deregister the current counter and Register a new counter",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_RESIDENT": "Change of Resident",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_RESIDENT.TOOLTIP": "Deregister the current Resident and Register a new one",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_OWNER": "Change of Owner",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_OWNER.TOOLTIP": "Cancel the current Owner and Register a new one",
+  "PAGE.HOME.SIDEBAR.BUTTON.CLOSE": "Close Session",
+  "PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE": "My Profile",
+  "PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING": "Mi Home",
+  "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS": "Households",
+  "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESERVOIRS": "Reservoirs",
+  "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION": "Setting",
+  "PAGE.RESERVOIR.CREATE.TITLE": "Register a new Deposit",
+  "PAGE.RESERVOIR.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED": "Check what is the code of the water meter of the Deposit",
+  "PAGE.RESERVOIR.CREATE.CAPACITY": "Capacity",
+  "PAGE.RESERVOIR.CREATE.CAPACITY.VALIDATION.REQUIRED": "Write the total capacity of the Reservoir",
+  "PAGE.RESERVOIR.CREATE.INLET_FLOW": "Water Inlet flow",
+  "PAGE.RESERVOIR.CREATE.INLET_FLOW.VALIDATION.REQUIRED": "Write the Reservoir input stream",
+  "PAGE.RESERVOIR.CREATE.OUTLET_FLOW": "Water Outlet flow",
+  "PAGE.RESERVOIR.CREATE.OUTLET_FLOW.VALIDATION.REQUIRED": "Write the output flow of the Reservoir",
+  "PAGE.RESERVOIR.CREATE.BUTTON.SAVE.TOOLTIP": "Create new Reservoir",
+  "PAGE.RESERVOIR.CREATE.BUTTON.SAVE.SAVE_EXIT.TOOLTIP": "Create new Reservoir and return to the main screen",
+  "PAGE.RESERVOIR.DETAIL": "¡It is Work in Progress!",
+  "PAGE.RESERVOIR.MANAGER.TABLE.TITLE": "Reservoir List",
+  "PAGE.RESERVOIR.MANAGER.TABLE.FILTER": "Street, City, Capacity...",
+  "PAGE.RESERVOIR.MANAGER.TABLE.FILTER.TOOLTIP": "Search",
+  "PAGE.RESERVOIR.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP": "Clear search",
+  "PAGE.RESERVOIR.MANAGER.TABLE.BUTTON": "New Reservoir",
+  "PAGE.RESERVOIR.MANAGER.TABLE.BUTTON.TOOLTIP": "Go to deposit creation page",
+  "PAGE.RESERVOIR.MANAGER.TABLE.ROW.ADDRESS": "Address",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.TITLE": "Data",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.CHANGE_WATER_METER_CODE": "Change Water MEter",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.CHANGE_WATER_METER_CODE.TOOLTIP": "Deregister the current Water Meter and Register a new Water Meter",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.CAPACITY": "of Capacity",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.INLET_FLOW": "of Inlet Flow",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.OUTLET_FLOW": "of Outlet Flow",
+  "PAGE.WATER_METER.CONTENT.RELEASE_DATE": "Release Date",
+  "PAGE.WATER_METER.CONTENT.NO_COUNTER": "Without Water Meter",
+  "PAGE.WATER_METER.DETAIL.FILTER.TEXT": " month-day, year, month, day",
+  "PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP": "Search",
+  "PAGE.WATER_METER.DETAIL.FILTER.TEXT.BUTTON_TOOLTIP": "Clear Search",
+  "PAGE.WATER_METER.DETAIL.BUTTON.TEXT": "Open New Reading form",
+  "PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP": "New Reading",
+  "PAGE.WATER_METER.DIALOG.TITLE": "Making a change of accountant",
+  "PAGE.WATER_METER.DIALOG.NEW_WATER_METER": "New Water Meter",
+  "PAGE.WATER_METER.DIALOG.NEW_WATER_METER.VALIDATION": "Check counter code",
+  "PAGE.WATER_METER.DIALOG.BUTTONS.CLOSE.TOOLTIP": "Data will not be saved",
+  "PAGE.WATER_METER.DIALOG.BUTTONS.SAVE.TOOLTIP": "Deregister the current counter and Register a new counter",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MEASURE": "Measure in",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP": "Save data and Close screen",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP": "Data will not be saved",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MEASURE.VALIDATION.REQUIRED": "Check the reading that marks the meter of the house",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE": "Date",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.REQUIRED": "It is mandatory to enter a date",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.DATE_IN_FUTURE": "The date entered cannot be later than the current date",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR": "Hour",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES": "Minutes",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "We need the hour and minutes in which the Reading was taken"
 }

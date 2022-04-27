@@ -1,12 +1,12 @@
 <span class="language-selector">
-  <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
-    <img src="{{selectedLanguage.flagLink}}" />
+  <button mat-icon-button matTooltip="{{ 'APP.CHANGE_LANGUAGE' | translate }}" [matMenuTriggerFor]="beforeMenu">
+    <img src="{{ selectedLanguage.flagLink }}" />
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item matTooltip="{{language.description | translate}}" matTooltipPosition="left"
+    <button mat-menu-item matTooltip="{{ language.description | translate }}" matTooltipPosition="left"
       class="lenguage-image-button" *ngFor="let language of languages" (click)="selectLenguaje(language)">
-      <img src="{{language.flagLink}}" />
+      <img src="{{ language.flagLink }}" />
     </button>
   </mat-menu>
 </span>

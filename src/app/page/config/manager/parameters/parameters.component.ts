@@ -70,12 +70,12 @@ export class ParametersComponent implements OnInit {
     switch (entity) {
       case 'hook_price':
         if (this.hook_price.hasError('required')) {
-          return 'MANAGER_CONFIG.PARAMETERS.FORM.HOOK_PRICE.VALIDATION';
+          return 'PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED';
         }
         return '';
       case 'max_daily_consumption':
         if (this.max_daily_consumption.hasError('required')) {
-          return 'MANAGER_CONFIG.PARAMETERS.FORM.MAX_DAILY_CONSUMPTION.VALIDATION';
+          return 'PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION.VALIDATION.REQUIRED';
         }
         return '';
       default:

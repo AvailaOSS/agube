@@ -80,7 +80,7 @@ export class CreateComponent extends CreateAddress {
     switch (entity) {
       case 'code':
         if (this.code.hasError('required')) {
-          return 'NEW_DWELLING.FORM.CODE_COUNTER.VALIDATION';
+          return 'PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION';
         }
         return '';
       default:

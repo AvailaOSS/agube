@@ -9,7 +9,7 @@ import { ResidentComponent } from '../resident/resident.component';
 })
 export class OwnerComponent extends ResidentComponent implements OnInit {
   override title = {
-    title: 'DWELLING_DETAIL.DETAIL_INFO.USER.TITLE_OWNER',
+    title: 'GENERAL.TEXT.OWNER',
     icon: 'hail',
   };
 

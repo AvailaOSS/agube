@@ -1,25 +1,23 @@
 <mat-card class="card-management" *ngIf="reservoirDetail">
     <mat-card-header>
         <mat-card-title>
-            <h1>
-                {{reservoirDetail | reservoirDetail}}
-            </h1>
+            <h1>{{ reservoirDetail | reservoirDetail }}</h1>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        {{'WATER_METER.CODE'|translate}}
+        {{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}
         <app-water-meter-content (waterMeterId)="loadWaterMeter($event)" [elementId]="reservoirDetail.id"
             [type]="type?.type">
         </app-water-meter-content>
-        {{'RESERVOIR.CARD.DATA.TITLE' | translate}}
+        {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.TITLE' | translate }}
         <app-reservoir-resume [reservoirId]="reservoirDetail.id"></app-reservoir-resume>
         <div class="buttons-management">
             <button mat-raised-button color="primary"
-                matTooltip="{{'RESERVOIR.CARD.BUTTONS.CHANGE_WATER_METER_CODE_TOOLTIP'|translate}}"
+                matTooltip="{{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.CHANGE_WATER_METER_CODE.TOOLTIP' | translate }}"
                 (click)="openChangeWaterMeter()">
                 <div>
                     <mat-icon>update</mat-icon>
-                    {{'RESERVOIR.CARD.BUTTONS.CHANGE_WATER_METER_CODE'|translate}}
+                    {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.CHANGE_WATER_METER_CODE' | translate }}
                 </div>
             </button>
         </div>

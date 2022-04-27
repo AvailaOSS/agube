@@ -85,32 +85,32 @@ export class PasswordComponent {
     switch (entity) {
       case 'username':
         if (this.username.hasError('required')) {
-          return 'PASSWORD.FORM.VALIDATIONS.USERNAME';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME.VALIDATION';
         }
         return '';
       case 'password':
         if (this.password.hasError('required')) {
-          return 'PASSWORD.FORM.VALIDATIONS.PASSWORD.REQUIRED';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.REQUIRED';
         }
         if (this.password.hasError('minlength')) {
-          return 'PASSWORD.FORM.VALIDATIONS.PASSWORD.MINLENGTH';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MINLENGTH';
         }
         if (this.password.hasError('maxlength')) {
-          return 'PASSWORD.FORM.VALIDATIONS.PASSWORD.MAXLENGTH';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MAXLENGTH';
         }
         return '';
       case 'confirmPassword':
         if (this.confirmPassword.hasError('required')) {
-          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.REQUIRED';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.REQUIRED';
         }
         if (this.confirmPassword.hasError('minlength')) {
-          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.MINLENGTH';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH';
         }
         if (this.confirmPassword.hasError('maxlength')) {
-          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.MAXLENGTH';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH';
         }
         if (this.confirmPassword.hasError('noMatched')) {
-          return 'PASSWORD.FORM.VALIDATIONS.CONFIRM_PASSWORD.NOMATCHED';
+          return 'PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.NOMATCHED';
         }
         return '';
       default:

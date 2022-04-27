@@ -1,487 +1,188 @@
 {
-  "LENGUAGE": {
-    "GALICIAN": "Galego",
-    "SPANISH": "Español",
-    "ENGLISH": "Inglés"
-  },
-  "SIDEBAR": {
-    "BUTTONS": {
-      "CLOSE_SESSION": "Pechar Sesión"
-    },
-    "TITLES": {
-      "PAGE_PROFILE": "Meu Perfil",
-      "PAGE_MY_DWELLING": "Miña Vivenda",
-      "PAGE_DWELLINGS": "Vivendas",
-      "PAGE_RESERVOIRS": "Depósitos",
-      "PAGE_CONFIGURATION": "Configuración"
-    }
-  },
-  "DWELLINGS": {
-    "TABLE": {
-      "TITLE": "Lista de Vivendas",
-      "TOOLTIP": "Seleccionar",
-      "FILTER": {
-        "TEXT": "Código, Rúa, Cidade, Nº Telfono...",
-        "TOOLTIP": "Buscar",
-        "BUTTON": {
-          "TOOLTIP": "Borrar búsqueda"
-        }
-      },
-      "BUTTON": {
-        "TEXT": "Nova Vivenda",
-        "TOOLTIP": "Ir á páxina de creación de vivendas"
-      }
-    },
-    "CARD": {
-      "RESIDENT": {
-        "TITLE": "Residente",
-        "CONTACT_PHONE": "Teléfono de contacto",
-        "RELEASE_DATE": "Alta dende",
-        "NO_RESIDENT": "Sen Residente"
-      },
-      "BUTTONS": {
-        "GO_DWELLING_TOOLTIP": "Ir á Vivenda",
-        "CHANGE_WATER_METER_CODE": "Cambio de Contador",
-        "CHANGE_WATER_METER_CODE_TOOLTIP": "Dar de Baixa o contador actual e Dar de Alta un novo contador",
-        "CHANGE_RESIDENT": "Cambio de Residente",
-        "CHANGE_RESIDENT_TOOLTIP": "Dar de Baixa o Residente actual e Dar de Alta un novo",
-        "CHANGE_OWNER": "Cambio de Propietario",
-        "CHANGE_OWNER_TOOLTIP": "Dar de Baixa o Propietario actual e Dar de Alta un novo"
-      }
-    }
-  },
-  "PERSON": {
-    "PERSON": "Persoa",
-    "OWNER": "Propietario/a",
-    "RESIDENT": "Residente",
-    "WARNING_1": "Se va a enviar un correo electrónico ó novo/a",
-    "WARNING_2": "có código de activación para activar a conta",
-    "CHANGE": {
-      "TITLE_1": "Cambio de",
-      "TITLE_2": "Alta de novo/a",
-      "SUBTITLE_1": "O/A",
-      "SUBTITLE_2": "actual",
-      "SUBTITLE_3": "será dado de baixa",
-      "FORM": {
-        "DATA": {
-          "TITLE": "Datos",
-          "FIRST_NAME": {
-            "TEXT": "Nome",
-            "VALIDATION.PERSON.RESIDENT": "Escribe o Nome do/a Residente",
-            "VALIDATION.PERSON.OWNER": "Escribe o Nome do/a Propietario/a"
-          },
-          "LAST_NAME": {
-            "TEXT": "Apelido/s",
-            "VALIDATION.PERSON.RESIDENT": "Escribe o Apelido do/a Residente",
-            "VALIDATION.PERSON.OWNER": "Escribe o Apelido do/a Propietario/a"
-          }
-        },
-        "CONTACT_INFO": {
-          "TITLE": "Información de contacto",
-          "EMAIL": {
-            "TEXT": "Correo electrónico",
-            "VALIDATION": {
-              "REQUIRED.PERSON.RESIDENT": "Inserta o correo electrónico do/a Residente",
-              "REQUIRED.PERSON.OWNER": "Inserta o correo electrónico do/a Propietario/a",
-              "EMAIL_FORMAT": "O email introducido non cumpre co formato stark@industries.com"
-            }
-          },
-          "CONTACT_PHONE": {
-            "TEXT": "Teléfono de contacto",
-            "VALIDATION": {
-              "REQUIRED": "Inserta un número de contacto",
-              "PHONE_FORMAT": "O número de contacto non cumpre co formato 196320819 ou +XX 196320819"
-            }
-          }
-        },
-        "BUTTONS": {
-          "CLOSE": {
-            "TEXT": "Saír sen Gardar",
-            "TOOLTIP": "Non se realizará o cambio de"
-          },
-          "SAVE": {
-            "TEXT": "Gardar",
-            "TOOLTIP": "Realizar o cambio de"
-          },
-          "SAVE_AND_CLOSE": {
-            "TEXT": "Gardar e Saír",
-            "TOOLTIP": "e volver á páxina principal"
-          }
-        }
-      }
-    }
-  },
-  "STREET_VIEW": {
-    "FILTER": {
-      "TEXT": "Rúa, CP, Cidade, Provincia...",
-      "TOOLTIP": "Preme a tecla Intro para buscar",
-      "TOOLTIP_GO": "Ir",
-      "TOOLTIP_CLEAR": "Borrar e Reiniciar búsqueda",
-      "VALIDATION": "Realiza unha búsqueda e encargarémosnos de obter os datos precisos"
-    },
-    "FORM": {
-      "STREET": {
-        "TEXT": "Rúa",
-        "VALIDATION": "Escribe a rúa correspondente á Vivenda"
-      },
-      "NUMBER": {
-        "TEXT": "Nº",
-        "VALIDATION": "Escribe o número da Dirección"
-      },
-      "FLAT": {
-        "TEXT": "Piso"
-      },
-      "GATE": {
-        "TEXT": "Porta"
-      }
-    },
-    "MAP": {
-      "CLICK": "Clica para marcar a dirección",
-      "LIST_SELECTOR": { "TOOLTIP": "Seleccionar" }
-    }
-  },
-  "NEW_DWELLING": {
-    "TITLE": "Da de Alta unha nova Vivenda",
-    "FORM": {
-      "CODE_COUNTER": {
-        "TEXT": "Código de contador",
-        "VALIDATION": "Revisa cal é o código do contador de auga da Vivenda"
-      },
-      "BUTTONS": {
-        "CLOSE": {
-          "TEXT": "Saír sen Gardar",
-          "TOOLTIP": "Non se gardarán os datos"
-        },
-        "SAVE": {
-          "TEXT": "Gardar",
-          "TOOLTIP": "Crear nova Vivenda"
-        },
-        "SAVE_AND_CLOSE": {
-          "TEXT": "Gardar e Saír",
-          "TOOLTIP": "Crear nova Vivenda e volver á pantalla principal"
-        }
-      }
-    },
-    "GEOLOCATION": {
-      "TITLE": "Localización geográfica"
-    }
-  },
-  "DWELLING_CLIENT": {
-    "TITLE": "Seleccione unha das vivendas para ver máis detalles",
-    "INFO": {
-      "COUNTER": "Contador",
-      "OWNER": "Propietario",
-      "RESIDENT": "Residente"
-    },
-    "NO_DWELLING": {
-      "TEXT": "Aún non tes vivendas asignadas",
-      "BUTTON": {
-        "TOOLTIP": "Ir a páxina da creación de vivendas",
-        "TEXT": "Nova Vivenda"
-      }
-    }
-  },
-  "DWELLING_DETAIL": {
-    "DETAIL_INFO": {
-      "USER": {
-        "TITLE_RESIDENT": "Residente",
-        "TITLE_OWNER": "Propietario",
-        "FIRST_NAME": "Nome",
-        "LAST_NAME": "Apelidos",
-        "EMAIL": "Correo electrónico",
-        "PHONE_NUMBER": "Nº de teléfono"
-      }
-    },
-    "ADDRESS": {
-      "FORM": {
-        "COORDINATES": "Coordenadas",
-        "COUNTRY": "País",
-        "STATE": "Comunidade",
-        "PROVINCE": "Provincia",
-        "CITY": "Cidade",
-        "VILLAGE": "Pobo",
-        "MUNICIPALITY": "Municipio",
-        "CITY_DISTRICT": "Barrio",
-        "POSTAL_CODE": "Código Postal",
-        "STREET": "Rúa"
-      }
-    },
-    "MAP": {
-      "TOOLTIP_MAP": "Mapa",
-      "TOOLTIP_STREET_VIEW": "Vista da Rúa"
-    }
-  },
-  "WATER_METER": {
-    "CODE": "Código de contador",
-    "RELEASE_DATE": "Data de alta",
-    "NO_COUNTER": "Sen Contador",
-    "HEADER": {
-      "FILTER": {
-        "TEXT": " mes-día, ano, mes, día",
-        "TOOLTIP": "Buscar",
-        "BUTTON_TOOLTIP": "Borrar búsqueda"
-      },
-      "BUTTON": {
-        "TEXT": "Abrir formulario de Nova Lectura",
-        "TOOLTIP": "Nova Lectura"
-      }
-    },
-    "DIALOG": {
-      "TITLE": "Realizando cambio de Contador",
-      "FORM": {
-        "NEW_WATER_METER": {
-          "TEXT": "Novo Contador",
-          "VALIDATION": "Revisa o código do contador"
-        },
-        "BUTTONS": {
-          "CLOSE": {
-            "TEXT": "Pechar sen Gardar",
-            "TOOLTIP": "Non se gardarán os datos"
-          },
-          "SAVE": {
-            "TEXT": "Gardar",
-            "TOOLTIP": "Dar de Baixa o contador actual e Dar de Alta un novo contador"
-          }
-        }
-      }
-    },
-    "MEASURE_DIALOG": {
-      "TITLE": "Nova Lectura",
-      "FORM": {
-        "MEASURE": {
-          "TEXT": "Medida en",
-          "VALIDATION": "Revisa a lecutra que marca o contador da vivenda"
-        },
-        "DATE": {
-          "TEXT": "Data",
-          "VALIDATION": {
-            "REQUIRED": "É obrigatorio introducir unha data",
-            "DATE_IN_FUTURE": "A data introducida non pode ser posterior a data actual"
-          }
-        },
-        "HOUR_MINUTES": {
-          "HOUR_TEXT": "Hora",
-          "MINUTES_TEXT": "Minutos",
-          "VALIDATION": "Necesitamos a hora e os minutos na que se tomou a Lectura"
-        },
-        "BUTTONS": {
-          "CLOSE": {
-            "TEXT": "Pechar sen Gardar",
-            "TOOLTIP": "Non se gardarán os datos"
-          },
-          "SAVE": {
-            "TEXT": "Gardar",
-            "TOOLTIP": "Gardar datos e pechar pantalla"
-          }
-        }
-      }
-    }
-  },
-  "MANAGER_CONFIG": {
-    "PARAMETERS": {
-      "TITLE": "Parámetros xenerais",
-      "FORM": {
-        "HOOK_PRICE": {
-          "TEXT": "Custo do enganche",
-          "VALIDATION": "O prezo do enganche non pode estar valeiro"
-        },
-        "MAX_DAILY_CONSUMPTION": {
-          "TEXT": "Máximo consumo diario",
-          "VALIDATION": "O consumo máximo diario non pode estar valeiro"
-        },
-        "BUTTON": {
-          "TEXT": "Gardar",
-          "DESCRIPTION": "Última actualización",
-          "TOOLTIP": "Actualizar Parámetros xenerais"
-        }
-      }
-    }
-  },
-  "PERSONAL_INFO": {
-    "TITLE": "Datos Personais",
-    "FORM": {
-      "USER_NAME": "Nombe de usuario",
-      "FIRST_NAME": "Nome",
-      "LAST_NAME": "Apelidos",
-      "EMAIL": "Correo electrónico",
-      "BUTTON": {
-        "BUTTON_SAVE": "Gardar",
-        "BUTTON_TOOLTIP": "Actualiza a información persoal"
-      },
-      "VALIDATIONS": {
-        "USERNAME": "¿Non te gusta o teu nombe de usuario? ¡Cámbialo!",
-        "EMAIL": {
-          "REQUIRED": "¿Cambiaches de correo? ¡Actualízalo!",
-          "FORMAT_STANDARD": "O email introducido non cumpre co formato estandar, por exemplo: tony@stark.com'"
-        },
-        "FIRST_NAME": "¿Teu nome non é correcto? ¿Cómo te chamas?",
-        "LAST_NAME": "¿Cales son os teus Apelidos?"
-      }
-    }
-  },
-  "CONTACT_INFO": {
-    "TITLE": "Información de contacto",
-    "PHONES": {
-      "TITLE": "Teléfonos",
-      "BUTTON": {
-        "BUTTON_TOOLTIP": "Añadir novo Teléfono"
-      },
-      "FORM": {
-        "ADD_PHONE": "Novo Teléfono",
-        "BUTTON_CLOSE_TOOLTIP": "Pechar",
-        "BUTTON_SAVE_TOOLTIP": "Gardar",
-        "VALIDATIONS": {
-          "REQUIRED": "Inserta un número de contacto",
-          "PATTERN": "O número de contacto non cumpre co formato 196320819 ou +XX 196320819"
-        }
-      },
-      "EDIT_FORM": {
-        "EDIT_PHONE": "Modificar Teléfono",
-        "BUTTON_CLOSE_TOOLTIP": "Pechar",
-        "BUTTON_SAVE_TOOLTIP": "Gardar",
-        "BUTTON_PRINCIPAL_TOOLTIP": "Poñer como favorito",
-        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorito",
-        "BUTTON_EDIT_TOOLTIP": "Editar",
-        "BUTTON_DELETE_TOOLTIP": "Borrar",
-        "VALIDATIONS": {
-          "REQUIRED": "Inserta un número de contacto",
-          "PATTERN": "O número de contacto non cumpre co formato 196320819 ou +XX 196320819"
-        }
-      }
-    },
-    "ADDRESS": {
-      "TITLE": "Direccións",
-      "BUTTON": {
-        "BUTTON_TOOLTIP": "Añadir nova Dirección"
-      },
-      "FORM": {
-        "GATE": "Porta",
-        "FLAT": "Piso",
-        "NUMBER": "Número",
-        "STREET": "Rúa",
-        "TOWN": "Cidade",
-        "BUTTON_CLOSE_TOOLTIP": "Pechar",
-        "BUTTON_SAVE_TOOLTIP": "Gardar",
-        "VALIDATIONS": {
-          "NUMBER": "Escribe o número da Dirección",
-          "STREET": "Escribe a rúa correspondente á Vivenda",
-          "TOWN": "Escribe a cidade na que se encontra á Vivenda"
-        }
-      },
-      "EDIT_FORM": {
-        "BUTTON_CLOSE_TOOLTIP": "Pechar",
-        "BUTTON_SAVE_TOOLTIP": "Gardar",
-        "BUTTON_PRINCIPAL_TOOLTIP": "Poner como favorito",
-        "BUTTON_PRINCIPAL_STAR_TOOLTIP": "Favorito",
-        "BUTTON_EDIT_TOOLTIP": "Editar",
-        "BUTTON_DELETE_TOOLTIP": "Borrar",
-        "VALIDATIONS": {
-          "REQUIRED": "Inserta un número de contacto",
-          "PATTERN": "O número de contacto non cumpre co formato 196320819 ou +XX 196320819"
-        }
-      }
-    }
-  },
-  "PASSWORD": {
-    "TITLE": "Contrasinal",
-    "FORM": {
-      "USER_NAME": "Nome de usuario",
-      "PASSWORD": "Contrasinal",
-      "CONFIRM_PASSWORD": "Confirmar Contrasinal",
-      "BUTTON": {
-        "BUTTON_SAVE": "Gardar",
-        "BUTTON_TOOLTIP": "Cambiar o Contrassinal"
-      },
-      "VALIDATIONS": {
-        "USERNAME": "Inserta o teu nome de usuario para confirmar a tu identidad",
-        "PASSWORD": {
-          "REQUIRED": "Inserta un contrasinal",
-          "MINLENGTH": "O contrasinal debe ter al menos 5 caracteres.",
-          "MAXLENGTH": "O contrasinal debe ter hata 16 caracteres."
-        },
-        "CONFIRM_PASSWORD": {
-          "REQUIRED": "Inserta un contrasinal de confirmación",
-          "MINLENGTH": "O contrasinal de confirmación debe ter al menos 5 caracteres.",
-          "MAXLENGTH": "O contrasinal de confirmación debe ter hata 16 caracteres.",
-          "NOMATCHED": "Os contrasinais non son iguais."
-        }
-      }
-    }
-  },
-  "RESERVOIR": {
-    "TABLE": {
-      "TITLE": "Lista de Depósitos",
-      "TOOLTIP": {
-        "CAPACITY": "Capacidade",
-        "INLET_FLOW": "Fluxo de Entrada",
-        "OUTLET_FLOW": "Fluxo de Saída",
-        "FULL_ADDRESS": "Dirección"
-      },
-      "FILTER": {
-        "TEXT": "Rúa, Cidade, Capacidade...",
-        "TOOLTIP": "Buscar",
-        "BUTTON": {
-          "TOOLTIP": "Borrar búsqueda"
-        }
-      },
-      "BUTTON": {
-        "TEXT": "Novo Depósito",
-        "TOOLTIP": "Ir á páxina de creación de depósitos"
-      }
-    },
-    "CARD": {
-      "DATA": {
-        "TITLE": "Datos",
-        "CAPACITY": "de Capacidad",
-        "INLET_FLOW": "de Entrada",
-        "OUTLET_FLOW": "de Saída"
-      },
-      "BUTTONS": {
-        "CHANGE_WATER_METER_CODE": "Cambio de Contador",
-        "CHANGE_WATER_METER_CODE_TOOLTIP": "Dar de Baixa o contador actual e Dar de Alta un novo contador"
-      }
-    },
-    "CREATE": {
-      "TITLE": "Da de Alta un novo Depósito",
-      "FORM": {
-        "WATER_METER_CODE": {
-          "TEXT": "Código de Contador",
-          "VALIDATION": "Revisa cal é o código do contador de auga do Depósito"
-        },
-        "NUMBER": {
-          "TEXT": "Numero",
-          "VALIDATION": "Escribe o número da dirección"
-        },
-        "STREET": {
-          "TEXT": "Rúa",
-          "VALIDATION": "Escribe a rúa correspondente ó Depósito"
-        },
-        "TOWN": {
-          "TEXT": "Cidade",
-          "VALIDATION": "Escribe a cidade na que se encontra o Depósito"
-        },
-        "CAPACITY": {
-          "TEXT": "Capacidade",
-          "VALIDATION": "Escribe a capacidade total do Depósito"
-        },
-
-        "INLET_FLOW": {
-          "TEXT": " Entrada de auga",
-          "VALIDATION": "Escribe o fluxo de entrada do Depósito"
-        },
-        "OUTLET_FLOW": {
-          "TEXT": "Saída de auga",
-          "VALIDATION": "Escribe o fluxo de saída do Depósito"
-        },
-        "BUTTONS": {
-          "BUTTON_EXIT": "   Saír sen gardar",
-          "BUTTON_EXIT_TOOLTIP": "Non se gardarán os datos",
-          "BUTTON_SAVE": "Gardar",
-          "BUTTON_SAVE_TOOLTIP": "Crear novo Depósito",
-          "BUTTON_SAVE_EXIT": " Gardar e Saír",
-          "BUTTON_SAVE_EXIT_TOOLTIP": "Crear novo Depósito e volver á pantalla principal"
-        }
-      }
-    }
-  }
+  "LENGUAGE.GALICIAN": "Galego",
+  "LENGUAGE.SPANISH": "Español",
+  "LENGUAGE.ENGLISH": "Inglés",
+  "GENERAL.TEXT.RESIDENT": "Residente",
+  "GENERAL.TEXT.OWNER": "Propietario",
+  "GENERAL.TEXT.WATER_METER": "Contador",
+  "GENERAL.TEXT.DWELLING": "Vivenda",
+  "GENERAL.TEXT.RESERVOIR": "Depósito",
+  "GENERAL.TEXT.USERNAME": "Nome de Usuario",
+  "GENERAL.TEXT.FIRST_NAME": "Nome",
+  "GENERAL.TEXT.LAST_NAME": "Apelido",
+  "GENERAL.TEXT.EMAIL": "Correo electrónico",
+  "GENERAL.BUTTON.CLOSE_WITHOUT_SAVING": "Pechar sen gardar",
+  "GENERAL.BUTTON.EXIT_WITHOUT_SAVING": "Saír sen Gardar",
+  "GENERAL.BUTTON.SAVE": "Gardar",
+  "GENERAL.BUTTON.SAVE_AND_EXIT": "Gardar y Sair",
+  "GENERAL.BUTTON.CLOSE": "Pechar",
+  "GENERAL.BUTTON.EDIT": "Editar",
+  "GENERAL.BUTTON.DELETE": "Borrar",
+  "APP.CHANGE_LANGUAGE": "Cambiar Idioma",
+  "APP.THEME.CHANGE": "Cambiar tema",
+  "APP.THEME.LIGHT": "Tema Claro",
+  "APP.THEME.DARK": "Tema Oscuro",
+  "COMPONENTS.MAP.CREATE.FILTER.TEXT": "Rúa, CP, Cidade, Provincia...",
+  "COMPONENTS.MAP.CREATE.FILTER.VALIDATION": "Realiza unha búsqueda e encargarémosnos de obter os datos necesarios",
+  "COMPONENTS.MAP.CREATE.FILTER.TOOLTIP": "Presiona tecla enter para buscar",
+  "COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP": "Ir",
+  "COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP": "Borrar e Reiniciar búsqueda",
+  "COMPONENTS.MAP.CREATE.FORM.STREET.TEXT": "Rúa",
+  "COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION": "Escribe a rúa que lle corresponde",
+  "COMPONENTS.MAP.CREATE.FORM.NUMBER.TEXT": "nº",
+  "COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION": "Escribe o número da Dirección",
+  "COMPONENTS.MAP.CREATE.FORM.FLAT.TEXT": "Piso",
+  "COMPONENTS.MAP.CREATE.FORM.GATE.TEXT": "Porta",
+  "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Seleccionar",
+  "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Faz Click para marcar a dirección",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.TITLE": "Información de contacto",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE": "Direccions",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD": "Engadir unha nova dirección",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.IS_PRINCIPAL": "Principal",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.FAVORITE": "Favorito",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.BUTTON.FAVORITE": "Poñer como Favorito",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.TITLE": "Teléfonos",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.BUTTON.ADD": "Engadir un novo teléfono",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM": "Novo teléfono",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN": "O número de contacto non cumpre có formato 196320819 ou +XX 196320819",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED": "Inserta un número de contacto",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.PHONE": "Modificar Teléfono",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.IS_PRINCIPAL": "Principal",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.FAVORITE": "Favorito",
+  "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.BUTTON.FAVORITE": "Poñer como Favorito",
+  "PAGE.CONFIG.CLIENT.PASSWORD.TITLE": "Contrasinal",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME": "Nome de Usuario",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME.VALIDATION": "Inserta o teu nome de usuario para confirmar a túa identidad",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.REQUIRED": "Inserta unha contrasinal",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MINLENGTH": "A contrasinal debe ter polo menos 5 caracteres.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MAXLENGTH": "A contrasinal debe ter hasta 16 caracteres.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD": "Confirmar Contrasinal",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.REQUIRED": "Inserta unha contrasinal de confirmación",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH": "A contrasinal debe ter polo menos 5 caracteres.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH": "A contrasinal debe ter hasta 16 caracteres.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.NOMATCHED": "As contrasinais non son iguais.",
+  "PAGE.CONFIG.CLIENT.PASSWORD.FORM.BUTTON.SAVE": "Gardar nova Contrasinal",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE": "Datos Personais",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.USERNAME.VALIDATION.REQUIRED": "¿No te gusta o teu nome de usuario? ¡Cámbialo!",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED": "¿O teu nome non é correcto? ¿Cómo te Chamas?",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.LAST_NAME.VALIDATION.REQUIRED": "¿Cales son os teus Apelidos?",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.REQUIRED": "¿Cambiaches de correo? ¡Actualízalo!",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "O email introducido non cumpre có formato estandar, por exemplo: tony@stark.com'",
+  "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Actualiza a información personal",
+  "PAGE.CONFIG.MANAGER.TITLE": "Parámetros generais",
+  "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Prezo de enganche",
+  "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "O prezo de enganche non pode estar vacio",
+  "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION": "Máximo consumo diario",
+  "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION.VALIDATION.REQUIRED": "O consumo máximo diario non pode estar vacio",
+  "PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION": "Última actualización",
+  "PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP": "Actualizar Parámetros generais",
+  "PAGE.DWELLING.CLIENT.TITLE": "Seleccione unha das vivendas para ver máis detalles",
+  "PAGE.DWELLING.CLIENT.NO_DWELLING.TEXT": "Aún non tés vivendas asignadas",
+  "PAGE.DWELLING.CLIENT.NO_DWELLING.BUTTON": "Nova Vivenda",
+  "PAGE.DWELLING.CLIENT.NO_DWELLING.BUTTON.TOOLTIP": "Ir á páxina de Creacion de Vivendas",
+  "PAGE.DWELLING.CREATE.TITLE": "Rexistra unha nova Vivenda",
+  "PAGE.DWELLING.CREATE.CODE_COUNTER": "Código de contador",
+  "PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION": "Revisa cál é o código do contador de agua da Vivenda",
+  "PAGE.DWELLING.CREATE.BUTTON.SAVE.TOOLTIP": "Crear nova Vivenda",
+  "PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP": "Non se guardarán os datos",
+  "PAGE.DWELLING.CREATE.BUTTON.SAVE_AND_CLOSE.TOOLTIP": "Crear nova Vivenda e volver a pantalla principal",
+  "PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP": "Mapa",
+  "PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP": "Vista Rúa",
+  "PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER": "Nº de teléfono",
+  "PAGE.DWELLING.DETAIL.ADDRESS.COORDINATES": "Coordenadas",
+  "PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY": "País",
+  "PAGE.DWELLING.DETAIL.ADDRESS.STATE": "Comunidade",
+  "PAGE.DWELLING.DETAIL.ADDRESS.PROVINCE": "Provincia",
+  "PAGE.DWELLING.DETAIL.ADDRESS.CITY": "Cidade",
+  "PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE": "Pobo",
+  "PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY": "Municipio",
+  "PAGE.DWELLING.DETAIL.ADDRESS.CITY_DISTRICT": "Barrio",
+  "PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE": "Código Postal",
+  "PAGE.DWELLING.DETAIL.ADDRESS.STREET": "Rúa",
+  "PAGE.DWELLING.MANAGER.TABLE.TITLE": "Lista de Vivendas",
+  "PAGE.DWELLING.MANAGER.TABLE.FILTER": "Código, Rua, Cidade, Nº Teléfono...",
+  "PAGE.DWELLING.MANAGER.TABLE.FILTER.TOOLTIP": "Buscar",
+  "PAGE.DWELLING.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP": "Limpar filtro",
+  "PAGE.DWELLING.MANAGER.TABLE.BUTTON.NEW_DWELLING": "Nueva Vivenda",
+  "PAGE.DWELLING.MANAGER.TABLE.BUTTON.NEW_DWELLING.TOOLTIP": "Ir á páxina de creación de vivendas",
+  "PAGE.DWELLING.MANAGER.TABLE.ROW.ADDRESS": "Dirección",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_1": "Cambio de",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_2": "Alta de novo/a",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_1": "O/A",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_2": "actual",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3": "será dado de baixa",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.TITLE": "Datos",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.PHONE_NUMBER": "Teléfono de contacto",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_1": "Enviarase un correo electrónico ó novo/a",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_2": "có código de activación para activar a conta",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.CLOSE.TOOLTIP": "Non se fará ó cambio de",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP": "Faranse ó cambio de",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE_AND_CLOSE.TOOLTIP": "e volver a la páxina principal",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FIRST_NAME.VALIDATION.GENERAL.TEXT.RESIDENT": "Escribe o Nome do Residente",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.FIRST_NAME.VALIDATION.GENERAL.TEXT.OWNER": "Escribe o Nome do Propietario/a",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.GENERAL.TEXT.RESIDENT": "Inserta o correo electrónico do Residente",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.GENERAL.TEXT.OWNER": "Inserta o correo electrónico do Propietario/a",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.REQUIRED": "Inserta un número de contacto",
+  "PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.EMAIL_FORMAT": "O email introducido non cumpre có formato stark@industries.com",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.RESIDENT_CONTENT.RELEASE_DATE": "Alta desde",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.RESIDENT_CONTENT.NO_RESIDENT": "Sen Residente",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.GO_DWELLING_TOOLTIP": "Ir á Vivenda",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE": "Cambio de Contador",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE.TOOLTIP": "Anular o rexistro do contador actual e rexistrar un novo contador",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_RESIDENT": "Cambio de Residente",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_RESIDENT.TOOLTIP": "Dar de baixa o Residente actual e rexistrar un novo",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_OWNER": "Cambio de Propietario",
+  "PAGE.DWELLING.MANAGER.MANAGEMENT.BUTTON.CHANGE_OWNER.TOOLTIP": "Dar de baixa o Propietario actual e rexistrar un novo",
+  "PAGE.HOME.SIDEBAR.BUTTON.CLOSE": "Pechar Sesión",
+  "PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE": "Meu Perfil",
+  "PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING": "Miña Vivenda",
+  "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS": "Vivendas",
+  "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESERVOIRS": "Depósitos",
+  "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION": "Configuración",
+  "PAGE.RESERVOIR.CREATE.TITLE": "Rexistrar un novo Depósito",
+  "PAGE.RESERVOIR.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED": "Consulta cal é o código do contador de auga do Depósito",
+  "PAGE.RESERVOIR.CREATE.CAPACITY": "Capacidade",
+  "PAGE.RESERVOIR.CREATE.CAPACITY.VALIDATION.REQUIRED": "Escribe a capacidade total do Depósito",
+  "PAGE.RESERVOIR.CREATE.INLET_FLOW": "Entrada de Auga",
+  "PAGE.RESERVOIR.CREATE.INLET_FLOW.VALIDATION.REQUIRED": "Escribe o fluxo de entrada do Depósito",
+  "PAGE.RESERVOIR.CREATE.OUTLET_FLOW": "Salida de Auga",
+  "PAGE.RESERVOIR.CREATE.OUTLET_FLOW.VALIDATION.REQUIRED": "Escribe o fluxo de salida do Depósito",
+  "PAGE.RESERVOIR.CREATE.BUTTON.SAVE.TOOLTIP": "Crear novo Depósito",
+  "PAGE.RESERVOIR.CREATE.BUTTON.SAVE.SAVE_EXIT.TOOLTIP": "Crear novo Depósito y volver á pantalla principal",
+  "PAGE.RESERVOIR.DETAIL": "¡It is Work in Progress!",
+  "PAGE.RESERVOIR.MANAGER.TABLE.TITLE": "Lista de Depósitos",
+  "PAGE.RESERVOIR.MANAGER.TABLE.FILTER": "Rúa, Cidade, Capacidad...",
+  "PAGE.RESERVOIR.MANAGER.TABLE.FILTER.TOOLTIP": "Buscar",
+  "PAGE.RESERVOIR.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP": "Borrar búsqueda",
+  "PAGE.RESERVOIR.MANAGER.TABLE.BUTTON": "Novo Depósito",
+  "PAGE.RESERVOIR.MANAGER.TABLE.BUTTON.TOOLTIP": "Ir á páxina de creación de depósitos",
+  "PAGE.RESERVOIR.MANAGER.TABLE.ROW.ADDRESS": "Dirección",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.TITLE": "Datos",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.CHANGE_WATER_METER_CODE": "Cambio de Contador",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.CHANGE_WATER_METER_CODE.TOOLTIP": "Anular o rexistro do contador actual e rexistrar un novo contador",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.CAPACITY": "de Capacidade",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.INLET_FLOW": "de Entrada",
+  "PAGE.RESERVOIR.MANAGER.MANAGEMENT.OUTLET_FLOW": "de Salida",
+  "PAGE.WATER_METER.CONTENT.RELEASE_DATE": "Fecha de alta",
+  "PAGE.WATER_METER.CONTENT.NO_COUNTER": "Sen Contador",
+  "PAGE.WATER_METER.DETAIL.FILTER.TEXT": " mes-día, año, mes, día",
+  "PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP": "Buscar",
+  "PAGE.WATER_METER.DETAIL.FILTER.TEXT.BUTTON_TOOLTIP": "Borrar búsqueda",
+  "PAGE.WATER_METER.DETAIL.BUTTON.TEXT": "Abrir formulario de Nova Lectura",
+  "PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP": "Nova Lectura",
+  "PAGE.WATER_METER.DIALOG.TITLE": "Realizando cambio de Contador",
+  "PAGE.WATER_METER.DIALOG.NEW_WATER_METER": "Novo Contador",
+  "PAGE.WATER_METER.DIALOG.NEW_WATER_METER.VALIDATION": "Revisa o código do contador",
+  "PAGE.WATER_METER.DIALOG.BUTTONS.CLOSE.TOOLTIP": "Non se gardarán os datos",
+  "PAGE.WATER_METER.DIALOG.BUTTONS.SAVE.TOOLTIP": "Anular o rexistro do contador actual e rexistrar un novo contadorr",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MEASURE": "Medida en",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP": "Gardar datos y pechar pantalla",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP": "No se gardarán os datos",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MEASURE.VALIDATION.REQUIRED": "Revisa a lecutra que marca o contador da vivenda",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE": "Fecha",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.REQUIRED": "É obligatorio introducir unha fecha",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.DATE_IN_FUTURE": "A fecha introducida non pode ser posterior á fecha actual",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR": "Hora",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES": "Minutos",
+  "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "Necesitamos a hora e os minutos na que tomouse a Lectura"
 }

@@ -1,13 +1,14 @@
 <mat-list>
     <div class="edit-address-header">
-        <h3>{{'CONTACT_INFO.ADDRESS.TITLE'|translate}}</h3>
-        <button mat-mini-fab color="accent" matTooltip="{{'CONTACT_INFO.ADDRESS.BUTTON.BUTTON_TOOLTIP'|translate}}"
+        <h3>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE' | translate }}</h3>
+        <button mat-mini-fab color="accent"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD' | translate }}"
             matTooltipPosition="right" (click)="openCloseAddressForm()">
             <mat-icon>{{canAddAddress ? 'close' : 'add'}}</mat-icon>
         </button>
         <div class="address-buttons" *ngIf="canAddAddress && addressEmitter && addressEmitter.addressFormGroup">
-            <button mat-icon-button matTooltip="{{'CONTACT_INFO.ADDRESS.FORM.BUTTON_SAVE_TOOLTIP'|translate}}"
-                matTooltipPosition="above" (click)="saveAddress()" [disabled]="addressEmitter.addressFormGroup.invalid">
+            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.SAVE' | translate }}" matTooltipPosition="above"
+                (click)="saveAddress()" [disabled]="addressEmitter.addressFormGroup.invalid">
                 <mat-icon>save</mat-icon>
             </button>
         </div>

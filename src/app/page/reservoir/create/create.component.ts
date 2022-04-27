@@ -94,22 +94,22 @@ export class CreateComponent extends CreateAddress {
     switch (entity) {
       case 'code':
         if (this.code.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.WATER_METER_CODE.VALIDATION';
+          return 'PAGE.RESERVOIR.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED';
         }
         return '';
       case 'capacity':
         if (this.capacity.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.CAPACITY.VALIDATION';
+          return 'PAGE.RESERVOIR.CREATE.CAPACITY.VALIDATION.REQUIRED';
         }
         return '';
       case 'inletFlow':
         if (this.inletFlow.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.INLET_FLOW.VALIDATION';
+          return 'PAGE.RESERVOIR.CREATE.INLET_FLOW.VALIDATION.REQUIRED';
         }
         return '';
       case 'outletFlow':
         if (this.outletFlow.hasError('required')) {
-          return 'RESERVOIR.CREATE.FORM.OUTLET_FLOW.VALIDATION';
+          return 'PAGE.RESERVOIR.CREATE.OUTLET_FLOW.VALIDATION.REQUIRED';
         }
         return '';
       default:

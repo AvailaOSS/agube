@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{"WATER_METER.DIALOG.TITLE" |translate}}</h1>
+<h1 mat-dialog-title>{{ 'PAGE.WATER_METER.DIALOG.TITLE' | translate }}</h1>
 
 <div mat-dialog-content class="form-content">
     <p>
@@ -6,20 +6,21 @@
     </p>
     <mat-icon>swap_horiz</mat-icon>
     <mat-form-field appearance="fill">
-        <mat-label>{{"WATER_METER.DIALOG.FORM.NEW_WATER_METER.TEXT" |translate}}</mat-label>
+        <mat-label>{{ 'PAGE.WATER_METER.DIALOG.NEW_WATER_METER' | translate }}</mat-label>
         <input matInput placeholder="0-123456789" [formControl]="code" autofocus (keydown.enter)="save()">
-        <mat-error *ngIf="code.invalid">{{errorValidator('code') |translate}}</mat-error>
+        <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions [align]="'end'" class="button-actions">
-    <button mat-button matTooltip="{{'WATER_METER.DIALOG.FORM.BUTTONS.CLOSE.TOOLTIP' |translate}}"
-        (click)="close()">{{"WATER_METER.DIALOG.FORM.BUTTONS.CLOSE.TEXT" |translate}}</button>
-    <button mat-raised-button color="primary" matTooltip="{{'WATER_METER.DIALOG.FORM.BUTTONS.SAVE.TOOLTIP' |translate}}"
-        (click)="save()" disabled="{{waterMeterForm.invalid}}">
+    <button mat-button matTooltip="{{ 'PAGE.WATER_METER.DIALOG.BUTTONS.CLOSE.TOOLTIP' | translate }}"
+        (click)="close()">{{ 'GENERAL.BUTTON.CLOSE_WITHOUT_SAVING' | translate }}</button>
+    <button mat-raised-button color="primary"
+        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.BUTTONS.SAVE.TOOLTIP' | translate }}" (click)="save()"
+        disabled="{{ waterMeterForm.invalid }}">
         <div>
             <mat-icon>save</mat-icon>
-            {{"WATER_METER.DIALOG.FORM.BUTTONS.SAVE.TEXT" |translate}}
+            {{ 'GENERAL.BUTTON.SAVE' | translate }}
         </div>
     </button>
 </div>

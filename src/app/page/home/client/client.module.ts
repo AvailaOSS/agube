@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TranslateModule } from '@ngx-translate/core';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ClientComponent],
@@ -29,6 +30,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     MatSlideToggleModule,
     TranslateModule,
     PipesModule,
+    MatTooltipModule,
   ],
 })
 export class ClientModule {}

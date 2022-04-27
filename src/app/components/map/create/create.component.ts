@@ -167,17 +167,17 @@ export class CreateComponent
     switch (entity) {
       case 'filter':
         if (this.filter && this.filter.hasError('required')) {
-          return 'STREET_VIEW.FILTER.VALIDATION';
+          return 'COMPONENTS.MAP.CREATE.FILTER.VALIDATION';
         }
         return '';
       case 'number':
         if (this.number && this.number.hasError('required')) {
-          return 'STREET_VIEW.FORM.NUMBER.VALIDATION';
+          return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
         }
         return '';
       case 'street':
         if (this.street && this.street.hasError('required')) {
-          return 'STREET_VIEW.FORM.STREET.VALIDATION';
+          return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
         }
         return '';
       default:
