@@ -3,7 +3,7 @@ from manager.models import Manager
 # Create your models here.
 class ConfigureThemeLang(models.Model):
     """A class used to represent an Map ConfigureThemeLang"""
-    manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT, unique=False)
+    manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT,db_constraint=False)
     mode = models.TextField()
     lang = models.TextField()
     

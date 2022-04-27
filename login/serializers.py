@@ -70,10 +70,9 @@ class UserDetailSerializer(UserSerializer):
 
 class UserDetailConfigSerializer(UserSerializer):
     """
-    User Detail, phone + address ModelSerializer
+    User Detail, config ModelSerializer
     """
     id = ReadOnlyField()
-   
 
     class Meta:
         ref_name = 'UserDetailConfigure'

@@ -73,7 +73,39 @@ class UserDetailConfigView(APIView):
 
         return Response(UserDetailConfigSerializer(data, many=False).data)
 
+class UserDetailConfigUpdateView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
 
+    @swagger_auto_schema(
+        operation_id="updateConfigureTheme",
+        request_body=UserDetailConfigSerializer,
+        responses={200: UserDetailConfigSerializer(many=True)},
+        tags=[TAG_USER],
+    )
+    def put(self, request, pk):
+        """
+        Update configure of user
+        """
+        # get current user Configure
+        current_configure_theme: ConfigureThemeLang = ConfigureThemeLang.objects.get(id=pk)
+        # extract data
+        new_configure_theme = request.data.pop('mode')
+        new_configure_lang = request.data.pop('lang')
+        
+        # update phone with new data
+        current_configure_theme.mode = new_configure_theme
+        current_configure_theme.save()
+        current_configure_theme.lang = new_configure_lang
+        current_configure_theme.save()
+
+        data = {
+            "mode": current_configure_theme.mode,
+            "lang": current_configure_theme.lang,
+        }
+
+        return Response(UserDetailConfigSerializer(data, many=False).data)
+    
+    
 class UserDwellingDetailView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
