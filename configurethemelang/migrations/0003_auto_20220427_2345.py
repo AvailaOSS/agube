@@ -19,13 +19,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='configurethemelang',
             name='id',
-            field=models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID'),
+            field=models.AutoField(auto_created=False, primary_key=True, serialize=False, verbose_name='ID'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='configurethemelang',
             name='manager',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.RESTRICT, to='manager.manager'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='manager.manager'),
             preserve_default=False,
         ),
     ]
