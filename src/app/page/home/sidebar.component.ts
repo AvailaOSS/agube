@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '@availa/auth-fe';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
+import { UserDetailConfigure } from '@availa/agube-rest-api/lib/model/userDetailConfigure';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,20 +35,20 @@ export class SidebarComponent {
       if (!userResponse || !userResponse.user_id) {
         return;
       }
+      this.toggleControl.valueChanges.subscribe((isDarkMode) => {
+        if (isDarkMode) {
+          this.overlayDialog(this.darkClassName, this.lightClassName);
+        } else {
+          this.overlayDialog(this.lightClassName, this.darkClassName);
+        }
+      });
       this.svcUser
         .getUserDetailConfig(String(userResponse.user_id!))
         .subscribe((response) => {
           if (!response) {
             return;
           }
-
-          if (response.mode === ThemeMode.light) {
-            this.className = ThemeMode.light;
-            this.overlayDialog(this.lightClassName, this.darkClassName);
-          } else {
-            this.className = ThemeMode.dark;
-            this.overlayDialog(this.darkClassName, this.lightClassName);
-          }
+          this.setControlToggle(response);
         });
       this.svcUser
         .getUserDetail(userResponse.user_id)
@@ -65,7 +66,17 @@ export class SidebarComponent {
   }
 
   private overlayDialog(themeMode: ThemeMode, oldThemeMode: ThemeMode) {
+    this.className = themeMode;
     this.overlayContainer.getContainerElement().classList.remove(oldThemeMode);
     this.overlayContainer.getContainerElement().classList.add(themeMode);
+  }
+  private setControlToggle(response: UserDetailConfigure) {
+    if (response.mode === this.lightClassName) {
+      this.toggleControl.setValue(false);
+      this.className = this.lightClassName;
+    } else {
+      this.toggleControl.setValue(true);
+      this.className = this.darkClassName;
+    }
   }
 }
