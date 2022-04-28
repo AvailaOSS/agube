@@ -20,6 +20,10 @@ import { PasswordComponent } from './password/password.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfigureModeComponent } from './configure-mode/configure-mode.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,9 @@ import { ConfigureModeComponent } from './configure-mode/configure-mode.componen
     AddressModule,
     MatTooltipModule,
     MatProgressBarModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatSlideToggleModule,
     TranslateModule
   ],
 })
