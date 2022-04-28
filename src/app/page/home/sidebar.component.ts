@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '@availa/auth-fe';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
+import { ThemeService } from '../../utils/view/serviceTheme/service';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,8 +28,11 @@ export class SidebarComponent {
     protected router: Router,
     protected readonly accountService: AccountService,
     protected overlayContainer: OverlayContainer,
-    private svcUser: UserService
+    private svcUser: UserService,
+    private themeService: ThemeService
   ) {
+    this.className = this.themeService.getThemes()!;
+    console.log(this.themeService.getThemes())
     //FIXME: add pipe with first name and last name
     this.accountService.getUser().subscribe((userResponse) => {
       if (!userResponse || !userResponse.user_id) {

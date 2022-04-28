@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "@angular/service-worker": "~13.2.0",
     "@availa/agube-rest-api": "^3.0.0-SNAPSHOT-1",
     "@availa/auth-fe": "^1.1.7",
     "@availa/contact-book-fe": "^1.1.3",

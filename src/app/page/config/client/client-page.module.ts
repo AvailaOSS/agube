@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ThemeService } from '../../../utils/view/serviceTheme/service';
 
 @NgModule({
   declarations: [
@@ -54,5 +55,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSlideToggleModule,
     TranslateModule
   ],
+  providers:[ThemeService]
 })
 export class ClientPageModule {}
