@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PasswordComponent } from './password/password.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
+import { ConfigureModeComponent } from './configure-mode/configure-mode.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PersonalInfoComponent,
     ContactInfoComponent,
     PasswordComponent,
+    ConfigureModeComponent,
   ],
   imports: [
     CommonModule,
