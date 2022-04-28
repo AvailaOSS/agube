@@ -1,6 +1,6 @@
 import { AccountService } from '@availa/auth-fe';
 import { UserService } from '@availa/agube-rest-api';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -38,7 +38,7 @@ export class PersonalInfoComponent implements OnInit {
       username: this.username,
       email: this.email,
       first_name: this.first_name,
-      last_name: this.last_name
+      last_name: this.last_name,
     });
   }
 

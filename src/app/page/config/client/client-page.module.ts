@@ -51,8 +51,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSelectModule,
     MatMenuModule,
     MatSlideToggleModule,
-    TranslateModule
+    TranslateModule,
   ],
-  providers:[]
+  providers: [],
 })
 export class ClientPageModule {}

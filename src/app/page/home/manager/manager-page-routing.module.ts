@@ -15,9 +15,7 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('./content/content.module').then(
-            (m) => m.ContentModule
-          ),
+          import('./content/content.module').then((m) => m.ContentModule),
       },
     ],
   },

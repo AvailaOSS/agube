@@ -54,6 +54,7 @@ export class ConfigureModeComponent implements OnInit {
   ) {
     this.selectedLanguage = this.languages[0];
   }
+
   public selectLenguaje(language: Language) {
     this.selectedLanguage = language;
     this.translate.use(language.code);
@@ -100,6 +101,7 @@ export class ConfigureModeComponent implements OnInit {
 
     this.loadSave = false;
   }
+
   private setControlToggle(response: UserDetailConfigure) {
     if (response.mode === this.lightClassName) {
       this.toggleControl.setValue(true);
