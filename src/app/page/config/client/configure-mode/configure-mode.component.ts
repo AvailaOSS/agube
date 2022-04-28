@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 import { ThemeMode } from 'src/app/page/home/theme-mode';
 import { Language } from 'src/app/utils/language';
 import { ConfigureMode } from './configure-mode';
-import { ThemeService } from '../../../../utils/view/serviceTheme/service';
 
 @Component({
   selector: 'app-configure-mode',
@@ -50,8 +49,7 @@ export class ConfigureModeComponent implements OnInit {
     private svcAccount: AccountService,
     private svcUser: UserService,
     protected overlayContainer: OverlayContainer,
-    private translate: TranslateService,
-    private themeService: ThemeService
+    private translate: TranslateService
   ) {
     this.selectedLanguage = this.languages[0];
   }
@@ -72,10 +70,8 @@ export class ConfigureModeComponent implements OnInit {
         .subscribe((response) => {
           if (response.mode === this.lightClassName) {
             this.toggleControl.setValue(true);
-            this.themeService.emiter.next(this.lightClassName);
           } else {
             this.toggleControl.setValue(false);
-            this.themeService.emiter.next(this.darkClassName);
           }
           this.selectedLanguage = this.languages.filter(
             (lang) => lang.code === response.lang
@@ -101,13 +97,11 @@ export class ConfigureModeComponent implements OnInit {
         mode: configureMode.mode,
         lang: configureMode.language,
       })
-      .subscribe((response:any) => {
+      .subscribe((response: any) => {
         if (response.mode === this.lightClassName) {
           this.toggleControl.setValue(true);
-          this.themeService.emiter.next(this.lightClassName);
         } else {
           this.toggleControl.setValue(false);
-          this.themeService.emiter.next(this.darkClassName);
           console.log(response.mode);
         }
       });

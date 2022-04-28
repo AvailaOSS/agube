@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { AccountService } from '@availa/auth-fe';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
-import { ThemeService } from '../../utils/view/serviceTheme/service';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,26 +27,31 @@ export class SidebarComponent {
     protected router: Router,
     protected readonly accountService: AccountService,
     protected overlayContainer: OverlayContainer,
-    private svcUser: UserService,
-    private themeService: ThemeService
+    private svcUser: UserService
   ) {
-    this.className = this.themeService.getThemes()!;
-    console.log(this.themeService.getThemes())
     //FIXME: add pipe with first name and last name
     this.accountService.getUser().subscribe((userResponse) => {
       if (!userResponse || !userResponse.user_id) {
         return;
       }
       this.svcUser
+        .getUserDetailConfig(String(userResponse.user_id!))
+        .subscribe((response) => {
+          if (!response) {
+            return;
+          }
+
+          if (response.mode === ThemeMode.light) {
+            this.className = ThemeMode.light;
+            this.overlayDialog(this.lightClassName, this.darkClassName);
+          } else {
+            this.className = ThemeMode.dark;
+            this.overlayDialog(this.darkClassName, this.lightClassName);
+          }
+        });
+      this.svcUser
         .getUserDetail(userResponse.user_id)
         .subscribe((response) => (this.user = response));
-    });
-    this.toggleControl.valueChanges.subscribe((isDarkMode) => {
-      if (isDarkMode) {
-        this.overlayDialog(this.darkClassName, this.lightClassName);
-      } else {
-        this.overlayDialog(this.lightClassName, this.darkClassName);
-      }
     });
   }
 
@@ -61,7 +65,6 @@ export class SidebarComponent {
   }
 
   private overlayDialog(themeMode: ThemeMode, oldThemeMode: ThemeMode) {
-    this.className = themeMode;
     this.overlayContainer.getContainerElement().classList.remove(oldThemeMode);
     this.overlayContainer.getContainerElement().classList.add(themeMode);
   }

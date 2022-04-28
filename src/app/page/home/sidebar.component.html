@@ -26,12 +26,6 @@
         </div>
     </mat-drawer>
     <mat-drawer-content class="page-content">
-        <div class="theme-button">
-            <mat-icon matTooltip="{{ 'APP.THEME.LIGHT' | translate }}" color="warn">light_mode</mat-icon>
-            <mat-slide-toggle [formControl]="toggleControl" matTooltip="{{ 'APP.THEME.CHANGE' | translate }}">
-            </mat-slide-toggle>
-            <mat-icon matTooltip="{{ 'APP.THEME.DARK' | translate }}">dark_mode</mat-icon>
-        </div>
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>

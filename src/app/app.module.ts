@@ -17,7 +17,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
-import { ThemeService } from './utils/view/serviceTheme/service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -71,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       // or after 30 seconds (whichever comes first).
     }),
   ],
-  providers: [ThemeService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
