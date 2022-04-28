@@ -2,6 +2,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UserService } from '@availa/agube-rest-api';
+import { UserDetailConfigure } from '@availa/agube-rest-api/lib/model/userDetailConfigure';
 import { AccountService } from '@availa/auth-fe';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -68,11 +69,7 @@ export class ConfigureModeComponent implements OnInit {
       this.svcUser
         .getUserDetailConfig(String(this.userId!))
         .subscribe((response) => {
-          if (response.mode === this.lightClassName) {
-            this.toggleControl.setValue(true);
-          } else {
-            this.toggleControl.setValue(false);
-          }
+          this.setControlToggle(response);
           this.selectedLanguage = this.languages.filter(
             (lang) => lang.code === response.lang
           )[0];
@@ -98,14 +95,16 @@ export class ConfigureModeComponent implements OnInit {
         lang: configureMode.language,
       })
       .subscribe((response: any) => {
-        if (response.mode === this.lightClassName) {
-          this.toggleControl.setValue(true);
-        } else {
-          this.toggleControl.setValue(false);
-          console.log(response.mode);
-        }
+        this.setControlToggle(response);
       });
 
     this.loadSave = false;
+  }
+  private setControlToggle(response: UserDetailConfigure) {
+    if (response.mode === this.lightClassName) {
+      this.toggleControl.setValue(true);
+    } else {
+      this.toggleControl.setValue(false);
+    }
   }
 }
