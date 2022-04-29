@@ -68,7 +68,7 @@ export class PersonalConfigComponent implements OnInit {
       this.userId = userResponse.user_id;
 
       this.svcUser
-        .getUserDetailConfig(String(this.userId!))
+        .getConfig(String(this.userId!))
         .subscribe((response) => {
           this.setControlToggle(response);
           this.selectedLanguage = this.languages.filter(
@@ -91,7 +91,7 @@ export class PersonalConfigComponent implements OnInit {
     };
 
     this.svcUser
-      .updateConfigureTheme(String(this.userId!), {
+      .updateConfig(String(this.userId!), {
         mode: configureMode.mode,
         lang: configureMode.language,
       })

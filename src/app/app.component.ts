@@ -44,7 +44,7 @@ export class AppComponent {
         return;
       }
       this.svcUser
-        .getUserDetailConfig(String(userResponse.user_id!))
+        .getConfig(String(userResponse.user_id!))
         .subscribe((response) => {
           this.selectedLanguage = this.languages.filter(
             (lang) => lang.code === response.lang

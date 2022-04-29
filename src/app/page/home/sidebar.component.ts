@@ -43,7 +43,7 @@ export class SidebarComponent {
         }
       });
       this.svcUser
-        .getUserDetailConfig(String(userResponse.user_id!))
+        .getConfig(String(userResponse.user_id!))
         .subscribe((response) => {
           if (!response) {
             return;
