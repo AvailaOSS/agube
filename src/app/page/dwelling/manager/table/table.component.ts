@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TableReloadService } from './table-reload.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { Detail } from '../../detail/detail';
 
 @Component({
   selector: 'app-table',
@@ -25,13 +26,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     'resident_first_name',
     'resident_phone',
   ];
-  public dataSource: MatTableDataSource<DwellingDetail> =
-    new MatTableDataSource();
+  public dataSource: MatTableDataSource<
+    DwellingDetail
+  > = new MatTableDataSource();
 
   public isSelected: DwellingDetail | undefined = undefined;
-
-  @Output() public selectedElement: EventEmitter<DwellingDetail | undefined> =
-    new EventEmitter<DwellingDetail | undefined>();
 
   public filter = new FormControl('');
 
@@ -52,7 +51,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     this.loadDwellings();
   }
 
@@ -69,9 +67,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = '';
   }
 
-  public selectElement(element: DwellingDetail) {
-    this.isSelected = element;
-    this.selectedElement.next(element);
+  public goToDwelling(dwelling: DwellingDetail) {
+    const queryParams: Detail = {
+      dwellingId: dwelling.id!,
+      managerMode: true,
+    };
+    this.router.navigate(['/manager/home/manager/client/dwellings/detail'], {
+      queryParams,
+    });
   }
 
   private loadDwellings() {

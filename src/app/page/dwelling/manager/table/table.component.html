@@ -57,7 +57,7 @@
           {{ element.resident_phone }}
         </td>
       </ng-container>
-      <tr mat-row class="table-row" (click)="selectElement(row)" *matRowDef="let row; columns: displayedColumns;"
+      <tr mat-row class="table-row" (click)="goToDwelling(row)" *matRowDef="let row; columns: displayedColumns;"
         [ngClass]="row === isSelected ? 'selected-row' : ''">
       </tr>
 
