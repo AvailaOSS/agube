@@ -40,6 +40,12 @@
           height: 60%;
         }
       }
+      .water-meter {
+        display: flex;
+        app-water-meter-detail {
+          width: 100%;
+        }
+      }
     }
     .dwelling-map {
       width: 35%;

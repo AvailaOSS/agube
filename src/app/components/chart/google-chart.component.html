@@ -1,28 +1,15 @@
 <div class="chart" *ngIf="googleChartConfigure">
-  <!-- <div class="chart-content"> -->
+  <span>
+    Código
+    <h3>
+      {{googleChartConfigure.arrayToDataTable[0].code}}
+    </h3>
+  </span>
   <div id="{{googleChartConfigure.id}}"></div>
-  <div class="water-meter-info-chart">
-    <span>
-      Código:
-      <h3>
-        {{googleChartConfigure.arrayToDataTable[0].code}}
-      </h3>
-    </span>
-    <span>
-      Fecha de alta:
-      <h3>
-        {{googleChartConfigure.arrayToDataTable[0].release_date | date:'dd/MM/yyyy HH:ss'}}
-      </h3>
-    </span>
-    <span>
-      Fecha de baja:
-      <h3> {{googleChartConfigure.arrayToDataTable[0].water_meter_measurement.discharge_date| date:'dd/MM/yyyy HH:ss' }}</h3>
-    </span>
-    <span>
-      Máx. Consumo Diario:
-      <h3> {{googleChartConfigure!.arrayToDataTable[0]!.consumeToday.max_daily_consumption }}</h3>
-    </span>
-
-  </div>
-  <!-- </div> -->
+  <span>
+    Fecha de alta
+    <h3>
+      {{googleChartConfigure.arrayToDataTable[0].release_date | date:'dd/MM/yyyy'}}
+    </h3>
+  </span>
 </div>

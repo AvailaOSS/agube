@@ -1,21 +1,13 @@
-@import "../../../assets/availa/sizes/margins.scss";
-.chart {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+@import '../../../assets/availa/sizes/margins.scss';
 
-  .chart-content {
-    display: flex;
-  }
-  .water-meter-info-chart {
-    margin-bottom: $margin-small;
-    span {
-      display: flex;
-      align-items: center;
-      margin: $margin-x-small 0 0 0;
-      h3 {
-        margin: 0 0 0 $margin-x-small;
-      }
+.chart {
+  display: block;
+
+  span {
+    align-items: center;
+    margin: $margin-x-small 0 0 0;
+    h3 {
+      margin: 0 0 0 $margin-x-small;
     }
   }
 }
