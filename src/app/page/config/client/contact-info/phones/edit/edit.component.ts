@@ -15,12 +15,10 @@ export class EditComponent {
   @Input() public userId: number | undefined;
   @Input() public phone: EditablePhone | undefined;
 
-  @Output() public event: EventEmitter<
-    UserPhone | undefined
-  > = new EventEmitter<UserPhone | undefined>();
-  @Output() public deleteEvent: EventEmitter<
-    number | undefined
-  > = new EventEmitter<number | undefined>();
+  @Output() public event: EventEmitter<UserPhone | undefined> =
+    new EventEmitter<UserPhone | undefined>();
+  @Output() public deleteEvent: EventEmitter<number | undefined> =
+    new EventEmitter<number | undefined>();
 
   public newPhone = new FormControl('', [
     Validators.required,
@@ -61,13 +59,26 @@ export class EditComponent {
       });
   }
 
-  public setPhoneAsMain() {
+  public setPhoneAsMain(value: boolean) {
     if (!this.phone) {
       return;
     }
-    this.svcNotification.info({
-      message: this.infoMessage,
-    });
+    let phoneUser: UserPhone = {
+      phone: this.phone.phone.phone,
+      main: value,
+    };
+    this.svcUser
+      .updateUserPhone(this.userId!, this.phone.phone.phone_id!, phoneUser)
+      .subscribe({
+        next: (response: any) => {
+          this.phone!.phone.main = response.main;
+          this.event.next(this.phone!.phone);
+        },
+        error: (error) =>
+          this.svcNotification.warning({
+            message: error,
+          }),
+      });
   }
 
   public openEditablePhoneForm() {

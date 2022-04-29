@@ -62,13 +62,18 @@ export class PhonesComponent {
     if (!phone) {
       return;
     }
-
+    this.phones.forEach((phoneUser) => {
+      if (phoneUser.phone.phone_id !== phone.phone_id) {
+        phoneUser.phone.main = false;
+      }
+    });
     const index = this.phones
       .map((p) => {
         return p.phone.phone_id;
       })
       .indexOf(phone.phone_id, 0);
 
+    console.log(index);
     if (index > -1) {
       this.phones.splice(index, 0);
     }
