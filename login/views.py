@@ -67,7 +67,6 @@ class ConfigView(APIView):
         """
         person = Person.objects.get(user__id=pk)
         config = person.get_config()
-        print(config)
         data = {
             "manager_id": person.id,
             'mode': config.mode,
@@ -83,7 +82,7 @@ class UserConfigUpdateView(APIView):
     @swagger_auto_schema(
         operation_id="updateConfigureTheme",
         request_body=UserConfigSerializer,
-        responses={200: UserDetailSerializer(many=True)},
+        responses={200: UserConfigSerializer(many=True)},
         tags=[TAG_USER],
     )
     def put(self, request, pk):
@@ -91,7 +90,8 @@ class UserConfigUpdateView(APIView):
         Update configure of user
         """
         # get current user Configure
-        current_configure_theme: UserConfig = UserConfig.objects.get(id=pk)
+        person = Person.objects.get(user__id=pk)
+        current_configure_theme: UserConfig = person.get_config()
         # extract data
         new_configure_theme = request.data.pop('mode')
         new_configure_lang = request.data.pop('lang')
@@ -103,11 +103,12 @@ class UserConfigUpdateView(APIView):
         current_configure_theme.save()
 
         data = {
+            "manager_id": person.id,
             "mode": current_configure_theme.mode,
             "lang": current_configure_theme.lang,
         }
 
-        return Response(UserDetailSerializer(data, many=False).data)
+        return Response(UserConfigSerializer(data, many=False).data)
 
 
 class UserDwellingDetailView(APIView):
