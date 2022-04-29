@@ -74,6 +74,12 @@ class UserCustomDetailUpdateView(APIView):
         new_last_name = request.data.pop('last_name')
         new_email = request.data.pop('email')
 
+        user.first_name= new_first_name
+        user.save()
+        user.last_name= new_last_name
+        user.save()
+        user.email= new_email
+        user.save()
         data = {
             "id": user.id,
             "first_name": new_first_name,
