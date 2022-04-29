@@ -11,11 +11,11 @@
               <app-resident [dwellingId]="dwelling.id"></app-resident>
             </div>
           </div>
-          <app-management [dwelling]="dwelling"></app-management>
-          <div>
-            <app-water-meter-chart [googleChartConfigure]="chartGoogleConsume">
-            </app-water-meter-chart>
-          </div>
+          <app-management [dwelling]="dwelling" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
+          </app-management>
+          <app-water-meter-chart [googleChartConfigure]="chartGoogleConsume"></app-water-meter-chart>
+          <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
+          </app-water-meter-detail>
         </div>
         <div class="dwelling-map">
           <mat-button-toggle-group #group="matButtonToggleGroup">
