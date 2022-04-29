@@ -70,7 +70,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   public goToDwelling(dwelling: DwellingDetail) {
     const queryParams: Detail = {
       dwellingId: dwelling.id!,
-      managerMode: true,
     };
     this.router.navigate(['/manager/home/manager/client/dwellings/detail'], {
       queryParams,
