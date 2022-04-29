@@ -3,9 +3,8 @@ from django.contrib.auth.models import User
 from phone.serializers import PhoneSerializer
 from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
-from configurethemelang.serializers import ConfigureThemeLangSerializer
-from configurethemelang.models import ConfigureThemeLang
-
+from userconfig.serializers import UserConfigSerializer
+from userconfig.models import UserConfig
 
 
 class UserSerializer(ModelSerializer):
@@ -68,15 +67,15 @@ class UserDetailSerializer(UserSerializer):
         )
 
 
-class UserDetailConfigSerializer(UserSerializer):
+class UserConfigSerializer(UserSerializer):
     """
     User Detail, config ModelSerializer
     """
     id = ReadOnlyField()
 
     class Meta:
-        ref_name = 'UserDetailConfigure'
-        model = ConfigureThemeLang
+        ref_name = 'UserConfig'
+        model = UserConfig
         fields = (
             'mode',
             'lang'

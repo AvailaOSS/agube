@@ -18,9 +18,9 @@ from login.models import (UserAddress, UserPhone, update_address_to_not_main,
 from login.permissions import IsManagerOfUser, IsUserMatch
 from login.serializers import (UserAddressUpdateSerializer,
                                UserDetailSerializer, UserPhoneUpdateSerializer,
-                               UserDetailConfigSerializer)
+                               UserConfigSerializer)
 from login.serializers_external import UserDwellingDetailSerializer
-from configurethemelang.models import ConfigureThemeLang
+from userconfig.models import UserConfig
 TAG_USER = 'user'
 
 
@@ -51,12 +51,12 @@ class UserCustomDetailView(APIView):
         return Response(UserDetailSerializer(data, many=False).data)
 
 
-class UserDetailConfigView(APIView):
+class ConfigView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
-        operation_id="getUserDetailConfig",
-        responses={200: UserDetailConfigSerializer(many=False)},
+        operation_id="getConfig",
+        responses={200: UserConfigSerializer(many=False)},
         tags=[TAG_USER],
     )
     def get(self, request, pk):
@@ -64,22 +64,22 @@ class UserDetailConfigView(APIView):
         Return user information details.
         """
         user = User.objects.get(id=pk)
-        configure = ConfigureThemeLang.objects.get(id=pk)
+        configure = UserConfig.objects.get(id=pk)
         data = {
             "manager_id": user.id,
             'mode':configure.mode,
             'lang':configure.lang
         }
 
-        return Response(UserDetailConfigSerializer(data, many=False).data)
+        return Response(UserConfigSerializer(data, many=False).data)
 
-class UserDetailConfigUpdateView(APIView):
+class UserConfigUpdateView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateConfigureTheme",
-        request_body=UserDetailConfigSerializer,
-        responses={200: UserDetailConfigSerializer(many=True)},
+        request_body=UserConfigSerializer,
+        responses={200: UserDetailSerializer(many=True)},
         tags=[TAG_USER],
     )
     def put(self, request, pk):
@@ -87,7 +87,7 @@ class UserDetailConfigUpdateView(APIView):
         Update configure of user
         """
         # get current user Configure
-        current_configure_theme: ConfigureThemeLang = ConfigureThemeLang.objects.get(id=pk)
+        current_configure_theme: UserConfig = UserConfig.objects.get(id=pk)
         # extract data
         new_configure_theme = request.data.pop('mode')
         new_configure_lang = request.data.pop('lang')
@@ -103,7 +103,7 @@ class UserDetailConfigUpdateView(APIView):
             "lang": current_configure_theme.lang,
         }
 
-        return Response(UserDetailConfigSerializer(data, many=False).data)
+        return Response(UserDetailSerializer(data, many=False).data)
     
     
 class UserDwellingDetailView(APIView):
