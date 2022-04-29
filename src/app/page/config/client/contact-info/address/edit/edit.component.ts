@@ -79,26 +79,18 @@ export class EditComponent extends CreateAddress {
       showCircle: true,
       height: '350px',
     };
-
-    const address = this.address.address.address;
-
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        dialogTitle: 'Editar Dirección',
-        address: address,
+        dialogTitle:
+          'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+        address: this.address.address.address,
         configureMap: this.configureMap,
         userId: this.userId,
       },
     });
-
-    dialogRef.componentInstance.submitClicked.subscribe(result => {
-      console.log(result)
+    dialogRef.componentInstance.submitClicked.subscribe((result) => {
       this.updatedEvent.next(result);
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-    // this.address.isEditable = !this.address.isEditable;
   }
 
   public deleteAddress() {
