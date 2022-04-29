@@ -21,13 +21,14 @@ export class WaterMeterPersistantService {
 
   public emitCode(code: string) {
     this.subjectCode.next(code);
+    this.emitReload(true);
   }
 
   public reload() {
     return this.subjectReload;
   }
 
-  public emitReload(reload: boolean) {
+  private emitReload(reload: boolean) {
     this.subjectReload.next(reload);
   }
 }

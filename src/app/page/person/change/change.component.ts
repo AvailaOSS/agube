@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -40,6 +41,7 @@ export class ChangeComponent implements OnInit {
   public loadingPost = false;
 
   constructor(
+    private location: Location,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -73,7 +75,7 @@ export class ChangeComponent implements OnInit {
   }
 
   public exit() {
-    this.router.navigate(['manager/dwellings']);
+    this.location.back();
   }
 
   public saveAndExit() {

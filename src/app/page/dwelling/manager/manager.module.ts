@@ -9,9 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ManagementComponent } from './management/management.component';
 import { PipesModule } from 'src/app/pipes/pipes.module';
-import { ResidentContentComponent } from './management/resident-content/resident-content.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,12 +19,7 @@ import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [
-    ManagerComponent,
-    TableComponent,
-    ManagementComponent,
-    ResidentContentComponent,
-  ],
+  declarations: [ManagerComponent, TableComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,

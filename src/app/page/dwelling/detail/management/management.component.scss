@@ -1,0 +1,18 @@
+@import '../../../../../assets/availa/sizes/margins.scss';
+
+.buttons-management {
+  display: flex;
+  justify-content: space-evenly;
+  button {
+    width: 215px;
+    margin-top: $margin-small;
+    margin-bottom: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
+    }
+  }
+}

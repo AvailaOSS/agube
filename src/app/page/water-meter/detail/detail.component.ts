@@ -19,6 +19,7 @@ import { FormControl } from '@angular/forms';
 export class DetailComponent implements OnChanges {
   @Input() public waterMeterId: number | undefined;
   @Input() public type: Type | undefined;
+  @Input() public canAddReading: boolean | undefined;
 
   public displayedColumns: string[] = ['measurement', 'date'];
   public dataSource: MatTableDataSource<

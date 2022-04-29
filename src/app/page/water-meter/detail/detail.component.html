@@ -9,10 +9,10 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <div>
+  <div *ngIf="canAddReading">
     <button mat-raised-button color="primary"
       matTooltip="{{ 'PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP' | translate }}" (click)="openMeasureDialog()"
-      disabled="{{!this.waterMeterId}}">
+      disabled="{{!waterMeterId}}">
       <mat-icon>alarm_add</mat-icon>
       {{ 'PAGE.WATER_METER.DETAIL.BUTTON.TEXT' | translate }}
     </button>

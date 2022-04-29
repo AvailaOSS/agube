@@ -1,5 +1,5 @@
-@import "../../../../assets/availa/sizes/page.scss";
-@import "../../../../assets/availa/sizes/margins.scss";
+@import '../../../../assets/availa/sizes/page.scss';
+@import '../../../../assets/availa/sizes/margins.scss';
 
 .detail-page {
   @include my-page($columns: 1);
@@ -54,5 +54,23 @@
   .mat-spinner {
     top: 50%;
     margin: 0 auto;
+  }
+}
+
+.buttons-management {
+  margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  button {
+    width: 32%;
+    margin-top: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
+    }
   }
 }

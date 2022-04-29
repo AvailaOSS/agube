@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,13 +13,14 @@ import { ChangeComponent } from '../change.component';
 })
 export class ResidentComponent extends ChangeComponent {
   constructor(
+      location: Location,
       router: Router,
       route: ActivatedRoute,
       formBuilder: FormBuilder,
       svcNotification: NotificationService,
       svcDwelling: DwellingService
   ) {
-    super(router, route, formBuilder, svcNotification, svcDwelling);
+    super(location, router, route, formBuilder, svcNotification, svcDwelling);
     this.title = 'GENERAL.TEXT.RESIDENT';
   }
 

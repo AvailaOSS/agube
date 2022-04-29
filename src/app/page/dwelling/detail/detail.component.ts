@@ -13,6 +13,10 @@ import {
   ManagerConfiguration,
 } from '@availa/agube-rest-api';
 import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-configure';
+import { Detail } from './detail';
+import { Type } from '../../water-meter/detail/type';
+import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
+import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 
 @Component({
   selector: 'app-page-dwelling-detail',
@@ -35,7 +39,13 @@ export class DetailComponent implements OnInit {
 
   public chartGoogleConsume!: GoogleChartConfigure;
 
+  public waterMeterId: number | undefined;
+
+  public type: Type | undefined = undefined;
+
   public loading: boolean = false;
+
+  public canLoad: boolean = false;
 
   private static options = {
     width: 500,
@@ -51,12 +61,21 @@ export class DetailComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private svcDwelling: DwellingService,
-    private readonly svcManager: ManagerService
+    private svcManager: ManagerService,
+    private svcPersistant: WaterMeterPersistantService
   ) {
+    this.svcManager
+      .userIsManager()
+      .subscribe((response) => (this.canLoad = response.is_manager));
     this.loading = true;
     this.dwelling = undefined;
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.dwellingId = +params['dwellingId'];
+      let par = params as Detail;
+      this.dwellingId = par.dwellingId;
+      this.type = {
+        id: par.dwellingId,
+        type: WaterMeterType.DWELLING,
+      };
     });
   }
 
@@ -86,6 +105,13 @@ export class DetailComponent implements OnInit {
       },
       error: (error) => (this.loading = false),
     });
+
+    this.svcDwelling
+      .getCurrentDwellingWaterMeter(this.dwellingId)
+      .subscribe((response) => {
+        this.waterMeterId = response.id;
+        this.svcPersistant.emitCode(response.code);
+      });
   }
 
   public goToNewDwelling() {

@@ -57,7 +57,7 @@
           {{ element.resident_phone }}
         </td>
       </ng-container>
-      <tr mat-row class="table-row" (click)="selectElement(row)" *matRowDef="let row; columns: displayedColumns;"
+      <tr mat-row class="table-row" (click)="goToDwelling(row)" *matRowDef="let row; columns: displayedColumns;"
         [ngClass]="row === isSelected ? 'selected-row' : ''">
       </tr>
 
@@ -66,7 +66,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <mat-paginator [pageSize]="12" showFirstLastButtons>
+    <mat-paginator [pageSize]="16" showFirstLastButtons>
     </mat-paginator>
   </mat-card-actions>
 
