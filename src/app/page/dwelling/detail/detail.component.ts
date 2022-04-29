@@ -8,15 +8,10 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  WaterMeterWithMeasurements,
-  ManagerConfiguration,
-} from '@availa/agube-rest-api';
-import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-configure';
-import { Detail } from './detail';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
+import { Detail } from './detail';
 
 @Component({
   selector: 'app-page-dwelling-detail',
@@ -37,8 +32,6 @@ export class DetailComponent implements OnInit {
   private mapStreetViewPositionDegree: number = 0;
   private mapHeight: string = '500px';
 
-  public chartGoogleConsume!: GoogleChartConfigure;
-
   public waterMeterId: number | undefined;
 
   public type: Type | undefined = undefined;
@@ -46,16 +39,6 @@ export class DetailComponent implements OnInit {
   public loading: boolean = false;
 
   public canLoad: boolean = false;
-
-  private static options = {
-    width: 500,
-    height: 200,
-    redFrom: 90,
-    redTo: 100,
-    yellowFrom: 70,
-    yellowTo: 90,
-    minorTicks: 10,
-  };
 
   constructor(
     private router: Router,
@@ -86,19 +69,6 @@ export class DetailComponent implements OnInit {
     this.svcDwelling.getDwelling(this.dwellingId).subscribe({
       next: (dwelling) => {
         this.dwelling = dwelling;
-        this.svcDwelling
-          .getCurrentWaterMeterMeasuresChunk(4, this.dwelling.id!)
-          .subscribe((responseWaterMeterMeasurement) => {
-            if (!responseWaterMeterMeasurement) {
-              return;
-            }
-            this.svcManager.getManagerConfiguration().subscribe((response) => {
-              this.configureWaterMeterCharts(
-                responseWaterMeterMeasurement,
-                response
-              );
-            });
-          });
         let geolocation = this.dwelling.address.geolocation;
         this.configureMaps(geolocation);
         this.loading = false;
@@ -116,40 +86,6 @@ export class DetailComponent implements OnInit {
 
   public goToNewDwelling() {
     this.router.navigate(['manager/dwellings/create']);
-  }
-
-  private configureWaterMeterCharts(
-    waterMeterMeasurement: WaterMeterWithMeasurements,
-    consumeToday: ManagerConfiguration
-  ) {
-    let sum = 0;
-    for (let i = 0; i < waterMeterMeasurement.measures.length; i++) {
-      sum += +waterMeterMeasurement.measures[i].measurement;
-    }
-
-    this.chartGoogleConsume = {
-      id: String(waterMeterMeasurement.id!),
-      options: {
-        height: DetailComponent.options.height,
-        minorTicks: DetailComponent.options.minorTicks,
-        width: DetailComponent.options.width,
-        yellowFrom: 60,
-        redFrom: 90,
-        redTo: 100,
-        yellowTo: 90,
-      },
-
-      arrayToDataTable: [
-        {
-          code: waterMeterMeasurement.code!,
-          discharge_date: waterMeterMeasurement.discharge_date,
-          release_date: waterMeterMeasurement.release_date,
-          water_meter_measurement: waterMeterMeasurement,
-          water_meter_measurementConsume: sum,
-          consumeToday,
-        },
-      ],
-    };
   }
 
   private configureMaps(geolocation: Geolocation) {

@@ -1,5 +1,12 @@
-.water-meter-header {
+.water-meter {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  .table {
+    width: 100%;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 }
