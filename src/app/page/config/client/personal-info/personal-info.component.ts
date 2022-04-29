@@ -1,5 +1,5 @@
 import { AccountService } from '@availa/auth-fe';
-import { UserService } from '@availa/agube-rest-api';
+import { UserService, UserPhone, Phone } from '@availa/agube-rest-api';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -23,7 +23,8 @@ export class PersonalInfoComponent implements OnInit {
   public email = new FormControl('', [Validators.required, Validators.email]);
   public first_name = new FormControl('', [Validators.required]);
   public last_name = new FormControl('', [Validators.required]);
-
+  public main_phone: Phone | undefined;
+  public userId: number | undefined;
   public releaseDate: Date | undefined = undefined;
 
   private logOut: Subscription | undefined;
@@ -48,6 +49,7 @@ export class PersonalInfoComponent implements OnInit {
         return;
       }
 
+      this.userId = userResponse!.user_id;
       this.svcUser
         .getUserDetail(userResponse!.user_id)
         .subscribe((response) => {
@@ -55,6 +57,7 @@ export class PersonalInfoComponent implements OnInit {
           this.email.setValue(response.email);
           this.first_name.setValue(response.first_name);
           this.last_name.setValue(response.last_name);
+          this.main_phone = response.main_phone;
         });
     });
   }
@@ -62,17 +65,38 @@ export class PersonalInfoComponent implements OnInit {
   saveForm() {
     this.loadSave = true;
     let personalInfo: PersonalInfo = {
-      email: this.username.value,
-      first_name: this.username.value,
-      last_name: this.username.value,
+      email: this.email.value,
+      first_name: this.first_name.value,
+      last_name: this.last_name.value,
       username: this.username.value,
     };
+    this.loadSave = true;
 
-    //FIXME: save data with service and progress bar
-    this.svcNotification.info({
-      message: 'Funcionalidad todavía no implementada ' + personalInfo,
-    });
-    this.loadSave = false;
+    this.svcUser
+      .updateUserDetail(String(this.userId), {
+        main_phone: this.main_phone!,
+        email: personalInfo.email,
+        first_name: personalInfo.first_name,
+        last_name: personalInfo.last_name,
+      })
+      .subscribe({
+        next: (response) => {
+          setTimeout(() => {
+            this.loadSave = false;
+            this.email.setValue(response.email);
+            this.first_name.setValue(response.first_name);
+            this.last_name.setValue(response.last_name);
+            this.main_phone = response.main_phone;
+
+          }, 3500)
+        },
+        error: (error) => {
+          this.loadSave = false;
+          this.svcNotification.warning({
+            message: 'Ups algo ha salido mal!!1 ' + personalInfo,
+          });
+        },
+      });
   }
 
   public errorValidator(entity: string) {
