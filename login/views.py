@@ -53,6 +53,38 @@ class UserCustomDetailView(APIView):
         return Response(UserDetailSerializer(data, many=False).data)
 
 
+class UserCustomDetailUpdateView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+
+    @swagger_auto_schema(
+        operation_id="UpdateUserDetail",
+        request_body=UserDetailSerializer,
+        responses={200: UserDetailSerializer(many=True)},
+        tags=[TAG_USER],
+    )
+    def put(self, request, pk):
+        """
+        Return user information details.
+        """
+        user = User.objects.get(id=pk)
+
+        phone = UserPhone.objects.get(user=user, main=True)
+
+        new_first_name = request.data.pop('first_name')
+        new_last_name = request.data.pop('last_name')
+        new_email = request.data.pop('email')
+
+        data = {
+            "id": user.id,
+            "first_name": new_first_name,
+            "last_name": new_last_name,
+            "email": new_email,
+            "main_phone": phone.phone,
+        }
+
+        return Response(UserDetailSerializer(data, many=False).data)
+
+
 class ConfigView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
@@ -80,7 +112,7 @@ class UserConfigUpdateView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
-        operation_id="updateConfigureTheme",
+        operation_id="updateConfig",
         request_body=UserConfigSerializer,
         responses={200: UserConfigSerializer(many=True)},
         tags=[TAG_USER],
@@ -302,6 +334,7 @@ class UserPhoneUpdateDeleteView(APIView):
         user_phone.delete()
         user_phone.phone.delete()
         return Response({'status': 'delete successfull!'})
+
 
 
 class UserCreateAddressView(APIView):
