@@ -1,27 +1,20 @@
 <mat-list>
-    <div class="edit-address-header">
-        <h3>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE' | translate }}</h3>
-        <button mat-mini-fab color="accent"
-            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD' | translate }}"
-            matTooltipPosition="right" (click)="openCloseAddressForm()">
-            <mat-icon>{{canAddAddress ? 'close' : 'add'}}</mat-icon>
-        </button>
-        <div class="address-buttons" *ngIf="canAddAddress && addressEmitter && addressEmitter.addressFormGroup">
-            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.SAVE' | translate }}" matTooltipPosition="above"
-                (click)="saveAddress()" [disabled]="addressEmitter.addressFormGroup.invalid">
-                <mat-icon>save</mat-icon>
-            </button>
-        </div>
-    </div>
-    <span *ngIf="canAddAddress">
-        <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
-            [inputForm]="inputForm" [resetForm]="resetChildForm">
-        </app-map-location-create>
-    </span>
-    <div *ngFor="let address of addressList" class="list-address">
-        <app-address-editable (updatedEvent)="refreshAddress($event)" (deleteEvent)="addressDeleted($event)"
-            class="address" [address]="address" [userId]="userId">
-        </app-address-editable>
-        <mat-divider></mat-divider>
-    </div>
+  <div class="edit-address-header">
+    <h3>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE' | translate }}</h3>
+    <button mat-mini-fab color="accent"
+      matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD' | translate }}" matTooltipPosition="right"
+      (click)="openCloseAddressForm()">
+      <mat-icon>add</mat-icon>
+    </button>
+
+  </div>
+  <span *ngIf="canAddAddress">
+
+  </span>
+  <div *ngFor="let address of addressList" class="list-address">
+    <app-address-editable (updatedEvent)="refreshAddress($event)" (deleteEvent)="addressDeleted($event)" class="address"
+      [address]="address" [userId]="userId">
+    </app-address-editable>
+    <mat-divider></mat-divider>
+  </div>
 </mat-list>

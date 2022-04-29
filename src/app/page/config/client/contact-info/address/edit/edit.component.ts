@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UserAddress, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableAddress } from './editable-address';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-address-editable',
@@ -22,30 +24,21 @@ export class EditComponent extends CreateAddress {
 
   constructor(
     protected svcNotification: NotificationService,
-    protected svcUser: UserService
+    protected svcUser: UserService,
+    public dialog: MatDialog
   ) {
     super();
   }
 
-  public updateAddress() {
+  public updateAddress(result: any) {
     if (!this.address) {
       return;
     }
-
-    let updateUserAddress: UserAddress = {
-      address: this.getAddress(),
-      main: false,
-    };
-
     this.svcUser
-      .updateUserAddress(
-        this.address.address.address.id!,
-        this.userId!,
-        updateUserAddress
-      )
+      .updateUserAddress(this.address.address.address.id!, this.userId!, result)
       .subscribe({
         next: (response) => {
-          this.updatedEvent.next(updateUserAddress);
+          this.updatedEvent.next(response);
           this.address!.isEditable = !this.address!.isEditable;
         },
         error: (error) =>
@@ -68,7 +61,6 @@ export class EditComponent extends CreateAddress {
     if (!this.address) {
       return;
     }
-
     const geolocation = this.address.address.address.geolocation;
     this.configureMap = {
       lat: geolocation.latitude,
@@ -77,13 +69,20 @@ export class EditComponent extends CreateAddress {
       showCircle: true,
       height: '350px',
     };
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogTitle:
+          'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+        address: this.address.address.address,
+        configureMap: this.configureMap,
+        userId: this.userId,
+      },
+    });
+    dialogRef.componentInstance.submitClicked.subscribe((result) => {
+      this.updateAddress(result);
+      dialogRef.close()
+    });
 
-    const address = this.address.address.address;
-    this.inputForm.street.setValue(address.road);
-    this.inputForm.number?.setValue(address.number);
-    this.inputForm.flat?.setValue(address.flat);
-    this.inputForm.gate?.setValue(address.gate);
-    this.address.isEditable = !this.address.isEditable;
   }
 
   public deleteAddress() {

@@ -19,23 +19,6 @@ mat-list {
   }
 }
 
-.editable-form {
-  display: flex;
-  margin-left: $margin-small;
-  .address-form {
-    mat-form-field {
-      margin: $margin-small;
-    }
-    mat-divider {
-      position: inherit;
-      margin: 0 auto;
-      width: 50%;
-    }
-  }
-  .address-buttons {
-    display: flex;
-  }
-}
 
 .address {
   display: flex;

@@ -1,48 +1,35 @@
 <span *ngIf="address && address.isEditable; else noEditableAddress">
-    <div class="editable-form">
-        <div class="address-form">
-            <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
-                [inputForm]="inputForm" [resetForm]="resetChildForm">
-            </app-map-location-create>
-        </div>
-        <div class="address-buttons">
-            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.CLOSE' | translate }}"
-                (click)="openEditableAddressForm()">
-                <mat-icon>close</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.SAVE' | translate }}" (click)="updateAddress()"
-                *ngIf="addressEmitter && addressEmitter.addressFormGroup"
-                [disabled]="addressEmitter.addressFormGroup.invalid">
-                <mat-icon>save</mat-icon>
-            </button>
-        </div>
-    </div>
+
+  <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
+    [inputForm]="inputForm" [resetForm]="resetChildForm">
+  </app-map-location-create>
+
+
 </span>
 
 <ng-template #noEditableAddress>
-    <div class="edited-form">
-        <h4>{{address!.address.address| address }}</h4>
-        <span mat-subheader class="is-principal">{{ address!.address.main ? 'Principal' : '' }}</span>
-    </div>
-    <div>
-        <button mat-icon-button *ngIf="address!.address.main; else notMainAddress"
-            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.FAVORITE' | translate }}"
-            (click)="setAddressAsMain()">
-            <mat-icon>star</mat-icon>
-        </button>
-        <ng-template #notMainAddress>
-            <button mat-icon-button
-                matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.BUTTON.FAVORITE' | translate }}"
-                (click)="setAddressAsMain()">
-                <mat-icon>star_border</mat-icon>
-            </button>
-        </ng-template>
-        <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}"
-            (click)="openEditableAddressForm()">
-            <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.DELETE' | translate }}" (click)="deleteAddress()">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </div>
+  <div class="edited-form">
+    <h4>{{address!.address.address| address }}</h4>
+    <span mat-subheader class="is-principal">{{ address!.address.main ? 'Principal' : '' }}</span>
+  </div>
+  <div>
+    <button mat-icon-button *ngIf="address!.address.main; else notMainAddress"
+      matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.FAVORITE' | translate }}"
+      (click)="setAddressAsMain()">
+      <mat-icon>star</mat-icon>
+    </button>
+    <ng-template #notMainAddress>
+      <button mat-icon-button
+        matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.BUTTON.FAVORITE' | translate }}"
+        (click)="setAddressAsMain()">
+        <mat-icon>star_border</mat-icon>
+      </button>
+    </ng-template>
+    <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}" (click)="openEditableAddressForm()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.DELETE' | translate }}" (click)="deleteAddress()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </ng-template>

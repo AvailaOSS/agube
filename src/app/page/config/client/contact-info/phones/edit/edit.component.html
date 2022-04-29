@@ -27,13 +27,13 @@
     <div>
         <button mat-icon-button *ngIf="phone!.phone.main; else notMainPhone"
             matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.FAVORITE' | translate }}"
-            (click)="setPhoneAsMain()">
+            (click)="setPhoneAsMain(false)">
             <mat-icon>star</mat-icon>
         </button>
         <ng-template #notMainPhone>
             <button mat-icon-button
                 matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.BUTTON.FAVORITE' | translate }}"
-                (click)="setPhoneAsMain()">
+                (click)="setPhoneAsMain(true)">
                 <mat-icon>star_border</mat-icon>
             </button>
         </ng-template>

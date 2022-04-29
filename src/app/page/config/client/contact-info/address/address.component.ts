@@ -4,6 +4,8 @@ import { UserService, UserAddress } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableAddress } from './edit/editable-address';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './edit/dialog/dialog.component';
 
 @Component({
   selector: 'app-address',
@@ -20,7 +22,8 @@ export class AddressComponent extends CreateAddress {
   constructor(
     protected svcNotification: NotificationService,
     protected svcAccount: AccountService,
-    protected svcUser: UserService
+    protected svcUser: UserService,
+    public dialog: MatDialog
   ) {
     super();
     this.svcAccount.getUser().subscribe((response) => {
@@ -33,20 +36,26 @@ export class AddressComponent extends CreateAddress {
   }
 
   public openCloseAddressForm() {
-    this.canAddAddress = !this.canAddAddress;
-    this.resetChildForm = !this.resetChildForm;
+    this.canAddAddress = true;
+    this.resetChildForm = true;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
+        address: this.resetChildForm,
+        configureMap: this.configureMap,
+        userId: this.userId,
+      },
+    });
+    dialogRef.componentInstance.submitClicked.subscribe((result) => {
+      this.saveAddress(result);
+      dialogRef.close();
+    });
   }
 
-  public saveAddress() {
-    let newUserAddress: UserAddress = {
-      address: this.getAddress(),
-      main: false,
-    };
-
-    this.svcUser.addUserAddress(this.userId, newUserAddress).subscribe({
+  public saveAddress(result: any) {
+    this.svcUser.addUserAddress(this.userId, result).subscribe({
       next: (response) => {
         this.addressList.push({ address: response, isEditable: false });
-        this.openCloseAddressForm();
       },
       error: (error) => this.svcNotification.warning({ message: error }),
     });

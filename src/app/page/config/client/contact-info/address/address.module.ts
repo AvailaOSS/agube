@@ -13,9 +13,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { CreateModule as MapCreateModule } from 'src/app/components/map/create/create.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './edit/dialog/dialog.component';
 
 @NgModule({
-  declarations: [AddressComponent, EditComponent],
+  declarations: [AddressComponent, EditComponent, DialogComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -30,6 +32,7 @@ import { CreateModule as MapCreateModule } from 'src/app/components/map/create/c
     MatTooltipModule,
     TranslateModule,
     MapCreateModule,
+    MatDialogModule
   ],
   exports: [AddressComponent, EditComponent],
 })
