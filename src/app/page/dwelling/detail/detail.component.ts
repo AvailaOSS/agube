@@ -13,6 +13,7 @@ import {
   ManagerConfiguration,
 } from '@availa/agube-rest-api';
 import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-configure';
+import { Detail } from './detail';
 
 @Component({
   selector: 'app-page-dwelling-detail',
@@ -23,6 +24,7 @@ export class DetailComponent implements OnInit {
   public userId: number | undefined;
   public dwellingId: number | undefined;
   public dwelling: DwellingCreate | undefined;
+  public managerMode: boolean | undefined = false;
 
   // map
   public configureView: ConfigureView | undefined;
@@ -56,7 +58,9 @@ export class DetailComponent implements OnInit {
     this.loading = true;
     this.dwelling = undefined;
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.dwellingId = +params['dwellingId'];
+      let par = params as Detail;
+      this.dwellingId = par.dwellingId;
+      this.managerMode = par.managerMode;
     });
   }
 
