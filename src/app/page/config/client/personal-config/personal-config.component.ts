@@ -8,14 +8,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ThemeMode } from 'src/app/page/home/theme-mode';
 import { Language } from 'src/app/utils/language';
-import { ConfigureMode } from './configure-mode';
+import { ConfigureMode } from './personal-config';
 
 @Component({
-  selector: 'app-configure-mode',
-  templateUrl: './configure-mode.component.html',
+  selector: 'app-personal-config',
+  templateUrl: './personal-config.component.html',
   styleUrls: ['../client-page.component.scss'],
 })
-export class ConfigureModeComponent implements OnInit {
+export class PersonalConfigComponent implements OnInit {
   public loadSave: boolean = false;
   public releaseDate: Date | undefined = undefined;
   public toggleControl = new FormControl(false);

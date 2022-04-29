@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PasswordComponent } from './password/password.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfigureModeComponent } from './configure-mode/configure-mode.component';
+import { PersonalConfigComponent } from './personal-config/personal-config.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -30,7 +30,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     PersonalInfoComponent,
     ContactInfoComponent,
     PasswordComponent,
-    ConfigureModeComponent,
+    PersonalConfigComponent,
   ],
   imports: [
     CommonModule,
