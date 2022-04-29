@@ -21,6 +21,8 @@ from login.serializers import (UserAddressUpdateSerializer,
                                UserConfigSerializer)
 from login.serializers_external import UserDwellingDetailSerializer
 from userconfig.models import UserConfig
+from manager.models import Person
+
 TAG_USER = 'user'
 
 
@@ -63,15 +65,17 @@ class ConfigView(APIView):
         """
         Return user information details.
         """
-        user = User.objects.get(id=pk)
-        configure = UserConfig.objects.get(id=pk)
+        person = Person.objects.get(user__id=pk)
+        config = person.get_config()
+        print(config)
         data = {
-            "manager_id": user.id,
-            'mode':configure.mode,
-            'lang':configure.lang
+            "manager_id": person.id,
+            'mode': config.mode,
+            'lang': config.lang
         }
 
         return Response(UserConfigSerializer(data, many=False).data)
+
 
 class UserConfigUpdateView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
@@ -91,7 +95,7 @@ class UserConfigUpdateView(APIView):
         # extract data
         new_configure_theme = request.data.pop('mode')
         new_configure_lang = request.data.pop('lang')
-        
+
         # update phone with new data
         current_configure_theme.mode = new_configure_theme
         current_configure_theme.save()
@@ -104,8 +108,8 @@ class UserConfigUpdateView(APIView):
         }
 
         return Response(UserDetailSerializer(data, many=False).data)
-    
-    
+
+
 class UserDwellingDetailView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
