@@ -44,7 +44,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
-  public updateAddress() {
+  public saveAddress() {
     if (!this.address) {
       return;
     }
@@ -53,18 +53,8 @@ export class DialogComponent extends CreateAddress implements OnInit {
       address: this.getAddress(),
       main: false,
     };
+    this.submitClicked.emit(updateUserAddress);
+    this.dialogRef.close();
 
-    this.svcUser
-      .updateUserAddress(this.address.id!, this.userId!, updateUserAddress)
-      .subscribe({
-        next: (response) => {
-          this.submitClicked.next(updateUserAddress);
-          this.dialogRef.close();
-        },
-        error: (error) =>
-          this.svcNotification.warning({
-            message: error,
-          }),
-      });
   }
 }

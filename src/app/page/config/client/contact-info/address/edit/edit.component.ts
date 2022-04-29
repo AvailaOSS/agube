@@ -30,25 +30,15 @@ export class EditComponent extends CreateAddress {
     super();
   }
 
-  public updateAddress() {
+  public updateAddress(result: any) {
     if (!this.address) {
       return;
     }
-
-    let updateUserAddress: UserAddress = {
-      address: this.getAddress(),
-      main: false,
-    };
-
     this.svcUser
-      .updateUserAddress(
-        this.address.address.address.id!,
-        this.userId!,
-        updateUserAddress
-      )
+      .updateUserAddress(this.address.address.address.id!, this.userId!, result)
       .subscribe({
         next: (response) => {
-          this.updatedEvent.next(updateUserAddress);
+          this.updatedEvent.next(response);
           this.address!.isEditable = !this.address!.isEditable;
         },
         error: (error) =>
@@ -89,7 +79,7 @@ export class EditComponent extends CreateAddress {
       },
     });
     dialogRef.componentInstance.submitClicked.subscribe((result) => {
-      this.updatedEvent.next(result);
+      this.updateAddress(result);
     });
   }
 

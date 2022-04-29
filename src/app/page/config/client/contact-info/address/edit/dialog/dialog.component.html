@@ -1,19 +1,13 @@
 <h1 mat-dialog-title>{{dialogTitle |translate}}</h1>
 <div mat-dialog-content>
-  <div class="editable-form">
-    <div class="address-form">
       <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
         [inputForm]="inputForm" [resetForm]="resetChildForm">
       </app-map-location-create>
-    </div>
-
-  </div>
-
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary"
     matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE.TOOLTIP' | translate }}"
-    [disabled]="!addressEmitter" (click)="updateAddress()">
+    [disabled]="!addressEmitter" (click)="saveAddress()">
     {{'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE' |translate}}
     <mat-icon>save</mat-icon>
   </button>
