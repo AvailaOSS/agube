@@ -17,7 +17,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new MultiTranslateHttpLoader(http, [
@@ -63,12 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatMenuModule,
     MatIconModule,
-    MatButtonModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-    }),
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],

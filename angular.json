@@ -44,16 +44,14 @@
                 "glob": "**/*",
                 "input": "node_modules/@availa/contact-book-fe/assets/i18n/",
                 "output": "./src/assets/contact-book/"
-              },
-              "src/manifest.webmanifest"
+              }
             ],
             "styles": [
               "./node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "scripts": []
+
           },
           "configurations": {
             "production": {
@@ -125,7 +123,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
             "scripts": []
           }
