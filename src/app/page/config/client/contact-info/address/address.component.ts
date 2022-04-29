@@ -36,9 +36,8 @@ export class AddressComponent extends CreateAddress {
   }
 
   public openCloseAddressForm() {
-    this.canAddAddress = !this.canAddAddress;
-    this.resetChildForm = !this.resetChildForm;
-
+    this.canAddAddress = true;
+    this.resetChildForm = true;
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
@@ -49,7 +48,7 @@ export class AddressComponent extends CreateAddress {
     });
     dialogRef.componentInstance.submitClicked.subscribe((result) => {
       this.saveAddress(result);
-      dialogRef.close()
+      dialogRef.close();
     });
   }
 

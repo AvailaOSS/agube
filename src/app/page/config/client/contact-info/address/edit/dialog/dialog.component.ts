@@ -42,11 +42,11 @@ export class DialogComponent extends CreateAddress implements OnInit {
     if (!this.address) {
       return;
     }
-
     let updateUserAddress: UserAddress = {
       address: this.getAddress(),
       main: false,
     };
     this.submitClicked.emit(updateUserAddress);
+    this.dialogRef.close();
   }
 }
