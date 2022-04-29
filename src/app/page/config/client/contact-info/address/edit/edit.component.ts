@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UserAddress, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableAddress } from './editable-address';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-address-editable',
@@ -22,7 +24,8 @@ export class EditComponent extends CreateAddress {
 
   constructor(
     protected svcNotification: NotificationService,
-    protected svcUser: UserService
+    protected svcUser: UserService,
+    public dialog: MatDialog
   ) {
     super();
   }
@@ -68,7 +71,6 @@ export class EditComponent extends CreateAddress {
     if (!this.address) {
       return;
     }
-
     const geolocation = this.address.address.address.geolocation;
     this.configureMap = {
       lat: geolocation.latitude,
@@ -79,11 +81,24 @@ export class EditComponent extends CreateAddress {
     };
 
     const address = this.address.address.address;
-    this.inputForm.street.setValue(address.road);
-    this.inputForm.number?.setValue(address.number);
-    this.inputForm.flat?.setValue(address.flat);
-    this.inputForm.gate?.setValue(address.gate);
-    this.address.isEditable = !this.address.isEditable;
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogTitle: 'Editar Dirección',
+        address: address,
+        configureMap: this.configureMap,
+        userId: this.userId,
+      },
+    });
+
+    dialogRef.componentInstance.submitClicked.subscribe(result => {
+      console.log(result)
+      this.updatedEvent.next(result);
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+    // this.address.isEditable = !this.address.isEditable;
   }
 
   public deleteAddress() {

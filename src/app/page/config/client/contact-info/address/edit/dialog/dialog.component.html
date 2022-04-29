@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+<div mat-dialog-content>
+  <div class="editable-form">
+    <div class="address-form">
+        <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
+            [inputForm]="inputForm" [resetForm]="resetChildForm">
+        </app-map-location-create>
+    </div>
+
+</div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="updateAddress()">Guardar</button>
+  <button mat-raised-button (click)="closeDialog()" cdkFocusInitial>Cancelar</button>
+
+</div>

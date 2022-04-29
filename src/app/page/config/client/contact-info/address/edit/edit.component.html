@@ -6,10 +6,7 @@
             </app-map-location-create>
         </div>
         <div class="address-buttons">
-            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.CLOSE' | translate }}"
-                (click)="openEditableAddressForm()">
-                <mat-icon>close</mat-icon>
-            </button>
+
             <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.SAVE' | translate }}" (click)="updateAddress()"
                 *ngIf="addressEmitter && addressEmitter.addressFormGroup"
                 [disabled]="addressEmitter.addressFormGroup.invalid">
