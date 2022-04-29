@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DwellingCreate, ManagerService } from '@availa/agube-rest-api';
+import { ChangeData } from 'src/app/page/person/change/change-data';
 import { Type } from 'src/app/page/water-meter/detail/type';
 import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-data';
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
-import { ChangeData } from '../../manager/person/change/change-data';
 
 @Component({
   selector: 'app-management',
