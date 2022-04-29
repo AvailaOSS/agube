@@ -80,7 +80,9 @@ export class EditComponent extends CreateAddress {
     });
     dialogRef.componentInstance.submitClicked.subscribe((result) => {
       this.updateAddress(result);
+      dialogRef.close()
     });
+
   }
 
   public deleteAddress() {

@@ -35,12 +35,6 @@ export class DialogComponent extends CreateAddress implements OnInit {
     this.inputForm.gate?.setValue(this.address.gate);
   }
 
-  saveMessage() {
-    const data = 'Your data';
-    this.submitClicked.emit(data);
-    this.dialogRef.close();
-  }
-
   closeDialog() {
     this.dialogRef.close();
   }
@@ -54,7 +48,5 @@ export class DialogComponent extends CreateAddress implements OnInit {
       main: false,
     };
     this.submitClicked.emit(updateUserAddress);
-    this.dialogRef.close();
-
   }
 }
