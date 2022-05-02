@@ -18,7 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManagementModule } from 'src/app/components/management/management.module';
 import { AddressComponent } from './address/address.component';
 import { OwnerComponent } from './owner/owner.component';
-import { ResumeComponent } from '../manager/management/resume/resume.component';
+import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
   declarations: [

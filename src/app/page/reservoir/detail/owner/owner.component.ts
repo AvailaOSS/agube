@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   UserService,
-  DwellingService,
   ReservoirService,
   UserDetail,
-  Owner,
 } from '@availa/agube-rest-api';
 
 @Component({
@@ -31,7 +29,7 @@ export class OwnerComponent implements OnInit {
     }
     this.svcReservoir
       .getCurrentReservoirOwner(this.reservoirId)
-      .subscribe((responseOwner: any) => {
+      .subscribe((responseOwner) => {
         if (!responseOwner) {
           return;
         }
