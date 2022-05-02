@@ -19,7 +19,6 @@ import { Subscription } from 'rxjs';
 export class PersonalInfoComponent implements OnInit {
   public loadSave: boolean = false;
   public personalForm: FormGroup;
-  public username = new FormControl('', [Validators.required]);
   public email = new FormControl('', [Validators.required, Validators.email]);
   public first_name = new FormControl('', [Validators.required]);
   public last_name = new FormControl('', [Validators.required]);
@@ -36,7 +35,6 @@ export class PersonalInfoComponent implements OnInit {
     private svcUser: UserService
   ) {
     this.personalForm = this.formBuilder.group({
-      username: this.username,
       email: this.email,
       first_name: this.first_name,
       last_name: this.last_name,
@@ -53,7 +51,6 @@ export class PersonalInfoComponent implements OnInit {
       this.svcUser
         .getUserDetail(userResponse!.user_id)
         .subscribe((response) => {
-          this.username.setValue(userResponse?.username);
           this.email.setValue(response.email);
           this.first_name.setValue(response.first_name);
           this.last_name.setValue(response.last_name);
@@ -62,13 +59,12 @@ export class PersonalInfoComponent implements OnInit {
     });
   }
 
-  saveForm() {
+  public updateUser() {
     this.loadSave = true;
     let personalInfo: PersonalInfo = {
       email: this.email.value,
       first_name: this.first_name.value,
       last_name: this.last_name.value,
-      username: this.username.value,
     };
     this.loadSave = true;
 
@@ -101,11 +97,6 @@ export class PersonalInfoComponent implements OnInit {
 
   public errorValidator(entity: string) {
     switch (entity) {
-      case 'username':
-        if (this.username.hasError('required')) {
-          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.USERNAME.VALIDATION.REQUIRED';
-        }
-        return '';
       case 'first_name':
         if (this.first_name.hasError('required')) {
           return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED';
