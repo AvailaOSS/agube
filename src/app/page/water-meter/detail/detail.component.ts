@@ -23,12 +23,14 @@ export class DetailComponent implements OnInit {
   @Input() public type: Type | undefined;
   @Input() public canAddReading: boolean | undefined;
 
+  public waterMeter: WaterMeterWithMeasurements | undefined;
+
   public displayedColumns: string[] = ['measurement', 'date', 'overflow'];
   public dataSource: MatTableDataSource<
     WaterMeterMeasurement
   > = new MatTableDataSource<WaterMeterMeasurement>();
 
-  public maxDailyConsumption: string = '';
+  public maxDailyConsumption: number = 1;
 
   public filter = new FormControl('');
 
@@ -46,7 +48,7 @@ export class DetailComponent implements OnInit {
       .getManagerConfiguration()
       .subscribe(
         (response) =>
-          (this.maxDailyConsumption = response.max_daily_consumption)
+          (this.maxDailyConsumption = +response.max_daily_consumption)
       );
     this.loadWaterMeterMeasures();
   }
@@ -87,7 +89,7 @@ export class DetailComponent implements OnInit {
     old: WaterMeterMeasurement
   ) {
     const measure = this.minusMeasure(current, old);
-    if (this.maxDailyConsumption && measure > +this.maxDailyConsumption) {
+    if (this.maxDailyConsumption && measure > this.maxDailyConsumption) {
       return true;
     } else {
       return false;
@@ -129,6 +131,7 @@ export class DetailComponent implements OnInit {
           if (!response) {
             return;
           }
+          this.waterMeter = response;
           this.dataSource = new MatTableDataSource(response.measures);
         },
         error: (error: any) => {

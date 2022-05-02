@@ -1,16 +1,15 @@
-<app-gauge [config]="configureChart"></app-gauge>
-<!-- <div class="chart" *ngIf="googleChartConfigure">
+<div class="chart" *ngIf="waterMeter">
   <span>
     Código
     <h3>
-      {{googleChartConfigure.arrayToDataTable[0].code}}
+      {{ waterMeter.code }}
     </h3>
   </span>
-  <div id="{{googleChartConfigure.id}}"></div>
+  <app-gauge [config]="configureChart"></app-gauge>
   <span>
-    Fecha de alta
+    Máximo consumo diario permitido
     <h3>
-      {{googleChartConfigure.arrayToDataTable[0].release_date | date:'dd/MM/yyyy'}}
+      <!-- {{ maxDailyConsumption }} L -->
     </h3>
   </span>
-</div> -->
+</div>

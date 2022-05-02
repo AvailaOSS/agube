@@ -1,18 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import {
-  ManagerConfiguration,
-  ManagerService,
   WaterMeterMeasurement,
+  WaterMeterWithMeasurements,
 } from '@availa/agube-rest-api';
 import { Configuration } from 'src/app/components/chart/chart-configure';
+import { differenceInDays } from 'date-fns';
 
 @Component({
   selector: 'app-water-meter-gauge',
   templateUrl: './gauge.component.html',
   styleUrls: ['./gauge.component.scss'],
 })
-export class GaugeComponent implements OnInit {
-  @Input() public measures: WaterMeterMeasurement[] = [];
+export class GaugeComponent implements OnChanges {
+  @Input() public maxDailyConsumption: number = 1;
+  @Input() public waterMeter: WaterMeterWithMeasurements | undefined;
 
   public configureChart: Configuration = {
     id: 'water_meter_gauge',
@@ -25,19 +26,59 @@ export class GaugeComponent implements OnInit {
       yellowTo: 90,
       minorTicks: 10,
     },
-    data: ['', 60],
+    data: ['', 0],
   };
 
-  constructor(private svcManager: ManagerService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.svcManager.getManagerConfiguration().subscribe((response) => {
-      this.configureWaterMeterChart(response);
-      console.log(this.measures);
-    });
+  ngOnChanges(): void {
+    this.computeAverage();
   }
 
-  private configureWaterMeterChart(managerConfig: ManagerConfiguration) {
-    console.log(managerConfig.max_daily_consumption);
+  private computeAverage() {
+    let measures = this.waterMeter?.measures;
+
+    if (!measures) {
+      return;
+    }
+
+    let sum = 0;
+    for (let index = 0; index < measures.length; index++) {
+      sum += this.minusMeasure(measures[index], measures[index + 1]);
+    }
+
+    let total = ((sum / measures.length) * 100) / this.maxDailyConsumption;
+    console.log(
+      sum,
+      measures.length,
+      (sum / measures.length) * 100,
+      this.maxDailyConsumption,
+      total
+    );
+
+    this.configureChart.data = ['', total];
+  }
+
+  private minusMeasure(
+    current: WaterMeterMeasurement,
+    old: WaterMeterMeasurement
+  ): number {
+    if (!old) {
+      old = current;
+    }
+
+    let lapsedDays = differenceInDays(
+      new Date(current.date!),
+      new Date(old.date!)
+    );
+
+    if (lapsedDays === 0) {
+      lapsedDays = 1;
+    }
+
+    return (
+      (+(+current.measurement - +old.measurement).toFixed(3) * 1000) /
+      lapsedDays
+    );
   }
 }
