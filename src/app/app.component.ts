@@ -43,14 +43,14 @@ export class AppComponent {
       if (!userResponse) {
         return;
       }
-      this.svcUser
-        .getConfig(String(userResponse.user_id!))
-        .subscribe((response) => {
-          this.selectedLanguage = this.languages.filter(
-            (lang) => lang.code === response.lang
-          )[0];
-          this.selectLenguaje(this.selectedLanguage);
-        });
+
+      this.svcUser.getConfig(userResponse.user_id!).subscribe((response) => {
+        this.selectedLanguage = this.languages.filter(
+          (lang) => lang.code === response.lang
+        )[0];
+        this.selectLenguaje(this.selectedLanguage);
+      });
+
     });
   }
 

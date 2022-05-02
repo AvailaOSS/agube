@@ -35,6 +35,7 @@ export class SidebarComponent {
       if (!userResponse || !userResponse.user_id) {
         return;
       }
+
       this.toggleControl.valueChanges.subscribe((isDarkMode) => {
         if (isDarkMode) {
           this.overlayDialog(this.darkClassName, this.lightClassName);
@@ -42,14 +43,14 @@ export class SidebarComponent {
           this.overlayDialog(this.lightClassName, this.darkClassName);
         }
       });
-      this.svcUser
-        .getConfig(String(userResponse.user_id!))
-        .subscribe((response) => {
-          if (!response) {
-            return;
-          }
-          this.setControlToggle(response);
-        });
+
+      this.svcUser.getConfig(userResponse.user_id!).subscribe((response) => {
+        if (!response) {
+          return;
+        }
+        this.setControlToggle(response);
+      });
+
       this.svcUser
         .getUserDetail(userResponse.user_id)
         .subscribe((response) => (this.user = response));

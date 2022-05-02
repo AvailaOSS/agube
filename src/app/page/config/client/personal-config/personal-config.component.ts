@@ -5,7 +5,6 @@ import { UserService } from '@availa/agube-rest-api';
 import { UserDetailConfigure } from '@availa/agube-rest-api/lib/model/userDetailConfigure';
 import { AccountService } from '@availa/auth-fe';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
 import { ThemeMode } from 'src/app/page/home/theme-mode';
 import { Language } from 'src/app/utils/language';
 import { ConfigureMode } from './personal-config';
@@ -63,7 +62,7 @@ export class PersonalConfigComponent implements OnInit {
       }
       this.userId = userResponse.user_id;
 
-      this.svcUser.getConfig(String(this.userId!)).subscribe((response) => {
+      this.svcUser.getConfig(this.userId!).subscribe((response) => {
         this.setControlToggle(response);
         this.selectedLanguage = this.languages.filter(
           (lang) => lang.code === response.lang
@@ -75,7 +74,6 @@ export class PersonalConfigComponent implements OnInit {
 
   public selectLenguaje(language: Language) {
     this.selectedLanguage = language;
-    this.translate.use(language.code);
   }
 
   public updateConfig() {
@@ -92,15 +90,14 @@ export class PersonalConfigComponent implements OnInit {
     };
 
     this.svcUser
-      .updateConfig(String(this.userId!), {
+      .updateConfig(this.userId!, {
         mode: configureMode.mode,
         lang: configureMode.language,
       })
-      .subscribe((response: any) => {
+      .subscribe((response: UserDetailConfigure) => {
         this.setControlToggle(response);
+        window.location.reload();
       });
-
-    this.loadSave = false;
   }
 
   private setControlToggle(response: UserDetailConfigure) {
