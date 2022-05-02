@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MeasureDialogComponent } from './measure-dialog/measure-dialog.component';
@@ -16,7 +16,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnInit, OnChanges {
+export class DetailComponent implements OnInit {
   @Input() public waterMeterId: number | undefined;
   @Input() public type: Type | undefined;
   @Input() public canAddReading: boolean | undefined;
@@ -37,18 +37,6 @@ export class DetailComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.svcWaterMeterManager
-      .getChunk(this.type!.id, this.chunk, this.type!.type)
-      .subscribe(
-        (responseWaterMeterMeasurement: WaterMeterWithMeasurements) => {
-          if (!responseWaterMeterMeasurement) {
-            return;
-          }
-        }
-      );
-  }
-
-  ngOnChanges(): void {
     this.loadWaterMeterMeasures();
   }
 

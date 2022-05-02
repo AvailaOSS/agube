@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Configuration } from './chart-configure';
+import { Configuration, Type } from './chart-configure';
 
 declare var google: any;
 
@@ -11,6 +11,9 @@ declare var google: any;
 export class ChartComponent implements OnInit {
   @Input() config!: Configuration;
 
+  protected type: Type | undefined;
+  protected header: string[] = [];
+
   constructor() {}
 
   ngOnInit(): void {
@@ -18,12 +21,12 @@ export class ChartComponent implements OnInit {
   }
 
   public drawChart() {
-    google.charts.load('current', { packages: ['gauge'] });
+    google.charts.load('current', { packages: [this.type] });
 
     google.charts.setOnLoadCallback(() => {
       let data = google.visualization.arrayToDataTable([
-        ['Label', 'Value'],
-        ['Memory', 80],
+        this.header,
+        this.config.data,
       ]);
 
       // Instantiate and draw our chart, passing in some options.
