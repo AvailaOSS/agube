@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Manager(models.Model):
@@ -32,7 +33,9 @@ class Manager(models.Model):
 
 
 class ManagerConfiguration(models.Model):
-    manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT, unique=False)
+    manager: Manager = models.ForeignKey(Manager,
+                                         on_delete=models.RESTRICT,
+                                         unique=False)
     max_daily_consumption = models.DecimalField(decimal_places=3, max_digits=8)
     hook_price = models.DecimalField(decimal_places=2, max_digits=8)
     release_date = models.DateTimeField()
@@ -59,3 +62,10 @@ class Person(models.Model):
 
     class Meta:
         db_table = 'agube_manager_person'
+
+    def get_config(self):
+        from userconfig.models import UserConfig
+        try:
+            return UserConfig.objects.get(person=self)
+        except ObjectDoesNotExist:
+            return None

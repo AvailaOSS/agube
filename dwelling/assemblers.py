@@ -16,6 +16,7 @@ from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
 from geolocation.models import Geolocation
 from address.assembler import create_address
+from userconfig.models import UserConfig
 
 
 # FIXME: the user methods must be moved to login app
@@ -34,8 +35,8 @@ def create_user_address(user: User, validated_data: AddressSerializer,
                         main: bool):
     # create user address
     return UserAddress.objects.create(user=user,
-                               address=create_address(validated_data),
-                               main=main)
+                                      address=create_address(validated_data),
+                                      main=main)
 
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
@@ -79,7 +80,14 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
         first_iteration = False
 
     # Important: create Person after create User
-    Person.objects.create(manager=manager, user=user)
+    person = Person.objects.create(manager=manager, user=user)
+
+    # Set Manager Configuration for this Person
+    manager_config = UserConfig.objects.get(person__manager=manager)
+    UserConfig.objects.create(person=person,
+                              mode=manager_config.mode,
+                              lang=manager_config.lang)
+
     if PersonTag.OWNER == tag:
         email_type = EmailType.OWNER_EMAIL
     else:

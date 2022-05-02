@@ -17,8 +17,11 @@ from login.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
 from login.permissions import IsManagerOfUser, IsUserMatch
 from login.serializers import (UserAddressUpdateSerializer,
-                               UserDetailSerializer, UserPhoneUpdateSerializer)
+                               UserDetailSerializer, UserPhoneUpdateSerializer,
+                               UserConfigSerializer)
 from login.serializers_external import UserDwellingDetailSerializer
+from userconfig.models import UserConfig
+from manager.models import Person
 
 TAG_USER = 'user'
 
@@ -48,6 +51,102 @@ class UserCustomDetailView(APIView):
         }
 
         return Response(UserDetailSerializer(data, many=False).data)
+
+
+class UserCustomDetailUpdateView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+
+    @swagger_auto_schema(
+        operation_id="UpdateUserDetail",
+        request_body=UserDetailSerializer,
+        responses={200: UserDetailSerializer(many=True)},
+        tags=[TAG_USER],
+    )
+    def put(self, request, pk):
+        """
+        Return user information details.
+        """
+        user = User.objects.get(id=pk)
+
+        phone = UserPhone.objects.get(user=user, main=True)
+
+        new_first_name = request.data.pop('first_name')
+        new_last_name = request.data.pop('last_name')
+        new_email = request.data.pop('email')
+
+        user.first_name= new_first_name
+        user.save()
+        user.last_name= new_last_name
+        user.save()
+        user.email= new_email
+        user.save()
+        data = {
+            "id": user.id,
+            "first_name": new_first_name,
+            "last_name": new_last_name,
+            "email": new_email,
+            "main_phone": phone.phone,
+        }
+
+        return Response(UserDetailSerializer(data, many=False).data)
+
+
+class ConfigView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+
+    @swagger_auto_schema(
+        operation_id="getConfig",
+        responses={200: UserConfigSerializer(many=False)},
+        tags=[TAG_USER],
+    )
+    def get(self, request, pk):
+        """
+        Return user information details.
+        """
+        person = Person.objects.get(user__id=pk)
+        config = person.get_config()
+        data = {
+            "manager_id": person.id,
+            'mode': config.mode,
+            'lang': config.lang
+        }
+
+        return Response(UserConfigSerializer(data, many=False).data)
+
+
+class UserConfigUpdateView(APIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+
+    @swagger_auto_schema(
+        operation_id="updateConfig",
+        request_body=UserConfigSerializer,
+        responses={200: UserConfigSerializer(many=True)},
+        tags=[TAG_USER],
+    )
+    def put(self, request, pk):
+        """
+        Update configure of user
+        """
+        # get current user Configure
+        person = Person.objects.get(user__id=pk)
+        current_configure_theme: UserConfig = person.get_config()
+        # extract data
+        new_configure_theme = request.data.pop('mode')
+        new_configure_lang = request.data.pop('lang')
+
+        # update phone with new data
+        current_configure_theme.mode = new_configure_theme
+        current_configure_theme.save()
+        current_configure_theme.lang = new_configure_lang
+        current_configure_theme.save()
+
+        data = {
+            "manager_id": person.id,
+            "mode": current_configure_theme.mode,
+            "lang": current_configure_theme.lang,
+        }
+
+        return Response(UserConfigSerializer(data, many=False).data)
 
 
 class UserDwellingDetailView(APIView):
@@ -243,6 +342,7 @@ class UserPhoneUpdateDeleteView(APIView):
         return Response({'status': 'delete successfull!'})
 
 
+
 class UserCreateAddressView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
@@ -325,8 +425,10 @@ class UserAddressUpdateDeleteView(APIView):
         update_this_geolocation.latitude = geolocation_data.get('latitude')
         update_this_geolocation.longitude = geolocation_data.get('longitude')
         update_this_geolocation.zoom = geolocation_data.get('zoom')
-        update_this_geolocation.horizontal_degree = geolocation_data.get('horizontal_degree')
-        update_this_geolocation.vertical_degree = geolocation_data.get('vertical_degree')
+        update_this_geolocation.horizontal_degree = geolocation_data.get(
+            'horizontal_degree')
+        update_this_geolocation.vertical_degree = geolocation_data.get(
+            'vertical_degree')
         update_this_geolocation.save()
 
         update_this_address = user_address.address
