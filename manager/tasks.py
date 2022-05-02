@@ -5,10 +5,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 from manager.models import Manager, Person
+from userconfig.models import UserConfig
 
 
 @task(autoretry_for=(ObjectDoesNotExist, ),
-      retry_kwargs={'max_retries': 5, 'countdown': 5},
+      retry_kwargs={
+          'max_retries': 5,
+          'countdown': 5
+      },
       retry_backoff=True,
       name="agube.celery.new_user_published",
       queue='agube',
@@ -19,4 +23,5 @@ def new_user_published(data):
     user = User.objects.get(id=json_response["id"])
     manager = Manager.objects.create(user=user)
     # Important: create Person after create User
-    Person.objects.create(manager=manager, user=user)
+    person = Person.objects.create(manager=manager, user=user)
+    UserConfig.objects.create(person=person, mode='dark', lang='es')
