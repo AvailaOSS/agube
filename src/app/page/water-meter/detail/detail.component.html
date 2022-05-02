@@ -56,7 +56,7 @@
         <th mat-header-cell *matHeaderCellDef>overflow</th>
         <td mat-cell *matCellDef="let element;index as i;"
           [ngClass]="!isOverflow(element, dataSource.data[ i + 1 ]) ? 'no-overflow' : 'overflow'">
-          {{ minusMeasure(element, dataSource.data[ i + 1 ]) | number }} L
+          <strong>{{ minusMeasure(element, dataSource.data[ i + 1 ]) | number }} L</strong>
         </td>
       </ng-container>
 

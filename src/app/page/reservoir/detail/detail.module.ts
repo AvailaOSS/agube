@@ -18,7 +18,6 @@ import { ManagementModule } from 'src/app/components/management/management.modul
 import { AddressComponent } from './address/address.component';
 import { OwnerComponent } from './owner/owner.component';
 import { ResumeComponent } from './resume/resume.component';
-import { GoogleChartModule } from '../../../components/chart/google-chart.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { GoogleChartModule } from '../../../components/chart/google-chart.module
     MatIconModule,
     MatTooltipModule,
     TranslateModule,
-    GoogleChartModule,
     WaterMeterModule,
     MatProgressSpinnerModule,
     ManagementModule,
