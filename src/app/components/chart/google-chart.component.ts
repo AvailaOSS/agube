@@ -9,18 +9,17 @@ declare var google: any;
 })
 export class GoogleChartComponent implements OnInit {
   @Input() public googleChartConfigure: GoogleChartConfigure | undefined;
+
   constructor() {}
 
   ngOnInit(): void {
     this.drawChart();
-
   }
 
   drawChart() {
-    if (!this.googleChartConfigure ) {
+    if (!this.googleChartConfigure) {
       return;
     }
-
 
     google.charts.load('current', { packages: ['gauge'] });
 
@@ -30,8 +29,11 @@ export class GoogleChartComponent implements OnInit {
         [
           'Consumo',
 
-           +this.googleChartConfigure!.arrayToDataTable[0].water_meter_measurementConsume * 100 / +this.googleChartConfigure!.arrayToDataTable[0].consumeToday
-           .max_daily_consumption ,
+          (+this.googleChartConfigure!.arrayToDataTable[0]
+            .water_meter_measurementConsume *
+            100) /
+            +this.googleChartConfigure!.arrayToDataTable[0].consumeToday
+              .max_daily_consumption,
         ],
       ]);
 
