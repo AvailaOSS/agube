@@ -6,9 +6,9 @@
           <h1>{{ reservoir.address | address }}</h1>
           <div class="reservoir-content-info">
             <app-address [address]="reservoir.address"></app-address>
+            <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>
             <div class="reservoir-resident">
               <app-owner [reservoirId]="reservoir.id"></app-owner>
-              <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>
             </div>
           </div>
           <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
