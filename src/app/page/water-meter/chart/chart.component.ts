@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { GoogleChartComponent } from '../../../components/chart/google-chart.component';
 import { WaterMeterService } from '@availa/agube-rest-api';
+import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 
 @Component({
   selector: 'app-water-meter-chart',
@@ -8,8 +9,8 @@ import { WaterMeterService } from '@availa/agube-rest-api';
   styleUrls: ['../../../components/chart/google-chart.component.scss'],
 })
 export class ChartComponent extends GoogleChartComponent implements OnChanges {
-  constructor() {
-    super();
+  constructor(protected override svcPersistant: WaterMeterPersistantService) {
+    super(svcPersistant);
   }
   ngOnChanges(): void {
     if (!this.googleChartConfigure) {
