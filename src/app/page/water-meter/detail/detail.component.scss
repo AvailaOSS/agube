@@ -7,6 +7,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .selector-and-filter {
+        display: flex;
+        width: 100%;
+        .selector {
+          margin-right: 30px;
+          width: 12% !important;
+        }
+        .filter {
+          width: 30%;
+        }
+      }
     }
   }
+}
+
+.overflow {
+  color: red;
+}
+
+.no-overflow {
+  color: green;
 }
