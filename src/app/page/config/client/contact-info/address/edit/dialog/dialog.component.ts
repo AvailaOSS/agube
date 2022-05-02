@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserAddress, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
+
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -14,6 +15,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
   public address: any;
   public userId: any;
   public geolocation: any;
+
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,9 +37,10 @@ export class DialogComponent extends CreateAddress implements OnInit {
     this.inputForm.gate?.setValue(this.address.gate);
   }
 
-  closeDialog() {
+  public closeDialog() {
     this.dialogRef.close();
   }
+
   public saveAddress() {
     if (!this.address) {
       return;

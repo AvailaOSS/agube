@@ -17,10 +17,12 @@ export class EditComponent extends CreateAddress {
   @Input() public userId: number | undefined;
   @Input() public address: EditableAddress | undefined;
 
-  @Output() public updatedEvent: EventEmitter<UserAddress | undefined> =
-    new EventEmitter<UserAddress | undefined>();
-  @Output() public deleteEvent: EventEmitter<number | undefined> =
-    new EventEmitter<number | undefined>();
+  @Output() public updatedEvent: EventEmitter<
+    UserAddress | undefined
+  > = new EventEmitter<UserAddress | undefined>();
+  @Output() public deleteEvent: EventEmitter<
+    number | undefined
+  > = new EventEmitter<number | undefined>();
 
   constructor(
     protected svcNotification: NotificationService,
@@ -61,7 +63,9 @@ export class EditComponent extends CreateAddress {
     if (!this.address) {
       return;
     }
+
     const geolocation = this.address.address.address.geolocation;
+
     this.configureMap = {
       lat: geolocation.latitude,
       lon: geolocation.longitude,
@@ -69,6 +73,7 @@ export class EditComponent extends CreateAddress {
       showCircle: true,
       height: '350px',
     };
+
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         dialogTitle:
@@ -78,11 +83,11 @@ export class EditComponent extends CreateAddress {
         userId: this.userId,
       },
     });
+
     dialogRef.componentInstance.submitClicked.subscribe((result) => {
       this.updateAddress(result);
-      dialogRef.close()
+      dialogRef.close();
     });
-
   }
 
   public deleteAddress() {
