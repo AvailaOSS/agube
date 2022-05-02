@@ -882,10 +882,10 @@ export class UserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-  public updateUserDetail(id: string, data: UserDetail, observe?: 'body', reportProgress?: boolean): Observable<UserDetail>;
-  public updateUserDetail(id: string, data: UserDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserDetail>>;
-  public updateUserDetail(id: string, data: UserDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserDetail>>;
-  public updateUserDetail(id: string, data: UserDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+  public updateUserDetail(id: number, data: UserDetail, observe?: 'body', reportProgress?: boolean): Observable<UserDetail>;
+  public updateUserDetail(id: number, data: UserDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserDetail>>;
+  public updateUserDetail(id: number, data: UserDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserDetail>>;
+  public updateUserDetail(id: number, data: UserDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
       if (id === null || id === undefined) {
           throw new Error('Required parameter id was null or undefined when calling updateUserDetail.');
