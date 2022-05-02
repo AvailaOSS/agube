@@ -1,36 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService, DwellingService } from '@availa/agube-rest-api';
-import { ResidentComponent } from '../resident/resident.component';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  UserService,
+  DwellingService,
+  ReservoirService,
+  UserDetail,
+  Owner,
+} from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-owner',
-  templateUrl: '../resident/resident.component.html',
+  templateUrl: 'owner.component.html',
   styleUrls: ['../info.component.scss'],
 })
-export class OwnerComponent extends ResidentComponent implements OnInit {
-  override title = {
+export class OwnerComponent implements OnInit {
+  public title = {
     title: 'GENERAL.TEXT.OWNER',
     icon: 'hail',
   };
+  public userDetail: UserDetail | undefined;
+  @Input() public reservoirId: number | undefined;
 
   constructor(
-    protected override svcUser: UserService,
-    protected override svcDwelling: DwellingService
-  ) {
-    super(svcUser, svcDwelling);
-  }
+    protected svcUser: UserService,
+    protected svcReservoir: ReservoirService
+  ) {}
 
-  override ngOnInit(): void {
-    if (!this.dwellingId) {
+  ngOnInit(): void {
+    if (!this.reservoirId) {
       return;
     }
-    this.svcDwelling
-      .getCurrentOwner(this.dwellingId)
-      .subscribe((responseOwner) => {
-        if (!responseOwner.user.id) {
+    this.svcReservoir
+      .getCurrentReservoirOwner(this.reservoirId)
+      .subscribe((responseOwner: any) => {
+        if (!responseOwner) {
           return;
         }
-        this.getUser(responseOwner.user.id);
+        this.svcUser
+          .getUserDetail(responseOwner.id!)
+          .subscribe((response) => {
+            this.userDetail = response;
+          });
       });
   }
 }

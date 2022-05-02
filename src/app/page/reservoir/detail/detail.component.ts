@@ -48,12 +48,10 @@ export class DetailComponent implements OnInit {
   ) {
     this.svcManager.userIsManager().subscribe((response) => {
       this.canLoad = response.is_manager;
-      console.log(response);
     });
     this.loading = true;
     this.reservoir = undefined;
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log(params);
       let par = params as Detail;
       this.reservoirId = par.reservoirId;
       this.type = {
@@ -64,14 +62,12 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.reservoirId);
     if (!this.reservoirId) {
       return;
     }
 
     this.svcReservoir.getReservoir(this.reservoirId).subscribe({
       next: (reservoir) => {
-        console.log(reservoir);
         this.reservoir = reservoir;
         let geolocation = this.reservoir.address.geolocation;
         this.configureMaps(geolocation);

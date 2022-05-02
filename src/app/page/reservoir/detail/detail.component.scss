@@ -10,7 +10,7 @@
   .mat-card-content {
     display: block;
     justify-content: center !important;
-    .dwelling-info {
+    .reservoir-info {
       width: 100% !important;
     }
   }
@@ -26,14 +26,14 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    .dwelling-info {
+    .reservoir-info {
       width: 60%;
       margin-top: $margin-x-medium;
       margin-left: $margin-x-medium;
-      .dwelling-content-info {
+      .reservoir-content-info {
         margin-left: $margin-small;
         display: flex;
-        .dwelling-resident {
+        .reservoir-resident {
           margin-left: $margin-medium;
           flex-direction: column;
           display: flex;
@@ -41,7 +41,7 @@
         }
       }
     }
-    .dwelling-map {
+    .reservoir-map {
       width: 35%;
       mat-button-toggle-group {
         display: flex;

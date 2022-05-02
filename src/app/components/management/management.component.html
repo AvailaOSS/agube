@@ -9,7 +9,8 @@
   </button>
   <button mat-raised-button color="primary"
       matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER.TOOLTIP' | translate }}"
-      (click)="goToChangeOwner()">
+      (click)="goToChangeOwner()"
+      *ngIf="!reservoir">
       <div>
           <mat-icon>hail</mat-icon>
           {{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER' | translate}}
@@ -17,7 +18,9 @@
   </button>
   <button mat-raised-button color="primary"
       matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT.TOOLTIP' | translate }}"
-      (click)="goToChangeResident()">
+      (click)="goToChangeResident()"
+      *ngIf="!reservoir"
+      >
       <div>
           <mat-icon>escalator_warning</mat-icon>
           {{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT' | translate }}

@@ -11,7 +11,7 @@
               <app-resident [dwellingId]="dwelling.id"></app-resident>
             </div>
           </div>
-          <app-management [dwelling]="dwelling" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
+          <app-management [manage]="dwelling" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
           </app-management>
           <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
           </app-water-meter-detail>

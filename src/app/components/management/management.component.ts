@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DwellingCreate } from '@availa/agube-rest-api';
+import { DwellingCreate, ReservoirCreate } from '@availa/agube-rest-api';
 import { ChangeData } from 'src/app/page/person/change/change-data';
 import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-data';
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
@@ -12,16 +12,17 @@ import { Type } from '../../page/water-meter/detail/type';
   styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent {
-  @Input() public dwelling: DwellingCreate | undefined;
+  @Input() public manage: DwellingCreate | ReservoirCreate | undefined;
   @Input() public waterMeterId: number | undefined;
   @Input() public type: Type | undefined;
   @Input() public load: boolean = false;
+  @Input() public reservoir?: boolean = false;
 
   constructor(private router: Router, private dialog: MatDialog) {}
 
   public openChangeWaterMeter() {
     let data: WaterMeterDialogData = {
-      id: this.dwelling?.id!,
+      id: this.manage?.id!,
       type: this.type?.type!,
     };
     this.dialog.open(WaterMeterDialogComponent, {
@@ -34,7 +35,7 @@ export class ManagementComponent {
 
   public goToChangeResident() {
     let queryParams: ChangeData = {
-      dwellingId: this.dwelling?.id!,
+      dwellingId: this.manage?.id!,
     };
     this.router.navigate(['manager/dwellings/person/resident'], {
       queryParams,
@@ -43,7 +44,7 @@ export class ManagementComponent {
 
   public goToChangeOwner() {
     this.router.navigate(['manager/dwellings/person/owner'], {
-      queryParams: { dwellingId: this.dwelling?.id },
+      queryParams: { dwellingId: this.manage?.id },
     });
   }
 }
