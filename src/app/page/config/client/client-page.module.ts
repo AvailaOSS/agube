@@ -19,6 +19,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PasswordComponent } from './password/password.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
+import { PersonalConfigComponent } from './personal-config/personal-config.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PersonalInfoComponent,
     ContactInfoComponent,
     PasswordComponent,
+    PersonalConfigComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +48,11 @@ import { TranslateModule } from '@ngx-translate/core';
     AddressModule,
     MatTooltipModule,
     MatProgressBarModule,
-    TranslateModule
+    MatSelectModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    TranslateModule,
   ],
+  providers: [],
 })
 export class ClientPageModule {}

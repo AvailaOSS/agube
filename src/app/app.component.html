@@ -1,6 +1,6 @@
 <span class="language-selector">
   <button mat-icon-button matTooltip="{{ 'APP.CHANGE_LANGUAGE' | translate }}" [matMenuTriggerFor]="beforeMenu">
-    <img src="{{ selectedLanguage.flagLink }}" />
+    <img src="{{ selectedLanguage!.flagLink }}" />
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">

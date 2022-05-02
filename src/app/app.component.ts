@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from '@availa/agube-rest-api';
+import { AccountService } from '@availa/auth-fe';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from './utils/language';
 
@@ -31,12 +33,30 @@ export class AppComponent {
 
   public selectedLanguage: Language = this.languages[1];
 
-  constructor(private translate: TranslateService) {
-    translate.setDefaultLang(this.selectedLanguage.code);
+  constructor(
+    private translate: TranslateService,
+    private svcAccount: AccountService,
+    private svcUser: UserService
+  ) {
+    this.selectLenguaje(this.selectedLanguage);
+    this.svcAccount.getUser().subscribe((userResponse) => {
+      if (!userResponse) {
+        return;
+      }
+
+      this.svcUser.getConfig(userResponse.user_id!).subscribe((response) => {
+        this.selectedLanguage = this.languages.filter(
+          (lang) => lang.code === response.lang
+        )[0];
+        this.selectLenguaje(this.selectedLanguage);
+      });
+
+    });
   }
 
   public selectLenguaje(language: Language) {
     this.selectedLanguage = language;
+    this.translate.setDefaultLang(language.code);
     this.translate.use(language.code);
   }
 }

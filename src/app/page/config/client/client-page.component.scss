@@ -1,6 +1,5 @@
-@import '../../../../assets/availa/sizes/margins.scss';
-@import '../../../../assets/availa/sizes/page.scss';
-
+@import "../../../../assets/availa/sizes/margins.scss";
+@import "../../../../assets/availa/sizes/page.scss";
 .client-config-page {
   @include my-page();
   mat-card {
@@ -17,6 +16,24 @@
   padding: $margin-x-medium;
   .form-content {
     display: inline-grid;
+    .theme-button {
+      margin-left: $margin-x-medium;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      mat-icon {
+        margin: 0 $margin-x-small 0 $margin-x-small;
+      }
+    }
+    .flag-button {
+      margin-left: $margin-x-medium;
+      display: flex;
+      align-items: center;
+      margin-right: $margin-x-small;
+      h4 {
+        margin-right: $margin-small;
+      }
+    }
     mat-form-field {
       margin: $margin-x-small;
     }
