@@ -5,14 +5,11 @@ import { MeasureDialogComponent } from './measure-dialog/measure-dialog.componen
 import { MeasureDialogData } from './measure-dialog/measure-dialog-data';
 import { WaterMeterManager } from '../water-meter.manager';
 import {
-  ManagerConfiguration,
-  ManagerService,
   WaterMeterMeasurement,
   WaterMeterWithMeasurements,
 } from '@availa/agube-rest-api';
 import { Type } from './type';
 import { FormControl } from '@angular/forms';
-import { GoogleChartConfigure } from 'src/app/components/chart/google-chart-configure';
 
 @Component({
   selector: 'app-water-meter-detail',
@@ -31,25 +28,12 @@ export class DetailComponent implements OnInit, OnChanges {
 
   public filter = new FormControl('');
 
-  public chartGoogleConsume!: GoogleChartConfigure;
-
   //FIXME: select chunk from configuration management
   private chunk: number = 5; //FIXME: This is a input
 
-  private static options = {
-    width: 500,
-    height: 200,
-    redFrom: 90,
-    redTo: 100,
-    yellowFrom: 70,
-    yellowTo: 90,
-    minorTicks: 10,
-  };
-
   constructor(
     private svcWaterMeterManager: WaterMeterManager,
-    public dialog: MatDialog,
-    private svcManager: ManagerService
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -60,12 +44,6 @@ export class DetailComponent implements OnInit, OnChanges {
           if (!responseWaterMeterMeasurement) {
             return;
           }
-          this.svcManager.getManagerConfiguration().subscribe((response) => {
-            this.configureWaterMeterCharts(
-              responseWaterMeterMeasurement,
-              response
-            );
-          });
         }
       );
   }
@@ -103,40 +81,6 @@ export class DetailComponent implements OnInit, OnChanges {
         this.loadWaterMeterMeasures();
       }
     });
-  }
-
-  private configureWaterMeterCharts(
-    waterMeterMeasurement: WaterMeterWithMeasurements,
-    consumeToday: ManagerConfiguration
-  ) {
-    let sum = 0;
-    for (let i = 0; i < waterMeterMeasurement.measures.length; i++) {
-      sum += +waterMeterMeasurement.measures[i].measurement;
-    }
-
-    this.chartGoogleConsume = {
-      id: String(waterMeterMeasurement.id!),
-      options: {
-        height: DetailComponent.options.height,
-        minorTicks: DetailComponent.options.minorTicks,
-        width: DetailComponent.options.width,
-        yellowFrom: 60,
-        redFrom: 90,
-        redTo: 100,
-        yellowTo: 90,
-      },
-
-      arrayToDataTable: [
-        {
-          code: waterMeterMeasurement.code!,
-          discharge_date: waterMeterMeasurement.discharge_date,
-          release_date: waterMeterMeasurement.release_date,
-          water_meter_measurement: waterMeterMeasurement,
-          water_meter_measurementConsume: sum,
-          consumeToday,
-        },
-      ],
-    };
   }
 
   private loadWaterMeterMeasures() {

@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AddressComponent } from './address/address.component';
 import { ResidentComponent } from './resident/resident.component';
 import { OwnerComponent } from './owner/owner.component';
-import { ChartModule as WaterMeterChartModule } from '../../water-meter/chart/chart.module';
+import { GaugeModule as WaterMeterGaugeModule } from '../../water-meter/gauge/gauge.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManagementComponent } from './management/management.component';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
@@ -40,7 +40,7 @@ import { WaterMeterModule } from '../../water-meter/water-meter.module';
     MatIconModule,
     MatTooltipModule,
     TranslateModule,
-    WaterMeterChartModule,
+    WaterMeterGaugeModule,
     WaterMeterModule,
     MatProgressSpinnerModule,
   ],

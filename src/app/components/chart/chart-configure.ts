@@ -1,8 +1,7 @@
-
-export interface GoogleChartConfigure {
+export interface Configuration {
   id: string;
   options: Options;
-  arrayToDataTable: any[];
+  // arrayToDataTable: any[];
 }
 
 export interface Options {
