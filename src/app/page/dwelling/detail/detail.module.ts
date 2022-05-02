@@ -15,10 +15,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AddressComponent } from './address/address.component';
 import { ResidentComponent } from './resident/resident.component';
 import { OwnerComponent } from './owner/owner.component';
+import { GaugeModule as WaterMeterGaugeModule } from '../../water-meter/gauge/gauge.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { ManagementModule } from '../../../components/management/management.module';
-import { GoogleChartModule } from '../../../components/chart/google-chart.module';
 
 @NgModule({
   declarations: [
@@ -39,10 +39,10 @@ import { GoogleChartModule } from '../../../components/chart/google-chart.module
     MatIconModule,
     MatTooltipModule,
     TranslateModule,
-    GoogleChartModule,
+    WaterMeterGaugeModule,
     WaterMeterModule,
     MatProgressSpinnerModule,
-    ManagementModule
+    ManagementModule,
   ],
 })
 export class DetailModule {}

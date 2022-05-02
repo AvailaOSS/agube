@@ -1,8 +1,7 @@
-
-export interface GoogleChartConfigure {
+export interface Configuration {
   id: string;
   options: Options;
-  arrayToDataTable: any[];
+  data: any[];
 }
 
 export interface Options {
@@ -13,4 +12,8 @@ export interface Options {
   yellowFrom: number;
   yellowTo: number;
   minorTicks: number;
+}
+
+export enum Type {
+  gauge = 'gauge',
 }
