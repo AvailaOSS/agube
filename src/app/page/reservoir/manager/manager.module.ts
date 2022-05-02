@@ -11,7 +11,6 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from './table/table.component';
-import { ManagementComponent } from './management/management.component';
 import { ResumeComponent } from './management/resume/resume.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -23,8 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   declarations: [
     ManagerComponent,
     TableComponent,
-    ManagementComponent,
-    ResumeComponent,
+    ResumeComponent
   ],
   imports: [
     CommonModule,
