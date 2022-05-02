@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Configuration, Type } from './chart-configure';
 
 declare var google: any;
@@ -8,7 +8,7 @@ declare var google: any;
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnChanges {
   @Input() config!: Configuration;
 
   protected type: Type | undefined;
@@ -16,7 +16,7 @@ export class ChartComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.drawChart();
   }
 
@@ -24,8 +24,11 @@ export class ChartComponent implements OnInit {
     google.charts.load('current', { packages: [this.type] });
 
     google.charts.setOnLoadCallback(() => {
-      // Initialize
-      let data = google.visualization.arrayToDataTable([this.header, ['', 0]]);
+      // Initialize with data received
+      let data = google.visualization.arrayToDataTable([
+        this.header,
+        this.config.data,
+      ]);
 
       // Instantiate and draw our chart, passing in some options.
       let chart = new google.visualization.Gauge(
@@ -33,15 +36,6 @@ export class ChartComponent implements OnInit {
       );
 
       chart.draw(data, this.config.options);
-
-      // set data received
-      data = google.visualization.arrayToDataTable([
-        this.header,
-        this.config.data,
-      ]);
-      setInterval(() => {
-        chart.draw(data, this.config.options);
-      }, 1000);
     });
   }
 }

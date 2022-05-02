@@ -30,7 +30,7 @@ export class DetailComponent implements OnInit {
     WaterMeterMeasurement
   > = new MatTableDataSource<WaterMeterMeasurement>();
 
-  public maxDailyConsumption: number = 1;
+  public maxDailyConsumption: number | undefined;
 
   public filter = new FormControl('');
 

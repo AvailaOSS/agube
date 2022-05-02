@@ -1,5 +1,5 @@
 import { ChartComponent } from './../chart.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { Type } from '../chart-configure';
 
 @Component({
@@ -7,7 +7,7 @@ import { Type } from '../chart-configure';
   templateUrl: '../chart.component.html',
   styleUrls: ['../chart.component.scss'],
 })
-export class GaugeComponent extends ChartComponent implements OnInit {
+export class GaugeComponent extends ChartComponent implements OnChanges {
   protected override type: Type = Type.gauge;
   protected override header = ['Label', 'Value'];
 
@@ -15,7 +15,7 @@ export class GaugeComponent extends ChartComponent implements OnInit {
     super();
   }
 
-  override ngOnInit(): void {
-    super.ngOnInit();
+  override ngOnChanges(): void {
+    super.ngOnChanges();
   }
 }

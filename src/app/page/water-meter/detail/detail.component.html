@@ -1,5 +1,6 @@
 <div class="water-meter">
-  <app-water-meter-gauge [maxDailyConsumption]="maxDailyConsumption" [waterMeter]="waterMeter"></app-water-meter-gauge>
+  <app-water-meter-gauge *ngIf="waterMeter" [maxDailyConsumption]="maxDailyConsumption" [waterMeter]="waterMeter">
+  </app-water-meter-gauge>
   <div class="table">
     <div class="header">
       <mat-form-field appearance="standard">

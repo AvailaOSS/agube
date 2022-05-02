@@ -12,7 +12,7 @@ import { differenceInDays } from 'date-fns';
   styleUrls: ['./gauge.component.scss'],
 })
 export class GaugeComponent implements OnChanges {
-  @Input() public maxDailyConsumption: number = 1;
+  @Input() public maxDailyConsumption: number | undefined;
   @Input() public waterMeter: WaterMeterWithMeasurements | undefined;
 
   public configureChart: Configuration = {
@@ -36,6 +36,10 @@ export class GaugeComponent implements OnChanges {
   }
 
   private computeAverage() {
+    if (!this.maxDailyConsumption) {
+      return;
+    }
+
     let measures = this.waterMeter?.measures;
 
     if (!measures) {
@@ -47,14 +51,9 @@ export class GaugeComponent implements OnChanges {
       sum += this.minusMeasure(measures[index], measures[index + 1]);
     }
 
+    console.log(this.maxDailyConsumption);
+
     let total = ((sum / measures.length) * 100) / this.maxDailyConsumption;
-    console.log(
-      sum,
-      measures.length,
-      (sum / measures.length) * 100,
-      this.maxDailyConsumption,
-      total
-    );
 
     this.configureChart.data = ['', total];
   }
