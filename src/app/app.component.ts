@@ -38,7 +38,7 @@ export class AppComponent {
     private svcAccount: AccountService,
     private svcUser: UserService
   ) {
-    translate.setDefaultLang(this.selectedLanguage.code);
+    this.selectLenguaje(this.selectedLanguage);
     this.svcAccount.getUser().subscribe((userResponse) => {
       if (!userResponse) {
         return;
@@ -49,13 +49,14 @@ export class AppComponent {
           this.selectedLanguage = this.languages.filter(
             (lang) => lang.code === response.lang
           )[0];
-          this.translate!.setDefaultLang(response.lang);
+          this.selectLenguaje(this.selectedLanguage);
         });
     });
   }
 
   public selectLenguaje(language: Language) {
     this.selectedLanguage = language;
+    this.translate.setDefaultLang(language.code);
     this.translate.use(language.code);
   }
 }

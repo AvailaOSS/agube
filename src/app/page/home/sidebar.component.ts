@@ -69,6 +69,7 @@ export class SidebarComponent {
     this.overlayContainer.getContainerElement().classList.remove(oldThemeMode);
     this.overlayContainer.getContainerElement().classList.add(themeMode);
   }
+
   private setControlToggle(response: UserDetailConfigure) {
     if (response.mode === this.lightClassName) {
       this.toggleControl.setValue(false);

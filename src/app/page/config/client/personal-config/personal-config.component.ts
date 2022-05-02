@@ -41,9 +41,8 @@ export class PersonalConfigComponent implements OnInit {
     },
   ];
 
-  private logOut: Subscription | undefined;
-  private darkClassName: ThemeMode = ThemeMode.dark;
   private lightClassName: ThemeMode = ThemeMode.light;
+  private darkClassName: ThemeMode = ThemeMode.dark;
   private userId: number | undefined;
 
   constructor(
@@ -52,7 +51,26 @@ export class PersonalConfigComponent implements OnInit {
     protected overlayContainer: OverlayContainer,
     private translate: TranslateService
   ) {
-    this.selectedLanguage = this.languages[0];
+    this.selectedLanguage = this.languages.filter(
+      (lang) => lang.code === this.translate.currentLang
+    )[0];
+  }
+
+  ngOnInit(): void {
+    this.svcAccount.getUser().subscribe((userResponse) => {
+      if (!userResponse) {
+        return;
+      }
+      this.userId = userResponse.user_id;
+
+      this.svcUser.getConfig(String(this.userId!)).subscribe((response) => {
+        this.setControlToggle(response);
+        this.selectedLanguage = this.languages.filter(
+          (lang) => lang.code === response.lang
+        )[0];
+        this.translate!.setDefaultLang(response.lang);
+      });
+    });
   }
 
   public selectLenguaje(language: Language) {
@@ -60,31 +78,14 @@ export class PersonalConfigComponent implements OnInit {
     this.translate.use(language.code);
   }
 
-  ngOnInit(): void {
-    this.logOut = this.svcAccount.getUser().subscribe((userResponse) => {
-      if (!userResponse) {
-        return;
-      }
-      this.userId = userResponse.user_id;
-
-      this.svcUser
-        .getConfig(String(this.userId!))
-        .subscribe((response) => {
-          this.setControlToggle(response);
-          this.selectedLanguage = this.languages.filter(
-            (lang) => lang.code === response.lang
-          )[0];
-          this.translate!.setDefaultLang(response.lang);
-        });
-    });
-  }
-
-  saveForm() {
+  public updateConfig() {
     this.loadSave = true;
-    let selected: string = this.darkClassName;
+    let selected: string = this.lightClassName;
+
     if (this.toggleControl.value) {
-      selected = this.lightClassName;
+      selected = this.darkClassName;
     }
+
     let configureMode: ConfigureMode = {
       mode: selected,
       language: this.selectedLanguage!.code,
@@ -104,9 +105,9 @@ export class PersonalConfigComponent implements OnInit {
 
   private setControlToggle(response: UserDetailConfigure) {
     if (response.mode === this.lightClassName) {
-      this.toggleControl.setValue(true);
-    } else {
       this.toggleControl.setValue(false);
+    } else {
+      this.toggleControl.setValue(true);
     }
   }
 }
