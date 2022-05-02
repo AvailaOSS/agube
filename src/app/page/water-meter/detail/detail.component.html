@@ -41,6 +41,14 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="overflow">
+        <th mat-header-cell *matHeaderCellDef>overflow</th>
+        <td mat-cell *matCellDef="let element;index as i;"
+          [ngClass]="!isOverflow(element, dataSource.data[ i + 1 ]) ? 'no-overflow' : 'overflow'">
+          {{ minusMeasure(element, dataSource.data[ i + 1 ]) | number }} L
+        </td>
+      </ng-container>
+
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
