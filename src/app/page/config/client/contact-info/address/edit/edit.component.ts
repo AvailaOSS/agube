@@ -5,6 +5,7 @@ import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableAddress } from './editable-address';
 import { DialogComponent } from './dialog/dialog.component';
+import { DialogParameters } from './dialog/dialog-parameter';
 
 @Component({
   selector: 'app-address-editable',
@@ -30,7 +31,7 @@ export class EditComponent extends CreateAddress {
     super();
   }
 
-  public updateAddress(result: any) {
+  public updateAddress(result: UserAddress) {
     if (!this.address) {
       return;
     }
@@ -61,7 +62,9 @@ export class EditComponent extends CreateAddress {
     if (!this.address) {
       return;
     }
+
     const geolocation = this.address.address.address.geolocation;
+
     this.configureMap = {
       lat: geolocation.latitude,
       lon: geolocation.longitude,
@@ -69,20 +72,21 @@ export class EditComponent extends CreateAddress {
       showCircle: true,
       height: '350px',
     };
+
+    let data: DialogParameters = {
+      dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+      address: this.address.address.address,
+      configureMap: this.configureMap,
+      userId: this.userId!,
+    };
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        dialogTitle:
-          'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-        address: this.address.address.address,
-        configureMap: this.configureMap,
-        userId: this.userId,
-      },
-    });
-    dialogRef.componentInstance.submitClicked.subscribe((result) => {
-      this.updateAddress(result);
-      dialogRef.close()
+      data,
     });
 
+    dialogRef.componentInstance.submitClicked.subscribe((result) => {
+      this.updateAddress(result);
+      dialogRef.close();
+    });
   }
 
   public deleteAddress() {

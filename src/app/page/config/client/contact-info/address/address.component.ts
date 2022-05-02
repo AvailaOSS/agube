@@ -1,11 +1,12 @@
 import { NotificationService } from '@availa/notification';
 import { Component } from '@angular/core';
-import { UserService, UserAddress } from '@availa/agube-rest-api';
+import { UserService, UserAddress, Address } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableAddress } from './edit/editable-address';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './edit/dialog/dialog.component';
+import { DialogParameters } from './edit/dialog/dialog-parameter';
 
 @Component({
   selector: 'app-address',
@@ -38,13 +39,14 @@ export class AddressComponent extends CreateAddress {
   public openCloseAddressForm() {
     this.canAddAddress = true;
     this.resetChildForm = true;
+    let data: DialogParameters = {
+      dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
+      address: this.resetChildForm,
+      configureMap: this.configureMap,
+      userId: this.userId,
+    };
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
-        address: this.resetChildForm,
-        configureMap: this.configureMap,
-        userId: this.userId,
-      },
+      data,
     });
     dialogRef.componentInstance.submitClicked.subscribe((result) => {
       this.saveAddress(result);
@@ -52,7 +54,7 @@ export class AddressComponent extends CreateAddress {
     });
   }
 
-  public saveAddress(result: any) {
+  public saveAddress(result: UserAddress) {
     this.svcUser.addUserAddress(this.userId, result).subscribe({
       next: (response) => {
         this.addressList.push({ address: response, isEditable: false });

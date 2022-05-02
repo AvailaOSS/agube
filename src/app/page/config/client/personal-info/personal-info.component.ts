@@ -1,5 +1,5 @@
 import { AccountService } from '@availa/auth-fe';
-import { UserService } from '@availa/agube-rest-api';
+import { UserService, UserPhone, Phone } from '@availa/agube-rest-api';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -19,14 +19,12 @@ import { Subscription } from 'rxjs';
 export class PersonalInfoComponent implements OnInit {
   public loadSave: boolean = false;
   public personalForm: FormGroup;
-  public username = new FormControl('', [Validators.required]);
   public email = new FormControl('', [Validators.required, Validators.email]);
   public first_name = new FormControl('', [Validators.required]);
   public last_name = new FormControl('', [Validators.required]);
-
+  public main_phone: Phone | undefined;
+  public userId: number | undefined;
   public releaseDate: Date | undefined = undefined;
-
-  private logOut: Subscription | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +33,6 @@ export class PersonalInfoComponent implements OnInit {
     private svcUser: UserService
   ) {
     this.personalForm = this.formBuilder.group({
-      username: this.username,
       email: this.email,
       first_name: this.first_name,
       last_name: this.last_name,
@@ -43,45 +40,61 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.logOut = this.svcAccount.getUser().subscribe((userResponse) => {
+    this.svcAccount.getUser().subscribe((userResponse) => {
       if (!userResponse) {
         return;
       }
 
+      this.userId = userResponse!.user_id;
       this.svcUser
         .getUserDetail(userResponse!.user_id)
         .subscribe((response) => {
-          this.username.setValue(userResponse?.username);
           this.email.setValue(response.email);
           this.first_name.setValue(response.first_name);
           this.last_name.setValue(response.last_name);
+          this.main_phone = response.main_phone;
         });
     });
   }
 
-  saveForm() {
+  public updateUser() {
     this.loadSave = true;
     let personalInfo: PersonalInfo = {
-      email: this.username.value,
-      first_name: this.username.value,
-      last_name: this.username.value,
-      username: this.username.value,
+      email: this.email.value,
+      first_name: this.first_name.value,
+      last_name: this.last_name.value,
     };
+    this.loadSave = true;
 
-    //FIXME: save data with service and progress bar
-    this.svcNotification.info({
-      message: 'Funcionalidad todavía no implementada ' + personalInfo,
-    });
-    this.loadSave = false;
+    this.svcUser
+      .updateUserDetail(this.userId!, {
+        main_phone: this.main_phone!,
+        email: personalInfo.email,
+        first_name: personalInfo.first_name,
+        last_name: personalInfo.last_name,
+      })
+      .subscribe({
+        next: (response) => {
+          setTimeout(() => {
+            this.loadSave = false;
+            this.email.setValue(response.email);
+            this.first_name.setValue(response.first_name);
+            this.last_name.setValue(response.last_name);
+            this.main_phone = response.main_phone;
+
+          }, 1500)
+        },
+        error: (error) => {
+          this.loadSave = false;
+          this.svcNotification.warning({
+            message: 'Ups algo ha salido mal!! ' + personalInfo,
+          });
+        },
+      });
   }
 
   public errorValidator(entity: string) {
     switch (entity) {
-      case 'username':
-        if (this.username.hasError('required')) {
-          return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.USERNAME.VALIDATION.REQUIRED';
-        }
-        return '';
       case 'first_name':
         if (this.first_name.hasError('required')) {
           return 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED';
