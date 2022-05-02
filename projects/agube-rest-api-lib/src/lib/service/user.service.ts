@@ -710,19 +710,19 @@ export class UserService {
     data: UserDetailConfigure,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<UserDetailConfigure>>;
+  ): Observable<UserDetailConfigure>;
   public updateConfig(
     id: number,
     data: UserDetailConfigure,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<UserDetailConfigure>>>;
+  ): Observable<HttpResponse<UserDetailConfigure>>;
   public updateConfig(
     id: number,
     data: UserDetailConfigure,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<UserDetailConfigure>>>;
+  ): Observable<HttpEvent<UserDetailConfigure>>;
   public updateConfig(
     id: number,
     data: UserDetailConfigure,
@@ -768,7 +768,7 @@ export class UserService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.put<Array<UserDetailConfigure>>(
+    return this.httpClient.put<UserDetailConfigure>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/config/`,
       data,
       {
