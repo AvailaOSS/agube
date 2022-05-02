@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { Detail } from 'src/app/page/reservoir/detail/detail';
 
 @Component({
   selector: 'app-table',
@@ -52,9 +53,13 @@ export class TableComponent implements OnInit {
     this.dataSource.filter = '';
   }
 
-  public selectElement(element: ReservoirDetail) {
-    this.isSelected = element;
-    this.selectedElement.next(element);
+  public goToReservoir(reservoir: ReservoirDetail) {
+    const queryParams: Detail = {
+      reservoirId: reservoir.id!,
+    };
+    this.router.navigate(['/manager/home/reservoirs/detail'], {
+      queryParams,
+    });
   }
 
   private loadReservoirs() {
