@@ -26,8 +26,6 @@ export class PersonalInfoComponent implements OnInit {
   public userId: number | undefined;
   public releaseDate: Date | undefined = undefined;
 
-  private logOut: Subscription | undefined;
-
   constructor(
     private formBuilder: FormBuilder,
     private svcNotification: NotificationService,
@@ -42,7 +40,7 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.logOut = this.svcAccount.getUser().subscribe((userResponse) => {
+    this.svcAccount.getUser().subscribe((userResponse) => {
       if (!userResponse) {
         return;
       }
@@ -69,7 +67,7 @@ export class PersonalInfoComponent implements OnInit {
     this.loadSave = true;
 
     this.svcUser
-      .updateUserDetail(String(this.userId), {
+      .updateUserDetail(this.userId!, {
         main_phone: this.main_phone!,
         email: personalInfo.email,
         first_name: personalInfo.first_name,
@@ -84,12 +82,12 @@ export class PersonalInfoComponent implements OnInit {
             this.last_name.setValue(response.last_name);
             this.main_phone = response.main_phone;
 
-          }, 3500)
+          }, 1500)
         },
         error: (error) => {
           this.loadSave = false;
           this.svcNotification.warning({
-            message: 'Ups algo ha salido mal!!1 ' + personalInfo,
+            message: 'Ups algo ha salido mal!! ' + personalInfo,
           });
         },
       });
