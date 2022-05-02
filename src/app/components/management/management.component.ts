@@ -1,16 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DwellingCreate, ManagerService } from '@availa/agube-rest-api';
+import { DwellingCreate } from '@availa/agube-rest-api';
 import { ChangeData } from 'src/app/page/person/change/change-data';
-import { Type } from 'src/app/page/water-meter/detail/type';
 import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-data';
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
-
+import { Type } from '../../page/water-meter/detail/type';
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
-  styleUrls: ['./management.component.scss'],
+  styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent {
   @Input() public dwelling: DwellingCreate | undefined;
