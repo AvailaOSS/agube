@@ -3,16 +3,26 @@
   </app-water-meter-gauge>
   <div class="table">
     <div class="header">
-      <mat-form-field appearance="standard">
-        <mat-label>m<sup>3</sup>, {{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT' | translate }}</mat-label>
-        <input matInput matTooltip="{{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP' | translate }}"
-          matTooltipPosition="right" (keyup)="applyFilter()" [formControl]="filter">
-        <button matSuffix mat-icon-button
-          matTooltip="{{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT.BUTTON_TOOLTIP' | translate }}"
-          *ngIf="filter.value.length > 0" (click)="clearFilter()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+      <div class="selector-and-filter">
+        <mat-form-field class="selector" appearance="standard">
+          <mat-label>Cantidad de lecturas</mat-label>
+          <mat-select [(value)]="chunk">
+            <mat-option *ngFor="let chnk of chunks" value="{{chnk}}" (click)="loadWaterMeterMeasures()">
+              {{chnk}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="filter" appearance="standard">
+          <mat-label>m<sup>3</sup>, {{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT' | translate }}</mat-label>
+          <input matInput matTooltip="{{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP' | translate }}"
+            matTooltipPosition="right" (keyup)="applyFilter()" [formControl]="filter">
+          <button matSuffix mat-icon-button
+            matTooltip="{{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT.BUTTON_TOOLTIP' | translate }}"
+            *ngIf="filter.value.length > 0" (click)="clearFilter()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <div *ngIf="canAddReading">
         <button mat-raised-button color="primary"
           matTooltip="{{ 'PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP' | translate }}" (click)="openMeasureDialog()"

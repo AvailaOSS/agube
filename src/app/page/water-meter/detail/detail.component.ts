@@ -34,8 +34,8 @@ export class DetailComponent implements OnInit {
 
   public filter = new FormControl('');
 
-  //FIXME: select chunk from configuration management
-  private chunk: number = 5; //FIXME: This is a input
+  public chunks = ['5', '10', '15'];
+  public chunk: string = this.chunks[0];
 
   constructor(
     private svcWaterMeterManager: WaterMeterManager,
@@ -119,13 +119,13 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  private loadWaterMeterMeasures() {
+  public loadWaterMeterMeasures() {
     if (!this.type?.id!) {
       return;
     }
 
     this.svcWaterMeterManager
-      .getChunk(this.type?.id!, this.chunk, this.type?.type)
+      .getChunk(this.type?.id!, +this.chunk, this.type?.type)
       .subscribe({
         next: (response: WaterMeterWithMeasurements) => {
           if (!response) {
