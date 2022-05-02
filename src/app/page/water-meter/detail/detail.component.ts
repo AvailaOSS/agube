@@ -5,11 +5,13 @@ import { MeasureDialogComponent } from './measure-dialog/measure-dialog.componen
 import { MeasureDialogData } from './measure-dialog/measure-dialog-data';
 import { WaterMeterManager } from '../water-meter.manager';
 import {
+  ManagerService,
   WaterMeterMeasurement,
   WaterMeterWithMeasurements,
 } from '@availa/agube-rest-api';
 import { Type } from './type';
 import { FormControl } from '@angular/forms';
+import { differenceInDays } from 'date-fns';
 
 @Component({
   selector: 'app-water-meter-detail',
@@ -21,10 +23,12 @@ export class DetailComponent implements OnInit {
   @Input() public type: Type | undefined;
   @Input() public canAddReading: boolean | undefined;
 
-  public displayedColumns: string[] = ['measurement', 'date'];
+  public displayedColumns: string[] = ['measurement', 'date', 'overflow'];
   public dataSource: MatTableDataSource<
     WaterMeterMeasurement
   > = new MatTableDataSource<WaterMeterMeasurement>();
+
+  public maxDailyConsumption: string = '';
 
   public filter = new FormControl('');
 
@@ -33,10 +37,17 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private svcWaterMeterManager: WaterMeterManager,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private svcManager: ManagerService
   ) {}
 
   ngOnInit(): void {
+    this.svcManager
+      .getManagerConfiguration()
+      .subscribe(
+        (response) =>
+          (this.maxDailyConsumption = response.max_daily_consumption)
+      );
     this.loadWaterMeterMeasures();
   }
 
@@ -69,6 +80,41 @@ export class DetailComponent implements OnInit {
         this.loadWaterMeterMeasures();
       }
     });
+  }
+
+  public isOverflow(
+    current: WaterMeterMeasurement,
+    old: WaterMeterMeasurement
+  ) {
+    const measure = this.minusMeasure(current, old);
+    if (this.maxDailyConsumption && measure > +this.maxDailyConsumption) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public minusMeasure(
+    current: WaterMeterMeasurement,
+    old: WaterMeterMeasurement
+  ): number {
+    if (!old) {
+      old = current;
+    }
+
+    let lapsedDays = differenceInDays(
+      new Date(current.date!),
+      new Date(old.date!)
+    );
+
+    if (lapsedDays === 0) {
+      lapsedDays = 1;
+    }
+
+    return (
+      (+(+current.measurement - +old.measurement).toFixed(3) * 1000) /
+      lapsedDays
+    );
   }
 
   private loadWaterMeterMeasures() {
