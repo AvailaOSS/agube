@@ -24,7 +24,7 @@ export class ChartComponent implements OnChanges {
     google.charts.load('current', { packages: [this.type] });
 
     google.charts.setOnLoadCallback(() => {
-      // Initialize with data received
+      // Initialize with received data
       let data = google.visualization.arrayToDataTable([
         this.header,
         this.config.data,

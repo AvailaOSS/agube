@@ -73,7 +73,6 @@ export class PhonesComponent {
       })
       .indexOf(phone.phone_id, 0);
 
-    console.log(index);
     if (index > -1) {
       this.phones.splice(index, 0);
     }

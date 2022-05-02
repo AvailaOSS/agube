@@ -5,7 +5,8 @@
       {{ waterMeter.code }}
     </h3>
   </span>
-  <app-gauge *ngIf="maxDailyConsumption" [config]="configureChart"></app-gauge>
+  <app-gauge *ngIf="waterMeter && maxDailyConsumption" [config]="configureChart">
+  </app-gauge>
   <span>
     Máximo consumo diario permitido
     <h3>

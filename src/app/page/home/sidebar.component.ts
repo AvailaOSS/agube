@@ -48,7 +48,6 @@ export class SidebarComponent {
   }
 
   public selectPage(select: SidebarConfig) {
-    console.log(select);
     this.router.navigate([select.navigationRoute]);
   }
 

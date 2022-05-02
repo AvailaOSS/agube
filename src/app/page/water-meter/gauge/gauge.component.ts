@@ -5,6 +5,7 @@ import {
 } from '@availa/agube-rest-api';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 import { differenceInDays } from 'date-fns';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-water-meter-gauge',
@@ -51,11 +52,21 @@ export class GaugeComponent implements OnChanges {
       sum += this.minusMeasure(measures[index], measures[index + 1]);
     }
 
-    console.log(this.maxDailyConsumption);
-
     let total = ((sum / measures.length) * 100) / this.maxDailyConsumption;
 
-    this.configureChart.data = ['', total];
+    this.configureChart = {
+      id: 'water_meter_gauge',
+      options: {
+        width: 500,
+        height: 200,
+        redFrom: 90,
+        redTo: 100,
+        yellowFrom: 70,
+        yellowTo: 90,
+        minorTicks: 10,
+      },
+      data: ['', total],
+    };
   }
 
   private minusMeasure(
