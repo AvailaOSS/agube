@@ -101,6 +101,7 @@ export class DetailComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe((reload) => {
       if (reload) {
         this.loadWaterMeterMeasures();
+        this.ngOnInit()
       }
     });
   }
@@ -109,6 +110,7 @@ export class DetailComponent implements OnInit, OnChanges {
     waterMeterMeasurement: WaterMeterWithMeasurements,
     consumeToday: ManagerConfiguration
   ) {
+    console.log(consumeToday)
     let sum = 0;
     for (let i = 0; i < waterMeterMeasurement.measures.length; i++) {
       sum += +waterMeterMeasurement.measures[i].measurement;

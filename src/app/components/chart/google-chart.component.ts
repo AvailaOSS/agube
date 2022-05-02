@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges
+} from '@angular/core';
 import { WaterMeterPersistantService } from 'src/app/page/water-meter/water-meter-persistant.service';
 import { GoogleChartConfigure } from './google-chart-configure';
 declare var google: any;
@@ -8,13 +13,15 @@ declare var google: any;
   templateUrl: './google-chart.component.html',
   styleUrls: ['./google-chart.component.scss'],
 })
-export class GoogleChartComponent implements OnInit {
+export class GoogleChartComponent implements OnInit, OnChanges {
   @Input() public googleChartConfigure: GoogleChartConfigure | undefined;
   constructor(protected svcPersistant: WaterMeterPersistantService) {}
-
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    console.log(this.googleChartConfigure);
     this.drawChart();
   }
+
+  ngOnInit(): void {}
 
   drawChart() {
     if (!this.googleChartConfigure) {

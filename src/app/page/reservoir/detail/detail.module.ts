@@ -12,13 +12,13 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { ChartModule as WaterMeterChartModule } from '../../water-meter/chart/chart.module';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManagementModule } from 'src/app/components/management/management.module';
 import { AddressComponent } from './address/address.component';
 import { OwnerComponent } from './owner/owner.component';
 import { ResumeComponent } from './resume/resume.component';
+import { GoogleChartModule } from '../../../components/chart/google-chart.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { ResumeComponent } from './resume/resume.component';
     MatIconModule,
     MatTooltipModule,
     TranslateModule,
-    WaterMeterChartModule,
+    GoogleChartModule,
     WaterMeterModule,
     MatProgressSpinnerModule,
     ManagementModule,
