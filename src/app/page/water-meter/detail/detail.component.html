@@ -5,8 +5,8 @@
     <div class="header">
       <div class="selector-and-filter">
         <mat-form-field class="selector" appearance="standard">
-          <mat-label>Cantidad de lecturas</mat-label>
-          <mat-select [(value)]="chunk">
+          <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TEXT' | translate }}</mat-label>
+          <mat-select matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}" [(value)]="chunk">
             <mat-option *ngFor="let chnk of chunks" value="{{chnk}}" (click)="loadWaterMeterMeasures()">
               {{chnk}}
             </mat-option>
