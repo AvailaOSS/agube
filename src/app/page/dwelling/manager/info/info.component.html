@@ -1,0 +1,27 @@
+<div class="page-info">
+    <mat-card class="info-card">
+        <div class="row">
+            <div class="row-info">
+                {{ 'PAGE.DWELLING.MANAGER.INFO.DWELLINGS' | translate }}
+                <span class="number">
+                    <mat-icon>holiday_village</mat-icon>
+                    <h2>{{ dwellingResume?.total_dwellings }}</h2>
+                </span>
+            </div>
+            <div class="row-info">
+                {{ 'PAGE.DWELLING.MANAGER.INFO.RESIDENTS_REGISTERED' | translate }}
+                <span class="number">
+                    <mat-icon>escalator_warning</mat-icon>
+                    <h2>{{ dwellingResume?.total_residents }}</h2>
+                </span>
+            </div>
+            <div class="row-info">
+                {{ 'PAGE.DWELLING.MANAGER.INFO.OWNERS_REGISTERED' | translate }}
+                <span class="number">
+                    <mat-icon>hail</mat-icon>
+                    <h2>{{ dwellingResume?.total_owners }}</h2>
+                </span>
+            </div>
+        </div>
+    </mat-card>
+</div>
