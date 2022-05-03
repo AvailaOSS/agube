@@ -88,20 +88,26 @@ export class ChangeComponent implements OnInit {
       case 'first_name':
         if (this.first_name.hasError('required')) {
           return (
-            'PAGE.DWELLING.MANAGER.CHANGE.FIRST_NAME.VALIDATION.' + this.title
+            'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FIRST_NAME.VALIDATION.GENERAL.TEXT.' +
+            this.title
           );
         }
         return '';
       case 'last_name':
         if (this.last_name.hasError('required')) {
           return (
-            'PAGE.DWELLING.MANAGER.CHANGE.FIRST_NAME.VALIDATION.' + this.title
+            'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FIRST_NAME.VALIDATION.GENERAL.TEXT.' +
+            this.title
           );
         }
         return '';
+
       case 'email':
         if (this.email.hasError('required')) {
-          return 'PAGE.DWELLING.MANAGER.CHANGE.EMAIL.VALIDATION.' + this.title;
+          return (
+            'PAGE.DWELLING.MANAGER.CHANGE.EMAIL.VALIDATION.GENERAL.TEXT.' +
+            this.title
+          );
         }
         if (this.email.hasError('email')) {
           return 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.EMAIL_FORMAT';
