@@ -213,17 +213,17 @@ export class ReservoirService {
     id: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<Owner>>;
+  ): Observable<Owner>;
   public getCurrentReservoirOwner(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<Owner>>>;
+  ): Observable<HttpResponse<Owner>>;
   public getCurrentReservoirOwner(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<Owner>>>;
+  ): Observable<HttpEvent<Owner>>;
   public getCurrentReservoirOwner(
     id: number,
     observe: any = 'body',
@@ -257,7 +257,7 @@ export class ReservoirService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<Owner>>(
+    return this.httpClient.get<Owner>(
       `${this.basePath}/reservoir/${encodeURIComponent(String(id))}/owner`,
       {
         withCredentials: this.configuration.withCredentials,
