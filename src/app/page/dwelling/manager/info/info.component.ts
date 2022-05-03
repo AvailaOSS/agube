@@ -1,5 +1,5 @@
+import { DwellingResume, DwellingService } from '@availa/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
-import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 
 @Component({
   selector: 'app-info',
@@ -7,22 +7,13 @@ import { ConfigureMap } from 'src/app/components/map/map/configure-map';
   styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
-  public map: ConfigureMap | undefined;
+  public dwellingResume: DwellingResume | undefined;
 
-  constructor() {}
+  constructor(private svcDwelling: DwellingService) {}
 
   ngOnInit(): void {
-    this.configureMap();
-  }
-
-  private configureMap() {
-    this.map = {
-      lat: '42.095738600000000',
-      lon: '-8.845103700000000',
-      zoom: 15,
-      showCircle: false,
-      height: '500px',
-      dragging: true,
-    };
+    this.svcDwelling
+      .getResume()
+      .subscribe((response) => (this.dwellingResume = response));
   }
 }
