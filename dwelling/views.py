@@ -2,10 +2,8 @@ from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
-from login.models import UserAddress, UserPhone
+from login.models import UserPhone
 from rest_framework.permissions import IsAuthenticated
-from geolocation.models import Geolocation
-from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -23,13 +21,42 @@ from dwelling.assemblers import (PersonTag, create_user,
 from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling, DwellingWaterMeter
-from dwelling.serializers import (DwellingCreateSerializer,
+from dwelling.models import Dwelling, DwellingOwner, DwellingResident, DwellingWaterMeter
+from dwelling.serializers import (DwellingResumeSerializer,
+                                  DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingOwnerSerializer,
                                   DwellingResidentSerializer)
 
 TAG = 'dwelling'
+
+
+class DwellingResumeView(APIView):
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="getResume",
+        operation_description="get Resume of the Dwellings",
+        responses={200: DwellingResumeSerializer(many=False)},
+        tags=[TAG],
+    )
+    def get(self, request, *args, **kwargs):
+        manager = self.request.user
+        total_dwellings = Dwelling.objects.filter(
+            manager__user=manager, discharge_date__isnull=True).count()
+
+        total_residents = DwellingResident.objects.filter(
+            dwelling__manager__user=manager).count()
+
+        total_owners = DwellingOwner.objects.filter(
+            dwelling__manager__user=manager).count()
+
+        data = {
+            'total_dwellings': total_dwellings,
+            'total_residents': total_residents,
+            'total_owners': total_owners
+        }
+        return Response(DwellingResumeSerializer(data, many=False).data)
 
 
 class DwellingListView(APIView):

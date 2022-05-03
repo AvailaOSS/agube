@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from dwelling.views import (DwellingCreateView, DwellingListView,
+from dwelling.views import (DwellingResumeView, DwellingCreateView, DwellingListView,
                             DwellingOwnerView, DwellingResidentView,
                             DwellingSetOwnerAsResidentView, DwellingView,
                             DwellingWaterMeterChunkView,
@@ -8,6 +8,7 @@ from dwelling.views import (DwellingCreateView, DwellingListView,
                             DwellingWaterMeterView)
 
 __url_dwelling = [
+    path('resume', DwellingResumeView.as_view()),
     path('create', DwellingCreateView.as_view()),
     path('<int:pk>', DwellingView.as_view()),
     path('<int:pk>/owner', DwellingOwnerView.as_view()),

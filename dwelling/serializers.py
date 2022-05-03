@@ -16,6 +16,18 @@ from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 from address.assembler import create_address
 
 
+class DwellingResumeSerializer(Serializer):
+    """
+    Dwelling Resume ModelSerializer
+    """
+    total_dwellings = ReadOnlyField()
+    total_residents = ReadOnlyField()
+    total_owners = ReadOnlyField()
+
+    class Meta:
+        ref_name = 'DwellingResume'
+
+
 class DwellingSerializer(ModelSerializer):
     """
     Dwelling ModelSerializer
