@@ -4,4 +4,5 @@ export interface ConfigureMap {
   zoom: number;
   showCircle: boolean;
   height: string;
+  dragging: boolean;
 }

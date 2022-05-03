@@ -11,6 +11,8 @@ import * as L from 'leaflet';
 export class MapComponent implements AfterViewInit {
   @Input() public configureMap: ConfigureMap | undefined;
 
+  public mapId = 'map';
+
   public selectedStreetCandidate: LocationResponse | undefined;
 
   protected map: any;
@@ -19,7 +21,7 @@ export class MapComponent implements AfterViewInit {
   public static zoomMax: number = 19;
   public static zoomMin: number = 4;
 
-  protected static mapViewUrl: string =
+  protected mapViewUrl: string =
     'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
 
   constructor() {}
@@ -35,15 +37,15 @@ export class MapComponent implements AfterViewInit {
     if (this.map) {
       this.map.remove();
     }
-    this.map = L.map('map', {
+    this.map = L.map(this.mapId, {
       center: [+conf.lat, +conf.lon],
       doubleClickZoom: false,
       zoom: conf.zoom,
-      dragging: false,
+      dragging: conf.dragging,
       scrollWheelZoom: undefined,
     });
 
-    const tiles = L.tileLayer(MapComponent.mapViewUrl, {
+    const tiles = L.tileLayer(this.mapViewUrl, {
       maxZoom: MapComponent.zoomMax,
       minZoom: MapComponent.zoomMin,
     });

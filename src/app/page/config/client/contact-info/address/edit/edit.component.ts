@@ -71,6 +71,7 @@ export class EditComponent extends CreateAddress {
       zoom: geolocation.zoom,
       showCircle: true,
       height: '350px',
+      dragging: false
     };
 
     let data: DialogParameters = {

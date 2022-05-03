@@ -119,6 +119,7 @@ export class CreateComponent
         zoom: MapComponent.zoom,
         showCircle: true,
         height: this.configureMap!.height,
+        dragging: this.configureMap!.dragging
       });
     });
   }
@@ -135,6 +136,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
+      dragging: this.configureMap!.dragging
     });
   }
 
@@ -148,6 +150,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
+      dragging: this.configureMap!.dragging
     });
   }
 
@@ -160,6 +163,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
+      dragging: this.configureMap!.dragging
     });
   }
 
@@ -196,7 +200,7 @@ export class CreateComponent
       zoom: conf.zoom,
     });
 
-    const tiles = L.tileLayer(CreateComponent.mapViewUrl, {
+    const tiles = L.tileLayer(this.mapViewUrl, {
       maxZoom: MapComponent.zoomMax,
       minZoom: MapComponent.zoomMin,
     });
@@ -227,6 +231,7 @@ export class CreateComponent
         zoom: userZoom,
         showCircle: true,
         height: conf.height,
+        dragging: conf.dragging
       };
 
       if (circle) {

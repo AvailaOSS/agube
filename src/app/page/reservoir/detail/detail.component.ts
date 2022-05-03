@@ -95,6 +95,7 @@ export class DetailComponent implements OnInit {
       zoom: geolocation.zoom,
       showCircle: true,
       height: this.mapHeight,
+      dragging: false,
     };
     this.configureView = {
       latitude: +geolocation.latitude,
