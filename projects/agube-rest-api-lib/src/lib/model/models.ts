@@ -1,6 +1,7 @@
 export * from './address';
 export * from './dwellingCreate';
 export * from './dwellingDetail';
+export * from './dwellingResume';
 export * from './geolocation';
 export * from './manager';
 export * from './managerConfiguration';
