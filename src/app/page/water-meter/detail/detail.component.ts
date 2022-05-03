@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MeasureDialogComponent } from './measure-dialog/measure-dialog.component';
@@ -12,6 +12,7 @@ import {
 import { Type } from './type';
 import { FormControl } from '@angular/forms';
 import { differenceInDays } from 'date-fns';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-water-meter-detail',
@@ -36,6 +37,8 @@ export class DetailComponent implements OnInit {
 
   public chunks = ['5', '10', '15'];
   public chunk: string = this.chunks[0];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private svcWaterMeterManager: WaterMeterManager,
@@ -134,9 +137,11 @@ export class DetailComponent implements OnInit {
           }
           this.waterMeter = response;
           this.dataSource = new MatTableDataSource(response.measures);
+          this.dataSource.paginator = this.paginator!;
         },
         error: (error: any) => {
           this.dataSource = new MatTableDataSource();
+          this.dataSource.paginator = this.paginator!;
         },
       });
   }
