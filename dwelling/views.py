@@ -74,7 +74,7 @@ class DwellingListView(APIView):
         # Get Dwelling
         manager_id = self.request.user.id
         houses: list[Dwelling] = Dwelling.objects.filter(
-            manager__user_id=manager_id)
+            manager__user_id=manager_id, discharge_date__isnull=True)
 
         list_of_serialized: list[DwellingDetailSerializer] = []
         for dwelling in houses:
