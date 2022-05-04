@@ -1,5 +1,5 @@
 from address.models import Address
-from address.serializers import AddressSerializer
+from geolocation.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from user.serializers import UserCreateSerializer
@@ -53,7 +53,7 @@ class DwellingCreateSerializer(ModelSerializer):
     Dwelling Create ModelSerializer
     """
     id = ReadOnlyField()
-    address = AddressSerializer(many=False, read_only=False)
+    geolocation = GeolocationSerializer(many=False, read_only=False)
     water_meter = WaterMeterSerializer(many=False,
                                        read_only=False,
                                        write_only=True)
@@ -63,7 +63,7 @@ class DwellingCreateSerializer(ModelSerializer):
         model = Dwelling
         fields = (
             'id',
-            'address',
+            'geolocation',
             'water_meter',
         )
 

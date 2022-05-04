@@ -5,7 +5,7 @@ from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
-from user.models import UserAddress, UserPhone
+from user.models import UserGeolocation, UserPhone
 from user.serializers import UserCreateSerializer
 from manager.models import Manager
 from person.models import Person

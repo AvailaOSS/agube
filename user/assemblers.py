@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 
 from address.serializers import AddressSerializer
-from user.models import UserAddress, UserPhone
+from user.models import UserGeolocation, UserPhone
 from user.serializers import UserAddressUpdateSerializer
 
 

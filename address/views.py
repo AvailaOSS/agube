@@ -7,7 +7,7 @@ from address.serializers import AddressSerializer
 from manager.permissions import IsManagerAuthenticated
 from manager.models import Manager
 from person.models import Person
-from user.models import UserAddress
+from user.models import UserGeolocation
 from dwelling.models import Dwelling
 from reservoir.models import Reservoir, ReservoirOwner
 from rest_framework.response import Response

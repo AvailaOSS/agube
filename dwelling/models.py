@@ -1,10 +1,10 @@
-from address.models import Address
+from geolocation.models import Geolocation
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from geolocation.models import Geolocation
-from user.models import UserAddress
+from user.models import UserGeolocation
 from manager.models import Manager
 from watermeter.models import WaterMeter
 
@@ -14,7 +14,7 @@ from dwelling.exceptions import OwnerAlreadyIsResidentError
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
-    address: Address = models.ForeignKey(Address, on_delete=models.PROTECT)
+    geolocation: Geolocation = models.ForeignKey(Geolocation, on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
