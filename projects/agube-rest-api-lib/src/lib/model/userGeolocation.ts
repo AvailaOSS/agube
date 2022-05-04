@@ -9,11 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Address } from './address';
+import { Geolocation } from './geolocation';
 
-
-export interface UserAddress { 
-    readonly id?: number;
-    address: Address;
-    main: boolean;
+export interface UserGeolocation {
+  readonly id?: number;
+  geolocation: Geolocation;
+  main: boolean;
 }

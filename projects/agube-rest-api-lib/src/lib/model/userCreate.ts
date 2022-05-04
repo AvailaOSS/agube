@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Address } from './address';
+import { Geolocation } from './geolocation';
 import { Phone } from './phone';
 
 export interface UserCreate {
@@ -18,5 +18,5 @@ export interface UserCreate {
   last_name?: string;
   email?: string;
   phones: Array<Phone>;
-  address?: Array<Address>;
+  geolocation?: Array<Geolocation>;
 }

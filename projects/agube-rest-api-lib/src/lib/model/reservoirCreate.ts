@@ -9,12 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Address } from './address';
+import { Geolocation } from './geolocation';
 import { WaterMeter } from './waterMeter';
 
 export interface ReservoirCreate {
   readonly id?: number;
-  address: Address;
+  geolocation: Geolocation;
   user_id?: number;
   water_meter: WaterMeter;
   capacity: string;
