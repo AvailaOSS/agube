@@ -2,7 +2,7 @@
   <span>
     {{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}
     <h3>
-      {{ waterMeter.code }}
+      {{ waterMeter.waterMeter.code }}
     </h3>
   </span>
   <app-gauge *ngIf="waterMeter && maxDailyConsumption" [config]="configureChart">

@@ -13,6 +13,8 @@ import { Type } from './type';
 import { FormControl } from '@angular/forms';
 import { differenceInDays } from 'date-fns';
 import { MatPaginator } from '@angular/material/paginator';
+import { WaterMeterPersistantService } from '../water-meter-persistant.service';
+import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 
 @Component({
   selector: 'app-water-meter-detail',
@@ -24,12 +26,12 @@ export class DetailComponent implements OnInit {
   @Input() public type: Type | undefined;
   @Input() public canAddReading: boolean | undefined;
 
-  public waterMeter: WaterMeterWithMeasurements | undefined;
+  public waterMeter: WaterMeterGauge | undefined;
+  public waterMeterCode: string | undefined;
 
   public displayedColumns: string[] = ['measurement', 'date', 'overflow'];
-  public dataSource: MatTableDataSource<
-    WaterMeterMeasurement
-  > = new MatTableDataSource<WaterMeterMeasurement>();
+  public dataSource: MatTableDataSource<WaterMeterMeasurement> =
+    new MatTableDataSource<WaterMeterMeasurement>();
 
   public maxDailyConsumption: number | undefined;
 
@@ -43,7 +45,8 @@ export class DetailComponent implements OnInit {
   constructor(
     private svcWaterMeterManager: WaterMeterManager,
     public dialog: MatDialog,
-    private svcManager: ManagerService
+    private svcManager: ManagerService,
+    private svcPersistance: WaterMeterPersistantService
   ) {}
 
   ngOnInit(): void {
@@ -135,7 +138,12 @@ export class DetailComponent implements OnInit {
           if (!response) {
             return;
           }
-          this.waterMeter = response;
+          this.svcPersistance.get().subscribe((waterMeter) => {
+            this.waterMeter = {
+              waterMeter: waterMeter!,
+              waterMeterWithMeasure: response,
+            };
+          });
           this.dataSource = new MatTableDataSource(response.measures);
           this.dataSource.paginator = this.paginator!;
         },

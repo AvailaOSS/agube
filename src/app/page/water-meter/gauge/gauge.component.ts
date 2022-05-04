@@ -5,7 +5,7 @@ import {
 } from '@availa/agube-rest-api';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 import { differenceInDays } from 'date-fns';
-import { Subject } from 'rxjs';
+import { WaterMeterGauge } from './water-meter-gauge';
 
 @Component({
   selector: 'app-water-meter-gauge',
@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 })
 export class GaugeComponent implements OnChanges {
   @Input() public maxDailyConsumption: number | undefined;
-  @Input() public waterMeter: WaterMeterWithMeasurements | undefined;
+  @Input() public waterMeter: WaterMeterGauge | undefined;
 
   public configureChart: Configuration = {
     id: 'water_meter_gauge',
@@ -41,7 +41,7 @@ export class GaugeComponent implements OnChanges {
       return;
     }
 
-    let measures = this.waterMeter?.measures;
+    let measures = this.waterMeter?.waterMeterWithMeasure?.measures;
 
     if (!measures) {
       return;
@@ -49,6 +49,7 @@ export class GaugeComponent implements OnChanges {
 
     let sum = 0;
     for (let index = 0; index < measures.length; index++) {
+      // FIXME: coger el anterior dia no la anterior medida
       sum += this.minusMeasure(measures[index], measures[index + 1]);
     }
 
@@ -83,6 +84,7 @@ export class GaugeComponent implements OnChanges {
     );
 
     if (lapsedDays === 0) {
+      // return +(+current.measurement + +old.measurement).toFixed(3) * 1000;
       lapsedDays = 1;
     }
 

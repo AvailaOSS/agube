@@ -40,9 +40,9 @@ export class WaterMeterDialogComponent {
       code: this.code,
     });
 
-    this.svcPersistant.getCode().subscribe((response) => {
+    this.svcPersistant.get().subscribe((response) => {
       if (response) {
-        this.currentCode = response;
+        this.currentCode = response.code;
       }
     });
   }
@@ -63,7 +63,7 @@ export class WaterMeterDialogComponent {
       )
       .subscribe({
         next: (response: WaterMeter) => {
-          this.svcPersistant.emitCode(response.code);
+          this.svcPersistant.emit(response);
           this.close();
         },
         error: (error: any) => this.svcNotification.warning({ message: error }),
