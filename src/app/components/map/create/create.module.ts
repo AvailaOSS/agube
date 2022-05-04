@@ -4,7 +4,7 @@ import { CreateComponent } from './create.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { AddressPipe } from 'src/app/pipes/address.pipe';
+import { GeolocationPipe } from 'src/app/pipes/geolocation.pipe';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MapModule } from '../map/map.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -30,8 +31,9 @@ import { MapModule } from '../map/map.module';
     TranslateModule,
     MatTooltipModule,
     MapModule,
+    MatAutocompleteModule,
   ],
   exports: [CreateComponent],
-  providers: [AddressPipe],
+  providers: [GeolocationPipe],
 })
 export class CreateModule {}

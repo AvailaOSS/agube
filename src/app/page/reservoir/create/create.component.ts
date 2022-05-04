@@ -11,6 +11,7 @@ import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-page-reservoir-create',
@@ -27,6 +28,10 @@ export class CreateComponent extends CreateAddress {
   @Input() public userId: number = -1;
 
   public loadingPost = false;
+
+  myControl = new FormControl();
+  optionsName: string[] = ['One', 'Two', 'Three'];
+  public filteredOptions: Observable<string[]> = new Observable();
 
   constructor(
     private router: Router,
@@ -130,7 +135,7 @@ export class CreateComponent extends CreateAddress {
     }
 
     let reservoir: ReservoirCreate = {
-      address: this.getAddress(),
+      geolocation: this.getGeolocation(),
       water_meter: {
         code: this.code.value,
       },

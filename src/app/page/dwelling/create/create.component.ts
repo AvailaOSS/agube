@@ -22,6 +22,10 @@ export class CreateComponent extends CreateAddress {
 
   public loadingPost = false;
 
+  // myControl = new FormControl();
+  // optionsName: string[] = ['One', 'Two', 'Three'];
+  // public filteredOptions: Observable<string[]> = new Observable();
+
   constructor(
     private router: Router,
     private svcNotification: NotificationService,
@@ -95,7 +99,7 @@ export class CreateComponent extends CreateAddress {
 
   private onSave() {
     let dwelling: DwellingCreate = {
-      address: this.getAddress(),
+      geolocation: this.getGeolocation(),
       water_meter: {
         code: this.code.value,
       },

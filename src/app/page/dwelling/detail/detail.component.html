@@ -3,9 +3,9 @@
     <mat-card *ngIf="!loading">
       <mat-card-content *ngIf="dwelling">
         <div class="dwelling-info">
-          <h1>{{ dwelling.address | address }}</h1>
+          <h1>{{ dwelling.geolocation | geolocation}}</h1>
           <div class="dwelling-content-info">
-            <app-address [address]="dwelling.address"></app-address>
+            <app-address [geolocation]="dwelling.geolocation"></app-address>
             <div class="dwelling-resident">
               <app-owner [dwellingId]="dwelling.id"></app-owner>
               <app-resident [dwellingId]="dwelling.id"></app-resident>

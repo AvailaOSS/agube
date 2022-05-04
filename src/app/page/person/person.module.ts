@@ -14,6 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [ChangeComponent, ResidentComponent, OwnerComponent],
@@ -31,6 +32,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatTooltipModule,
     MatIconModule,
     TranslateModule,
+    MatAutocompleteModule
   ],
 })
 export class PersonModule {}

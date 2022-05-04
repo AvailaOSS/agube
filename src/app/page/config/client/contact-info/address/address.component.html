@@ -11,9 +11,9 @@
   <span *ngIf="canAddAddress">
 
   </span>
-  <div *ngFor="let address of addressList" class="list-address">
+  <div *ngFor="let geolocation of geolocationList" class="list-address">
     <app-address-editable (updatedEvent)="refreshAddress($event)" (deleteEvent)="addressDeleted($event)" class="address"
-      [address]="address" [userId]="userId">
+      [geolocation]="geolocation" [userId]="userId">
     </app-address-editable>
     <mat-divider></mat-divider>
   </div>

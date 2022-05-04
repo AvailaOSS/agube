@@ -9,7 +9,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import * as L from 'leaflet';
 import {
   FormControl,
@@ -25,6 +25,7 @@ import { MapComponent } from '../map/map.component';
 import { ConfigureMap } from '../map/configure-map';
 import { MapEvent } from '../map/map-event';
 import { LocationResponse } from '../map/location-response';
+import { Address, AddressService, Geolocation } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-map-location-create',
@@ -55,12 +56,18 @@ export class CreateComponent
   public flat: FormControl | undefined;
   public gate: FormControl | undefined;
 
+  public autocomplete: Address[] = [];
+
   // You can override this url for use other maps
   private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private svcAddress: AddressService
+  ) {
     super();
   }
 
@@ -78,6 +85,7 @@ export class CreateComponent
     if (!this.inputForm) {
       throw new Error('inputForm is neccessary for this component');
     }
+
     this.street = this.inputForm.street;
     this.number = this.inputForm.number;
     this.flat = this.inputForm.flat;
@@ -89,6 +97,7 @@ export class CreateComponent
       flat: this.flat,
       gate: this.gate,
     });
+
     this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
       if (this.selectedStreetCandidate) {
         this.fillMissingAddress(this.selectedStreetCandidate);
@@ -98,15 +107,30 @@ export class CreateComponent
         });
       }
     });
+
+    this.svcAddress.getAddress().subscribe((response) => {
+      this.autocomplete = response;
+    });
   }
 
   override ngAfterViewInit(): void {
     this.initializeMap(this.configureMap!);
   }
 
-  public filtering() {
-    this.getLocationBySearch().subscribe((response) => {
-      if(!response.length) {
+  public selectOptionFilter(option: Address) {
+    let filter = option.city + ', ' + option.road;
+    this.filtering(filter);
+  }
+
+  public filtering(filter?: string) {
+    let myfilter = this.filter.value;
+
+    if (filter) {
+      myfilter = filter;
+    }
+
+    this.getLocationBySearch(myfilter).subscribe((response) => {
+      if (!response.length) {
         return;
       }
       this.candidateComponents?.deselectAll();
@@ -119,7 +143,7 @@ export class CreateComponent
         zoom: MapComponent.zoom,
         showCircle: true,
         height: this.configureMap!.height,
-        dragging: this.configureMap!.dragging
+        dragging: this.configureMap!.dragging,
       });
     });
   }
@@ -136,7 +160,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
-      dragging: this.configureMap!.dragging
+      dragging: this.configureMap!.dragging,
     });
   }
 
@@ -150,7 +174,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
-      dragging: this.configureMap!.dragging
+      dragging: this.configureMap!.dragging,
     });
   }
 
@@ -163,7 +187,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
-      dragging: this.configureMap!.dragging
+      dragging: this.configureMap!.dragging,
     });
   }
 
@@ -231,7 +255,7 @@ export class CreateComponent
         zoom: userZoom,
         showCircle: true,
         height: conf.height,
-        dragging: conf.dragging
+        dragging: conf.dragging,
       };
 
       if (circle) {
@@ -249,10 +273,10 @@ export class CreateComponent
     });
   }
 
-  private getLocationBySearch(): Observable<LocationResponse[]> {
+  private getLocationBySearch(filter: string): Observable<LocationResponse[]> {
     return this.http.get<LocationResponse[]>(
       CreateComponent.mapSearchUrlPrefix +
-        this.filter.value +
+        filter +
         CreateComponent.mapSearchUrlSufix
     );
   }

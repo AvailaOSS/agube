@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CreateModule as MapCreateModule } from 'src/app/components/map/create/create.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './edit/dialog/dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [AddressComponent, EditComponent, DialogComponent],
@@ -32,7 +33,8 @@ import { DialogComponent } from './edit/dialog/dialog.component';
     MatTooltipModule,
     TranslateModule,
     MapCreateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   exports: [AddressComponent, EditComponent],
 })

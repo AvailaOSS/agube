@@ -3,9 +3,9 @@
     <mat-card *ngIf="!loading">
       <mat-card-content *ngIf="reservoir">
         <div class="reservoir-info">
-          <h1>{{ reservoir.address | address }}</h1>
+          <h1>{{ reservoir.geolocation | geolocation}}</h1>
           <div class="reservoir-content-info">
-            <app-address [address]="reservoir.address"></app-address>
+            <app-address [geolocation]="reservoir.geolocation "></app-address>
             <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>
             <div class="reservoir-resident">
               <app-owner [reservoirId]="reservoir.id"></app-owner>

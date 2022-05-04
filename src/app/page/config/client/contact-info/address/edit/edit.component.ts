@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserAddress, UserService } from '@availa/agube-rest-api';
+import { UserGeolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
-import { EditableAddress } from './editable-address';
+import { EditableGeolocation } from './editable-geolocation';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogParameters } from './dialog/dialog-parameter';
 
@@ -16,10 +16,10 @@ export class EditComponent extends CreateAddress {
   private infoMessage: string = 'Esta funcionalidad aún no está disponible';
 
   @Input() public userId: number | undefined;
-  @Input() public address: EditableAddress | undefined;
+  @Input() public geolocation: EditableGeolocation | undefined;
 
-  @Output() public updatedEvent: EventEmitter<UserAddress | undefined> =
-    new EventEmitter<UserAddress | undefined>();
+  @Output() public updatedEvent: EventEmitter<UserGeolocation | undefined> =
+    new EventEmitter<UserGeolocation | undefined>();
   @Output() public deleteEvent: EventEmitter<number | undefined> =
     new EventEmitter<number | undefined>();
 
@@ -31,16 +31,20 @@ export class EditComponent extends CreateAddress {
     super();
   }
 
-  public updateAddress(result: UserAddress) {
-    if (!this.address) {
+  public updateAddress(result: UserGeolocation) {
+    if (!this.geolocation) {
       return;
     }
     this.svcUser
-      .updateUserAddress(this.address.address.address.id!, this.userId!, result)
+      .updateUserGeolocation(
+        this.geolocation.geolocation.geolocation.id!,
+        this.userId!,
+        result
+      )
       .subscribe({
         next: (response) => {
           this.updatedEvent.next(response);
-          this.address!.isEditable = !this.address!.isEditable;
+          this.geolocation!.isEditable = !this.geolocation!.isEditable;
         },
         error: (error) =>
           this.svcNotification.warning({
@@ -50,7 +54,7 @@ export class EditComponent extends CreateAddress {
   }
 
   public setAddressAsMain() {
-    if (!this.address) {
+    if (!this.geolocation) {
       return;
     }
     this.svcNotification.info({
@@ -59,11 +63,11 @@ export class EditComponent extends CreateAddress {
   }
 
   public openEditableAddressForm() {
-    if (!this.address) {
+    if (!this.geolocation) {
       return;
     }
 
-    const geolocation = this.address.address.address.geolocation;
+    const geolocation = this.geolocation.geolocation.geolocation;
 
     this.configureMap = {
       lat: geolocation.latitude,
@@ -71,16 +75,17 @@ export class EditComponent extends CreateAddress {
       zoom: geolocation.zoom,
       showCircle: true,
       height: '350px',
-      dragging: false
+      dragging: false,
     };
 
     let data: DialogParameters = {
       dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-      address: this.address.address.address,
+      geolocation: this.geolocation.geolocation.geolocation,
       configureMap: this.configureMap,
       userId: this.userId!,
     };
     const dialogRef = this.dialog.open(DialogComponent, {
+      width:'100%',
       data,
     });
 
@@ -91,14 +96,17 @@ export class EditComponent extends CreateAddress {
   }
 
   public deleteAddress() {
-    if (!this.address) {
+    if (!this.geolocation) {
       return;
     }
     this.svcUser
-      .deleteUserAddress(this.address.address.address.id!, this.userId!)
+      .deleteUserGeolocation(
+        this.geolocation.geolocation.geolocation.id!,
+        this.userId!
+      )
       .subscribe({
         next: (response) => {
-          this.deleteEvent.next(this.address!.address.id);
+          this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
         },
         error: (error) =>
           this.svcNotification.warning({

@@ -2,7 +2,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UserService } from '@availa/agube-rest-api';
-import { UserDetailConfigure } from '@availa/agube-rest-api/lib/model/userDetailConfigure';
+import { PersonConfig } from '@availa/agube-rest-api/lib/model/personConfig';
 import { AccountService } from '@availa/auth-fe';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeMode } from 'src/app/page/home/theme-mode';
@@ -94,13 +94,13 @@ export class PersonalConfigComponent implements OnInit {
         mode: configureMode.mode,
         lang: configureMode.language,
       })
-      .subscribe((response: UserDetailConfigure) => {
+      .subscribe((response) => {
         this.setControlToggle(response);
         window.location.reload();
       });
   }
 
-  private setControlToggle(response: UserDetailConfigure) {
+  private setControlToggle(response: PersonConfig) {
     if (response.mode === this.lightClassName) {
       this.toggleControl.setValue(false);
     } else {
