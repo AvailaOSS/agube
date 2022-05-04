@@ -51,6 +51,16 @@ export class GaugeComponent implements OnChanges {
 
     let total = ((sum / measures.length) * 100) / this.maxDailyConsumption;
 
+    if (this.waterMeter?.waterMeter === undefined) {
+      this.waterMeter = {
+        waterMeter: {
+          code: this.waterMeter!.waterMeterWithMeasure.code!,
+          discharge_date: this.waterMeter?.waterMeterWithMeasure.discharge_date,
+          release_date:this.waterMeter?.waterMeterWithMeasure.release_date
+        },
+        waterMeterWithMeasure:this.waterMeter!.waterMeterWithMeasure
+      }
+    }
     this.configureChart = {
       id: 'water_meter_gauge',
       options: {
