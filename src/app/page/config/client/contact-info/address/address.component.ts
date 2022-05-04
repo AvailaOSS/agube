@@ -1,9 +1,9 @@
 import { NotificationService } from '@availa/notification';
 import { Component } from '@angular/core';
-import { UserService, UserAddress, Address } from '@availa/agube-rest-api';
+import { UserService, UserGeolocation  } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { CreateAddress } from '../../../../../utils/address/create-address';
-import { EditableAddress } from './edit/editable-address';
+import { EditableGeolocation } from './edit/editable-geolocation';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './edit/dialog/dialog.component';
 import { DialogParameters } from './edit/dialog/dialog-parameter';
@@ -16,7 +16,7 @@ import { DialogParameters } from './edit/dialog/dialog-parameter';
 export class AddressComponent extends CreateAddress {
   public userId: number = -1;
 
-  public addressList: EditableAddress[] = [];
+  public geolocationList: EditableGeolocation[] = [];
 
   public canAddAddress: boolean = false;
 
@@ -32,7 +32,7 @@ export class AddressComponent extends CreateAddress {
         return;
       }
       this.userId = response!.user_id;
-      this.getAddressList(this.userId);
+      this.getGeolocationList(this.userId);
     });
   }
 
@@ -41,7 +41,7 @@ export class AddressComponent extends CreateAddress {
     this.resetChildForm = true;
     let data: DialogParameters = {
       dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
-      address: this.resetChildForm,
+      geolocation: this.resetChildForm,
       configureMap: this.configureMap,
       userId: this.userId,
     };
@@ -54,41 +54,41 @@ export class AddressComponent extends CreateAddress {
     });
   }
 
-  public saveAddress(result: UserAddress) {
-    this.svcUser.addUserAddress(this.userId, result).subscribe({
+  public saveAddress(result: UserGeolocation) {
+    this.svcUser.addUserGeolocation(this.userId, result).subscribe({
       next: (response) => {
-        this.addressList.push({ address: response, isEditable: false });
+        this.geolocationList.push({ geolocation: response, isEditable: false });
       },
       error: (error) => this.svcNotification.warning({ message: error }),
     });
   }
 
-  public refreshAddress(address: UserAddress | undefined) {
-    if (!address) {
+  public refreshAddress(geolocation: UserGeolocation | undefined) {
+    if (!geolocation) {
       return;
     }
 
-    this.getAddressList(this.userId);
+    this.getGeolocationList(this.userId);
   }
 
   public addressDeleted(addressId: number | undefined) {
     if (!addressId) {
       return;
     }
-    const index = this.addressList
+    const index = this.geolocationList
       .map((p) => {
-        return p.address.id;
+        return p.geolocation.id;
       })
       .indexOf(addressId, 0);
     if (index > -1) {
-      this.addressList.splice(index, 1);
+      this.geolocationList.splice(index, 1);
     }
   }
 
-  private getAddressList(userId: number) {
-    this.svcUser.getUserAddress(userId).subscribe((response) => {
-      this.addressList = response.map((address) => {
-        return { address: address, isEditable: false };
+  private getGeolocationList(userId: number) {
+    this.svcUser.getUserGeolocation(userId).subscribe((response) => {
+      this.geolocationList = response.map((geolocation) => {
+        return { geolocation: geolocation, isEditable: false };
       });
     });
   }

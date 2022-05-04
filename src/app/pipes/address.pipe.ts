@@ -1,6 +1,6 @@
 import { SlicePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Address } from '@availa/agube-rest-api';
+import { Geolocation } from '@availa/agube-rest-api';
 
 @Pipe({
   name: 'address',
@@ -11,41 +11,41 @@ export class AddressPipe implements PipeTransform {
     this.slice = slice;
   }
 
-  transform(address: Address, mode?: string): string {
+  transform(geolocation: Geolocation, mode?: string): string {
     if (mode && mode == 'geolocation') {
       return (
-        this.slice.transform(address.geolocation.latitude, 0, 7) +
+        this.slice.transform(geolocation.latitude, 0, 7) +
         ', ' +
-        this.slice.transform(address.geolocation.longitude, 0, 7)
+        this.slice.transform(geolocation.longitude, 0, 7)
       );
     }
 
     let number = '';
 
-    if (address.number) {
-      number = ', ' + String(address.number);
+    if (geolocation.number) {
+      number = ', ' + String(geolocation.number);
     }
 
     if (mode && mode == 'short') {
       return (
-        address.road +
-        this.fillEmpty(address.number) +
-        this.fillEmpty(address.flat) +
-        this.fillEmpty(address.gate)
+        geolocation.address.road +
+        this.fillEmpty(geolocation.number) +
+        this.fillEmpty(geolocation.flat) +
+        this.fillEmpty(geolocation.gate)
       );
     }
     return (
-      address.road +
-      this.fillEmpty(address.number) +
-      this.fillEmpty(address.flat) +
-      this.fillEmpty(address.gate) +
+      geolocation.address.road +
+      this.fillEmpty(geolocation.number) +
+      this.fillEmpty(geolocation.flat) +
+      this.fillEmpty(geolocation.gate) +
       ', ' +
-      address.city +
-      this.fillEmpty(address.city_district) +
-      this.fillEmpty(address.village) +
-      this.fillEmpty(address.province) +
-      this.fillEmpty(address.municipality) +
-      this.fillEmpty(address.postcode)
+      geolocation.address.city +
+      this.fillEmpty(geolocation.address.city_district) +
+      this.fillEmpty(geolocation.address.village) +
+      this.fillEmpty(geolocation.address.province) +
+      this.fillEmpty(geolocation.address.municipality) +
+      this.fillEmpty(geolocation.address.postcode)
     );
   }
 

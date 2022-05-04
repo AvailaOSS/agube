@@ -1,6 +1,6 @@
 import { AccountService } from '@availa/auth-fe';
-import { UserService, UserPhone, Phone } from '@availa/agube-rest-api';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UserService, Phone } from '@availa/agube-rest-api';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-personal-info',
@@ -81,13 +80,12 @@ export class PersonalInfoComponent implements OnInit {
             this.first_name.setValue(response.first_name);
             this.last_name.setValue(response.last_name);
             this.main_phone = response.main_phone;
-
-          }, 1500)
+          }, 1500);
         },
         error: (error) => {
           this.loadSave = false;
           this.svcNotification.warning({
-            message: 'Ups algo ha salido mal!! ' + personalInfo,
+            message: error + personalInfo,
           });
         },
       });

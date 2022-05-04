@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Address, UserAddress, UserService } from '@availa/agube-rest-api';
+import { Geolocation, UserGeolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { map, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 
@@ -13,10 +13,10 @@ import { DialogParameters } from './dialog-parameter';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent extends CreateAddress implements OnInit {
-  @Output() submitClicked: EventEmitter<UserAddress> =
-    new EventEmitter<UserAddress>();
+  @Output() submitClicked: EventEmitter<UserGeolocation> =
+    new EventEmitter<UserGeolocation>();
   public dialogTitle: string = '';
-  public address: Address | boolean;
+  public geolocation: Geolocation | boolean;
   public userId: number | undefined;
 
   myControl = new FormControl();
@@ -30,7 +30,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
     protected svcNotification: NotificationService
   ) {
     super();
-    this.address = this.data.address;
+    this.geolocation = this.data.geolocation;
   }
 
   ngOnInit(): void {
@@ -40,11 +40,11 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
 
 
-    if (typeof this.address !== 'boolean') {
-      this.inputForm.street.setValue(this.address.road);
-      this.inputForm.number?.setValue(this.address.number);
-      this.inputForm.flat?.setValue(this.address.flat);
-      this.inputForm.gate?.setValue(this.address.gate);
+    if (typeof this.geolocation !== 'boolean') {
+      this.inputForm.street.setValue(this.geolocation.address.road);
+      this.inputForm.number?.setValue(this.geolocation.number);
+      this.inputForm.flat?.setValue(this.geolocation.flat);
+      this.inputForm.gate?.setValue(this.geolocation.gate);
     }
   }
 
@@ -54,11 +54,11 @@ export class DialogComponent extends CreateAddress implements OnInit {
   }
 
   public saveAddress() {
-    if (!this.address) {
+    if (!this.geolocation) {
       return;
     }
-    let updateUserAddress: UserAddress = {
-      address: this.getAddress(),
+    let updateUserAddress: UserGeolocation = {
+      geolocation: this.getGeolocation(),
       main: false,
     };
     this.submitClicked.emit(updateUserAddress);

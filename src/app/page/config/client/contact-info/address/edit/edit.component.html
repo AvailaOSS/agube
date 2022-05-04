@@ -1,4 +1,4 @@
-<span *ngIf="address && address.isEditable; else noEditableAddress">
+<span *ngIf="geolocation && geolocation.isEditable; else noEditableAddress">
 
   <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
     [inputForm]="inputForm" [resetForm]="resetChildForm">
@@ -9,11 +9,11 @@
 
 <ng-template #noEditableAddress>
   <div class="edited-form">
-    <h4>{{address!.address.address| address }}</h4>
-    <span mat-subheader class="is-principal">{{ address!.address.main ? 'Principal' : '' }}</span>
+    <h4>{{geolocation!.geolocation.geolocation| address | slice:0:65 }} </h4>
+    <span mat-subheader class="is-principal">{{ geolocation!.geolocation.main ? 'Principal' : '' }}</span>
   </div>
   <div>
-    <button mat-icon-button *ngIf="address!.address.main; else notMainAddress"
+    <button mat-icon-button *ngIf="geolocation!.geolocation.main; else notMainAddress"
       matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.FAVORITE' | translate }}"
       (click)="setAddressAsMain()">
       <mat-icon>star</mat-icon>

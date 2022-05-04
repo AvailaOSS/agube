@@ -69,7 +69,7 @@ export class DetailComponent implements OnInit {
     this.svcReservoir.getReservoir(this.reservoirId).subscribe({
       next: (reservoir) => {
         this.reservoir = reservoir;
-        let geolocation = this.reservoir.address.geolocation;
+        let geolocation = this.reservoir.geolocation;
         this.configureMaps(geolocation);
         this.loading = false;
       },

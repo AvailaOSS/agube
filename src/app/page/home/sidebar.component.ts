@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '@availa/auth-fe';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
-import { UserDetailConfigure } from '@availa/agube-rest-api/lib/model/userDetailConfigure';
+import { PersonConfig } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-sidebar',
@@ -71,7 +71,7 @@ export class SidebarComponent {
     this.overlayContainer.getContainerElement().classList.add(themeMode);
   }
 
-  private setControlToggle(response: UserDetailConfigure) {
+  private setControlToggle(response: PersonConfig) {
     if (response.mode === this.lightClassName) {
       this.toggleControl.setValue(false);
       this.className = this.lightClassName;

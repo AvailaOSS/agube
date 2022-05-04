@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DwellingService, UserCreate } from '@availa/agube-rest-api';
@@ -13,12 +13,12 @@ import { ChangeComponent } from '../change.component';
 })
 export class ResidentComponent extends ChangeComponent {
   constructor(
-      location: Location,
-      router: Router,
-      route: ActivatedRoute,
-      formBuilder: FormBuilder,
-      svcNotification: NotificationService,
-      svcDwelling: DwellingService
+    location: Location,
+    router: Router,
+    route: ActivatedRoute,
+    formBuilder: FormBuilder,
+    svcNotification: NotificationService,
+    svcDwelling: DwellingService
   ) {
     super(location, router, route, formBuilder, svcNotification, svcDwelling);
     this.title = 'GENERAL.TEXT.RESIDENT';
@@ -36,11 +36,8 @@ export class ResidentComponent extends ChangeComponent {
       last_name: this.last_name.value,
       email: this.email.value,
       phones: [{ phone_number: this.phone_number.value }],
-      address: [
-        this.dwelling!.address,
-      ],
     };
-    return this.svcDwelling.changeCurrentResident(this.dwellingId,  {user})
+    return this.svcDwelling.changeCurrentResident(this.dwellingId, { user });
   }
 
   override save() {
@@ -73,8 +70,9 @@ export class ResidentComponent extends ChangeComponent {
     });
   }
 
-  private loadCurrentResident(){
-    this.svcDwelling.getCurrentResident(this.dwellingId)
-      .subscribe(response => this.currentPerson = response.user);
+  private loadCurrentResident() {
+    this.svcDwelling
+      .getCurrentResident(this.dwellingId)
+      .subscribe((response) => (this.currentPerson = response.user));
   }
 }

@@ -10,7 +10,6 @@ import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
-import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-page-dwelling-create',
@@ -100,7 +99,7 @@ export class CreateComponent extends CreateAddress {
 
   private onSave() {
     let dwelling: DwellingCreate = {
-      address: this.getAddress(),
+      geolocation: this.getGeolocation(),
       water_meter: {
         code: this.code.value,
       },

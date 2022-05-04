@@ -1,42 +1,42 @@
-<div class="detail-info" *ngIf="address">
+<div class="detail-info" *ngIf="geolocation">
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.COORDINATES' | translate }}
-    <h3>{{address | address:'geolocation' }}</h3>
+    <h3>{{geolocation | address:'geolocation' }}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY' | translate }}
-    <h3>{{address.country}}</h3>
+    <h3>{{geolocation.address.country}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.STATE' | translate }}
-    <h3>{{address.state}}</h3>
+    <h3>{{geolocation.address.state}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.PROVINCE' | translate }}
-    <h3>{{address.province}}</h3>
+    <h3>{{geolocation.address.province}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY' | translate }}
-    <h3>{{address.city}}</h3>
+    <h3>{{geolocation.address.city}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE' | translate }}
-    <h3>{{address.village}}</h3>
+    <h3>{{geolocation.address.village}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY' | translate }}
-    <h3>{{address.municipality}}</h3>
+    <h3>{{geolocation.address.municipality}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY_DISTRICT' | translate }}
-    <h3>{{address.city_district}}</h3>
+    <h3>{{geolocation.address.city_district}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE' | translate }}
-    <h3>{{address.postcode}}</h3>
+    <h3>{{geolocation.address.postcode}}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.STREET' | translate }}
-    <h3>{{ address | address : 'short' }}</h3>
+    <h3>{{ geolocation | address : 'short' }}</h3>
   </span>
 </div>

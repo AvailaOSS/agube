@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { Address } from '@availa/agube-rest-api';
+import { Geolocation } from '@availa/agube-rest-api';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
@@ -33,7 +33,7 @@ export class CreateAddress {
     this.addressEmitter = addressEmitter;
   }
 
-  public getAddress(): Address {
+  public getGeolocation(): Geolocation {
     if (!this.addressEmitter) {
       throw new Error('receive addressEmitter before create a new address');
     }

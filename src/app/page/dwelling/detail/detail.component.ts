@@ -69,7 +69,7 @@ export class DetailComponent implements OnInit {
     this.svcDwelling.getDwelling(this.dwellingId).subscribe({
       next: (dwelling) => {
         this.dwelling = dwelling;
-        let geolocation = this.dwelling.address.geolocation;
+        let geolocation = this.dwelling.geolocation;
         this.configureMaps(geolocation);
         this.loading = false;
       },

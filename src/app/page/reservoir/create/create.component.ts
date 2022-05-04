@@ -135,7 +135,7 @@ export class CreateComponent extends CreateAddress {
     }
 
     let reservoir: ReservoirCreate = {
-      address: this.getAddress(),
+      geolocation: this.getGeolocation(),
       water_meter: {
         code: this.code.value,
       },
