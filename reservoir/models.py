@@ -1,4 +1,4 @@
-from address.models import Address
+from geolocation.models import Geolocation
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -9,7 +9,8 @@ from watermeter.models import WaterMeter
 
 class Reservoir(models.Model):
     """A class used to represent an Reservoir"""
-    address: Address = models.ForeignKey(Address, on_delete=models.PROTECT)
+    geolocation: Geolocation = models.ForeignKey(Geolocation,
+                                                 on_delete=models.PROTECT)
     capacity = models.DecimalField(decimal_places=3, max_digits=8)
     inlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
     outlet_flow = models.DecimalField(decimal_places=3, max_digits=8)

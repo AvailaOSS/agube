@@ -1,30 +1,30 @@
 from django.contrib.auth.models import User
 
-from address.serializers import AddressSerializer
+from geolocation.serializers import GeolocationSerializer
 from user.models import UserGeolocation, UserPhone
-from user.serializers import UserAddressUpdateSerializer
+from user.serializers import UserGeolocationUpdateSerializer
 
 
-def get_all_user_full_address_serialized(user: User):
-    list_of_serialized: list[UserAddressUpdateSerializer] = \
-        __serialize_user_addresses(UserAddress.objects.filter(user=user))
+def get_all_user_geolocation_serialized(user: User):
+    list_of_serialized: list[UserGeolocationUpdateSerializer] = \
+        __serialize_user_geolocations(UserGeolocation.objects.filter(user=user))
     return list_of_serialized
 
 
-def __serialize_user_addresses(user_address_list):
-    list_of_serialized: list[UserAddressUpdateSerializer] = []
+def __serialize_user_geolocations(user_geolocation_list):
+    list_of_serialized: list[UserGeolocationUpdateSerializer] = []
 
-    address_iteration: UserAddress
-    for address_iteration in user_address_list:
-        address = address_iteration.address
+    geolocation_iteration: UserGeolocation
+    for geolocation_iteration in user_geolocation_list:
+        geolocation = geolocation_iteration.geolocation
         data = {
-            "id": address_iteration.id,
-            "address": AddressSerializer(address).data,
-            'main': address_iteration.main,
+            "id": geolocation_iteration.id,
+            "geolocation": GeolocationSerializer(geolocation).data,
+            'main': geolocation_iteration.main,
         }
 
         list_of_serialized.append(
-            UserAddressUpdateSerializer(data, many=False).data)
+            UserGeolocationUpdateSerializer(data, many=False).data)
 
     return list_of_serialized
 

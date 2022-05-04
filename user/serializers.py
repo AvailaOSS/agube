@@ -1,9 +1,8 @@
-from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
+from geolocation.serializers import GeolocationSerializer
 from phone.serializers import PhoneSerializer
 from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
-from person.serializers import PersonConfigSerializer
 from person.models import PersonConfig
 
 
@@ -26,11 +25,11 @@ class UserSerializer(ModelSerializer):
 
 class UserCreateSerializer(UserSerializer):
     """
-    User Create, phone + address ModelSerializer
+    User Create, phone + geolocation ModelSerializer
     """
     id = ReadOnlyField()
     phones = PhoneSerializer(many=True, read_only=False)
-    address = AddressSerializer(required=False, many=True, read_only=False)
+    geolocation = GeolocationSerializer(required=False, many=True, read_only=False)
 
     class Meta:
         ref_name = 'UserCreate'
@@ -41,13 +40,13 @@ class UserCreateSerializer(UserSerializer):
             'last_name',
             'email',
             'phones',
-            'address',
+            'geolocation',
         )
 
 
 class UserDetailSerializer(UserSerializer):
     """
-    User Detail, phone + address ModelSerializer
+    User Detail, phone + geolocation ModelSerializer
     """
     id = ReadOnlyField()
     main_phone = PhoneSerializer(
@@ -76,10 +75,7 @@ class PersonConfigSerializer(UserSerializer):
     class Meta:
         ref_name = 'PersonConfig'
         model = PersonConfig
-        fields = (
-            'mode',
-            'lang'
-        )
+        fields = ('mode', 'lang')
 
 
 class UserPhoneUpdateSerializer(Serializer):
@@ -97,13 +93,13 @@ class UserPhoneUpdateSerializer(Serializer):
         ref_name = 'UserPhone'
 
 
-class UserAddressUpdateSerializer(Serializer):
+class UserGeolocationUpdateSerializer(Serializer):
     """
-    User Address ModelSerializer
+    User Geolocation ModelSerializer
     """
     id = ReadOnlyField()
-    address = AddressSerializer(many=False, read_only=False)
+    geolocation = GeolocationSerializer(many=False, read_only=False)
     main = BooleanField()
 
     class Meta:
-        ref_name = 'UserAddress'
+        ref_name = 'UserGeolocation'

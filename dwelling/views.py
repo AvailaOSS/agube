@@ -95,12 +95,12 @@ class DwellingListView(APIView):
                 except ObjectDoesNotExist:
                     pass
 
-            address: Address = dwelling.address
+            address: Address = dwelling.geolocation.address
             data = {
                 'id': dwelling.id,
                 'city': address.city,
                 'road': address.road,
-                'number': address.number,
+                'number': dwelling.geolocation.number,
                 'water_meter_code': water_meter_code,
                 'resident_first_name': resident_first_name,
                 'resident_phone': user_phone_number,

@@ -30,9 +30,9 @@ class GeolocationSerializer(ModelSerializer):
 
     def create(self, validated_data):
         address_data = validated_data.pop('address')
-        validated_data['address'] = self.__create_address(address_data)
+        validated_data['address'] = self.__create_geolocation(address_data)
         return Geolocation.objects.create(**validated_data)
 
     @classmethod
-    def __create_address(cls, validated_data_address):
+    def __create_geolocation(cls, validated_data_address):
         return Address.objects.create(**validated_data_address)

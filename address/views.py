@@ -4,7 +4,6 @@ from rest_framework.permissions import AllowAny
 
 from address.models import Address
 from address.serializers import AddressSerializer
-from manager.permissions import IsManagerAuthenticated
 from manager.models import Manager
 from person.models import Person
 from user.models import UserGeolocation
@@ -13,7 +12,7 @@ from reservoir.models import Reservoir, ReservoirOwner
 from rest_framework.response import Response
 
 
-class AddressCreateListView(generics.ListAPIView):
+class AddressListView(generics.ListAPIView):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
     permission_classes = [AllowAny]
@@ -29,12 +28,12 @@ class AddressCreateListView(generics.ListAPIView):
             manager=manager).values_list('user')
 
         user_addresses = Address.objects.filter(
-            id__in=UserAddress.objects.filter(
-                user__in=person_users).values_list('address'))
+            id__in=UserGeolocation.objects.filter(user__in=person_users).
+            values_list('geolocation').values_list('address'))
 
         dwellings_address = Address.objects.filter(
-            id__in=Dwelling.objects.filter(
-                manager=manager).values_list('address'))
+            id__in=Dwelling.objects.filter(manager=manager).values_list(
+                'geolocation').values_list('address'))
 
         reservoirs_address = Address.objects.filter(
             id__in=Reservoir.objects.filter(
@@ -44,7 +43,9 @@ class AddressCreateListView(generics.ListAPIView):
         address_total.extend(user_addresses)
         address_total.extend(dwellings_address)
         address_total.extend(reservoirs_address)
+
         address_serialized = []
+
         for address in set(address_total):
             address_serialized.append(AddressSerializer(address).data)
 

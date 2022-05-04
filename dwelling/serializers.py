@@ -1,5 +1,5 @@
-from address.models import Address
-from geolocation.serializers import AddressSerializer
+from geolocation.models import Geolocation
+from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from user.serializers import UserCreateSerializer
@@ -13,7 +13,7 @@ from watermeter.serializers import WaterMeterSerializer
 from dwelling.exceptions import UserManagerRequiredError
 from dwelling.models import Dwelling, DwellingOwner, DwellingResident
 
-from address.assembler import create_address
+from address.assembler import create_geolocation
 
 
 class DwellingResumeSerializer(Serializer):
@@ -35,14 +35,14 @@ class DwellingSerializer(ModelSerializer):
     id = ReadOnlyField()
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
-    address = AddressSerializer(many=False, read_only=False)
+    geolocation = GeolocationSerializer(many=False, read_only=False)
 
     class Meta:
         ref_name = 'Dwelling'
         model = Dwelling
         fields = (
             'id',
-            'address',
+            'geolocation',
             'release_date',
             'discharge_date',
         )
@@ -73,9 +73,9 @@ class DwellingCreateSerializer(ModelSerializer):
             manager: Manager = Manager.objects.get(user_id=user.id)
         except ObjectDoesNotExist:
             raise UserManagerRequiredError()
-        # Create address
-        validated_data['address'] = self.create_dwelling_address(
-            validated_data.pop('address'))
+        # Create geolocation
+        validated_data['geolocation'] = self.create_dwelling_geolocation(
+            validated_data.pop('geolocation'))
         # Extract water_meter_code
         water_meter_code: WaterMeterSerializer = validated_data.pop(
             'water_meter')['code']
@@ -87,8 +87,8 @@ class DwellingCreateSerializer(ModelSerializer):
         return dwelling
 
     @classmethod
-    def create_dwelling_address(cls, validated_data) -> Address:
-        return create_address(validated_data)
+    def create_dwelling_geolocation(cls, validated_data) -> Geolocation:
+        return create_geolocation(validated_data)
 
 
 class DwellingOwnerSerializer(ModelSerializer):

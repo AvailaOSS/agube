@@ -1,7 +1,7 @@
-from django.urls import include, path
+from django.urls import path
 
-from address.views import AddressCreateListView
+from address.views import AddressListView
 
 urlpatterns = [
-    path('', AddressCreateListView.as_view()),
+    path('', AddressListView.as_view()),
 ]

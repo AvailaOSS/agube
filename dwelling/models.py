@@ -14,7 +14,8 @@ from dwelling.exceptions import OwnerAlreadyIsResidentError
 class Dwelling(models.Model):
     """A class used to represent an Dwelling"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
-    geolocation: Geolocation = models.ForeignKey(Geolocation, on_delete=models.PROTECT)
+    geolocation: Geolocation = models.ForeignKey(Geolocation,
+                                                 on_delete=models.PROTECT)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
@@ -59,6 +60,7 @@ class Dwelling(models.Model):
         if resident:
             resident.discharge()
         DwellingResident.objects.create(user=user, dwelling=self)
+
     def get_current_resident(self):
         # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""
@@ -149,19 +151,19 @@ class DwellingResident(models.Model):
         if not self.pk:
             self.release_date = timezone.now()
         super(DwellingResident, self).save(*args, **kwargs)
-        self.__add_main_address()
+        self.__add_main_geolocation()
 
-    def __add_main_address(self):
-        """resident add main address and set others as not main"""
+    def __add_main_geolocation(self):
+        """resident add main geolocation and set others as not main"""
         try:
-            for older in UserAddress.objects.filter(user=self.user):
+            for older in UserGeolocation.objects.filter(user=self.user):
                 older.main = False
                 older.save()
         except ObjectDoesNotExist:
             pass
-        UserAddress.objects.create(user=self.user,
-                                   address=self.dwelling.address,
-                                   main=True)
+        UserGeolocation.objects.create(user=self.user,
+                                       geolocation=self.dwelling.geolocation,
+                                       main=True)
 
     def discharge(self):
         """discharge this resident"""
