@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'dwelling',
     'reservoir',
     'geolocation',
-    'userconfig'
+    'person'
 ]
 
 MIDDLEWARE = [

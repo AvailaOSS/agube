@@ -5,11 +5,13 @@ from rest_framework.permissions import AllowAny
 from address.models import Address
 from address.serializers import AddressSerializer
 from manager.permissions import IsManagerAuthenticated
-from manager.models import Manager, Person
+from manager.models import Manager
+from person.models import Person
 from login.models import UserAddress
 from dwelling.models import Dwelling
 from reservoir.models import Reservoir, ReservoirOwner
 from rest_framework.response import Response
+
 
 class AddressCreateListView(generics.ListAPIView):
     queryset = Address.objects.all()
@@ -42,8 +44,8 @@ class AddressCreateListView(generics.ListAPIView):
         address_total.extend(user_addresses)
         address_total.extend(dwellings_address)
         address_total.extend(reservoirs_address)
-        address_serialized=[]
+        address_serialized = []
         for address in set(address_total):
             address_serialized.append(AddressSerializer(address).data)
-            
+
         return Response(address_serialized)

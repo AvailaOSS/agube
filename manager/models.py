@@ -54,18 +54,3 @@ class ManagerConfiguration(models.Model):
         """discharge this Configuration"""
         self.discharge_date = timezone.now()
         self.save()
-
-
-class Person(models.Model):
-    manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT)
-    user: User = models.OneToOneField(User, on_delete=models.RESTRICT)
-
-    class Meta:
-        db_table = 'agube_manager_person'
-
-    def get_config(self):
-        from userconfig.models import UserConfig
-        try:
-            return UserConfig.objects.get(person=self)
-        except ObjectDoesNotExist:
-            return None

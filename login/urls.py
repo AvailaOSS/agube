@@ -3,13 +3,13 @@ from django.urls import include, path
 from login.views import (UserAddressUpdateDeleteView, UserCreateAddressView,
                          UserCreatePhoneView, UserCustomDetailView,UserCustomDetailUpdateView,
                          UserDwellingDetailView, UserPhoneUpdateDeleteView,
-                         ConfigView, UserConfigUpdateView)
+                         ConfigView, PersonConfigUpdateView)
 
 __url_user = [
     path('<int:pk>', UserCustomDetailView.as_view()),
     path('<int:pk>/', UserCustomDetailUpdateView.as_view()),
     path('<int:pk>/config', ConfigView.as_view()),
-    path('<int:pk>/config/', UserConfigUpdateView.as_view()),
+    path('<int:pk>/config/', PersonConfigUpdateView.as_view()),
     path('<int:pk>/dwelling', UserDwellingDetailView.as_view()),
     path('<int:pk>/address', UserCreateAddressView.as_view()),
     path('<int:pk>/address/<int:address_id>',

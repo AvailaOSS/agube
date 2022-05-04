@@ -18,10 +18,10 @@ from login.models import (UserAddress, UserPhone, update_address_to_not_main,
 from login.permissions import IsManagerOfUser, IsUserMatch
 from login.serializers import (UserAddressUpdateSerializer,
                                UserDetailSerializer, UserPhoneUpdateSerializer,
-                               UserConfigSerializer)
+                               PersonConfigSerializer)
 from login.serializers_external import UserDwellingDetailSerializer
-from userconfig.models import UserConfig
-from manager.models import Person
+from person.models import PersonConfig
+from person.models import Person
 
 TAG_USER = 'user'
 
@@ -96,7 +96,7 @@ class ConfigView(APIView):
 
     @swagger_auto_schema(
         operation_id="getConfig",
-        responses={200: UserConfigSerializer(many=False)},
+        responses={200: PersonConfigSerializer(many=False)},
         tags=[TAG_USER],
     )
     def get(self, request, pk):
@@ -111,16 +111,16 @@ class ConfigView(APIView):
             'lang': config.lang
         }
 
-        return Response(UserConfigSerializer(data, many=False).data)
+        return Response(PersonConfigSerializer(data, many=False).data)
 
 
-class UserConfigUpdateView(APIView):
+class PersonConfigUpdateView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateConfig",
-        request_body=UserConfigSerializer,
-        responses={200: UserConfigSerializer(many=True)},
+        request_body=PersonConfigSerializer,
+        responses={200: PersonConfigSerializer(many=True)},
         tags=[TAG_USER],
     )
     def put(self, request, pk):
@@ -129,7 +129,7 @@ class UserConfigUpdateView(APIView):
         """
         # get current user Configure
         person = Person.objects.get(user__id=pk)
-        current_configure_theme: UserConfig = person.get_config()
+        current_configure_theme: PersonConfig = person.get_config()
         # extract data
         new_configure_theme = request.data.pop('mode')
         new_configure_lang = request.data.pop('lang')
@@ -146,7 +146,7 @@ class UserConfigUpdateView(APIView):
             "lang": current_configure_theme.lang,
         }
 
-        return Response(UserConfigSerializer(data, many=False).data)
+        return Response(PersonConfigSerializer(data, many=False).data)
 
 
 class UserDwellingDetailView(APIView):

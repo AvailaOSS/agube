@@ -1,4 +1,5 @@
-from manager.models import Manager, Person
+from manager.models import Manager
+from person.models import Person
 from manager.permissions import IsManagerAuthenticated
 from rest_framework.permissions import IsAuthenticated
 

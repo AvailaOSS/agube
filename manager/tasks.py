@@ -4,8 +4,9 @@ from celery.decorators import task
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
-from manager.models import Manager, Person
-from userconfig.models import UserConfig
+from manager.models import Manager
+from person.models import Person
+from person.models import PersonConfig
 from phone.models import Phone
 from login.models import UserPhone
 
@@ -30,4 +31,4 @@ def new_user_published(data):
     manager = Manager.objects.create(user=user)
     # Important: create Person after create User
     person = Person.objects.create(manager=manager, user=user)
-    UserConfig.objects.create(person=person, mode='dark', lang='es')
+    PersonConfig.objects.create(person=person, mode='dark', lang='es')

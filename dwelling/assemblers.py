@@ -7,7 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
 from login.models import UserAddress, UserPhone
 from login.serializers import UserCreateSerializer
-from manager.models import Manager, Person
+from manager.models import Manager
+from person.models import Person
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
 
@@ -16,7 +17,7 @@ from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
 from geolocation.models import Geolocation
 from address.assembler import create_address
-from userconfig.models import UserConfig
+from person.models import PersonConfig
 
 
 # FIXME: the user methods must be moved to login app
@@ -83,8 +84,8 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
     person = Person.objects.create(manager=manager, user=user)
 
     # Set Manager Configuration for this Person
-    manager_config = UserConfig.objects.get(person__user=manager.user)
-    UserConfig.objects.create(person=person,
+    manager_config = PersonConfig.objects.get(person__user=manager.user)
+    PersonConfig.objects.create(person=person,
                               mode=manager_config.mode,
                               lang=manager_config.lang)
 
