@@ -85,6 +85,7 @@ export class CreateComponent
     if (!this.inputForm) {
       throw new Error('inputForm is neccessary for this component');
     }
+
     this.street = this.inputForm.street;
     this.number = this.inputForm.number;
     this.flat = this.inputForm.flat;
@@ -110,25 +111,25 @@ export class CreateComponent
     this.svcAddress.getAddress().subscribe((response) => {
       this.autocomplete = response;
     });
-    // this.filteredOptions = this.filter.valueChanges.pipe(
-    //   startWith(''),
-    //   map((value) => this._filter(value))
-    // );
-  }
-
-  private _filter(value: any): any {
-    // const filterValue = value.toLowerCase();
-    // return this.optionsName.filter((option) =>
-    //   option.toLowerCase().includes(filterValue)
-    // );
   }
 
   override ngAfterViewInit(): void {
     this.initializeMap(this.configureMap!);
   }
 
-  public filtering() {
-    this.getLocationBySearch().subscribe((response) => {
+  public selectOptionFilter(option: Address) {
+    let filter = option.city + ', ' + option.road;
+    this.filtering(filter);
+  }
+
+  public filtering(filter?: string) {
+    let myfilter = this.filter.value;
+
+    if (filter) {
+      myfilter = filter;
+    }
+
+    this.getLocationBySearch(myfilter).subscribe((response) => {
       if (!response.length) {
         return;
       }
@@ -272,10 +273,10 @@ export class CreateComponent
     });
   }
 
-  private getLocationBySearch(): Observable<LocationResponse[]> {
+  private getLocationBySearch(filter: string): Observable<LocationResponse[]> {
     return this.http.get<LocationResponse[]>(
       CreateComponent.mapSearchUrlPrefix +
-        this.filter.value +
+        filter +
         CreateComponent.mapSearchUrlSufix
     );
   }

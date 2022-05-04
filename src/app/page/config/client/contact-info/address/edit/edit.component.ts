@@ -85,6 +85,7 @@ export class EditComponent extends CreateAddress {
       userId: this.userId!,
     };
     const dialogRef = this.dialog.open(DialogComponent, {
+      width:'100%',
       data,
     });
 

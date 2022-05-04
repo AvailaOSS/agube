@@ -46,6 +46,7 @@ export class AddressComponent extends CreateAddress {
       userId: this.userId,
     };
     const dialogRef = this.dialog.open(DialogComponent, {
+      width:'100%',
       data,
     });
     dialogRef.componentInstance.submitClicked.subscribe((result) => {

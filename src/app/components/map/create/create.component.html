@@ -4,8 +4,8 @@
       <mat-label>{{ 'COMPONENTS.MAP.CREATE.FILTER.TEXT' | translate }}</mat-label>
       <input matInput type="text" matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.TOOLTIP' | translate }}"
         (keyup.enter)="filtering()" [formControl]="filter" [matAutocomplete]="auto">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let option of autocomplete" [value]="option">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of autocomplete" (click)="selectOptionFilter(option)">
           {{ option | address }}
         </mat-option>
       </mat-autocomplete>
