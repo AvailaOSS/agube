@@ -1,11 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import {
-  WaterMeterMeasurement,
-  WaterMeterWithMeasurements,
-} from '@availa/agube-rest-api';
+import { WaterMeterMeasurement } from '@availa/agube-rest-api';
 import { Configuration } from 'src/app/components/chart/chart-configure';
-import { differenceInDays } from 'date-fns';
 import { WaterMeterGauge } from './water-meter-gauge';
+import { differenceInDays, isBefore } from 'date-fns';
 
 @Component({
   selector: 'app-water-meter-gauge',
@@ -49,8 +46,7 @@ export class GaugeComponent implements OnChanges {
 
     let sum = 0;
     for (let index = 0; index < measures.length; index++) {
-      // FIXME: coger el anterior dia no la anterior medida
-      sum += this.minusMeasure(measures[index], measures[index + 1]);
+      sum += this.minusMeasure(measures[index], measures);
     }
 
     let total = ((sum / measures.length) * 100) / this.maxDailyConsumption;
@@ -66,30 +62,40 @@ export class GaugeComponent implements OnChanges {
         yellowTo: 90,
         minorTicks: 10,
       },
-      data: ['', total],
+      data: [this.waterMeter!.waterMeter.code, total],
     };
   }
 
-  private minusMeasure(
+  public minusMeasure(
     current: WaterMeterMeasurement,
-    old: WaterMeterMeasurement
+    data: WaterMeterMeasurement[]
   ): number {
-    if (!old) {
-      old = current;
+    let currentDate = new Date(current.date!);
+
+    const previousWaterMeterMeasurement = data.filter(
+      (x) =>
+        isBefore(new Date(x.date!), currentDate) &&
+        differenceInDays(new Date(x.date!), currentDate) < 0
+    )[0];
+
+    if (!previousWaterMeterMeasurement) {
+      return 0;
     }
 
     let lapsedDays = differenceInDays(
       new Date(current.date!),
-      new Date(old.date!)
+      new Date(previousWaterMeterMeasurement.date!)
     );
 
     if (lapsedDays === 0) {
-      // return +(+current.measurement + +old.measurement).toFixed(3) * 1000;
       lapsedDays = 1;
     }
 
     return (
-      (+(+current.measurement - +old.measurement).toFixed(3) * 1000) /
+      (+(
+        +current.measurement - +previousWaterMeterMeasurement.measurement
+      ).toFixed(3) *
+        1000) /
       lapsedDays
     );
   }

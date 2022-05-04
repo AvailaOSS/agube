@@ -191,7 +191,7 @@
   "PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP": "Abrir formulario de Nueva Lectura",
   "PAGE.WATER_METER.DETAIL.TABLE.MEASUREMENT.TOOLTIP": "Lectura del contador",
   "PAGE.WATER_METER.DETAIL.TABLE.DATE.TOOLTIP": "Fecha",
-  "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP": "Litros de Consumo respecto a la Lectura anterior",
+  "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP": "Litros Consumidos durante 24h",
   "PAGE.WATER_METER.DIALOG.TITLE": "Realizando cambio de Contador",
   "PAGE.WATER_METER.DIALOG.NEW_WATER_METER": "Nuevo Contador",
   "PAGE.WATER_METER.DIALOG.NEW_WATER_METER.VALIDATION": "Revisa el código del contador",
