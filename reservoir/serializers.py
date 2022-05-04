@@ -1,9 +1,8 @@
-from address.models import Address
-from address.serializers import AddressSerializer
+from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
-from dwelling.assemblers import (get_all_user_address_serialized,
+from dwelling.assemblers import (get_all_user_geolocation_serialized,
                                  get_user_phones_serialized)
-from login.serializers import UserCreateSerializer
+from user.serializers import UserCreateSerializer
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
@@ -11,7 +10,8 @@ from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirOwner
 from geolocation.models import Geolocation
-from address.assembler import create_address
+from address.assembler import create_geolocation
+
 
 class ReservoirSerializer(ModelSerializer):
     """
@@ -20,14 +20,14 @@ class ReservoirSerializer(ModelSerializer):
     id = ReadOnlyField()
     release_date = ReadOnlyField()
     discharge_date = ReadOnlyField()
-    address = AddressSerializer(many=False, read_only=False)
+    geolocation = GeolocationSerializer(many=False, read_only=False)
 
     class Meta:
         ref_name = 'Reservoir'
         model = Reservoir
         fields = (
             'id',
-            'address',
+            'geolocation',
             'release_date',
             'discharge_date',
             'capacity',
@@ -41,7 +41,7 @@ class ReservoirCreateSerializer(ModelSerializer):
     Reservoir Create ModelSerializer
     """
     id = ReadOnlyField()
-    address = AddressSerializer(many=False, read_only=False)
+    geolocation = GeolocationSerializer(many=False, read_only=False)
     user_id = PrimaryKeyRelatedField(many=False,
                                      read_only=False,
                                      write_only=True,
@@ -57,7 +57,7 @@ class ReservoirCreateSerializer(ModelSerializer):
         model = Reservoir
         fields = (
             'id',
-            'address',
+            'geolocation',
             'user_id',
             'water_meter',
             'capacity',
@@ -66,9 +66,9 @@ class ReservoirCreateSerializer(ModelSerializer):
         )
 
     def create(self, validated_data):
-        # Create address
-        validated_data['address'] = self.create_reservoir_address(
-            validated_data.pop('address'))
+        # Create geolocation
+        validated_data['geolocation'] = self.create_reservoir_geolocation(
+            validated_data.pop('geolocation'))
         # Extract user_id & water_meter_code
         user = validated_data.pop('user_id')
         water_meter_code = validated_data.pop('water_meter')['code']
@@ -82,8 +82,8 @@ class ReservoirCreateSerializer(ModelSerializer):
         return reservoir
 
     @classmethod
-    def create_reservoir_address(cls, validated_data) -> Address:
-        return create_address(validated_data)
+    def create_reservoir_geolocation(cls, validated_data) -> Geolocation:
+        return create_geolocation(validated_data)
 
 
 class ReservoirOwnerSerializer(ModelSerializer):
@@ -149,6 +149,7 @@ class ReservoirDetailSerializer(Serializer):
 def get_reservoir_owner_serialized(
         owner: ReservoirOwner) -> ReservoirOwnerSerializer:
     user = owner.user
+    # FIXME: Use ReservoirOwnerSerializer directly instead of manually if is possible
     data = {
         "id": owner.id,
         "reservoir_id": owner.reservoir,
@@ -159,7 +160,7 @@ def get_reservoir_owner_serialized(
             "last_name": user.last_name,
             "email": user.email,
             "phones": get_user_phones_serialized(user),
-            "address": get_all_user_address_serialized(user)
+            "geolocation": get_all_user_geolocation_serialized(user)
         },
         "release_date": owner.release_date,
         "discharge_date": owner.discharge_date

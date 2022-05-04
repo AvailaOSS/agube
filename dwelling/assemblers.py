@@ -1,22 +1,21 @@
 from enum import Enum
 
-from address.models import Address
-from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
-from login.models import UserAddress, UserPhone
-from login.serializers import UserCreateSerializer
-from manager.models import Manager, Person
+from user.models import UserGeolocation, UserPhone
+from user.serializers import UserCreateSerializer
+from manager.models import Manager
+from person.models import Person
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
 
 from dwelling.models import DwellingOwner, DwellingResident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
-from geolocation.models import Geolocation
-from address.assembler import create_address
-from userconfig.models import UserConfig
+from geolocation.serializers import GeolocationSerializer
+from address.assembler import create_geolocation
+from person.models import PersonConfig
 
 
 # FIXME: the user methods must be moved to login app
@@ -31,19 +30,20 @@ def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
     UserPhone.objects.create(user=user, phone=new_phone, main=main)
 
 
-def create_user_address(user: User, validated_data: AddressSerializer,
-                        main: bool):
-    # create user address
-    return UserAddress.objects.create(user=user,
-                                      address=create_address(validated_data),
-                                      main=main)
+def create_user_geolocation(user: User, validated_data: GeolocationSerializer,
+                            main: bool):
+    # create user geolocation
+    return UserGeolocation.objects.create(
+        user=user, geolocation=create_geolocation(validated_data), main=main)
 
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
                 manager: Manager):
     # Extract unnecessary data
     phones: list[PhoneSerializer] = validated_data.pop('phones')
-    addresses: list[AddressSerializer] = validated_data.pop('address')
+    geolocations: list[GeolocationSerializer] = []
+    if 'geolocation' in validated_data:
+        geolocations = validated_data.pop('geolocation')
 
     # Generate activation code for the new user
     retry = True
@@ -62,7 +62,7 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
     user.is_active = False
     user.save()
 
-    # first_iteration will be save as main phone/address
+    # first_iteration will be save as main phone/geolocation
     first_iteration = True
     firstPhone = ''
 
@@ -73,20 +73,20 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
         create_phone(user, phone, first_iteration)
         first_iteration = False
 
-    # Create User Address
+    # Create User geolocation
     first_iteration = True
-    for address in addresses:
-        create_user_address(user, address, first_iteration)
+    for geolocation in geolocations:
+        create_user_geolocation(user, geolocation, first_iteration)
         first_iteration = False
 
     # Important: create Person after create User
     person = Person.objects.create(manager=manager, user=user)
 
     # Set Manager Configuration for this Person
-    manager_config = UserConfig.objects.get(person__manager=manager)
-    UserConfig.objects.create(person=person,
-                              mode=manager_config.mode,
-                              lang=manager_config.lang)
+    manager_config = PersonConfig.objects.get(person__user=manager.user)
+    PersonConfig.objects.create(person=person,
+                                mode=manager_config.mode,
+                                lang=manager_config.lang)
 
     if PersonTag.OWNER == tag:
         email_type = EmailType.OWNER_EMAIL
@@ -101,22 +101,15 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
     return user
 
 
-def get_all_user_address_serialized(user: User):
-    list_of_serialized: list[AddressSerializer] = []
-    for address_iteration in UserAddress.objects.filter(user=user):
-        address = address_iteration.address
-        geo = address.geolocation
-        geo_data = {
-            "id": geo.id,
-            "latitude": geo.latitude,
-            "longitude": geo.longitude,
-            "zoom": geo.zoom,
-            "horizontal_degree": geo.horizontal_degree,
-            "vertical_degree": geo.vertical_degree,
-        }
-        data = {
+def get_all_user_geolocation_serialized(user: User):
+    list_of_serialized: list[GeolocationSerializer] = []
+    for geolocation_iteration in UserGeolocation.objects.filter(user=user):
+        geolocation = geolocation_iteration.geolocation
+
+        # FIXME: use AddressSerializer instead of map manually
+        address = geolocation.address
+        address_data = {
             "id": address.id,
-            "geolocation": geo_data,
             "is_external": address.is_external,
             "city": address.city,
             "country": address.country,
@@ -127,11 +120,22 @@ def get_all_user_address_serialized(user: User):
             "state": address.state,
             "village": address.village,
             "road": address.road,
-            "number": address.number,
-            "flat": address.flat,
-            "gate": address.gate
         }
-        list_of_serialized.append(AddressSerializer(data, many=False).data)
+
+        # FIXME: use GeolocationSerializer instead of map manually
+        data = {
+            "id": geolocation.id,
+            "address": address_data,
+            "latitude": geolocation.latitude,
+            "longitude": geolocation.longitude,
+            "zoom": geolocation.zoom,
+            "horizontal_degree": geolocation.horizontal_degree,
+            "vertical_degree": geolocation.vertical_degree,
+            "number": geolocation.number,
+            "flat": geolocation.flat,
+            "gate": geolocation.gate
+        }
+        list_of_serialized.append(GeolocationSerializer(data, many=False).data)
 
     return list_of_serialized
 
@@ -163,7 +167,7 @@ def get_dwelling_owner_serialized(owner: DwellingOwner):
             "last_name": user.last_name,
             "email": user.email,
             "phones": get_user_phones_serialized(user),
-            "address": get_all_user_address_serialized(user)
+            "address": get_all_user_geolocation_serialized(user)
         },
         "release_date": owner.release_date,
         "discharge_date": owner.discharge_date
@@ -184,7 +188,7 @@ def get_dwelling_resident_serialized(resident: DwellingResident):
             "last_name": user.last_name,
             "email": user.email,
             "phones": get_user_phones_serialized(user),
-            "address": get_all_user_address_serialized(user)
+            "address": get_all_user_geolocation_serialized(user)
         },
         "release_date": resident.release_date,
         "discharge_date": resident.discharge_date

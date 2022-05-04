@@ -5,7 +5,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-from manager.models import Manager, Person
+from manager.models import Manager
+from person.models import Person
 from validate_email import validate_email
 
 from dwelling.exceptions import InvalidEmailError, EmailValidationError

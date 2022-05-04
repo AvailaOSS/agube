@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_jwt',
     'drf_yasg',
-    'login',
+    'user',
     'manager',
     'address',
     'phone',
@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'dwelling',
     'reservoir',
     'geolocation',
-    'userconfig'
+    'person'
 ]
 
 MIDDLEWARE = [

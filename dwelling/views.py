@@ -2,7 +2,7 @@ from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
-from login.models import UserPhone
+from user.models import UserPhone
 from rest_framework.permissions import IsAuthenticated
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
@@ -95,12 +95,12 @@ class DwellingListView(APIView):
                 except ObjectDoesNotExist:
                     pass
 
-            address: Address = dwelling.address
+            address: Address = dwelling.geolocation.address
             data = {
                 'id': dwelling.id,
                 'city': address.city,
                 'road': address.road,
-                'number': address.number,
+                'number': dwelling.geolocation.number,
                 'water_meter_code': water_meter_code,
                 'resident_first_name': resident_first_name,
                 'resident_phone': user_phone_number,

@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_404_NOT_FOUND
 
-from manager.models import Manager, ManagerConfiguration, Person
+from manager.models import Manager, ManagerConfiguration
+from person.models import Person
 from manager.serializers import (ManagerConfigurationSerializer,
                                  ManagerSerializer, UserIsManagerSerializer)
 

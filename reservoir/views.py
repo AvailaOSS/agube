@@ -1,9 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from geolocation.models import Geolocation
-from geolocation.serializers import GeolocationSerializer
+from address.models import Address
 from manager.permissions import IsManagerAuthenticated
-from login.permissions import IsManagerOfUser, IsUserMatch
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -43,12 +41,12 @@ class ReservoirListView(APIView):
         list_of_serialized = []
         for reservoir in reservoirs:
             water_meter_code: str = reservoir.get_current_water_meter().code
-            address: Address = reservoir.address
+            address: Address = reservoir.geolocation.address
             data = {
                 'id': reservoir.id,
                 'city': address.city,
                 'road': address.road,
-                'number': address.number,
+                'number': reservoir.geolocation.number,
                 'water_meter_code': water_meter_code,
                 'capacity': str(reservoir.capacity),
                 'inlet_flow': str(reservoir.inlet_flow),
