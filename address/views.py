@@ -10,12 +10,13 @@ from user.models import UserGeolocation
 from dwelling.models import Dwelling
 from reservoir.models import Reservoir, ReservoirOwner
 from rest_framework.response import Response
+from manager.permissions import IsManagerAuthenticated
 
 
 class AddressListView(generics.ListAPIView):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(operation_id="getAddress",
                          operation_description="get list of address")
