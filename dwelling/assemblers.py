@@ -41,8 +41,9 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
                 manager: Manager):
     # Extract unnecessary data
     phones: list[PhoneSerializer] = validated_data.pop('phones')
-    geolocations: list[GeolocationSerializer] = validated_data.pop(
-        'geolocation')
+    geolocations: list[GeolocationSerializer] = []
+    if 'geolocation' in validated_data:
+        geolocations = validated_data.pop('geolocation')
 
     # Generate activation code for the new user
     retry = True

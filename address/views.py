@@ -27,20 +27,21 @@ class AddressListView(generics.ListAPIView):
         person_users = Person.objects.filter(
             manager=manager).values_list('user')
 
-        user_addresses = Address.objects.filter(
-            id__in=UserGeolocation.objects.filter(user__in=person_users).
-            values_list('geolocation').values_list('address'))
+        user_geolocations = list(
+            map(lambda user_geo: user_geo.geolocation.address,
+                UserGeolocation.objects.filter(user__in=person_users)))
 
-        dwellings_address = Address.objects.filter(
-            id__in=Dwelling.objects.filter(manager=manager).values_list(
-                'geolocation').values_list('address'))
+        dwellings_address = list(
+            map(lambda dw: dw.geolocation.address,
+                Dwelling.objects.filter(manager=manager)))
 
-        reservoirs_address = Address.objects.filter(
-            id__in=Reservoir.objects.filter(
-                id__in=ReservoirOwner.objects.filter(user_id__in=person_users).
-                values_list('reservoir_id')).values_list('address'))
+        reservoirs_address = list(
+            map(
+                lambda rv: rv.geolocation.address,
+                Reservoir.objects.filter(id__in=ReservoirOwner.objects.filter(
+                    user_id__in=person_users))))
 
-        address_total.extend(user_addresses)
+        address_total.extend(user_geolocations)
         address_total.extend(dwellings_address)
         address_total.extend(reservoirs_address)
 

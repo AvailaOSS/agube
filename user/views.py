@@ -58,7 +58,7 @@ class UserCustomDetailUpdateView(APIView):
     @swagger_auto_schema(
         operation_id="UpdateUserDetail",
         request_body=UserDetailSerializer,
-        responses={200: UserDetailSerializer(many=True)},
+        responses={200: UserDetailSerializer(many=False)},
         tags=[TAG_USER],
     )
     def put(self, request, pk):
@@ -425,20 +425,21 @@ class UserAddressUpdateDeleteView(APIView):
 
         update_this_geolocation = user_geolocation.geolocation
 
-        # FIXME: do not update address, create a new if not exist
-        # update_this_address = update_this_geolocation.address
-        # address_data = geolocation_data.get('address')
-        # update_this_address.city = address_data.get('city')
-        # update_this_address.country = address_data.get('country')
-        # update_this_address.city_district = address_data.get('city_district')
-        # update_this_address.municipality = address_data.get('municipality')
-        # update_this_address.postcode = address_data.get('postcode')
-        # update_this_address.province = address_data.get('province')
-        # update_this_address.state = address_data.get('state')
-        # update_this_address.village = address_data.get('village')
-        # update_this_address.road = address_data.get('road')
-        # update_this_address.save()
+        address_data = geolocation_data.get('address')
+        address = Address.objects.get_or_create(
+            is_external=address_data.get('is_external'),
+            city=address_data.get('city'),
+            country=address_data.get('country'),
+            city_district=address_data.get('city_district'),
+            municipality=address_data.get('municipality'),
+            postcode=address_data.get('postcode'),
+            province=address_data.get('province'),
+            state=address_data.get('state'),
+            village=address_data.get('village'),
+            road=address_data.get('road'),
+        )[0]
 
+        update_this_geolocation.address = address
         update_this_geolocation.latitude = geolocation_data.get('latitude')
         update_this_geolocation.longitude = geolocation_data.get('longitude')
         update_this_geolocation.zoom = geolocation_data.get('zoom')
