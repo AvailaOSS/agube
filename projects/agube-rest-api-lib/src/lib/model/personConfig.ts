@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface UserDetailConfigure { 
-    mode: string;
-    lang: string;
+export interface PersonConfig {
+  mode: string;
+  lang: string;
 }

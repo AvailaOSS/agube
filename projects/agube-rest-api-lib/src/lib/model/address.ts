@@ -9,12 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Geolocation } from './geolocation';
 
 export interface Address {
   readonly id?: number;
   is_external?: boolean;
-  geolocation: Geolocation;
   city: string;
   country: string;
   city_district: string;
@@ -24,7 +22,4 @@ export interface Address {
   state: string;
   village?: string;
   road?: string;
-  number?: number;
-  flat?: string;
-  gate?: string;
 }
