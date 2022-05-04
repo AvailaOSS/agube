@@ -11,6 +11,7 @@ import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-page-reservoir-create',
@@ -28,6 +29,10 @@ export class CreateComponent extends CreateAddress {
 
   public loadingPost = false;
 
+  myControl = new FormControl();
+  optionsName: string[] = ['One', 'Two', 'Three'];
+  public filteredOptions: Observable<string[]> = new Observable();
+
   constructor(
     private router: Router,
     private svcNotification: NotificationService,
@@ -40,8 +45,17 @@ export class CreateComponent extends CreateAddress {
     this.svcAccount.getUser().subscribe((response) => {
       this.userId = response!.user_id;
     });
+    //TODO:FIXME API CHANGE ADDRESS
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
   }
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.optionsName.filter(option => option.toLowerCase().includes(filterValue));
 
+  }
   public override addressFormReceive(addressEmitter: AddressEmitter) {
     super.addressFormReceive(addressEmitter);
     this.reservoirForm = this.formBuilder.group({

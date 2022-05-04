@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { CreateModule as StreetViewCreateModule } from '../../../components/map/create/create.module';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -31,6 +32,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
     TranslateModule,
     StreetViewCreateModule,
     PipesModule,
+    MatAutocompleteModule
   ],
 })
 export class CreateModule {}

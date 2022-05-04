@@ -9,6 +9,20 @@
             <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" autofocus />
             <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
           </mat-form-field>
+          <mat-form-field style="margin-left: 10px;justify-content: space-between;" appearance="fill">
+            <mat-label>Asignar vivienda</mat-label>
+            <input type="text"
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto"/>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
           <div class="form-reservoir">
             <mat-form-field appearance="fill">
               <mat-label>{{ 'PAGE.RESERVOIR.CREATE.CAPACITY' | translate }}</mat-label>

@@ -10,6 +10,7 @@ import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-page-dwelling-create',
@@ -22,6 +23,10 @@ export class CreateComponent extends CreateAddress {
 
   public loadingPost = false;
 
+  myControl = new FormControl();
+  optionsName: string[] = ['One', 'Two', 'Three'];
+  public filteredOptions: Observable<string[]> = new Observable();
+
   constructor(
     private router: Router,
     private svcNotification: NotificationService,
@@ -29,6 +34,17 @@ export class CreateComponent extends CreateAddress {
     private formBuilder: FormBuilder
   ) {
     super();
+    //TODO:FIXME API CHANGE ADDRESS
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
+
+  }
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.optionsName.filter(option => option.toLowerCase().includes(filterValue));
+
   }
 
   public override addressFormReceive(addressEmitter: AddressEmitter) {
@@ -40,6 +56,7 @@ export class CreateComponent extends CreateAddress {
       }),
     });
   }
+
 
   public exit() {
     this.router.navigate(['manager/dwellings']);

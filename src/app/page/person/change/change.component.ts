@@ -13,6 +13,7 @@ import {
   UserCreate,
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-change',
@@ -40,6 +41,10 @@ export class ChangeComponent implements OnInit {
 
   public loadingPost = false;
 
+  myControl = new FormControl();
+  optionsName: string[] = ['One', 'Two', 'Three'];
+  public filteredOptions: Observable<string[]> = new Observable();
+
   constructor(
     private location: Location,
     private router: Router,
@@ -63,9 +68,26 @@ export class ChangeComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+
+  //TODO:FIXME API CHANGE ADDRESS
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
+
+
+
     this.svcDwelling
       .getDwelling(this.dwellingId)
       .subscribe((response) => (this.dwelling = response));
+  }
+
+
+
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.optionsName.filter(option => option.toLowerCase().includes(filterValue));
+
   }
 
   public save() {
