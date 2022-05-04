@@ -6,7 +6,7 @@ from geolocation.models import Geolocation
 def create_geolocation(validated_data) -> Geolocation:
     # FIXME: use GeolocationSerializer create instead of this...
     address_data = validated_data.get('address')
-    new_address = Address.objects.create(
+    new_address = Address.objects.get_or_create(
         is_external=address_data.get('is_external'),
         city=address_data.get('city'),
         country=address_data.get('country'),
@@ -16,7 +16,7 @@ def create_geolocation(validated_data) -> Geolocation:
         province=address_data.get('province'),
         state=address_data.get('state'),
         village=address_data.get('village'),
-        road=address_data.get('road'))
+        road=address_data.get('road'))[0]
 
     new_geolocation = Geolocation.objects.create(
         address=new_address,

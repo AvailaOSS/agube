@@ -12,7 +12,7 @@ __url_user = [
     path('<int:pk>/config/', PersonConfigUpdateView.as_view()),
     path('<int:pk>/dwelling', UserDwellingDetailView.as_view()),
     path('<int:pk>/geolocation', UserCreateGeolocationView.as_view()),
-    path('<int:pk>/geolocation/<int:address_id>',
+    path('<int:pk>/geolocation/<int:geolocation_id>',
          UserAddressUpdateDeleteView.as_view()),
     path('<int:pk>/phone', UserCreatePhoneView.as_view()),
     path('<int:pk>/phone/<int:phone_id>', UserPhoneUpdateDeleteView.as_view()),
