@@ -4,7 +4,7 @@ import { CreateComponent } from './create.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { AddressPipe } from 'src/app/pipes/address.pipe';
+import { GeolocationPipe } from 'src/app/pipes/geolocation.pipe';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -31,9 +31,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     TranslateModule,
     MatTooltipModule,
     MapModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   exports: [CreateComponent],
-  providers: [AddressPipe],
+  providers: [GeolocationPipe],
 })
 export class CreateModule {}

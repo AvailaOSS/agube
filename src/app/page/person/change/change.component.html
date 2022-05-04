@@ -2,7 +2,7 @@
   <mat-card class="create-person-page-card">
     <mat-card-content>
       <div class="form">
-        <h1>{{dwelling.geolocation | address }}</h1>
+        <h1>{{dwelling.geolocation | geolocation}}</h1>
         <div *ngIf="currentPerson; else change">
           <h2>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_1' | translate }} {{ title | translate}}</h2>
           <p>

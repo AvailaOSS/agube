@@ -5,8 +5,8 @@
       <input matInput type="text" matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.TOOLTIP' | translate }}"
         (keyup.enter)="filtering()" [formControl]="filter" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
+        <mat-option *ngFor="let option of autocomplete" [value]="option">
+          {{ option | address }}
         </mat-option>
       </mat-autocomplete>
       <button matSuffix mat-icon-button *ngIf="filter.value"

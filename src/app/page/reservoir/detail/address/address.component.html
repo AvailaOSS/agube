@@ -1,7 +1,7 @@
 <div class="detail-info" *ngIf="geolocation">
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.COORDINATES' | translate }}
-    <h3>{{geolocation | address:'geolocation' }}</h3>
+    <h3>{{geolocation | geolocation: 'geolocation' }}</h3>
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY' | translate }}
@@ -37,6 +37,6 @@
   </span>
   <span>
     {{ 'PAGE.DWELLING.DETAIL.ADDRESS.STREET' | translate }}
-    <h3>{{ geolocation | address : 'short' }}</h3>
+    <h3>{{ geolocation | geolocation : 'short' }}</h3>
   </span>
 </div>

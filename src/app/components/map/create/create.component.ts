@@ -25,6 +25,7 @@ import { MapComponent } from '../map/map.component';
 import { ConfigureMap } from '../map/configure-map';
 import { MapEvent } from '../map/map-event';
 import { LocationResponse } from '../map/location-response';
+import { Address, AddressService, Geolocation } from '@availa/agube-rest-api';
 
 @Component({
   selector: 'app-map-location-create',
@@ -55,14 +56,18 @@ export class CreateComponent
   public flat: FormControl | undefined;
   public gate: FormControl | undefined;
 
-  optionsName: string[] = ['One', 'Two', 'Three'];
-  public filteredOptions: Observable<string[]> = new Observable();
+  public autocomplete: Address[] = [];
+
   // You can override this url for use other maps
   private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private svcAddress: AddressService
+  ) {
     super();
   }
 
@@ -91,6 +96,7 @@ export class CreateComponent
       flat: this.flat,
       gate: this.gate,
     });
+
     this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
       if (this.selectedStreetCandidate) {
         this.fillMissingAddress(this.selectedStreetCandidate);
@@ -101,16 +107,20 @@ export class CreateComponent
       }
     });
 
-    this.filteredOptions = this.filter.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
-    );
+    this.svcAddress.getAddress().subscribe((response) => {
+      this.autocomplete = response;
+    });
+    // this.filteredOptions = this.filter.valueChanges.pipe(
+    //   startWith(''),
+    //   map((value) => this._filter(value))
+    // );
   }
+
   private _filter(value: any): any {
-    const filterValue = value.toLowerCase();
-    return this.optionsName.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
+    // const filterValue = value.toLowerCase();
+    // return this.optionsName.filter((option) =>
+    //   option.toLowerCase().includes(filterValue)
+    // );
   }
 
   override ngAfterViewInit(): void {
