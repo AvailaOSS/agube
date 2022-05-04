@@ -80,7 +80,7 @@ export class DetailComponent implements OnInit {
       .getCurrentDwellingWaterMeter(this.dwellingId)
       .subscribe((response) => {
         this.waterMeterId = response.id;
-        this.svcPersistant.emitCode(response.code);
+        this.svcPersistant.emit(response);
       });
   }
 

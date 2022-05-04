@@ -1,16 +1,13 @@
 <div class="chart" *ngIf="waterMeter">
-  <span>
-    {{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}
-    <h3>
-      {{ waterMeter.code }}
-    </h3>
-  </span>
+  <div class="chart-info">
+    Consumo total mensual
+  </div>
   <app-gauge *ngIf="waterMeter && maxDailyConsumption" [config]="configureChart">
   </app-gauge>
-  <span>
+  <div class="chart-info">
     {{ 'PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION' | translate }}
     <h3>
       {{ maxDailyConsumption }} L
     </h3>
-  </span>
+  </div>
 </div>

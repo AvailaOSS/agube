@@ -1,13 +1,11 @@
-@import '../../../../assets/availa/sizes/margins.scss';
+@import "../../../../assets/availa/sizes/margins.scss";
 
 .chart {
   display: block;
-
-  span {
-    align-items: center;
-    margin: $margin-x-small 0 0 0;
+  .chart-info {
+    text-align: center;
     h3 {
-      margin: 0 0 0 $margin-x-small;
+      margin: 0;
     }
   }
 }

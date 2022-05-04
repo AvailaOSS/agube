@@ -1,11 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import {
-  WaterMeterMeasurement,
-  WaterMeterWithMeasurements,
-} from '@availa/agube-rest-api';
+import { WaterMeterMeasurement } from '@availa/agube-rest-api';
 import { Configuration } from 'src/app/components/chart/chart-configure';
-import { differenceInDays } from 'date-fns';
-import { Subject } from 'rxjs';
+import { WaterMeterGauge } from './water-meter-gauge';
+import { differenceInDays, isBefore } from 'date-fns';
 
 @Component({
   selector: 'app-water-meter-gauge',
@@ -14,7 +11,7 @@ import { Subject } from 'rxjs';
 })
 export class GaugeComponent implements OnChanges {
   @Input() public maxDailyConsumption: number | undefined;
-  @Input() public waterMeter: WaterMeterWithMeasurements | undefined;
+  @Input() public waterMeter: WaterMeterGauge | undefined;
 
   public configureChart: Configuration = {
     id: 'water_meter_gauge',
@@ -41,7 +38,7 @@ export class GaugeComponent implements OnChanges {
       return;
     }
 
-    let measures = this.waterMeter?.measures;
+    let measures = this.waterMeter?.waterMeterWithMeasure?.measures;
 
     if (!measures) {
       return;
@@ -49,11 +46,21 @@ export class GaugeComponent implements OnChanges {
 
     let sum = 0;
     for (let index = 0; index < measures.length; index++) {
-      sum += this.minusMeasure(measures[index], measures[index + 1]);
+      sum += this.minusMeasure(measures[index], measures);
     }
 
     let total = ((sum / measures.length) * 100) / this.maxDailyConsumption;
 
+    if (this.waterMeter?.waterMeter === undefined) {
+      this.waterMeter = {
+        waterMeter: {
+          code: this.waterMeter!.waterMeterWithMeasure.code!,
+          discharge_date: this.waterMeter?.waterMeterWithMeasure.discharge_date,
+          release_date:this.waterMeter?.waterMeterWithMeasure.release_date
+        },
+        waterMeterWithMeasure:this.waterMeter!.waterMeterWithMeasure
+      }
+    }
     this.configureChart = {
       id: 'water_meter_gauge',
       options: {
@@ -65,21 +72,29 @@ export class GaugeComponent implements OnChanges {
         yellowTo: 90,
         minorTicks: 10,
       },
-      data: ['', total],
+      data: [this.waterMeter!.waterMeter.code, total],
     };
   }
 
-  private minusMeasure(
+  public minusMeasure(
     current: WaterMeterMeasurement,
-    old: WaterMeterMeasurement
+    data: WaterMeterMeasurement[]
   ): number {
-    if (!old) {
-      old = current;
+    let currentDate = new Date(current.date!);
+
+    const previousWaterMeterMeasurement = data.filter(
+      (x) =>
+        isBefore(new Date(x.date!), currentDate) &&
+        differenceInDays(new Date(x.date!), currentDate) < 0
+    )[0];
+
+    if (!previousWaterMeterMeasurement) {
+      return 0;
     }
 
     let lapsedDays = differenceInDays(
       new Date(current.date!),
-      new Date(old.date!)
+      new Date(previousWaterMeterMeasurement.date!)
     );
 
     if (lapsedDays === 0) {
@@ -87,7 +102,10 @@ export class GaugeComponent implements OnChanges {
     }
 
     return (
-      (+(+current.measurement - +old.measurement).toFixed(3) * 1000) /
+      (+(
+        +current.measurement - +previousWaterMeterMeasurement.measurement
+      ).toFixed(3) *
+        1000) /
       lapsedDays
     );
   }

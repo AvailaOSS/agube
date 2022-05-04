@@ -11,8 +11,10 @@ import {
 } from '@availa/agube-rest-api';
 import { Type } from './type';
 import { FormControl } from '@angular/forms';
-import { differenceInDays } from 'date-fns';
 import { MatPaginator } from '@angular/material/paginator';
+import { WaterMeterPersistantService } from '../water-meter-persistant.service';
+import { WaterMeterGauge } from '../gauge/water-meter-gauge';
+import { differenceInDays, isBefore } from 'date-fns';
 
 @Component({
   selector: 'app-water-meter-detail',
@@ -24,12 +26,12 @@ export class DetailComponent implements OnInit {
   @Input() public type: Type | undefined;
   @Input() public canAddReading: boolean | undefined;
 
-  public waterMeter: WaterMeterWithMeasurements | undefined;
+  public waterMeter: WaterMeterGauge | undefined;
+  public waterMeterCode: string | undefined;
 
   public displayedColumns: string[] = ['measurement', 'date', 'overflow'];
-  public dataSource: MatTableDataSource<
-    WaterMeterMeasurement
-  > = new MatTableDataSource<WaterMeterMeasurement>();
+  public dataSource: MatTableDataSource<WaterMeterMeasurement> =
+    new MatTableDataSource<WaterMeterMeasurement>();
 
   public maxDailyConsumption: number | undefined;
 
@@ -43,7 +45,8 @@ export class DetailComponent implements OnInit {
   constructor(
     private svcWaterMeterManager: WaterMeterManager,
     public dialog: MatDialog,
-    private svcManager: ManagerService
+    private svcManager: ManagerService,
+    private svcPersistance: WaterMeterPersistantService
   ) {}
 
   ngOnInit(): void {
@@ -90,9 +93,9 @@ export class DetailComponent implements OnInit {
 
   public isOverflow(
     current: WaterMeterMeasurement,
-    old: WaterMeterMeasurement
+    data: WaterMeterMeasurement[]
   ) {
-    const measure = this.minusMeasure(current, old);
+    const measure = this.minusMeasure(current, data);
     if (this.maxDailyConsumption && measure > this.maxDailyConsumption) {
       return true;
     } else {
@@ -102,15 +105,23 @@ export class DetailComponent implements OnInit {
 
   public minusMeasure(
     current: WaterMeterMeasurement,
-    old: WaterMeterMeasurement
+    data: WaterMeterMeasurement[]
   ): number {
-    if (!old) {
-      old = current;
+    let currentDate = new Date(current.date!);
+
+    const previousWaterMeterMeasurement = data.filter(
+      (x) =>
+        isBefore(new Date(x.date!), currentDate) &&
+        differenceInDays(new Date(x.date!), currentDate) < 0
+    )[0];
+
+    if (!previousWaterMeterMeasurement) {
+      return 0;
     }
 
     let lapsedDays = differenceInDays(
       new Date(current.date!),
-      new Date(old.date!)
+      new Date(previousWaterMeterMeasurement.date!)
     );
 
     if (lapsedDays === 0) {
@@ -118,7 +129,10 @@ export class DetailComponent implements OnInit {
     }
 
     return (
-      (+(+current.measurement - +old.measurement).toFixed(3) * 1000) /
+      (+(
+        +current.measurement - +previousWaterMeterMeasurement.measurement
+      ).toFixed(3) *
+        1000) /
       lapsedDays
     );
   }
@@ -135,7 +149,12 @@ export class DetailComponent implements OnInit {
           if (!response) {
             return;
           }
-          this.waterMeter = response;
+          this.svcPersistance.get().subscribe((waterMeter) => {
+            this.waterMeter = {
+              waterMeter: waterMeter!,
+              waterMeterWithMeasure: response,
+            };
+          });
           this.dataSource = new MatTableDataSource(response.measures);
           this.dataSource.paginator = this.paginator!;
         },
