@@ -7,4 +7,7 @@
       color: $accent;
     }
   }
+  .mat-icon-button .mat-icon {
+    color: $primary !important;
+  }
 }
