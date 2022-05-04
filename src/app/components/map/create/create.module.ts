@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MapModule } from '../map/map.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -30,6 +31,7 @@ import { MapModule } from '../map/map.module';
     TranslateModule,
     MatTooltipModule,
     MapModule,
+    MatAutocompleteModule
   ],
   exports: [CreateComponent],
   providers: [AddressPipe],

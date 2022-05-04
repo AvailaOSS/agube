@@ -9,7 +9,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import * as L from 'leaflet';
 import {
   FormControl,
@@ -55,6 +55,8 @@ export class CreateComponent
   public flat: FormControl | undefined;
   public gate: FormControl | undefined;
 
+  optionsName: string[] = ['One', 'Two', 'Three'];
+  public filteredOptions: Observable<string[]> = new Observable();
   // You can override this url for use other maps
   private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
@@ -98,6 +100,17 @@ export class CreateComponent
         });
       }
     });
+
+    this.filteredOptions = this.filter.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.optionsName.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 
   override ngAfterViewInit(): void {
@@ -106,7 +119,7 @@ export class CreateComponent
 
   public filtering() {
     this.getLocationBySearch().subscribe((response) => {
-      if(!response.length) {
+      if (!response.length) {
         return;
       }
       this.candidateComponents?.deselectAll();
@@ -119,7 +132,7 @@ export class CreateComponent
         zoom: MapComponent.zoom,
         showCircle: true,
         height: this.configureMap!.height,
-        dragging: this.configureMap!.dragging
+        dragging: this.configureMap!.dragging,
       });
     });
   }
@@ -136,7 +149,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
-      dragging: this.configureMap!.dragging
+      dragging: this.configureMap!.dragging,
     });
   }
 
@@ -150,7 +163,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
-      dragging: this.configureMap!.dragging
+      dragging: this.configureMap!.dragging,
     });
   }
 
@@ -163,7 +176,7 @@ export class CreateComponent
       zoom: MapComponent.zoom,
       showCircle: true,
       height: this.configureMap!.height,
-      dragging: this.configureMap!.dragging
+      dragging: this.configureMap!.dragging,
     });
   }
 
@@ -231,7 +244,7 @@ export class CreateComponent
         zoom: userZoom,
         showCircle: true,
         height: conf.height,
-        dragging: conf.dragging
+        dragging: conf.dragging,
       };
 
       if (circle) {

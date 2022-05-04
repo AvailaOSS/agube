@@ -38,10 +38,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
     this.userId = this.data.userId;
     this.configureMap = this.data.configureMap;
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
-    );
+
 
     if (typeof this.address !== 'boolean') {
       this.inputForm.street.setValue(this.address.road);
@@ -50,12 +47,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
       this.inputForm.gate?.setValue(this.address.gate);
     }
   }
-  private _filter(value: any): any {
-    const filterValue = value.toLowerCase();
-    return this.optionsName.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
-  }
+
 
   public closeDialog() {
     this.dialogRef.close();
