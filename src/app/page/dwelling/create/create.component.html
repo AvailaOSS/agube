@@ -6,7 +6,7 @@
         <div class="form-content">
           <mat-form-field appearance="fill">
             <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
-            <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" />
+            <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()" autofocus />
             <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
           </mat-form-field>
           <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
