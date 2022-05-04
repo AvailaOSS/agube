@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from login.views import (UserAddressUpdateDeleteView, UserCreateAddressView,
+from user.views import (UserAddressUpdateDeleteView, UserCreateAddressView,
                          UserCreatePhoneView, UserCustomDetailView,UserCustomDetailUpdateView,
                          UserDwellingDetailView, UserPhoneUpdateDeleteView,
                          ConfigView, PersonConfigUpdateView)

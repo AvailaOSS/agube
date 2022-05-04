@@ -2,7 +2,7 @@ from address.models import Address
 from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from login.serializers import UserCreateSerializer
+from user.serializers import UserCreateSerializer
 from manager.models import Manager
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField

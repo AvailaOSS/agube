@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from geolocation.models import Geolocation
-from login.models import UserAddress
+from user.models import UserAddress
 from manager.models import Manager
 from watermeter.models import WaterMeter
 

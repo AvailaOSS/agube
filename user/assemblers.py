@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 
 from address.serializers import AddressSerializer
-from login.models import UserAddress, UserPhone
-from login.serializers import UserAddressUpdateSerializer
+from user.models import UserAddress, UserPhone
+from user.serializers import UserAddressUpdateSerializer
 
 
 def get_all_user_full_address_serialized(user: User):
@@ -30,7 +30,7 @@ def __serialize_user_addresses(user_address_list):
 
 
 def get_all_user_phones_serialized(user: User):
-    from login.serializers import UserPhoneUpdateSerializer
+    from user.serializers import UserPhoneUpdateSerializer
 
     list_of_serialized: list[UserPhoneUpdateSerializer] = []
 

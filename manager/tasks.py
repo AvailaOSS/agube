@@ -8,7 +8,7 @@ from manager.models import Manager
 from person.models import Person
 from person.models import PersonConfig
 from phone.models import Phone
-from login.models import UserPhone
+from user.models import UserPhone
 
 @task(autoretry_for=(ObjectDoesNotExist, ),
       retry_kwargs={

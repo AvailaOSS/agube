@@ -3,7 +3,7 @@ from drf_yasg.utils import swagger_auto_schema
 from geolocation.models import Geolocation
 from geolocation.serializers import GeolocationSerializer
 from manager.permissions import IsManagerAuthenticated
-from login.permissions import IsManagerOfUser, IsUserMatch
+from user.permissions import IsManagerOfUser, IsUserMatch
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response

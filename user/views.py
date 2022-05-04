@@ -11,15 +11,15 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 from address.serializers import AddressSerializer
-from login.assemblers import (get_all_user_full_address_serialized,
+from user.assemblers import (get_all_user_full_address_serialized,
                               get_all_user_phones_serialized)
-from login.models import (UserAddress, UserPhone, update_address_to_not_main,
+from user.models import (UserAddress, UserPhone, update_address_to_not_main,
                           update_phone_to_not_main)
-from login.permissions import IsManagerOfUser, IsUserMatch
-from login.serializers import (UserAddressUpdateSerializer,
+from user.permissions import IsManagerOfUser, IsUserMatch
+from user.serializers import (UserAddressUpdateSerializer,
                                UserDetailSerializer, UserPhoneUpdateSerializer,
                                PersonConfigSerializer)
-from login.serializers_external import UserDwellingDetailSerializer
+from user.serializers_external import UserDwellingDetailSerializer
 from person.models import PersonConfig
 from person.models import Person
 

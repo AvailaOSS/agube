@@ -2,7 +2,7 @@ from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
-from login.models import UserPhone
+from user.models import UserPhone
 from rest_framework.permissions import IsAuthenticated
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics

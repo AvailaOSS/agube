@@ -3,7 +3,7 @@ from address.serializers import AddressSerializer
 from django.contrib.auth.models import User
 from dwelling.assemblers import (get_all_user_address_serialized,
                                  get_user_phones_serialized)
-from login.serializers import UserCreateSerializer
+from user.serializers import UserCreateSerializer
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
