@@ -8,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { ContentComponent } from './content/content.component';
 import { MeasureDialogComponent } from './detail/measure-dialog/measure-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,7 +23,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     DetailComponent,
-    ContentComponent,
     MeasureDialogComponent,
     WaterMeterDialogComponent,
   ],
@@ -44,9 +42,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTooltipModule,
     TranslateModule,
     GaugeModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
-  exports: [DetailComponent, ContentComponent],
+  exports: [DetailComponent],
 })
 export class WaterMeterModule {}
