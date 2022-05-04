@@ -1,4 +1,18 @@
-<h1 mat-dialog-title>{{dialogTitle |translate}}</h1>
+<div class="title-assign">
+  <h1 mat-dialog-title>{{dialogTitle |translate}}</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Asignar vivienda</mat-label>
+    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+      [matAutocomplete]="auto" />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+</div>
+
 <div mat-dialog-content>
   <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
     [inputForm]="inputForm" [resetForm]="resetChildForm">

@@ -9,7 +9,8 @@
             {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_1' | translate }}
             {{ title | translate }}
             {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_2' | translate }}
-            <strong>{{currentPerson | userDetail}}</strong> {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3' | translate }}
+            <strong>{{currentPerson | userDetail}}</strong> {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3' |
+            translate }}
           </p>
         </div>
         <ng-template #change>
@@ -18,21 +19,6 @@
         <div class="form-content">
           <div>
             <p>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.TITLE' | translate }}</p>
-            <mat-form-field appearance="fill">
-              <mat-label>Nombre</mat-label>
-              <input type="text"
-                     placeholder="Pick one"
-                     aria-label="Number"
-                     matInput
-                     [formControl]="first_name"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-
             <mat-form-field appearance="fill">
               <mat-label>{{ 'GENERAL.TEXT.FIRST_NAME' | translate}}</mat-label>
               <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="save()" />

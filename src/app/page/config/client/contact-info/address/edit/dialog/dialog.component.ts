@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Address, UserAddress, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { map, Observable, startWith } from 'rxjs';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 
@@ -16,6 +18,10 @@ export class DialogComponent extends CreateAddress implements OnInit {
   public dialogTitle: string = '';
   public address: Address | boolean;
   public userId: number | undefined;
+
+  myControl = new FormControl();
+  optionsName: string[] = ['One', 'Two', 'Three'];
+  public filteredOptions: Observable<string[]> = new Observable();
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -32,12 +38,23 @@ export class DialogComponent extends CreateAddress implements OnInit {
     this.userId = this.data.userId;
     this.configureMap = this.data.configureMap;
 
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+
     if (typeof this.address !== 'boolean') {
       this.inputForm.street.setValue(this.address.road);
       this.inputForm.number?.setValue(this.address.number);
       this.inputForm.flat?.setValue(this.address.flat);
       this.inputForm.gate?.setValue(this.address.gate);
     }
+  }
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.optionsName.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 
   public closeDialog() {
