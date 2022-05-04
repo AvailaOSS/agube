@@ -305,25 +305,25 @@ export class UserService {
    */
   public deleteUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<any>;
   public deleteUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<any>>;
   public deleteUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<any>>;
   public deleteUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -808,19 +808,19 @@ export class UserService {
     data: UserDetail,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<UserDetail>>;
+  ): Observable<UserDetail>;
   public updateUserDetail(
     id: number,
     data: UserDetail,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<UserDetail>>>;
+  ): Observable<HttpResponse<UserDetail>>;
   public updateUserDetail(
     id: number,
     data: UserDetail,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<UserDetail>>>;
+  ): Observable<HttpEvent<UserDetail>>;
   public updateUserDetail(
     id: number,
     data: UserDetail,
@@ -868,7 +868,7 @@ export class UserService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.put<Array<UserDetail>>(
+    return this.httpClient.put<UserDetail>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/`,
       data,
       {
@@ -989,28 +989,28 @@ export class UserService {
    */
   public updateUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     data: UserPhone,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserPhone>>;
   public updateUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     data: UserPhone,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserPhone>>>;
   public updateUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     data: UserPhone,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserPhone>>>;
   public updateUserPhone(
     id: number,
-    phoneId: string,
+    phoneId: number,
     data: UserPhone,
     observe: any = 'body',
     reportProgress: boolean = false
