@@ -59,7 +59,6 @@ class Dwelling(models.Model):
         if resident:
             resident.discharge()
         DwellingResident.objects.create(user=user, dwelling=self)
-
     def get_current_resident(self):
         # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""

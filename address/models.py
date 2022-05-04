@@ -20,5 +20,5 @@ class Address(models.Model):
     gate = models.TextField(null=True, blank=True)
 
     class Meta:
-        ordering = ["country", "state", "city"]
+        ordering = ["id","country", "state", "city"]
         db_table = 'agube_address_address'

@@ -17,7 +17,6 @@ def __serialize_user_addresses(user_address_list):
     address_iteration: UserAddress
     for address_iteration in user_address_list:
         address = address_iteration.address
-
         data = {
             "id": address_iteration.id,
             "address": AddressSerializer(address).data,

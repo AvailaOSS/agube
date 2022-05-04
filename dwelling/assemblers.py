@@ -83,7 +83,7 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
     person = Person.objects.create(manager=manager, user=user)
 
     # Set Manager Configuration for this Person
-    manager_config = UserConfig.objects.get(person__manager=manager)
+    manager_config = UserConfig.objects.get(person__user=manager.user)
     UserConfig.objects.create(person=person,
                               mode=manager_config.mode,
                               lang=manager_config.lang)
@@ -102,6 +102,7 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
 
 
 def get_all_user_address_serialized(user: User):
+    print('lista',UserAddress.objects.filter(user=user))
     list_of_serialized: list[AddressSerializer] = []
     for address_iteration in UserAddress.objects.filter(user=user):
         address = address_iteration.address
@@ -132,7 +133,7 @@ def get_all_user_address_serialized(user: User):
             "gate": address.gate
         }
         list_of_serialized.append(AddressSerializer(data, many=False).data)
-
+        
     return list_of_serialized
 
 
