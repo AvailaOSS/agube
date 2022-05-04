@@ -723,19 +723,19 @@ export class UserService {
     data: PersonConfig,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<PersonConfig>>;
+  ): Observable<PersonConfig>;
   public updateConfig(
     id: number,
     data: PersonConfig,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<PersonConfig>>>;
+  ): Observable<HttpResponse<PersonConfig>>;
   public updateConfig(
     id: number,
     data: PersonConfig,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<PersonConfig>>>;
+  ): Observable<HttpEvent<PersonConfig>>;
   public updateConfig(
     id: number,
     data: PersonConfig,
@@ -783,7 +783,7 @@ export class UserService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.put<Array<PersonConfig>>(
+    return this.httpClient.put<PersonConfig>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/config/`,
       data,
       {
