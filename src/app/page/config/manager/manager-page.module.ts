@@ -13,11 +13,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { TagsComponent } from './tags/tags.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [ManagerPageComponent, ParametersComponent, TagsComponent],
+  declarations: [ManagerPageComponent, ParametersComponent],
   imports: [
     CommonModule,
     MatButtonModule,
