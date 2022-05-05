@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ContactBookModule } from '@availa/contact-book-fe';
 
 @NgModule({
   declarations: [ManagerPageComponent, ParametersComponent],
@@ -31,7 +32,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatTooltipModule,
     MatProgressBarModule,
     TranslateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ContactBookModule
   ],
 })
 export class ManagerPageModule {}
