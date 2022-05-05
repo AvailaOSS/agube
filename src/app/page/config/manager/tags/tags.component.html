@@ -1,0 +1,28 @@
+<div class="form">
+  <h1>{{ 'PAGE.CONFIG.MANAGER.TAGS.CREATE.TITLE' | translate }}</h1>
+  <div class="form-content">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'PAGE.CONFIG.MANAGER.TAGS.CREATE.FORM.AUTOCOMPLETE' | translate }}</mat-label>
+      <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="tags"
+        [matAutocomplete]="auto">
+        <mat-autocomplete  #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+  </div>
+  <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
+  <mat-card-actions [align]="'end'">
+
+    <button mat-raised-button color="primary"
+      matTooltip="{{ 'PAGE.CONFIG.MANAGER.TAGS.CREATE.BUTTON.TOOLTIP' | translate }}" (click)="saveParameters()"
+      [disabled]="parametersForm.invalid || loadSave">
+      <div>
+        <mat-icon>save</mat-icon>
+        {{ 'GENERAL.BUTTON.SAVE' | translate }}
+      </div>
+    </button>
+  </mat-card-actions>
+</div>
