@@ -59,6 +59,7 @@ export class CreateComponent
   public autocomplete: Address[] = [];
 
   // You can override this url for use other maps
+  private zoom : number = MapComponent.zoom;
   private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
   private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
   private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
@@ -218,10 +219,11 @@ export class CreateComponent
       this.map.remove();
     }
 
+    this.zoom = conf.zoom;
     this.map = L.map('map', {
       center: [+conf.lat, +conf.lon],
       doubleClickZoom: false,
-      zoom: conf.zoom,
+      zoom: this.zoom,
     });
 
     const tiles = L.tileLayer(this.mapViewUrl, {
@@ -244,15 +246,14 @@ export class CreateComponent
       return;
     }
     this.map.on('click', (e: MapEvent) => {
-      let userZoom = MapComponent.zoom;
       if (e.sourceTarget._animateToZoom) {
-        userZoom = e.sourceTarget._animateToZoom;
+        this.zoom = e.sourceTarget._animateToZoom;
       }
 
       let clickConf: ConfigureMap = {
         lat: e.latlng.lat,
         lon: e.latlng.lng,
-        zoom: userZoom,
+        zoom: this.zoom,
         showCircle: true,
         height: conf.height,
         dragging: conf.dragging,
@@ -266,7 +267,7 @@ export class CreateComponent
       this.getLocationByCoordinate(+clickConf.lat, +clickConf.lon).subscribe(
         (response: LocationResponse) => {
           this.selectedStreetCandidate = response;
-          this.selectedStreetCandidate.zoom = userZoom;
+          this.selectedStreetCandidate.zoom = this.zoom;
           this.fillFormControls(this.selectedStreetCandidate);
         }
       );
@@ -306,7 +307,7 @@ export class CreateComponent
     // FIXME: move this in one pipe
     this.filter.setValue(location.display_name);
 
-    if (this.street) {
+    if (this.street && location.address.road) {
       this.street.setValue(location.address.road);
     }
 
