@@ -111,6 +111,9 @@ export class CreateComponent
 
     this.svcAddress.getAddress().subscribe((response) => {
       this.autocomplete = response;
+      if (response.length > 0) {
+        this.selectOptionFilter(response[0]);
+      }
     });
   }
 
@@ -119,7 +122,7 @@ export class CreateComponent
   }
 
   public selectOptionFilter(option: Address) {
-    let filter = option.city + ', ' + option.road;
+    let filter = option.city + ', ' + option.road + ', ' + option.postcode;
     this.filtering(filter);
   }
 
