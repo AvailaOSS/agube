@@ -115,3 +115,7 @@ h2,
 h3 {
   color: mat.get-color-from-palette($agube-fe-primary, 600);
 }
+
+.color-blocked-tag {
+  background-color: mat.get-color-from-palette($agube-fe-warn, 600) !important;
+}

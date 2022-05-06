@@ -3,8 +3,8 @@
 @use "@angular/material" as mat;
 
 // Plus imports for other components in your app.
-@import 'assets/availa/theme/light';
-@import '@angular/material/theming';
+@import "assets/availa/theme/light";
+@import "@angular/material/theming";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -19,14 +19,14 @@
 @include mat.all-component-themes($agube-fe-theme);
 
 .dark {
-  @import 'assets/availa/theme/dark';
+  @import "assets/availa/theme/dark";
   @include angular-material-theme($my-dark-theme);
 }
 
 /* You can add global styles to this file, and also import other style files */
 
 * {
-  font-family: 'Ubuntu';
+  font-family: "Ubuntu";
 }
 html,
 body {

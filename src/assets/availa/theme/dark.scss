@@ -120,3 +120,7 @@ h2,
 h3 {
   color: mat.get-color-from-palette($agube-fe-accent, 200) !important;
 }
+
+.color-blocked-tag {
+  background-color: mat.get-color-from-palette($agube-fe-warn, 900) !important;
+}
