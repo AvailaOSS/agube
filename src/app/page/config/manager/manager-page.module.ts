@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ContactBookModule } from '@availa/contact-book-fe';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [ManagerPageComponent, ParametersComponent],
@@ -33,7 +34,9 @@ import { ContactBookModule } from '@availa/contact-book-fe';
     MatProgressBarModule,
     TranslateModule,
     MatAutocompleteModule,
-    ContactBookModule
+    ContactBookModule.forRoot({
+      contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
+    }),
   ],
 })
 export class ManagerPageModule {}

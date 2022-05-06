@@ -23,7 +23,7 @@
     "@angular/router": "~13.2.0",
     "@availa/agube-rest-api": "^4.0.0",
     "@availa/auth-fe": "^1.1.7",
-    "@availa/contact-book-fe": "^1.2.0",
+    "@availa/contact-book-fe": "^1.2.1",
     "@availa/notification": "^1.0.0",
     "@availa/subscription-fe": "^1.1.1",
     "@ngx-translate/core": "^14.0.0",
