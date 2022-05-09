@@ -12,14 +12,34 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from reservoir.models import Reservoir, ReservoirWaterMeter
+from reservoir.models import Reservoir, ReservoirWaterMeter,ReservoirOwner
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
                                    ReservoirOwnerSerializer,
+                                   ReservoirResumeSerializer,
                                    get_reservoir_owner_serialized)
+
 
 TAG = 'reservoir'
 
+class ReservoirResumeView(APIView):
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="getResume",
+        operation_description="get Resume of the Reservoir",
+        responses={200: ReservoirResumeSerializer(many=False)},
+        tags=[TAG],
+    )
+    def get(self, request, *args, **kwargs):
+        manager = self.request.user.id
+        total_reservoirs = ReservoirOwner.objects.filter(
+            user__id=manager, discharge_date__isnull=True).count()
+        data = {
+            'total_reservoirs': total_reservoirs
+
+        }
+        return Response(ReservoirResumeSerializer(data, many=False).data)
 
 class ReservoirListView(APIView):
     permission_classes = [IsManagerAuthenticated]

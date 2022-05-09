@@ -13,6 +13,19 @@ from geolocation.models import Geolocation
 from address.assembler import create_geolocation
 
 
+
+
+class ReservoirResumeSerializer(Serializer):
+    """
+    Reservoir Resume ModelSerializer
+    """
+    total_reservoirs = ReadOnlyField()
+
+    class Meta:
+        ref_name = 'ReservoirResume'
+
+
+
 class ReservoirSerializer(ModelSerializer):
     """
     Reservoir ModelSerializer
