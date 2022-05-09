@@ -4,9 +4,11 @@ from reservoir.views import (ReservoirCreateView, ReservoirListView,
                              ReservoirOwnerView, ReservoirView,
                              ReservoirWaterMeterChunkView,
                              ReservoirWaterMeterHistoricalView,
-                             ReservoirWaterMeterView)
+                             ReservoirWaterMeterView,
+                             ReservoirResumeView)
 
 __url_reservoir = [
+    path('resume', ReservoirResumeView.as_view()),
     path('create', ReservoirCreateView.as_view()),
     path('<int:pk>', ReservoirView.as_view()),
     path('<int:pk>/owner', ReservoirOwnerView.as_view()),
