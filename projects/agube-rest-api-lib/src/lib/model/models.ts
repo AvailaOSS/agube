@@ -9,6 +9,7 @@ export * from './owner';
 export * from './personConfig';
 export * from './phone';
 export * from './reservoirCreate';
+export * from './reservoirResume';
 export * from './reservoirDetail';
 export * from './resident';
 export * from './userGeolocation';
