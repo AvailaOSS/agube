@@ -22,6 +22,7 @@ export class SidebarComponent {
   private lightClassName: ThemeMode = ThemeMode.light;
   private darkClassName: ThemeMode = ThemeMode.dark;
 
+  private userId: number | undefined;
   @HostBinding('class') className = this.lightClassName;
 
   constructor(
@@ -36,6 +37,7 @@ export class SidebarComponent {
         return;
       }
 
+      this.userId = userResponse.user_id;
       this.toggleControl.valueChanges.subscribe((isDarkMode) => {
         if (isDarkMode) {
           this.overlayDialog(this.darkClassName, this.lightClassName);
@@ -44,17 +46,18 @@ export class SidebarComponent {
         }
       });
 
-      this.svcUser.getConfig(userResponse.user_id!).subscribe((response) => {
+
+      this.svcUser
+        .getUserDetail(userResponse.user_id)
+        .subscribe((response) => (this.user = response));
+    });
+     this.svcUser.getConfig(this.userId!).subscribe((response) => {
         if (!response) {
           return;
         }
         this.setControlToggle(response);
       });
 
-      this.svcUser
-        .getUserDetail(userResponse.user_id)
-        .subscribe((response) => (this.user = response));
-    });
   }
 
   public selectPage(select: SidebarConfig) {
