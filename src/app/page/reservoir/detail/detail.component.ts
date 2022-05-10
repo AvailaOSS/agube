@@ -18,7 +18,6 @@ import {
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  public userId: number | undefined;
   public reservoirId: number | undefined;
   public reservoir: ReservoirCreate | undefined;
 
@@ -84,7 +83,7 @@ export class DetailComponent implements OnInit {
       });
   }
 
-  public goToNewDwelling() {
+  public goToNewReservoir() {
     this.router.navigate(['manager/reservoirs/create']);
   }
 

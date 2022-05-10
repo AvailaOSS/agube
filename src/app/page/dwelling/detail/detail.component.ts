@@ -19,7 +19,6 @@ import { Detail } from './detail';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  public userId: number | undefined;
   public dwellingId: number | undefined;
   public dwelling: DwellingCreate | undefined;
 

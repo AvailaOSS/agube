@@ -34,7 +34,7 @@ export class OwnerComponent implements OnInit {
           return;
         }
         this.svcUser
-          .getUserDetail(responseOwner.id!)
+          .getUserDetail(responseOwner.user.id!)
           .subscribe((response) => {
             this.userDetail = response;
           });
