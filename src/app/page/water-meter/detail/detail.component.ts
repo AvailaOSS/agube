@@ -77,7 +77,6 @@ export class DetailComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe((reload) => {
             if (reload) {
-                this.loadWaterMeterMeasures();
                 this.ngOnInit();
             }
         });
