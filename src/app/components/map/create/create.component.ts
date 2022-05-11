@@ -92,6 +92,12 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             if (this.selectedStreetCandidate) {
                 // fill missing address fields
                 this.fillMissingAddress(this.selectedStreetCandidate);
+
+                if (this.clickUser) {
+                    this.selectedStreetCandidate.lat = this.clickUser!.lat;
+                    this.selectedStreetCandidate.lon = this.clickUser!.lon;
+                }
+
                 // emit the address
                 this.addressForm.emit({
                     addressFormGroup: this.addressFormGroup!,
@@ -153,7 +159,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     // replace address candidate with news
                     this.addressCandidates = response;
                     // select first option as candidate
-                    this.selectCandidate(response[0],this.clickUser);
+                    this.selectCandidate(response[0], this.clickUser);
                     this.loadingCandidates = false;
                 });
             } else {
@@ -162,7 +168,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 // replace address candidate with news
                 this.addressCandidates = response;
                 // select first option as candidate
-                this.selectCandidate(response[0],this.clickUser);
+                this.selectCandidate(response[0], this.clickUser);
                 this.loadingCandidates = false;
             }
         });
