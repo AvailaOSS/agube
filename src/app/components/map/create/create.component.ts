@@ -116,21 +116,9 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     public selectOptionFilter(option: Address) {
-        // override the selected candidate with the option selected
-        if (this.selectedStreetCandidate) {
-            this.selectedStreetCandidate.address.city = option.city;
-            this.selectedStreetCandidate.address.country = option.country;
-            this.selectedStreetCandidate.address.city_district = option.city_district;
-            this.selectedStreetCandidate.address.municipality = option.municipality;
-            this.selectedStreetCandidate.address.postcode = option.postcode;
-            this.selectedStreetCandidate.address.province = option.province;
-            this.selectedStreetCandidate.address.state = option.state;
-            this.selectedStreetCandidate.address.village = option.village;
-            this.selectedStreetCandidate.address.road = option.road;
-            // override the form with selected candidate information
-            if (this.street) {
-                this.street.setValue(option.road);
-            }
+        // override the form with selected candidate information
+        if (this.street) {
+            this.street.setValue(option.road);
         }
         // do filtering
         this.filtering(option);
@@ -164,7 +152,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     this.candidateComponents?.deselectAll();
                     // replace address candidate with news
                     this.addressCandidates = response;
-                    console.log('filtrado sin camino', this.addressCandidates);
                     // select first option as candidate
                     this.selectCandidate(response[0]);
                     this.loadingCandidates = false;
@@ -215,14 +202,21 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
      * On candidate selected in the html
      * @param candidate
      */
-    public selectCandidate(candidate: LocationResponse) {
+    public selectCandidate(candidate: LocationResponse, clickConf?: ConfigureMap) {
+        let lat: string = candidate.lat;
+        let lon: string = candidate.lon;
+
         this.selectedStreetCandidate = candidate;
         // ensure that form controls is filled
         this.fillFormControls(this.selectedStreetCandidate);
         // reset the map to new location
+        if (clickConf) {
+            lat = clickConf.lat;
+            lon = clickConf.lon;
+        }
         this.initializeMap({
-            lat: this.selectedStreetCandidate.lat,
-            lon: this.selectedStreetCandidate.lon,
+            lat: lat,
+            lon: lon,
             zoom: MapComponent.zoom,
             showCircle: true,
             height: this.configureMap!.height,
@@ -302,12 +296,14 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             }
             this.initializeMap(clickConf);
 
-            this.getLocationByCoordinate(+clickConf.lat, +clickConf.lon).subscribe((response: LocationResponse) => {
-                this.selectCandidate(response);
-                if (this.selectedStreetCandidate) {
-                    this.selectedStreetCandidate.zoom = this.zoom;
+            this.getLocationByCoordinate(Number(clickConf.lat), Number(clickConf.lon)).subscribe(
+                (response: LocationResponse) => {
+                    this.selectCandidate(response, clickConf);
+                    if (this.selectedStreetCandidate) {
+                        this.selectedStreetCandidate.zoom = this.zoom;
+                    }
                 }
-            });
+            );
         });
     }
 
