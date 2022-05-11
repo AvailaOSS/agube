@@ -14,25 +14,25 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [ChangeComponent, ResidentComponent, OwnerComponent],
-  imports: [
-    CommonModule,
-    PersonRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    NotificationModule,
-    PipesModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-    MatIconModule,
-    TranslateModule,
-    MatAutocompleteModule
-  ],
+    declarations: [ChangeComponent, ResidentComponent, OwnerComponent],
+    imports: [
+        CommonModule,
+        PersonRoutingModule,
+        MatCardModule,
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        NotificationModule,
+        PipesModule,
+        MatProgressBarModule,
+        MatTooltipModule,
+        MatIconModule,
+        TranslateModule,
+        MatAutocompleteModule,
+    ],
 })
 export class PersonModule {}

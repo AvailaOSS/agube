@@ -16,21 +16,21 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [ClientComponent],
-  imports: [
-    CommonModule,
-    ClientRoutingModule,
-    MatSidenavModule,
-    MatDividerModule,
-    MatListModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    TranslateModule,
-    PipesModule,
-    MatTooltipModule,
-  ],
+    declarations: [ClientComponent],
+    imports: [
+        CommonModule,
+        ClientRoutingModule,
+        MatSidenavModule,
+        MatDividerModule,
+        MatListModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        TranslateModule,
+        PipesModule,
+        MatTooltipModule,
+    ],
 })
 export class ClientModule {}

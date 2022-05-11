@@ -1,5 +1,5 @@
 export enum WaterMeterType {
-  DWELLING,
-  RESERVOIR,
-  UNKNOWN
+    DWELLING,
+    RESERVOIR,
+    UNKNOWN,
 }

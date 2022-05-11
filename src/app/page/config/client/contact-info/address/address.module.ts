@@ -18,24 +18,24 @@ import { DialogComponent } from './edit/dialog/dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [AddressComponent, EditComponent, DialogComponent],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    NotificationModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatListModule,
-    PipesModule,
-    MatDividerModule,
-    MatTooltipModule,
-    TranslateModule,
-    MapCreateModule,
-    MatDialogModule,
-    MatAutocompleteModule
-  ],
-  exports: [AddressComponent, EditComponent],
+    declarations: [AddressComponent, EditComponent, DialogComponent],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        NotificationModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatListModule,
+        PipesModule,
+        MatDividerModule,
+        MatTooltipModule,
+        TranslateModule,
+        MapCreateModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+    ],
+    exports: [AddressComponent, EditComponent],
 })
 export class AddressModule {}

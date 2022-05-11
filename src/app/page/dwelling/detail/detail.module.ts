@@ -21,28 +21,23 @@ import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { ManagementModule } from '../../../components/management/management.module';
 
 @NgModule({
-  declarations: [
-    DetailComponent,
-    AddressComponent,
-    ResidentComponent,
-    OwnerComponent,
-  ],
-  imports: [
-    CommonModule,
-    DetailRoutingModule,
-    StreetViewModule,
-    MatCardModule,
-    MatButtonModule,
-    PipesModule,
-    MapModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatTooltipModule,
-    TranslateModule,
-    WaterMeterGaugeModule,
-    WaterMeterModule,
-    MatProgressSpinnerModule,
-    ManagementModule,
-  ],
+    declarations: [DetailComponent, AddressComponent, ResidentComponent, OwnerComponent],
+    imports: [
+        CommonModule,
+        DetailRoutingModule,
+        StreetViewModule,
+        MatCardModule,
+        MatButtonModule,
+        PipesModule,
+        MapModule,
+        MatButtonToggleModule,
+        MatIconModule,
+        MatTooltipModule,
+        TranslateModule,
+        WaterMeterGaugeModule,
+        WaterMeterModule,
+        MatProgressSpinnerModule,
+        ManagementModule,
+    ],
 })
 export class DetailModule {}

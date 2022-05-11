@@ -7,44 +7,44 @@ import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-dat
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
 import { Type } from '../../page/water-meter/detail/type';
 @Component({
-  selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.scss']
+    selector: 'app-management',
+    templateUrl: './management.component.html',
+    styleUrls: ['./management.component.scss'],
 })
 export class ManagementComponent {
-  @Input() public manage: DwellingCreate | ReservoirCreate | undefined;
-  @Input() public waterMeterId: number | undefined;
-  @Input() public type: Type | undefined;
-  @Input() public load: boolean = false;
-  @Input() public reservoir?: boolean = false;
+    @Input() public manage: DwellingCreate | ReservoirCreate | undefined;
+    @Input() public waterMeterId: number | undefined;
+    @Input() public type: Type | undefined;
+    @Input() public load: boolean = false;
+    @Input() public reservoir?: boolean = false;
 
-  constructor(private router: Router, private dialog: MatDialog) {}
+    constructor(private router: Router, private dialog: MatDialog) {}
 
-  public openChangeWaterMeter() {
-    let data: WaterMeterDialogData = {
-      id: this.manage?.id!,
-      type: this.type?.type!,
-    };
-    this.dialog.open(WaterMeterDialogComponent, {
-      hasBackdrop: true,
-      width: '600px',
-      disableClose: true,
-      data,
-    });
-  }
+    public openChangeWaterMeter() {
+        let data: WaterMeterDialogData = {
+            id: this.manage?.id!,
+            type: this.type?.type!,
+        };
+        this.dialog.open(WaterMeterDialogComponent, {
+            hasBackdrop: true,
+            width: '600px',
+            disableClose: true,
+            data,
+        });
+    }
 
-  public goToChangeResident() {
-    let queryParams: ChangeData = {
-      dwellingId: this.manage?.id!,
-    };
-    this.router.navigate(['manager/dwellings/person/resident'], {
-      queryParams,
-    });
-  }
+    public goToChangeResident() {
+        let queryParams: ChangeData = {
+            dwellingId: this.manage?.id!,
+        };
+        this.router.navigate(['manager/dwellings/person/resident'], {
+            queryParams,
+        });
+    }
 
-  public goToChangeOwner() {
-    this.router.navigate(['manager/dwellings/person/owner'], {
-      queryParams: { dwellingId: this.manage?.id },
-    });
-  }
+    public goToChangeOwner() {
+        this.router.navigate(['manager/dwellings/person/owner'], {
+            queryParams: { dwellingId: this.manage?.id },
+        });
+    }
 }

@@ -1,5 +1,5 @@
 export interface Language {
-  code: string;
-  description: string;
-  flagLink: string;
+    code: string;
+    description: string;
+    flagLink: string;
 }

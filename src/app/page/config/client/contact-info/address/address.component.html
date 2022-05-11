@@ -1,20 +1,26 @@
 <mat-list>
-  <div class="edit-address-header">
-    <h3>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE' | translate }}</h3>
-    <button mat-mini-fab color="accent"
-      matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD' | translate }}" matTooltipPosition="right"
-      (click)="openCloseAddressForm()">
-      <mat-icon>add</mat-icon>
-    </button>
-
-  </div>
-  <span *ngIf="canAddAddress">
-
-  </span>
-  <div *ngFor="let geolocation of geolocationList" class="list-address">
-    <app-address-editable (updatedEvent)="refreshAddress($event)" (deleteEvent)="addressDeleted($event)" class="address"
-      [geolocation]="geolocation" [userId]="userId">
-    </app-address-editable>
-    <mat-divider></mat-divider>
-  </div>
+    <div class="edit-address-header">
+        <h3>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.TITLE' | translate }}</h3>
+        <button
+            mat-mini-fab
+            color="accent"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.BUTTON.ADD' | translate }}"
+            matTooltipPosition="right"
+            (click)="openCloseAddressForm()"
+        >
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <span *ngIf="canAddAddress"> </span>
+    <div *ngFor="let geolocation of geolocationList" class="list-address">
+        <app-address-editable
+            (updatedEvent)="refreshAddress($event)"
+            (deleteEvent)="addressDeleted($event)"
+            class="address"
+            [geolocation]="geolocation"
+            [userId]="userId"
+        >
+        </app-address-editable>
+        <mat-divider></mat-divider>
+    </div>
 </mat-list>

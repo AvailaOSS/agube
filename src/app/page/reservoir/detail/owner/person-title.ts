@@ -1,4 +1,4 @@
 export interface PersonTitle {
-  title: string;
-  icon: string;
+    title: string;
+    icon: string;
 }

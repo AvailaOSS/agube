@@ -3,31 +3,29 @@ import { WaterMeter } from '@availa/agube-rest-api';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class WaterMeterPersistantService {
-  private subjectReload: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+    private subjectReload: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private subject: BehaviorSubject<WaterMeter | undefined> =
-    new BehaviorSubject<WaterMeter | undefined>(undefined);
+    private subject: BehaviorSubject<WaterMeter | undefined> = new BehaviorSubject<WaterMeter | undefined>(undefined);
 
-  constructor() {}
+    constructor() {}
 
-  public get() {
-    return this.subject;
-  }
+    public get() {
+        return this.subject;
+    }
 
-  public emit(waterMeter: WaterMeter) {
-    this.subject.next(waterMeter);
-    this.emitReload(true);
-  }
+    public emit(waterMeter: WaterMeter) {
+        this.subject.next(waterMeter);
+        this.emitReload(true);
+    }
 
-  public reload() {
-    return this.subjectReload;
-  }
+    public reload() {
+        return this.subjectReload;
+    }
 
-  private emitReload(reload: boolean) {
-    this.subjectReload.next(reload);
-  }
+    private emitReload(reload: boolean) {
+        this.subjectReload.next(reload);
+    }
 }

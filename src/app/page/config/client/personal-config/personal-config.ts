@@ -1,4 +1,4 @@
 export interface ConfigureMode {
-  mode: string;
-  language: string;
+    mode: string;
+    language: string;
 }

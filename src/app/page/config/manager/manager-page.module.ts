@@ -18,25 +18,25 @@ import { ContactBookModule } from '@availa/contact-book-fe';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
-  declarations: [ManagerPageComponent, ParametersComponent],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    ManagerPageRoutingModule,
-    MatCardModule,
-    NotificationModule,
-    MatDividerModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTooltipModule,
-    MatProgressBarModule,
-    TranslateModule,
-    MatAutocompleteModule,
-    ContactBookModule.forRoot({
-      contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
-    }),
-  ],
+    declarations: [ManagerPageComponent, ParametersComponent],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        ManagerPageRoutingModule,
+        MatCardModule,
+        NotificationModule,
+        MatDividerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTooltipModule,
+        MatProgressBarModule,
+        TranslateModule,
+        MatAutocompleteModule,
+        ContactBookModule.forRoot({
+            contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
+        }),
+    ],
 })
 export class ManagerPageModule {}

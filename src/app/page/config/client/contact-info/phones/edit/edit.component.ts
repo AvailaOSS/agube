@@ -5,129 +5,113 @@ import { NotificationService } from '@availa/notification';
 import { EditablePhone } from './editable-phone';
 
 @Component({
-  selector: 'app-phone-editable',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+    selector: 'app-phone-editable',
+    templateUrl: './edit.component.html',
+    styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent {
-  private infoMessage: string = 'Esta funcionalidad aún no está disponible';
+    private infoMessage: string = 'Esta funcionalidad aún no está disponible';
 
-  @Input() public userId: number | undefined;
-  @Input() public phone: EditablePhone | undefined;
+    @Input() public userId: number | undefined;
+    @Input() public phone: EditablePhone | undefined;
 
-  @Output() public event: EventEmitter<UserPhone | undefined> =
-    new EventEmitter<UserPhone | undefined>();
-  @Output() public deleteEvent: EventEmitter<number | undefined> =
-    new EventEmitter<number | undefined>();
+    @Output() public event: EventEmitter<UserPhone | undefined> = new EventEmitter<UserPhone | undefined>();
+    @Output() public deleteEvent: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
 
-  public newPhone = new FormControl('', [
-    Validators.required,
-    Validators.pattern('[- +()0-9]+'),
-    Validators.minLength(9),
-    Validators.maxLength(13),
-  ]);
+    public newPhone = new FormControl('', [
+        Validators.required,
+        Validators.pattern('[- +()0-9]+'),
+        Validators.minLength(9),
+        Validators.maxLength(13),
+    ]);
 
-  constructor(
-    private svcNotification: NotificationService,
-    private svcUser: UserService
-  ) {
-    //TODO: COMPLETE THIS COMPONENT
-  }
-
-  public updatePhone() {
-    if (!this.phone) {
-      return;
+    constructor(private svcNotification: NotificationService, private svcUser: UserService) {
+        //TODO: COMPLETE THIS COMPONENT
     }
 
-    this.phone.phone.phone = this.newPhone.value;
-
-    this.svcUser
-      .updateUserPhone(
-        this.userId!,
-        this.phone.phone.phone_id!,
-        this.phone.phone
-      )
-      .subscribe({
-        next: (response) => {
-          this.event.next(this.phone!.phone);
-          this.phone!.isEditable = !this.phone!.isEditable;
-        },
-        error: (error) =>
-          this.svcNotification.warning({
-            message: error,
-          }),
-      });
-  }
-
-  public setPhoneAsMain(value: boolean) {
-    if (!this.phone) {
-      return;
-    }
-    let phoneUser: UserPhone = {
-      phone: this.phone.phone.phone,
-      main: value,
-    };
-    this.svcUser
-      .updateUserPhone(this.userId!, this.phone.phone.phone_id!, phoneUser)
-      .subscribe({
-        next: (response: any) => {
-          this.phone!.phone.main = response.main;
-          this.event.next(this.phone!.phone);
-        },
-        error: (error) =>
-          this.svcNotification.warning({
-            message: error,
-          }),
-      });
-  }
-
-  public openEditablePhoneForm() {
-    if (!this.phone) {
-      return;
-    }
-    this.newPhone.setValue(this.phone.phone.phone);
-    this.phone.isEditable = !this.phone.isEditable;
-  }
-
-  public deletePhone() {
-    if (!this.phone) {
-      return;
-    }
-
-    this.svcUser
-      .deleteUserPhone(this.userId!, this.phone.phone.phone_id!)
-      .subscribe({
-        next: (response) => {
-          this.deleteEvent.next(this.phone!.phone.phone_id);
-        },
-        error: (error) =>
-          this.svcNotification.warning({
-            message: error,
-          }),
-      });
-  }
-
-  public errorValidator(entity: string) {
-    switch (entity) {
-      case 'newPhone':
-        let invalidPattern =
-          'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
-
-        if (this.newPhone.hasError('required')) {
-          return 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED';
+    public updatePhone() {
+        if (!this.phone) {
+            return;
         }
-        if (this.newPhone.hasError('pattern')) {
-          return invalidPattern;
-        }
-        if (this.newPhone.hasError('minlength')) {
-          return invalidPattern;
-        }
-        if (this.newPhone.hasError('maxlength')) {
-          return invalidPattern;
-        }
-        return '';
-      default:
-        return '';
+
+        this.phone.phone.phone = this.newPhone.value;
+
+        this.svcUser.updateUserPhone(this.userId!, this.phone.phone.phone_id!, this.phone.phone).subscribe({
+            next: (response) => {
+                this.event.next(this.phone!.phone);
+                this.phone!.isEditable = !this.phone!.isEditable;
+            },
+            error: (error) =>
+                this.svcNotification.warning({
+                    message: error,
+                }),
+        });
     }
-  }
+
+    public setPhoneAsMain(value: boolean) {
+        if (!this.phone) {
+            return;
+        }
+        let phoneUser: UserPhone = {
+            phone: this.phone.phone.phone,
+            main: value,
+        };
+        this.svcUser.updateUserPhone(this.userId!, this.phone.phone.phone_id!, phoneUser).subscribe({
+            next: (response: any) => {
+                this.phone!.phone.main = response.main;
+                this.event.next(this.phone!.phone);
+            },
+            error: (error) =>
+                this.svcNotification.warning({
+                    message: error,
+                }),
+        });
+    }
+
+    public openEditablePhoneForm() {
+        if (!this.phone) {
+            return;
+        }
+        this.newPhone.setValue(this.phone.phone.phone);
+        this.phone.isEditable = !this.phone.isEditable;
+    }
+
+    public deletePhone() {
+        if (!this.phone) {
+            return;
+        }
+
+        this.svcUser.deleteUserPhone(this.userId!, this.phone.phone.phone_id!).subscribe({
+            next: (response) => {
+                this.deleteEvent.next(this.phone!.phone.phone_id);
+            },
+            error: (error) =>
+                this.svcNotification.warning({
+                    message: error,
+                }),
+        });
+    }
+
+    public errorValidator(entity: string) {
+        switch (entity) {
+            case 'newPhone':
+                let invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
+
+                if (this.newPhone.hasError('required')) {
+                    return 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED';
+                }
+                if (this.newPhone.hasError('pattern')) {
+                    return invalidPattern;
+                }
+                if (this.newPhone.hasError('minlength')) {
+                    return invalidPattern;
+                }
+                if (this.newPhone.hasError('maxlength')) {
+                    return invalidPattern;
+                }
+                return '';
+            default:
+                return '';
+        }
+    }
 }

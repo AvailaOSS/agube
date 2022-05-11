@@ -5,32 +5,24 @@ import { ManagerService } from '@availa/agube-rest-api';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class ManagerGuard implements CanActivate, CanLoad {
-  constructor(private router: Router, private svcManager: ManagerService) {}
+    constructor(private router: Router, private svcManager: ManagerService) {}
 
-  canActivate():
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.canLoad();
-  }
+    canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        return this.canLoad();
+    }
 
-  canLoad():
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return new Promise<boolean | UrlTree>((resolve) => {
-      this.svcManager.userIsManager().subscribe((response) => {
-        if (response.is_manager) {
-          resolve(true);
-        } else {
-          resolve(this.router.parseUrl(SidebarRoute.CLIENT));
-        }
-      });
-    });
-  }
+    canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        return new Promise<boolean | UrlTree>((resolve) => {
+            this.svcManager.userIsManager().subscribe((response) => {
+                if (response.is_manager) {
+                    resolve(true);
+                } else {
+                    resolve(this.router.parseUrl(SidebarRoute.CLIENT));
+                }
+            });
+        });
+    }
 }

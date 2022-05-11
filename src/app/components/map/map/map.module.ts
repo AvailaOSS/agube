@@ -5,12 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [MapComponent],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    MatTooltipModule,
-  ],
-  exports: [MapComponent],
+    declarations: [MapComponent],
+    imports: [CommonModule, TranslateModule, MatTooltipModule],
+    exports: [MapComponent],
 })
 export class MapModule {}

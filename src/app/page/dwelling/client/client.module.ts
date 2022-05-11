@@ -13,17 +13,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [ClientComponent],
-  imports: [
-    CommonModule,
-    ClientRoutingModule,
-    MatCardModule,
-    PipesModule,
-    MatIconModule,
-    MatDividerModule,
-    MatButtonModule,
-    TranslateModule,
-    MatTooltipModule
-  ],
+    declarations: [ClientComponent],
+    imports: [
+        CommonModule,
+        ClientRoutingModule,
+        MatCardModule,
+        PipesModule,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule,
+        TranslateModule,
+        MatTooltipModule,
+    ],
 })
 export class ClientModule {}
