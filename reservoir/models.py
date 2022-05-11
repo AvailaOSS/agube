@@ -11,9 +11,9 @@ class Reservoir(models.Model):
     """A class used to represent an Reservoir"""
     geolocation: Geolocation = models.ForeignKey(Geolocation,
                                                  on_delete=models.PROTECT)
-    capacity = models.DecimalField(decimal_places=3, max_digits=8)
-    inlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
-    outlet_flow = models.DecimalField(decimal_places=3, max_digits=8)
+    capacity = models.DecimalField( max_digits=10, decimal_places=3)
+    inlet_flow = models.DecimalField(max_digits=10, decimal_places=3)
+    outlet_flow = models.DecimalField(max_digits=10, decimal_places=3)
     release_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True)
 
