@@ -1,27 +1,30 @@
-@import "../../../../assets/availa/sizes/margins.scss";
+@import '../../../../assets/availa/sizes/margins.scss';
 
 .selector-geolocation-map {
-  width: 100%;
-  .address-form-geolocation {
-    display: flex;
-    margin-bottom: 15px;
-    mat-form-field:first-child {
-      width: 60%;
-    }
-  }
-  .filter-results {
-    display: flex;
-    mat-selection-list {
-      width: 60%;
-      mat-list-option {
-        div {
-          display: flex;
-          align-items: center;
-        }
-      }
-    }
-  }
-  div {
     width: 100%;
-  }
+    .address-form-geolocation {
+        display: flex;
+        margin-bottom: 15px;
+        mat-form-field:first-child {
+            width: 60%;
+        }
+    }
+    .filter-results {
+        display: flex;
+        .filter-selection {
+            width: 100%;
+            mat-selection-list {
+                width: 100%;
+                mat-list-option {
+                    div {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+        div {
+            width: 100%;
+        }
+    }
 }

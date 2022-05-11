@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MapModule } from '../map/map.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [CreateComponent],
@@ -32,6 +33,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         MatTooltipModule,
         MapModule,
         MatAutocompleteModule,
+        MatProgressSpinnerModule,
     ],
     exports: [CreateComponent],
     providers: [GeolocationPipe],
