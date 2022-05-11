@@ -1,4 +1,4 @@
 export enum SidebarRoute {
-  CLIENT = 'client',
-  MANAGER = 'manager',
+    CLIENT = 'client',
+    MANAGER = 'manager',
 }

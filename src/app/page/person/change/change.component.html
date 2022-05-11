@@ -1,82 +1,110 @@
 <div class="create-person-page" *ngIf="dwelling">
-  <mat-card class="create-person-page-card">
-    <mat-card-content>
-      <div class="form">
-        <h1>{{dwelling.geolocation | geolocation}}</h1>
-        <div *ngIf="currentPerson; else change">
-          <h2>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_1' | translate }} {{ title | translate}}</h2>
-          <p>
-            {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_1' | translate }}
-            {{ title | translate }}
-            {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_2' | translate }}
-            <strong>{{currentPerson | userDetail}}</strong> {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3' |
-            translate }}
-          </p>
-        </div>
-        <ng-template #change>
-          <h2>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_2' | translate }} {{ title | translate }}</h2>
-        </ng-template>
-        <div class="form-content">
-          <div>
-            <p>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.TITLE' | translate }}</p>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ 'GENERAL.TEXT.FIRST_NAME' | translate}}</mat-label>
-              <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="save()" />
-              <mat-error *ngIf="first_name.invalid">{{ errorValidator('first_name') | translate }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "GENERAL.TEXT.LAST_NAME" | translate}}</mat-label>
-              <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="save()" />
-              <mat-error *ngIf="last_name.invalid">{{ errorValidator('last_name') | translate }}</mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <p>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.TITLE' | translate }}</p>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ 'GENERAL.TEXT.EMAIL' | translate }}</mat-label>
-              <input matInput placeholder="stark@industries.com" [formControl]="email" (keydown.enter)="save()" />
-              <mat-error *ngIf="email.invalid">{{ errorValidator('email') | translate }}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.PHONE_NUMBER' | translate }}</mat-label>
-              <input matInput [formControl]="phone_number" (keydown.enter)="save()" />
-              <mat-error *ngIf="phone_number.invalid">{{ errorValidator('phone_number') | translate }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <br />
+    <mat-card class="create-person-page-card">
+        <mat-card-content>
+            <div class="form">
+                <h1>{{ dwelling.geolocation | geolocation }}</h1>
+                <div *ngIf="currentPerson; else change">
+                    <h2>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_1' | translate }} {{ title | translate }}</h2>
+                    <p>
+                        {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_1' | translate }}
+                        {{ title | translate }}
+                        {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_2' | translate }}
+                        <strong>{{ currentPerson | userDetail }}</strong>
+                        {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3' | translate }}
+                    </p>
+                </div>
+                <ng-template #change>
+                    <h2>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_2' | translate }} {{ title | translate }}</h2>
+                </ng-template>
+                <div class="form-content">
+                    <div>
+                        <p>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.TITLE' | translate }}</p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ 'GENERAL.TEXT.FIRST_NAME' | translate }}</mat-label>
+                            <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="save()" />
+                            <mat-error *ngIf="first_name.invalid"
+                                >{{ errorValidator('first_name') | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ 'GENERAL.TEXT.LAST_NAME' | translate }}</mat-label>
+                            <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="save()" />
+                            <mat-error *ngIf="last_name.invalid">{{
+                                errorValidator('last_name') | translate
+                            }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <p>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.TITLE' | translate }}</p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ 'GENERAL.TEXT.EMAIL' | translate }}</mat-label>
+                            <input
+                                matInput
+                                placeholder="stark@industries.com"
+                                [formControl]="email"
+                                (keydown.enter)="save()"
+                            />
+                            <mat-error *ngIf="email.invalid">{{ errorValidator('email') | translate }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{
+                                'PAGE.DWELLING.MANAGER.PERSON.CHANGE.FORM.PHONE_NUMBER' | translate
+                            }}</mat-label>
+                            <input matInput [formControl]="phone_number" (keydown.enter)="save()" />
+                            <mat-error *ngIf="phone_number.invalid"
+                                >{{ errorValidator('phone_number') | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <br />
 
-        <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
-        <mat-card-actions [align]="'end'">
-          <button mat-button
-            matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.CLOSE.TOOLTIP' | translate }} {{ title | translate }}"
-            (click)="exit()">
-            {{ "GENERAL.BUTTON.EXIT_WITHOUT_SAVING" | translate }}
-          </button>
-          <button mat-raised-button color="primary"
-            matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP' | translate }} {{title | translate }}"
-            (click)="save()" [disabled]="this.personForm.invalid">
-            <div>
-              <mat-icon>save</mat-icon>
-              {{ 'GENERAL.BUTTON.SAVE' | translate }}
-            </div>
-          </button>
-          <button mat-raised-button color="primary" matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP' | translate }} {{ title  | translate }}
+                <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
+                <mat-card-actions [align]="'end'">
+                    <button
+                        mat-button
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.CLOSE.TOOLTIP' | translate }} {{
+                            title | translate
+                        }}"
+                        (click)="exit()"
+                    >
+                        {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP' | translate }} {{
+                            title | translate
+                        }}"
+                        (click)="save()"
+                        [disabled]="this.personForm.invalid"
+                    >
+                        <div>
+                            <mat-icon>save</mat-icon>
+                            {{ 'GENERAL.BUTTON.SAVE' | translate }}
+                        </div>
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP' | translate }} {{
+                            title | translate
+                        }}
                         {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE_AND_CLOSE.TOOLTIP' | translate }}"
-            (click)="saveAndExit()" [disabled]="this.personForm.invalid">
-            <div>
-              <mat-icon>exit_to_app</mat-icon>
-              {{ 'GENERAL.BUTTON.SAVE_AND_EXIT' | translate}}
+                        (click)="saveAndExit()"
+                        [disabled]="this.personForm.invalid"
+                    >
+                        <div>
+                            <mat-icon>exit_to_app</mat-icon>
+                            {{ 'GENERAL.BUTTON.SAVE_AND_EXIT' | translate }}
+                        </div>
+                    </button>
+                </mat-card-actions>
+                <mat-card-subtitle class="save-info">
+                    {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_1' | translate }} {{ title | translate }}
+                    {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_2' | translate }}*
+                </mat-card-subtitle>
             </div>
-          </button>
-        </mat-card-actions>
-        <mat-card-subtitle class="save-info">
-          {{'PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_1'| translate }} {{title | translate }}
-          {{'PAGE.DWELLING.MANAGER.PERSON.CHANGE.WARNING_2'| translate }}*
-        </mat-card-subtitle>
-      </div>
-    </mat-card-content>
-  </mat-card>
+        </mat-card-content>
+    </mat-card>
 </div>

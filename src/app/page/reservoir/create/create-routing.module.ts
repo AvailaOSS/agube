@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './create.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CreateComponent,
-  },
+    {
+        path: '',
+        component: CreateComponent,
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class CreateRoutingModule {}

@@ -1,13 +1,13 @@
 export interface MapEvent {
-  sourceTarget: AnimateToZoom;
-  latlng: LatLng;
+    sourceTarget: AnimateToZoom;
+    latlng: LatLng;
 }
 
 interface LatLng {
-  lat: string;
-  lng: string;
+    lat: string;
+    lng: string;
 }
 
 interface AnimateToZoom {
-  _animateToZoom: number;
+    _animateToZoom: number;
 }

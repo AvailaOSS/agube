@@ -5,7 +5,7 @@ import { ManagerPageComponent } from './manager-page.component';
 const routes: Routes = [{ path: '', component: ManagerPageComponent }];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class ManagerPageRoutingModule { }
+export class ManagerPageRoutingModule {}

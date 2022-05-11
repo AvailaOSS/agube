@@ -1,43 +1,47 @@
 <div class="detail-page">
-  <div class="page-content">
-    <mat-card *ngIf="!loading">
-      <mat-card-content *ngIf="dwelling">
-        <div class="dwelling-info">
-          <h1>{{ dwelling.geolocation | geolocation}}</h1>
-          <div class="dwelling-content-info">
-            <app-address [geolocation]="dwelling.geolocation"></app-address>
-            <div class="dwelling-resident">
-              <app-owner [dwellingId]="dwelling.id"></app-owner>
-              <app-resident [dwellingId]="dwelling.id"></app-resident>
-            </div>
-          </div>
-          <app-management [manage]="dwelling" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
-          </app-management>
-          <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
-          </app-water-meter-detail>
-        </div>
-        <div class="dwelling-map">
-          <mat-button-toggle-group #group="matButtonToggleGroup">
-            <mat-button-toggle (click)="mode = 'map'"
-              matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}" matTooltipPosition="left">
-              <mat-icon>map</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle (click)="mode = 'streetView'"
-              matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-              matTooltipPosition="right">
-              <mat-icon>360</mat-icon>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+    <div class="page-content">
+        <mat-card *ngIf="!loading">
+            <mat-card-content *ngIf="dwelling">
+                <div class="dwelling-info">
+                    <h1>{{ dwelling.geolocation | geolocation }}</h1>
+                    <div class="dwelling-content-info">
+                        <app-address [geolocation]="dwelling.geolocation"></app-address>
+                        <div class="dwelling-resident">
+                            <app-owner [dwellingId]="dwelling.id"></app-owner>
+                            <app-resident [dwellingId]="dwelling.id"></app-resident>
+                        </div>
+                    </div>
+                    <app-management [manage]="dwelling" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
+                    </app-management>
+                    <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
+                    </app-water-meter-detail>
+                </div>
+                <div class="dwelling-map">
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle
+                            (click)="mode = 'map'"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
+                            matTooltipPosition="left"
+                        >
+                            <mat-icon>map</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle
+                            (click)="mode = 'streetView'"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
+                            matTooltipPosition="right"
+                        >
+                            <mat-icon>360</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
 
-          <div *ngIf="mode=='map'; else showStreetView">
-            <app-map [configureMap]="configureMap"></app-map>
-          </div>
-          <ng-template #showStreetView>
-            <app-street-view [configureView]="configureView"></app-street-view>
-          </ng-template>
-        </div>
-
-      </mat-card-content>
-    </mat-card>
-  </div>
+                    <div *ngIf="mode == 'map'; else showStreetView">
+                        <app-map [configureMap]="configureMap"></app-map>
+                    </div>
+                    <ng-template #showStreetView>
+                        <app-street-view [configureView]="configureView"></app-street-view>
+                    </ng-template>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

@@ -8,23 +8,23 @@ import { CommonModule, SlicePipe } from '@angular/common';
 import { AddressPipe } from './address.pipe';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [
-    DwellingDetailPipe,
-    GeolocationPipe,
-    ReservoirDetailPipe,
-    UserDetailPipe,
-    WaterMeterMeasurementPipe,
-    AddressPipe,
-  ],
-  providers: [SlicePipe,AddressPipe],
-  exports: [
-    DwellingDetailPipe,
-    AddressPipe,
-    GeolocationPipe,
-    ReservoirDetailPipe,
-    UserDetailPipe,
-    WaterMeterMeasurementPipe,
-  ],
+    imports: [CommonModule],
+    declarations: [
+        DwellingDetailPipe,
+        GeolocationPipe,
+        ReservoirDetailPipe,
+        UserDetailPipe,
+        WaterMeterMeasurementPipe,
+        AddressPipe,
+    ],
+    providers: [SlicePipe, AddressPipe],
+    exports: [
+        DwellingDetailPipe,
+        AddressPipe,
+        GeolocationPipe,
+        ReservoirDetailPipe,
+        UserDetailPipe,
+        WaterMeterMeasurementPipe,
+    ],
 })
 export class PipesModule {}

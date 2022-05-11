@@ -6,19 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 
-
-
 @NgModule({
-  declarations: [
-    ManagementComponent
-  ],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    TranslateModule
-  ],
-  exports:  [ManagementComponent]
+    declarations: [ManagementComponent],
+    imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, TranslateModule],
+    exports: [ManagementComponent],
 })
-export class ManagementModule { }
+export class ManagementModule {}

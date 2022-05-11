@@ -16,24 +16,24 @@ import { MapModule } from '../map/map.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [CreateComponent],
-  imports: [
-    CommonModule,
-    GoogleMapsModule,
-    HttpClientModule,
-    PipesModule,
-    MatListModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    MatTooltipModule,
-    MapModule,
-    MatAutocompleteModule,
-  ],
-  exports: [CreateComponent],
-  providers: [GeolocationPipe],
+    declarations: [CreateComponent],
+    imports: [
+        CommonModule,
+        GoogleMapsModule,
+        HttpClientModule,
+        PipesModule,
+        MatListModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        MatTooltipModule,
+        MapModule,
+        MatAutocompleteModule,
+    ],
+    exports: [CreateComponent],
+    providers: [GeolocationPipe],
 })
 export class CreateModule {}

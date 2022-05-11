@@ -12,19 +12,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [PhonesComponent, EditComponent],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    NotificationModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatListModule,
-    MatTooltipModule,
-    TranslateModule
-  ],
-  exports: [PhonesComponent, EditComponent],
+    declarations: [PhonesComponent, EditComponent],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        NotificationModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatListModule,
+        MatTooltipModule,
+        TranslateModule,
+    ],
+    exports: [PhonesComponent, EditComponent],
 })
 export class PhonesModule {}

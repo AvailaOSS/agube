@@ -19,52 +19,52 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new MultiTranslateHttpLoader(http, [
-    { prefix: '../assets/i18n/', suffix: '.json' },
-    { prefix: './src/assets/auth/', suffix: '.json' },
-    { prefix: './src/assets/contact-book/', suffix: '.json' },
-  ]);
+    return new MultiTranslateHttpLoader(http, [
+        { prefix: '../assets/i18n/', suffix: '.json' },
+        { prefix: './src/assets/auth/', suffix: '.json' },
+        { prefix: './src/assets/contact-book/', suffix: '.json' },
+    ]);
 }
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    SubscriptionModule.forRoot({
-      loginUrl: AuthRoute.ENABLE_ACCOUNT,
-      subscriptionRestconfig: {
-        basePath: environment.subscriptionBackendUrl,
-      },
-    }),
-    AuthModule.forRoot({
-      authRestconfig: {
-        basePath: environment.authBackendUrl,
-      },
-      afterLoginSuccessUrl: SidebarRoute.MANAGER,
-      createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
-    }),
-    AgubeApiModule.forRoot({
-      basePath: environment.agubeBackendUrl,
-    }),
-    TranslateModule.forRoot({
-      loader: [
-        {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
-        },
-      ],
-      isolate: true,
-    }),
-    MatTooltipModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        SubscriptionModule.forRoot({
+            loginUrl: AuthRoute.ENABLE_ACCOUNT,
+            subscriptionRestconfig: {
+                basePath: environment.subscriptionBackendUrl,
+            },
+        }),
+        AuthModule.forRoot({
+            authRestconfig: {
+                basePath: environment.authBackendUrl,
+            },
+            afterLoginSuccessUrl: SidebarRoute.MANAGER,
+            createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
+        }),
+        AgubeApiModule.forRoot({
+            basePath: environment.agubeBackendUrl,
+        }),
+        TranslateModule.forRoot({
+            loader: [
+                {
+                    provide: TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                    deps: [HttpClient],
+                },
+            ],
+            isolate: true,
+        }),
+        MatTooltipModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

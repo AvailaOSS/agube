@@ -1,42 +1,53 @@
 <div class="detail-page">
-  <div class="page-content">
-    <mat-card *ngIf="!loading">
-      <mat-card-content *ngIf="reservoir">
-        <div class="reservoir-info">
-          <h1>{{ reservoir.geolocation | geolocation}}</h1>
-          <div class="reservoir-content-info">
-            <app-address [geolocation]="reservoir.geolocation "></app-address>
-            <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>
-            <div class="reservoir-resident">
-              <app-owner [reservoirId]="reservoir.id"></app-owner>
-            </div>
-          </div>
-          <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
-          </app-management>
-          <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
-          </app-water-meter-detail>
-        </div>
-        <div class="reservoir-map">
-          <mat-button-toggle-group #group="matButtonToggleGroup">
-            <mat-button-toggle (click)="mode = 'map'"
-              matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}" matTooltipPosition="left">
-              <mat-icon>map</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle (click)="mode = 'streetView'"
-              matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-              matTooltipPosition="right">
-              <mat-icon>360</mat-icon>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+    <div class="page-content">
+        <mat-card *ngIf="!loading">
+            <mat-card-content *ngIf="reservoir">
+                <div class="reservoir-info">
+                    <h1>{{ reservoir.geolocation | geolocation }}</h1>
+                    <div class="reservoir-content-info">
+                        <app-address [geolocation]="reservoir.geolocation"></app-address>
+                        <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>
+                        <div class="reservoir-resident">
+                            <app-owner [reservoirId]="reservoir.id"></app-owner>
+                        </div>
+                    </div>
+                    <app-management
+                        [reservoir]="true"
+                        [manage]="reservoir"
+                        [waterMeterId]="waterMeterId"
+                        [type]="type"
+                        [load]="canLoad"
+                    >
+                    </app-management>
+                    <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
+                    </app-water-meter-detail>
+                </div>
+                <div class="reservoir-map">
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle
+                            (click)="mode = 'map'"
+                            matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
+                            matTooltipPosition="left"
+                        >
+                            <mat-icon>map</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle
+                            (click)="mode = 'streetView'"
+                            matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
+                            matTooltipPosition="right"
+                        >
+                            <mat-icon>360</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
 
-          <div *ngIf="mode=='map'; else showStreetView">
-            <app-map [configureMap]="configureMap"></app-map>
-          </div>
-          <ng-template #showStreetView>
-            <app-street-view [configureView]="configureView"></app-street-view>
-          </ng-template>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+                    <div *ngIf="mode == 'map'; else showStreetView">
+                        <app-map [configureMap]="configureMap"></app-map>
+                    </div>
+                    <ng-template #showStreetView>
+                        <app-street-view [configureView]="configureView"></app-street-view>
+                    </ng-template>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

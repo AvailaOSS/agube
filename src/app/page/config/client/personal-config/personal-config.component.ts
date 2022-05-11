@@ -10,101 +10,94 @@ import { Language } from 'src/app/utils/language';
 import { ConfigureMode } from './personal-config';
 
 @Component({
-  selector: 'app-personal-config',
-  templateUrl: './personal-config.component.html',
-  styleUrls: ['../client-page.component.scss'],
+    selector: 'app-personal-config',
+    templateUrl: './personal-config.component.html',
+    styleUrls: ['../client-page.component.scss'],
 })
 export class PersonalConfigComponent implements OnInit {
-  public loadSave: boolean = false;
-  public releaseDate: Date | undefined = undefined;
-  public toggleControl = new FormControl(false);
-  public selectedLanguage: Language | undefined;
-  public languages: Language[] = [
-    {
-      code: 'ga',
-      description: 'LENGUAGE.GALICIAN',
-      flagLink:
-        'https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Galicia.svg',
-    },
-    {
-      code: 'es',
-      description: 'LENGUAGE.SPANISH',
-      flagLink:
-        'https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg',
-    },
-    {
-      code: 'en',
-      description: 'LENGUAGE.ENGLISH',
-      flagLink:
-        'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
-    },
-  ];
+    public loadSave: boolean = false;
+    public releaseDate: Date | undefined = undefined;
+    public toggleControl = new FormControl(false);
+    public selectedLanguage: Language | undefined;
+    public languages: Language[] = [
+        {
+            code: 'ga',
+            description: 'LENGUAGE.GALICIAN',
+            flagLink: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Galicia.svg',
+        },
+        {
+            code: 'es',
+            description: 'LENGUAGE.SPANISH',
+            flagLink: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg',
+        },
+        {
+            code: 'en',
+            description: 'LENGUAGE.ENGLISH',
+            flagLink: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
+        },
+    ];
 
-  private lightClassName: ThemeMode = ThemeMode.light;
-  private darkClassName: ThemeMode = ThemeMode.dark;
-  private userId: number | undefined;
+    private lightClassName: ThemeMode = ThemeMode.light;
+    private darkClassName: ThemeMode = ThemeMode.dark;
+    private userId: number | undefined;
 
-  constructor(
-    private svcAccount: AccountService,
-    private svcUser: UserService,
-    protected overlayContainer: OverlayContainer,
-    private translate: TranslateService
-  ) {
-    this.selectedLanguage = this.languages.filter(
-      (lang) => lang.code === this.translate.currentLang
-    )[0];
-  }
-
-  ngOnInit(): void {
-    this.svcAccount.getUser().subscribe((userResponse) => {
-      if (!userResponse) {
-        return;
-      }
-      this.userId = userResponse.user_id;
-
-      this.svcUser.getConfig(this.userId!).subscribe((response) => {
-        this.setControlToggle(response);
-        this.selectedLanguage = this.languages.filter(
-          (lang) => lang.code === response.lang
-        )[0];
-        this.translate!.setDefaultLang(response.lang);
-      });
-    });
-  }
-
-  public selectLenguaje(language: Language) {
-    this.selectedLanguage = language;
-  }
-
-  public updateConfig() {
-    this.loadSave = true;
-    let selected: string = this.lightClassName;
-
-    if (this.toggleControl.value) {
-      selected = this.darkClassName;
+    constructor(
+        private svcAccount: AccountService,
+        private svcUser: UserService,
+        protected overlayContainer: OverlayContainer,
+        private translate: TranslateService
+    ) {
+        this.selectedLanguage = this.languages.filter((lang) => lang.code === this.translate.currentLang)[0];
     }
 
-    let configureMode: ConfigureMode = {
-      mode: selected,
-      language: this.selectedLanguage!.code,
-    };
+    ngOnInit(): void {
+        this.svcAccount.getUser().subscribe((userResponse) => {
+            if (!userResponse) {
+                return;
+            }
+            this.userId = userResponse.user_id;
 
-    this.svcUser
-      .updateConfig(this.userId!, {
-        mode: configureMode.mode,
-        lang: configureMode.language,
-      })
-      .subscribe((response) => {
-        this.setControlToggle(response);
-        window.location.reload();
-      });
-  }
-
-  private setControlToggle(response: PersonConfig) {
-    if (response.mode === this.lightClassName) {
-      this.toggleControl.setValue(false);
-    } else {
-      this.toggleControl.setValue(true);
+            this.svcUser.getConfig(this.userId!).subscribe((response) => {
+                this.setControlToggle(response);
+                this.selectedLanguage = this.languages.filter((lang) => lang.code === response.lang)[0];
+                this.translate!.setDefaultLang(response.lang);
+            });
+        });
     }
-  }
+
+    public selectLenguaje(language: Language) {
+        this.selectedLanguage = language;
+    }
+
+    public updateConfig() {
+        this.loadSave = true;
+        let selected: string = this.lightClassName;
+
+        if (this.toggleControl.value) {
+            selected = this.darkClassName;
+        }
+
+        let configureMode: ConfigureMode = {
+            mode: selected,
+            language: this.selectedLanguage!.code,
+        };
+
+        this.svcUser
+            .updateConfig(this.userId!, {
+                mode: configureMode.mode,
+                lang: configureMode.language,
+            })
+            .subscribe((response) => {
+                this.setControlToggle(response);
+                window.location.reload();
+            });
+    }
+
+    private setControlToggle(response: PersonConfig) {
+        if (response.mode === this.lightClassName) {
+            this.toggleControl.setValue(false);
+        } else {
+            this.toggleControl.setValue(true);
+        }
+    }
 }

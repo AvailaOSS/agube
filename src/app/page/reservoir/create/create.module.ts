@@ -16,24 +16,24 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [CreateComponent],
-  imports: [
-    CommonModule,
-    CreateRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    NotificationModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-    StreetViewCreateModule,
-    TranslateModule,
-    PipesModule,
-    MatAutocompleteModule
-  ],
-  exports: [CreateComponent],
+    declarations: [CreateComponent],
+    imports: [
+        CommonModule,
+        CreateRoutingModule,
+        MatCardModule,
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        NotificationModule,
+        MatIconModule,
+        MatProgressBarModule,
+        MatTooltipModule,
+        StreetViewCreateModule,
+        TranslateModule,
+        PipesModule,
+        MatAutocompleteModule,
+    ],
+    exports: [CreateComponent],
 })
 export class CreateModule {}

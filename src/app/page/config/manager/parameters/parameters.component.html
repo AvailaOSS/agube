@@ -3,17 +3,29 @@
     <div class="form-content">
         <mat-form-field appearance="fill">
             <mat-label>{{ 'PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE' | translate }}</mat-label>
-            <input class="form-right-align" matInput placeholder="1000.50" [formControl]="hook_price" autofocus
-                (keydown.enter)="saveParameters()">
+            <input
+                class="form-right-align"
+                matInput
+                placeholder="1000.50"
+                [formControl]="hook_price"
+                autofocus
+                (keydown.enter)="saveParameters()"
+            />
             <span matSuffix>€&nbsp;</span>
             <mat-error *ngIf="hook_price.invalid">{{ errorValidator('hook_price') | translate }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>{{ 'PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION' | translate }}</mat-label>
-            <input class="form-right-align" matInput placeholder="1000" [formControl]="max_daily_consumption"
-                (keydown.enter)="saveParameters()">
+            <input
+                class="form-right-align"
+                matInput
+                placeholder="1000"
+                [formControl]="max_daily_consumption"
+                (keydown.enter)="saveParameters()"
+            />
             <span matSuffix>L&nbsp;</span>
-            <mat-error *ngIf="max_daily_consumption.invalid">{{ errorValidator('max_daily_consumption') | translate }}
+            <mat-error *ngIf="max_daily_consumption.invalid"
+                >{{ errorValidator('max_daily_consumption') | translate }}
             </mat-error>
         </mat-form-field>
     </div>
@@ -21,13 +33,17 @@
     <mat-card-actions [align]="'end'">
         <span mat-line class="button-save-info">
             <span>
-                {{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION' | translate }} {{ releaseDate | date:'longDate' }}
-                {{releaseDate |date:'shortTime'}}
+                {{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION' | translate }} {{ releaseDate | date: 'longDate' }}
+                {{ releaseDate | date: 'shortTime' }}
             </span>
         </span>
-        <button mat-raised-button color="primary"
-            matTooltip="{{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP' | translate }}" (click)="saveParameters()"
-            [disabled]="parametersForm.invalid || loadSave">
+        <button
+            mat-raised-button
+            color="primary"
+            matTooltip="{{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP' | translate }}"
+            (click)="saveParameters()"
+            [disabled]="parametersForm.invalid || loadSave"
+        >
             <div>
                 <mat-icon>save</mat-icon>
                 {{ 'GENERAL.BUTTON.SAVE' | translate }}

@@ -1,28 +1,28 @@
 <div class="detail-info" *ngIf="userDetail; else noUser">
-  <span>
-    <mat-icon>{{title.icon}}</mat-icon>
-    <h2>{{ title.title | translate }}</h2>
-  </span>
-  <span>
-    {{ 'GENERAL.TEXT.FIRST_NAME' | translate }}
-    <h3>{{ userDetail.first_name }}</h3>
-  </span>
-  <span>
-    {{ 'GENERAL.TEXT.LAST_NAME' | translate }}
-    <h3>{{ userDetail.last_name }}</h3>
-  </span>
-  <span>
-    {{ 'GENERAL.TEXT.EMAIL' | translate }}
-    <h3>{{ userDetail.email }}</h3>
-  </span>
-  <span>
-    {{ 'PAGE.RESERVOIR.DETAIL.OWNER.PHONE_NUMBER' | translate }}
-    <h3>{{ userDetail.main_phone.phone_number }}</h3>
-  </span>
+    <span>
+        <mat-icon>{{ title.icon }}</mat-icon>
+        <h2>{{ title.title | translate }}</h2>
+    </span>
+    <span>
+        {{ 'GENERAL.TEXT.FIRST_NAME' | translate }}
+        <h3>{{ userDetail.first_name }}</h3>
+    </span>
+    <span>
+        {{ 'GENERAL.TEXT.LAST_NAME' | translate }}
+        <h3>{{ userDetail.last_name }}</h3>
+    </span>
+    <span>
+        {{ 'GENERAL.TEXT.EMAIL' | translate }}
+        <h3>{{ userDetail.email }}</h3>
+    </span>
+    <span>
+        {{ 'PAGE.RESERVOIR.DETAIL.OWNER.PHONE_NUMBER' | translate }}
+        <h3>{{ userDetail.main_phone.phone_number }}</h3>
+    </span>
 </div>
 <ng-template #noUser>
-  <h2>
-    <mat-icon>{{ title.icon }}</mat-icon>
-    Sin {{ title.title | translate }}
-  </h2>
+    <h2>
+        <mat-icon>{{ title.icon }}</mat-icon>
+        Sin {{ title.title | translate }}
+    </h2>
 </ng-template>

@@ -1,32 +1,35 @@
 <div class="form">
-  <h1>{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE' | translate }}</h1>
-  <div class="form-content">
-    <mat-form-field appearance="fill">
-      <mat-label>{{ 'GENERAL.TEXT.FIRST_NAME' | translate }} </mat-label>
-      <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="updateUser()">
-      <mat-error *ngIf="first_name.invalid">{{ errorValidator("first_name") | translate }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>{{ 'GENERAL.TEXT.LAST_NAME' | translate }}</mat-label>
-      <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="updateUser()">
-      <mat-error *ngIf="last_name.invalid">{{ errorValidator("last_name") | translate }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>{{ 'GENERAL.TEXT.EMAIL' | translate }}</mat-label>
-      <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="updateUser()">
-      <mat-error *ngIf="email.invalid">{{ errorValidator("email") | translate }}</mat-error>
-    </mat-form-field>
-  </div>
-  <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
-  <mat-card-actions [align]="'end'">
-    <button mat-raised-button color="primary"
-      matTooltip="{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP' | translate }}" (click)="updateUser()"
-      [disabled]="personalForm.invalid">
-      <div>
-        <mat-icon>save</mat-icon>
-        {{ 'GENERAL.BUTTON.SAVE' | translate }}
-      </div>
-    </button>
-  </mat-card-actions>
-
+    <h1>{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE' | translate }}</h1>
+    <div class="form-content">
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'GENERAL.TEXT.FIRST_NAME' | translate }} </mat-label>
+            <input matInput placeholder="Tony" [formControl]="first_name" (keydown.enter)="updateUser()" />
+            <mat-error *ngIf="first_name.invalid">{{ errorValidator('first_name') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'GENERAL.TEXT.LAST_NAME' | translate }}</mat-label>
+            <input matInput placeholder="Stark" [formControl]="last_name" (keydown.enter)="updateUser()" />
+            <mat-error *ngIf="last_name.invalid">{{ errorValidator('last_name') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'GENERAL.TEXT.EMAIL' | translate }}</mat-label>
+            <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="updateUser()" />
+            <mat-error *ngIf="email.invalid">{{ errorValidator('email') | translate }}</mat-error>
+        </mat-form-field>
+    </div>
+    <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
+    <mat-card-actions [align]="'end'">
+        <button
+            mat-raised-button
+            color="primary"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP' | translate }}"
+            (click)="updateUser()"
+            [disabled]="personalForm.invalid"
+        >
+            <div>
+                <mat-icon>save</mat-icon>
+                {{ 'GENERAL.BUTTON.SAVE' | translate }}
+            </div>
+        </button>
+    </mat-card-actions>
 </div>

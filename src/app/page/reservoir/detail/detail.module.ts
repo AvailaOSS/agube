@@ -20,27 +20,22 @@ import { OwnerComponent } from './owner/owner.component';
 import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
-  declarations: [
-    DetailComponent,
-    ResumeComponent,
-    AddressComponent,
-    OwnerComponent,
-  ],
-  imports: [
-    CommonModule,
-    ReservoirRoutingModule,
-    StreetViewModule,
-    MatCardModule,
-    MatButtonModule,
-    PipesModule,
-    MapModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatTooltipModule,
-    TranslateModule,
-    WaterMeterModule,
-    MatProgressSpinnerModule,
-    ManagementModule,
-  ],
+    declarations: [DetailComponent, ResumeComponent, AddressComponent, OwnerComponent],
+    imports: [
+        CommonModule,
+        ReservoirRoutingModule,
+        StreetViewModule,
+        MatCardModule,
+        MatButtonModule,
+        PipesModule,
+        MapModule,
+        MatButtonToggleModule,
+        MatIconModule,
+        MatTooltipModule,
+        TranslateModule,
+        WaterMeterModule,
+        MatProgressSpinnerModule,
+        ManagementModule,
+    ],
 })
 export class DetailModule {}

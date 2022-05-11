@@ -20,23 +20,23 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { InfoComponent } from './info/info.component';
 
 @NgModule({
-  declarations: [ManagerComponent, TableComponent, InfoComponent],
-  imports: [
-    CommonModule,
-    ManagerRoutingModule,
-    MatCardModule,
-    MatTableModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    PipesModule,
-    MatIconModule,
-    WaterMeterModule,
-    MatDividerModule,
-    MatTooltipModule,
-    TranslateModule,
-    MatPaginatorModule,
-  ],
+    declarations: [ManagerComponent, TableComponent, InfoComponent],
+    imports: [
+        CommonModule,
+        ManagerRoutingModule,
+        MatCardModule,
+        MatTableModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        PipesModule,
+        MatIconModule,
+        WaterMeterModule,
+        MatDividerModule,
+        MatTooltipModule,
+        TranslateModule,
+        MatPaginatorModule,
+    ],
 })
 export class ManagerDwellingModule {}

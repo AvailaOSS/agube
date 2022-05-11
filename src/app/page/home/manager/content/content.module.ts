@@ -7,14 +7,14 @@ import { HomeManagerPageRoutingModule } from './content-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [ContentComponent],
-  imports: [
-    CommonModule,
-    HomeManagerPageRoutingModule,
-    ContactBookModule.forRoot({
-      contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
-    }),
-    TranslateModule,
-  ],
+    declarations: [ContentComponent],
+    imports: [
+        CommonModule,
+        HomeManagerPageRoutingModule,
+        ContactBookModule.forRoot({
+            contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
+        }),
+        TranslateModule,
+    ],
 })
 export class ContentModule {}

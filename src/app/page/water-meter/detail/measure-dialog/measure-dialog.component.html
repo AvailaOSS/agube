@@ -3,40 +3,47 @@
 <div mat-dialog-content class="create-measure-form">
     <mat-form-field appearance="fill">
         <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MEASURE' | translate }} m<sup>3</sup></mat-label>
-        <input matInput placeholder="100.000" [formControl]="measurement" autofocus (keydown.enter)="save()">
+        <input matInput placeholder="100.000" [formControl]="measurement" autofocus (keydown.enter)="save()" />
         <mat-error *ngIf="measurement.invalid">{{ errorValidator('measurement') | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE' | translate }}</mat-label>
-        <input matInput [matDatepicker]="picker1" [formControl]="date">
+        <input matInput [matDatepicker]="picker1" [formControl]="date" />
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error *ngIf="date.invalid">{{ errorValidator('date') | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR' | translate}}</mat-label>
+        <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR' | translate }}</mat-label>
         <mat-select [formControl]="hour">
-            <mat-option *ngFor="let h of hoursList" value="{{h}}">{{h}}</mat-option>
+            <mat-option *ngFor="let h of hoursList" value="{{ h }}">{{ h }}</mat-option>
         </mat-select>
         <mat-error *ngIf="hour.invalid">{{ errorValidator('hour') | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES' | translate}}</mat-label>
+        <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES' | translate }}</mat-label>
         <mat-select [formControl]="minutes">
-            <mat-option *ngFor="let m of minutesList" value="{{m}}">{{m}}</mat-option>
+            <mat-option *ngFor="let m of minutesList" value="{{ m }}">{{ m }}</mat-option>
         </mat-select>
         <mat-error *ngIf="minutes.invalid">{{ errorValidator('minutes') | translate }}</mat-error>
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions [align]="'end'">
-    <button mat-button matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP' | translate }}"
-        (click)="close(false)">
+    <button
+        mat-button
+        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP' | translate }}"
+        (click)="close(false)"
+    >
         {{ 'GENERAL.BUTTON.CLOSE_WITHOUT_SAVING' | translate }}
     </button>
-    <button mat-raised-button
-        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}" color="primary"
-        (click)="save()" disabled="{{ this.measureForm.invalid }}">
+    <button
+        mat-raised-button
+        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}"
+        color="primary"
+        (click)="save()"
+        disabled="{{ this.measureForm.invalid }}"
+    >
         {{ 'GENERAL.BUTTON.SAVE' | translate }}
     </button>
 </div>

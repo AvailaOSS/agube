@@ -1,3 +1,3 @@
 export interface Detail {
-  dwellingId: number;
+    dwellingId: number;
 }

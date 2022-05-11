@@ -1,19 +1,30 @@
-<h1 mat-dialog-title>{{dialogTitle |translate}}</h1>
+<h1 mat-dialog-title>{{ dialogTitle | translate }}</h1>
 <div mat-dialog-content>
-  <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
-    [inputForm]="inputForm" [resetForm]="resetChildForm">
-  </app-map-location-create>
+    <app-map-location-create
+        (addressForm)="addressFormReceive($event)"
+        [configureMap]="configureMap"
+        [inputForm]="inputForm"
+        [resetForm]="resetChildForm"
+    >
+    </app-map-location-create>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button
-    matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL.TOOLTIP' | translate }}"
-    (click)="closeDialog()" cdkFocusInitial>
-    {{'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL' |translate}}
-  </button>
-  <button mat-raised-button color="primary"
-    matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE.TOOLTIP' | translate }}"
-    [disabled]="!addressEmitter" (click)="saveAddress()">
-    <mat-icon>save</mat-icon>
-    {{'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE' |translate}}
-  </button>
+    <button
+        mat-raised-button
+        matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL.TOOLTIP' | translate }}"
+        (click)="closeDialog()"
+        cdkFocusInitial
+    >
+        {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL' | translate }}
+    </button>
+    <button
+        mat-raised-button
+        color="primary"
+        matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE.TOOLTIP' | translate }}"
+        [disabled]="!addressEmitter"
+        (click)="saveAddress()"
+    >
+        <mat-icon>save</mat-icon>
+        {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE' | translate }}
+    </button>
 </div>

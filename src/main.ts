@@ -5,17 +5,13 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  enableProdMode();
+    enableProdMode();
 }
 
 document
-  .getElementById('googleKey')
-  ?.setAttribute(
-    'src',
-    'https://maps.googleapis.com/maps/api/js?key=' +
-      environment.googleMapsApiKey
-);
-  
+    .getElementById('googleKey')
+    ?.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=' + environment.googleMapsApiKey);
+
 platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+    .bootstrapModule(AppModule)
+    .catch((err) => console.error(err));
