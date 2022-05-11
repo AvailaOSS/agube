@@ -72,7 +72,7 @@ export class GaugeComponent implements OnChanges {
                 yellowTo: 90,
                 minorTicks: 10,
             },
-            data: [this.waterMeter!.waterMeter.code, total],
+            data: [this.waterMeter!.waterMeter.code, total || 0],
         };
     }
 
