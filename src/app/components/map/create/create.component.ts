@@ -47,7 +47,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     public gate: FormControl | undefined;
 
     public autocomplete: Address[] = [];
-
+    public clickUser: ConfigureMap | undefined;
     // You can override this url for use other maps
     private zoom: number = MapComponent.zoom;
     private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
@@ -153,7 +153,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     // replace address candidate with news
                     this.addressCandidates = response;
                     // select first option as candidate
-                    this.selectCandidate(response[0]);
+                    this.selectCandidate(response[0],this.clickUser);
                     this.loadingCandidates = false;
                 });
             } else {
@@ -162,7 +162,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 // replace address candidate with news
                 this.addressCandidates = response;
                 // select first option as candidate
-                this.selectCandidate(response[0]);
+                this.selectCandidate(response[0],this.clickUser);
                 this.loadingCandidates = false;
             }
         });
@@ -185,12 +185,12 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     public mouseIsOut() {
-        if (!this.selectedStreetCandidate) {
+        if (!this.clickUser) {
             return;
         }
         this.initializeMap({
-            lat: this.selectedStreetCandidate.lat,
-            lon: this.selectedStreetCandidate.lon,
+            lat: this.clickUser.lat,
+            lon: this.clickUser.lon,
             zoom: MapComponent.zoom,
             showCircle: true,
             height: this.configureMap!.height,
@@ -295,6 +295,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 this.map.removeLayer(circle);
             }
             this.initializeMap(clickConf);
+            this.clickUser = clickConf;
 
             this.getLocationByCoordinate(Number(clickConf.lat), Number(clickConf.lon)).subscribe(
                 (response: LocationResponse) => {
