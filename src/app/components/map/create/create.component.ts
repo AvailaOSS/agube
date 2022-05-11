@@ -9,7 +9,7 @@ import {
     OnChanges,
     SimpleChanges,
 } from '@angular/core';
-import { map, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as L from 'leaflet';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
@@ -20,7 +20,7 @@ import { MapComponent } from '../map/map.component';
 import { ConfigureMap } from '../map/configure-map';
 import { MapEvent } from '../map/map-event';
 import { LocationResponse } from '../map/location-response';
-import { Address, AddressService, Geolocation } from '@availa/agube-rest-api';
+import { Address, AddressService } from '@availa/agube-rest-api';
 
 @Component({
     selector: 'app-map-location-create',
@@ -28,14 +28,15 @@ import { Address, AddressService, Geolocation } from '@availa/agube-rest-api';
     styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent extends MapComponent implements AfterViewInit, OnInit, OnChanges {
-    @Input() public inputForm!: InputForm;
+    @Input() public addressInputForm!: InputForm;
     @Input() public resetForm: boolean = false;
 
     @ViewChild(MatSelectionList) public candidateComponents: MatSelectionList | undefined;
 
     @Output() public addressForm: EventEmitter<AddressEmitter> = new EventEmitter<AddressEmitter>();
 
-    public streetCandidates: LocationResponse[] = [];
+    public addressCandidates: LocationResponse[] = [];
+    public loadingCandidates: boolean = false;
 
     // filter
     public addressFormGroup: FormGroup | undefined;
@@ -58,6 +59,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        // if parent says reset form then reset
         if (
             (changes['resetForm'].currentValue && !changes['resetForm'].previousValue) ||
             changes['resetForm'].currentValue != changes['resetForm'].previousValue
@@ -67,14 +69,15 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     ngOnInit(): void {
-        if (!this.inputForm) {
-            throw new Error('inputForm is neccessary for this component');
+        if (!this.addressInputForm) {
+            throw new Error('inputForm is necessary for this component');
         }
 
-        this.street = this.inputForm.street;
-        this.number = this.inputForm.number;
-        this.flat = this.inputForm.flat;
-        this.gate = this.inputForm.gate;
+        // parent can initialize the Address Input Form
+        this.street = this.addressInputForm.street;
+        this.number = this.addressInputForm.number;
+        this.flat = this.addressInputForm.flat;
+        this.gate = this.addressInputForm.gate;
         this.addressFormGroup = this.formBuilder.group({
             filter: this.filter,
             street: this.street,
@@ -83,9 +86,13 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             gate: this.gate,
         });
 
+        // on address form value has changed
         this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
+            // if Street has been selected
             if (this.selectedStreetCandidate) {
+                // fill missing address fields
                 this.fillMissingAddress(this.selectedStreetCandidate);
+                // emit the address
                 this.addressForm.emit({
                     addressFormGroup: this.addressFormGroup!,
                     location: this.selectedStreetCandidate,
@@ -93,8 +100,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             }
         });
 
+        // receive all addresses from the manager for initialize the autocomplete
         this.svcAddress.getAddress().subscribe((response) => {
             this.autocomplete = response;
+            // if has some address set as selected option in filter
             if (response.length > 0) {
                 this.selectOptionFilter(response[0]);
             }
@@ -102,37 +111,73 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     override ngAfterViewInit(): void {
+        // on angular view initialized, then load the map with this configuration
         this.initializeMap(this.configureMap!);
     }
 
     public selectOptionFilter(option: Address) {
-        let filter = option.city + ', ' + option.road + ', ' + option.postcode;
-        this.filtering(filter);
+        // override the selected candidate with the option selected
+        if (this.selectedStreetCandidate) {
+            this.selectedStreetCandidate.address.city = option.city;
+            this.selectedStreetCandidate.address.country = option.country;
+            this.selectedStreetCandidate.address.city_district = option.city_district;
+            this.selectedStreetCandidate.address.municipality = option.municipality;
+            this.selectedStreetCandidate.address.postcode = option.postcode;
+            this.selectedStreetCandidate.address.province = option.province;
+            this.selectedStreetCandidate.address.state = option.state;
+            this.selectedStreetCandidate.address.village = option.village;
+            this.selectedStreetCandidate.address.road = option.road;
+            // override the form with selected candidate information
+            if (this.street) {
+                this.street.setValue(option.road);
+            }
+        }
+        // do filtering
+        this.filtering(option);
     }
 
-    public filtering(filter?: string) {
-        let myfilter = this.filter.value;
+    public filtering(option?: Address) {
+        this.loadingCandidates = true;
+        // get the filter value on the html filter
+        let localFilter = this.filter.value;
 
-        if (filter) {
-            myfilter = filter;
+        // if method has been called with parameter override the local filter
+        if (option) {
+            // filter with option selected
+            localFilter = option.country + ', ' + option.state + ', ' + option.city + ', ' + option.road;
         }
 
-        this.getLocationBySearch(myfilter).subscribe((response) => {
-            if (!response.length) {
-                return;
+        // get location with the local filter
+        this.getLocationBySearch(localFilter).subscribe((response) => {
+            if (!response.length && option) {
+                // if road filter not working, filter again without using road
+                // retry filter again
+                // filter with country, state and city because the map can't search the road sometimes
+                localFilter = option.country + ', ' + option.state + ', ' + option.city;
+                // get location with the local filter
+                this.getLocationBySearch(localFilter).subscribe((response) => {
+                    if (!response.length) {
+                        // if no response, do nothing
+                        return;
+                    }
+                    // candidate components unselect
+                    this.candidateComponents?.deselectAll();
+                    // replace address candidate with news
+                    this.addressCandidates = response;
+                    console.log('filtrado sin camino', this.addressCandidates);
+                    // select first option as candidate
+                    this.selectCandidate(response[0]);
+                    this.loadingCandidates = false;
+                });
+            } else {
+                // candidate components unselect
+                this.candidateComponents?.deselectAll();
+                // replace address candidate with news
+                this.addressCandidates = response;
+                // select first option as candidate
+                this.selectCandidate(response[0]);
+                this.loadingCandidates = false;
             }
-            this.candidateComponents?.deselectAll();
-            this.streetCandidates = response;
-            this.selectedStreetCandidate = response[0];
-            this.fillFormControls(this.selectedStreetCandidate);
-            this.initializeMap({
-                lat: this.selectedStreetCandidate.lat,
-                lon: this.selectedStreetCandidate.lon,
-                zoom: MapComponent.zoom,
-                showCircle: true,
-                height: this.configureMap!.height,
-                dragging: this.configureMap!.dragging,
-            });
         });
     }
 
@@ -166,9 +211,15 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         });
     }
 
+    /**
+     * On candidate selected in the html
+     * @param candidate
+     */
     public selectCandidate(candidate: LocationResponse) {
         this.selectedStreetCandidate = candidate;
+        // ensure that form controls is filled
         this.fillFormControls(this.selectedStreetCandidate);
+        // reset the map to new location
         this.initializeMap({
             lat: this.selectedStreetCandidate.lat,
             lon: this.selectedStreetCandidate.lon,
@@ -252,9 +303,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             this.initializeMap(clickConf);
 
             this.getLocationByCoordinate(+clickConf.lat, +clickConf.lon).subscribe((response: LocationResponse) => {
-                this.selectedStreetCandidate = response;
-                this.selectedStreetCandidate.zoom = this.zoom;
-                this.fillFormControls(this.selectedStreetCandidate);
+                this.selectCandidate(response);
+                if (this.selectedStreetCandidate) {
+                    this.selectedStreetCandidate.zoom = this.zoom;
+                }
             });
         });
     }
@@ -282,7 +334,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             location.zoom = MapComponent.zoom;
         }
 
-        // FIXME: move this in one pipe
+        // FIXME: move this to pipe
         this.filter.setValue(location.display_name);
 
         if (this.street && location.address.road) {

@@ -6,7 +6,7 @@ import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
-import { map, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-page-reservoir-create',

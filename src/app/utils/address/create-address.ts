@@ -6,7 +6,7 @@ import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { addressGenerator } from 'src/app/utils/address/address';
 
 export class CreateAddress {
-    public inputForm: InputForm = {
+    public addressInputForm: InputForm = {
         street: new FormControl('', Validators.required),
         number: new FormControl('', Validators.required),
         flat: new FormControl(''),
