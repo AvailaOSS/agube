@@ -48,6 +48,9 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public autocomplete: Address[] = [];
     public clickUser: ConfigureMap | undefined;
+
+    private mapId = 'create_map';
+
     // You can override this url for use other maps
     private zoom: number = MapComponent.zoom;
     private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
@@ -181,6 +184,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public mouseIsOver(candidate: LocationResponse) {
         this.initializeMap({
+            id: this.mapId,
             lat: candidate.lat,
             lon: candidate.lon,
             zoom: MapComponent.zoom,
@@ -195,6 +199,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             return;
         }
         this.initializeMap({
+            id: this.mapId,
             lat: this.clickUser.lat,
             lon: this.clickUser.lon,
             zoom: MapComponent.zoom,
@@ -221,6 +226,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             lon = clickConf.lon;
         }
         this.initializeMap({
+            id: this.mapId,
             lat: lat,
             lon: lon,
             zoom: MapComponent.zoom,
@@ -289,6 +295,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             }
 
             let clickConf: ConfigureMap = {
+                id: this.mapId,
                 lat: e.latlng.lat,
                 lon: e.latlng.lng,
                 zoom: this.zoom,

@@ -28,7 +28,7 @@ export class DetailComponent implements OnInit {
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '500px';
-
+    private mapId: string = 'detail_map';
     public waterMeterId: number | undefined;
 
     public type: Type | undefined = undefined;
@@ -81,6 +81,7 @@ export class DetailComponent implements OnInit {
     public goToNewDwelling() {
         this.router.navigate(['manager/dwellings/create']);
     }
+
     public goToEditGeolocation() {
         if (!this.dwelling) {
             return;
@@ -89,10 +90,11 @@ export class DetailComponent implements OnInit {
         const geolocation = this.dwelling.geolocation;
 
         this.configureMap = {
+            id: this.mapId,
             lat: geolocation.latitude,
             lon: geolocation.longitude,
             zoom: geolocation.zoom,
-            showCircle: true,
+            showCircle: false,
             height: '350px',
             dragging: false,
         };
@@ -109,13 +111,14 @@ export class DetailComponent implements OnInit {
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result) => {
-                    console.log(result)
+            console.log(result);
             dialogRef.close();
         });
     }
 
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
+            id: this.mapId,
             lat: geolocation.latitude,
             lon: geolocation.longitude,
             zoom: geolocation.zoom,

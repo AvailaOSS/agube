@@ -66,6 +66,7 @@ export class EditComponent extends CreateAddress {
         const geolocation = this.geolocation.geolocation.geolocation;
 
         this.configureMap = {
+            id: 'edit_map',
             lat: geolocation.latitude,
             lon: geolocation.longitude,
             zoom: geolocation.zoom,
