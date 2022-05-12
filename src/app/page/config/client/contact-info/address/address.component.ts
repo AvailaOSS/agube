@@ -78,7 +78,7 @@ export class AddressComponent extends CreateAddress {
         }
         const index = this.geolocationList
             .map((p) => {
-                return p.geolocation.id;
+                return p.geolocation.geolocation.id;
             })
             .indexOf(addressId, 0);
         if (index > -1) {
