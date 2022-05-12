@@ -1,17 +1,39 @@
 <html>
-  <head> </head>
-  <body style="margin-left: 1em">
-    <h1>Bienvenido/a a {{ app_name }}, {{ first_name }}!</h1>
-    <div style="margin-left: 1em">
-      <p>Su administrador {{ manager_name }} le ha dado de alta en el sistema como residente de una vivienda</p>
-      <p>Active su cuenta con el código <h1>{{activation_code}}</h1> y acceda al sistema para actualizar su información</p>
-      <p></p>
-      <hr style="width: 45em" />
-      <p>
-        <em>
-          Si usted no sabe qué es éste correo por favor pongase en contactos con nosotros en: {{ email_contact }}
-        </em>
-      </p>
-    </div>
-  </body>
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet" />
+  <style type="text/css">
+    * {
+      font-family: "Ubuntu";
+    }
+
+    h1 {
+      color: #485459;
+    }
+
+    .color-primary {
+      color: #7fd3f7;
+    }
+  </style>
+</head>
+
+<body style="margin-left: 1em">
+  <h1>Bienvenido/a a <span class="color-primary">{{ app_name }}</span>, <span class="color-primary">{{ first_name
+      }}</span>!</h1>
+  <div style="margin-left: 1em">
+    <p>Su administrador <span class="color-primary">{{ manager_name }}</span> le ha dado de alta en el sistema como
+      residente de una vivienda</p>
+    <p>Active su cuenta con el código
+    <h1><span class="color-primary">{{activation_code}}</span></h1> y acceda al sistema para actualizar su información
+    </p>
+    <p></p>
+    <hr style="width: 45em" />
+    <p>
+      <em>
+        Si usted no sabe qué es éste correo por favor pongase en contactos con nosotros en: {{ email_contact }}
+      </em>
+    </p>
+  </div>
+</body>
+
 </html>
