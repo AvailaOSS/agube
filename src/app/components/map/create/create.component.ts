@@ -45,6 +45,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     public number: FormControl | undefined;
     public flat: FormControl | undefined;
     public gate: FormControl | undefined;
+    public cp: FormControl | undefined;
+    public village: FormControl | undefined;
 
     public autocomplete: Address[] = [];
     public clickUser: ConfigureMap | undefined;
@@ -77,12 +79,16 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
 
         // parent can initialize the Address Input Form
+        this.cp = this.addressInputForm.cp;
+        this.village = this.addressInputForm.village;
         this.street = this.addressInputForm.street;
         this.number = this.addressInputForm.number;
         this.flat = this.addressInputForm.flat;
         this.gate = this.addressInputForm.gate;
         this.addressFormGroup = this.formBuilder.group({
             filter: this.filter,
+            cp: this.cp,
+            village:this.village,
             street: this.street,
             number: this.number,
             flat: this.flat,
@@ -112,7 +118,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // receive all addresses from the manager for initialize the autocomplete
         this.svcAddress.getAddress().subscribe((response) => {
             this.autocomplete = response;
-            console.log(this.configureMap?.selectOptionFilter);
             // if has some address set as selected option in filter
             if (
                 response.length > 0 &&
@@ -139,8 +144,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public selectOptionFilter(option: Address) {
         // override the form with selected candidate information
-        if (this.street) {
+        if (this.street && this.cp) {
             this.street.setValue(option.road);
+            this.cp.setValue(option.postcode);
+            this.village?.setValue(option.municipality);
         }
         // do filtering
         this.filtering(option);
@@ -350,6 +357,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.number?.setValue('');
         this.flat?.setValue('');
         this.gate?.setValue('');
+        this.cp?.setValue('');
+        this.village?.setValue('');
     }
 
     private fillFormControls(location: LocationResponse) {
@@ -360,8 +369,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // FIXME: move this to pipe
         this.filter.setValue(location.display_name);
 
-        if (this.street && location.address.road) {
+        if (this.street && location.address.road && this.cp) {
             this.street.setValue(location.address.road);
+            this.cp.setValue(location.address.postcode);
+            this.village?.setValue(location.address.village);
         }
 
         if (this.number && !this.number.value) {

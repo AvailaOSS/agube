@@ -35,6 +35,16 @@
             </button>
             <mat-error *ngIf="filter.invalid">{{ errorValidator('filter') | translate }}</mat-error>
         </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="village">
+            <mat-label>Barrio</mat-label>
+            <input matInput type="text" [formControl]="village" />
+            <mat-error *ngIf="village.invalid">{{ errorValidator('village') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="cp">
+            <mat-label>CP</mat-label>
+            <input matInput type="text" [formControl]="cp" />
+            <mat-error *ngIf="cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
+        </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="street">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.STREET.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="street" />

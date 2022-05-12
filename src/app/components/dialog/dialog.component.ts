@@ -38,6 +38,8 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
 
         if (typeof this.geolocation !== 'boolean') {
+            this.addressInputForm.cp.setValue(this.geolocation.address.postcode);
+            this.addressInputForm.village?.setValue(this.geolocation.address.village);
             this.addressInputForm.street.setValue(this.geolocation.address.road);
             this.addressInputForm.number?.setValue(this.geolocation.number);
             this.addressInputForm.flat?.setValue(this.geolocation.flat);
