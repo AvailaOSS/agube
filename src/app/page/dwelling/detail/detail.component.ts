@@ -7,6 +7,9 @@ import { Type } from '../../water-meter/detail/type';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { Detail } from './detail';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 
 @Component({
     selector: 'app-page-dwelling-detail',
@@ -39,7 +42,8 @@ export class DetailComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private svcDwelling: DwellingService,
         private svcManager: ManagerService,
-        private svcPersistant: WaterMeterPersistantService
+        private svcPersistant: WaterMeterPersistantService,
+        public dialog: MatDialog
     ) {
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
         this.loading = true;
@@ -76,6 +80,38 @@ export class DetailComponent implements OnInit {
 
     public goToNewDwelling() {
         this.router.navigate(['manager/dwellings/create']);
+    }
+    public goToEditGeolocation() {
+        if (!this.dwelling) {
+            return;
+        }
+
+        const geolocation = this.dwelling.geolocation;
+
+        this.configureMap = {
+            lat: geolocation.latitude,
+            lon: geolocation.longitude,
+            zoom: geolocation.zoom,
+            showCircle: true,
+            height: '350px',
+            dragging: false,
+        };
+
+        let data: DialogParameters = {
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            geolocation: this.dwelling.geolocation,
+            configureMap: this.configureMap,
+            userId: 0,
+        };
+        const dialogRef = this.dialog.open(DialogComponent, {
+            width: '100%',
+            data,
+        });
+
+        dialogRef.componentInstance.submitClicked.subscribe((result) => {
+                    console.log(result)
+            dialogRef.close();
+        });
     }
 
     private configureMaps(geolocation: Geolocation) {

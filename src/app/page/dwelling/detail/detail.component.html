@@ -4,6 +4,7 @@
             <mat-card-content *ngIf="dwelling">
                 <div class="dwelling-info">
                     <h1>{{ dwelling.geolocation | geolocation }}</h1>
+                    <button mat-raised-button (click)="goToEditGeolocation()">Editar</button>
                     <div class="dwelling-content-info">
                         <app-address [geolocation]="dwelling.geolocation"></app-address>
                         <div class="dwelling-resident">
