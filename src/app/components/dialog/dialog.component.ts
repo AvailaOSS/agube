@@ -36,7 +36,6 @@ export class DialogComponent extends CreateAddress implements OnInit {
         config.selectOptionFilter = this.data.configureMap.selectOptionFilter;
         this.configureMap = config;
 
-
         if (typeof this.geolocation !== 'boolean') {
             this.addressInputForm.cp.setValue(this.geolocation.address.postcode);
             this.addressInputForm.village?.setValue(this.geolocation.address.village);
@@ -46,7 +45,6 @@ export class DialogComponent extends CreateAddress implements OnInit {
             this.addressInputForm.gate?.setValue(this.geolocation.gate);
         }
     }
-
 
     public closeDialog() {
         this.dialogRef.close();

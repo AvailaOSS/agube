@@ -35,7 +35,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         MapCreateModule,
         MatDialogModule,
         MatAutocompleteModule,
-        DialogModule
+        DialogModule,
     ],
     exports: [AddressComponent, EditComponent],
 })

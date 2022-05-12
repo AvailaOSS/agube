@@ -39,7 +39,7 @@ import { ManagementModule } from '../../../components/management/management.modu
         WaterMeterModule,
         MatProgressSpinnerModule,
         ManagementModule,
-        DialogModule
+        DialogModule,
     ],
 })
 export class DetailModule {}

@@ -97,7 +97,7 @@ export class DetailComponent implements OnInit {
             showCircle: true,
             height: '300px',
             dragging: false,
-            selectOptionFilter:true
+            selectOptionFilter: true,
         };
 
         let data: DialogParameters = {
@@ -112,7 +112,7 @@ export class DetailComponent implements OnInit {
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result) => {
-            this.updateGeolocation(result)
+            this.updateGeolocation(result);
             dialogRef.close();
         });
     }
@@ -124,7 +124,7 @@ export class DetailComponent implements OnInit {
         // this.svcDwelling.updateDwellingGeolocation().subscribe(response => {
         //     console.log(response)
         // })
-       console.log(result)
+        console.log(result);
     }
 
     private configureMaps(geolocation: Geolocation) {

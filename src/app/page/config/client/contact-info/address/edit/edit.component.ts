@@ -13,8 +13,6 @@ import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
     styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent extends CreateAddress {
-    private infoMessage: string = 'Esta funcionalidad aún no está disponible';
-
     @Input() public userId: number | undefined;
     @Input() public geolocation: EditableGeolocation | undefined;
 
@@ -49,15 +47,6 @@ export class EditComponent extends CreateAddress {
             });
     }
 
-    public setAddressAsMain() {
-        if (!this.geolocation) {
-            return;
-        }
-        this.svcNotification.info({
-            message: this.infoMessage,
-        });
-    }
-
     public openEditableAddressForm() {
         if (!this.geolocation) {
             return;
@@ -73,7 +62,7 @@ export class EditComponent extends CreateAddress {
             showCircle: true,
             height: '350px',
             dragging: false,
-            selectOptionFilter:true
+            selectOptionFilter: true,
         };
 
         let data: DialogParameters = {
@@ -100,7 +89,7 @@ export class EditComponent extends CreateAddress {
         this.svcUser.deleteUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!).subscribe({
             next: (response) => {
                 this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
-               console.log(this.geolocation!.geolocation)
+                console.log(this.geolocation!.geolocation);
             },
             error: (error) =>
                 this.svcNotification.warning({

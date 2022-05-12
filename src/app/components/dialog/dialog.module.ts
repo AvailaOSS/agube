@@ -9,7 +9,7 @@ import { CreateModule } from '../map/create/create.module';
 
 @NgModule({
     declarations: [DialogComponent],
-    imports: [CommonModule, TranslateModule, MatTooltipModule, MatIconModule, CreateModule,MatButtonModule],
+    imports: [CommonModule, TranslateModule, MatTooltipModule, MatIconModule, CreateModule, MatButtonModule],
     exports: [DialogComponent],
 })
 export class DialogModule {}

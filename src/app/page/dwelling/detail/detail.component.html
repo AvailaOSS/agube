@@ -7,9 +7,10 @@
                         {{ dwelling.geolocation | geolocation }}
 
                         <mat-icon
-                        matTooltip="{{'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP'|translate}}"
-                        (click)="goToEditGeolocation()">edit
-                    </mat-icon>
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
+                            (click)="goToEditGeolocation()"
+                            >edit
+                        </mat-icon>
                     </h1>
                     <div class="dwelling-content-info">
                         <app-address [geolocation]="dwelling.geolocation"></app-address>
