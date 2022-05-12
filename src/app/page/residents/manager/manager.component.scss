@@ -1,0 +1,13 @@
+@import '../../../../assets/availa/sizes/page.scss';
+
+.manager-residents-page {
+    @include my-page();
+}
+
+.manager-residents-page-table {
+  @include my-page-column( );
+}
+
+.manager-residents-page-card {
+  @include my-page-column($columnIndex: 2, $totalColumns: 2);
+}

@@ -27,6 +27,10 @@ const routes: Routes = [
                     import('../../../config/manager/manager-page.module').then((m) => m.ManagerPageModule),
             },
             {
+                path: 'residents',
+                loadChildren: () => import('../../../residents/manager/manager.module').then((m) => m.ManagerResidentsModule),
+            },
+            {
                 path: 'manager/client/dwellings',
                 loadChildren: () => import('../../../dwelling/client/client.module').then((m) => m.ClientModule),
             },
