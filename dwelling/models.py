@@ -131,9 +131,27 @@ class DwellingOwner(models.Model):
     def discharge(self):
         """discharge this owner"""
         self.discharge_date = timezone.now()
+        self.save()
+
+        isOwnerInOtherDwelling = DwellingOwner.objects.filter(
+            user=self.user, discharge_date__isnull=True).count()
+        if isOwnerInOtherDwelling > 0:
+            return
+
+        isResidentInOtherDwelling = DwellingResident.objects.filter(
+            user=self.user, discharge_date__isnull=True).count()
+        if isResidentInOtherDwelling > 0:
+            return
+
+        try:
+            Manager.objects.get(user=self.user)
+            return
+        except ObjectDoesNotExist:
+            pass
+
+        # In any other case
         self.user.is_active = False
         self.user.save()
-        self.save()
 
 
 class DwellingResident(models.Model):
@@ -168,13 +186,28 @@ class DwellingResident(models.Model):
     def discharge(self):
         """discharge this resident"""
         self.discharge_date = timezone.now()
-        # if user is Owner do not disable user account
-        dwelling: Dwelling = Dwelling.objects.get(id=self.dwelling.id)
-        current_owner = dwelling.get_current_owner()
-        if current_owner and self.user != current_owner.user:
-            self.user.is_active = False
-            self.user.save()
         self.save()
+
+        isOwnerInOtherDwelling = DwellingOwner.objects.filter(
+            user=self.user, discharge_date__isnull=True).count()
+        if isOwnerInOtherDwelling > 0:
+            return
+
+        isResidentInOtherDwelling = DwellingResident.objects.filter(
+            user=self.user, discharge_date__isnull=True).count()
+        if isResidentInOtherDwelling > 0:
+            return
+
+        try:
+            Manager.objects.get(user=self.user)
+            return
+        except ObjectDoesNotExist:
+            pass
+
+        # In any other case
+        self.user.is_active = False
+        self.user.save()
+
 
 
 class DwellingWaterMeter(models.Model):
