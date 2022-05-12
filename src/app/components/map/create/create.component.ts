@@ -112,18 +112,20 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // receive all addresses from the manager for initialize the autocomplete
         this.svcAddress.getAddress().subscribe((response) => {
             this.autocomplete = response;
+            console.log(this.configureMap?.selectOptionFilter);
             // if has some address set as selected option in filter
             if (
                 response.length > 0 &&
                 this.configureMap &&
-                this.configureMap.selectOptionFilter == undefined &&
-                this.configureMap.selectOptionFilter !== false
+                this.configureMap.selectOptionFilter === undefined &&
+                this.configureMap.selectOptionFilter === false
             ) {
                 this.selectOptionFilter(response[0]);
-            } else {
+            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
                 this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
                     (response: LocationResponse) => {
-                        this.selectCandidate(response,this.configureMap);
+                        this.candidateComponents?.deselectAll();
+                        this.selectCandidate(response, this.configureMap);
                     }
                 );
             }

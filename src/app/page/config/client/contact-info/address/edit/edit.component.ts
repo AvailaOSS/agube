@@ -73,6 +73,7 @@ export class EditComponent extends CreateAddress {
             showCircle: true,
             height: '350px',
             dragging: false,
+            selectOptionFilter:true
         };
 
         let data: DialogParameters = {

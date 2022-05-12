@@ -33,7 +33,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
         // set selectOptionFilter
         let config = this.data.configureMap;
-        config.selectOptionFilter = false;
+        config.selectOptionFilter = this.data.configureMap.selectOptionFilter;
         this.configureMap = config;
 
 

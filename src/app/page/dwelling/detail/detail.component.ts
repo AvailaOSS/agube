@@ -97,6 +97,7 @@ export class DetailComponent implements OnInit {
             showCircle: true,
             height: '350px',
             dragging: false,
+            selectOptionFilter:true
         };
 
         let data: DialogParameters = {
