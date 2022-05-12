@@ -14,13 +14,16 @@
     .color-primary {
       color: #7fd3f7;
     }
+    .secondary-primary {
+      color: #485459;
+    }
   </style>
 </head>
 
 <body style="margin-left: 1em">
   <h1>Bienvenido/a a <span class="color-primary">{{ app_name }}</span>, <span class="color-primary">{{ first_name }}</span>!</h1>
   <div style="margin-left: 1em">
-    <p>Su administrador <span class="color-primary">{{ manager_name }}</span> le ha dado de alta en el sistema como propietario de una vivienda</p>
+    <p>Su administrador <span class="secondary-primary">{{ manager_name }}</span> le ha dado de alta en el sistema como propietario de una vivienda</p>
     <p>Active su cuenta con el código
     <h1><span class="color-primary">{{activation_code}}</span></h1> y acceda al sistema para actualizar su información</p>
     <p></p>
