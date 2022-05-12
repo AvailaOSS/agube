@@ -4,8 +4,8 @@ import { UserGeolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableGeolocation } from './editable-geolocation';
-import { DialogComponent } from './dialog/dialog.component';
-import { DialogParameters } from './dialog/dialog-parameter';
+import { DialogComponent } from '../../../../../../components/dialog/dialog.component';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 
 @Component({
     selector: 'app-address-editable',

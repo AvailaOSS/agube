@@ -5,8 +5,8 @@ import { AccountService } from '@availa/auth-fe';
 import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableGeolocation } from './edit/editable-geolocation';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from './edit/dialog/dialog.component';
-import { DialogParameters } from './edit/dialog/dialog-parameter';
+import { DialogComponent } from '../../../../../components/dialog/dialog.component';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 
 @Component({
     selector: 'app-address',

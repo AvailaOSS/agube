@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Geolocation, UserGeolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { Observable } from 'rxjs';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 
@@ -17,10 +15,6 @@ export class DialogComponent extends CreateAddress implements OnInit {
     public dialogTitle: string = '';
     public geolocation: Geolocation | boolean;
     public userId: number | undefined;
-
-    myControl = new FormControl();
-    optionsName: string[] = ['One', 'Two', 'Three'];
-    public filteredOptions: Observable<string[]> = new Observable();
 
     constructor(
         public dialogRef: MatDialogRef<DialogComponent>,

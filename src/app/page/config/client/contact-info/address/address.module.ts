@@ -1,3 +1,4 @@
+import { DialogModule } from 'src/app/components/dialog/dialog.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,11 +15,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { CreateModule as MapCreateModule } from 'src/app/components/map/create/create.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from './edit/dialog/dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-    declarations: [AddressComponent, EditComponent, DialogComponent],
+    declarations: [AddressComponent, EditComponent],
     imports: [
         CommonModule,
         MatButtonModule,
@@ -35,6 +35,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         MapCreateModule,
         MatDialogModule,
         MatAutocompleteModule,
+        DialogModule
     ],
     exports: [AddressComponent, EditComponent],
 })
