@@ -1,4 +1,4 @@
-import { DwellingService, DwellingCreate, Geolocation, ManagerService } from '@availa/agube-rest-api';
+import { DwellingService, DwellingCreate, Geolocation, ManagerService, UserGeolocation } from '@availa/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
@@ -111,9 +111,13 @@ export class DetailComponent implements OnInit {
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result) => {
-            console.log(result);
+            this.updateAddress(result)
             dialogRef.close();
         });
+    }
+
+    public updateAddress(result: UserGeolocation) {
+     console.log(result)
     }
 
     private configureMaps(geolocation: Geolocation) {

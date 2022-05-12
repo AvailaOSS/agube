@@ -51,6 +51,14 @@ export class DialogComponent extends CreateAddress implements OnInit {
     }
 
     public saveAddress() {
-        console.log(this.addressEmitter)
+        if (!this.geolocation) {
+            return;
+        }
+        let updateUserAddress: UserGeolocation = {
+            geolocation: this.getGeolocation(),
+            main: false,
+        };
+        this.submitClicked.emit(updateUserAddress);
+        this.dialogRef.close();
     }
 }

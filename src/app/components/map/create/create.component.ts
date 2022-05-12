@@ -120,6 +120,12 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 this.configureMap.selectOptionFilter !== false
             ) {
                 this.selectOptionFilter(response[0]);
+            } else {
+                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
+                    (response: LocationResponse) => {
+                        this.selectCandidate(response,this.configureMap);
+                    }
+                );
             }
         });
     }

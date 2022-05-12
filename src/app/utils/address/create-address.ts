@@ -31,6 +31,7 @@ export class CreateAddress {
     constructor() {}
 
     public addressFormReceive(addressEmitter: AddressEmitter) {
+        console.log(addressEmitter)
         this.addressEmitter = addressEmitter;
     }
 
