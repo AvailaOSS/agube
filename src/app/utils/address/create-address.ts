@@ -26,6 +26,8 @@ export class CreateAddress {
         showCircle: false,
         height: '500px',
         dragging: false,
+        selectOptionFilter: false,
+
     };
 
     public addressEmitter: AddressEmitter | undefined;

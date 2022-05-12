@@ -122,7 +122,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             if (
                 response.length > 0 &&
                 this.configureMap &&
-                this.configureMap.selectOptionFilter === undefined &&
+                this.configureMap.selectOptionFilter !== undefined &&
                 this.configureMap.selectOptionFilter === false
             ) {
                 this.selectOptionFilter(response[0]);
