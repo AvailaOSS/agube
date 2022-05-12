@@ -95,7 +95,7 @@ export class DetailComponent implements OnInit {
             lon: geolocation.longitude,
             zoom: geolocation.zoom,
             showCircle: true,
-            height: '350px',
+            height: '300px',
             dragging: false,
             selectOptionFilter:true
         };
@@ -112,13 +112,19 @@ export class DetailComponent implements OnInit {
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result) => {
-            this.updateAddress(result)
+            this.updateGeolocation(result)
             dialogRef.close();
         });
     }
 
-    public updateAddress(result: UserGeolocation) {
-     console.log(result)
+    public updateGeolocation(result: any) {
+        if (!this.dwelling) {
+            return;
+        }
+        // this.svcDwelling.updateDwellingGeolocation().subscribe(response => {
+        //     console.log(response)
+        // })
+       console.log(result)
     }
 
     private configureMaps(geolocation: Geolocation) {

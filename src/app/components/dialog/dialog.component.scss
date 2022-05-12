@@ -1,7 +1,9 @@
-div{
-    margin: 10px;
+@import '../../../assets/availa/sizes/margins.scss';
+
+div {
+    margin: $margin-x-small;
     width: 100%;
-    button{
-        margin-right: 10px;
+    button {
+        margin-right: $margin-x-small;
     }
 }

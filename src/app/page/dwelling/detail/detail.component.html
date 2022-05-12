@@ -3,8 +3,14 @@
         <mat-card *ngIf="!loading">
             <mat-card-content *ngIf="dwelling">
                 <div class="dwelling-info">
-                    <h1>{{ dwelling.geolocation | geolocation }}</h1>
-                    <button mat-raised-button (click)="goToEditGeolocation()">Editar</button>
+                    <h1>
+                        {{ dwelling.geolocation | geolocation }}
+
+                        <mat-icon
+                        matTooltip="{{'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP'|translate}}"
+                        (click)="goToEditGeolocation()">edit
+                    </mat-icon>
+                    </h1>
                     <div class="dwelling-content-info">
                         <app-address [geolocation]="dwelling.geolocation"></app-address>
                         <div class="dwelling-resident">

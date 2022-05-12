@@ -2,6 +2,7 @@
 
 .selector-geolocation-map {
     width: 100%;
+    overflow: hidden;
     .address-form-geolocation {
         display: flex;
         margin-bottom: 15px;
