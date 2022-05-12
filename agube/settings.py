@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'dwelling',
     'reservoir',
     'geolocation',
-    'person'
+    'person',
+    'owner'
 ]
 
 MIDDLEWARE = [

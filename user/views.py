@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.assemblers import create_user_geolocation
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident
+from dwelling.models import Dwelling, DwellingResident
+from owner.models import Owner
 from phone.models import Phone
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
@@ -163,7 +164,7 @@ class UserDwellingDetailView(APIView):
         dwelling_list_as_owner: list[Dwelling] = list(
             map(
                 lambda owner: owner.dwelling,
-                DwellingOwner.objects.filter(user__id=pk).exclude(
+                Owner.objects.filter(user__id=pk).exclude(
                     discharge_date__isnull=False)))
 
         dwelling_list_as_resident: list[Dwelling] = list(

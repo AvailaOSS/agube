@@ -7,11 +7,10 @@ from manager.models import Manager
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
-from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterSerializer
 
 from dwelling.exceptions import UserManagerRequiredError
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident
+from dwelling.models import Dwelling, DwellingResident
 
 from address.assembler import create_geolocation
 
@@ -89,28 +88,6 @@ class DwellingCreateSerializer(ModelSerializer):
     @classmethod
     def create_dwelling_geolocation(cls, validated_data) -> Geolocation:
         return create_geolocation(validated_data)
-
-
-class DwellingOwnerSerializer(ModelSerializer):
-    """
-    Dwelling User Owner ModelSerializer
-    """
-    id = ReadOnlyField()
-    dwelling_id = PrimaryKeyRelatedField(many=False, read_only=True)
-    user = UserCreateSerializer(many=False)
-    release_date = ReadOnlyField()
-    discharge_date = ReadOnlyField()
-
-    class Meta:
-        ref_name = 'Owner'
-        model = DwellingOwner
-        fields = (
-            'id',
-            'dwelling_id',
-            'user',
-            'release_date',
-            'discharge_date',
-        )
 
 
 class DwellingResidentSerializer(ModelSerializer):

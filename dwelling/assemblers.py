@@ -3,6 +3,7 @@ from enum import Enum
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
+from owner.models import Owner
 from user.models import UserGeolocation, UserPhone
 from user.serializers import UserCreateSerializer
 from manager.models import Manager
@@ -10,7 +11,7 @@ from person.models import Person
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
 
-from dwelling.models import DwellingOwner, DwellingResident
+from dwelling.models import DwellingResident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
 from geolocation.serializers import GeolocationSerializer
@@ -153,8 +154,8 @@ def get_user_phones_serialized(user: User):
     return list_of_serialized
 
 
-def get_dwelling_owner_serialized(owner: DwellingOwner):
-    from dwelling.serializers import DwellingOwnerSerializer
+def get_dwelling_owner_serialized(owner: Owner):
+    from owner.serializers import OwnerSerializer
 
     user = owner.user
     data = {
@@ -172,7 +173,7 @@ def get_dwelling_owner_serialized(owner: DwellingOwner):
         "release_date": owner.release_date,
         "discharge_date": owner.discharge_date
     }
-    return DwellingOwnerSerializer(data, many=False).data
+    return OwnerSerializer(data, many=False).data
 
 
 def get_dwelling_resident_serialized(resident: DwellingResident):

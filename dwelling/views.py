@@ -2,6 +2,8 @@ from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
+from owner.models import Owner
+from owner.serializers import OwnerSerializer
 from user.models import UserPhone
 from rest_framework.permissions import IsAuthenticated
 from manager.permissions import IsManagerAuthenticated
@@ -21,11 +23,10 @@ from dwelling.assemblers import (PersonTag, create_user,
 from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident, DwellingWaterMeter
+from dwelling.models import Dwelling, DwellingResident, DwellingWaterMeter
 from dwelling.serializers import (DwellingResumeSerializer,
                                   DwellingCreateSerializer,
                                   DwellingDetailSerializer,
-                                  DwellingOwnerSerializer,
                                   DwellingResidentSerializer)
 
 TAG = 'dwelling'
@@ -48,7 +49,7 @@ class DwellingResumeView(APIView):
         total_residents = DwellingResident.objects.filter(
             dwelling__manager__user=manager).count()
 
-        total_owners = DwellingOwner.objects.filter(
+        total_owners = Owner.objects.filter(
             dwelling__manager__user=manager).count()
 
         data = {
@@ -168,11 +169,11 @@ class DwellingView(generics.GenericAPIView):
 
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
-    serializer_class = DwellingOwnerSerializer
+    serializer_class = OwnerSerializer
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(operation_id="getCurrentOwner",
-                         responses={200: DwellingOwnerSerializer(many=False)})
+                         responses={200: OwnerSerializer(many=False)})
     def get(self, request, pk):
         """
         Get Current Owner

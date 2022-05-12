@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from geolocation.models import Geolocation
+
 from user.models import UserGeolocation
 from manager.models import Manager
 from watermeter.models import WaterMeter
@@ -38,14 +39,16 @@ class Dwelling(models.Model):
         owner = self.get_current_owner()
         if owner:
             owner.discharge()
-        DwellingOwner.objects.create(user=user, dwelling=self)
+
+        from owner.models import Owner
+        Owner.objects.create(user=user, dwelling=self)
 
     def get_current_owner(self):
         # type: (Dwelling) -> DwellingOwner
         """returns the current owner in the dwelling"""
+        from owner.models import Owner
         try:
-            return DwellingOwner.objects.get(dwelling=self,
-                                             discharge_date=None)
+            return Owner.objects.get(dwelling=self, discharge_date=None)
         except ObjectDoesNotExist:
             return None
 
@@ -112,48 +115,6 @@ class Dwelling(models.Model):
         self.save()
 
 
-class DwellingOwner(models.Model):
-    """A class used to represent an Owner-Dwelling ManyToMany"""
-    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
-    user: User = models.ForeignKey(User, on_delete=models.PROTECT)
-    release_date = models.DateTimeField()
-    discharge_date = models.DateTimeField(null=True)
-
-    class Meta:
-        db_table = 'agube_dwelling_owner'
-
-    def save(self, *args, **kwargs):
-        """save the DwellingOwner, save release_date timezone.now()"""
-        if not self.pk:
-            self.release_date = timezone.now()
-        super(DwellingOwner, self).save(*args, **kwargs)
-
-    def discharge(self):
-        """discharge this owner"""
-        self.discharge_date = timezone.now()
-        self.save()
-
-        isOwnerInOtherDwelling = DwellingOwner.objects.filter(
-            user=self.user, discharge_date__isnull=True).count()
-        if isOwnerInOtherDwelling > 0:
-            return
-
-        isResidentInOtherDwelling = DwellingResident.objects.filter(
-            user=self.user, discharge_date__isnull=True).count()
-        if isResidentInOtherDwelling > 0:
-            return
-
-        try:
-            Manager.objects.get(user=self.user)
-            return
-        except ObjectDoesNotExist:
-            pass
-
-        # In any other case
-        self.user.is_active = False
-        self.user.save()
-
-
 class DwellingResident(models.Model):
     """A class used to represent an Resident-Dwelling ManyToMany"""
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
@@ -207,7 +168,6 @@ class DwellingResident(models.Model):
         # In any other case
         self.user.is_active = False
         self.user.save()
-
 
 
 class DwellingWaterMeter(models.Model):
