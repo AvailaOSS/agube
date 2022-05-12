@@ -113,7 +113,12 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.svcAddress.getAddress().subscribe((response) => {
             this.autocomplete = response;
             // if has some address set as selected option in filter
-            if (response.length > 0) {
+            if (
+                response.length > 0 &&
+                this.configureMap &&
+                this.configureMap.selectOptionFilter == undefined &&
+                this.configureMap.selectOptionFilter !== false
+            ) {
                 this.selectOptionFilter(response[0]);
             }
         });

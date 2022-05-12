@@ -94,7 +94,7 @@ export class DetailComponent implements OnInit {
             lat: geolocation.latitude,
             lon: geolocation.longitude,
             zoom: geolocation.zoom,
-            showCircle: false,
+            showCircle: true,
             height: '350px',
             dragging: false,
         };

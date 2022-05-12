@@ -2,6 +2,7 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Geolocation, UserGeolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 
@@ -29,7 +30,12 @@ export class DialogComponent extends CreateAddress implements OnInit {
     ngOnInit(): void {
         this.dialogTitle = this.data.dialogTitle;
         this.userId = this.data.userId;
-        this.configureMap = this.data.configureMap;
+
+        // set selectOptionFilter
+        let config = this.data.configureMap;
+        config.selectOptionFilter = false;
+        this.configureMap = config;
+
 
         if (typeof this.geolocation !== 'boolean') {
             this.addressInputForm.street.setValue(this.geolocation.address.road);
@@ -39,19 +45,12 @@ export class DialogComponent extends CreateAddress implements OnInit {
         }
     }
 
+
     public closeDialog() {
         this.dialogRef.close();
     }
 
     public saveAddress() {
-        if (!this.geolocation) {
-            return;
-        }
-        let updateUserAddress: UserGeolocation = {
-            geolocation: this.getGeolocation(),
-            main: false,
-        };
-        this.submitClicked.emit(updateUserAddress);
-        this.dialogRef.close();
+        console.log(this.addressEmitter)
     }
 }

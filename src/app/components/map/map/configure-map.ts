@@ -6,4 +6,5 @@ export interface ConfigureMap {
     showCircle: boolean;
     height: string;
     dragging: boolean;
+    selectOptionFilter?: boolean;
 }
