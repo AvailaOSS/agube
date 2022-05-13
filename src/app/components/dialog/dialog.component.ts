@@ -11,7 +11,7 @@ import { DialogParameters } from './dialog-parameter';
     styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent extends CreateAddress implements OnInit {
-    @Output() submitClicked: EventEmitter<Geolocation> = new EventEmitter<Geolocation>();
+    @Output() submitClicked: EventEmitter<Geolocation | undefined> = new EventEmitter<Geolocation | undefined>();
     public dialogTitle: string = '';
     public geolocation: Geolocation | undefined;
 
@@ -44,6 +44,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
     }
 
     public closeDialog() {
+        this.submitClicked.emit(undefined);
         this.dialogRef.close();
     }
 

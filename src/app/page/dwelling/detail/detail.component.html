@@ -36,12 +36,14 @@
                         </mat-button-toggle>
                     </mat-button-toggle-group>
 
-                    <div *ngIf="mode == 'map'; else showStreetView">
-                        <app-map [configureMap]="configureMap"></app-map>
+                    <div *ngIf="showMap">
+                        <div *ngIf="mode == 'map'; else showStreetView">
+                            <app-map [configureMap]="configureMap"></app-map>
+                        </div>
+                        <ng-template #showStreetView>
+                            <app-street-view [configureView]="configureView"></app-street-view>
+                        </ng-template>
                     </div>
-                    <ng-template #showStreetView>
-                        <app-street-view [configureView]="configureView"></app-street-view>
-                    </ng-template>
                 </div>
             </mat-card-content>
         </mat-card>

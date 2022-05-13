@@ -41,6 +41,8 @@ export class DetailComponent implements OnInit {
 
     public type: Type | undefined = undefined;
 
+    public showMap: boolean = true;
+
     public loading: boolean = false;
 
     public canLoad: boolean = false;
@@ -98,6 +100,8 @@ export class DetailComponent implements OnInit {
             return;
         }
 
+        this.showMap = false;
+
         const geolocation = this.dwelling.geolocation;
 
         let data: DialogParameters = {
@@ -120,9 +124,12 @@ export class DetailComponent implements OnInit {
             data,
         });
 
-        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation) => {
-            this.updateGeolocation(result);
-            dialogRef.close();
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
+            if (result) {
+                this.updateGeolocation(result);
+            } else {
+                this.showMap = true;
+            }
         });
     }
 
@@ -135,6 +142,7 @@ export class DetailComponent implements OnInit {
             next: (response) => {
                 this.dwelling!.geolocation = response;
                 this.configureMaps(response);
+                this.showMap = true;
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });
