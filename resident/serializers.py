@@ -1,12 +1,12 @@
 from rest_framework.fields import ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import Serializer
 from user.serializers import UserCreateSerializer
 
 from resident.models import Resident
 
 
-class ResidentSerializer(ModelSerializer):
+class ResidentSerializer(Serializer):
     """
     User Resident ModelSerializer
     """
@@ -18,7 +18,6 @@ class ResidentSerializer(ModelSerializer):
 
     class Meta:
         ref_name = 'Resident'
-        model = Resident
         fields = (
             'id',
             'dwelling_id',
@@ -26,3 +25,15 @@ class ResidentSerializer(ModelSerializer):
             'release_date',
             'discharge_date',
         )
+
+    def to_representation(self, instance):
+        user_serialized = UserCreateSerializer(instance.user).data
+
+        resident_serialized = {
+            'id': instance.id,
+            'dwelling_id': instance.dwelling.id,
+            'user': user_serialized,
+            'release_date': instance.release_date,
+            'discharge_date': instance.discharge_date,
+        }
+        return resident_serialized

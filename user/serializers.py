@@ -4,6 +4,7 @@ from phone.serializers import PhoneSerializer
 from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
 from person.models import PersonConfig
+from user.models import UserGeolocation, UserPhone
 
 
 class UserSerializer(ModelSerializer):
@@ -44,6 +45,34 @@ class UserCreateSerializer(UserSerializer):
             'phones',
             'geolocation',
         )
+
+    def to_representation(self, instance):
+        phones = list(
+            map(lambda user_phone: user_phone.phone,
+                UserPhone.objects.filter(user=instance)))
+
+        phones_serialized = []
+        for phone in phones:
+            phones_serialized.append(PhoneSerializer(phone).data)
+
+        geolocations = list(
+            map(lambda user_geolocation: user_geolocation.geolocation,
+                UserGeolocation.objects.filter(user=instance)))
+
+        geolocations_serialized = []
+        for geolocation in geolocations:
+            geolocations_serialized.append(
+                GeolocationSerializer(geolocation).data)
+
+        user_serialized = {
+            'id': instance.id,
+            'first_name': instance.first_name,
+            'last_name': instance.last_name,
+            'email': instance.email,
+            'phones': phones_serialized,
+            'geolocation': geolocations_serialized,
+        }
+        return user_serialized
 
 
 class UserDetailSerializer(UserSerializer):
