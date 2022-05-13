@@ -13,6 +13,7 @@ from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions
 from watermeter.urls import urlpatterns as urls_water_meter
+from geolocation.urls import urlpatterns as urls_geolocation
 
 current_version = 'v1'
 module_name = 'agube'
@@ -40,6 +41,7 @@ urlpatterns = [
     path(base_url + 'manager', include(urls_manager)),
     path(base_url + 'user', include(urls_user)),
     path(base_url + 'resident', include(urls_resident)),
+    path(base_url + 'geolocation', include(urls_geolocation))
 ]
 
 if settings.DEBUG:
