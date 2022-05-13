@@ -49,12 +49,10 @@ export class DialogComponent extends CreateAddress implements OnInit {
     }
 
     public saveAddress() {
-        if (!this.geolocation) {
-            return;
-        }
-
         let geolocation: Geolocation = this.getGeolocation();
-        geolocation.id = this.geolocation.id!;
+        if (this.geolocation) {
+            geolocation.id = this.geolocation.id;
+        }
 
         this.submitClicked.emit(geolocation);
         this.dialogRef.close();

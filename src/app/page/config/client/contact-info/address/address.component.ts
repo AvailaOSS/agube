@@ -50,13 +50,15 @@ export class AddressComponent extends CreateAddress {
             data,
         });
 
-        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation) => {
-            this.saveAddress(result);
-            dialogRef.close();
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
+            if (result) {
+                this.saveAddress(result);
+            }
         });
     }
 
     public saveAddress(result: Geolocation) {
+        console.log(result);
         let userAddress: UserGeolocation = {
             geolocation: result,
             main: false,

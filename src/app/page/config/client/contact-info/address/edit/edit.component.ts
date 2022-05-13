@@ -61,21 +61,19 @@ export class EditComponent extends CreateAddress {
 
         const geolocation = this.geolocation.geolocation.geolocation;
 
-        this.configureMap = {
-            id: 'edit_map',
-            lat: geolocation.latitude,
-            lon: geolocation.longitude,
-            zoom: geolocation.zoom,
-            showCircle: true,
-            height: '350px',
-            dragging: false,
-            selectOptionFilter: true,
-        };
-
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             geolocation: this.geolocation.geolocation.geolocation,
-            configureMap: this.configureMap,
+            configureMap: {
+                id: 'edit_map',
+                lat: geolocation.latitude,
+                lon: geolocation.longitude,
+                zoom: geolocation.zoom,
+                showCircle: true,
+                height: '350px',
+                dragging: false,
+                selectOptionFilter: true,
+            },
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -83,9 +81,10 @@ export class EditComponent extends CreateAddress {
             data,
         });
 
-        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation) => {
-            this.updateAddress(result);
-            dialogRef.close();
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
+            if (result) {
+                this.updateAddress(result);
+            }
         });
     }
 
