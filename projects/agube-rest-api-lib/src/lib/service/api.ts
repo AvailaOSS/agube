@@ -16,6 +16,8 @@ export * from './resident.service';
 import { ResidentService } from './resident.service';
 export * from './owner.service';
 import { OwnerService } from './owner.service';
+export * from './geolocation.service';
+import { GeolocationService } from './geolocation.service';
 export const APIS = [
   AddressService,
   DwellingService,
@@ -26,4 +28,5 @@ export const APIS = [
   WaterMeterService,
   ResidentService,
   OwnerService,
+  GeolocationService,
 ];
