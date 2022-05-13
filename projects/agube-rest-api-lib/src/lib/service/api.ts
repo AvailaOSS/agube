@@ -12,4 +12,15 @@ export * from './user.service';
 import { UserService } from './user.service';
 export * from './waterMeter.service';
 import { WaterMeterService } from './waterMeter.service';
-export const APIS = [AddressService, DwellingService, ManagerService, PhoneService, ReservoirService, UserService, WaterMeterService];
+export * from './resident.service';
+import { ResidentService } from './resident.service';
+export const APIS = [
+  AddressService,
+  DwellingService,
+  ManagerService,
+  PhoneService,
+  ReservoirService,
+  UserService,
+  WaterMeterService,
+  ResidentService,
+];
