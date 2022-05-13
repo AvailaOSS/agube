@@ -1,12 +1,11 @@
 from rest_framework.fields import ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import ModelSerializer
 from user.serializers import UserCreateSerializer
-
 from resident.models import Resident
 
 
-class ResidentSerializer(Serializer):
+class ResidentSerializer(ModelSerializer):
     """
     User Resident ModelSerializer
     """
@@ -18,6 +17,7 @@ class ResidentSerializer(Serializer):
 
     class Meta:
         ref_name = 'Resident'
+        model = Resident
         fields = (
             'id',
             'dwelling_id',
