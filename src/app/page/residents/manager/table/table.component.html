@@ -6,10 +6,10 @@
         <div class="filter">
             <div>
                 <mat-form-field appearance="standard">
-                    <mat-label>{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER' | translate }}</mat-label>
+                    <mat-label>{{ 'PAGE.RESIDENTS.MANAGER.TABLE.FILTER' | translate }}</mat-label>
                     <input
                         matInput
-                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER.TOOLTIP' | translate }}"
+                        matTooltip="{{ 'PAGE.RESIDENTS.MANAGER.TABLE.FILTER.TOOLTIP' | translate }}"
                         matTooltipPosition="right"
                         (keyup)="applyFilter()"
                         [formControl]="filter"
@@ -17,7 +17,7 @@
                     <button
                         matSuffix
                         mat-icon-button
-                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
+                        matTooltip="{{ 'PAGE.RESIDENTS.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
                         *ngIf="filter.value.length > 0"
                         (click)="clearFilter()"
                     >

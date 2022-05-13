@@ -3,28 +3,8 @@
         <mat-card-content>
             <div class="form">
                 <h1>{{ 'PAGE.RESIDENTS.CREATE.TITLE' | translate }}</h1>
-                <div class="form-content">
-                    <mat-form-field appearance="fill">
-                        <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
-                        <input
-                            matInput
-                            placeholder="0-123456789"
-                            [formControl]="code"
-                            (keydown.enter)="save()"
-                            autofocus
-                        />
-                        <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
-                    </mat-form-field>
-                    <app-map-location-create
-                        (addressForm)="addressFormReceive($event)"
-                        [configureMap]="configureMap"
-                        [addressInputForm]="addressInputForm"
-                        [resetForm]="resetChildForm"
-                    >
-                    </app-map-location-create>
-                </div>
-                <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
-                <mat-card-actions [align]="'end'">
+
+                 <mat-card-actions [align]="'end'">
                     <button
                         mat-button
                         matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
