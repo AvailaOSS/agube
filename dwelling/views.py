@@ -2,6 +2,10 @@ from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg.utils import swagger_auto_schema
+from owner.models import Owner
+from owner.serializers import OwnerSerializer
+from resident.models import Resident
+from resident.serializers import ResidentSerializer
 from user.models import UserPhone
 from rest_framework.permissions import IsAuthenticated
 from manager.permissions import IsManagerAuthenticated
@@ -21,12 +25,10 @@ from dwelling.assemblers import (PersonTag, create_user,
 from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident, DwellingWaterMeter
+from dwelling.models import Dwelling, DwellingWaterMeter
 from dwelling.serializers import (DwellingResumeSerializer,
                                   DwellingCreateSerializer,
-                                  DwellingDetailSerializer,
-                                  DwellingOwnerSerializer,
-                                  DwellingResidentSerializer)
+                                  DwellingDetailSerializer)
 
 TAG = 'dwelling'
 
@@ -35,7 +37,7 @@ class DwellingResumeView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
-        operation_id="getResume",
+        operation_id="getDwellingResume",
         operation_description="get Resume of the Dwellings",
         responses={200: DwellingResumeSerializer(many=False)},
         tags=[TAG],
@@ -45,10 +47,10 @@ class DwellingResumeView(APIView):
         total_dwellings = Dwelling.objects.filter(
             manager__user=manager, discharge_date__isnull=True).count()
 
-        total_residents = DwellingResident.objects.filter(
+        total_residents = Resident.objects.filter(
             dwelling__manager__user=manager).count()
 
-        total_owners = DwellingOwner.objects.filter(
+        total_owners = Owner.objects.filter(
             dwelling__manager__user=manager).count()
 
         data = {
@@ -133,7 +135,7 @@ class DwellingSetOwnerAsResidentView(APIView):
 
     @swagger_auto_schema(
         operation_id="setOwnerAsResident",
-        responses={200: DwellingResidentSerializer(many=False)})
+        responses={200: ResidentSerializer(many=False)})
     def post(self, request, pk):
         try:
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
@@ -168,11 +170,11 @@ class DwellingView(generics.GenericAPIView):
 
 class DwellingOwnerView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
-    serializer_class = DwellingOwnerSerializer
+    serializer_class = OwnerSerializer
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(operation_id="getCurrentOwner",
-                         responses={200: DwellingOwnerSerializer(many=False)})
+                         responses={200: OwnerSerializer(many=False)})
     def get(self, request, pk):
         """
         Get Current Owner
@@ -208,12 +210,12 @@ class DwellingOwnerView(generics.GenericAPIView):
 
 class DwellingResidentView(generics.GenericAPIView):
     queryset = Dwelling.objects.all()
-    serializer_class = DwellingResidentSerializer
+    serializer_class = ResidentSerializer
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentResident",
-        responses={200: DwellingResidentSerializer(many=False)})
+        responses={200: ResidentSerializer(many=False)})
     def get(self, request, pk):
         """
         Get current Resident

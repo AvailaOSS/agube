@@ -26,7 +26,7 @@ class ReservoirResumeView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
-        operation_id="getResume",
+        operation_id="getReservoirResume",
         operation_description="get Resume of the Reservoir",
         responses={200: ReservoirResumeSerializer(many=False)},
         tags=[TAG],

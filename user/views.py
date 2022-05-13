@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.assemblers import create_user_geolocation
-from dwelling.models import Dwelling, DwellingOwner, DwellingResident
+from dwelling.models import Dwelling
+from owner.models import Owner
 from phone.models import Phone
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 from geolocation.serializers import GeolocationSerializer
+from resident.models import Resident
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
 from user.models import (UserGeolocation, UserPhone,
@@ -163,13 +165,13 @@ class UserDwellingDetailView(APIView):
         dwelling_list_as_owner: list[Dwelling] = list(
             map(
                 lambda owner: owner.dwelling,
-                DwellingOwner.objects.filter(user__id=pk).exclude(
+                Owner.objects.filter(user__id=pk).exclude(
                     discharge_date__isnull=False)))
 
         dwelling_list_as_resident: list[Dwelling] = list(
             map(
                 lambda resident: resident.dwelling,
-                DwellingResident.objects.filter(user__id=pk).exclude(
+                Resident.objects.filter(user__id=pk).exclude(
                     discharge_date__isnull=False)))
 
         serialized_data_list: list[UserDwellingDetailSerializer] = []
@@ -203,7 +205,7 @@ class UserDwellingDetailView(APIView):
 
             resident_first_name = ''
             resident_phone_number = ''
-            dwelling_resident: DwellingResident = dwelling.get_current_resident(
+            dwelling_resident: Resident = dwelling.get_current_resident(
             )
             if dwelling_resident != None:
                 resident_first_name = dwelling_resident.user.first_name
