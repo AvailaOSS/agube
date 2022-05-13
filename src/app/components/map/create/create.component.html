@@ -35,16 +35,6 @@
             </button>
             <mat-error *ngIf="filter.invalid">{{ errorValidator('filter') | translate }}</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="village">
-            <mat-label>Barrio</mat-label>
-            <input matInput type="text" [formControl]="village" />
-            <mat-error *ngIf="village.invalid">{{ errorValidator('village') | translate }}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="cp">
-            <mat-label>CP</mat-label>
-            <input matInput type="text" [formControl]="cp" />
-            <mat-error *ngIf="cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
-        </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="street">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.STREET.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="street" />
@@ -64,6 +54,28 @@
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.GATE.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="gate" />
             <mat-error *ngIf="gate.invalid">{{ errorValidator('gate') | translate }}</mat-error>
+        </mat-form-field>
+    </div>
+    <div [align]="'end'">
+        <mat-form-field appearance="fill" *ngIf="cp">
+            <mat-label>CP</mat-label>
+            <input matInput type="text" [formControl]="cp" />
+            <mat-error *ngIf="cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="village">
+            <mat-label>Pueblo</mat-label>
+            <input matInput type="text" [formControl]="village" />
+            <mat-error *ngIf="village.invalid">{{ errorValidator('village') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="state">
+            <mat-label>Comunidad</mat-label>
+            <input matInput type="text" [formControl]="state" />
+            <mat-error *ngIf="state.invalid">{{ errorValidator('state') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="municipality">
+            <mat-label>Municipio</mat-label>
+            <input matInput type="text" [formControl]="municipality" />
+            <mat-error *ngIf="municipality.invalid">{{ errorValidator('municipality') | translate }}</mat-error>
         </mat-form-field>
     </div>
     <div class="filter-results">

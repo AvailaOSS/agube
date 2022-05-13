@@ -7,15 +7,13 @@
 
 .create-dwelling-page-card {
   @include my-page-column(1, 1);
+
 }
 
 .form {
-  padding: $margin-small;
+  padding: 0 $margin-x-medium;
   .form-content {
     margin: $margin-x-small;
-    mat-form-field {
-      margin-bottom: $margin-x-small;
-    }
   }
   mat-card-actions {
     button {

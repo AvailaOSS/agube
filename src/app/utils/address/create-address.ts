@@ -8,7 +8,9 @@ import { addressGenerator } from 'src/app/utils/address/address';
 export class CreateAddress {
     public addressInputForm: InputForm = {
         cp: new FormControl('', Validators.required),
-        village: new FormControl('', Validators.required),
+        village: new FormControl(''),
+        state: new FormControl(''),
+        municipality: new FormControl(''),
         street: new FormControl('', Validators.required),
         number: new FormControl('', Validators.required),
         flat: new FormControl(''),

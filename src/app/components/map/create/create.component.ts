@@ -47,6 +47,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     public gate: FormControl | undefined;
     public cp: FormControl | undefined;
     public village: FormControl | undefined;
+    public municipality: FormControl | undefined;
+    public state: FormControl | undefined;
 
     public autocomplete: Address[] = [];
     public clickUser: ConfigureMap | undefined;
@@ -81,6 +83,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // parent can initialize the Address Input Form
         this.cp = this.addressInputForm.cp;
         this.village = this.addressInputForm.village;
+        this.municipality = this.addressInputForm.municipality;
+        this.state = this.addressInputForm.state;
         this.street = this.addressInputForm.street;
         this.number = this.addressInputForm.number;
         this.flat = this.addressInputForm.flat;
@@ -89,6 +93,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             filter: this.filter,
             cp: this.cp,
             village: this.village,
+            state: this.state,
+            municipality: this.municipality,
             street: this.street,
             number: this.number,
             flat: this.flat,
