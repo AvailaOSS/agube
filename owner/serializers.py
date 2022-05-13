@@ -25,3 +25,15 @@ class OwnerSerializer(ModelSerializer):
             'release_date',
             'discharge_date',
         )
+
+    def to_representation(self, instance):
+        user_serialized = UserCreateSerializer(instance.user).data
+
+        owner_serialized = {
+            'id': instance.id,
+            'dwelling_id': instance.dwelling.id,
+            'user': user_serialized,
+            'release_date': instance.release_date,
+            'discharge_date': instance.discharge_date,
+        }
+        return owner_serialized
