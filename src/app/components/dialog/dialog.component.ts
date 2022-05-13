@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Geolocation, UserGeolocation, UserService } from '@availa/agube-rest-api';
+import { Geolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 
@@ -12,10 +11,9 @@ import { DialogParameters } from './dialog-parameter';
     styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent extends CreateAddress implements OnInit {
-    @Output() submitClicked: EventEmitter<UserGeolocation> = new EventEmitter<UserGeolocation>();
+    @Output() submitClicked: EventEmitter<Geolocation> = new EventEmitter<Geolocation>();
     public dialogTitle: string = '';
-    public geolocation: Geolocation | boolean;
-    public userId: number | undefined;
+    public geolocation: Geolocation | undefined;
 
     constructor(
         public dialogRef: MatDialogRef<DialogComponent>,
@@ -29,14 +27,13 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
     ngOnInit(): void {
         this.dialogTitle = this.data.dialogTitle;
-        this.userId = this.data.userId;
 
         // set selectOptionFilter
         let config = this.data.configureMap;
         config.selectOptionFilter = this.data.configureMap.selectOptionFilter;
         this.configureMap = config;
 
-        if (typeof this.geolocation !== 'boolean') {
+        if (this.geolocation) {
             this.addressInputForm.cp.setValue(this.geolocation.address.postcode);
             this.addressInputForm.village?.setValue(this.geolocation.address.village);
             this.addressInputForm.street.setValue(this.geolocation.address.road);
@@ -54,11 +51,11 @@ export class DialogComponent extends CreateAddress implements OnInit {
         if (!this.geolocation) {
             return;
         }
-        let updateUserAddress: UserGeolocation = {
-            geolocation: this.getGeolocation(),
-            main: false,
-        };
-        this.submitClicked.emit(updateUserAddress);
+
+        let geolocation: Geolocation = this.getGeolocation();
+        geolocation.id = this.geolocation.id!;
+
+        this.submitClicked.emit(geolocation);
         this.dialogRef.close();
     }
 }

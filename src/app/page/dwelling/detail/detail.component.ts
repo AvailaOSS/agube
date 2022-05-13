@@ -1,4 +1,10 @@
-import { DwellingService, DwellingCreate, Geolocation, ManagerService, UserGeolocation } from '@availa/agube-rest-api';
+import {
+    DwellingService,
+    DwellingCreate,
+    Geolocation,
+    ManagerService,
+    GeolocationService,
+} from '@availa/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
@@ -10,6 +16,7 @@ import { Detail } from './detail';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { NotificationService } from '@availa/notification';
 
 @Component({
     selector: 'app-page-dwelling-detail',
@@ -23,6 +30,7 @@ export class DetailComponent implements OnInit {
     // map
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
+
     // map config
     public mode: string = 'map';
     private mapZoomDefault: number = 15;
@@ -43,6 +51,8 @@ export class DetailComponent implements OnInit {
         private svcDwelling: DwellingService,
         private svcManager: ManagerService,
         private svcPersistant: WaterMeterPersistantService,
+        private svcGeolocation: GeolocationService,
+        private svcNotification: NotificationService,
         public dialog: MatDialog
     ) {
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
@@ -62,6 +72,7 @@ export class DetailComponent implements OnInit {
         if (!this.dwellingId) {
             return;
         }
+
         this.svcDwelling.getDwelling(this.dwellingId).subscribe({
             next: (dwelling) => {
                 this.dwelling = dwelling;
@@ -89,42 +100,44 @@ export class DetailComponent implements OnInit {
 
         const geolocation = this.dwelling.geolocation;
 
-        this.configureMap = {
-            id: this.mapId,
-            lat: geolocation.latitude,
-            lon: geolocation.longitude,
-            zoom: geolocation.zoom,
-            showCircle: true,
-            height: '300px',
-            dragging: false,
-            selectOptionFilter: true,
-        };
-
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: this.dwelling.geolocation,
-            configureMap: this.configureMap,
-            userId: 0,
+            geolocation: geolocation,
+            configureMap: {
+                id: this.mapId,
+                lat: geolocation.latitude,
+                lon: geolocation.longitude,
+                zoom: geolocation.zoom,
+                showCircle: true,
+                height: '300px',
+                dragging: false,
+                selectOptionFilter: true,
+            },
         };
+
         const dialogRef = this.dialog.open(DialogComponent, {
             width: '100%',
             data,
         });
 
-        dialogRef.componentInstance.submitClicked.subscribe((result) => {
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation) => {
             this.updateGeolocation(result);
             dialogRef.close();
         });
     }
 
-    public updateGeolocation(result: any) {
+    public updateGeolocation(result: Geolocation) {
         if (!this.dwelling) {
             return;
         }
-        // this.svcDwelling.updateDwellingGeolocation().subscribe(response => {
-        //     console.log(response)
-        // })
-        console.log(result);
+
+        this.svcGeolocation.updateGeolocation(result.id!, result).subscribe({
+            next: (response) => {
+                this.dwelling!.geolocation = response;
+                this.configureMaps(response);
+            },
+            error: (error) => this.svcNotification.warning({ message: error.error }),
+        });
     }
 
     private configureMaps(geolocation: Geolocation) {

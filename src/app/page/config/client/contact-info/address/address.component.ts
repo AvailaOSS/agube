@@ -7,6 +7,7 @@ import { EditableGeolocation } from './edit/editable-geolocation';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../../../components/dialog/dialog.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { Geolocation } from '@availa/agube-rest-api';
 
 @Component({
     selector: 'app-address',
@@ -38,25 +39,30 @@ export class AddressComponent extends CreateAddress {
 
     public openCloseAddressForm() {
         this.canAddAddress = true;
-        this.resetChildForm = true;
+
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
-            geolocation: this.resetChildForm,
             configureMap: this.configureMap,
-            userId: this.userId,
         };
+
         const dialogRef = this.dialog.open(DialogComponent, {
             width: '100%',
             data,
         });
-        dialogRef.componentInstance.submitClicked.subscribe((result) => {
+
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation) => {
             this.saveAddress(result);
             dialogRef.close();
         });
     }
 
-    public saveAddress(result: UserGeolocation) {
-        this.svcUser.addUserGeolocation(this.userId, result).subscribe({
+    public saveAddress(result: Geolocation) {
+        let userAddress: UserGeolocation = {
+            geolocation: result,
+            main: false,
+        };
+
+        this.svcUser.addUserGeolocation(this.userId, userAddress).subscribe({
             next: (response) => {
                 this.geolocationList.push({ geolocation: response, isEditable: false });
             },

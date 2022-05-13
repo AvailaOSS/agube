@@ -6,6 +6,7 @@ import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableGeolocation } from './editable-geolocation';
 import { DialogComponent } from '../../../../../../components/dialog/dialog.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { Geolocation } from '@availa/agube-rest-api';
 
 @Component({
     selector: 'app-address-editable',
@@ -29,12 +30,18 @@ export class EditComponent extends CreateAddress {
         super();
     }
 
-    public updateAddress(result: UserGeolocation) {
+    public updateAddress(result: Geolocation) {
         if (!this.geolocation) {
             return;
         }
+
+        let userAddress: UserGeolocation = {
+            geolocation: result,
+            main: false,
+        };
+
         this.svcUser
-            .updateUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!, result)
+            .updateUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!, userAddress)
             .subscribe({
                 next: (response) => {
                     this.updatedEvent.next(response);
@@ -69,14 +76,14 @@ export class EditComponent extends CreateAddress {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             geolocation: this.geolocation.geolocation.geolocation,
             configureMap: this.configureMap,
-            userId: this.userId!,
         };
+
         const dialogRef = this.dialog.open(DialogComponent, {
             width: '100%',
             data,
         });
 
-        dialogRef.componentInstance.submitClicked.subscribe((result) => {
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation) => {
             this.updateAddress(result);
             dialogRef.close();
         });

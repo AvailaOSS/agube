@@ -5,11 +5,9 @@
                 <div class="dwelling-info">
                     <h1>
                         {{ dwelling.geolocation | geolocation }}
-
-                        <mat-icon
-                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
-                            (click)="goToEditGeolocation()"
-                            >edit
+                        <mat-icon matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
+                            (click)="goToEditGeolocation()">
+                            edit
                         </mat-icon>
                     </h1>
                     <div class="dwelling-content-info">
@@ -26,18 +24,14 @@
                 </div>
                 <div class="dwelling-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
-                        <mat-button-toggle
-                            (click)="mode = 'map'"
+                        <mat-button-toggle (click)="mode = 'map'"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
-                            matTooltipPosition="left"
-                        >
+                            matTooltipPosition="left">
                             <mat-icon>map</mat-icon>
                         </mat-button-toggle>
-                        <mat-button-toggle
-                            (click)="mode = 'streetView'"
+                        <mat-button-toggle (click)="mode = 'streetView'"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-                            matTooltipPosition="right"
-                        >
+                            matTooltipPosition="right">
                             <mat-icon>360</mat-icon>
                         </mat-button-toggle>
                     </mat-button-toggle-group>

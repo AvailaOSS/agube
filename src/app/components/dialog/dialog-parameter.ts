@@ -3,7 +3,6 @@ import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 
 export interface DialogParameters {
     dialogTitle: string;
-    geolocation: Geolocation | boolean;
+    geolocation?: Geolocation;
     configureMap: ConfigureMap;
-    userId: number;
 }
