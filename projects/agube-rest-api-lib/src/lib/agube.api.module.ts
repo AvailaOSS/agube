@@ -10,6 +10,7 @@ import { DwellingService } from './service/dwelling.service';
 import { ManagerService } from './service/manager.service';
 import { PhoneService } from './service/phone.service';
 import { ReservoirService } from './service/reservoir.service';
+import { ResidentService } from './service/resident.service';
 import { UserService } from './service/user.service';
 import { WaterMeterService } from './service/waterMeter.service';
 
@@ -25,6 +26,7 @@ import { WaterMeterService } from './service/waterMeter.service';
     UserService,
     ReservoirService,
     WaterMeterService,
+    ResidentService,
   ],
 })
 export class AgubeApiModule {
