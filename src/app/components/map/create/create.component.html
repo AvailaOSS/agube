@@ -56,24 +56,24 @@
             <mat-error *ngIf="gate.invalid">{{ errorValidator('gate') | translate }}</mat-error>
         </mat-form-field>
     </div>
-    <div [align]="'end'">
+    <div class="address-form" [align]="'end'">
         <mat-form-field appearance="fill" *ngIf="cp">
-            <mat-label>CP</mat-label>
+            <mat-label> {{ 'PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE' | translate }}</mat-label>
             <input matInput type="text" [formControl]="cp" />
             <mat-error *ngIf="cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="village">
-            <mat-label>Pueblo</mat-label>
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE' | translate }}</mat-label>
             <input matInput type="text" [formControl]="village" />
             <mat-error *ngIf="village.invalid">{{ errorValidator('village') | translate }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="state">
-            <mat-label>Comunidad</mat-label>
+            <mat-label> {{ 'PAGE.DWELLING.DETAIL.ADDRESS.STATE' | translate }}</mat-label>
             <input matInput type="text" [formControl]="state" />
             <mat-error *ngIf="state.invalid">{{ errorValidator('state') | translate }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="municipality">
-            <mat-label>Municipio</mat-label>
+            <mat-label> {{ 'PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY' | translate }}</mat-label>
             <input matInput type="text" [formControl]="municipality" />
             <mat-error *ngIf="municipality.invalid">{{ errorValidator('municipality') | translate }}</mat-error>
         </mat-form-field>

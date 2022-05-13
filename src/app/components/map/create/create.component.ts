@@ -279,6 +279,21 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
                 }
                 return '';
+            case 'cp':
+                if (this.cp && this.cp.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
+                }
+                return '';
+            case 'state':
+                if (this.state && this.state.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.STATE.VALIDATION';
+                }
+                return '';
+            case 'municipality':
+                if (this.municipality && this.municipality.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
+                }
+                return '';
             default:
                 return '';
         }
@@ -364,7 +379,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.flat?.setValue('');
         this.gate?.setValue('');
         this.cp?.setValue('');
-        this.village?.setValue('');
     }
 
     private fillFormControls(location: LocationResponse) {
@@ -378,7 +392,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         if (this.street && location.address.road && this.cp) {
             this.street.setValue(location.address.road);
             this.cp.setValue(location.address.postcode);
-            this.village?.setValue(location.address.village);
         }
 
         if (this.number && !this.number.value) {

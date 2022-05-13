@@ -9,8 +9,8 @@ export class CreateAddress {
     public addressInputForm: InputForm = {
         cp: new FormControl('', Validators.required),
         village: new FormControl(''),
-        state: new FormControl(''),
-        municipality: new FormControl(''),
+        state: new FormControl('',Validators.required),
+        municipality: new FormControl('',Validators.required),
         street: new FormControl('', Validators.required),
         number: new FormControl('', Validators.required),
         flat: new FormControl(''),
@@ -26,7 +26,7 @@ export class CreateAddress {
         lon: '-2.33976',
         zoom: 6,
         showCircle: false,
-        height: '500px',
+        height: '450px',
         dragging: false,
         selectOptionFilter: false,
     };

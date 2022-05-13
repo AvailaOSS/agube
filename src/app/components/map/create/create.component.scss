@@ -5,10 +5,14 @@
     overflow: hidden;
     .address-form-geolocation {
         display: flex;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         mat-form-field:first-child {
             width: 60%;
         }
+    }
+    .address-form {
+        margin-bottom: 20px;
+        padding: 0px;
     }
     .filter-results {
         display: flex;
