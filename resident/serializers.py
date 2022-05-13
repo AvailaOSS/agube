@@ -8,7 +8,7 @@ from resident.models import Resident
 
 class ResidentSerializer(ModelSerializer):
     """
-    Dwelling User Resident ModelSerializer
+    User Resident ModelSerializer
     """
     id = ReadOnlyField()
     dwelling_id = PrimaryKeyRelatedField(many=False, read_only=True)

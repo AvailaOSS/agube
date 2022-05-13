@@ -29,7 +29,9 @@ class UserCreateSerializer(UserSerializer):
     """
     id = ReadOnlyField()
     phones = PhoneSerializer(many=True, read_only=False)
-    geolocation = GeolocationSerializer(required=False, many=True, read_only=False)
+    geolocation = GeolocationSerializer(required=False,
+                                        many=True,
+                                        read_only=False)
 
     class Meta:
         ref_name = 'UserCreate'

@@ -2,11 +2,8 @@ from geolocation.models import Geolocation
 from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from resident.models import Resident
-from user.serializers import UserCreateSerializer
 from manager.models import Manager
 from rest_framework.fields import CharField, ReadOnlyField
-from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.serializers import WaterMeterSerializer
 
