@@ -11,8 +11,6 @@ import * as L from 'leaflet';
 export class MapComponent implements AfterViewInit {
     @Input() public configureMap: ConfigureMap | undefined;
 
-    public mapId = 'map';
-
     public selectedStreetCandidate: LocationResponse | undefined;
 
     protected map: any;
@@ -36,7 +34,7 @@ export class MapComponent implements AfterViewInit {
         if (this.map) {
             this.map.remove();
         }
-        this.map = L.map(this.mapId, {
+        this.map = L.map(conf.id, {
             center: [+conf.lat, +conf.lon],
             doubleClickZoom: false,
             zoom: conf.zoom,

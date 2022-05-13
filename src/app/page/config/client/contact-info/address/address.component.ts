@@ -5,8 +5,9 @@ import { AccountService } from '@availa/auth-fe';
 import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableGeolocation } from './edit/editable-geolocation';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from './edit/dialog/dialog.component';
-import { DialogParameters } from './edit/dialog/dialog-parameter';
+import { DialogComponent } from '../../../../../components/dialog/dialog.component';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { Geolocation } from '@availa/agube-rest-api';
 
 @Component({
     selector: 'app-address',
@@ -38,25 +39,32 @@ export class AddressComponent extends CreateAddress {
 
     public openCloseAddressForm() {
         this.canAddAddress = true;
-        this.resetChildForm = true;
+
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
-            geolocation: this.resetChildForm,
             configureMap: this.configureMap,
-            userId: this.userId,
         };
+
         const dialogRef = this.dialog.open(DialogComponent, {
             width: '100%',
             data,
         });
-        dialogRef.componentInstance.submitClicked.subscribe((result) => {
-            this.saveAddress(result);
-            dialogRef.close();
+
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
+            if (result) {
+                this.saveAddress(result);
+            }
         });
     }
 
-    public saveAddress(result: UserGeolocation) {
-        this.svcUser.addUserGeolocation(this.userId, result).subscribe({
+    public saveAddress(result: Geolocation) {
+        console.log(result);
+        let userAddress: UserGeolocation = {
+            geolocation: result,
+            main: false,
+        };
+
+        this.svcUser.addUserGeolocation(this.userId, userAddress).subscribe({
             next: (response) => {
                 this.geolocationList.push({ geolocation: response, isEditable: false });
             },
@@ -78,7 +86,7 @@ export class AddressComponent extends CreateAddress {
         }
         const index = this.geolocationList
             .map((p) => {
-                return p.geolocation.id;
+                return p.geolocation.geolocation.id;
             })
             .indexOf(addressId, 0);
         if (index > -1) {

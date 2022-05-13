@@ -1,3 +1,4 @@
+import { DialogModule } from 'src/app/components/dialog/dialog.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -38,6 +39,7 @@ import { ManagementModule } from '../../../components/management/management.modu
         WaterMeterModule,
         MatProgressSpinnerModule,
         ManagementModule,
+        DialogModule,
     ],
 })
 export class DetailModule {}

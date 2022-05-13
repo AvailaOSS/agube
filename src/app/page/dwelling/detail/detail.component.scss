@@ -30,6 +30,9 @@
       width: 60%;
       margin-top: $margin-x-medium;
       margin-left: $margin-x-medium;
+      mat-icon{
+        cursor: pointer;
+      }
       .dwelling-content-info {
         margin-left: $margin-small;
         display: flex;

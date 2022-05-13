@@ -7,6 +7,10 @@ import { addressGenerator } from 'src/app/utils/address/address';
 
 export class CreateAddress {
     public addressInputForm: InputForm = {
+        cp: new FormControl('', Validators.required),
+        village: new FormControl(''),
+        state: new FormControl('',Validators.required),
+        municipality: new FormControl('',Validators.required),
         street: new FormControl('', Validators.required),
         number: new FormControl('', Validators.required),
         flat: new FormControl(''),
@@ -17,12 +21,14 @@ export class CreateAddress {
 
     // Map configuration for select Address
     public configureMap: ConfigureMap = {
+        id: 'create_map',
         lat: '39.92666',
         lon: '-2.33976',
         zoom: 6,
         showCircle: false,
-        height: '500px',
+        height: '450px',
         dragging: false,
+        selectOptionFilter: false,
     };
 
     public addressEmitter: AddressEmitter | undefined;

@@ -1,45 +1,12 @@
-<span *ngIf="geolocation && geolocation.isEditable; else noEditableAddress">
-    <app-map-location-create
-        (addressForm)="addressFormReceive($event)"
-        [configureMap]="configureMap"
-        [addressInputForm]="addressInputForm"
-        [resetForm]="resetChildForm"
-    >
-    </app-map-location-create>
-</span>
-
-<ng-template #noEditableAddress>
-    <div class="edited-form">
-        <h4>{{ geolocation!.geolocation.geolocation | geolocation | slice: 0:65 }}</h4>
-        <span mat-subheader class="is-principal">{{ geolocation!.geolocation.main ? 'Principal' : '' }}</span>
-    </div>
-    <div>
-        <button
-            mat-icon-button
-            *ngIf="geolocation!.geolocation.main; else notMainAddress"
-            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.FAVORITE' | translate }}"
-            (click)="setAddressAsMain()"
-        >
-            <mat-icon>star</mat-icon>
-        </button>
-        <ng-template #notMainAddress>
-            <button
-                mat-icon-button
-                matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT.BUTTON.FAVORITE' | translate }}"
-                (click)="setAddressAsMain()"
-            >
-                <mat-icon>star_border</mat-icon>
-            </button>
-        </ng-template>
-        <button
-            mat-icon-button
-            matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}"
-            (click)="openEditableAddressForm()"
-        >
-            <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.DELETE' | translate }}" (click)="deleteAddress()">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </div>
-</ng-template>
+<div class="edited-form">
+    <h4>{{ geolocation!.geolocation.geolocation | geolocation | slice: 0:65 }}</h4>
+    <span mat-subheader class="is-principal">{{ geolocation!.geolocation.main ? 'Principal' : '' }}</span>
+</div>
+<div class="edited-buttons">
+    <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}" (click)="openEditableAddressForm()">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.DELETE' | translate }}" (click)="deleteAddress()">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>

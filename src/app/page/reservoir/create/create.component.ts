@@ -32,7 +32,7 @@ export class CreateComponent extends CreateAddress {
         private formBuilder: FormBuilder
     ) {
         super();
-        this.configureMap.height = '400px';
+        this.configureMap.height = '350px';
         this.svcAccount.getUser().subscribe((response) => {
             this.userId = response!.user_id;
         });

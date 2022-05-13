@@ -4,8 +4,9 @@ import { UserGeolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableGeolocation } from './editable-geolocation';
-import { DialogComponent } from './dialog/dialog.component';
-import { DialogParameters } from './dialog/dialog-parameter';
+import { DialogComponent } from '../../../../../../components/dialog/dialog.component';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { Geolocation } from '@availa/agube-rest-api';
 
 @Component({
     selector: 'app-address-editable',
@@ -13,8 +14,6 @@ import { DialogParameters } from './dialog/dialog-parameter';
     styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent extends CreateAddress {
-    private infoMessage: string = 'Esta funcionalidad aún no está disponible';
-
     @Input() public userId: number | undefined;
     @Input() public geolocation: EditableGeolocation | undefined;
 
@@ -31,12 +30,18 @@ export class EditComponent extends CreateAddress {
         super();
     }
 
-    public updateAddress(result: UserGeolocation) {
+    public updateAddress(result: Geolocation) {
         if (!this.geolocation) {
             return;
         }
+
+        let userAddress: UserGeolocation = {
+            geolocation: result,
+            main: false,
+        };
+
         this.svcUser
-            .updateUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!, result)
+            .updateUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!, userAddress)
             .subscribe({
                 next: (response) => {
                     this.updatedEvent.next(response);
@@ -49,15 +54,6 @@ export class EditComponent extends CreateAddress {
             });
     }
 
-    public setAddressAsMain() {
-        if (!this.geolocation) {
-            return;
-        }
-        this.svcNotification.info({
-            message: this.infoMessage,
-        });
-    }
-
     public openEditableAddressForm() {
         if (!this.geolocation) {
             return;
@@ -65,29 +61,30 @@ export class EditComponent extends CreateAddress {
 
         const geolocation = this.geolocation.geolocation.geolocation;
 
-        this.configureMap = {
-            lat: geolocation.latitude,
-            lon: geolocation.longitude,
-            zoom: geolocation.zoom,
-            showCircle: true,
-            height: '350px',
-            dragging: false,
-        };
-
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             geolocation: this.geolocation.geolocation.geolocation,
-            configureMap: this.configureMap,
-            userId: this.userId!,
+            configureMap: {
+                id: 'edit_map',
+                lat: geolocation.latitude,
+                lon: geolocation.longitude,
+                zoom: geolocation.zoom,
+                showCircle: true,
+                height: '350px',
+                dragging: false,
+                selectOptionFilter: true,
+            },
         };
+
         const dialogRef = this.dialog.open(DialogComponent, {
             width: '100%',
             data,
         });
 
-        dialogRef.componentInstance.submitClicked.subscribe((result) => {
-            this.updateAddress(result);
-            dialogRef.close();
+        dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
+            if (result) {
+                this.updateAddress(result);
+            }
         });
     }
 
@@ -98,6 +95,7 @@ export class EditComponent extends CreateAddress {
         this.svcUser.deleteUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!).subscribe({
             next: (response) => {
                 this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
+                console.log(this.geolocation!.geolocation);
             },
             error: (error) =>
                 this.svcNotification.warning({

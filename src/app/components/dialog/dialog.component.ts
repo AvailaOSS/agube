@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Geolocation, UserGeolocation, UserService } from '@availa/agube-rest-api';
+import { Geolocation, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { Observable } from 'rxjs';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 
@@ -13,14 +11,9 @@ import { DialogParameters } from './dialog-parameter';
     styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent extends CreateAddress implements OnInit {
-    @Output() submitClicked: EventEmitter<UserGeolocation> = new EventEmitter<UserGeolocation>();
+    @Output() submitClicked: EventEmitter<Geolocation | undefined> = new EventEmitter<Geolocation | undefined>();
     public dialogTitle: string = '';
-    public geolocation: Geolocation | boolean;
-    public userId: number | undefined;
-
-    myControl = new FormControl();
-    optionsName: string[] = ['One', 'Two', 'Three'];
-    public filteredOptions: Observable<string[]> = new Observable();
+    public geolocation: Geolocation | undefined;
 
     constructor(
         public dialogRef: MatDialogRef<DialogComponent>,
@@ -34,10 +27,17 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
     ngOnInit(): void {
         this.dialogTitle = this.data.dialogTitle;
-        this.userId = this.data.userId;
-        this.configureMap = this.data.configureMap;
 
-        if (typeof this.geolocation !== 'boolean') {
+        // set selectOptionFilter
+        let config = this.data.configureMap;
+        config.selectOptionFilter = this.data.configureMap.selectOptionFilter;
+        this.configureMap = config;
+
+        if (this.geolocation) {
+            this.addressInputForm.cp?.setValue(this.geolocation.address.postcode);
+            this.addressInputForm.village?.setValue(this.geolocation.address.village);
+            this.addressInputForm.state?.setValue(this.geolocation.address.state);
+            this.addressInputForm.municipality?.setValue(this.geolocation.address.municipality);
             this.addressInputForm.street.setValue(this.geolocation.address.road);
             this.addressInputForm.number?.setValue(this.geolocation.number);
             this.addressInputForm.flat?.setValue(this.geolocation.flat);
@@ -46,18 +46,17 @@ export class DialogComponent extends CreateAddress implements OnInit {
     }
 
     public closeDialog() {
+        this.submitClicked.emit(undefined);
         this.dialogRef.close();
     }
 
     public saveAddress() {
-        if (!this.geolocation) {
-            return;
+        let geolocation: Geolocation = this.getGeolocation();
+        if (this.geolocation) {
+            geolocation.id = this.geolocation.id;
         }
-        let updateUserAddress: UserGeolocation = {
-            geolocation: this.getGeolocation(),
-            main: false,
-        };
-        this.submitClicked.emit(updateUserAddress);
+
+        this.submitClicked.emit(geolocation);
         this.dialogRef.close();
     }
 }

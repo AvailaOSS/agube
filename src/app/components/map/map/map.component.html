@@ -1,1 +1,1 @@
-<div id="{{ mapId }}" [ngStyle]="{ height: configureMap?.height }"></div>
+<div *ngIf="configureMap" id="{{ configureMap.id }}" [ngStyle]="{ height: configureMap?.height }"></div>

@@ -45,9 +45,16 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     public number: FormControl | undefined;
     public flat: FormControl | undefined;
     public gate: FormControl | undefined;
+    public cp: FormControl | undefined;
+    public village: FormControl | undefined;
+    public municipality: FormControl | undefined;
+    public state: FormControl | undefined;
 
     public autocomplete: Address[] = [];
     public clickUser: ConfigureMap | undefined;
+
+    private mapId = 'create_map';
+
     // You can override this url for use other maps
     private zoom: number = MapComponent.zoom;
     private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
@@ -74,12 +81,20 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
 
         // parent can initialize the Address Input Form
+        this.cp = this.addressInputForm.cp;
+        this.village = this.addressInputForm.village;
+        this.municipality = this.addressInputForm.municipality;
+        this.state = this.addressInputForm.state;
         this.street = this.addressInputForm.street;
         this.number = this.addressInputForm.number;
         this.flat = this.addressInputForm.flat;
         this.gate = this.addressInputForm.gate;
         this.addressFormGroup = this.formBuilder.group({
             filter: this.filter,
+            cp: this.cp,
+            village: this.village,
+            state: this.state,
+            municipality: this.municipality,
             street: this.street,
             number: this.number,
             flat: this.flat,
@@ -110,8 +125,20 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.svcAddress.getAddress().subscribe((response) => {
             this.autocomplete = response;
             // if has some address set as selected option in filter
-            if (response.length > 0) {
+            if (
+                response.length > 0 &&
+                this.configureMap &&
+                this.configureMap.selectOptionFilter !== undefined &&
+                this.configureMap.selectOptionFilter === false
+            ) {
                 this.selectOptionFilter(response[0]);
+            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
+                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
+                    (response: LocationResponse) => {
+                        this.candidateComponents?.deselectAll();
+                        this.selectCandidate(response, this.configureMap);
+                    }
+                );
             }
         });
     }
@@ -123,8 +150,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public selectOptionFilter(option: Address) {
         // override the form with selected candidate information
-        if (this.street) {
+        if (this.street && this.cp) {
             this.street.setValue(option.road);
+            this.cp.setValue(option.postcode);
+            this.village?.setValue(option.municipality);
         }
         // do filtering
         this.filtering(option);
@@ -181,6 +210,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public mouseIsOver(candidate: LocationResponse) {
         this.initializeMap({
+            id: this.mapId,
             lat: candidate.lat,
             lon: candidate.lon,
             zoom: MapComponent.zoom,
@@ -195,6 +225,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             return;
         }
         this.initializeMap({
+            id: this.mapId,
             lat: this.clickUser.lat,
             lon: this.clickUser.lon,
             zoom: MapComponent.zoom,
@@ -221,6 +252,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             lon = clickConf.lon;
         }
         this.initializeMap({
+            id: this.mapId,
             lat: lat,
             lon: lon,
             zoom: MapComponent.zoom,
@@ -245,6 +277,21 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             case 'street':
                 if (this.street && this.street.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
+                }
+                return '';
+            case 'cp':
+                if (this.cp && this.cp.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
+                }
+                return '';
+            case 'state':
+                if (this.state && this.state.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.STATE.VALIDATION';
+                }
+                return '';
+            case 'municipality':
+                if (this.municipality && this.municipality.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
                 }
                 return '';
             default:
@@ -289,6 +336,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             }
 
             let clickConf: ConfigureMap = {
+                id: this.mapId,
                 lat: e.latlng.lat,
                 lon: e.latlng.lng,
                 zoom: this.zoom,
@@ -330,6 +378,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.number?.setValue('');
         this.flat?.setValue('');
         this.gate?.setValue('');
+        this.cp?.setValue('');
     }
 
     private fillFormControls(location: LocationResponse) {
@@ -340,8 +389,9 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // FIXME: move this to pipe
         this.filter.setValue(location.display_name);
 
-        if (this.street && location.address.road) {
+        if (this.street && location.address.road && this.cp) {
             this.street.setValue(location.address.road);
+            this.cp.setValue(location.address.postcode);
         }
 
         if (this.number && !this.number.value) {
