@@ -37,7 +37,7 @@ class DwellingResumeView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
-        operation_id="getResume",
+        operation_id="getDwellingResume",
         operation_description="get Resume of the Dwellings",
         responses={200: DwellingResumeSerializer(many=False)},
         tags=[TAG],
