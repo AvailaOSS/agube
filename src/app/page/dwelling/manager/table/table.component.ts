@@ -45,6 +45,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     public applyFilter() {
+        console.log(this.dataSource.filter)
         this.dataSource.filter = this.filter.value.trim().toLowerCase();
     }
 

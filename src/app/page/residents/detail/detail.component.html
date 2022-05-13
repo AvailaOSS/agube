@@ -1,0 +1,39 @@
+<div class="detail-page">
+    <div class="page-content">
+        <mat-card>
+            <mat-card-content *ngIf="resident">
+                <div class="resident-info">
+                    <h1>{{ resident.data.user | userDetail }}</h1>
+                    <div class="resident-content-info">
+                        <app-address [geolocation]="resident.data.user.geolocation[0]"></app-address>
+                    </div>
+                </div>
+                <div class="resident-map">
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle
+                            (click)="mode = 'map'"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
+                            matTooltipPosition="left"
+                        >
+                            <mat-icon>map</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle
+                            (click)="mode = 'streetView'"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
+                            matTooltipPosition="right"
+                        >
+                            <mat-icon>360</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                    <div *ngIf="mode == 'map'; else showStreetView">
+                        <app-map [configureMap]="configureMap"></app-map>
+                    </div>
+                    <ng-template #showStreetView>
+                        <app-street-view [configureView]="configureView"></app-street-view>
+                    </ng-template>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

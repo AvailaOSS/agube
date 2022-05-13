@@ -30,15 +30,16 @@ export class ManagerPageComponent extends SidebarComponent {
                 icon: 'water_drop',
             },
             {
-                navigationRoute: 'manager/home/config',
-                title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
-                icon: 'settings',
-            },
-            {
                 navigationRoute: 'manager/home/residents',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT',
                 icon: 'hail',
             },
+            {
+                navigationRoute: 'manager/home/config',
+                title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
+                icon: 'settings',
+            }
+
         ];
     }
 }

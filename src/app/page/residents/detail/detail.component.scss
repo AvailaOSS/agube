@@ -1,0 +1,76 @@
+@import '../../../../assets/availa/sizes/page.scss';
+@import '../../../../assets/availa/sizes/margins.scss';
+
+.detail-page {
+  @include my-page($columns: 1);
+  width: 100%;
+}
+
+@media only screen and (max-width: 1850px) {
+  .mat-card-content {
+    display: block;
+    justify-content: center !important;
+    .resident-info {
+      width: 100% !important;
+    }
+  }
+}
+
+.page-content {
+  @include my-page-column($columnIndex: 1, $totalColumns: 1);
+  .mat-card {
+    height: 100%;
+  }
+  .mat-card-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    .resident-info {
+      width: 60%;
+      margin-top: $margin-x-medium;
+      margin-left: $margin-x-medium;
+      .resident-content-info {
+        margin-left: $margin-small;
+        display: flex;
+        .resident-resident {
+          margin-left: $margin-medium;
+          flex-direction: column;
+          display: flex;
+          height: 60%;
+        }
+      }
+    }
+    .resident-map {
+      width: 35%;
+      mat-button-toggle-group {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        border: none;
+      }
+    }
+  }
+  .mat-spinner {
+    top: 50%;
+    margin: 0 auto;
+  }
+}
+
+.buttons-management {
+  margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  button {
+    width: 32%;
+    margin-top: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
+    }
+  }
+}

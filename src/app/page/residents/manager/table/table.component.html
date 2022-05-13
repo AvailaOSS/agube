@@ -25,60 +25,52 @@
                     </button>
                 </mat-form-field>
             </div>
-            <div [align]="'end'">
-                <button
-                    mat-raised-button
-                    color="primary"
-                    matTooltip="{{ 'PAGE.RESIDENTS.MANAGER.TABLE.BUTTON.NEW_RESIDENT.TOOLTIP' | translate }}"
-                    (click)="goToNewResident()"
-                >
-                    <mat-icon>add_business</mat-icon>
-                    {{ 'PAGE.RESIDENTS.MANAGER.TABLE.BUTTON.NEW_RESIDENT' | translate }}
-                </button>
-            </div>
         </div>
     </mat-card-header>
     <mat-card-content>
-        <!-- <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="water_meter_code">
-                <th mat-header-cell *matHeaderCellDef>water_meter_code</th>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="resident_first_name">
+                <th mat-header-cell *matHeaderCellDef>resident_first_name</th>
                 <td
                     mat-cell
                     *matCellDef="let element"
                     matTooltip="{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}"
                 >
-                    {{ element.water_meter_code }}
+                    {{ element.user.first_name }}
                 </td>
             </ng-container>
-
-            <ng-container matColumnDef="full_address">
-                <th mat-header-cell *matHeaderCellDef>full_address</th>
+            <ng-container matColumnDef="resident_last_name">
+                <th mat-header-cell *matHeaderCellDef>resident_last_name</th>
                 <td
                     mat-cell
                     *matCellDef="let element"
-                    matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.ROW.ADDRESS' | translate }}"
+                    matTooltip="{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}"
                 >
-                    {{ element | dwellingDetail }}
+                    {{ element.user.last_name }}
                 </td>
             </ng-container>
-
-            <ng-container matColumnDef="resident_first_name">
-                <th mat-header-cell *matHeaderCellDef>resident_first_name</th>
-                <td mat-cell *matCellDef="let element" matTooltip="{{ 'GENERAL.TEXT.RESIDENT' | translate }}">
-                    {{ element.resident_first_name }}
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="resident_phone">
-                <th mat-header-cell *matHeaderCellDef>resident_phone</th>
+            <ng-container matColumnDef="resident_phones">
+                <th mat-header-cell *matHeaderCellDef>resident_phones</th>
                 <td
                     mat-cell
                     *matCellDef="let element"
-                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}"
+                    matTooltip="{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}"
                 >
-                    {{ element.resident_phone }}
+                    {{ element.user.phones[0].phone_number }}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="resident_email">
+                <th mat-header-cell *matHeaderCellDef>resident_email</th>
+                <td
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}"
+                >
+                    {{ element.user.email }}
+                </td>
+            </ng-container>
+
+
             <tr
                 mat-row
                 class="table-row"
@@ -86,7 +78,7 @@
                 *matRowDef="let row; columns: displayedColumns"
                 [ngClass]="row === isSelected ? 'selected-row' : ''"
             ></tr>
-        </table> -->
+        </table>
     </mat-card-content>
 
     <div class="actions">

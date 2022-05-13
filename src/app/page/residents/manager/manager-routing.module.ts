@@ -5,9 +5,9 @@ import { ManagerComponent } from './manager.component';
 const routes: Routes = [
     { path: '', component: ManagerComponent },
     {
-        path: 'create',
-        loadChildren: () => import('../create/create.module').then((m) => m.CreateModule),
-    }
+        path: 'detail',
+        loadChildren: () => import('../detail/detail.module').then((m) => m.DetailModule),
+    },
 ];
 
 @NgModule({

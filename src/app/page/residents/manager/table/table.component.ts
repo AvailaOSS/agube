@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-// import { ResidentDetail, ResidentService } from '@availa/agube-rest-api';
-import { Router } from '@angular/router';
+import { Resident, ResidentService } from '@availa/agube-rest-api';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TableReloadService } from './table-reload.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { Detail } from '../../detail/detail';
 
 @Component({
     selector: 'app-table',
@@ -12,10 +13,15 @@ import { MatPaginator } from '@angular/material/paginator';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
-    public displayedColumns: string[] = ['water_meter_code', 'full_address', 'resident_first_name', 'resident_phone'];
-    // public dataSource: MatTableDataSource<ResidentDetail> = new MatTableDataSource();
+    public displayedColumns: string[] = [
+        'resident_first_name',
+        'resident_last_name',
+        'resident_phones',
+        'resident_email',
+    ];
+    public dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-    // public isSelected: ResidentDetail | undefined = undefined;
+    public isSelected: Resident | undefined = undefined;
 
     public filter = new FormControl('');
 
@@ -23,8 +29,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     constructor(
         private router: Router,
-        // private svcResident: ResidentService,
-        private svcTableReload: TableReloadService
+        private svcResident: ResidentService,
+        private svcTableReload: TableReloadService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
@@ -39,32 +46,31 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.loadResidents();
     }
 
-    public goToNewResident() {
-        this.router.navigate(['manager/residents/create']);
-    }
-
     public applyFilter() {
-        // this.dataSource.filter = this.filter.value.trim().toLowerCase();
+        this.dataSource.filter = this.filter.value.trim().toLowerCase();
     }
 
     public clearFilter() {
         this.filter.setValue('');
-        // this.dataSource.filter = '';
+        this.dataSource.filter = '';
     }
 
-    // public goToResident(resident: residentDetail) {
-    //     const queryParams: Detail = {
-    //         residentId: resident.id!,
-    //     };
-    //     // this.router.navigate(['/manager/home/manager/client/residnets/detail'], {
-    //     //     queryParams,
-    //     // });
-    // }
+    public goToResident(resident: Resident) {
+        const queryParams: Params = {
+            data: resident,
+        };
+
+        this.router.navigate(['/manager/home/residents/detail'], {
+            queryParams: {
+                resident: JSON.stringify(queryParams),
+            },
+        });
+    }
 
     private loadResidents() {
-        // this.svcResident.getResidents().subscribe((response) => {
-        //     this.dataSource = new MatTableDataSource(response);
-        //     this.dataSource.paginator = this.paginator!;
-        // });
+        this.svcResident.getResidents().subscribe((response) => {
+            this.dataSource = new MatTableDataSource(response);
+            this.dataSource.paginator = this.paginator!;
+        });
     }
 }
