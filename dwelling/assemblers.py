@@ -156,42 +156,9 @@ def get_user_phones_serialized(user: User):
 
 def get_dwelling_owner_serialized(owner: Owner):
     from owner.serializers import OwnerSerializer
-
-    user = owner.user
-    data = {
-        "id": owner.id,
-        "dwelling_id": owner.dwelling,
-        "user": {
-            "id": user.id,
-            "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "email": user.email,
-            "phones": get_user_phones_serialized(user),
-            "address": get_all_user_geolocation_serialized(user)
-        },
-        "release_date": owner.release_date,
-        "discharge_date": owner.discharge_date
-    }
-    return OwnerSerializer(data, many=False).data
+    return OwnerSerializer(owner, many=False).data
 
 
 def get_dwelling_resident_serialized(resident: Resident):
     from resident.serializers import ResidentSerializer
-    user = resident.user
-    data = {
-        "id": resident.id,
-        "dwelling_id": resident.dwelling,
-        "user": {
-            "id": user.id,
-            "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "email": user.email,
-            "phones": get_user_phones_serialized(user),
-            "address": get_all_user_geolocation_serialized(user)
-        },
-        "release_date": resident.release_date,
-        "discharge_date": resident.discharge_date
-    }
-    return ResidentSerializer(data, many=False).data
+    return ResidentSerializer(resident, many=False).data

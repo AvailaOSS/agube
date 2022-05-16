@@ -8,6 +8,7 @@ from drf_yasg.views import get_schema_view
 from dwelling.urls import urlpatterns as urls_dwelling
 from user.urls import urlpatterns as urls_user
 from resident.urls import urlpatterns as urls_resident
+from owner.urls import urlpatterns as urls_owner
 from manager.urls import urlpatterns as urls_manager
 from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
@@ -40,6 +41,7 @@ urlpatterns = [
     path(base_url + 'manager', include(urls_manager)),
     path(base_url + 'user', include(urls_user)),
     path(base_url + 'resident', include(urls_resident)),
+    path(base_url + 'owner', include(urls_owner)),
 ]
 
 if settings.DEBUG:
