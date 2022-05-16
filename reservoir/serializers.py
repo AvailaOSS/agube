@@ -10,7 +10,7 @@ from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirOwner
 from geolocation.models import Geolocation
-from address.assembler import create_geolocation
+from geolocation.assemblers import create_geolocation
 
 
 

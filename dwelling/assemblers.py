@@ -15,7 +15,7 @@ from resident.models import Resident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
 from geolocation.serializers import GeolocationSerializer
-from address.assembler import create_geolocation
+from geolocation.assemblers import create_geolocation
 from person.models import PersonConfig
 
 

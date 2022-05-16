@@ -10,7 +10,7 @@ from watermeter.serializers import WaterMeterSerializer
 from dwelling.exceptions import UserManagerRequiredError
 from dwelling.models import Dwelling
 
-from address.assembler import create_geolocation
+from geolocation.assemblers import create_geolocation
 
 
 class DwellingResumeSerializer(Serializer):

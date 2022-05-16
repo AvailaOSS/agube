@@ -2,9 +2,7 @@ from address.models import Address
 from geolocation.models import Geolocation
 
 
-# FIXME: move this to geolocation.assembler
 def create_geolocation(validated_data) -> Geolocation:
-    # FIXME: use GeolocationSerializer create instead of this...
     address_data = validated_data.get('address')
     new_address = Address.objects.get_or_create(
         is_external=address_data.get('is_external'),
