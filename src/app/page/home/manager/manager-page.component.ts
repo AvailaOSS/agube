@@ -32,19 +32,18 @@ export class ManagerPageComponent extends SidebarComponent {
             {
                 navigationRoute: 'manager/home/residents',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT',
-                icon: 'hail',
+                icon: 'escalator_warning',
             },
             {
                 navigationRoute: 'manager/home/owners',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_OWNERS',
-                icon: 'escalator_warning',
+                icon: 'hail',
             },
             {
                 navigationRoute: 'manager/home/config',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
                 icon: 'settings',
-            }
-
+            },
         ];
     }
 }

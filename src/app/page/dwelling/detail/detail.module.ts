@@ -12,16 +12,16 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { AddressComponent } from './address/address.component';
 import { ResidentComponent } from './resident/resident.component';
 import { OwnerComponent } from './owner/owner.component';
 import { GaugeModule as WaterMeterGaugeModule } from '../../water-meter/gauge/gauge.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { ManagementModule } from '../../../components/management/management.module';
+import { AddressModule } from 'src/app/components/address/address.module';
 
 @NgModule({
-    declarations: [DetailComponent, AddressComponent, ResidentComponent, OwnerComponent],
+    declarations: [DetailComponent, ResidentComponent, OwnerComponent],
     imports: [
         CommonModule,
         DetailRoutingModule,
@@ -38,6 +38,7 @@ import { ManagementModule } from '../../../components/management/management.modu
         WaterMeterModule,
         MatProgressSpinnerModule,
         ManagementModule,
+        AddressModule,
     ],
 })
 export class DetailModule {}
