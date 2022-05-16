@@ -42,6 +42,7 @@ urlpatterns = [
     path(base_url + 'manager', include(urls_manager)),
     path(base_url + 'user', include(urls_user)),
     path(base_url + 'resident', include(urls_resident)),
+    path(base_url + 'owner', include(urls_owner)),
     path(base_url + 'geolocation', include(urls_geolocation))
 ]
 
