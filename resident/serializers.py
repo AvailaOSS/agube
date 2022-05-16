@@ -1,8 +1,58 @@
-from rest_framework.fields import ReadOnlyField
+from geolocation.serializers import GeolocationSerializer
+from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer
+from user.models import UserPhone
 from user.serializers import UserCreateSerializer
+
 from resident.models import Resident
+
+
+class ResidentDetailSerializer(Serializer):
+    """
+    User Resident Serializer
+    """
+    id = ReadOnlyField()
+    first_name = CharField(max_length=None,
+                           min_length=None,
+                           allow_blank=False,
+                           trim_whitespace=True)
+    last_name = CharField(max_length=None,
+                          min_length=None,
+                          allow_blank=False,
+                          trim_whitespace=True)
+    email = CharField(max_length=None,
+                      min_length=None,
+                      allow_blank=False,
+                      trim_whitespace=True)
+    phone = CharField(max_length=None,
+                      min_length=None,
+                      allow_blank=False,
+                      trim_whitespace=True)
+    geolocation = GeolocationSerializer(required=False,
+                                        many=True,
+                                        read_only=False)
+
+    class Meta:
+        ref_name = 'ResidentDetail'
+
+    def to_representation(self, instance: Resident):
+        data = {
+            'id':
+            instance.id,
+            'first_name':
+            instance.user.first_name,
+            'last_name':
+            instance.user.last_name,
+            'email':
+            instance.user.email,
+            'phone':
+            UserPhone.objects.get(user=instance.user,
+                                  main=True).phone.phone_number,
+            'geolocation':
+            GeolocationSerializer(instance.dwelling.geolocation).data,
+        }
+        return data
 
 
 class ResidentSerializer(ModelSerializer):
@@ -26,7 +76,7 @@ class ResidentSerializer(ModelSerializer):
             'discharge_date',
         )
 
-    def to_representation(self, instance):
+    def to_representation(self, instance: Resident):
         user_serialized = UserCreateSerializer(instance.user).data
 
         resident_serialized = {
