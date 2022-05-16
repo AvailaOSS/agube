@@ -35,6 +35,11 @@ export class ManagerPageComponent extends SidebarComponent {
                 icon: 'hail',
             },
             {
+                navigationRoute: 'manager/home/owners',
+                title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_OWNERS',
+                icon: 'escalator_warning',
+            },
+            {
                 navigationRoute: 'manager/home/config',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
                 icon: 'settings',

@@ -24,10 +24,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
-        private router: Router,
-        private svcResident: ResidentService,
-        private svcTableReload: TableReloadService,
-        private route: ActivatedRoute
+        protected router: Router,
+        protected svcResident: ResidentService,
+        protected svcTableReload: TableReloadService,
+        protected route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {

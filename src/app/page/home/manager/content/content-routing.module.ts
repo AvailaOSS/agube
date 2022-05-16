@@ -28,7 +28,12 @@ const routes: Routes = [
             },
             {
                 path: 'residents',
-                loadChildren: () => import('../../../residents/manager/manager.module').then((m) => m.ManagerResidentsModule),
+                loadChildren: () =>
+                    import('../../../residents/manager/manager.module').then((m) => m.ManagerResidentsModule),
+            },
+            {
+                path: 'owners',
+                loadChildren: () => import('../../../owners/manager/manager.module').then((m) => m.ManagerOwnerModule),
             },
             {
                 path: 'manager/client/dwellings',
