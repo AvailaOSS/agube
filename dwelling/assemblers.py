@@ -15,7 +15,6 @@ from resident.models import Resident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
 from geolocation.serializers import GeolocationSerializer
-from geolocation.assemblers import create_geolocation
 from person.models import PersonConfig
 
 
@@ -35,7 +34,8 @@ def create_user_geolocation(user: User, validated_data: GeolocationSerializer,
                             main: bool):
     # create user geolocation
     return UserGeolocation.objects.create(
-        user=user, geolocation=create_geolocation(validated_data), main=main)
+        user=user, geolocation=GeolocationSerializer(
+            data=validated_data).self_create(), main=main)
 
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,

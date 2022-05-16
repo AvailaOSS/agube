@@ -35,7 +35,8 @@ class GeolocationView(APIView):
         """
         geolocation_serializer = GeolocationSerializer(data=request.data)
         if geolocation_serializer.is_valid():
-            updated_geolocation = geolocation_serializer.update(Geolocation.objects.get(id=pk), geolocation_serializer.data)
+            updated_geolocation = geolocation_serializer.update(
+                Geolocation.objects.get(id=pk), geolocation_serializer.validated_data)
             return Response(GeolocationSerializer(updated_geolocation).data)
         else:
             return Response({'status': 'invalid data format'},
