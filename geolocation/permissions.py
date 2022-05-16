@@ -35,7 +35,7 @@ class IsManagerOfGeolocation(IsManagerAuthenticated):
         # User
         try:
             person = Person.objects.get(manager__user=request.user,
-                user=UserGeolocation.objects.get(geolocation=geolocation))
+                user=UserGeolocation.objects.get(geolocation=geolocation).user)
             return True
         except: pass
 
