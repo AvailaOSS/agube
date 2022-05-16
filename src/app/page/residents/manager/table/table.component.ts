@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Resident, ResidentService } from '@availa/agube-rest-api';
-import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
+import { Resident, ResidentDetail, ResidentService } from '@availa/agube-rest-api';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TableReloadService } from './table-reload.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { Detail } from '../../detail/detail';
 
 @Component({
     selector: 'app-table',
@@ -13,13 +12,9 @@ import { Detail } from '../../detail/detail';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
-    public displayedColumns: string[] = [
-        'resident_first_name',
-        'resident_last_name',
-        'resident_phones',
-        'resident_email',
-    ];
-    public dataSource: MatTableDataSource<any> = new MatTableDataSource();
+    public displayedColumns: string[] = ['first_name', 'last_name', 'email', 'phone', 'geolocation'];
+
+    public dataSource: MatTableDataSource<ResidentDetail> = new MatTableDataSource();
 
     public isSelected: Resident | undefined = undefined;
 

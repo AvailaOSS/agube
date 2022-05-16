@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TableReloadService } from './table/table-reload.service';
 
 @Component({
     selector: 'app-page-residents-manager',
@@ -7,9 +6,5 @@ import { TableReloadService } from './table/table-reload.service';
     styleUrls: ['./manager.component.scss'],
 })
 export class ManagerComponent {
-    constructor(private svcTableReload: TableReloadService) {}
-
-    public waterMeterChanged(change: boolean) {
-        this.svcTableReload.emitReload(change);
-    }
+    constructor() {}
 }
