@@ -7,7 +7,6 @@ import { StreetViewModule } from 'src/app/components/map/view/view.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { PipesModule } from 'src/app/pipes/pipes.module';
-import { MapModule } from 'src/app/components/map/map/map.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -19,6 +18,7 @@ import { GaugeModule as WaterMeterGaugeModule } from '../../water-meter/gauge/ga
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { ManagementModule } from '../../../components/management/management.module';
+import { CardButtonModule } from '../../dwelling/card-button/card-button.module';
 
 @NgModule({
     declarations: [DetailComponent, AddressComponent, ResidentComponent, OwnerComponent],
@@ -29,7 +29,6 @@ import { ManagementModule } from '../../../components/management/management.modu
         MatCardModule,
         MatButtonModule,
         PipesModule,
-        MapModule,
         MatButtonToggleModule,
         MatIconModule,
         MatTooltipModule,
@@ -38,6 +37,7 @@ import { ManagementModule } from '../../../components/management/management.modu
         WaterMeterModule,
         MatProgressSpinnerModule,
         ManagementModule,
+        CardButtonModule,
     ],
 })
 export class DetailModule {}

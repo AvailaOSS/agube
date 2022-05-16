@@ -5,6 +5,7 @@ import {
     DwellingService,
     UserService,
     UserDwellingDetail,
+    UserPhone,
 } from '@availa/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
@@ -20,6 +21,7 @@ import { Detail } from './detail';
 export class DetailComponent implements OnInit {
     public residentId: number | undefined;
     public resident: Resident | undefined;
+    public phones: UserPhone[];
     public dwellings: UserDwellingDetail[];
 
     // map
@@ -42,6 +44,7 @@ export class DetailComponent implements OnInit {
     ) {
         this.loading = true;
         this.resident = undefined;
+        this.phones = [];
         this.dwellings = [];
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;

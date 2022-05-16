@@ -1,34 +1,34 @@
 <div class="detail-page">
     <div class="page-content">
-        <mat-card>
-            <mat-card-content *ngIf="resident">
-                <div class="resident-info">
-                    <h1>{{ resident.user | userDetail }}</h1>
-                    <div class="resident-content-info" *ngIf="resident.user.geolocation">
-                        <app-address [geolocation]="resident.user.geolocation[0]"></app-address>
-                    </div>
+        <mat-card *ngIf="resident">
+            <mat-card-content>
+                <h1>{{ resident.user | userDetail }}</h1>
+                <div class="dwellings">
+                    <span *ngFor="let dwelling of dwellings">
+                        <app-card-button [dwelling]="dwelling"></app-card-button>
+                    </span>
                 </div>
-                <div class="resident-map">
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                        <mat-button-toggle (click)="mode = 'map'"
-                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
-                            matTooltipPosition="left">
-                            <mat-icon>map</mat-icon>
-                        </mat-button-toggle>
-                        <mat-button-toggle (click)="mode = 'streetView'"
-                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-                            matTooltipPosition="right">
-                            <mat-icon>360</mat-icon>
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-
-                    <div *ngIf="configureMap">
-                        <div *ngIf="mode == 'map'; else showStreetView">
-                            <app-map [configureMap]="configureMap"></app-map>
+                <div class="resident">
+                    <h1>Datos</h1>
+                    <h3>Correo electrónico</h3>
+                    <div class="resident-info">
+                        <div class="resident-data-info">
+                            <h4 class="resident-data-info">{{ resident.user.email }}</h4>
                         </div>
-                        <ng-template #showStreetView>
-                            <app-street-view [configureView]="configureView"></app-street-view>
-                        </ng-template>
+                    </div>
+                    <h3>Teléfonos de contacto</h3>
+                    <div class="resident-info" *ngIf="resident.user.phones">
+                        <div class="resident-data-info" *ngFor="let phone of resident.user.phones">
+                            <span>
+                                <h4>{{ phone.phone_number }}</h4>
+                            </span>
+                        </div>
+                    </div>
+                    <h3>Direcciones</h3>
+                    <div class="resident-info" *ngIf="resident.user.geolocation">
+                        <div class="resident-data-info" *ngFor="let geolocation of resident.user.geolocation">
+                            <app-address [geolocation]="geolocation"></app-address>
+                        </div>
                     </div>
                 </div>
             </mat-card-content>
