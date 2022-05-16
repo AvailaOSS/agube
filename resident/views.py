@@ -1,12 +1,13 @@
-from drf_yasg.utils import swagger_auto_schema
-from resident.models import Resident
-from resident.serializers import ResidentSerializer, ResidentDetailSerializer
-from manager.permissions import IsManagerAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import generics
 from django.core.exceptions import ObjectDoesNotExist
+from drf_yasg.utils import swagger_auto_schema
+from manager.permissions import IsManagerAuthenticated
+from rest_framework import generics
+from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
+from rest_framework.views import APIView
+
+from resident.models import Resident
+from resident.serializers import ResidentDetailSerializer, ResidentSerializer
 
 TAG = 'resident'
 

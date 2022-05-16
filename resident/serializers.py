@@ -1,15 +1,16 @@
-from rest_framework.fields import ReadOnlyField, CharField
-from rest_framework.relations import PrimaryKeyRelatedField
-from rest_framework.serializers import ModelSerializer
 from geolocation.serializers import GeolocationSerializer
+from rest_framework.fields import CharField, ReadOnlyField
+from rest_framework.relations import PrimaryKeyRelatedField
+from rest_framework.serializers import ModelSerializer, Serializer
 from user.models import UserPhone
 from user.serializers import UserCreateSerializer
+
 from resident.models import Resident
 
 
-class ResidentDetailSerializer(ModelSerializer):
+class ResidentDetailSerializer(Serializer):
     """
-    User Resident ModelSerializer
+    User Resident Serializer
     """
     id = ReadOnlyField()
     first_name = CharField(max_length=None,
@@ -36,14 +37,20 @@ class ResidentDetailSerializer(ModelSerializer):
         ref_name = 'ResidentDetail'
 
     def to_representation(self, instance: Resident):
-
         data = {
-            'id': instance.id,
-            'first_name': instance.user.first_name,
-            'last_name': instance.user.last_name,
-            'email': instance.user.email,
-            'phone': UserPhone.objects.get(user=instance.user, main=True).phone.phone_number,
-            'geolocation': GeolocationSerializer(instance.dwelling.geolocation).data,
+            'id':
+            instance.id,
+            'first_name':
+            instance.user.first_name,
+            'last_name':
+            instance.user.last_name,
+            'email':
+            instance.user.email,
+            'phone':
+            UserPhone.objects.get(user=instance.user,
+                                  main=True).phone.phone_number,
+            'geolocation':
+            GeolocationSerializer(instance.dwelling.geolocation).data,
         }
         return data
 
