@@ -76,7 +76,7 @@ class OwnerSerializer(ModelSerializer):
             'discharge_date',
         )
 
-    def to_representation(self, instance):
+    def to_representation(self, instance: Owner):
         user_serialized = UserCreateSerializer(instance.user).data
 
         owner_serialized = {

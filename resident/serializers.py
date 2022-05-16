@@ -76,7 +76,7 @@ class ResidentSerializer(ModelSerializer):
             'discharge_date',
         )
 
-    def to_representation(self, instance):
+    def to_representation(self, instance: Resident):
         user_serialized = UserCreateSerializer(instance.user).data
 
         resident_serialized = {
