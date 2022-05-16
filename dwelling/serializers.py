@@ -10,8 +10,6 @@ from watermeter.serializers import WaterMeterSerializer
 from dwelling.exceptions import UserManagerRequiredError
 from dwelling.models import Dwelling
 
-from address.assembler import create_geolocation
-
 
 class DwellingResumeSerializer(Serializer):
     """
@@ -71,8 +69,8 @@ class DwellingCreateSerializer(ModelSerializer):
         except ObjectDoesNotExist:
             raise UserManagerRequiredError()
         # Create geolocation
-        validated_data['geolocation'] = self.create_dwelling_geolocation(
-            validated_data.pop('geolocation'))
+        validated_data['geolocation'] = GeolocationSerializer(
+            data=validated_data.pop('geolocation')).self_create()
         # Extract water_meter_code
         water_meter_code: WaterMeterSerializer = validated_data.pop(
             'water_meter')['code']
@@ -82,10 +80,6 @@ class DwellingCreateSerializer(ModelSerializer):
         # Create water meter
         dwelling.change_current_water_meter(water_meter_code)
         return dwelling
-
-    @classmethod
-    def create_dwelling_geolocation(cls, validated_data) -> Geolocation:
-        return create_geolocation(validated_data)
 
 
 class DwellingDetailSerializer(Serializer):

@@ -10,9 +10,6 @@ from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirOwner
 from geolocation.models import Geolocation
-from address.assembler import create_geolocation
-
-
 
 
 class ReservoirResumeSerializer(Serializer):
@@ -80,8 +77,8 @@ class ReservoirCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         # Create geolocation
-        validated_data['geolocation'] = self.create_reservoir_geolocation(
-            validated_data.pop('geolocation'))
+        validated_data['geolocation'] = GeolocationSerializer(
+            data=validated_data.pop('geolocation')).self_create()
         # Extract user_id & water_meter_code
         user = validated_data.pop('user_id')
         water_meter_code = validated_data.pop('water_meter')['code']
@@ -93,10 +90,6 @@ class ReservoirCreateSerializer(ModelSerializer):
         # Create water meter
         reservoir.change_current_water_meter(water_meter_code)
         return reservoir
-
-    @classmethod
-    def create_reservoir_geolocation(cls, validated_data) -> Geolocation:
-        return create_geolocation(validated_data)
 
 
 class ReservoirOwnerSerializer(ModelSerializer):
