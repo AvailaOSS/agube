@@ -106,37 +106,8 @@ def get_all_user_geolocation_serialized(user: User):
     list_of_serialized: list[GeolocationSerializer] = []
     for geolocation_iteration in UserGeolocation.objects.filter(user=user):
         geolocation = geolocation_iteration.geolocation
-
-        # FIXME: use AddressSerializer instead of map manually
-        address = geolocation.address
-        address_data = {
-            "id": address.id,
-            "is_external": address.is_external,
-            "city": address.city,
-            "country": address.country,
-            "city_district": address.city_district,
-            "municipality": address.municipality,
-            "postcode": address.postcode,
-            "province": address.province,
-            "state": address.state,
-            "village": address.village,
-            "road": address.road,
-        }
-
-        # FIXME: use GeolocationSerializer instead of map manually
-        data = {
-            "id": geolocation.id,
-            "address": address_data,
-            "latitude": geolocation.latitude,
-            "longitude": geolocation.longitude,
-            "zoom": geolocation.zoom,
-            "horizontal_degree": geolocation.horizontal_degree,
-            "vertical_degree": geolocation.vertical_degree,
-            "number": geolocation.number,
-            "flat": geolocation.flat,
-            "gate": geolocation.gate
-        }
-        list_of_serialized.append(GeolocationSerializer(data, many=False).data)
+        list_of_serialized.append(GeolocationSerializer(
+            geolocation_iteration.geolocation, many=False).data)
 
     return list_of_serialized
 
