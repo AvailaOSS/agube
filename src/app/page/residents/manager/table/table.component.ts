@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TableReloadService } from './table-reload.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { Detail } from '../../detail/detail';
 
 @Component({
     selector: 'app-table',
@@ -51,14 +52,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     public goToResident(resident: Resident) {
-        const queryParams: Params = {
-            data: resident,
+        const queryParams: Detail = {
+            residentId: resident.id!,
         };
 
         this.router.navigate(['/manager/home/residents/detail'], {
-            queryParams: {
-                resident: JSON.stringify(queryParams),
-            },
+            queryParams,
         });
     }
 

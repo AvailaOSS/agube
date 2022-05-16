@@ -1,10 +1,16 @@
-import { Geolocation, ManagerService, ResidentService } from '@availa/agube-rest-api';
+import {
+    Geolocation,
+    Resident,
+    ResidentService,
+    DwellingService,
+    UserService,
+    UserDwellingDetail,
+} from '@availa/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Type } from '../../water-meter/detail/type';
-import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
+import { Detail } from './detail';
 
 @Component({
     selector: 'app-page-dwelling-detail',
@@ -12,7 +18,9 @@ import { WaterMeterPersistantService } from '../../water-meter/water-meter-persi
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-    public resident: any | undefined;
+    public residentId: number | undefined;
+    public resident: Resident | undefined;
+    public dwellings: UserDwellingDetail[];
 
     // map
     public configureView: ConfigureView | undefined;
@@ -21,27 +29,55 @@ export class DetailComponent implements OnInit {
     public mode: string = 'map';
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
-    private mapHeight: string = '800px';
-
-    public waterMeterId: number | undefined;
-
-    public type: Type | undefined = undefined;
+    private mapHeight: string = '500px';
 
     public loading: boolean = false;
 
-    public canLoad: boolean = false;
-
-    constructor(private router: Router, private activatedRoute: ActivatedRoute, private svcManager: ManagerService) {
-        this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private svcResident: ResidentService,
+        private svcDwelling: DwellingService,
+        private svcUser: UserService
+    ) {
         this.loading = true;
-
-        this.activatedRoute.queryParamMap.subscribe((params: any) => {
-            this.resident = JSON.parse(params.params.resident);
-            this.configureMaps(this.resident.data.user.geolocation[0]);
+        this.resident = undefined;
+        this.dwellings = [];
+        this.activatedRoute.queryParams.subscribe((params) => {
+            let par = params as Detail;
+            this.residentId = par.residentId;
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (!this.residentId) {
+            return;
+        }
+
+        this.svcResident.getResident(this.residentId).subscribe({
+            next: (resident) => {
+                this.resident = resident;
+
+                this.svcDwelling
+                    .getDwelling(resident.dwelling_id!)
+                    .subscribe((dwelling) => this.configureMaps(dwelling.geolocation));
+
+                this.svcUser.getDwellingDetail(resident.user.id!).subscribe({
+                    next: (response) => {
+                        if (!response.length) {
+                            this.loading = false;
+                            return;
+                        }
+                        this.dwellings = response;
+                    },
+                    error: (error) => (this.loading = false),
+                });
+
+                this.loading = false;
+            },
+            error: (error) => (this.loading = false),
+        });
+    }
 
     public goToNewDwelling() {
         this.router.navigate(['manager/dwellings/create']);
@@ -54,7 +90,7 @@ export class DetailComponent implements OnInit {
             zoom: geolocation.zoom,
             showCircle: true,
             height: this.mapHeight,
-            dragging: false
+            dragging: false,
         };
         this.configureView = {
             latitude: +geolocation.latitude,

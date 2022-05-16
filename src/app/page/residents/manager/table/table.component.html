@@ -52,7 +52,7 @@
                 <th mat-header-cell *matHeaderCellDef>geolocation</th>
                 <td mat-cell *matCellDef="let element"
                     matTooltip="{{ 'PAGE.RESIDENTS.MANAGER.TABLE.COLUMN.ADDRESS' | translate }}">
-                    {{ element.geolocation.address | address }}
+                    {{ element.geolocation | geolocation: 'short' }}
                 </td>
             </ng-container>
 
