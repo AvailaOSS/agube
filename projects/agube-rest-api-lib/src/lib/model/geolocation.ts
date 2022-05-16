@@ -12,7 +12,8 @@
 import { Address } from './address';
 
 export interface Geolocation {
-  readonly id?: number;
+  // id is not readonly, frontend needs assign it
+  id?: number;
   address: Address;
   latitude: string;
   longitude: string;

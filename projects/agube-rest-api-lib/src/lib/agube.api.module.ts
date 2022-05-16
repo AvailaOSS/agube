@@ -7,6 +7,7 @@ import {
 import { AgubeRestConfiguration } from './configuration.service';
 import { AddressService } from './service/address.service';
 import { DwellingService } from './service/dwelling.service';
+import { GeolocationService } from './service/geolocation.service';
 import { ManagerService } from './service/manager.service';
 import { OwnerService } from './service/owner.service';
 import { PhoneService } from './service/phone.service';
@@ -29,6 +30,7 @@ import { WaterMeterService } from './service/waterMeter.service';
     WaterMeterService,
     ResidentService,
     OwnerService,
+    GeolocationService,
   ],
 })
 export class AgubeApiModule {
