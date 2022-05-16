@@ -8,10 +8,10 @@ from drf_yasg.utils import swagger_auto_schema
 
 from geolocation.models import Geolocation
 from geolocation.serializers import GeolocationSerializer
-from manager.permissions import IsManagerAuthenticated
+from geolocation.permissions import IsManagerOfGeolocation
 
 class GeolocationView(APIView):
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsManagerOfGeolocation]
 
     @swagger_auto_schema(operation_id="getGeolocation",
                          responses={200: GeolocationSerializer(many=False)})
