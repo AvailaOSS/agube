@@ -21,11 +21,11 @@ import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
-import { Resident } from '../model/resident';
-import { ResidentDetail } from '../model/residentDetail';
+import { Owner } from '../model/owner';
+import { OwnerDetail } from '../model/ownerDetail';
 
 @Injectable()
-export class ResidentService {
+export class OwnerService {
   protected basePath = '';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
@@ -44,34 +44,34 @@ export class ResidentService {
 
   /**
    *
-   * Get Resident by id
-   * @param id A unique integer value identifying this resident.
+   * Get Owner by id
+   * @param id A unique integer value identifying this owner.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getResident(
+  public getOwner(
     id: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Resident>;
-  public getResident(
+  ): Observable<Owner>;
+  public getOwner(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Resident>>;
-  public getResident(
+  ): Observable<HttpResponse<Owner>>;
+  public getOwner(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Resident>>;
-  public getResident(
+  ): Observable<HttpEvent<Owner>>;
+  public getOwner(
     id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getResident.'
+        'Required parameter id was null or undefined when calling getOwner.'
       );
     }
 
@@ -97,8 +97,8 @@ export class ResidentService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Resident>(
-      `${this.basePath}/resident/${encodeURIComponent(String(id))}`,
+    return this.httpClient.get<Owner>(
+      `${this.basePath}/owner/${encodeURIComponent(String(id))}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
@@ -110,23 +110,23 @@ export class ResidentService {
 
   /**
    *
-   * Return a list of all Residents of the logged manager.
+   * Return a list of all Owners of the logged manager.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getResidents(
+  public getOwners(
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<ResidentDetail>>;
-  public getResidents(
+  ): Observable<Array<OwnerDetail>>;
+  public getOwners(
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<ResidentDetail>>>;
-  public getResidents(
+  ): Observable<HttpResponse<Array<OwnerDetail>>>;
+  public getOwners(
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<ResidentDetail>>>;
-  public getResidents(
+  ): Observable<HttpEvent<Array<OwnerDetail>>>;
+  public getOwners(
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
@@ -152,14 +152,11 @@ export class ResidentService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<ResidentDetail>>(
-      `${this.basePath}/resident`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.get<Array<OwnerDetail>>(`${this.basePath}/owner`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }
