@@ -13,10 +13,6 @@ import { PersonTable } from '../../table';
 export class TableResidentComponent extends PersonTable implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    ngOnInit(): void {
-        this.loadPersons();
-    }
-
     constructor(
         protected svcResident: ResidentService,
         protected override router: Router,
@@ -25,12 +21,18 @@ export class TableResidentComponent extends PersonTable implements OnInit {
         super(router, route);
     }
 
+    ngOnInit(): void {
+        console.log('HELLO WORLD');
+        this.loadPersons();
+    }
+
     public override goTo(resident: Resident) {
         this.router.navigate(['/manager/home/person/residents/detail', resident.id]);
     }
 
     public override loadPersons() {
         this.svcResident.getResidents().subscribe((response) => {
+            console.log('getResidents', response);
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });

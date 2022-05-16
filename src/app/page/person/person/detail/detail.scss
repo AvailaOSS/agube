@@ -27,25 +27,31 @@
         h3 {
             margin-left: $margin-small;
         }
-        .resident {
-            .resident-info {
-                display: flex;
-                flex-wrap: wrap;
-                width: 100%;
-                margin-left: $margin-small;
-            }
-            .resident-data-info {
-                margin-left: $margin-small;
-            }
-        }
-        .dwellings {
-            display: flex;
-            margin-top: $margin-x-medium;
-            justify-content: space-evenly;
-        }
         .resident-dwelling {
             display: flex;
-            justify-content: space-evenly;
+            .resident {
+                margin-left: $margin-small;
+                .resident-info {
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    margin-left: $margin-small;
+                }
+                .resident-data-info {
+                    margin-left: $margin-small;
+                }
+            }
+            .dwellings {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: $margin-x-medium;
+                margin-left: $margin-medium;
+                justify-content: space-evenly;
+                .card-dwelling {
+                    margin-bottom: $margin-medium;
+                    margin-left: $margin-medium;
+                }
+            }
         }
     }
 }

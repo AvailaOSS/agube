@@ -26,6 +26,7 @@ export class Detail {
 
     // map config
     public mode: string = 'map';
+    private mapId = 'detail_map';
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '500px';
@@ -78,6 +79,7 @@ export class Detail {
 
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
+            id: this.mapId,
             lat: geolocation.latitude,
             lon: geolocation.longitude,
             zoom: geolocation.zoom,

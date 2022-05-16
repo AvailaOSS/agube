@@ -13,11 +13,6 @@ import { PersonTable } from '../../table';
 export class TableOwnerComponent extends PersonTable implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    ngOnInit(): void {
-        this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';
-        this.loadPersons();
-    }
-
     constructor(
         protected svcOwner: OwnerService,
         protected override router: Router,
@@ -26,12 +21,19 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
         super(router, route);
     }
 
+    ngOnInit(): void {
+        this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';
+        console.log('HELLO WORLD');
+        this.loadPersons();
+    }
+
     public override goTo(owner: Owner) {
         this.router.navigate(['/manager/home/person/owners/detail', owner.id]);
     }
 
     public override loadPersons() {
         this.svcOwner.getOwners().subscribe((response) => {
+            console.log('getOwners', response);
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });

@@ -14,13 +14,7 @@ export class PersonTable {
 
     public filter = new FormControl('');
 
-    // @ViewChild(MatPaginator) paginator!: MatPaginator;
-
     constructor(protected router: Router, protected route: ActivatedRoute) {}
-
-    // ngOnInit(): void {
-    // this.loadPersons();
-    // }
 
     public applyFilter() {
         this.dataSource.filter = this.filter.value.trim().toLowerCase();
@@ -33,20 +27,9 @@ export class PersonTable {
 
     public goTo(person: Resident | Owner) {
         throw new Error('override it in your child class');
-        // const queryParams: Detail = {
-        //     residentId: resident.id!,
-        // };
-
-        // this.router.navigate(['/manager/home/residents/detail'], {
-        //     queryParams,
-        // });
     }
 
     public loadPersons() {
         throw new Error('override it in your child class');
-        // this.svcResident.getResidents().subscribe((response) => {
-        //     this.dataSource = new MatTableDataSource(response);
-        //     this.dataSource.paginator = this.paginator!;
-        // });
     }
 }
