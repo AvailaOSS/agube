@@ -178,7 +178,7 @@ export class GeolocationService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.put<Geolocation>(
+    return this.httpClient.post<Geolocation>(
       `${this.basePath}/geolocation/${encodeURIComponent(String(id))}`,
       data,
       {
