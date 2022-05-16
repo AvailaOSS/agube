@@ -16,6 +16,7 @@ export class CardButtonComponent implements OnInit {
     ngOnInit(): void {}
 
     public goToDwellingDetail(dwelling: UserDwellingDetail) {
+        console.log(this.router)
         this.routeString(this.router.url + ClientComponent.UrlStringClient, dwelling);
     }
 

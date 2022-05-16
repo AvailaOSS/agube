@@ -27,13 +27,7 @@ export class TableResidentComponent extends PersonTable implements OnInit {
     }
 
     public override goTo(resident: Resident) {
-        const queryParams: IDetail = {
-            personId: resident.id!,
-        };
-
-        this.router.navigate(['/manager/home/residents/detail'], {
-            queryParams,
-        });
+        this.router.navigate(['/manager/home/residents/detail', resident.id!]);
     }
 
     public override loadPersons() {

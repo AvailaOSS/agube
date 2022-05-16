@@ -39,7 +39,7 @@ export class Detail {
         this.person = undefined;
         this.phones = [];
         this.dwellings = [];
-        this.activatedRoute.queryParams.subscribe((params) => {
+        this.activatedRoute.params.subscribe((params) => {
             let par = params as IDetail;
             this.personId = par.personId;
         });
@@ -72,10 +72,6 @@ export class Detail {
                     message: error.error,
                 }),
         });
-    }
-
-    public goToNewDwelling() {
-        this.router.navigate(['manager/dwellings/create']);
     }
 
     private configureMaps(geolocation: Geolocation) {

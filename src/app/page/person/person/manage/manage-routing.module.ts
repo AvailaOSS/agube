@@ -7,9 +7,9 @@ import { ManagerResidentComponent } from './resident/manager.component';
 
 const routes: Routes = [
     { path: 'owners', component: ManagerOwnerComponent },
-    { path: 'owners/detail', component: OwnerDetailComponent },
+    { path: 'owners/detail/:personId', component: OwnerDetailComponent },
     { path: 'residents', component: ManagerResidentComponent },
-    { path: 'residents/detail', component: ResidentDetailComponent },
+    { path: 'residents/detail/:personId', component: ResidentDetailComponent },
 ];
 
 @NgModule({

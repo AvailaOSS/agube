@@ -43,5 +43,9 @@
             margin-top: $margin-x-medium;
             justify-content: space-evenly;
         }
+        .resident-dwelling {
+            display: flex;
+            justify-content: space-evenly;
+        }
     }
 }

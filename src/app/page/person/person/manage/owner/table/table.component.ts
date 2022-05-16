@@ -28,13 +28,7 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
     }
 
     public override goTo(owner: Owner) {
-        const queryParams: IDetail = {
-            personId: owner.id!,
-        };
-
-        this.router.navigate(['/manager/home/owners/detail'], {
-            queryParams,
-        });
+        this.router.navigate(['/manager/home/owners/detail', owner.id!]);
     }
 
     public override loadPersons() {
