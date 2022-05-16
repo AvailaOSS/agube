@@ -1,28 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDwellingDetail } from '@availa/agube-rest-api';
-import { ClientComponent } from '../client/client.component';
 
 @Component({
     selector: 'app-card-button',
     templateUrl: './card-button.component.html',
     styleUrls: ['./card-button.component.scss'],
 })
-export class CardButtonComponent implements OnInit {
+export class CardButtonComponent {
     @Input() public dwelling: UserDwellingDetail | undefined;
+    @Input() public dwellingPath: string | undefined;
 
     constructor(private router: Router) {}
 
-    ngOnInit(): void {}
+    public goToDwellingDetail() {
+        if (!this.dwellingPath || !this.dwelling) {
+            return;
+        }
 
-    public goToDwellingDetail(dwelling: UserDwellingDetail) {
-        console.log(this.router)
-        this.routeString(this.router.url + ClientComponent.UrlStringClient, dwelling);
-    }
-
-    private routeString(route: string, dwelling: UserDwellingDetail) {
-        return this.router.navigate([route], {
-            queryParams: { dwellingId: dwelling.id },
+        this.router.navigate([this.dwellingPath], {
+            queryParams: { dwellingId: this.dwelling.id },
         });
     }
 }

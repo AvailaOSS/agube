@@ -18,6 +18,7 @@ export class Detail {
     public person: Resident | Owner | undefined;
     public phones: UserPhone[];
     public dwellings: UserDwellingDetail[];
+    public dwellingPath: string = '';
 
     // map
     public configureView: ConfigureView | undefined;
@@ -39,6 +40,7 @@ export class Detail {
         this.person = undefined;
         this.phones = [];
         this.dwellings = [];
+        this.dwellingPath = '/manager/home/manager/client/dwellings/detail';
         this.activatedRoute.params.subscribe((params) => {
             let par = params as IDetail;
             this.personId = par.personId;

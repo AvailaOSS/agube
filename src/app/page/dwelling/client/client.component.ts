@@ -15,7 +15,9 @@ export class ClientComponent implements OnInit {
     public loading: boolean = false;
     public userIsManager: boolean = false;
 
-    public static UrlStringClient: string = '/detail';
+    public dwellingPath: string = '';
+
+    private static UrlStringClient: string = '/detail';
 
     constructor(
         private router: Router,
@@ -25,6 +27,7 @@ export class ClientComponent implements OnInit {
     ) {
         this.dwellings = [];
         this.loading = true;
+        this.dwellingPath = this.router.url + ClientComponent.UrlStringClient;
     }
 
     ngOnInit(): void {

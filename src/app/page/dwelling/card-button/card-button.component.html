@@ -1,11 +1,11 @@
-<button mat-stroked-button class="select-dwelling" *ngIf="dwelling" matTooltip="Entrar"
-    (click)="goToDwellingDetail(dwelling)">
+<button mat-stroked-button class="select-dwelling" *ngIf="dwelling" matTooltip="Entrar" (click)="goToDwellingDetail()">
     <mat-card>
         <mat-card-header>
             <mat-card-title>
                 <h3 class="title-card">{{ dwelling | dwellingDetail | slice: 0:26 }}</h3>
             </mat-card-title>
-            <mat-card-subtitle>{{ 'GENERAL.TEXT.WATER_METER' | translate }}: {{ dwelling.water_meter_code }}
+            <mat-card-subtitle
+                >{{ 'GENERAL.TEXT.WATER_METER' | translate }}: {{ dwelling.water_meter_code }}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-divider></mat-divider>

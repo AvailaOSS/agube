@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PersonTable } from '../../table';
-import { IDetail } from '../../detail';
 
 @Component({
     selector: 'app-table-resident',
@@ -27,7 +26,7 @@ export class TableResidentComponent extends PersonTable implements OnInit {
     }
 
     public override goTo(resident: Resident) {
-        this.router.navigate(['/manager/home/residents/detail', resident.id!]);
+        this.router.navigate(['/manager/home/person/residents/detail', resident.id]);
     }
 
     public override loadPersons() {

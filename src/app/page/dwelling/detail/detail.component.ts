@@ -42,9 +42,9 @@ export class DetailComponent implements OnInit {
         private svcPersistant: WaterMeterPersistantService
     ) {
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
-        this.dwelling = undefined;
         this.loading = true;
-        this.activatedRoute.params.subscribe((params) => {
+        this.dwelling = undefined;
+        this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
             this.dwellingId = par.dwellingId;
             this.type = {
