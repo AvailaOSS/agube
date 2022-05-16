@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { Owner } from '../model/owner';
+import { OwnerDetail } from '../model/ownerDetail';
 
 @Injectable()
 export class OwnerService {
@@ -43,6 +44,72 @@ export class OwnerService {
 
   /**
    *
+   * Get Owner by id
+   * @param id A unique integer value identifying this owner.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getOwner(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Owner>;
+  public getOwner(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Owner>>;
+  public getOwner(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Owner>>;
+  public getOwner(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getOwner.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Owner>(
+      `${this.basePath}/owner/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
    * Return a list of all Owners of the logged manager.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -50,15 +117,15 @@ export class OwnerService {
   public getOwners(
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<Owner>>;
+  ): Observable<Array<OwnerDetail>>;
   public getOwners(
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<Owner>>>;
+  ): Observable<HttpResponse<Array<OwnerDetail>>>;
   public getOwners(
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<Owner>>>;
+  ): Observable<HttpEvent<Array<OwnerDetail>>>;
   public getOwners(
     observe: any = 'body',
     reportProgress: boolean = false
@@ -85,7 +152,7 @@ export class OwnerService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<Owner>>(`${this.basePath}/owner`, {
+    return this.httpClient.get<Array<OwnerDetail>>(`${this.basePath}/owner`, {
       withCredentials: this.configuration.withCredentials,
       headers: headers,
       observe: observe,

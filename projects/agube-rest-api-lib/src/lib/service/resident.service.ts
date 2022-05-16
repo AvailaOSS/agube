@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { Resident } from '../model/resident';
+import { ResidentDetail } from '../model/residentDetail';
 
 @Injectable()
 export class ResidentService {
@@ -43,6 +44,72 @@ export class ResidentService {
 
   /**
    *
+   * Get Resident by id
+   * @param id A unique integer value identifying this resident.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getResident(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Resident>;
+  public getResident(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Resident>>;
+  public getResident(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Resident>>;
+  public getResident(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getResident.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Resident>(
+      `${this.basePath}/resident/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
    * Return a list of all Residents of the logged manager.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -50,15 +117,15 @@ export class ResidentService {
   public getResidents(
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<Array<Resident>>;
+  ): Observable<Array<ResidentDetail>>;
   public getResidents(
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<Array<Resident>>>;
+  ): Observable<HttpResponse<Array<ResidentDetail>>>;
   public getResidents(
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<Array<Resident>>>;
+  ): Observable<HttpEvent<Array<ResidentDetail>>>;
   public getResidents(
     observe: any = 'body',
     reportProgress: boolean = false
@@ -85,11 +152,14 @@ export class ResidentService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<Resident>>(`${this.basePath}/resident`, {
-      withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress,
-    });
+    return this.httpClient.get<Array<ResidentDetail>>(
+      `${this.basePath}/resident`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
   }
 }
