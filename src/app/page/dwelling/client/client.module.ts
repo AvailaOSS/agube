@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CardButtonModule } from '../card-button/card-button.module';
 
 @NgModule({
     declarations: [ClientComponent],
@@ -24,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatButtonModule,
         TranslateModule,
         MatTooltipModule,
+        CardButtonModule,
     ],
 })
 export class ClientModule {}

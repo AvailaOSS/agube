@@ -15,6 +15,8 @@ export class ClientComponent implements OnInit {
     public loading: boolean = false;
     public userIsManager: boolean = false;
 
+    public dwellingPath: string = '';
+
     private static UrlStringClient: string = '/detail';
 
     constructor(
@@ -25,6 +27,7 @@ export class ClientComponent implements OnInit {
     ) {
         this.dwellings = [];
         this.loading = true;
+        this.dwellingPath = this.router.url + ClientComponent.UrlStringClient;
     }
 
     ngOnInit(): void {
@@ -51,15 +54,5 @@ export class ClientComponent implements OnInit {
 
     public goToNewDwelling() {
         return this.router.navigate(['manager/home/dwellings/create']);
-    }
-
-    public goToDwellingDetail(dwelling: UserDwellingDetail) {
-        this.routeString(this.router.url + ClientComponent.UrlStringClient, dwelling);
-    }
-
-    private routeString(route: string, dwelling: UserDwellingDetail) {
-        return this.router.navigate([route], {
-            queryParams: { dwellingId: dwelling.id },
-        });
     }
 }

@@ -1,0 +1,31 @@
+<button mat-stroked-button class="select-dwelling" *ngIf="dwelling" matTooltip="Entrar" (click)="goToDwellingDetail()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h3 class="title-card">{{ dwelling | dwellingDetail | slice: 0:26 }}</h3>
+            </mat-card-title>
+            <mat-card-subtitle
+                >{{ 'GENERAL.TEXT.WATER_METER' | translate }}: {{ dwelling.water_meter_code }}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <div *ngIf="dwelling.is_owner">
+                <mat-icon>hail</mat-icon>
+                {{ 'GENERAL.TEXT.OWNER' | translate }}
+            </div>
+            <div class="resident" *ngIf="dwelling.is_resident">
+                <div class="icons">
+                    <mat-icon>escalator_warning</mat-icon>
+                    <span>
+                        {{ 'GENERAL.TEXT.RESIDENT' | translate }}
+                    </span>
+                    <div>
+                        <mat-icon>call</mat-icon>
+                        {{ dwelling.resident_phone }}
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</button>

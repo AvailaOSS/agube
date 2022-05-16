@@ -1,50 +1,22 @@
 .title {
-  text-align: center;
-  margin-top: 100px;
+    text-align: center;
+    margin-top: 100px;
 }
-.button {
-  min-height: 50%;
-  max-height: 50%;
-  width: 20%;
-  padding: 0px;
-}
+
 .dwelling-detail {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 100px;
-  .mat-card {
-    padding: 0px;
+    display: flex;
+    justify-content: space-evenly;
     width: 100%;
-    height: 100%;
-    .mat-card-content {
-      margin-bottom: 15px;
-      margin-top: 15px;
-      text-align: center;
-      .resident {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        .icons {
-          display: flex;
-          margin: 0 auto;
-          margin-top: 15px;
-        }
-        .mat-icon {
-          vertical-align: middle;
-          justify-content: space-between;
-          margin-left: 10px;
-        }
-      }
-    }
-  }
+    margin-top: 100px;
 }
+
 .no-dwelling {
-  text-align: center;
-  .no-dwelling-text {
-    opacity: 0.7 !important;
-    .alert-no-dwelling {
-      font-size: 500px;
-      display: contents;
+    text-align: center;
+    .no-dwelling-text {
+        opacity: 0.7 !important;
+        .alert-no-dwelling {
+            font-size: 500px;
+            display: contents;
+        }
     }
-  }
 }

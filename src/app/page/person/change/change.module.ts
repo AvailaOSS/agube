@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeComponent } from './change/change.component';
-import { ResidentComponent } from './change/resident/resident.component';
-import { OwnerComponent } from './change/owner/owner.component';
-import { PersonRoutingModule } from './person-routing.module';
+import { ChangeRoutingModule } from './change-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,12 +12,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ChangeComponent } from './change.component';
+import { OwnerComponent } from './owner/owner.component';
+import { ResidentComponent } from './resident/resident.component';
 
 @NgModule({
     declarations: [ChangeComponent, ResidentComponent, OwnerComponent],
     imports: [
         CommonModule,
-        PersonRoutingModule,
+        ChangeRoutingModule,
         MatCardModule,
         MatButtonModule,
         FormsModule,
@@ -35,4 +35,4 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         MatAutocompleteModule,
     ],
 })
-export class PersonModule {}
+export class ChangeModule {}

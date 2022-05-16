@@ -4,7 +4,7 @@ import { Geolocation } from '@availa/agube-rest-api';
 @Component({
     selector: 'app-address',
     templateUrl: './address.component.html',
-    styleUrls: ['../info.component.scss'],
+    styleUrls: ['./address.component.scss'],
 })
 export class AddressComponent implements OnInit {
     @Input() public geolocation: Geolocation | undefined;

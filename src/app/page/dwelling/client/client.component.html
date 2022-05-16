@@ -2,44 +2,10 @@
     <div class="title">
         <h1>{{ 'PAGE.DWELLING.CLIENT.TITLE' | translate }}</h1>
     </div>
-
     <div class="dwelling-detail">
-        <button
-            mat-stroked-button
-            class="button"
-            *ngFor="let dwelling of dwellings"
-            (click)="goToDwellingDetail(dwelling)"
-        >
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
-                        <h3 class="title-card">{{ dwelling | dwellingDetail | slice: 0:26 }}</h3>
-                    </mat-card-title>
-                    <mat-card-subtitle
-                        >{{ 'GENERAL.TEXT.WATER_METER' | translate }}: {{ dwelling.water_meter_code }}
-                    </mat-card-subtitle>
-                </mat-card-header>
-                <mat-divider></mat-divider>
-                <mat-card-content>
-                    <div *ngIf="dwelling.is_owner">
-                        <mat-icon>hail</mat-icon>
-                        {{ 'GENERAL.TEXT.OWNER' | translate }}
-                    </div>
-                    <div class="resident" *ngIf="dwelling.is_resident">
-                        <div class="icons">
-                            <mat-icon>escalator_warning</mat-icon>
-                            <span>
-                                {{ 'GENERAL.TEXT.RESIDENT' | translate }}
-                            </span>
-                            <div>
-                                <mat-icon>call</mat-icon>
-                                {{ dwelling.resident_phone }}
-                            </div>
-                        </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </button>
+        <span *ngFor="let dwelling of dwellings">
+            <app-card-button [dwelling]="dwelling" [dwellingPath]="dwellingPath"></app-card-button>
+        </span>
     </div>
 </div>
 <ng-template #noDwelling>
@@ -51,12 +17,9 @@
             <mat-icon class="alert-no-dwelling">assignment_late</mat-icon>
         </div>
         <div *ngIf="userIsManager">
-            <button
-                mat-raised-button
-                color="primary"
+            <button mat-raised-button color="primary"
                 matTooltip="{{ 'PAGE.DWELLING.CLIENT.NO_DWELLING.BUTTON.TOOLTIP' | translate }}"
-                (click)="goToNewDwelling()"
-            >
+                (click)="goToNewDwelling()">
                 <mat-icon>add_business</mat-icon>
                 {{ 'PAGE.DWELLING.CLIENT.NO_DWELLING.BUTTON' | translate }}
             </button>

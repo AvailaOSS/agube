@@ -15,12 +15,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManagementModule } from 'src/app/components/management/management.module';
-import { AddressComponent } from './address/address.component';
 import { OwnerComponent } from './owner/owner.component';
 import { ResumeComponent } from './resume/resume.component';
+import { AddressModule } from 'src/app/components/address/address.module';
 
 @NgModule({
-    declarations: [DetailComponent, ResumeComponent, AddressComponent, OwnerComponent],
+    declarations: [DetailComponent, ResumeComponent, OwnerComponent],
     imports: [
         CommonModule,
         ReservoirRoutingModule,
@@ -36,6 +36,7 @@ import { ResumeComponent } from './resume/resume.component';
         WaterMeterModule,
         MatProgressSpinnerModule,
         ManagementModule,
+        AddressModule,
     ],
 })
 export class DetailModule {}

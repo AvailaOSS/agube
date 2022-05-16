@@ -1,0 +1,26 @@
+.select-dwelling {
+    padding: 0px;
+}
+
+.mat-card {
+    .mat-card-content {
+        margin-bottom: 15px;
+        margin-top: 15px;
+        text-align: center;
+        .resident {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            .icons {
+                display: flex;
+                margin: 0 auto;
+                margin-top: 15px;
+            }
+            .mat-icon {
+                vertical-align: middle;
+                justify-content: space-between;
+                margin-left: 10px;
+            }
+        }
+    }
+}

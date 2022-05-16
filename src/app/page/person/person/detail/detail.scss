@@ -1,0 +1,51 @@
+@import '../../../../../assets/availa/sizes/page.scss';
+@import '../../../../../assets/availa/sizes/margins.scss';
+
+.detail-page {
+    @include my-page($columns: 1);
+    width: 100%;
+}
+
+@media only screen and (max-width: 1850px) {
+    .mat-card-content {
+        display: block;
+        justify-content: center !important;
+        .resident-info {
+            width: 100% !important;
+        }
+    }
+}
+
+.page-content {
+    @include my-page-column($columnIndex: 1, $totalColumns: 1);
+    .mat-card {
+        height: 100%;
+    }
+    mat-card-content {
+        margin-top: $margin-x-medium;
+        margin-left: $margin-x-medium;
+        h3 {
+            margin-left: $margin-small;
+        }
+        .resident {
+            .resident-info {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                margin-left: $margin-small;
+            }
+            .resident-data-info {
+                margin-left: $margin-small;
+            }
+        }
+        .dwellings {
+            display: flex;
+            margin-top: $margin-x-medium;
+            justify-content: space-evenly;
+        }
+        .resident-dwelling {
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+}
