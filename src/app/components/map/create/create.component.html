@@ -88,13 +88,11 @@
         <mat-form-field appearance="fill" *ngIf="flat">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.FLAT.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="flat" />
-            <mat-error *ngIf="flat.invalid">{{ errorValidator('flat') | translate }}</mat-error>
-        </mat-form-field>
+         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="gate">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.GATE.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="gate" />
-            <mat-error *ngIf="gate.invalid">{{ errorValidator('gate') | translate }}</mat-error>
-        </mat-form-field>
+         </mat-form-field>
     </div>
     <div class="filter-results">
         <span class="filter-selection" *ngIf="!loadingCandidates; else isloadingCandidates">

@@ -247,19 +247,9 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     return 'COMPONENTS.MAP.CREATE.FILTER.VALIDATION';
                 }
                 return '';
-            case 'number':
-                if (this.number && this.number.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
-                }
-                return '';
-            case 'street':
-                if (this.street && this.street.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
-                }
-                return '';
-            case 'cp':
-                if (this.cp && this.cp.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
+            case 'country':
+                if (this.country && this.country.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.COUNTRY.VALIDATION';
                 }
                 return '';
             case 'state':
@@ -267,9 +257,40 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     return 'COMPONENTS.MAP.CREATE.FORM.STATE.VALIDATION';
                 }
                 return '';
+            case 'province':
+                if (this.province && this.province.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.PROVINCE.VALIDATION';
+                }
+                return '';
+            case 'city':
+                if (this.city && this.city.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION';
+                }
+                return '';
             case 'municipality':
                 if (this.municipality && this.municipality.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
+                }
+                return '';
+            case 'city_district':
+                if (this.city_district && this.city_district.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION';
+                }
+                return '';
+            case 'cp':
+                if (this.cp && this.cp.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
+                }
+                return '';
+            case 'street':
+                if (this.street && this.street.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
+                }
+                return '';
+
+            case 'number':
+                if (this.number && this.number.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
                 }
                 return '';
             default:
