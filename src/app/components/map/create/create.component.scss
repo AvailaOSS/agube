@@ -3,16 +3,16 @@
 .selector-geolocation-map {
     width: 100%;
     overflow: hidden;
-    .address-form-geolocation {
-        display: flex;
-        margin-bottom: 20px;
-        mat-form-field:first-child {
-            width: 60%;
-        }
+    .filter {
+        margin-top: $margin-x-small;
+        width: 60%;
     }
     .address-form {
-        margin-bottom: 20px;
-        padding: 0px;
+        margin-top: $margin-x-medium;
+        margin-bottom: $margin-x-medium;
+        mat-form-field{
+            margin: 0 $margin-x-small 0 0;
+        }
     }
     .filter-results {
         display: flex;

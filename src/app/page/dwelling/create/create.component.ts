@@ -17,10 +17,6 @@ export class CreateComponent extends CreateAddress {
 
     public loadingPost = false;
 
-    // myControl = new FormControl();
-    // optionsName: string[] = ['One', 'Two', 'Three'];
-    // public filteredOptions: Observable<string[]> = new Observable();
-
     constructor(
         private router: Router,
         private svcNotification: NotificationService,

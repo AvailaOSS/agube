@@ -7,10 +7,14 @@ import { addressGenerator } from 'src/app/utils/address/address';
 
 export class CreateAddress {
     public addressInputForm: InputForm = {
-        cp: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        province: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
         village: new FormControl(''),
-        state: new FormControl('',Validators.required),
-        municipality: new FormControl('',Validators.required),
+        municipality: new FormControl('', Validators.required),
+        city_district: new FormControl('', Validators.required),
+        cp: new FormControl('', Validators.required),
         street: new FormControl('', Validators.required),
         number: new FormControl('', Validators.required),
         flat: new FormControl(''),

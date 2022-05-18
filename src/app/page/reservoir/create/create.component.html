@@ -6,26 +6,15 @@
                 <div class="form-content">
                     <mat-form-field appearance="fill">
                         <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
-                        <input
-                            matInput
-                            placeholder="0-123456789"
-                            [formControl]="code"
-                            (keydown.enter)="save()"
-                            autofocus
-                        />
+                        <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()"
+                            autofocus />
                         <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
                     </mat-form-field>
                     <div class="form-reservoir">
                         <mat-form-field appearance="fill">
                             <mat-label>{{ 'PAGE.RESERVOIR.CREATE.CAPACITY' | translate }}</mat-label>
-                            <input
-                                matInput
-                                placeholder="1000"
-                                type="number"
-                                max="9999999"
-                                [formControl]="capacity"
-                                (keydown.enter)="save()"
-                            />
+                            <input matInput placeholder="1000" type="number" max="9999999" [formControl]="capacity"
+                                (keydown.enter)="save()" />
                             <span matPrefix>
                                 <mat-icon>opacity</mat-icon>
                             </span>
@@ -34,77 +23,50 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>{{ 'PAGE.RESERVOIR.CREATE.INLET_FLOW' | translate }}</mat-label>
-                            <input
-                                matInput
-                                placeholder="1000"
-                                type="number"
-                                max="9999999"
-                                [formControl]="inletFlow"
-                                (keydown.enter)="save()"
-                            />
+                            <input matInput placeholder="1000" type="number" max="9999999" [formControl]="inletFlow"
+                                (keydown.enter)="save()" />
                             <span matPrefix>
                                 <mat-icon>arrow_forward_ios</mat-icon>
                             </span>
                             <span matSuffix>m<sup>3</sup></span>
                             <mat-error *ngIf="inletFlow.invalid">{{
                                 errorValidator('inletFlow') | translate
-                            }}</mat-error>
+                                }}</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>{{ 'PAGE.RESERVOIR.CREATE.OUTLET_FLOW' | translate }}</mat-label>
-                            <input
-                                matInput
-                                placeholder="1000"
-                                type="number"
-                                max="9999999"
-                                [formControl]="outletFlow"
-                                (keydown.enter)="save()"
-                            />
+                            <input matInput placeholder="1000" type="number" max="9999999" [formControl]="outletFlow"
+                                (keydown.enter)="save()" />
                             <span matPrefix>
                                 <mat-icon>arrow_back_ios</mat-icon>
                             </span>
                             <span matSuffix>m<sup>3</sup></span>
                             <mat-error *ngIf="outletFlow.invalid">{{
                                 errorValidator('outletFlow') | translate
-                            }}</mat-error>
+                                }}</mat-error>
                         </mat-form-field>
                     </div>
-                    <app-map-location-create
-                        (addressForm)="addressFormReceive($event)"
-                        [configureMap]="configureMap"
-                        [addressInputForm]="addressInputForm"
-                        [resetForm]="resetChildForm"
-                    >
+                    <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
+                        [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
                     </app-map-location-create>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
                 <mat-card-actions [align]="'end'">
-                    <button
-                        mat-button
-                        matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
-                        (click)="exit()"
-                    >
+                    <button mat-button matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
+                        (click)="exit()">
                         {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}
                     </button>
-                    <button
-                        mat-raised-button
-                        color="primary"
-                        matTooltip="{{ 'PAGE.RESERVOIR.CREATE.BUTTON.SAVE.TOOLTIP' | translate }}"
-                        (click)="save()"
-                        [disabled]="!this.reservoirForm || this.reservoirForm.invalid"
-                    >
+                    <button mat-raised-button color="primary"
+                        matTooltip="{{ 'PAGE.RESERVOIR.CREATE.BUTTON.SAVE.TOOLTIP' | translate }}" (click)="save()"
+                        [disabled]="!this.reservoirForm || this.reservoirForm.invalid">
                         <div>
                             <mat-icon>save</mat-icon>
                             {{ 'GENERAL.BUTTON.SAVE' | translate }}
                         </div>
                     </button>
-                    <button
-                        mat-raised-button
-                        color="primary"
+                    <button mat-raised-button color="primary"
                         matTooltip="{{ 'PAGE.RESERVOIR.CREATE.BUTTON.SAVE.SAVE_EXIT.TOOLTIP' | translate }}"
-                        (click)="saveAndExit()"
-                        [disabled]="!this.reservoirForm || this.reservoirForm.invalid"
-                    >
+                        (click)="saveAndExit()" [disabled]="!this.reservoirForm || this.reservoirForm.invalid">
                         <div>
                             <mat-icon>exit_to_app</mat-icon>
                             {{ 'GENERAL.BUTTON.SAVE_AND_EXIT' | translate }}

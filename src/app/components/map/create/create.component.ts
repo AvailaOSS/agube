@@ -41,14 +41,18 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     // filter
     public addressFormGroup: FormGroup | undefined;
     public filter: FormControl = new FormControl('', Validators.required);
+    public country: FormControl | undefined;
+    public state: FormControl | undefined;
+    public province: FormControl | undefined;
+    public city: FormControl | undefined;
+    public village: FormControl | undefined;
+    public municipality: FormControl | undefined;
+    public city_district: FormControl | undefined;
+    public cp: FormControl | undefined;
     public street: FormControl | undefined;
     public number: FormControl | undefined;
     public flat: FormControl | undefined;
     public gate: FormControl | undefined;
-    public cp: FormControl | undefined;
-    public village: FormControl | undefined;
-    public municipality: FormControl | undefined;
-    public state: FormControl | undefined;
 
     public autocomplete: Address[] = [];
     public clickUser: ConfigureMap | undefined;
@@ -81,20 +85,29 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
 
         // parent can initialize the Address Input Form
-        this.cp = this.addressInputForm.cp;
+        this.country = this.addressInputForm.country;
+        this.state = this.addressInputForm.state;
+        this.province = this.addressInputForm.province;
+        this.city = this.addressInputForm.city;
         this.village = this.addressInputForm.village;
         this.municipality = this.addressInputForm.municipality;
-        this.state = this.addressInputForm.state;
+        this.city_district = this.addressInputForm.city_district;
+        this.cp = this.addressInputForm.cp;
         this.street = this.addressInputForm.street;
         this.number = this.addressInputForm.number;
         this.flat = this.addressInputForm.flat;
         this.gate = this.addressInputForm.gate;
+
         this.addressFormGroup = this.formBuilder.group({
             filter: this.filter,
-            cp: this.cp,
-            village: this.village,
+            country: this.country,
             state: this.state,
+            province: this.province,
+            city: this.city,
+            village: this.village,
             municipality: this.municipality,
+            city_district: this.city_district,
+            cp: this.cp,
             street: this.street,
             number: this.number,
             flat: this.flat,
@@ -122,25 +135,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         });
 
         // receive all addresses from the manager for initialize the autocomplete
-        this.svcAddress.getAddress().subscribe((response) => {
-            this.autocomplete = response;
-            // if has some address set as selected option in filter
-            if (
-                response.length > 0 &&
-                this.configureMap &&
-                this.configureMap.selectOptionFilter !== undefined &&
-                this.configureMap.selectOptionFilter === false
-            ) {
-                this.selectOptionFilter(response[0]);
-            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
-                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
-                    (response: LocationResponse) => {
-                        this.candidateComponents?.deselectAll();
-                        this.selectCandidate(response, this.configureMap);
-                    }
-                );
-            }
-        });
+        this.loadAutocomplete();
     }
 
     override ngAfterViewInit(): void {
@@ -151,9 +146,15 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     public selectOptionFilter(option: Address) {
         // override the form with selected candidate information
         if (this.street && this.cp) {
-            this.street.setValue(option.road);
-            this.cp.setValue(option.postcode);
-            this.village?.setValue(option.municipality);
+            this.country?.setValue(option.country);
+            this.state?.setValue(option.state);
+            this.province?.setValue(option.province);
+            this.city?.setValue(option.city);
+            this.village?.setValue(option.village);
+            this.municipality?.setValue(option.municipality);
+            this.city_district?.setValue(option.city_district);
+            this.cp?.setValue(option.postcode);
+            this.street?.setValue(option.road);
         }
         // do filtering
         this.filtering(option);
@@ -299,6 +300,31 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
     }
 
+    /**
+     * receive all addresses from the manager for initialize the autocomplete
+     */
+    private loadAutocomplete() {
+        this.svcAddress.getAddress().subscribe((response) => {
+            this.autocomplete = response;
+            // if has some address set as selected option in filter
+            if (
+                response.length > 0 &&
+                this.configureMap &&
+                this.configureMap.selectOptionFilter !== undefined &&
+                this.configureMap.selectOptionFilter === false
+            ) {
+                this.selectOptionFilter(response[0]);
+            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
+                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
+                    (response: LocationResponse) => {
+                        this.candidateComponents?.deselectAll();
+                        this.selectCandidate(response, this.configureMap);
+                    }
+                );
+            }
+        });
+    }
+
     protected override initializeMap(conf: ConfigureMap): void {
         if (this.map) {
             this.map.remove();
@@ -375,10 +401,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     private resetThisComponent() {
+        this.loadAutocomplete();
         this.number?.setValue('');
         this.flat?.setValue('');
         this.gate?.setValue('');
-        this.cp?.setValue('');
     }
 
     private fillFormControls(location: LocationResponse) {
