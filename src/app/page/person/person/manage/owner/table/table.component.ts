@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PersonTable } from '../../table';
+import { GeolocationPipe } from 'src/app/pipes/geolocation.pipe';
+import { ITableOwner } from './table-owner';
 
 @Component({
     selector: 'app-table-owner',
@@ -14,16 +16,16 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
+        private geolocationPipe: GeolocationPipe,
         protected svcOwner: OwnerService,
         protected override router: Router,
         protected override route: ActivatedRoute
     ) {
         super(router, route);
+        this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';
     }
 
     ngOnInit(): void {
-        this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';
-        console.log('HELLO WORLD');
         this.loadPersons();
     }
 
@@ -33,8 +35,12 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
 
     public override loadPersons() {
         this.svcOwner.getOwners().subscribe((response) => {
-            console.log('getOwners', response);
-            this.dataSource = new MatTableDataSource(response);
+            let list = response.map((p) => {
+                let obj: ITableOwner = p;
+                obj.address = this.geolocationPipe.transform(p.geolocation!, 'short');
+                return obj;
+            });
+            this.dataSource = new MatTableDataSource(list);
             this.dataSource.paginator = this.paginator!;
         });
     }

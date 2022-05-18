@@ -22,6 +22,7 @@ export class TableResidentComponent extends PersonTable implements OnInit {
         protected override route: ActivatedRoute
     ) {
         super(router, route);
+        this.title = 'PAGE.RESIDENTS.MANAGER.TABLE.TITLE';
     }
 
     ngOnInit(): void {

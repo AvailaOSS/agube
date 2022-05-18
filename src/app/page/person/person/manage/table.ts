@@ -8,7 +8,7 @@ import { ITableResident } from './resident/table/table-resident';
 export class PersonTable {
     public displayedColumns: string[] = ['first_name', 'last_name', 'email', 'phone', 'address'];
 
-    public title: string = 'PAGE.RESIDENTS.MANAGER.TABLE.TITLE';
+    public title: string = '';
 
     public dataSource: MatTableDataSource<ITableResident | ITableOwner> = new MatTableDataSource();
 

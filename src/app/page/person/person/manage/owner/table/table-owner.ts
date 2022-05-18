@@ -1,5 +1,5 @@
-import { ResidentDetail } from '@availa/agube-rest-api';
+import { OwnerDetail } from '@availa/agube-rest-api';
 
-export interface ITableOwner extends ResidentDetail {
-    address: string;
+export interface ITableOwner extends OwnerDetail {
+    address?: string;
 }
