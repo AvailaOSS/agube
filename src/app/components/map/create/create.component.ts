@@ -164,9 +164,15 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     public selectOptionFilter(option: Address) {
         // override the form with selected candidate information
         if (this.street && this.cp) {
-            this.street.setValue(option.road);
-            this.cp.setValue(option.postcode);
-            this.village?.setValue(option.municipality);
+            this.country?.setValue(option.country);
+            this.state?.setValue(option.state);
+            this.province?.setValue(option.province);
+            this.city?.setValue(option.city);
+            this.village?.setValue(option.village);
+            this.municipality?.setValue(option.municipality);
+            this.city_district?.setValue(option.city_district);
+            this.cp?.setValue(option.postcode);
+            this.street?.setValue(option.road);
         }
         // do filtering
         this.filtering(option);
@@ -391,7 +397,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.number?.setValue('');
         this.flat?.setValue('');
         this.gate?.setValue('');
-        this.cp?.setValue('');
     }
 
     private fillFormControls(location: LocationResponse) {
