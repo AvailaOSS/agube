@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NotificationService } from '@availa/notification';
 import { passwordMatches } from './password-validator';
 import { UserService, ChangePassword } from '@availa/auth-rest-api';
+import { isEdge } from 'src/app/utils/edge-detector';
 
 @Component({
     selector: 'app-password',
@@ -24,6 +25,7 @@ export class PasswordComponent {
     public releaseDate: Date | undefined = undefined;
     public hidePassword: boolean = true;
     public hideConfirmPassword: boolean = true;
+    public isEdge = isEdge();
 
     constructor(
         private formBuilder: FormBuilder,
