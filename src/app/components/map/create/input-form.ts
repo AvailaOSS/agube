@@ -1,11 +1,15 @@
 import { FormControl } from '@angular/forms';
 
 export interface InputForm {
-    cp?: FormControl;
+    country: FormControl;
+    state: FormControl;
+    province: FormControl;
+    city: FormControl;
     village?: FormControl;
     municipality: FormControl;
-    state?: FormControl;
-    street: FormControl;
+    city_district: FormControl;
+    cp: FormControl;
+    street?: FormControl;
     number?: FormControl;
     flat?: FormControl;
     gate?: FormControl;

@@ -34,17 +34,22 @@ export class DialogComponent extends CreateAddress implements OnInit {
         this.configureMap = config;
 
         if (this.geolocation) {
-            this.addressInputForm.cp?.setValue(this.geolocation.address.postcode);
-            this.addressInputForm.village?.setValue(this.geolocation.address.village);
+            this.addressInputForm.country?.setValue(this.geolocation.address.country);
             this.addressInputForm.state?.setValue(this.geolocation.address.state);
+            this.addressInputForm.province?.setValue(this.geolocation.address.province);
+            this.addressInputForm.city?.setValue(this.geolocation.address.city);
+            this.addressInputForm.village?.setValue(this.geolocation.address.village);
             this.addressInputForm.municipality?.setValue(this.geolocation.address.municipality);
-            this.addressInputForm.street.setValue(this.geolocation.address.road);
+            this.addressInputForm.city_district?.setValue(this.geolocation.address.city_district);
+            this.addressInputForm.cp?.setValue(this.geolocation.address.postcode);
+            this.addressInputForm.street?.setValue(this.geolocation.address.road);
             this.addressInputForm.number?.setValue(this.geolocation.number);
             this.addressInputForm.flat?.setValue(this.geolocation.flat);
             this.addressInputForm.gate?.setValue(this.geolocation.gate);
         }
-        this.dialogRef.keydownEvents().subscribe(event => {
-            if (event.key === "Escape") {
+
+        this.dialogRef.keydownEvents().subscribe((event) => {
+            if (event.key === 'Escape') {
                 this.closeDialog();
             }
         });
@@ -64,5 +69,4 @@ export class DialogComponent extends CreateAddress implements OnInit {
         this.submitClicked.emit(geolocation);
         this.dialogRef.close();
     }
-
 }

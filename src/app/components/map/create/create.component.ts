@@ -41,14 +41,18 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     // filter
     public addressFormGroup: FormGroup | undefined;
     public filter: FormControl = new FormControl('', Validators.required);
+    public country: FormControl | undefined;
+    public state: FormControl | undefined;
+    public province: FormControl | undefined;
+    public city: FormControl | undefined;
+    public village: FormControl | undefined;
+    public municipality: FormControl | undefined;
+    public city_district: FormControl | undefined;
+    public cp: FormControl | undefined;
     public street: FormControl | undefined;
     public number: FormControl | undefined;
     public flat: FormControl | undefined;
     public gate: FormControl | undefined;
-    public cp: FormControl | undefined;
-    public village: FormControl | undefined;
-    public municipality: FormControl | undefined;
-    public state: FormControl | undefined;
 
     public autocomplete: Address[] = [];
     public clickUser: ConfigureMap | undefined;
@@ -81,20 +85,29 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
 
         // parent can initialize the Address Input Form
-        this.cp = this.addressInputForm.cp;
+        this.country = this.addressInputForm.country;
+        this.state = this.addressInputForm.state;
+        this.province = this.addressInputForm.province;
+        this.city = this.addressInputForm.city;
         this.village = this.addressInputForm.village;
         this.municipality = this.addressInputForm.municipality;
-        this.state = this.addressInputForm.state;
+        this.city_district = this.addressInputForm.city_district;
+        this.cp = this.addressInputForm.cp;
         this.street = this.addressInputForm.street;
         this.number = this.addressInputForm.number;
         this.flat = this.addressInputForm.flat;
         this.gate = this.addressInputForm.gate;
+
         this.addressFormGroup = this.formBuilder.group({
             filter: this.filter,
-            cp: this.cp,
-            village: this.village,
+            country: this.country,
             state: this.state,
+            province: this.province,
+            city: this.city,
+            village: this.village,
             municipality: this.municipality,
+            city_district: this.city_district,
+            cp: this.cp,
             street: this.street,
             number: this.number,
             flat: this.flat,

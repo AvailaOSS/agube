@@ -6,51 +6,31 @@
                 <div class="form-content">
                     <mat-form-field appearance="fill">
                         <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
-                        <input
-                            matInput
-                            placeholder="0-123456789"
-                            [formControl]="code"
-                            (keydown.enter)="save()"
-                            autofocus
-                        />
+                        <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()"
+                            autofocus />
                         <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
                     </mat-form-field>
-                    <app-map-location-create
-                        (addressForm)="addressFormReceive($event)"
-                        [configureMap]="configureMap"
-                        [addressInputForm]="addressInputForm"
-                        [resetForm]="resetChildForm"
-                    >
+                    <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
+                        [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
                     </app-map-location-create>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
                 <mat-card-actions [align]="'end'">
-                    <button
-                        mat-button
-                        matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
-                        (click)="exit()"
-                    >
+                    <button mat-button matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
+                        (click)="exit()">
                         {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}
                     </button>
-                    <button
-                        mat-raised-button
-                        color="primary"
-                        matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.SAVE.TOOLTIP' | translate }}"
-                        (click)="save()"
-                        [disabled]="!this.dwellingForm || this.dwellingForm.invalid"
-                    >
+                    <button mat-raised-button color="primary"
+                        matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.SAVE.TOOLTIP' | translate }}" (click)="save()"
+                        [disabled]="!this.dwellingForm || this.dwellingForm.invalid">
                         <div>
                             <mat-icon>save</mat-icon>
                             {{ 'GENERAL.BUTTON.SAVE' | translate }}
                         </div>
                     </button>
-                    <button
-                        mat-raised-button
-                        color="primary"
+                    <button mat-raised-button color="primary"
                         matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.SAVE_AND_CLOSE.TOOLTIP' | translate }}"
-                        (click)="saveAndExit()"
-                        [disabled]="!this.dwellingForm || this.dwellingForm.invalid"
-                    >
+                        (click)="saveAndExit()" [disabled]="!this.dwellingForm || this.dwellingForm.invalid">
                         <div>
                             <mat-icon>exit_to_app</mat-icon>
                             {{ 'GENERAL.BUTTON.SAVE_AND_EXIT' | translate }}

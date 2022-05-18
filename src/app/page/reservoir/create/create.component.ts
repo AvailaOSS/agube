@@ -6,7 +6,6 @@ import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-page-reservoir-create',
@@ -32,7 +31,27 @@ export class CreateComponent extends CreateAddress {
         private formBuilder: FormBuilder
     ) {
         super();
+
+        // configure address form
+        this.addressInputForm = {
+            country: new FormControl('', Validators.required),
+            state: new FormControl('', Validators.required),
+            province: new FormControl('', Validators.required),
+            city: new FormControl('', Validators.required),
+            village: new FormControl(''),
+            municipality: new FormControl('', Validators.required),
+            city_district: new FormControl('', Validators.required),
+            cp: new FormControl('', Validators.required),
+            street: new FormControl(''),
+            number: new FormControl(''),
+            flat: new FormControl(''),
+            gate: new FormControl(''),
+        };
+
+        // configure map height
         this.configureMap.height = '350px';
+
+        // get user Id to assign the reservoir as owner
         this.svcAccount.getUser().subscribe((response) => {
             this.userId = response!.user_id;
         });

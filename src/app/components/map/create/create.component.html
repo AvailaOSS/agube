@@ -1,39 +1,63 @@
 <div class="selector-geolocation-map">
-    <div class="address-form-geolocation">
-        <mat-form-field appearance="standard">
-            <mat-label>{{ 'COMPONENTS.MAP.CREATE.FILTER.TEXT' | translate }}</mat-label>
-            <input
-                matInput
-                type="text"
-                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.TOOLTIP' | translate }}"
-                (keyup.enter)="filtering()"
-                [formControl]="filter"
-                [matAutocomplete]="auto"
-            />
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of autocomplete" (click)="selectOptionFilter(option)">
-                    {{ option | address }}
-                </mat-option>
-            </mat-autocomplete>
-            <button
-                matSuffix
-                mat-icon-button
-                *ngIf="filter.value"
-                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP' | translate }}"
-                (click)="filtering()"
-            >
-                <mat-icon>gps_fixed</mat-icon>
-            </button>
-            <button
-                matSuffix
-                mat-icon-button
-                *ngIf="filter.value"
-                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP' | translate }}"
-                (click)="clearFilter()"
-            >
-                <mat-icon>close</mat-icon>
-            </button>
-            <mat-error *ngIf="filter.invalid">{{ errorValidator('filter') | translate }}</mat-error>
+    <mat-form-field class="filter" appearance="standard">
+        <mat-label>{{ 'COMPONENTS.MAP.CREATE.FILTER.TEXT' | translate }}</mat-label>
+        <input matInput type="text" matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.TOOLTIP' | translate }}"
+            (keyup.enter)="filtering()" [formControl]="filter" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of autocomplete" (click)="selectOptionFilter(option)">
+                {{ option | address }}
+            </mat-option>
+        </mat-autocomplete>
+        <button matSuffix mat-icon-button *ngIf="filter.value"
+            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP' | translate }}" (click)="filtering()">
+            <mat-icon>gps_fixed</mat-icon>
+        </button>
+        <button matSuffix mat-icon-button *ngIf="filter.value"
+            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP' | translate }}" (click)="clearFilter()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="filter.invalid">{{ errorValidator('filter') | translate }}</mat-error>
+    </mat-form-field>
+    <div class="address-form">
+        <mat-form-field appearance="fill" *ngIf="country">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="country" />
+            <mat-error *ngIf="country.invalid">{{ errorValidator('country') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="state">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.STATE' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="state" />
+            <mat-error *ngIf="state.invalid">{{ errorValidator('state') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="province">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.PROVINCE' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="province" />
+            <mat-error *ngIf="province.invalid">{{ errorValidator('province') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="city">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="city" />
+            <mat-error *ngIf="city.invalid">{{ errorValidator('city') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="village">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="village" />
+            <mat-error *ngIf="village.invalid">{{ errorValidator('village') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="municipality">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="municipality" />
+            <mat-error *ngIf="municipality.invalid">{{ errorValidator('municipality') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="city_district">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY_DISTRICT' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="city_district" />
+            <mat-error *ngIf="city_district.invalid">{{ errorValidator('city_district') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="cp">
+            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="cp" />
+            <mat-error *ngIf="cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="street">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.STREET.TEXT' | translate }}</mat-label>
@@ -56,38 +80,12 @@
             <mat-error *ngIf="gate.invalid">{{ errorValidator('gate') | translate }}</mat-error>
         </mat-form-field>
     </div>
-    <div class="address-form" [align]="'end'">
-        <mat-form-field appearance="fill" *ngIf="cp">
-            <mat-label> {{ 'PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE' | translate }}</mat-label>
-            <input matInput type="text" [formControl]="cp" />
-            <mat-error *ngIf="cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="village">
-            <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE' | translate }}</mat-label>
-            <input matInput type="text" [formControl]="village" />
-            <mat-error *ngIf="village.invalid">{{ errorValidator('village') | translate }}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="state">
-            <mat-label> {{ 'PAGE.DWELLING.DETAIL.ADDRESS.STATE' | translate }}</mat-label>
-            <input matInput type="text" [formControl]="state" />
-            <mat-error *ngIf="state.invalid">{{ errorValidator('state') | translate }}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" *ngIf="municipality">
-            <mat-label> {{ 'PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY' | translate }}</mat-label>
-            <input matInput type="text" [formControl]="municipality" />
-            <mat-error *ngIf="municipality.invalid">{{ errorValidator('municipality') | translate }}</mat-error>
-        </mat-form-field>
-    </div>
     <div class="filter-results">
         <span class="filter-selection" *ngIf="!loadingCandidates; else isloadingCandidates">
             <mat-selection-list [multiple]="false">
-                <mat-list-option
-                    matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
-                    *ngFor="let candidate of addressCandidates"
-                    (click)="selectCandidate(candidate)"
-                    (mouseout)="mouseIsOut()"
-                    (mouseover)="mouseIsOver(candidate)"
-                >
+                <mat-list-option matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
+                    *ngFor="let candidate of addressCandidates" (click)="selectCandidate(candidate)"
+                    (mouseout)="mouseIsOut()" (mouseover)="mouseIsOver(candidate)">
                     <div>
                         <mat-icon>place</mat-icon>
                         {{ candidate.display_name | slice: 0:100 }}
@@ -98,12 +96,8 @@
         <ng-template #isloadingCandidates>
             <mat-spinner></mat-spinner>
         </ng-template>
-        <div
-            id="map"
-            [ngStyle]="{ height: configureMap?.height }"
-            matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}"
-            matTooltipPosition="left"
-            [matTooltipDisabled]="filter.invalid"
-        ></div>
+        <div id="map" [ngStyle]="{ height: configureMap?.height }"
+            matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
+            [matTooltipDisabled]="filter.invalid"></div>
     </div>
 </div>
