@@ -1,6 +1,7 @@
 <div class="form">
     <h1>Foto Perfil</h1>
     <div class="form-content">
+        <img *ngFor='let preview of previews' [src]="preview" width="50px" height="50px">
         <input
             #fileInput
             type="file"
@@ -13,6 +14,7 @@
     </div>
 
     <mat-card-actions [align]="'end'">
+
         <button
             mat-raised-button
             color="primary"
