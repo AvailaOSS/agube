@@ -35,7 +35,12 @@
     "COMPONENTS.MAP.CREATE.FORM.GATE.TEXT": "Gate",
     "COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION": "Write the postCode to which the Dwelling corresponds",
     "COMPONENTS.MAP.CREATE.FORM.STATE.VALIDATION": "Write the state to which the Dwelling corresponds",
-    "COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION": "Write the village to which the Dwelling corresponds",
+    "COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION": "Write the municipality to which the Dwelling corresponds",
+    "COMPONENTS.MAP.CREATE.FORM.COUNTRY.VALIDATION": "Write the country to which the Dwelling corresponds",
+    "COMPONENTS.MAP.CREATE.FORM.PROVINCE.VALIDATION": "Write the province to which the Dwelling corresponds",
+    "COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION": "Write the village to which the Dwelling corresponds",
+    "COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION": "Write the City to which the Dwelling corresponds",
+
     "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Select",
     "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Click to mark the address",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.TITLE": "Configuration",

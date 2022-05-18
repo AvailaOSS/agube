@@ -40,7 +40,7 @@ export class CreateAddress {
     public addressEmitter: AddressEmitter | undefined;
 
     constructor() {
-        this.setMapResolution('370px', '650px', '1020px');
+        this.setMapResolution('340px', '650px', '1020px');
     }
 
     public addressFormReceive(addressEmitter: AddressEmitter) {

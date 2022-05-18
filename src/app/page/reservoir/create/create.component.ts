@@ -49,7 +49,7 @@ export class CreateComponent extends CreateAddress {
         };
 
         // configure map height
-        this.setMapResolution('240px', '550px', '1020px');
+        this.setMapResolution('220px', '550px', '1020px');
 
         // get user Id to assign the reservoir as owner
         this.svcAccount.getUser().subscribe((response) => {
