@@ -4,6 +4,8 @@ import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { addressGenerator } from 'src/app/utils/address/address';
+import { detect } from 'src/app/utils/view/detector';
+import { ResolutionType } from '../view/type';
 
 export class CreateAddress {
     public addressInputForm: InputForm = {
@@ -37,7 +39,9 @@ export class CreateAddress {
 
     public addressEmitter: AddressEmitter | undefined;
 
-    constructor() {}
+    constructor() {
+        this.setMapResolution('370px', '650px', '1020px');
+    }
 
     public addressFormReceive(addressEmitter: AddressEmitter) {
         this.addressEmitter = addressEmitter;
@@ -49,5 +53,28 @@ export class CreateAddress {
         }
 
         return addressGenerator(this.addressEmitter);
+    }
+
+    /**
+     * configure map height
+     * @param fullHd '370px'
+     * @param TwoK '650px'
+     * @param FourK '1020px'
+     */
+    protected setMapResolution(fullHd: string, twoK: string, fourK: string) {
+        let view: ResolutionType = detect();
+        switch (view) {
+            case ResolutionType.FULL_HD:
+                this.configureMap.height = fullHd;
+                break;
+            case ResolutionType.TWO_K:
+                this.configureMap.height = twoK;
+                break;
+            case ResolutionType.FOUR_K:
+                this.configureMap.height = fourK;
+                break;
+            default:
+                break;
+        }
     }
 }
