@@ -84,8 +84,7 @@
         <span class="filter-selection" *ngIf="!loadingCandidates; else isloadingCandidates">
             <mat-selection-list [multiple]="false">
                 <mat-list-option matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
-                    *ngFor="let candidate of addressCandidates" (click)="selectCandidate(candidate)"
-                    (mouseout)="mouseIsOut()" (mouseover)="mouseIsOver(candidate)">
+                    *ngFor="let candidate of addressCandidates" (click)="selectCandidate(candidate)">
                     <div>
                         <mat-icon>place</mat-icon>
                         {{ candidate.display_name | slice: 0:100 }}
@@ -96,6 +95,9 @@
         <ng-template #isloadingCandidates>
             <mat-spinner></mat-spinner>
         </ng-template>
+        <span *ngIf="loadingMap">
+            <mat-spinner></mat-spinner>
+        </span>
         <div id="map" [ngStyle]="{ height: configureMap?.height }"
             matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
             [matTooltipDisabled]="filter.invalid"></div>

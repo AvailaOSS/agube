@@ -58,7 +58,6 @@ export class AddressComponent extends CreateAddress {
     }
 
     public saveAddress(result: Geolocation) {
-        console.log(result);
         let userAddress: UserGeolocation = {
             geolocation: result,
             main: false,

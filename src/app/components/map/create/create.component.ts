@@ -37,6 +37,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public addressCandidates: LocationResponse[] = [];
     public loadingCandidates: boolean = false;
+    public loadingMap: boolean = false;
 
     // filter
     public addressFormGroup: FormGroup | undefined;
@@ -210,33 +211,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.initializeMap(this.configureMap!);
     }
 
-    public mouseIsOver(candidate: LocationResponse) {
-        this.initializeMap({
-            id: this.mapId,
-            lat: candidate.lat,
-            lon: candidate.lon,
-            zoom: MapComponent.zoom,
-            showCircle: true,
-            height: this.configureMap!.height,
-            dragging: this.configureMap!.dragging,
-        });
-    }
-
-    public mouseIsOut() {
-        if (!this.clickUser) {
-            return;
-        }
-        this.initializeMap({
-            id: this.mapId,
-            lat: this.clickUser.lat,
-            lon: this.clickUser.lon,
-            zoom: MapComponent.zoom,
-            showCircle: true,
-            height: this.configureMap!.height,
-            dragging: this.configureMap!.dragging,
-        });
-    }
-
     /**
      * On candidate selected in the html
      * @param candidate
@@ -330,6 +304,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     protected override initializeMap(conf: ConfigureMap): void {
+        this.loadingMap = true;
+
         setTimeout(() => {
             if (this.map) {
                 this.map.remove();
@@ -393,6 +369,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     }
                 );
             });
+            this.loadingMap = false;
         }, 1000);
     }
 
