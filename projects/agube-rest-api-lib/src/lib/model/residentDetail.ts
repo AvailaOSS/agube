@@ -17,5 +17,5 @@ export interface ResidentDetail {
   last_name: string;
   email: string;
   phone: string;
-  geolocation?: Array<Geolocation>;
+  geolocation?: Geolocation;
 }

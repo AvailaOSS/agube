@@ -17,5 +17,5 @@ export interface OwnerDetail {
   last_name: string;
   email: string;
   phone: string;
-  geolocation?: Array<Geolocation>;
+  geolocation?: Geolocation;
 }
