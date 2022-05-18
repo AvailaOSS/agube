@@ -89,6 +89,7 @@
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED": "¿O teu nome non é correcto? ¿Cómo te Chamas?",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.LAST_NAME.VALIDATION.REQUIRED": "¿Cales son os teus Apelidos?",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.REQUIRED": "¿Cambiaches de correo? ¡Actualízalo!",
+    "PAGE.CONFIG.CLIENT.UPLOAD.FORM.BUTTON.SAVE": "Gardar nova foto de perfil",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "O email introducido non cumpre có formato estandar, por exemplo: tony@stark.com'",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Actualiza a información personal",
     "PAGE.CONFIG.MANAGER.TITLE": "Parámetros generais",

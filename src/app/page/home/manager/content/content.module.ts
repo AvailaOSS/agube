@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ContentComponent } from './content.component';
 import { HomeManagerPageRoutingModule } from './content-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { UploadImagesModule } from 'src/app/components/upload-images/upload-images.module';
 
 @NgModule({
     declarations: [ContentComponent],
@@ -15,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
             contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
         }),
         TranslateModule,
+        UploadImagesModule,
     ],
 })
 export class ContentModule {}

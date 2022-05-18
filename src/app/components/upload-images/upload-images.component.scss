@@ -1,0 +1,21 @@
+@import "../../../assets/availa/sizes/margins.scss";
+
+.form {
+  padding: $margin-x-medium;
+  display: block;
+  .form-content{
+      margin-left: $margin-x-medium;
+  }
+}
+mat-card-actions {
+    button {
+      div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        mat-icon {
+          margin-right: $margin-x-small;
+        }
+      }
+    }
+  }

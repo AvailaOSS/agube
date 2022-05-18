@@ -84,6 +84,7 @@
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH": "The confirmation password must have at least 5 characters.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH": "The confirmation password must be up to 16 characters.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.NOMATCHED": "Passwords are not the same.",
+    "PAGE.CONFIG.CLIENT.UPLOAD.FORM.BUTTON.SAVE": "Save new perfil pic",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.BUTTON.SAVE": "Save new Password",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE": "Personal information",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.FIRST_NAME.VALIDATION.REQUIRED": "Is your name not correct? What's your name?",
@@ -91,6 +92,7 @@
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.REQUIRED": "Have you changed email? Update it!",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "The entered email does not comply with the standard format, for example: tony@stark.com'",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Update personal information",
+
     "PAGE.CONFIG.MANAGER.TITLE": "General parameters",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Hook price",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "The deposit price cannot be empty",
