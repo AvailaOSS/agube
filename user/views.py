@@ -59,7 +59,7 @@ class UserCustomDetailUpdateView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
-        operation_id="UpdateUserDetail",
+        operation_id="updateUserDetail",
         request_body=UserDetailSerializer,
         responses={200: UserDetailSerializer(many=False)},
         tags=[TAG_USER],
