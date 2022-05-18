@@ -43,7 +43,7 @@
             <ng-container matColumnDef="capacity">
                 <th mat-header-cell *matHeaderCellDef>capacity</th>
                 <td mat-cell *matCellDef="let element" matTooltip="{{ 'PAGE.RESERVOIR.CREATE.CAPACITY' | translate }}">
-                    {{ element.capacity }} L
+                    {{ element.capacity | number: '2.' }} L
                 </td>
             </ng-container>
 
@@ -54,7 +54,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'PAGE.RESERVOIR.CREATE.INLET_FLOW' | translate }}"
                 >
-                    {{ element.inlet_flow }} m<sup>3</sup>
+                    {{ element.inlet_flow | number: '2.' }} m<sup>3</sup>
                 </td>
             </ng-container>
 
@@ -65,7 +65,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'PAGE.RESERVOIR.CREATE.OUTLET_FLOW' | translate }}"
                 >
-                    {{ element.outlet_flow }} m<sup>3</sup>
+                    {{ element.outlet_flow | number: '2.' }} m<sup>3</sup>
                 </td>
             </ng-container>
 
