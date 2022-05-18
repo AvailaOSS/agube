@@ -67,6 +67,7 @@
     "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.IS_PRINCIPAL": "Principal",
     "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.FAVORITE": "Favorito",
     "PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.BUTTON.FAVORITE": "Poner como Favorito",
+    "PAGE.CONFIG.CLIENT.CONTACT-INFO.EMAIL-INFO": "Recibirá un correo electrónico de notificación",
     "PAGE.CONFIG.CLIENT.PASSWORD.TITLE": "Contraseña",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME": "Nombre de Usuario",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.USERNAME.VALIDATION": "Inserta tu nombre de usuario para confirmar tu identidad",
