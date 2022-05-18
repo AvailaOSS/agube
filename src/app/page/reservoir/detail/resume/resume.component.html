@@ -2,17 +2,17 @@
     <div class="reservoir-info">
         <div>
             <mat-icon>opacity</mat-icon>
-            <h2>{{ reservoir.capacity }} L</h2>
+            <h2>{{ reservoir.capacity | number: '2.' }} L</h2>
             {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.CAPACITY' | translate }}
         </div>
         <div>
             <mat-icon>chevron_right</mat-icon>
-            <h2>{{ reservoir.inlet_flow }} m<sup>3</sup></h2>
+            <h2>{{ reservoir.inlet_flow | number: '2.' }} m<sup>3</sup></h2>
             {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.INLET_FLOW' | translate }}
         </div>
         <div>
             <mat-icon>chevron_left</mat-icon>
-            <h2>{{ reservoir.outlet_flow }} m<sup>3</sup></h2>
+            <h2>{{ reservoir.outlet_flow | number: '2.' }} m<sup>3</sup></h2>
             {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.OUTLET_FLOW' | translate }}
         </div>
     </div>
