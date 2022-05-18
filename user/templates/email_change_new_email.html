@@ -1,0 +1,37 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet" />
+  <style type="text/css">
+    * {
+      font-family: "Ubuntu";
+    }
+
+    h1 {
+      color: #485459;
+    }
+
+    .color-primary {
+      color: #7fd3f7;
+    }
+    .secondary-primary {
+      color: #485459;
+    }
+  </style>
+</head>
+
+<body style="margin-left: 1em">
+  <h1>Notificación de <span class="color-primary">{{ app_name }}</span></h1>
+  <div style="margin-left: 1em">
+    <p><span class="color-primary">{{ first_name }}</span>, su dirección de correo electrónico ha sido correctamente actualizada</p>
+    <p></p>
+    <hr style="width: 45em" />
+    <p>
+      <em>
+        Si no reconoce esta modificación por favor póngase en contacto con nosotros en: {{ email_contact }}
+      </em>
+    </p>
+  </div>
+</body>
+
+</html>

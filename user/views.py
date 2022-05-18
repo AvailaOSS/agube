@@ -23,6 +23,7 @@ from user.serializers import (UserGeolocationUpdateSerializer,
 from user.serializers_external import UserDwellingDetailSerializer
 from person.models import PersonConfig
 from person.models import Person
+from user.send import send_email_modification_email
 
 TAG_USER = 'user'
 
@@ -79,8 +80,14 @@ class UserCustomDetailUpdateView(APIView):
         user.save()
         user.last_name = new_last_name
         user.save()
+        old_email = user.email
         user.email = new_email
         user.save()
+
+        # email modification notification
+        if new_email != old_email:
+            send_email_modification_email(user, old_email, new_email)
+
         data = {
             "id": user.id,
             "first_name": new_first_name,
