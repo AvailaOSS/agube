@@ -17,7 +17,7 @@ import { AddressPipe } from './address.pipe';
         WaterMeterMeasurementPipe,
         AddressPipe,
     ],
-    providers: [SlicePipe, AddressPipe],
+    providers: [SlicePipe, AddressPipe, GeolocationPipe],
     exports: [
         DwellingDetailPipe,
         AddressPipe,
