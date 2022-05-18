@@ -24,17 +24,22 @@
     mat-card-content {
         margin-top: $margin-x-medium;
         margin-left: $margin-x-medium;
+        h1 {
+            margin-left: $margin-small;
+        }
         h3 {
+            margin: 0px;
             margin-left: $margin-small;
         }
         .resident-dwelling {
             display: flex;
+            flex-wrap: 'wrap';
             .resident {
                 margin-left: $margin-small;
+
                 .resident-info {
                     display: flex;
                     flex-wrap: wrap;
-                    width: 100%;
                     margin-left: $margin-small;
                 }
                 .resident-data-info {
@@ -42,11 +47,11 @@
                 }
             }
             .dwellings {
-                display: flex;
-                flex-wrap: wrap;
                 margin-top: $margin-x-medium;
                 margin-left: $margin-medium;
-                justify-content: space-evenly;
+                height: 10px;
+                flex-grow: 1;
+                width: 33%;
                 .card-dwelling {
                     margin-bottom: $margin-medium;
                     margin-left: $margin-medium;
