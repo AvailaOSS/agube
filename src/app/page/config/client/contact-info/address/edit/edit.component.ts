@@ -95,7 +95,6 @@ export class EditComponent extends CreateAddress {
         this.svcUser.deleteUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!).subscribe({
             next: (response) => {
                 this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
-                console.log(this.geolocation!.geolocation);
             },
             error: (error) =>
                 this.svcNotification.warning({

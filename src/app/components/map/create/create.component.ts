@@ -37,6 +37,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public addressCandidates: LocationResponse[] = [];
     public loadingCandidates: boolean = false;
+    public loadingMap: boolean = false;
 
     // filter
     public addressFormGroup: FormGroup | undefined;
@@ -71,10 +72,12 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     ngOnChanges(changes: SimpleChanges): void {
         // if parent says reset form then reset
-        if (
-            (changes['resetForm'].currentValue && !changes['resetForm'].previousValue) ||
-            changes['resetForm'].currentValue != changes['resetForm'].previousValue
-        ) {
+        let current = changes['resetForm'].currentValue;
+        let previous = changes['resetForm'].previousValue;
+        let hasValues = current && previous !== undefined;
+        let areDifferent = current !== previous;
+
+        if (hasValues && areDifferent) {
             this.resetThisComponent();
         }
     }
@@ -139,8 +142,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     override ngAfterViewInit(): void {
-        // on angular view initialized, then load the map with this configuration
-        this.initializeMap(this.configureMap!);
+        // do not execute ngAfterViewInit here
     }
 
     public selectOptionFilter(option: Address) {
@@ -209,33 +211,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.initializeMap(this.configureMap!);
     }
 
-    public mouseIsOver(candidate: LocationResponse) {
-        this.initializeMap({
-            id: this.mapId,
-            lat: candidate.lat,
-            lon: candidate.lon,
-            zoom: MapComponent.zoom,
-            showCircle: true,
-            height: this.configureMap!.height,
-            dragging: this.configureMap!.dragging,
-        });
-    }
-
-    public mouseIsOut() {
-        if (!this.clickUser) {
-            return;
-        }
-        this.initializeMap({
-            id: this.mapId,
-            lat: this.clickUser.lat,
-            lon: this.clickUser.lon,
-            zoom: MapComponent.zoom,
-            showCircle: true,
-            height: this.configureMap!.height,
-            dragging: this.configureMap!.dragging,
-        });
-    }
-
     /**
      * On candidate selected in the html
      * @param candidate
@@ -247,11 +222,13 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.selectedStreetCandidate = candidate;
         // ensure that form controls is filled
         this.fillFormControls(this.selectedStreetCandidate);
+
         // reset the map to new location
         if (clickConf) {
             lat = clickConf.lat;
             lon = clickConf.lon;
         }
+
         this.initializeMap({
             id: this.mapId,
             lat: lat,
@@ -315,6 +292,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             ) {
                 this.selectOptionFilter(response[0]);
             } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
+                // go to the location configured
                 this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
                     (response: LocationResponse) => {
                         this.candidateComponents?.deselectAll();
@@ -326,66 +304,73 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     protected override initializeMap(conf: ConfigureMap): void {
-        if (this.map) {
-            this.map.remove();
-        }
+        this.loadingMap = true;
 
-        this.zoom = conf.zoom;
-        this.map = L.map('map', {
-            center: [+conf.lat, +conf.lon],
-            doubleClickZoom: false,
-            zoom: this.zoom,
-        });
-
-        const tiles = L.tileLayer(this.mapViewUrl, {
-            maxZoom: MapComponent.zoomMax,
-            minZoom: MapComponent.zoomMin,
-        });
-
-        tiles.addTo(this.map);
-
-        let circle: L.Circle | undefined = undefined;
-        if (conf.showCircle) {
-            circle = L.circle([+conf.lat, +conf.lon], {
-                fillColor: '#7fd3f7',
-                fillOpacity: 0.5,
-                radius: 10,
-            }).addTo(this.map);
-        }
-
-        if (this.filter.invalid) {
-            return;
-        }
-        this.map.on('click', (e: MapEvent) => {
-            if (e.sourceTarget._animateToZoom) {
-                this.zoom = e.sourceTarget._animateToZoom;
+        setTimeout(() => {
+            if (this.map) {
+                this.map.remove();
             }
 
-            let clickConf: ConfigureMap = {
-                id: this.mapId,
-                lat: e.latlng.lat,
-                lon: e.latlng.lng,
+            this.zoom = conf.zoom;
+            this.map = L.map('map', {
+                center: [+conf.lat, +conf.lon],
+                doubleClickZoom: false,
                 zoom: this.zoom,
-                showCircle: true,
-                height: conf.height,
-                dragging: conf.dragging,
-            };
+            });
 
-            if (circle) {
-                this.map.removeLayer(circle);
+            const tiles = L.tileLayer(this.mapViewUrl, {
+                maxZoom: MapComponent.zoomMax,
+                minZoom: MapComponent.zoomMin,
+            });
+
+            tiles.addTo(this.map);
+
+            let circle: L.Circle | undefined = undefined;
+            if (conf.showCircle) {
+                circle = L.circle([+conf.lat, +conf.lon], {
+                    fillColor: '#7fd3f7',
+                    fillOpacity: 0.5,
+                    radius: 10,
+                }).addTo(this.map);
             }
-            this.initializeMap(clickConf);
-            this.clickUser = clickConf;
 
-            this.getLocationByCoordinate(Number(clickConf.lat), Number(clickConf.lon)).subscribe(
-                (response: LocationResponse) => {
-                    this.selectCandidate(response, clickConf);
-                    if (this.selectedStreetCandidate) {
-                        this.selectedStreetCandidate.zoom = this.zoom;
-                    }
+            if (this.filter.invalid) {
+                return;
+            }
+
+            this.map.on('click', (e: MapEvent) => {
+                if (e.sourceTarget._animateToZoom) {
+                    this.zoom = e.sourceTarget._animateToZoom;
                 }
-            );
-        });
+
+                let clickConf: ConfigureMap = {
+                    id: this.mapId,
+                    lat: e.latlng.lat,
+                    lon: e.latlng.lng,
+                    zoom: this.zoom,
+                    showCircle: true,
+                    height: conf.height,
+                    dragging: conf.dragging,
+                };
+
+                if (circle) {
+                    this.map.removeLayer(circle);
+                }
+
+                this.initializeMap(clickConf);
+                this.clickUser = clickConf;
+
+                this.getLocationByCoordinate(Number(clickConf.lat), Number(clickConf.lon)).subscribe(
+                    (response: LocationResponse) => {
+                        this.selectCandidate(response, clickConf);
+                        if (this.selectedStreetCandidate) {
+                            this.selectedStreetCandidate.zoom = this.zoom;
+                        }
+                    }
+                );
+            });
+            this.loadingMap = false;
+        }, 1000);
     }
 
     private getLocationBySearch(filter: string): Observable<LocationResponse[]> {

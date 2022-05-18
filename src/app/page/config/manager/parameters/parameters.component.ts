@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { flatMap, timer } from 'rxjs';
 
 @Component({
     selector: 'app-parameters',
@@ -46,7 +45,7 @@ export class ParametersComponent implements OnInit {
         };
         this.svcManager.updateManagerConfiguration(config).subscribe({
             next: (response) => {
-                setInterval(() => {
+                setTimeout(() => {
                     this.responseManager(response);
                     this.loadSave = false;
                 }, ParametersComponent.seconds);
