@@ -10,14 +10,16 @@
     .address-form {
         margin-top: $margin-x-medium;
         margin-bottom: $margin-x-medium;
-        mat-form-field{
+        mat-form-field {
             margin: 0 $margin-x-small 0 0;
         }
     }
     .filter-results {
         display: flex;
         .filter-selection {
+            min-width: 50%;
             width: 100%;
+            background-color: blue;
             mat-selection-list {
                 width: 100%;
                 mat-list-option {
@@ -26,6 +28,16 @@
                         align-items: center;
                     }
                 }
+            }
+        }
+        .map {
+            background-color: red;
+            min-width: 50%;
+            width: 100%;
+            .map-spinner {
+                z-index: 999;
+                position: absolute;
+                vertical-align: middle;
             }
         }
         div {

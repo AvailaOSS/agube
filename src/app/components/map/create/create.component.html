@@ -95,11 +95,11 @@
         <ng-template #isloadingCandidates>
             <mat-spinner></mat-spinner>
         </ng-template>
-        <span *ngIf="loadingMap">
-            <mat-spinner></mat-spinner>
-        </span>
-        <div id="map" [ngStyle]="{ height: configureMap?.height }"
-            matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
-            [matTooltipDisabled]="filter.invalid"></div>
+        <div class="map">
+            <mat-spinner class="map-spinner"></mat-spinner>
+            <div id="map" [ngStyle]="{ height: configureMap?.height }"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
+                [matTooltipDisabled]="filter.invalid"></div>
+        </div>
     </div>
 </div>
