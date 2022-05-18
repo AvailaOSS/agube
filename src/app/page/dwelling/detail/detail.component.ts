@@ -138,7 +138,7 @@ export class DetailComponent implements OnInit {
             return;
         }
 
-        this.svcGeolocation.updateGeolocation(result.id!, result).subscribe({
+        this.svcGeolocation.updateGeolocation(result.id!,result).subscribe({
             next: (response) => {
                 this.dwelling!.geolocation = response;
                 this.configureMaps(response);

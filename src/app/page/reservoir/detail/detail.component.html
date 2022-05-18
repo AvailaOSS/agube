@@ -3,7 +3,15 @@
         <mat-card *ngIf="!loading">
             <mat-card-content *ngIf="reservoir">
                 <div class="reservoir-info">
-                    <h1>{{ reservoir.geolocation | geolocation }}</h1>
+                    <h1>
+                        {{ reservoir.geolocation | geolocation }}
+                        <mat-icon
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
+                            (click)="goToEditGeolocation()"
+                        >
+                            edit
+                        </mat-icon>
+                    </h1>
                     <div class="reservoir-content-info">
                         <app-address [geolocation]="reservoir.geolocation"></app-address>
                         <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>

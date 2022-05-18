@@ -43,6 +43,11 @@ export class DialogComponent extends CreateAddress implements OnInit {
             this.addressInputForm.flat?.setValue(this.geolocation.flat);
             this.addressInputForm.gate?.setValue(this.geolocation.gate);
         }
+        this.dialogRef.keydownEvents().subscribe(event => {
+            if (event.key === "Escape") {
+                this.closeDialog();
+            }
+        });
     }
 
     public closeDialog() {
@@ -59,4 +64,5 @@ export class DialogComponent extends CreateAddress implements OnInit {
         this.submitClicked.emit(geolocation);
         this.dialogRef.close();
     }
+
 }
