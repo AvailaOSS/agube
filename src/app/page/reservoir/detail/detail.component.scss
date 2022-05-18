@@ -30,6 +30,9 @@
       width: 62%;
       margin-top: $margin-x-medium;
       margin-left: $margin-x-medium;
+      mat-icon{
+        cursor: pointer;
+      }
       .reservoir-content-info {
         margin-left: $margin-small;
         display: flex;
