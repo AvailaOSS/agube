@@ -135,25 +135,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         });
 
         // receive all addresses from the manager for initialize the autocomplete
-        this.svcAddress.getAddress().subscribe((response) => {
-            this.autocomplete = response;
-            // if has some address set as selected option in filter
-            if (
-                response.length > 0 &&
-                this.configureMap &&
-                this.configureMap.selectOptionFilter !== undefined &&
-                this.configureMap.selectOptionFilter === false
-            ) {
-                this.selectOptionFilter(response[0]);
-            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
-                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
-                    (response: LocationResponse) => {
-                        this.candidateComponents?.deselectAll();
-                        this.selectCandidate(response, this.configureMap);
-                    }
-                );
-            }
-        });
+        this.loadAutocomplete();
     }
 
     override ngAfterViewInit(): void {
@@ -318,6 +300,31 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
     }
 
+    /**
+     * receive all addresses from the manager for initialize the autocomplete
+     */
+    private loadAutocomplete() {
+        this.svcAddress.getAddress().subscribe((response) => {
+            this.autocomplete = response;
+            // if has some address set as selected option in filter
+            if (
+                response.length > 0 &&
+                this.configureMap &&
+                this.configureMap.selectOptionFilter !== undefined &&
+                this.configureMap.selectOptionFilter === false
+            ) {
+                this.selectOptionFilter(response[0]);
+            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
+                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
+                    (response: LocationResponse) => {
+                        this.candidateComponents?.deselectAll();
+                        this.selectCandidate(response, this.configureMap);
+                    }
+                );
+            }
+        });
+    }
+
     protected override initializeMap(conf: ConfigureMap): void {
         if (this.map) {
             this.map.remove();
@@ -394,6 +401,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     private resetThisComponent() {
+        this.loadAutocomplete();
         this.number?.setValue('');
         this.flat?.setValue('');
         this.gate?.setValue('');
