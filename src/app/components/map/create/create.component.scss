@@ -19,7 +19,6 @@
         .filter-selection {
             min-width: 50%;
             width: 100%;
-            background-color: blue;
             mat-selection-list {
                 width: 100%;
                 mat-list-option {
@@ -31,13 +30,12 @@
             }
         }
         .map {
-            background-color: red;
-            min-width: 50%;
-            width: 100%;
+            display: flex;
+            justify-content: center;
             .map-spinner {
-                z-index: 999;
                 position: absolute;
-                vertical-align: middle;
+                z-index: 9999;
+                margin: 10em;
             }
         }
         div {

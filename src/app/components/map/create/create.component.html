@@ -1,19 +1,35 @@
 <div class="selector-geolocation-map">
     <mat-form-field class="filter" appearance="standard">
         <mat-label>{{ 'COMPONENTS.MAP.CREATE.FILTER.TEXT' | translate }}</mat-label>
-        <input matInput type="text" matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.TOOLTIP' | translate }}"
-            (keyup.enter)="filtering()" [formControl]="filter" [matAutocomplete]="auto" />
+        <input
+            matInput
+            type="text"
+            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.TOOLTIP' | translate }}"
+            (keyup.enter)="filtering()"
+            [formControl]="filter"
+            [matAutocomplete]="auto"
+        />
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of autocomplete" (click)="selectOptionFilter(option)">
                 {{ option | address }}
             </mat-option>
         </mat-autocomplete>
-        <button matSuffix mat-icon-button *ngIf="filter.value"
-            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP' | translate }}" (click)="filtering()">
+        <button
+            matSuffix
+            mat-icon-button
+            *ngIf="filter.value"
+            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP' | translate }}"
+            (click)="filtering()"
+        >
             <mat-icon>gps_fixed</mat-icon>
         </button>
-        <button matSuffix mat-icon-button *ngIf="filter.value"
-            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP' | translate }}" (click)="clearFilter()">
+        <button
+            matSuffix
+            mat-icon-button
+            *ngIf="filter.value"
+            matTooltip="{{ 'COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP' | translate }}"
+            (click)="clearFilter()"
+        >
             <mat-icon>close</mat-icon>
         </button>
         <mat-error *ngIf="filter.invalid">{{ errorValidator('filter') | translate }}</mat-error>
@@ -83,8 +99,11 @@
     <div class="filter-results">
         <span class="filter-selection" *ngIf="!loadingCandidates; else isloadingCandidates">
             <mat-selection-list [multiple]="false">
-                <mat-list-option matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
-                    *ngFor="let candidate of addressCandidates" (click)="selectCandidate(candidate)">
+                <mat-list-option
+                    matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
+                    *ngFor="let candidate of addressCandidates"
+                    (click)="selectCandidate(candidate)"
+                >
                     <div>
                         <mat-icon>place</mat-icon>
                         {{ candidate.display_name | slice: 0:100 }}
@@ -96,10 +115,14 @@
             <mat-spinner></mat-spinner>
         </ng-template>
         <div class="map">
-            <mat-spinner class="map-spinner"></mat-spinner>
-            <div id="map" [ngStyle]="{ height: configureMap?.height }"
-                matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
-                [matTooltipDisabled]="filter.invalid"></div>
+            <mat-spinner *ngIf="loadingMap" class="map-spinner"></mat-spinner>
+            <div
+                id="map"
+                [ngStyle]="{ height: configureMap?.height }"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}"
+                matTooltipPosition="left"
+                [matTooltipDisabled]="filter.invalid"
+            ></div>
         </div>
     </div>
 </div>
