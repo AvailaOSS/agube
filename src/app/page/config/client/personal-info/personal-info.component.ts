@@ -8,7 +8,7 @@ import { PersonalInfo } from './personal-info';
 @Component({
     selector: 'app-personal-info',
     templateUrl: './personal-info.component.html',
-    styleUrls: ['../client-page.component.scss'],
+    styleUrls: ['./personal-info.component.scss', '../client-page.component.scss'],
 })
 export class PersonalInfoComponent implements OnInit {
     public loadSave: boolean = false;
@@ -19,6 +19,8 @@ export class PersonalInfoComponent implements OnInit {
     public main_phone: Phone | undefined;
     public userId: number | undefined;
     public releaseDate: Date | undefined = undefined;
+
+    private originalEmail: string = '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -41,12 +43,17 @@ export class PersonalInfoComponent implements OnInit {
 
             this.userId = userResponse!.user_id;
             this.svcUser.getUserDetail(userResponse!.user_id).subscribe((response) => {
+                this.originalEmail = response.email!;
                 this.email.setValue(response.email);
                 this.first_name.setValue(response.first_name);
                 this.last_name.setValue(response.last_name);
                 this.main_phone = response.main_phone;
             });
         });
+    }
+
+    public emailHasChanged(): boolean {
+        return this.email.value !== this.originalEmail;
     }
 
     public updateUser() {
