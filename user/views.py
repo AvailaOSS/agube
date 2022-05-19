@@ -13,12 +13,11 @@ from person.renders import JPEGRenderer, PNGRenderer
 from person.serializers import PersonPhotoSerializer
 from phone.models import Phone
 from resident.models import Resident
-from rest_framework.decorators import action
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND
+from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -76,6 +75,10 @@ class UserPhotoDetailView(RetrieveAPIView):
     )
     def get(self, request, *args, **kwargs):
         photo = Person.objects.get(user__id=self.kwargs['pk']).photo
+
+        if not photo:
+            return Response({'status': 'the user does not have a photo yet'},
+                            status=HTTP_204_NO_CONTENT)
 
         content_type_file = mimetypes.guess_type(photo.path)[0]
 
