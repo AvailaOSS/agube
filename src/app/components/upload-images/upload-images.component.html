@@ -3,7 +3,7 @@
     <button mat-button color="primary" (click)="fileInput.click()">
         <mat-icon> attach_file </mat-icon>
         <span  *ngIf="!selectedFile">
-            {{ 'PAGE.CONFIG.CLIENT.UPLOAD.FORM.TITLE.SAVE' | translate }}
+            {{ 'COMPONENTS.UPLOAD.TITLE.SAVE' | translate }}
         </span>
         {{ selectedFile?.name }}
     </button>

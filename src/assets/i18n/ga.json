@@ -41,9 +41,9 @@
     "COMPONENTS.MAP.CREATE.FORM.PROVINCE.VALIDATION": "Escribe a provincia que lle corresponde",
     "COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION": "Escribe o Barrio que lle corresponde",
     "COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION":"Escribe a Ciudade que lle corresponde",
-
     "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Seleccionar",
     "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Faz Click para marcar a dirección",
+    "COMPONENTS.UPLOAD.TITLE.SAVE": "Cambiar Foto de Perfil",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.TITLE": "Configuración",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.MODE.TITLE": "Cambiar o tema por defecto: ",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.MODE": "Modo",
@@ -91,7 +91,6 @@
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.LAST_NAME.VALIDATION.REQUIRED": "¿Cales son os teus Apelidos?",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.REQUIRED": "¿Cambiaches de correo? ¡Actualízalo!",
     "PAGE.CONFIG.CLIENT.UPLOAD.FORM.BUTTON.SAVE": "Gardar nova foto de perfil",
-    "PAGE.CONFIG.CLIENT.UPLOAD.FORM.TITLE.SAVE": "Subir Foto",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "O email introducido non cumpre có formato estandar, por exemplo: tony@stark.com'",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Actualiza a información personal",
     "PAGE.CONFIG.MANAGER.TITLE": "Parámetros generais",

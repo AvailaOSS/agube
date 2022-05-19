@@ -41,9 +41,9 @@
     "COMPONENTS.MAP.CREATE.FORM.PROVINCE.VALIDATION":"Escribe la provincia que le corresponde",
     "COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION":"Escribe la Barrio que le corresponde",
     "COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION":"Escribe la Ciudad que le corresponde",
-
     "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Seleccionar",
     "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Haz Click para marcar la dirección",
+    "COMPONENTS.UPLOAD.TITLE.SAVE": "Cambiar Foto de Perfil",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.TITLE": "Configuración",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.MODE.TITLE": "Cambiar el tema por defecto: ",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.MODE": "Modo",
@@ -93,7 +93,6 @@
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com'",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Actualiza la información personal",
     "PAGE.CONFIG.CLIENT.UPLOAD.FORM.BUTTON.SAVE": "Guardar nueva foto de perfil",
-    "PAGE.CONFIG.CLIENT.UPLOAD.FORM.TITLE.SAVE": "Subir Foto",
     "PAGE.CONFIG.MANAGER.TITLE": "Parámetros generales",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Precio de enganche",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "El precio de enganche no puede estar vacio",
