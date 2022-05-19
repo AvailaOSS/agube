@@ -8,6 +8,7 @@ export * from './managerConfiguration';
 export * from './owner';
 export * from './ownerDetail';
 export * from './personConfig';
+export * from './personPhoto';
 export * from './phone';
 export * from './reservoirCreate';
 export * from './reservoirResume';
