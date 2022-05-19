@@ -6,6 +6,7 @@ import { PersonConfig, UserDetail, UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
 import { environment } from 'src/environments/environment';
+import { PersonalInfoPersistantService } from '../config/client/personal-info/personal-info-persistant.service';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
 
@@ -33,7 +34,7 @@ export class SidebarComponent {
         protected readonly accountService: AccountService,
         protected overlayContainer: OverlayContainer,
         private svcUser: UserService,
-        private svcNotification: NotificationService
+        private svcPersistantPersonal: PersonalInfoPersistantService
     ) {
         //FIXME: add pipe with first name and last name
         this.accountService.getUser().subscribe((userResponse) => {
@@ -43,14 +44,19 @@ export class SidebarComponent {
 
             this.userId = userResponse.user_id;
 
-            const urlPath = `${environment.agubeBackendUrl}/user/${encodeURIComponent(String(this.userId))}/photo`;
-
-            this.svcUser.getUserPhoto(this.userId).subscribe({
-                next: (response) => {
-                    const reader = new FileReader();
-                    reader.addEventListener('load', () => (this.profilePhoto = reader.result), false);
-                    reader.readAsDataURL(response);
-                },
+            this.svcPersistantPersonal.get().subscribe((response) => {
+                setTimeout(() => {
+                    this.svcUser.getUserPhoto(this.userId!).subscribe({
+                        next: (response) => {
+                            if (!response) {
+                                return;
+                            }
+                            const reader = new FileReader();
+                            reader.addEventListener('load', () => (this.profilePhoto = reader.result), false);
+                            reader.readAsDataURL(response);
+                        },
+                    });
+                }, 1200);
             });
 
             this.toggleControl.valueChanges.subscribe((isDarkMode) => {
