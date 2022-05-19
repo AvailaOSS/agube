@@ -10,12 +10,17 @@ from geolocation.serializers import GeolocationSerializer
 from owner.models import Owner
 from person.models import Person, PersonConfig
 from person.renders import JPEGRenderer, PNGRenderer
+from person.serializers import PersonPhotoSerializer
 from phone.models import Phone
 from resident.models import Resident
+from rest_framework.decorators import action
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
@@ -63,21 +68,38 @@ class UserPhotoDetailView(RetrieveAPIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
     queryset = Person.objects.filter(id=1)
     renderer_classes = [JPEGRenderer, PNGRenderer]
-    serializer_class = PersonConfigSerializer
+    serializer_class = PersonPhotoSerializer
 
     @swagger_auto_schema(
         operation_id="getUserPhoto",
-        # responses={200: PersonPhotoSerializer(many=False)},
         tags=[TAG_USER],
     )
     def get(self, request, *args, **kwargs):
-        queryset = Person.objects.get(user__id=self.kwargs['pk']).photo
-        data = queryset
+        photo = Person.objects.get(user__id=self.kwargs['pk']).photo
 
-        content_type_file = mimetypes.guess_type(queryset.path)[0]
+        content_type_file = mimetypes.guess_type(photo.path)[0]
 
-        print(content_type_file)
-        return Response(data, content_type=content_type_file)
+        return Response(photo, content_type=content_type_file)
+
+
+class UserPhotoCreateView(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PersonPhotoSerializer
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
+
+    # TODO: set operation id with @swagger_auto_schema(operation_id="setUserPhoto",
+
+    def get_queryset(self):
+        return Person.objects.get(user=self.request.user)
+
+    def perform_create(self, serializer):
+        # FIXME: move this to serializer
+        instance: Person = self.get_queryset()
+        instance.photo = self.request.data.get('photo')
+        instance.save()
 
 
 class UserCustomDetailUpdateView(APIView):
