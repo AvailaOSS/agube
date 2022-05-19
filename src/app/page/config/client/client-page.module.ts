@@ -1,3 +1,4 @@
+import { UploadImagesModule } from 'src/app/components/upload-images/upload-images.module';
 import { AddressModule } from './contact-info/address/address.module';
 import { PhonesModule } from './contact-info/phones/phones.module';
 import { NgModule } from '@angular/core';
@@ -52,6 +53,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatMenuModule,
         MatSlideToggleModule,
         TranslateModule,
+        UploadImagesModule,
     ],
     providers: [],
 })

@@ -29,7 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatSlideToggleModule,
         TranslateModule,
         PipesModule,
-        MatTooltipModule,
+        MatTooltipModule
     ],
 })
 export class ManagerPageModule {}

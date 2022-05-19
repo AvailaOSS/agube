@@ -21,6 +21,14 @@
     .mat-card {
         height: 100%;
     }
+    .avatar {
+        margin-left: 30px;
+        img {
+            border-radius: 50%;
+            height: 100px;
+            width: 100px;
+        }
+    }
     mat-card-content {
         margin-top: $margin-x-medium;
         margin-left: $margin-x-medium;

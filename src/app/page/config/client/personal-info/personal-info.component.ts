@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-personal-info',
@@ -19,7 +20,10 @@ export class PersonalInfoComponent implements OnInit {
     public main_phone: Phone | undefined;
     public userId: number | undefined;
     public releaseDate: Date | undefined = undefined;
-
+    public selectedFile: File | undefined;
+    public previews: string[] = [];
+    public imageInfos?: Observable<any>;
+    public photo: any;
     private originalEmail: string = '';
 
     constructor(
@@ -35,12 +39,11 @@ export class PersonalInfoComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcAccount.getUser().subscribe((userResponse) => {
             if (!userResponse) {
                 return;
             }
-
             this.userId = userResponse!.user_id;
             this.svcUser.getUserDetail(userResponse!.user_id).subscribe((response) => {
                 this.originalEmail = response.email!;
@@ -52,17 +55,23 @@ export class PersonalInfoComponent implements OnInit {
         });
     }
 
+    public receiveFile(event: any) {
+        this.selectedFile = event;
+    }
+
     public emailHasChanged(): boolean {
         return this.email.value !== this.originalEmail;
     }
 
     public updateUser() {
         this.loadSave = true;
+
         let personalInfo: PersonalInfo = {
             email: this.email.value,
             first_name: this.first_name.value,
             last_name: this.last_name.value,
         };
+
         this.loadSave = true;
 
         this.svcUser
@@ -89,6 +98,17 @@ export class PersonalInfoComponent implements OnInit {
                     });
                 },
             });
+
+        this.upload(this.selectedFile);
+    }
+
+    public upload(file: File | undefined): void {
+        if (!file) {
+            return;
+        }
+        this.svcUser.userPhotoCreate(file).subscribe(() => {
+            window.location.reload();
+        });
     }
 
     public errorValidator(entity: string) {
