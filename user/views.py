@@ -1,29 +1,33 @@
+import mimetypes
+
 from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from dwelling.assemblers import create_user_geolocation
 from dwelling.models import Dwelling
+from geolocation.serializers import GeolocationSerializer
 from owner.models import Owner
+from person.models import Person, PersonConfig
+from person.renders import JPEGRenderer, PNGRenderer
 from phone.models import Phone
+from resident.models import Resident
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from geolocation.serializers import GeolocationSerializer
-from resident.models import Resident
+
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
 from user.models import (UserGeolocation, UserPhone,
                          update_geolocation_to_not_main,
                          update_phone_to_not_main)
 from user.permissions import IsManagerOfUser, IsUserMatch
-from user.serializers import (UserGeolocationUpdateSerializer,
-                              UserDetailSerializer, UserPhoneUpdateSerializer,
-                              PersonConfigSerializer)
-from user.serializers_external import UserDwellingDetailSerializer
-from person.models import PersonConfig
-from person.models import Person
 from user.send import send_email_modification_email
+from user.serializers import (PersonConfigSerializer, UserDetailSerializer,
+                              UserGeolocationUpdateSerializer,
+                              UserPhoneUpdateSerializer)
+from user.serializers_external import UserDwellingDetailSerializer
 
 TAG_USER = 'user'
 
@@ -53,6 +57,27 @@ class UserCustomDetailView(APIView):
         }
 
         return Response(UserDetailSerializer(data, many=False).data)
+
+
+class UserPhotoDetailView(RetrieveAPIView):
+    permission_classes = [IsManagerOfUser | IsUserMatch]
+    queryset = Person.objects.filter(id=1)
+    renderer_classes = [JPEGRenderer, PNGRenderer]
+    serializer_class = PersonConfigSerializer
+
+    @swagger_auto_schema(
+        operation_id="getUserPhoto",
+        # responses={200: PersonPhotoSerializer(many=False)},
+        tags=[TAG_USER],
+    )
+    def get(self, request, *args, **kwargs):
+        queryset = Person.objects.get(user__id=self.kwargs['pk']).photo
+        data = queryset
+
+        content_type_file = mimetypes.guess_type(queryset.path)[0]
+
+        print(content_type_file)
+        return Response(data, content_type=content_type_file)
 
 
 class UserCustomDetailUpdateView(APIView):
@@ -212,8 +237,7 @@ class UserDwellingDetailView(APIView):
 
             resident_first_name = ''
             resident_phone_number = ''
-            dwelling_resident: Resident = dwelling.get_current_resident(
-            )
+            dwelling_resident: Resident = dwelling.get_current_resident()
             if dwelling_resident != None:
                 resident_first_name = dwelling_resident.user.first_name
                 try:
