@@ -2,17 +2,20 @@
     <div class="page-content">
         <mat-card *ngIf="person">
             <mat-card-content>
-                <h1>{{ person.user | userDetail }}</h1>
+                <h1>{{'PAGE.PERSON.PERSON.DETAIL.TITLE'|translate}} {{title! |translate}}</h1>
                 <div class="resident-dwelling">
                     <div class="resident">
-                        <h1>Datos</h1>
-                        <h3>Correo electrónico</h3>
+                        <div class="avatar" *ngIf="profilePhoto">
+                            <img [src]="profilePhoto" />
+                        </div>
+                        <h1>{{ person.user | userDetail | titlecase }}</h1>
+                        <h3>{{'PAGE.PERSON.PERSON.DETAIL.EMAIL'|translate}}</h3>
                         <div class="resident-info">
                             <div class="resident-data-info">
                                 <h4>{{ person.user.email }}</h4>
                             </div>
                         </div>
-                        <h3>Teléfonos de contacto</h3>
+                        <h3>{{'PAGE.PERSON.PERSON.DETAIL.PHONE'|translate}}</h3>
                         <div class="resident-info" *ngIf="person.user.phones">
                             <div class="resident-data-info" *ngFor="let phone of person.user.phones">
                                 <span>
@@ -20,7 +23,7 @@
                                 </span>
                             </div>
                         </div>
-                        <h3>Direcciones</h3>
+                        <h3>{{'PAGE.PERSON.PERSON.DETAIL.ADDRESS'|translate}}</h3>
                         <div class="resident-info" *ngIf="person.user.geolocation">
                             <div class="resident-data-info" *ngFor="let geolocation of person.user.geolocation">
                                 <app-address [geolocation]="geolocation"></app-address>

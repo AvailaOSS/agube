@@ -20,6 +20,8 @@ export class Detail {
     public dwellings: UserDwellingDetail[];
     public dwellingPath: string = '';
 
+    public profilePhoto: any;
+
     // map
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
@@ -45,6 +47,19 @@ export class Detail {
         this.activatedRoute.params.subscribe((params) => {
             let par = params as IDetail;
             this.personId = par.personId;
+        });
+    }
+
+    protected getUserPhoto(userId: number) {
+        this.svcUser.getUserPhoto(userId).subscribe({
+            next: (response) => {
+                if (!response) {
+                    return;
+                }
+                const reader = new FileReader();
+                reader.addEventListener('load', () => (this.profilePhoto = reader.result), false);
+                reader.readAsDataURL(response);
+            },
         });
     }
 

@@ -10,6 +10,7 @@ import { Detail } from '../detail';
     styleUrls: ['../detail.scss'],
 })
 export class ResidentDetailComponent extends Detail implements OnInit {
+    public title: string | undefined;
     constructor(
         private svcResident: ResidentService,
         protected override router: Router,
@@ -25,12 +26,14 @@ export class ResidentDetailComponent extends Detail implements OnInit {
         if (!this.personId) {
             return;
         }
+        this.title = 'PAGE.PERSON.PERSON.DETAIL.TITLE-RESIDENT';
 
         this.svcResident.getResident(this.personId).subscribe({
             next: (resident) => {
                 this.person = resident;
                 this.getDwellingAndConfigureMap();
                 this.getDwellingDetails();
+                this.getUserPhoto(resident.user.id!);
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });

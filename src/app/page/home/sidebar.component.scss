@@ -9,6 +9,11 @@
     }
 }
 
+.avatar-icon {
+    mat-icon {
+        transform: scale(2);
+    }
+}
 .sidebar {
     width: 100%;
     height: 100%;

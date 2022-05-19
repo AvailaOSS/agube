@@ -51,7 +51,6 @@ export class SidebarComponent {
                     reader.addEventListener('load', () => (this.profilePhoto = reader.result), false);
                     reader.readAsDataURL(response);
                 },
-                error: (error) => this.svcNotification.warning({ message: error.error }),
             });
 
             this.toggleControl.valueChanges.subscribe((isDarkMode) => {
