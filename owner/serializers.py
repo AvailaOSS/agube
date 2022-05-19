@@ -30,7 +30,7 @@ class OwnerDetailSerializer(Serializer):
                       allow_blank=False,
                       trim_whitespace=True)
     geolocation = GeolocationSerializer(required=False,
-                                        many=True,
+                                        many=False,
                                         read_only=False)
 
     class Meta:
