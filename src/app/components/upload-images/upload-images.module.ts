@@ -1,5 +1,4 @@
 import { TranslateModule } from '@ngx-translate/core';
-import { FileUploadService } from './service/file-upload.service';
 import { UploadImagesComponent } from './upload-images.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -42,7 +41,6 @@ import { MatMenuModule } from '@angular/material/menu';
         MatSlideToggleModule,
         TranslateModule,
     ],
-    exports: [UploadImagesComponent],
-    providers: [FileUploadService],
+    exports: [UploadImagesComponent]
 })
 export class UploadImagesModule {}

@@ -5,8 +5,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
 import { Observable } from 'rxjs';
-import { FileUploadService } from 'src/app/components/upload-images/service/file-upload.service';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-personal-info',
@@ -22,17 +20,17 @@ export class PersonalInfoComponent implements OnInit {
     public main_phone: Phone | undefined;
     public userId: number | undefined;
     public releaseDate: Date | undefined = undefined;
-    public selectedFiles?: FileList;
+    public selectedFile?: File;
     public previews: string[] = [];
     public imageInfos?: Observable<any>;
+    public photo: any;
     private originalEmail: string = '';
 
     constructor(
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
         private svcAccount: AccountService,
-        private svcUser: UserService,
-        private uploadService: FileUploadService
+        private svcUser: UserService
     ) {
         this.personalForm = this.formBuilder.group({
             email: this.email,
@@ -42,25 +40,11 @@ export class PersonalInfoComponent implements OnInit {
     }
 
     receiveFile(event: any) {
-        console.log(event);
-        this.selectedFiles = event;
+        this.selectedFile = event;
     }
 
     upload(file: File): void {
-        if (file) {
-            console.log('file',file)
-            this.uploadService.upload(file).subscribe({
-                next: (event: any) => {
-                    if (event instanceof HttpResponse) {
-                        this.imageInfos = this.uploadService.getFiles();
-                    }
-                },
-                error: (error) =>
-                    this.svcNotification.warning({
-                        message: 'Could not upload the file: ' + file.name,
-                    }),
-            });
-        }
+        this.svcUser.userPhotoCreate(file).subscribe(() => {});
     }
 
     ngOnInit(): void {
@@ -84,8 +68,8 @@ export class PersonalInfoComponent implements OnInit {
     }
 
     public updateUser() {
-        if (this.selectedFiles) {
-            this.upload(this.selectedFiles![0]);
+        if (this.selectedFile) {
+            this.upload(this.selectedFile!);
         }
         this.loadSave = true;
         let personalInfo: PersonalInfo = {
