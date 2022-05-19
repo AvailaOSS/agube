@@ -20,7 +20,7 @@ export class PersonalInfoComponent implements OnInit {
     public main_phone: Phone | undefined;
     public userId: number | undefined;
     public releaseDate: Date | undefined = undefined;
-    public selectedFile?: File;
+    public selectedFile: File | undefined;
     public previews: string[] = [];
     public imageInfos?: Observable<any>;
     public photo: any;
@@ -39,15 +39,7 @@ export class PersonalInfoComponent implements OnInit {
         });
     }
 
-    receiveFile(event: any) {
-        this.selectedFile = event;
-    }
-
-    upload(file: File): void {
-        this.svcUser.userPhotoCreate(file).subscribe(() => {});
-    }
-
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcAccount.getUser().subscribe((userResponse) => {
             if (!userResponse) {
                 return;
@@ -63,20 +55,23 @@ export class PersonalInfoComponent implements OnInit {
         });
     }
 
+    public receiveFile(event: any) {
+        this.selectedFile = event;
+    }
+
     public emailHasChanged(): boolean {
         return this.email.value !== this.originalEmail;
     }
 
     public updateUser() {
-        if (this.selectedFile) {
-            this.upload(this.selectedFile!);
-        }
         this.loadSave = true;
+
         let personalInfo: PersonalInfo = {
             email: this.email.value,
             first_name: this.first_name.value,
             last_name: this.last_name.value,
         };
+
         this.loadSave = true;
 
         this.svcUser
@@ -103,6 +98,17 @@ export class PersonalInfoComponent implements OnInit {
                     });
                 },
             });
+
+        this.upload(this.selectedFile);
+    }
+
+    public upload(file: File | undefined): void {
+        if (!file) {
+            return;
+        }
+        this.svcUser.userPhotoCreate(file).subscribe(() => {
+            window.location.reload();
+        });
     }
 
     public errorValidator(entity: string) {

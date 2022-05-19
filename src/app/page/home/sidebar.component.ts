@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { UserDetail, UserService } from '@availa/agube-rest-api';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding } from '@angular/core';
@@ -7,7 +9,7 @@ import { AccountService } from '@availa/auth-fe';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
 import { PersonConfig } from '@availa/agube-rest-api';
-
+import { NotificationService } from '@availa/notification';
 @Component({
     selector: 'app-sidebar',
     template: `<ng-template></ng-template>`,
@@ -19,17 +21,21 @@ export class SidebarComponent {
 
     public toggleControl = new FormControl(false);
 
+    public profilePhoto: any;
     private lightClassName: ThemeMode = ThemeMode.light;
     private darkClassName: ThemeMode = ThemeMode.dark;
 
     private userId: number | undefined;
+
     @HostBinding('class') className = this.lightClassName;
 
     constructor(
         protected router: Router,
         protected readonly accountService: AccountService,
         protected overlayContainer: OverlayContainer,
-        private svcUser: UserService
+        private svcUser: UserService,
+        private httpClient: HttpClient,
+        private svcNotification: NotificationService
     ) {
         //FIXME: add pipe with first name and last name
         this.accountService.getUser().subscribe((userResponse) => {
@@ -38,6 +44,23 @@ export class SidebarComponent {
             }
 
             this.userId = userResponse.user_id;
+
+            const urlPath = `${environment.agubeBackendUrl}/user/${encodeURIComponent(String(this.userId))}/photo`;
+
+            this.httpClient
+                .get(urlPath, {
+                    observe: 'body',
+                    responseType: 'blob',
+                })
+                .subscribe({
+                    next: (response) => {
+                        const reader = new FileReader();
+                        reader.addEventListener('load', () => (this.profilePhoto = reader.result), false);
+                        reader.readAsDataURL(response);
+                    },
+                    error: (error) => this.svcNotification.warning({ message: error.error }),
+                });
+
             this.toggleControl.valueChanges.subscribe((isDarkMode) => {
                 if (isDarkMode) {
                     this.overlayDialog(this.darkClassName, this.lightClassName);

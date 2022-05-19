@@ -6,7 +6,9 @@
                     <h1>AGUBE</h1>
                 </mat-card-title>
                 <mat-card-content *ngIf="user">
-                    <div mat-card-avatar class="example-header-image"></div>
+                    <div class="avatar" >
+                        <img [src]="profilePhoto" />
+                    </div>
                     <p>{{ user | userDetail }}</p>
                     <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
                 </mat-card-content>

@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs';
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
     selector: 'app-upload-images',
@@ -9,19 +8,17 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 export class UploadImagesComponent {
     @Output() public sendFile: EventEmitter<File> = new EventEmitter();
 
-    selectedFile?: File;
-    preview: string = '';
-    imageInfos?: Observable<any>;
+    public selectedFile?: File;
+    public preview: string = '';
 
     constructor() {}
 
-    selectFiles(event: any): void {
+    public selectFiles(event: any): void {
         this.selectedFile = event.target.files[0];
         if (this.selectedFile) {
+            // FIXME: do this like sidebar.component if possible
             const reader = new FileReader();
-            reader.onload = (e: any) => {
-                this.preview = e.target.result;
-            };
+            reader.onload = (e: any) => (this.preview = e.target.result);
             reader.readAsDataURL(this.selectedFile);
             this.sendFile.emit(this.selectedFile);
         }
