@@ -1,21 +1,35 @@
-@import "../../../assets/availa/sizes/margins.scss";
+@import '../../../assets/availa/sizes/margins.scss';
 
 .form {
-  padding: $margin-x-medium;
-  display: block;
-  .form-content{
-      margin-left: $margin-x-medium;
-  }
+    padding: $margin-x-medium;
+    display: block;
+    .form-content {
+        margin-left: $margin-x-medium;
+    }
 }
 mat-card-actions {
     button {
-      div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        mat-icon {
-          margin-right: $margin-x-small;
+        div {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            mat-icon {
+                margin-right: $margin-x-small;
+            }
         }
-      }
     }
-  }
+}
+input,
+label {
+    display: block;
+}
+
+input[type='file']::-webkit-file-upload-button {
+  background-color: #7fd3f7;
+  color: black;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}

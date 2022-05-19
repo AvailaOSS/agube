@@ -1,20 +1,22 @@
 <div class="form">
-    <h1>Foto Perfil</h1>
+    <h1>{{ 'GENERAL.TITLE.PHOTO' | translate }}</h1>
     <div class="form-content">
-        <img *ngFor='let preview of previews' [src]="preview" width="50px" height="50px">
+        <img *ngFor="let preview of previews" [src]="preview" width="50px" height="50px" />
         <input
+            mat-button
+            color="primary"
             #fileInput
             type="file"
             id="file"
             id="fileInput"
             accept="image/*"
             multiple
+
             (change)="selectFiles($event)"
         />
     </div>
 
     <mat-card-actions [align]="'end'">
-
         <button
             mat-raised-button
             color="primary"
