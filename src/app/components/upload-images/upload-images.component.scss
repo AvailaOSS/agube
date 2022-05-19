@@ -1,12 +1,11 @@
 @import '../../../assets/availa/sizes/margins.scss';
 
-.form {
-    padding: $margin-x-medium;
-    display: block;
-    .form-content {
-        margin-left: $margin-x-medium;
+.form-content {
+    img {
+        margin-left: $margin-small;
     }
 }
+
 mat-card-actions {
     button {
         div {
@@ -25,12 +24,12 @@ label {
 }
 
 input[type='file']::-webkit-file-upload-button {
-  background-color: #7fd3f7;
-  color: black;
-  padding: 0.5rem;
-  font-family: sans-serif;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  margin-left: 10px;
+    background-color: #7fd3f7;
+    color: black;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-left: 10px;
 }

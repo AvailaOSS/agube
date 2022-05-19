@@ -48,6 +48,7 @@ export class PersonalInfoComponent implements OnInit {
 
     upload(file: File): void {
         if (file) {
+            console.log('file',file)
             this.uploadService.upload(file).subscribe({
                 next: (event: any) => {
                     if (event instanceof HttpResponse) {
