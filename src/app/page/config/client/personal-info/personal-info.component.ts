@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
 import { Observable } from 'rxjs';
+import { PersonalInfoPersistantService } from './personal-info-persistant.service';
 
 @Component({
     selector: 'app-personal-info',
@@ -30,7 +31,8 @@ export class PersonalInfoComponent implements OnInit {
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
         private svcAccount: AccountService,
-        private svcUser: UserService
+        private svcUser: UserService,
+        private svcPersistantPersonal: PersonalInfoPersistantService,
     ) {
         this.personalForm = this.formBuilder.group({
             email: this.email,
@@ -107,7 +109,7 @@ export class PersonalInfoComponent implements OnInit {
             return;
         }
         this.svcUser.userPhotoCreate(file).subscribe(() => {
-            window.location.reload();
+            this.svcPersistantPersonal.emit(true);
         });
     }
 
