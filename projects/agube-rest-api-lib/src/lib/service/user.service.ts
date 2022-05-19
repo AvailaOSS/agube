@@ -1126,15 +1126,13 @@ export class UserService {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-
-    return this.httpClient.get<any>(
+    return this.httpClient.get(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/photo`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        responseType: 'blob',
         reportProgress: reportProgress,
       }
     );
