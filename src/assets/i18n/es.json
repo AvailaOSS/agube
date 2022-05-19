@@ -93,6 +93,7 @@
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.EMAIL.VALIDATION.FORMAT_STANDARD": "El email introducido no cumple con el formato estandar, por ejemplo: tony@stark.com'",
     "PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP": "Actualiza la información personal",
     "PAGE.CONFIG.CLIENT.UPLOAD.FORM.BUTTON.SAVE": "Guardar nueva foto de perfil",
+    "PAGE.CONFIG.CLIENT.UPLOAD.FORM.TITLE.SAVE": "Subir Foto",
     "PAGE.CONFIG.MANAGER.TITLE": "Parámetros generales",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Precio de enganche",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "El precio de enganche no puede estar vacio",

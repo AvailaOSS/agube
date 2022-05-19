@@ -1,17 +1,18 @@
-
-    <div class="form-content">
-        <img *ngFor="let preview of previews" [src]="preview" width="50px" height="50px" />
-        <input
-            mat-button
-            color="primary"
-            #fileInput
-            type="file"
-            id="file"
-            id="fileInput"
-            accept="image/*"
-            multiple
-            (change)="selectFiles($event)"
-        />
-    </div>
-
-
+<img *ngFor="let preview of previews" [src]="preview" width="50px" height="50px" />
+<div>
+    <button mat-button color="primary" (click)="fileInput.click()">
+        <mat-icon> attach_file </mat-icon>
+        {{ 'PAGE.CONFIG.CLIENT.UPLOAD.FORM.TITLE.SAVE' | translate }}
+    </button>
+</div>
+<input
+    [hidden]="true"
+    color="primary"
+    #fileInput
+    type="file"
+    id="file"
+    id="fileInput"
+    accept="image/*"
+    multiple
+    (change)="selectFiles($event)"
+/>

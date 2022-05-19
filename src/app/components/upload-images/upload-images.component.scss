@@ -1,9 +1,7 @@
 @import '../../../assets/availa/sizes/margins.scss';
 
-.form-content {
-    img {
-        margin-left: $margin-small;
-    }
+img {
+    margin-left: $margin-small;
 }
 
 mat-card-actions {
@@ -17,19 +15,4 @@ mat-card-actions {
             }
         }
     }
-}
-input,
-label {
-    display: block;
-}
-
-input[type='file']::-webkit-file-upload-button {
-    background-color: #7fd3f7;
-    color: black;
-    padding: 0.5rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    margin-left: 10px;
 }
