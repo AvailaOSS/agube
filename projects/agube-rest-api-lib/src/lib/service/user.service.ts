@@ -1085,17 +1085,17 @@ export class UserService {
     id: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<PersonPhoto>;
+  ): Observable<any>;
   public getUserPhoto(
     id: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<PersonPhoto>>;
+  ): Observable<HttpResponse<any>>;
   public getUserPhoto(
     id: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<PersonPhoto>>;
+  ): Observable<HttpEvent<any>>;
   public getUserPhoto(
     id: number,
     observe: any = 'body',
@@ -1129,7 +1129,7 @@ export class UserService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<PersonPhoto>(
+    return this.httpClient.get<any>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/photo`,
       {
         withCredentials: this.configuration.withCredentials,
