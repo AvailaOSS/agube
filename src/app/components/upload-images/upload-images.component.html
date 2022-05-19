@@ -1,5 +1,4 @@
-<div class="form">
-    <h1>{{ 'GENERAL.TITLE.PHOTO' | translate }}</h1>
+
     <div class="form-content">
         <img *ngFor="let preview of previews" [src]="preview" width="50px" height="50px" />
         <input
@@ -11,23 +10,8 @@
             id="fileInput"
             accept="image/*"
             multiple
-
             (change)="selectFiles($event)"
         />
     </div>
 
-    <mat-card-actions [align]="'end'">
-        <button
-            mat-raised-button
-            color="primary"
-            matTooltip="{{ 'PAGE.CONFIG.CLIENT.UPLOAD.FORM.BUTTON.SAVE' | translate }}"
-            [disabled]="!selectedFiles"
-            (click)="uploadFiles()"
-        >
-            <div>
-                <mat-icon>save</mat-icon>
-                {{ 'GENERAL.BUTTON.SAVE' | translate }}
-            </div>
-        </button>
-    </mat-card-actions>
-</div>
+

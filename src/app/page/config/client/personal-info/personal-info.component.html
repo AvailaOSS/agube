@@ -16,6 +16,7 @@
             <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="updateUser()" />
             <mat-error *ngIf="email.invalid">{{ errorValidator('email') | translate }}</mat-error>
         </mat-form-field>
+       <app-upload-images (sendFile)="receiveFile($event)"></app-upload-images>
     </div>
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
     <mat-card-actions [align]="'end'">
@@ -32,5 +33,3 @@
     {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.EMAIL-INFO' | translate }}
 </mat-card-subtitle>
 </div>
-<mat-divider></mat-divider>
-<app-upload-images></app-upload-images>
