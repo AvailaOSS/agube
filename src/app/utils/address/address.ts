@@ -9,12 +9,12 @@ export function addressGenerator(emitter: AddressEmitter): Geolocation {
 
     return {
         address: {
-            city: address.city,
-            city_district: address.city_district,
-            country: address.country,
+            city: addressForm.get('city')!.value,
+            city_district: addressForm.get('city')!.value,
+            country: addressForm.get('country')!.value,
             municipality: addressForm.get('municipality')!.value,
             postcode: addressForm.get('cp')!.value,
-            province: address.province,
+            province: addressForm.get('province')!.value,
             state: addressForm.get('state')!.value,
             road: addressForm.get('street')!.value,
             village: addressForm.get('village')?.value,
