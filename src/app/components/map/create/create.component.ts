@@ -128,12 +128,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     this.selectedStreetCandidate.lat = this.clickUser!.lat;
                     this.selectedStreetCandidate.lon = this.clickUser!.lon;
                 }
-
-                // emit the address
-                this.addressForm.emit({
-                    addressFormGroup: this.addressFormGroup!,
-                    location: this.selectedStreetCandidate,
-                });
             }
         });
 
@@ -216,6 +210,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
      * @param candidate
      */
     public selectCandidate(candidate: LocationResponse, clickConf?: ConfigureMap) {
+        console.log('clickConf', clickConf);
         let lat: string = candidate.lat;
         let lon: string = candidate.lon;
 
@@ -227,6 +222,13 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         if (clickConf) {
             lat = clickConf.lat;
             lon = clickConf.lon;
+            this.selectedStreetCandidate = {
+                address: candidate.address,
+                display_name: candidate.display_name,
+                lat,
+                lon,
+                zoom: candidate.zoom,
+            };
         }
 
         this.initializeMap({
@@ -237,6 +239,11 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             showCircle: true,
             height: this.configureMap!.height,
             dragging: this.configureMap!.dragging,
+        });
+        // emit the address
+        this.addressForm.emit({
+            addressFormGroup: this.addressFormGroup!,
+            location: this.selectedStreetCandidate,
         });
     }
 

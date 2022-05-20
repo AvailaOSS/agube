@@ -4,7 +4,6 @@ import { AddressEmitter } from './address-emitter';
 
 export function addressGenerator(emitter: AddressEmitter): Geolocation {
     const location = emitter.location;
-    const address = emitter.location.address;
     const addressForm = emitter.addressFormGroup;
 
     return {
