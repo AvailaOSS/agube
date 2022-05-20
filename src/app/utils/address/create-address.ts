@@ -51,7 +51,6 @@ export class CreateAddress {
         if (!this.addressEmitter) {
             throw new Error('receive addressEmitter before create a new address');
         }
-
         return addressGenerator(this.addressEmitter);
     }
 
