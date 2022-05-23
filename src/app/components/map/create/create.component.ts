@@ -210,7 +210,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
      * @param candidate
      */
     public selectCandidate(candidate: LocationResponse, clickConf?: ConfigureMap) {
-        console.log('clickConf', clickConf);
         let lat: string = candidate.lat;
         let lon: string = candidate.lon;
 
