@@ -24,7 +24,6 @@ import { MatMenuModule } from '@angular/material/menu';
         CommonModule,
         MatToolbarModule,
         MatFormFieldModule,
-        HttpClientModule,
         MatButtonModule,
         MatIconModule,
         MatCardModule,
