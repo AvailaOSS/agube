@@ -39,6 +39,7 @@ class Reservoir(models.Model):
         ReservoirOwner.objects.create(user=user, reservoir=self)
 
     def get_current_owner(self):
+        from reservoir.models import ReservoirOwner
         # type: (Reservoir) -> ReservoirOwner
         """returns the current reservoir_owner"""
         try:

@@ -22,7 +22,6 @@ class ReservoirResumeSerializer(Serializer):
         ref_name = 'ReservoirResume'
 
 
-
 class ReservoirSerializer(ModelSerializer):
     """
     Reservoir ModelSerializer
@@ -113,6 +112,27 @@ class ReservoirOwnerSerializer(ModelSerializer):
             'discharge_date',
         )
 
+    def to_representation(self, instance: ReservoirOwner):
+        user_serialized = UserCreateSerializer(instance.user).data
+        user = user_serialized
+        print(instance)
+        reservoir_owner_serialized = {
+            "id": instance.id,
+            "reservoir_id": instance.reservoir.id,
+            "user": {
+                "id": instance.user.id,
+                "username": instance.user.username,
+                "first_name": instance.user.first_name,
+                "last_name": instance.user.last_name,
+                "email": instance.user.email,
+                "phones": get_user_phones_serialized(instance.user),
+                "geolocation": get_all_user_geolocation_serialized(instance.user)
+            },
+            "release_date": instance.release_date,
+            "discharge_date": instance.discharge_date
+        }
+        return reservoir_owner_serialized
+
 
 class ReservoirDetailSerializer(Serializer):
     """
@@ -154,21 +174,5 @@ class ReservoirDetailSerializer(Serializer):
 
 def get_reservoir_owner_serialized(
         owner: ReservoirOwner) -> ReservoirOwnerSerializer:
-    user = owner.user
-    # FIXME: Use ReservoirOwnerSerializer directly instead of manually if is possible
-    data = {
-        "id": owner.id,
-        "reservoir_id": owner.reservoir,
-        "user": {
-            "id": user.id,
-            "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "email": user.email,
-            "phones": get_user_phones_serialized(user),
-            "geolocation": get_all_user_geolocation_serialized(user)
-        },
-        "release_date": owner.release_date,
-        "discharge_date": owner.discharge_date
-    }
-    return ReservoirOwnerSerializer(data, many=False).data
+
+    return ReservoirOwnerSerializer(owner, many=False).data

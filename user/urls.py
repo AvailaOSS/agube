@@ -13,7 +13,7 @@ __url_user = [
     path('<int:pk>/photo', UserPhotoDetailView.as_view()),
     path('photo', UserPhotoCreateView.as_view({'post': 'create'})),
     path('<int:pk>/config', ConfigView.as_view()),
-    path('<int:pk>/config', PersonConfigUpdateView.as_view()),
+    path('<int:pk>/config/', PersonConfigUpdateView.as_view()),
     path('<int:pk>/dwelling', UserDwellingDetailView.as_view()),
     path('<int:pk>/geolocation', UserCreateGeolocationView.as_view()),
     path('<int:pk>/geolocation/<int:geolocation_id>',

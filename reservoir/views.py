@@ -165,13 +165,14 @@ class ReservoirOwnerView(generics.GenericAPIView):
     serializer_class = ReservoirOwnerSerializer
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(operation_id="getCurrentReservoirOwner")
+    @swagger_auto_schema(operation_id="getCurrentReservoirOwner",
+                        responses={200: ReservoirOwnerSerializer(many=False)})
     def get(self, request, pk):
         """
         Get Current Owner of the Reservoir
         """
         try:
-            reservoir = Reservoir.objects.get(id=pk)
+            reservoir:Reservoir = Reservoir.objects.get(id=pk)
             owner = reservoir.get_current_owner()
             if not owner:
                 return Response({'status': 'cannot find Current Owner'},
