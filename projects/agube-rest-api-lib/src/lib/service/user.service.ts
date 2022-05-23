@@ -788,7 +788,7 @@ export class UserService {
     }
 
     return this.httpClient.put<PersonConfig>(
-      `${this.basePath}/user/${encodeURIComponent(String(id))}/config`,
+      `${this.basePath}/user/${encodeURIComponent(Number(id))}/config/update`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -871,7 +871,7 @@ export class UserService {
     }
 
     return this.httpClient.put<UserDetail>(
-      `${this.basePath}/user/${encodeURIComponent(String(id))}/`,
+      `${this.basePath}/user/${encodeURIComponent(String(id))}/update`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
