@@ -68,8 +68,7 @@ export class DetailComponent implements OnInit {
             this.reservoirId = par.reservoirId;
             this.type = {
                 id: par.reservoirId,
-                type: WaterMeterType.RESERVOIR,
-                canMeasurement: false,
+                type: WaterMeterType.RESERVOIR
             };
         });
     }

@@ -19,8 +19,7 @@
                     </div>
                     <app-management [manage]="dwelling" [waterMeterId]="waterMeterId" [type]="type" [load]="canLoad">
                     </app-management>
-                    <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
-                    </app-water-meter-detail>
+                    <app-gauge-measurement  [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad" ></app-gauge-measurement>
                 </div>
                 <div class="dwelling-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">

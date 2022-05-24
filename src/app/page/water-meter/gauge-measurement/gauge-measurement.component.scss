@@ -1,0 +1,17 @@
+.water-meter {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 15px;
+    .detail {
+        width: 70%;
+    }
+}
+
+.overflow {
+    color: #ff5f5f;
+}
+
+.no-overflow {
+    color: #009500d1;
+}

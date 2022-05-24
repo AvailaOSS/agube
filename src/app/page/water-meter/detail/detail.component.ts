@@ -38,10 +38,10 @@ export class DetailComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
-        private svcWaterMeterManager: WaterMeterManager,
+        protected svcWaterMeterManager: WaterMeterManager,
         public dialog: MatDialog,
-        private svcManager: ManagerService,
-        private svcPersistance: WaterMeterPersistantService
+        protected svcManager: ManagerService,
+        protected svcPersistance: WaterMeterPersistantService
     ) {}
 
     ngOnInit(): void {
