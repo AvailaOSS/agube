@@ -82,7 +82,11 @@ class UserPhotoDetailView(RetrieveAPIView):
 
         content_type_file = mimetypes.guess_type(photo.path)[0]
 
-        return Response(photo, content_type=content_type_file)
+        if not photo.storage.exists(photo.name):
+            return Response({'status': 'photo file not found'},
+                            status=HTTP_204_NO_CONTENT)
+        else:
+            return Response(photo, content_type=content_type_file)
 
 
 class UserPhotoCreateView(ModelViewSet):
