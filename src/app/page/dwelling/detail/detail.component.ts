@@ -66,6 +66,7 @@ export class DetailComponent implements OnInit {
             this.type = {
                 id: par.dwellingId,
                 type: WaterMeterType.DWELLING,
+                canMeasurement:true
             };
         });
     }
