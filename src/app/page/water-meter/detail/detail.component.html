@@ -1,4 +1,4 @@
-<div class="water-meter">
+<div class="water-meter" *ngIf="type?.canMeasurement" >
     <app-water-meter-gauge *ngIf="waterMeter" [maxDailyConsumption]="maxDailyConsumption" [waterMeter]="waterMeter">
     </app-water-meter-gauge>
     <div class="table">

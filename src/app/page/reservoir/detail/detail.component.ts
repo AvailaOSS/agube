@@ -7,15 +7,23 @@ import { WaterMeterPersistantService } from '../../water-meter/water-meter-persi
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { Detail } from './detail';
 import { Type } from '../../water-meter/detail/type';
-import { ReservoirService, Geolocation, ManagerService, ReservoirCreate, GeolocationService } from '@availa/agube-rest-api';
+import {
+    ReservoirService,
+    Geolocation,
+    ManagerService,
+    ReservoirCreate,
+    GeolocationService,
+} from '@availa/agube-rest-api';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '@availa/notification';
+
 @Component({
     selector: 'app-reservoir',
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
 })
+
 export class DetailComponent implements OnInit {
     public reservoirId: number | undefined;
     public reservoir: ReservoirCreate | undefined;
@@ -47,8 +55,9 @@ export class DetailComponent implements OnInit {
         private svcPersistant: WaterMeterPersistantService,
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
-        private svcNotification: NotificationService,
+        private svcNotification: NotificationService
     ) {
+
         this.svcManager.userIsManager().subscribe((response) => {
             this.canLoad = response.is_manager;
         });
@@ -60,6 +69,7 @@ export class DetailComponent implements OnInit {
             this.type = {
                 id: par.reservoirId,
                 type: WaterMeterType.RESERVOIR,
+                canMeasurement: false,
             };
         });
     }
