@@ -19,9 +19,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { GaugeModule } from './gauge/gauge.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { GaugeMeasurementComponent } from './gauge-measurement/gauge-measurement.component';
 
 @NgModule({
-    declarations: [DetailComponent, MeasureDialogComponent, WaterMeterDialogComponent],
+    declarations: [DetailComponent, MeasureDialogComponent, WaterMeterDialogComponent, GaugeMeasurementComponent],
     imports: [
         CommonModule,
         WaterMeterRoutingModule,
@@ -41,6 +42,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatPaginatorModule,
     ],
     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
-    exports: [DetailComponent],
+    exports: [DetailComponent,GaugeMeasurementComponent],
 })
 export class WaterMeterModule {}
