@@ -1,9 +1,10 @@
+@import '../../../../assets/availa/sizes/margins.scss';
 .water-meter {
     display: flex;
     width: 100%;
-    margin-top: 30px;
-    margin-left: 15px;
+    margin-top: $margin-small;
+    margin-left: $margin-x-medium;
     .detail {
-        width: 70%;
+        width: 100%;
     }
 }
