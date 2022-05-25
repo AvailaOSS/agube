@@ -11,7 +11,7 @@ __url_user = [
     path('<int:pk>', UserCustomDetailView.as_view()),
     path('<int:pk>/update', UserCustomDetailUpdateView.as_view()),
     path('<int:pk>/photo', UserPhotoDetailView.as_view()),
-    path('photo', UserPhotoCreateView.as_view({'post': 'create'})),
+    path('photo', UserPhotoCreateView.as_view()),
     path('<int:pk>/config', ConfigView.as_view()),
     path('<int:pk>/config/update', PersonConfigUpdateView.as_view()),
     path('<int:pk>/dwelling', UserDwellingDetailView.as_view()),

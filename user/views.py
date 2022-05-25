@@ -10,16 +10,16 @@ from geolocation.serializers import GeolocationSerializer
 from owner.models import Owner
 from person.models import Person, PersonConfig
 from person.renders import JPEGRenderer, PNGRenderer
-from person.serializers import PersonPhotoSerializer
 from phone.models import Phone
 from resident.models import Resident
 from rest_framework.generics import RetrieveAPIView
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from drf_yasg import openapi
 
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
@@ -63,14 +63,19 @@ class UserCustomDetailView(APIView):
         return Response(UserDetailSerializer(data, many=False).data)
 
 
-class UserPhotoDetailView(RetrieveAPIView):
+class UserPhotoDetailView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
-    queryset = Person.objects.filter(id=1)
     renderer_classes = [JPEGRenderer, PNGRenderer]
-    serializer_class = PersonPhotoSerializer
 
     @swagger_auto_schema(
         operation_id="getUserPhoto",
+        responses={
+            200:
+            openapi.Response('Image file (JPEG/PNG)',
+                             schema=openapi.Schema(
+                                 type=openapi.TYPE_STRING,
+                                 format=openapi.FORMAT_BINARY))
+        },
         tags=[TAG_USER],
     )
     def get(self, request, *args, **kwargs):
@@ -89,24 +94,35 @@ class UserPhotoDetailView(RetrieveAPIView):
             return Response(photo, content_type=content_type_file)
 
 
-class UserPhotoCreateView(ModelViewSet):
+class UserPhotoCreateView(APIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = PersonPhotoSerializer
-    parser_classes = (
-        MultiPartParser,
-        FormParser,
+    parser_classes = [MultiPartParser]
+    renderer_classes = [JPEGRenderer, PNGRenderer]
+
+    @swagger_auto_schema(
+        operation_id="setUserPhoto",
+        manual_parameters=[
+            openapi.Parameter('photo',
+                              openapi.IN_FORM,
+                              type=openapi.TYPE_FILE,
+                              description='Image file (JPEG/PNG) to upload')
+        ],
+        responses={
+            200:
+            openapi.Response('Image file (JPEG/PNG)',
+                             schema=openapi.Schema(
+                                 type=openapi.TYPE_STRING,
+                                 format=openapi.FORMAT_BINARY))
+        },
+        tags=[TAG_USER],
     )
+    def post(self, request):
+        person = Person.objects.get(user=self.request.user)
+        person.photo = request.FILES.get('photo')
+        person.save()
 
-    # TODO: set operation id with @swagger_auto_schema(operation_id="setUserPhoto",
-
-    def get_queryset(self):
-        return Person.objects.get(user=self.request.user)
-
-    def perform_create(self, serializer):
-        # FIXME: move this to serializer
-        instance: Person = self.get_queryset()
-        instance.photo = self.request.data.get('photo')
-        instance.save()
+        content_type_file = mimetypes.guess_type(person.photo.path)[0]
+        return Response(person.photo, content_type=content_type_file)
 
 
 class UserCustomDetailUpdateView(APIView):
