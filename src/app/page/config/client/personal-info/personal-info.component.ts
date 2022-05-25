@@ -108,7 +108,7 @@ export class PersonalInfoComponent implements OnInit {
         if (!file) {
             return;
         }
-        this.svcUser.userPhotoCreate(file).subscribe(() => {
+        this.svcUser.setUserPhoto(file).subscribe(() => {
             this.svcPersistantPersonal.emit(true);
         });
     }
