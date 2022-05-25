@@ -1,5 +1,5 @@
 <div class="chart" *ngIf="waterMeter">
-    <div class="chart-info">Consumo total mensual</div>
+    <div class="chart-info">{{ 'PAGE.WATER_METER.GAUGE.INFO' | translate }}</div>
     <app-gauge *ngIf="waterMeter && maxDailyConsumption" [config]="configureChart"> </app-gauge>
     <div class="chart-info">
         {{ 'PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION' | translate }}
