@@ -16,13 +16,9 @@
     <button mat-button matTooltip="{{ 'PAGE.WATER_METER.DIALOG.BUTTONS.CLOSE.TOOLTIP' | translate }}" (click)="close()">
         {{ 'GENERAL.BUTTON.CLOSE_WITHOUT_SAVING' | translate }}
     </button>
-    <button
-        mat-raised-button
-        color="primary"
-        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.BUTTONS.SAVE.TOOLTIP' | translate }}"
-        (click)="save()"
-        disabled="{{ waterMeterForm.invalid }}"
-    >
+    <button mat-raised-button color="primary"
+        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.BUTTONS.SAVE.TOOLTIP' | translate }}" (click)="save()"
+        disabled="{{ waterMeterForm.invalid }}">
         <div>
             <mat-icon>save</mat-icon>
             {{ 'GENERAL.BUTTON.SAVE' | translate }}
