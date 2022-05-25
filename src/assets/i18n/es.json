@@ -172,14 +172,12 @@
     "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION": "Configuración",
     "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT": "Residentes",
     "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_OWNERS": "Propietarios",
-
     "PAGE.PERSON.PERSON.DETAIL.TITLE": "Datos del ",
     "PAGE.PERSON.PERSON.DETAIL.EMAIL": "Correo Electónico",
     "PAGE.PERSON.PERSON.DETAIL.PHONE": "Teléfono",
     "PAGE.PERSON.PERSON.DETAIL.ADDRESS": "Direccion",
     "PAGE.PERSON.PERSON.DETAIL.TITLE-RESIDENT": "Residente",
     "PAGE.PERSON.PERSON.DETAIL.TITLE-OWNER": "Propietario",
-
     "PAGE.RESERVOIR.CREATE.TITLE": "Da de Alta un nuevo Depósito",
     "PAGE.RESERVOIR.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED": "Revisa cuál es el código del contador de agua del Depósito",
     "PAGE.RESERVOIR.CREATE.CAPACITY": "Capacidad",
@@ -216,7 +214,6 @@
     "PAGE.RESIDENTS.MANAGER.TABLE.COLUMN.EMAIL": "Correo electrónico",
     "PAGE.RESIDENTS.MANAGER.TABLE.COLUMN.PHONE": "Teléfono de contacto",
     "PAGE.RESIDENTS.MANAGER.TABLE.COLUMN.ADDRESS": "Dirección",
-
     "PAGE.RESIDENTS.CREATE.TITLE": "Registra un nuevo Residente",
     "PAGE.WATER_METER.CONTENT.RELEASE_DATE": "Fecha de alta",
     "PAGE.WATER_METER.CONTENT.NO_COUNTER": "Sin Contador",
@@ -244,5 +241,6 @@
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.DATE_IN_FUTURE": "La fecha introducida no puede ser posterior a la fecha actual",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR": "Hora",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES": "Minutos",
-    "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "Necesitamos la hora y los minutos en la que se tomó la Lectura"
+    "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "Necesitamos la hora y los minutos en la que se tomó la Lectura",
+    "PAGE.WATER_METER.GAUGE.INFO": "Consumo total mensual"
 }

@@ -172,15 +172,12 @@
     "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION": "Configuración",
     "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT": "Residentes",
     "PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_OWNERS": "Propietarios",
-
-
     "PAGE.PERSON.PERSON.DETAIL.TITLE": "Datos del ",
     "PAGE.PERSON.PERSON.DETAIL.EMAIL": "Correo Electónico",
     "PAGE.PERSON.PERSON.DETAIL.PHONE": "Teléfono",
     "PAGE.PERSON.PERSON.DETAIL.ADDRESS": "Dirección",
     "PAGE.PERSON.PERSON.DETAIL.TITLE-RESIDENT": "Residente",
     "PAGE.PERSON.PERSON.DETAIL.TITLE-OWNER": "Propietario",
-
     "PAGE.RESERVOIR.CREATE.TITLE": "Rexistrar un novo Depósito",
     "PAGE.RESERVOIR.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED": "Consulta cal é o código do contador de auga do Depósito",
     "PAGE.RESERVOIR.CREATE.CAPACITY": "Capacidade",
@@ -244,5 +241,6 @@
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.DATE_IN_FUTURE": "A fecha introducida non pode ser posterior á fecha actual",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR": "Hora",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES": "Minutos",
-    "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "Necesitamos a hora e os minutos na que tomouse a Lectura"
+    "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "Necesitamos a hora e os minutos na que tomouse a Lectura",
+    "PAGE.WATER_METER.GAUGE.INFO": "Consumo total mensual"
 }

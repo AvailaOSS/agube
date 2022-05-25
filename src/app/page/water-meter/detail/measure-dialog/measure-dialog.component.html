@@ -30,20 +30,13 @@
 </div>
 
 <div mat-dialog-actions [align]="'end'">
-    <button
-        mat-button
-        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP' | translate }}"
-        (click)="close(false)"
-    >
+    <button mat-button matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP' | translate }}"
+        (click)="close(false)">
         {{ 'GENERAL.BUTTON.CLOSE_WITHOUT_SAVING' | translate }}
     </button>
-    <button
-        mat-raised-button
-        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}"
-        color="primary"
-        (click)="save()"
-        disabled="{{ this.measureForm.invalid }}"
-    >
+    <button mat-raised-button
+        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}" color="primary"
+        (click)="save()" disabled="{{ this.measureForm.invalid }}">
         {{ 'GENERAL.BUTTON.SAVE' | translate }}
     </button>
 </div>
