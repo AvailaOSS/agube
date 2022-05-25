@@ -20,8 +20,7 @@ export class PersonalInfoPersistantService {
         this.emitReload(true);
     }
 
-  public reload() {
-
+    public reload() {
         return this.subjectReload;
     }
 

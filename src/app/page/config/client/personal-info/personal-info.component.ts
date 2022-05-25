@@ -32,7 +32,7 @@ export class PersonalInfoComponent implements OnInit {
         private svcNotification: NotificationService,
         private svcAccount: AccountService,
         private svcUser: UserService,
-        private svcPersistantPersonal: PersonalInfoPersistantService,
+        private svcPersistantPersonal: PersonalInfoPersistantService
     ) {
         this.personalForm = this.formBuilder.group({
             email: this.email,

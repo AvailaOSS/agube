@@ -40,6 +40,6 @@ import { MatMenuModule } from '@angular/material/menu';
         MatSlideToggleModule,
         TranslateModule,
     ],
-    exports: [UploadImagesComponent]
+    exports: [UploadImagesComponent],
 })
 export class UploadImagesModule {}
