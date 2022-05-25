@@ -23,7 +23,6 @@ import { NotificationService } from '@availa/notification';
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
 })
-
 export class DetailComponent implements OnInit {
     public reservoirId: number | undefined;
     public reservoir: ReservoirCreate | undefined;
@@ -57,7 +56,6 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService
     ) {
-
         this.svcManager.userIsManager().subscribe((response) => {
             this.canLoad = response.is_manager;
         });
@@ -68,7 +66,7 @@ export class DetailComponent implements OnInit {
             this.reservoirId = par.reservoirId;
             this.type = {
                 id: par.reservoirId,
-                type: WaterMeterType.RESERVOIR
+                type: WaterMeterType.RESERVOIR,
             };
         });
     }

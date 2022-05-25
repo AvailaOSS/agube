@@ -42,6 +42,6 @@ import { GaugeMeasurementComponent } from './gauge-measurement/gauge-measurement
         MatPaginatorModule,
     ],
     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
-    exports: [DetailComponent,GaugeMeasurementComponent],
+    exports: [DetailComponent, GaugeMeasurementComponent],
 })
 export class WaterMeterModule {}
