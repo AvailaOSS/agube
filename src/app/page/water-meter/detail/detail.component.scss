@@ -1,40 +1,38 @@
+@import '../../../../assets/availa/sizes/margins.scss';
 .water-meter {
-  display: flex;
-  width: 100%;
-  margin-top: 30px;
-  margin-left: 15px;
-  .table {
+    display: flex;
     width: 100%;
-    max-width: 100%;
-    margin-left: 30px;
-    height: 300px;
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .selector-and-filter {
-        display: flex;
+    .table {
         width: 100%;
-        .selector {
-          margin-right: 30px;
-          width: 12% !important;
+        max-width: 100%;
+        height: 300px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .selector-and-filter {
+                display: flex;
+                width: 100%;
+                .selector {
+                    margin-right: $margin-x-medium;
+                    width: 12% !important;
+                }
+                .filter {
+                    width: 30%;
+                }
+            }
         }
-        .filter {
-          width: 30%;
+        .scroll {
+            height: 65%;
+            overflow: auto;
         }
-      }
     }
-    .scroll {
-      height: 65% ;
-      overflow: auto;
-    }
-  }
 }
 
 .overflow {
-  color: #ff5f5f;
+    color: #ff5f5f;
 }
 
 .no-overflow {
-  color: #009500d1;
+    color: #009500d1;
 }
