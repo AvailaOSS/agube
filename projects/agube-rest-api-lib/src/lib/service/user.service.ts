@@ -27,7 +27,6 @@ import { UserDetail } from '../model/userDetail';
 import { PersonConfig } from '../model/personConfig';
 import { UserDwellingDetail } from '../model/userDwellingDetail';
 import { UserPhone } from '../model/userPhone';
-import { PersonPhoto } from '../model/personPhoto';
 import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 @Injectable()
@@ -1145,26 +1144,32 @@ export class UserService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public userPhotoCreate(
-    photo?: Blob,
+  public setUserPhoto(
+    photo: Blob,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<PersonPhoto>;
-  public userPhotoCreate(
-    photo?: Blob,
+  ): Observable<any>;
+  public setUserPhoto(
+    photo: Blob,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<PersonPhoto>>;
-  public userPhotoCreate(
-    photo?: Blob,
+  ): Observable<HttpResponse<any>>;
+  public setUserPhoto(
+    photo: Blob,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<PersonPhoto>>;
-  public userPhotoCreate(
-    photo?: Blob,
+  ): Observable<HttpEvent<any>>;
+  public setUserPhoto(
+    photo: Blob,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
+    if (photo === null || photo === undefined) {
+      throw new Error(
+        'Required parameter photo was null or undefined when calling setUserPhoto.'
+      );
+    }
+
     let headers = this.defaultHeaders;
 
     // authentication (Basic) required
@@ -1177,7 +1182,7 @@ export class UserService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['image/jpeg', 'image/png'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
@@ -1185,10 +1190,7 @@ export class UserService {
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = [
-      'multipart/form-data',
-      'application/x-www-form-urlencoded',
-    ];
+    const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
@@ -1210,7 +1212,7 @@ export class UserService {
       formParams = formParams.append('photo', <any>photo) || formParams;
     }
 
-    return this.httpClient.post<PersonPhoto>(
+    return this.httpClient.post<any>(
       `${this.basePath}/user/photo`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
