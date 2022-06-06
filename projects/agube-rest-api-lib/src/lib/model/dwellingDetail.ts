@@ -18,4 +18,6 @@ export interface DwellingDetail {
   water_meter_code: string;
   resident_first_name: string;
   resident_phone: string;
+  latitude: number;
+  longitude: number;
 }

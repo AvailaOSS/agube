@@ -19,4 +19,6 @@ export interface ReservoirDetail {
   capacity: string;
   inlet_flow: string;
   outlet_flow: string;
+  latitude: number;
+  longitude: number;
 }
