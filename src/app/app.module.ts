@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
+import { DwellingCacheService } from './utils/cache/dwelling-cache.service';
+
 export function HttpLoaderFactory(http: HttpClient) {
     return new MultiTranslateHttpLoader(http, [
         { prefix: '../assets/i18n/', suffix: '.json' },
@@ -63,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatIconModule,
         MatButtonModule,
     ],
-    providers: [],
+    providers: [DwellingCacheService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

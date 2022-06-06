@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { TableReloadService } from './table-reload.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Detail } from '../../detail/detail';
+import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 
 @Component({
     selector: 'app-table',
@@ -24,7 +25,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     constructor(
         private router: Router,
-        private svcDwelling: DwellingService,
+        private svcDwelling: DwellingCacheService,
         private svcTableReload: TableReloadService
     ) {}
 
@@ -63,7 +64,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     private loadDwellings() {
-        this.svcDwelling.getDwellings().subscribe((response) => {
+        this.svcDwelling.getDwellings().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });
