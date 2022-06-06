@@ -1,17 +1,19 @@
+import { Coordinates } from './../../../components/map/map/configure-map';
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
+import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 
 @Component({
     selector: 'app-page-dwelling-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent extends CreateAddress {
+export class CreateComponent extends CreateAddress implements OnInit {
     public dwellingForm: FormGroup | undefined;
     public code = new FormControl('', [Validators.required]);
 
@@ -21,9 +23,25 @@ export class CreateComponent extends CreateAddress {
         private router: Router,
         private svcNotification: NotificationService,
         private svcDwelling: DwellingService,
+        private svcDwellingCache: DwellingCacheService,
         private formBuilder: FormBuilder
     ) {
         super();
+    }
+
+    ngOnInit(): void {
+        this.svcDwellingCache.getDwellings().then((response) => {
+            if (response && response.length > 0) {
+                this.configureMap.otherPoints = response.map((dwelling) => {
+                    let coordinates: Coordinates = {
+                        lat: String(dwelling.latitude),
+                        lon: String(dwelling.longitude),
+                        description: dwelling.road + ' nº ' + dwelling.number,
+                    };
+                    return coordinates;
+                });
+            }
+        });
     }
 
     public override addressFormReceive(addressEmitter: AddressEmitter) {
@@ -45,6 +63,7 @@ export class CreateComponent extends CreateAddress {
 
         this.onSave()!.subscribe({
             next: (response) => {
+                this.svcDwellingCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
             },
@@ -60,6 +79,7 @@ export class CreateComponent extends CreateAddress {
 
         this.onSave()!.subscribe({
             next: (response) => {
+                this.svcDwellingCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
                 this.exit();

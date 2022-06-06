@@ -240,7 +240,9 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             showCircle: true,
             height: this.configureMap!.height,
             dragging: this.configureMap!.dragging,
+            otherPoints: this.configureMap?.otherPoints,
         });
+
         // emit the address
         this.addressForm.emit({
             addressFormGroup: this.addressFormGroup!,
@@ -357,11 +359,11 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
             let circle: L.Circle | undefined = undefined;
             if (conf.showCircle) {
-                circle = L.circle([+conf.center.lat, +conf.center.lon], {
-                    fillColor: '#7fd3f7',
-                    fillOpacity: 0.5,
-                    radius: 10,
-                }).addTo(this.map);
+                circle = this.setCircle(+conf.center.lat, +conf.center.lon, undefined, '#2ECC71');
+            }
+
+            if (conf.otherPoints) {
+                conf.otherPoints.forEach((point) => this.setCircle(+point.lat, +point.lon, point.description));
             }
 
             if (this.filter.invalid) {
@@ -383,6 +385,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     showCircle: true,
                     height: conf.height,
                     dragging: conf.dragging,
+                    otherPoints: conf.otherPoints,
                 };
 
                 if (circle) {

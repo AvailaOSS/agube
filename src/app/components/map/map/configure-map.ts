@@ -6,9 +6,11 @@ export interface ConfigureMap {
     height: string;
     dragging: boolean;
     selectOptionFilter?: boolean;
+    otherPoints?: Coordinates[];
 }
 
 export interface Coordinates {
     lat: string;
     lon: string;
+    description?: string;
 }

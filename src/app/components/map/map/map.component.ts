@@ -15,11 +15,16 @@ export class MapComponent implements AfterViewInit {
 
     protected map: any;
 
-    public static zoom: number = 18;
-    public static zoomMax: number = 19;
-    public static zoomMin: number = 4;
+    public static readonly zoom: number = 18;
+    public static readonly zoomMax: number = 19;
+    public static readonly zoomMin: number = 4;
 
     protected mapViewUrl: string = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
+
+    // circle
+    protected static readonly circleColor = '#7fd3f7';
+    protected static readonly circleOpacity = 0.5;
+    protected static readonly circleRadius = 10;
 
     constructor() {}
 
@@ -49,13 +54,36 @@ export class MapComponent implements AfterViewInit {
 
         tiles.addTo(this.map);
 
-        let circle: L.Circle | undefined = undefined;
         if (conf.showCircle) {
-            circle = L.circle([+conf.center.lat, +conf.center.lon], {
-                fillColor: '#7fd3f7',
-                fillOpacity: 0.5,
-                radius: 10,
-            }).addTo(this.map);
+            this.setCircle(+conf.center.lat, +conf.center.lon);
         }
+    }
+
+    protected setCircle(
+        lat: number,
+        lon: number,
+        popupDescription: string | undefined = undefined,
+        circleColor = MapComponent.circleColor,
+        circleOpacity = MapComponent.circleOpacity,
+        circleRadius = MapComponent.circleRadius
+    ) {
+        let circle = L.circle([lat, lon], {
+            fillColor: circleColor,
+            fillOpacity: circleOpacity,
+            radius: circleRadius,
+        }).addTo(this.map);
+
+        if (popupDescription) {
+            circle.bindPopup(popupDescription);
+
+            circle.on('mouseover', (ev) => {
+                ev.target.openPopup();
+            });
+            circle.on('mouseout', (ev) => {
+                ev.target.closePopup();
+            });
+        }
+
+        return circle;
     }
 }
