@@ -4,8 +4,8 @@ import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { addressGenerator } from 'src/app/utils/address/address';
-import { detect } from 'src/app/utils/view/detector';
-import { ResolutionType } from '../view/type';
+import { detect } from 'src/app/utils/screen/detector';
+import { ResolutionType } from '../screen/type';
 
 export class CreateAddress {
     public addressInputForm: InputForm = {
