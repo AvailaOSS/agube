@@ -71,6 +71,8 @@ class ReservoirListView(APIView):
                 'capacity': str(reservoir.capacity),
                 'inlet_flow': str(reservoir.inlet_flow),
                 'outlet_flow': str(reservoir.outlet_flow),
+                'latitude': reservoir.geolocation.latitude,
+                'longitude': reservoir.geolocation.longitude,
             }
             list_of_serialized.append(
                 ReservoirDetailSerializer(data, many=False).data)

@@ -106,6 +106,8 @@ class DwellingListView(APIView):
                 'water_meter_code': water_meter_code,
                 'resident_first_name': resident_first_name,
                 'resident_phone': user_phone_number,
+                'latitude': dwelling.geolocation.latitude,
+                'longitude': dwelling.geolocation.longitude,
             }
 
             list_of_serialized.append(
