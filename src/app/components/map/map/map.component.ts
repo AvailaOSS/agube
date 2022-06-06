@@ -35,7 +35,7 @@ export class MapComponent implements AfterViewInit {
             this.map.remove();
         }
         this.map = L.map(conf.id, {
-            center: [+conf.lat, +conf.lon],
+            center: [+conf.center.lat, +conf.center.lon],
             doubleClickZoom: false,
             zoom: conf.zoom,
             dragging: conf.dragging,
@@ -51,7 +51,7 @@ export class MapComponent implements AfterViewInit {
 
         let circle: L.Circle | undefined = undefined;
         if (conf.showCircle) {
-            circle = L.circle([+conf.lat, +conf.lon], {
+            circle = L.circle([+conf.center.lat, +conf.center.lon], {
                 fillColor: '#7fd3f7',
                 fillOpacity: 0.5,
                 radius: 10,

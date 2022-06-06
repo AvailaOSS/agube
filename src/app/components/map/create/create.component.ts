@@ -125,8 +125,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 this.fillMissingAddress(this.selectedStreetCandidate);
 
                 if (this.clickUser) {
-                    this.selectedStreetCandidate.lat = this.clickUser!.lat;
-                    this.selectedStreetCandidate.lon = this.clickUser!.lon;
+                    this.selectedStreetCandidate.lat = this.clickUser!.center.lat;
+                    this.selectedStreetCandidate.lon = this.clickUser!.center.lon;
                 }
             }
         });
@@ -219,8 +219,8 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
         // reset the map to new location
         if (clickConf) {
-            lat = clickConf.lat;
-            lon = clickConf.lon;
+            lat = clickConf.center.lat;
+            lon = clickConf.center.lon;
             this.selectedStreetCandidate = {
                 address: candidate.address,
                 display_name: candidate.display_name,
@@ -232,8 +232,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
         this.initializeMap({
             id: this.mapId,
-            lat: lat,
-            lon: lon,
+            center: {
+                lat: lat,
+                lon: lon,
+            },
             zoom: MapComponent.zoom,
             showCircle: true,
             height: this.configureMap!.height,
@@ -320,12 +322,13 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 this.selectOptionFilter(response[0]);
             } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
                 // go to the location configured
-                this.getLocationByCoordinate(Number(this.configureMap!.lat), Number(this.configureMap!.lon)).subscribe(
-                    (response: LocationResponse) => {
-                        this.candidateComponents?.deselectAll();
-                        this.selectCandidate(response, this.configureMap);
-                    }
-                );
+                this.getLocationByCoordinate(
+                    Number(this.configureMap!.center.lat),
+                    Number(this.configureMap!.center.lon)
+                ).subscribe((response: LocationResponse) => {
+                    this.candidateComponents?.deselectAll();
+                    this.selectCandidate(response, this.configureMap);
+                });
             }
         });
     }
@@ -340,7 +343,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
             this.zoom = conf.zoom;
             this.map = L.map('map', {
-                center: [+conf.lat, +conf.lon],
+                center: [+conf.center.lat, +conf.center.lon],
                 doubleClickZoom: false,
                 zoom: this.zoom,
             });
@@ -354,7 +357,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
             let circle: L.Circle | undefined = undefined;
             if (conf.showCircle) {
-                circle = L.circle([+conf.lat, +conf.lon], {
+                circle = L.circle([+conf.center.lat, +conf.center.lon], {
                     fillColor: '#7fd3f7',
                     fillOpacity: 0.5,
                     radius: 10,
@@ -372,8 +375,10 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
                 let clickConf: ConfigureMap = {
                     id: this.mapId,
-                    lat: e.latlng.lat,
-                    lon: e.latlng.lng,
+                    center: {
+                        lat: e.latlng.lat,
+                        lon: e.latlng.lng,
+                    },
                     zoom: this.zoom,
                     showCircle: true,
                     height: conf.height,
@@ -387,7 +392,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 this.initializeMap(clickConf);
                 this.clickUser = clickConf;
 
-                this.getLocationByCoordinate(Number(clickConf.lat), Number(clickConf.lon)).subscribe(
+                this.getLocationByCoordinate(Number(clickConf.center.lat), Number(clickConf.center.lon)).subscribe(
                     (response: LocationResponse) => {
                         this.selectCandidate(response, clickConf);
                         if (this.selectedStreetCandidate) {

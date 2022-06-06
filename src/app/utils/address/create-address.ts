@@ -28,8 +28,10 @@ export class CreateAddress {
     // Map configuration for select Address
     public configureMap: ConfigureMap = {
         id: 'create_map',
-        lat: '39.92666',
-        lon: '-2.33976',
+        center: {
+            lat: '39.92666',
+            lon: '-2.33976',
+        },
         zoom: 6,
         showCircle: false,
         height: '450px',

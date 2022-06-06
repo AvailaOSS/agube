@@ -85,8 +85,10 @@ export class DetailComponent implements OnInit {
             geolocation: geolocation,
             configureMap: {
                 id: this.mapId,
-                lat: geolocation.latitude,
-                lon: geolocation.longitude,
+                center: {
+                    lat: geolocation.latitude,
+                    lon: geolocation.longitude,
+                },
                 zoom: geolocation.zoom,
                 showCircle: true,
                 height: '300px',
@@ -152,8 +154,10 @@ export class DetailComponent implements OnInit {
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
             id: 'detail_map',
-            lat: geolocation.latitude,
-            lon: geolocation.longitude,
+            center: {
+                lat: geolocation.latitude,
+                lon: geolocation.longitude,
+            },
             zoom: geolocation.zoom,
             showCircle: true,
             height: this.mapHeight,
