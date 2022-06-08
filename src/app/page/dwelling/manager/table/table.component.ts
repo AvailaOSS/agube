@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TableReloadService } from './table-reload.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { Detail } from '../../detail/detail';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { DwellingDetail } from '@availa/agube-rest-api';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { Detail } from '../../detail/detail';
+import { TableReloadService } from './table-reload.service';
 
 @Component({
     selector: 'app-table',

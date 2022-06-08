@@ -1,23 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ManagerRoutingModule } from './manager-routing.module';
-import { ManagerComponent } from './manager.component';
-import { TableComponent } from './table/table.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { PipesModule } from 'src/app/pipes/pipes.module';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { InfoComponent } from './info/info.component';
+import { ManagerRoutingModule } from './manager-routing.module';
+import { ManagerComponent } from './manager.component';
+import { TableReloadService } from './table/table-reload.service';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
     declarations: [ManagerComponent, TableComponent, InfoComponent],
@@ -38,5 +38,6 @@ import { InfoComponent } from './info/info.component';
         TranslateModule,
         MatPaginatorModule,
     ],
+    providers: [TableReloadService],
 })
 export class ManagerDwellingModule {}
