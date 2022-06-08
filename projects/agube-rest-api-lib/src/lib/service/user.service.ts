@@ -1212,13 +1212,14 @@ export class UserService {
       formParams = formParams.append('photo', <any>photo) || formParams;
     }
 
-    return this.httpClient.post<any>(
+    return this.httpClient.post(
       `${this.basePath}/user/photo`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        responseType: 'blob',
         reportProgress: reportProgress,
       }
     );
