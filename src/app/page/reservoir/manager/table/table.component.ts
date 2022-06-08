@@ -3,8 +3,9 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { ReservoirDetail } from '@availa/agube-rest-api';
 import { Detail } from 'src/app/page/reservoir/detail/detail';
+import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 
 @Component({
     selector: 'app-table',
@@ -23,7 +24,7 @@ export class TableComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    constructor(private router: Router, private svcReservoir: ReservoirService) {}
+    constructor(private router: Router, private svcReservoir: ReservoirCacheService) {}
 
     ngOnInit(): void {
         //FIXME: set pagination into table
@@ -53,7 +54,7 @@ export class TableComponent implements OnInit {
     }
 
     private loadReservoirs() {
-        this.svcReservoir.getReservoirs().subscribe((response) => {
+        this.svcReservoir.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });

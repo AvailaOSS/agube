@@ -4,8 +4,8 @@ import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { addressGenerator } from 'src/app/utils/address/address';
-import { detect } from 'src/app/utils/view/detector';
-import { ResolutionType } from '../view/type';
+import { detect } from 'src/app/utils/screen/detector';
+import { ResolutionType } from '../screen/type';
 
 export class CreateAddress {
     public addressInputForm: InputForm = {
@@ -28,8 +28,10 @@ export class CreateAddress {
     // Map configuration for select Address
     public configureMap: ConfigureMap = {
         id: 'create_map',
-        lat: '39.92666',
-        lon: '-2.33976',
+        center: {
+            lat: '39.92666',
+            lon: '-2.33976',
+        },
         zoom: 6,
         showCircle: false,
         height: '450px',

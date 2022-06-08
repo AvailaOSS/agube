@@ -95,8 +95,10 @@ export class Detail {
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
             id: this.mapId,
-            lat: geolocation.latitude,
-            lon: geolocation.longitude,
+            center: {
+                lat: geolocation.latitude,
+                lon: geolocation.longitude,
+            },
             zoom: geolocation.zoom,
             showCircle: true,
             height: this.mapHeight,

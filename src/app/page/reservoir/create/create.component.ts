@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
@@ -6,13 +6,15 @@ import { NotificationService } from '@availa/notification';
 import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
+import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { build } from 'src/app/utils/coordinates/coordinates-builder';
 
 @Component({
     selector: 'app-page-reservoir-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent extends CreateAddress {
+export class CreateComponent extends CreateAddress implements OnInit {
     public reservoirForm: FormGroup | undefined;
     public code = new FormControl('', [Validators.required]);
     public capacity = new FormControl('', [Validators.required]);
@@ -27,6 +29,7 @@ export class CreateComponent extends CreateAddress {
         private router: Router,
         private svcNotification: NotificationService,
         private svcReservoir: ReservoirService,
+        private svcReservoirCache: ReservoirCacheService,
         private svcAccount: AccountService,
         private formBuilder: FormBuilder
     ) {
@@ -49,11 +52,19 @@ export class CreateComponent extends CreateAddress {
         };
 
         // configure map height
-        this.setMapResolution('220px', '550px', '1020px');
+        this.setMapResolution('220px', '500px', '1020px');
 
         // get user Id to assign the reservoir as owner
         this.svcAccount.getUser().subscribe((response) => {
             this.userId = response!.user_id;
+        });
+    }
+
+    ngOnInit(): void {
+        this.svcReservoirCache.get().then((response) => {
+            if (response && response.length > 0) {
+                this.configureMap.otherPoints = response.map((reservoir) => build(reservoir));
+            }
         });
     }
 

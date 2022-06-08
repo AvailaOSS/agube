@@ -66,8 +66,10 @@ export class EditComponent extends CreateAddress {
             geolocation: this.geolocation.geolocation.geolocation,
             configureMap: {
                 id: 'edit_map',
-                lat: geolocation.latitude,
-                lon: geolocation.longitude,
+                center: {
+                    lat: geolocation.latitude,
+                    lon: geolocation.longitude,
+                },
                 zoom: geolocation.zoom,
                 showCircle: true,
                 height: '350px',
