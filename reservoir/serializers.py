@@ -3,13 +3,12 @@ from django.contrib.auth.models import User
 from dwelling.assemblers import (get_all_user_geolocation_serialized,
                                  get_user_phones_serialized)
 from user.serializers import UserCreateSerializer
-from rest_framework.fields import CharField, ReadOnlyField
+from rest_framework.fields import CharField, ReadOnlyField, DecimalField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.serializers import WaterMeterSerializer
 
 from reservoir.models import Reservoir, ReservoirOwner
-from geolocation.models import Geolocation
 
 
 class ReservoirResumeSerializer(Serializer):
@@ -126,7 +125,8 @@ class ReservoirOwnerSerializer(ModelSerializer):
                 "last_name": instance.user.last_name,
                 "email": instance.user.email,
                 "phones": get_user_phones_serialized(instance.user),
-                "geolocation": get_all_user_geolocation_serialized(instance.user)
+                "geolocation":
+                get_all_user_geolocation_serialized(instance.user)
             },
             "release_date": instance.release_date,
             "discharge_date": instance.discharge_date
@@ -167,6 +167,8 @@ class ReservoirDetailSerializer(Serializer):
                             min_length=None,
                             allow_blank=False,
                             trim_whitespace=True)
+    latitude = DecimalField(max_digits=18, decimal_places=15)
+    longitude = DecimalField(max_digits=18, decimal_places=15)
 
     class Meta:
         ref_name = 'ReservoirDetail'

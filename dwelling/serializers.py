@@ -1,9 +1,8 @@
-from geolocation.models import Geolocation
 from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from manager.models import Manager
-from rest_framework.fields import CharField, ReadOnlyField
+from rest_framework.fields import CharField, ReadOnlyField, DecimalField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.serializers import WaterMeterSerializer
 
@@ -111,6 +110,8 @@ class DwellingDetailSerializer(Serializer):
                                min_length=None,
                                allow_blank=False,
                                trim_whitespace=True)
+    latitude = DecimalField(max_digits=18, decimal_places=15)
+    longitude = DecimalField(max_digits=18, decimal_places=15)
 
     class Meta:
         ref_name = 'DwellingDetail'
