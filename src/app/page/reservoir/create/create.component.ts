@@ -7,7 +7,7 @@ import { AccountService } from '@availa/auth-fe';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
-import { Coordinates } from 'src/app/components/map/map/configure-map';
+import { build } from 'src/app/utils/coordinates/coordinates-builder';
 
 @Component({
     selector: 'app-page-reservoir-create',
@@ -52,7 +52,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         };
 
         // configure map height
-        this.setMapResolution('220px', '550px', '1020px');
+        this.setMapResolution('220px', '500px', '1020px');
 
         // get user Id to assign the reservoir as owner
         this.svcAccount.getUser().subscribe((response) => {
@@ -63,14 +63,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     ngOnInit(): void {
         this.svcReservoirCache.get().then((response) => {
             if (response && response.length > 0) {
-                this.configureMap.otherPoints = response.map((reservoir) => {
-                    let coordinates: Coordinates = {
-                        lat: String(reservoir.latitude),
-                        lon: String(reservoir.longitude),
-                        description: reservoir.road + ' nº ' + reservoir.number,
-                    };
-                    return coordinates;
-                });
+                this.configureMap.otherPoints = response.map((reservoir) => build(reservoir));
             }
         });
     }

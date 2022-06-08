@@ -7,6 +7,7 @@ import { NotificationService } from '@availa/notification';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { build } from 'src/app/utils/coordinates/coordinates-builder';
 
 @Component({
     selector: 'app-page-dwelling-create',
@@ -32,14 +33,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     ngOnInit(): void {
         this.svcDwellingCache.get().then((response) => {
             if (response && response.length > 0) {
-                this.configureMap.otherPoints = response.map((dwelling) => {
-                    let coordinates: Coordinates = {
-                        lat: String(dwelling.latitude),
-                        lon: String(dwelling.longitude),
-                        description: dwelling.road + ' nº ' + dwelling.number,
-                    };
-                    return coordinates;
-                });
+                this.configureMap.otherPoints = response.map((dwelling) => build(dwelling));
             }
         });
     }
