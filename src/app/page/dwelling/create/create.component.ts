@@ -30,7 +30,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     ngOnInit(): void {
-        this.svcDwellingCache.getDwellings().then((response) => {
+        this.svcDwellingCache.get().then((response) => {
             if (response && response.length > 0) {
                 this.configureMap.otherPoints = response.map((dwelling) => {
                     let coordinates: Coordinates = {

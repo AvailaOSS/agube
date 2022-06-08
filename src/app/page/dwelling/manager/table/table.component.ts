@@ -64,7 +64,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     private loadDwellings() {
-        this.svcDwelling.getDwellings().then((response) => {
+        this.svcDwelling.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });

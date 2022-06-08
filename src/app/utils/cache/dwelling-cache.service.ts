@@ -1,25 +1,26 @@
+import { ICacheService } from './interface-cache.service';
 import { Injectable } from '@angular/core';
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
 
 @Injectable({
     providedIn: 'root',
 })
-export class DwellingCacheService {
-    private dwellings: DwellingDetail[] = [];
+export class DwellingCacheService implements ICacheService<DwellingDetail> {
+    cache: DwellingDetail[] = [];
 
     constructor(private svcDwelling: DwellingService) {}
 
-    public getDwellings(): Promise<DwellingDetail[]> {
+    public get(): Promise<DwellingDetail[]> {
         var promise = new Promise<DwellingDetail[]>((resolve, reject) => {
-            if (this.dwellings.length > 0) {
+            if (this.cache.length > 0) {
                 console.debug('dwellings from cache');
-                resolve(this.dwellings);
+                resolve(this.cache);
                 return;
             }
             this.svcDwelling.getDwellings().subscribe((response) => {
-                this.dwellings = response;
+                this.cache = response;
                 console.debug('dwellings received directly from backend');
-                resolve(this.dwellings);
+                resolve(this.cache);
                 return;
             });
         });
@@ -27,6 +28,6 @@ export class DwellingCacheService {
     }
 
     public clean(): void {
-        this.dwellings = [];
+        this.cache = [];
     }
 }
