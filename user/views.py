@@ -257,11 +257,11 @@ class UserDwellingDetailView(APIView):
 
         dwelling_resident_set = set(dwelling_list_as_resident).difference(
             dwelling_owner_resident_set)
+
         serialized_data_list.extend(
             self.__serialize_user_dwelling_data(dwelling_resident_set,
                                                 is_resident=True,
                                                 is_owner=False))
-
         return Response(serialized_data_list)
 
     def __serialize_user_dwelling_data(self, dwelling_list_set, is_owner,
@@ -292,11 +292,13 @@ class UserDwellingDetailView(APIView):
                 'resident_first_name': resident_first_name,
                 'resident_phone': resident_phone_number,
                 'is_owner': is_owner,
-                'is_resident': is_resident
+                'is_resident': is_resident,
+                'latitude': dwelling.geolocation.latitude,
+                'longitude': dwelling.geolocation.longitude
             }
+
             list_of_serialized.append(
                 UserDwellingDetailSerializer(data, many=False).data)
-
         return list_of_serialized
 
 
