@@ -47,6 +47,7 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    urlpatterns.append(path('health-check/', include('health_check.urls'))),
     urlpatterns.append(path('admin/', admin.site.urls))
     urlpatterns.append(path('api-auth/', include('rest_framework.urls')))
     urlpatterns.append(

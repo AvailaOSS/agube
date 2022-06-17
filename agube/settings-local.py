@@ -44,10 +44,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Cors
     'corsheaders',
+    # Running Health Checks
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
+    # Rest
     'rest_framework',
     'rest_framework_jwt',
+    # Swagger
     'drf_yasg',
+    # Apps
     'user',
     'manager',
     'address',

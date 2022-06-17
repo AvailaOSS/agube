@@ -51,10 +51,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Cors
     'corsheaders',
+    # Running Health Checks
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
+    # Rest
     'rest_framework',
     'rest_framework_jwt',
+    # Swagger
     'drf_yasg',
+    # Apps
     'user',
     'manager',
     'address',
@@ -106,12 +114,12 @@ WSGI_APPLICATION = 'agube.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE"),
-        'NAME': os.environ.get("SQL_DATABASE"),
-        'USER': os.environ.get("SQL_USER"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD"),
-        'HOST': os.environ.get("SQL_HOST"),
-        'PORT': os.environ.get("SQL_PORT"),
+        'ENGINE': os.environ.get("DATABASE_ENGINE"),
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("DATABASE_USERNAME"),
+        'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
+        'HOST': os.environ.get("DATABASE_HOST"),
+        'PORT': os.environ.get("DATABASE_PORT"),
         'ATOMIC_REQUESTS': True,
     }
 }

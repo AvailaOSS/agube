@@ -12,6 +12,7 @@ coreschema==0.0.4
 coverage==5.4
 Django==3.1.5
 django-cors-headers==3.6.0
+django-health-check==3.16.5
 djangorestframework==3.12.2
 djangorestframework-jwt==1.11.0
 dnspython==2.1.0
