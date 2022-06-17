@@ -86,6 +86,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
         this.onSave()!.subscribe({
             next: (response) => {
+                this.svcReservoirCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
             },
@@ -105,6 +106,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
         this.onSave()!.subscribe({
             next: (response) => {
+                this.svcReservoirCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
                 this.exit();
