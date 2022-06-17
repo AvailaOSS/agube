@@ -70,3 +70,9 @@ Execute tests with coverage statistics
 ```bash
 pytest --cov --cov-report=html
 ```
+
+
+## ✔️ Check django project
+```
+python3 manage.py check --deploy
+```

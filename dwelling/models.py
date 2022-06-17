@@ -69,8 +69,7 @@ class Dwelling(models.Model):
         # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""
         try:
-            return Resident.objects.get(dwelling=self,
-                                                discharge_date=None)
+            return Resident.objects.get(dwelling=self, discharge_date=None)
         except ObjectDoesNotExist:
             return None
 

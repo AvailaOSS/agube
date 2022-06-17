@@ -112,8 +112,6 @@ class ReservoirOwnerSerializer(ModelSerializer):
         )
 
     def to_representation(self, instance: ReservoirOwner):
-        user_serialized = UserCreateSerializer(instance.user).data
-        user = user_serialized
         reservoir_owner_serialized = {
             "id": instance.id,
             "reservoir_id": instance.reservoir.id,

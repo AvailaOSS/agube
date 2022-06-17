@@ -15,8 +15,17 @@ db.sqlite3-journal
 #git
 .git
 .gitignore
+.gitlab-ci
 
 #docker
 settings-local.py
 Dockerfile
 docker*
+
+#others
+.idea
+.vscode
+.pytest_cache
+__pycache__
+htmlcov
+.coverage
