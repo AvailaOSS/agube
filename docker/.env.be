@@ -11,7 +11,7 @@ SQL_DATABASE=agube_db
 SQL_USER=developer
 SQL_PASSWORD=developer
 
-CELERY_BROKER_URL=amqp://developer:developer@rabbitmq:5672//
-AGUBE_PUBLISH_USER_TASKS = "[{\"task\": \"contactbook.celery.new_user_published\", \"exchange\":\"contactbook_exchange\", \"routing_key\":\"contactbook.user\"}]"
+MQ_BROKER_URL=amqp://developer:developer@rabbitmq:5672//
+MQ_EXCHANGE=develop
 
-PUBLIC_APP_NAME = Agube
+PUBLIC_APP_NAME=Agube

@@ -2,6 +2,7 @@
 doc
 docs
 README.md
+asyncapi.yml
 
 #environments
 env

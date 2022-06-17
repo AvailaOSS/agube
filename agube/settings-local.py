@@ -24,12 +24,11 @@ SECRET_KEY = 'q32oo=%+f$+$9f10vvg#ysk&azthlts*4phkc(0lezf_sgd6@^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Celery Configuration Options
-# CELERY_BROKER_URL = "amqp://developer:developer@rabbitmq:5672//"
-# AGUBE_PUBLISH_USER_TASKS = [{"task": "agube.celery.new_user_published", "exchange":"agube_exchange", "routing_key":"agube.user"},{"task": "contactbook.celery.new_user_published", "exchange":"contactbook_exchange", "routing_key":"contactbook.user"}]
-AGUBE_PUBLISH_USER_TASKS = []
-
 PUBLIC_APP_NAME = 'Agube'
+
+# MQ BROKER
+MQ_BROKER_URL = ''
+MQ_EXCHANGE = ''
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

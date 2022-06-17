@@ -27,11 +27,11 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-# Celery Configuration Options
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
-AGUBE_PUBLISH_USER_TASKS = json.loads(os.environ.get("AGUBE_PUBLISH_USER_TASKS"))
-
 PUBLIC_APP_NAME = os.environ.get("PUBLIC_APP_NAME")
+
+# MQ BROKER
+MQ_BROKER_URL = os.environ.get("MQ_BROKER_URL")
+MQ_EXCHANGE = os.environ.get("MQ_EXCHANGE")
 
 # Email
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
