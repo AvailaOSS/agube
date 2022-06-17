@@ -1,77 +1,72 @@
-Agube
-===
+# Agube
 
-## 🚀 start project
+## 🚀 Start project
+
 First step to start project
-```
- django-admin startproject agube
-```
-```
- python -m venv venv
-```
-```
- venv\Scripts\activate
-```
-```
- pip install Django
+
+```bash
+django-admin startproject agube
+python -m venv venv
+venv\Scripts\activate
+pip install Django
 ```
 
-## ✂️ shortcuts
-Shortcuts utils for django applications
+## 💻 Django Commands
+
+Commands for django applications
+
+```bash
+pip freeze > requirements.txt
+pip install -r requirements.txt
 ```
- pip freeze > requirements.txt
+
+```bash
+python manage.py startapp [your-app-name]
 ```
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
 ```
- pip install -r requirements.txt
+
+```bash
+python manage.py makemigrations --name [your-name] --empty [your-app]
 ```
-```
- python manage.py runserver
-```
-```
- python manage.py makemigrations
-```
-```
- python manage.py makemigrations --name [your-name] --empty [your-app]
-```
-```
- python manage.py migrate
-```
-```
- python manage.py startapp [your-app-name]
+
+```bash
+python manage.py runserver
 ```
 
 ## 💿 sqlite3
-run project with local settings and sqlite3 (without docker image)
-```
- python manage.py runserver --settings agube.settings-local
-```
-```
- python manage.py migrate --settings agube.settings-local
+
+Run project with local settings and sqlite3 (without docker image)
+
+```bash
+python manage.py runserver --settings agube.settings-local
+python manage.py migrate --settings agube.settings-local
 ```
 
 ## 🐳 docker
-run project with docker images
-```
- cd docker
-```
-```
- docker-compose up
+
+Run project with docker images
+
+```bash
+cd docker
+docker-compose up
 ```
 
-## 🍆 celery
-run celery to use rabbitmq queues into the application
-```
- celery -A agube.celery worker -l INFO
+## 📮 MQ
+
+Run MQ consumer in new CLI
+
+```bash
+python manage.py agube-consumer.py
 ```
 
-## 🌷 flower
-run flower to show info of rabbitmq queues
-```
- celery -A agube.celery flower --port=5555
-```
+## ✅ Tests
 
-## ✅ tests
-execute tests with coverage statistics
-```
- pytest --cov --cov-report=html
+Execute tests with coverage statistics
+
+```bash
+pytest --cov --cov-report=html
 ```
