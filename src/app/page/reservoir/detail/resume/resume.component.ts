@@ -19,6 +19,7 @@ export class ResumeComponent implements OnChanges {
 
         this.svcReservoir.getReservoir(this.reservoirId).subscribe({
             next: (response) => {
+                console.log(response)
                 this.reservoir = response;
             },
             error: () => {
