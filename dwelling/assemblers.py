@@ -2,6 +2,7 @@ from enum import Enum
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction
 from django.utils.crypto import get_random_string
 from owner.models import Owner
 from user.models import UserGeolocation, UserPhone
@@ -40,64 +41,66 @@ def create_user_geolocation(user: User, validated_data: GeolocationSerializer,
 
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
                 manager: Manager):
-    # Extract unnecessary data
-    phones: list[PhoneSerializer] = validated_data.pop('phones')
-    geolocations: list[GeolocationSerializer] = []
-    if 'geolocation' in validated_data:
-        geolocations = validated_data.pop('geolocation')
 
-    # Generate activation code for the new user
-    retry = True
-    activation_code = get_random_string(length=6)
+    with transaction.atomic():
+        # Extract unnecessary data
+        phones: list[PhoneSerializer] = validated_data.pop('phones')
+        geolocations: list[GeolocationSerializer] = []
+        if 'geolocation' in validated_data:
+            geolocations = validated_data.pop('geolocation')
 
-    while retry:
-        try:
-            User.objects.get(username=activation_code)
-        except ObjectDoesNotExist:
-            retry = False
+        # Generate activation code for the new user
+        retry = True
         activation_code = get_random_string(length=6)
 
-    # Create User
-    user: User = User.objects.create(username=activation_code,
-                                     **validated_data)
-    user.is_active = False
-    user.save()
+        while retry:
+            try:
+                User.objects.get(username=activation_code)
+            except ObjectDoesNotExist:
+                retry = False
+            activation_code = get_random_string(length=6)
 
-    # first_iteration will be save as main phone/geolocation
-    first_iteration = True
-    firstPhone = ''
+        # Create User
+        user: User = User.objects.create(username=activation_code,
+                                        **validated_data)
+        user.is_active = False
+        user.save()
 
-    # Create User Phones
-    for phone in phones:
-        if first_iteration:
-            firstPhone = phone['phone_number']
-        create_phone(user, phone, first_iteration)
-        first_iteration = False
+        # first_iteration will be save as main phone/geolocation
+        first_iteration = True
+        firstPhone = ''
 
-    # Create User geolocation
-    first_iteration = True
-    for geolocation in geolocations:
-        create_user_geolocation(user, geolocation, first_iteration)
-        first_iteration = False
+        # Create User Phones
+        for phone in phones:
+            if first_iteration:
+                firstPhone = phone['phone_number']
+            create_phone(user, phone, first_iteration)
+            first_iteration = False
 
-    # Important: create Person after create User
-    person = Person.objects.create(manager=manager, user=user)
+        # Create User geolocation
+        first_iteration = True
+        for geolocation in geolocations:
+            create_user_geolocation(user, geolocation, first_iteration)
+            first_iteration = False
 
-    # Set Manager Configuration for this Person
-    manager_config = PersonConfig.objects.get(person__user=manager.user)
-    PersonConfig.objects.create(person=person,
-                                mode=manager_config.mode,
-                                lang=manager_config.lang)
+        # Important: create Person after create User
+        person = Person.objects.create(manager=manager, user=user)
 
-    if PersonTag.OWNER == tag:
-        email_type = EmailType.OWNER_EMAIL
-    else:
-        email_type = EmailType.RESIDENT_EMAIL
+        # Set Manager Configuration for this Person
+        manager_config = PersonConfig.objects.get(person__user=manager.user)
+        PersonConfig.objects.create(person=person,
+                                    mode=manager_config.mode,
+                                    lang=manager_config.lang)
 
-    # send email to user created
-    send_user_creation_email(user, email_type)
-    # publish that user was created
-    publish_user_created(tag, manager, user, firstPhone)
+        if PersonTag.OWNER == tag:
+            email_type = EmailType.OWNER_EMAIL
+        else:
+            email_type = EmailType.RESIDENT_EMAIL
+
+        # publish that user was created
+        transaction.on_commit(lambda: publish_user_created(tag, manager, user, firstPhone))
+        # send email to user created
+        transaction.on_commit(lambda: send_user_creation_email(user, email_type))
 
     return user
 

@@ -1,6 +1,5 @@
 import json
 
-from celery.decorators import task
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -10,15 +9,6 @@ from person.models import PersonConfig
 from phone.models import Phone
 from user.models import UserPhone
 
-@task(autoretry_for=(ObjectDoesNotExist, ),
-      retry_kwargs={
-          'max_retries': 5,
-          'countdown': 5
-      },
-      retry_backoff=True,
-      name="agube.celery.new_user_published",
-      queue='agube',
-      exchange='agube_exchange')
 def new_user_published(data):
     # TODO: check json is valid
     json_response = json.loads(data)
