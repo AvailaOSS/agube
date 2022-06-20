@@ -46,15 +46,6 @@ python manage.py runserver --settings agube.settings-local
 python manage.py migrate --settings agube.settings-local
 ```
 
-## 🐳 docker
-
-Run project with docker images
-
-```bash
-cd docker
-docker-compose up
-```
-
 ## 📮 MQ
 
 Run MQ consumer in new CLI
@@ -71,8 +62,8 @@ Execute tests with coverage statistics
 pytest --cov --cov-report=html
 ```
 
-
 ## ✔️ Check django project
-```
+
+```bash
 python3 manage.py check --deploy
 ```
