@@ -9,8 +9,8 @@
 /bazel-out
 
 # node
-.npmrc
 .angular/*
+.npmrc
 
 # dependencies
 /node_modules
