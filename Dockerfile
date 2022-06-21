@@ -12,3 +12,6 @@ RUN pip install -r requirements.txt
 
 # Copy code
 COPY . .
+
+# guinicorn workers = (2 * CPU Cores) + 1
+CMD gunicorn --bind 0.0.0.0:8000 --workers 3 --log-level debug agube.wsgi
