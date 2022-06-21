@@ -8,7 +8,6 @@ ARG GITLAB_AUTH_TOKEN
 RUN npm config set -- '@availa:registry=https://gitlab.com/api/v4/packages/npm/:_authToken' "$GITLAB_AUTH_TOKEN"
 RUN npm config set -- '//gitlab.com/api/v4/packages/npm/:_authToken' "$GITLAB_AUTH_TOKEN"
 
-# RUN npm config list --json
 
 # Install dependencies
 COPY package*.json ./
