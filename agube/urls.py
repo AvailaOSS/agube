@@ -34,6 +34,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', include('django_prometheus.urls')),
     path(base_url + 'address', include(urls_address)),
     path(base_url + 'dwelling', include(urls_dwelling)),
     path(base_url + 'reservoir', include(urls_reservoir)),
