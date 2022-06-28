@@ -1,7 +1,6 @@
 export const environment = {
     production: true,
     appName: 'Agube',
-    apiUrl: 'http://localhost:4000',
     googleMapsApiKey: '',
     // docker-compose.yml contains port config
     authBackendUrl: 'http://localhost:30004/api/v1/auth',
