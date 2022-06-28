@@ -1,9 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Manager(models.Model):
+class Manager(ExportModelOperationsMixin('Manager'), models.Model):
     user: User = models.OneToOneField(User,
                                       primary_key=True,
                                       on_delete=models.RESTRICT)
@@ -31,7 +32,7 @@ class Manager(models.Model):
             hook_price=hook_price)
 
 
-class ManagerConfiguration(models.Model):
+class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), models.Model):
     manager: Manager = models.ForeignKey(Manager,
                                          on_delete=models.RESTRICT,
                                          unique=False)

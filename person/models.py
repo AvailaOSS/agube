@@ -1,8 +1,10 @@
 from weakref import proxy
-from django.db import models
+
 from django.contrib.auth.models import User
-from manager.models import Manager
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
+from manager.models import Manager
 
 
 def person_directory_path(instance, filename):
@@ -10,7 +12,7 @@ def person_directory_path(instance, filename):
     return 'person/{0}/photo/{1}'.format(instance.id, filename)
 
 
-class Person(models.Model):
+class Person(ExportModelOperationsMixin('Person'), models.Model):
     """A class used to represent an Person"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT)
     user: User = models.OneToOneField(User, on_delete=models.RESTRICT)
@@ -37,7 +39,7 @@ class Person(models.Model):
             return None
 
 
-class PersonConfig(models.Model):
+class PersonConfig(ExportModelOperationsMixin('PersonConfig'), models.Model):
     """A class used to represent an Person Config"""
     person: Person = models.OneToOneField(
         Person,

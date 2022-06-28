@@ -1,13 +1,13 @@
-from geolocation.models import Geolocation
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from django_prometheus.models import ExportModelOperationsMixin
 from geolocation.models import Geolocation
 from watermeter.models import WaterMeter
 
 
-class Reservoir(models.Model):
+class Reservoir(ExportModelOperationsMixin('Reservoir'), models.Model):
     """A class used to represent an Reservoir"""
     geolocation: Geolocation = models.ForeignKey(Geolocation,
                                                  on_delete=models.PROTECT)
@@ -40,6 +40,7 @@ class Reservoir(models.Model):
 
     def get_current_owner(self):
         from reservoir.models import ReservoirOwner
+
         # type: (Reservoir) -> ReservoirOwner
         """returns the current reservoir_owner"""
         try:
@@ -91,7 +92,7 @@ class Reservoir(models.Model):
         self.save()
 
 
-class ReservoirOwner(models.Model):
+class ReservoirOwner(ExportModelOperationsMixin('ReservoirOwner'), models.Model):
     """A class used to represent an Owner-Reservoir ManyToMany"""
     reservoir: Reservoir = models.ForeignKey(Reservoir,
                                              on_delete=models.PROTECT)
@@ -114,7 +115,7 @@ class ReservoirOwner(models.Model):
         self.save()
 
 
-class ReservoirWaterMeter(models.Model):
+class ReservoirWaterMeter(ExportModelOperationsMixin('ReservoirWaterMeter'), models.Model):
     """A class used to represent an Reservoir Water Meter"""
     reservoir: Reservoir = models.ForeignKey(Reservoir,
                                              on_delete=models.RESTRICT)

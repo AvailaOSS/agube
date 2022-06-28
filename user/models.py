@@ -1,11 +1,12 @@
-from geolocation.models import Geolocation
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
+from geolocation.models import Geolocation
 from phone.models import Phone
 
 
-class UserGeolocation(models.Model):
+class UserGeolocation(ExportModelOperationsMixin('UserGeolocation'), models.Model):
     """A class used to represent an User Geolocation"""
     user: User = models.ForeignKey(User, on_delete=models.CASCADE)
     geolocation: Geolocation = models.ForeignKey(Geolocation,
@@ -17,7 +18,7 @@ class UserGeolocation(models.Model):
         ordering = ['-main']
 
 
-class UserPhone(models.Model):
+class UserPhone(ExportModelOperationsMixin('UserPhone'), models.Model):
     """A class used to represent an User Phone"""
     user: User = models.ForeignKey(User, on_delete=models.CASCADE)
     phone: Phone = models.ForeignKey(Phone, on_delete=models.CASCADE)

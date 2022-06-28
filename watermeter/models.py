@@ -1,9 +1,12 @@
-from watermeter.exceptions import WaterMeterDisabledError, WaterMeterMeasureInFutureError
 from django.db import models
-from django.utils import timezone, dateparse
+from django.utils import dateparse, timezone
+from django_prometheus.models import ExportModelOperationsMixin
+
+from watermeter.exceptions import (WaterMeterDisabledError,
+                                   WaterMeterMeasureInFutureError)
 
 
-class WaterMeter(models.Model):
+class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
     """A class used to represent an Water Meter"""
     code = models.TextField()
     release_date = models.DateTimeField()
@@ -57,7 +60,7 @@ class WaterMeter(models.Model):
         self.save()
 
 
-class WaterMeterMeasurement(models.Model):
+class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'), models.Model):
     """A class used to represent an Water Meter Measurement"""
     measurement = models.DecimalField(decimal_places=3, max_digits=8)
     date = models.DateTimeField()

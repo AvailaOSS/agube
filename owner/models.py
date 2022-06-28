@@ -1,14 +1,13 @@
-from django.db import models
-
-from dwelling.models import Dwelling
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from django_prometheus.models import ExportModelOperationsMixin
+from dwelling.models import Dwelling
 from manager.models import Manager
 
 
-class Owner(models.Model):
+class Owner(ExportModelOperationsMixin('Owner'), models.Model):
     """A class used to represent an Owner-Dwelling ManyToMany"""
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)
     user: User = models.ForeignKey(User, on_delete=models.PROTECT)
