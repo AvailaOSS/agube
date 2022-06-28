@@ -68,6 +68,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder, private svcAddress: AddressService) {
         super();
+        this.filter.markAsTouched();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
