@@ -51,7 +51,7 @@ python manage.py migrate --settings agube.settings-local
 Run MQ consumer in new CLI
 
 ```bash
-python manage.py agube-consumer.py
+python agube-consumer.py
 ```
 
 ## ✅ Tests
