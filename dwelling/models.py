@@ -1,17 +1,16 @@
-from geolocation.models import Geolocation
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from django_prometheus.models import ExportModelOperationsMixin
 from geolocation.models import Geolocation
-
 from manager.models import Manager
 from watermeter.models import WaterMeter
 
 from dwelling.exceptions import OwnerAlreadyIsResidentError
 
 
-class Dwelling(models.Model):
+class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
     """A class used to represent an Dwelling"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
     geolocation: Geolocation = models.ForeignKey(Geolocation,
@@ -44,6 +43,7 @@ class Dwelling(models.Model):
 
     def get_current_owner(self):
         from owner.models import Owner
+
         # type: (Dwelling) -> Owner
         """returns the current owner in the dwelling"""
         try:
@@ -66,6 +66,7 @@ class Dwelling(models.Model):
 
     def get_current_resident(self):
         from resident.models import Resident
+
         # type: (Dwelling) -> DwellingResident
         """returns the current resident in the dwelling"""
         try:
@@ -115,7 +116,7 @@ class Dwelling(models.Model):
         self.save()
 
 
-class DwellingWaterMeter(models.Model):
+class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'), models.Model):
     """A class used to represent an Dwelling Water Meter"""
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,

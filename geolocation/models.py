@@ -1,8 +1,9 @@
-from django.db import models
 from address.models import Address
+from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Geolocation(models.Model):
+class Geolocation(ExportModelOperationsMixin('Geolocation'), models.Model):
     """A class used to represent an Map Geolocation"""
     address: Address = models.ForeignKey(Address, on_delete=models.CASCADE)
     latitude = models.DecimalField(decimal_places=15, max_digits=18)

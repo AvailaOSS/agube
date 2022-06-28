@@ -1,7 +1,8 @@
 from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Address(models.Model):
+class Address(ExportModelOperationsMixin('Address'), models.Model):
     is_external = models.BooleanField(default=False)
     city = models.TextField()
     country = models.TextField()

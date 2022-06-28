@@ -1,14 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
-
-from user.models import UserGeolocation
+from django_prometheus.models import ExportModelOperationsMixin
 from manager.models import Manager
+from user.models import UserGeolocation
 
 
-class Resident(models.Model):
+class Resident(ExportModelOperationsMixin('Reservoir'), models.Model):
     """A class used to represent an Resident-Dwelling ManyToMany"""
     from dwelling.models import Dwelling
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.PROTECT)

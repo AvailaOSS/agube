@@ -1,7 +1,8 @@
 from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Phone(models.Model):
+class Phone(ExportModelOperationsMixin('Phone'), models.Model):
     phone_number = models.TextField()
 
     class Meta:
