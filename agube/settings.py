@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     # Swagger
     'drf_yasg',
+    # Monitoring
+    'django_prometheus',
     # Apps
     'user',
     'manager',
@@ -77,6 +79,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    # All your other middleware go here, including the default
+    # middleware like SessionMiddleware, CommonMiddleware,
+    # CsrfViewmiddleware, SecurityMiddleware, etc.
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,6 +91,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
