@@ -16,7 +16,7 @@ from rest_framework import permissions
 from watermeter.urls import urlpatterns as urls_water_meter
 from geolocation.urls import urlpatterns as urls_geolocation
 
-current_version = 'v1'
+current_version = 'v1.0.0'
 module_name = 'agube'
 base_url = 'api/' + current_version + '/' + module_name + '/'
 
