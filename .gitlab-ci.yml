@@ -1,27 +1,49 @@
-build:develop:
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE":latest .
-    - docker push "$CI_REGISTRY_IMAGE":latest
-    # - docker tag "$CI_REGISTRY_IMAGE":latest "$CI_REGISTRY_IMAGE":<id>
-    # - docker push "$CI_REGISTRY_IMAGE":<id>
-  only:
-    - gitlab-ci
+variables:
+  RELEASE_VERSION: 1.0.0
 
-build:release:
-  image: docker:latest
+stages:
+  - build
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+build_image_snapshot:
   stage: build
+  image: docker:20.10.17
   services:
-    - docker:dind
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'master' && $CI_COMMIT_TAG
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker:20.10.17-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE":$CI_COMMIT_TAG .
-    - docker push "$CI_REGISTRY_IMAGE":$CI_COMMIT_TAG
+    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT" .
+    - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT"
+  only:
+    - snapshot
+
+build_image_release_candidate:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-rc" .
+    - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-rc"
+  only:
+    - release
+
+build_image_release:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION .
+    - docker tag $CI_REGISTRY_IMAGE:$RELEASE_VERSION $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - master
