@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DwellingService, ResidentService, UserService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Detail } from '../detail';
 
 @Component({
@@ -17,9 +18,10 @@ export class ResidentDetailComponent extends Detail implements OnInit {
         protected override activatedRoute: ActivatedRoute,
         protected override svcDwelling: DwellingService,
         protected override svcUser: UserService,
-        protected override svcNotification: NotificationService
+        protected override svcNotification: NotificationService,
+        protected override googleAnalyticsService: GoogleAnalyticsService
     ) {
-        super(router, activatedRoute, svcDwelling, svcUser, svcNotification);
+        super(router, activatedRoute, svcDwelling, svcUser, svcNotification, googleAnalyticsService);
     }
 
     ngOnInit(): void {
@@ -34,6 +36,7 @@ export class ResidentDetailComponent extends Detail implements OnInit {
                 this.getDwellingAndConfigureMap();
                 this.getDwellingDetails();
                 this.getUserPhoto(resident.user.id!);
+                this.googleAnalyticsService.pageView('/resident-view', 'resident_view');
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });

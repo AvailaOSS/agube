@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import {
     DwellingService,
     DwellingCreate,
@@ -57,9 +58,11 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-        private svcDwellingCache: DwellingCacheService
+        private svcDwellingCache: DwellingCacheService,
 
+        private googleAnalyticsService:GoogleAnalyticsService
     ) {
+        this.googleAnalyticsService.pageView('/detail-view', 'detail_view');
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
         this.loading = true;
         this.dwelling = undefined;
@@ -84,6 +87,13 @@ export class DetailComponent implements OnInit {
                 let geolocation = this.dwelling.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
+                this.googleAnalyticsService.event(
+                    'dwelling_detail_action',
+                    'dwelling_detail_category',
+                    'dwelling_detail_label',
+                    0,
+                    false
+                );
             },
             error: (error) => (this.loading = false),
         });
@@ -96,6 +106,13 @@ export class DetailComponent implements OnInit {
 
     public goToNewDwelling() {
         this.router.navigate(['manager/dwellings/create']);
+        this.googleAnalyticsService.event(
+            'dwelling_action_create',
+            'dwelling_category_create',
+            'dwelling_label_create',
+            0,
+            true
+        );
     }
 
     public goToEditGeolocation() {
@@ -149,6 +166,13 @@ export class DetailComponent implements OnInit {
                 this.configureMaps(response);
                 this.showMap = true;
                 this.svcDwellingCache.clean();
+                this.googleAnalyticsService.event(
+                    'geolocation_action_create',
+                    'geolocation_category_create',
+                    'geolocation_label_create',
+                    0,
+                    true
+                );
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });

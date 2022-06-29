@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { DwellingService, DwellingCreate, UserCreate } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { map, Observable, startWith } from 'rxjs';
 
 @Component({
@@ -38,7 +39,8 @@ export class ChangeComponent implements OnInit {
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         public svcNotification: NotificationService,
-        public svcDwelling: DwellingService
+        public svcDwelling: DwellingService,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.dwelling = undefined;
         this.currentPerson = undefined;
@@ -70,6 +72,13 @@ export class ChangeComponent implements OnInit {
 
     public saveAndExit() {
         this.save();
+        this.googleAnalyticsService.event(
+            'reservoir_action_update',
+            'reservoir_category_update',
+            'reservoir_label_update',
+            0,
+            true
+        );
         this.exit();
     }
 

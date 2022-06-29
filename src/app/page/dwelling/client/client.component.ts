@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ManagerService, UserDwellingDetail, UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { User } from '@availa/auth-fe/lib/login/models/user';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-page-dwelling-client',
@@ -23,11 +24,14 @@ export class ClientComponent implements OnInit {
         private router: Router,
         private svcAccount: AccountService,
         private svcUser: UserService,
-        private svcManger: ManagerService
+        private svcManger: ManagerService,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.dwellings = [];
         this.loading = true;
         this.dwellingPath = this.router.url + ClientComponent.UrlStringClient;
+
+        this.googleAnalyticsService.pageView('/client_view', 'client_view');
     }
 
     ngOnInit(): void {
@@ -43,6 +47,13 @@ export class ClientComponent implements OnInit {
                 next: (response) => {
                     if (!response.length) {
                         this.loading = false;
+                        this.googleAnalyticsService.event(
+                            'dwelling_action_client',
+                            'dwelling_category_client',
+                            'dwelling_label_client',
+                            0,
+                            true
+                        );
                         return;
                     }
                     this.dwellings = response;
@@ -53,6 +64,13 @@ export class ClientComponent implements OnInit {
     }
 
     public goToNewDwelling() {
-        return this.router.navigate(['manager/home/dwellings/create']);
+        this.googleAnalyticsService.event(
+            'dwelling_action_client_new_dwelling',
+            'dwelling_category_client_new_dwelling',
+            'dwelling_label_client_new_dwelling',
+            0,
+            true
+            );
+            return this.router.navigate(['manager/home/dwellings/create']);
     }
 }

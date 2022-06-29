@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -31,7 +32,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcReservoir: ReservoirService,
         private svcReservoirCache: ReservoirCacheService,
         private svcAccount: AccountService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private googleAnalyticsService:GoogleAnalyticsService
     ) {
         super();
 
@@ -93,6 +95,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_reservoir_create',true)
             },
         });
     }
@@ -109,7 +112,15 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.svcReservoirCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
+                this.googleAnalyticsService.event(
+                    'reservoir_action_create',
+                    'reservoir_category_create',
+                    'reservoir_label_create',
+                    0,
+                    true
+                );
                 this.exit();
+
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });

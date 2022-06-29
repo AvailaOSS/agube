@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DwellingDetail } from '@availa/agube-rest-api';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
@@ -26,8 +27,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private svcDwelling: DwellingCacheService,
-        private svcTableReload: TableReloadService
-    ) {}
+        private svcTableReload: TableReloadService,
+        private googleAnalyticsService: GoogleAnalyticsService
+    ) {
+        this.googleAnalyticsService.pageView('/table-dwelling', 'table_dwelling_pageView');
+    }
 
     ngOnInit(): void {
         this.svcTableReload.reload().subscribe((reload) => {
@@ -68,5 +72,12 @@ export class TableComponent implements OnInit, AfterViewInit {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });
+        this.googleAnalyticsService.event(
+            'table_dwelling_action',
+            'table_dwelling_category',
+            'table_dwelling_label',
+            0,
+            false
+        );
     }
 }

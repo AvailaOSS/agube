@@ -8,6 +8,7 @@ import { CreateAddress } from 'src/app/utils/address/create-address';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-page-dwelling-create',
@@ -25,9 +26,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcNotification: NotificationService,
         private svcDwelling: DwellingService,
         private svcDwellingCache: DwellingCacheService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private googleAnalyticsService:GoogleAnalyticsService
     ) {
         super();
+
+        this.googleAnalyticsService.pageView('/create-view', 'create_view');
     }
 
     ngOnInit(): void {
@@ -64,6 +68,10 @@ export class CreateComponent extends CreateAddress implements OnInit {
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
+                this.googleAnalyticsService.exception(
+                    'dwelling_create_failed',
+                    true
+                );
             },
         });
     }
@@ -81,6 +89,10 @@ export class CreateComponent extends CreateAddress implements OnInit {
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
+                this.googleAnalyticsService.exception(
+                    'dwelling_create_failed',
+                    true
+                );
             },
         });
     }
@@ -89,8 +101,10 @@ export class CreateComponent extends CreateAddress implements OnInit {
         switch (entity) {
             case 'code':
                 if (this.code.hasError('required')) {
+
                     return 'PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION';
                 }
+
                 return '';
             default:
                 return '';
@@ -109,6 +123,13 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 code: this.code.value,
             },
         };
+        this.googleAnalyticsService.event(
+            'dwelling_action_create',
+            'dwelling_category_create',
+            'dwelling_label_create',
+            0,
+            true
+        );
 
         return this.svcDwelling.createDwelling(dwelling);
     }

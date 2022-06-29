@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService, ReservoirService, UserDetail } from '@availa/agube-rest-api';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-owner',
@@ -14,7 +15,13 @@ export class OwnerComponent implements OnInit {
     public userDetail: UserDetail | undefined;
     @Input() public reservoirId: number | undefined;
 
-    constructor(protected svcUser: UserService, protected svcReservoir: ReservoirService) {}
+    constructor(
+        protected svcUser: UserService,
+        protected svcReservoir: ReservoirService,
+        protected googleAnalyticsService: GoogleAnalyticsService
+    ) {
+        this.googleAnalyticsService.pageView('/owner-reservoir-view', 'owner_reservoir_view');
+    }
 
     ngOnInit(): void {
         if (!this.reservoirId) {
@@ -26,6 +33,13 @@ export class OwnerComponent implements OnInit {
             }
             this.svcUser.getUserDetail(responseOwner.user.id!).subscribe((response) => {
                 this.userDetail = response;
+                this.googleAnalyticsService.event(
+                    'reservoir_action',
+                    'reservoir_category',
+                    'reservoir_label',
+                    0,
+                    false
+                );
             });
         });
     }

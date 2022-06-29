@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -18,9 +19,10 @@ export class OwnerComponent extends ChangeComponent {
         route: ActivatedRoute,
         formBuilder: FormBuilder,
         svcNotification: NotificationService,
-        svcDwelling: DwellingService
+        svcDwelling: DwellingService,
+        googleAnalyticsService: GoogleAnalyticsService
     ) {
-        super(location, router, route, formBuilder, svcNotification, svcDwelling);
+        super(location, router, route, formBuilder, svcNotification, svcDwelling, googleAnalyticsService);
         this.title = 'GENERAL.TEXT.OWNER';
     }
 
