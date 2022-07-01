@@ -142,7 +142,15 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
     public selectOptionFilter(option: Address) {
         // override the form with selected candidate information
-        if (this.street && this.cp) {
+        if (
+            this.street &&
+            this.cp &&
+            this.state &&
+            this.province &&
+            this.city &&
+            this.municipality &&
+            this.city_district
+        ) {
             this.country?.setValue(option.country);
             this.state?.setValue(option.state);
             this.province?.setValue(option.province);
@@ -216,8 +224,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
         this.selectedStreetCandidate = candidate;
         // ensure that form controls is filled
-        this.fillFormControls(this.selectedStreetCandidate);
-
         // reset the map to new location
         if (clickConf) {
             lat = clickConf.center.lat;
@@ -230,6 +236,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 zoom: candidate.zoom,
             };
         }
+        this.fillFormControls(this.selectedStreetCandidate);
 
         this.initializeMap({
             id: this.mapId,
@@ -436,9 +443,18 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // FIXME: move this to pipe
         this.filter.setValue(location.display_name);
 
+        if (location.address.state && location.address.village && location.address.city_district) {
+            this.state?.setValue(location.address.state);
+            this.village?.setValue(location.address.village);
+            this.city_district?.setValue(location.address.city_district);
+        }
         if (this.street && location.address.road && this.cp) {
-            this.street.setValue(location.address.road);
-            this.cp.setValue(location.address.postcode);
+            this.country?.setValue(location.address.country);
+            this.province?.setValue(location.address.province);
+            this.city?.setValue(location.address.city);
+            this.municipality?.setValue(location.address.municipality);
+            this.cp?.setValue(location.address.postcode);
+            this.street?.setValue(location.address.road);
         }
 
         if (this.number && !this.number.value) {
@@ -446,24 +462,27 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
 
         let city = location.address.city;
+
         if (!city) {
             city = location.address.state;
         }
 
         if (!city) {
             city = location.address.country;
+            this.country?.setValue(location.address.country);
         }
-
         if (!location.address.city) {
             location.address.city = city;
+            this.city?.setValue(location.address.city);
         }
 
         if (!location.address.province) {
             location.address.province = city;
+            this.province?.setValue(location.address.province);
         }
-
         if (!location.address.municipality) {
             location.address.municipality = city;
+            this.municipality?.setValue(location.address.municipality);
         }
 
         if (!location.address.postcode) {
@@ -472,6 +491,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
         if (!location.address.city_district) {
             location.address.city_district = city;
+            this.city_district?.setValue(location.address.city_district);
         }
     }
 
