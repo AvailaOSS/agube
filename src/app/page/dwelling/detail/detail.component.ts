@@ -17,6 +17,7 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { NotificationService } from '@availa/notification';
+import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 
 @Component({
     selector: 'app-page-dwelling-detail',
@@ -55,7 +56,9 @@ export class DetailComponent implements OnInit {
         private svcPersistant: WaterMeterPersistantService,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private svcDwellingCache: DwellingCacheService
+
     ) {
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
         this.loading = true;
@@ -145,6 +148,7 @@ export class DetailComponent implements OnInit {
                 this.dwelling!.geolocation = response;
                 this.configureMaps(response);
                 this.showMap = true;
+                this.svcDwellingCache.clean();
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });

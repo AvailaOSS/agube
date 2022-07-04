@@ -17,6 +17,7 @@ import {
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '@availa/notification';
+import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 
 @Component({
     selector: 'app-reservoir',
@@ -54,7 +55,8 @@ export class DetailComponent implements OnInit {
         private svcPersistant: WaterMeterPersistantService,
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
-        private svcNotification: NotificationService
+        private svcNotification: NotificationService,
+        private svcReservoirCache: ReservoirCacheService,
     ) {
         this.svcManager.userIsManager().subscribe((response) => {
             this.canLoad = response.is_manager;
@@ -120,6 +122,7 @@ export class DetailComponent implements OnInit {
             next: (response) => {
                 this.reservoir!.geolocation = response;
                 this.configureMaps(response);
+                this.svcReservoirCache.clean();
                 this.showMap = true;
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
