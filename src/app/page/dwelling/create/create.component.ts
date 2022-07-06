@@ -67,17 +67,15 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.gtag('event', 'create_dwelling', {
                     manager_id: response.id,
                     water_meter: response.water_meter,
-                    geolocation: {
-                        address: response.geolocation.address,
-                        latitude: response.geolocation.latitude,
-                        longitude: response.geolocation.longitude,
-                        zoom: response.geolocation.zoom,
-                        horizontal_degree: response.geolocation.horizontal_degree,
-                        vertical_degree: response.geolocation.vertical_degree,
-                        number: response.geolocation.number,
-                        flat: response.geolocation.flat,
-                        gate: response.geolocation.gate,
-                    },
+                    address: response.geolocation.address,
+                    latitude: response.geolocation.latitude,
+                    longitude: response.geolocation.longitude,
+                    zoom: response.geolocation.zoom,
+                    horizontal_degree: response.geolocation.horizontal_degree,
+                    vertical_degree: response.geolocation.vertical_degree,
+                    number: response.geolocation.number,
+                    flat: response.geolocation.flat,
+                    gate: response.geolocation.gate,
                 });
             },
             error: (error) => {
@@ -99,17 +97,15 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.gtag('event', 'create_dwelling_exit', {
                     manager_id: response?.id,
                     water_meter: response.water_meter,
-                    geolocation: {
-                        address: response.geolocation.address,
-                        latitude: response.geolocation.latitude,
-                        longitude: response.geolocation.longitude,
-                        zoom: response.geolocation.zoom,
-                        horizontal_degree: response.geolocation?.horizontal_degree,
-                        vertical_degree: response.geolocation?.vertical_degree,
-                        number: response.geolocation?.number,
-                        flat: response.geolocation?.flat,
-                        gate: response.geolocation?.gate,
-                    },
+                    address: response.geolocation.address,
+                    latitude: response.geolocation.latitude,
+                    longitude: response.geolocation.longitude,
+                    zoom: response.geolocation.zoom,
+                    horizontal_degree: response.geolocation?.horizontal_degree,
+                    vertical_degree: response.geolocation?.vertical_degree,
+                    number: response.geolocation?.number,
+                    flat: response.geolocation?.flat,
+                    gate: response.geolocation?.gate,
                 });
                 this.exit();
             },

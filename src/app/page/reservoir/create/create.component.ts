@@ -36,7 +36,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         super();
-        this.googleAnalyticsService.pageView('create_reservoir','/create_reservoir');
+        this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
         // configure address form
         this.addressInputForm = {
             country: new FormControl('', Validators.required),

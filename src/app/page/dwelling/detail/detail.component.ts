@@ -60,9 +60,9 @@ export class DetailComponent implements OnInit {
         public dialog: MatDialog,
         private svcDwellingCache: DwellingCacheService,
 
-        private googleAnalyticsService:GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
-        this.googleAnalyticsService.pageView('view_dwelling','/detail_dwelling');
+        this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
         this.loading = true;
         this.dwelling = undefined;
@@ -152,24 +152,21 @@ export class DetailComponent implements OnInit {
                 this.configureMaps(response);
                 this.showMap = true;
                 this.googleAnalyticsService.gtag('event', 'update_address', {
-                    geolocation: {
-                        address: response.address,
-                        latitude: response.latitude,
-                        longitude: response.longitude,
-                        zoom: response.zoom,
-                        horizontal_degree: response?.horizontal_degree,
-                        vertical_degree: response?.vertical_degree,
-                        number: response?.number,
-                        flat: response?.flat,
-                        gate: response?.gate,
-                    },
+                    address: response.address,
+                    latitude: response.latitude,
+                    longitude: response.longitude,
+                    zoom: response.zoom,
+                    horizontal_degree: response?.horizontal_degree,
+                    vertical_degree: response?.vertical_degree,
+                    number: response?.number,
+                    flat: response?.flat,
+                    gate: response?.gate,
                 });
             },
             error: (error) => {
-                this.svcNotification.warning({ message: error.error })
-                this.googleAnalyticsService.exception('error_address_update',true)
-            }
-            ,
+                this.svcNotification.warning({ message: error.error });
+                this.googleAnalyticsService.exception('error_address_update', true);
+            },
         });
     }
 
