@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';

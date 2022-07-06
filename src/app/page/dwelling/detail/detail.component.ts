@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import {
     DwellingService,
     DwellingCreate,
@@ -57,9 +58,11 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-        private svcDwellingCache: DwellingCacheService
+        private svcDwellingCache: DwellingCacheService,
 
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
+        this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
         this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
         this.loading = true;
         this.dwelling = undefined;
@@ -148,9 +151,22 @@ export class DetailComponent implements OnInit {
                 this.dwelling!.geolocation = response;
                 this.configureMaps(response);
                 this.showMap = true;
-                this.svcDwellingCache.clean();
+                this.googleAnalyticsService.gtag('event', 'update_address', {
+                    address: response.address,
+                    latitude: response.latitude,
+                    longitude: response.longitude,
+                    zoom: response.zoom,
+                    horizontal_degree: response?.horizontal_degree,
+                    vertical_degree: response?.vertical_degree,
+                    number: response?.number,
+                    flat: response?.flat,
+                    gate: response?.gate,
+                });
             },
-            error: (error) => this.svcNotification.warning({ message: error.error }),
+            error: (error) => {
+                this.svcNotification.warning({ message: error.error });
+                this.googleAnalyticsService.exception('error_address_update', true);
+            },
         });
     }
 

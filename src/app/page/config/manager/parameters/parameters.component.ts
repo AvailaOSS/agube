@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-parameters',
@@ -21,7 +22,8 @@ export class ParametersComponent implements OnInit {
     constructor(
         private readonly svcManager: ManagerService,
         private formBuilder: FormBuilder,
-        private svcNotification: NotificationService
+        private svcNotification: NotificationService,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.parametersForm = this.formBuilder.group({
             hook_price: this.hook_price,
@@ -48,6 +50,12 @@ export class ParametersComponent implements OnInit {
                 setTimeout(() => {
                     this.responseManager(response);
                     this.loadSave = false;
+                    this.googleAnalyticsService.gtag('event', 'update_manager_parameters', {
+                        discharge_date: response?.discharge_date,
+                        hook_price: response.hook_price,
+                        max_daily_consumption: response.max_daily_consumption,
+                        release_date: response?.release_date,
+                    });
                 }, ParametersComponent.seconds);
             },
             error: (error) => {

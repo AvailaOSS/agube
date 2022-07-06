@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PersonConfig, UserDetail, UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { environment } from 'src/environments/environment';
 import { PersonalInfoPersistantService } from '../config/client/personal-info/personal-info-persistant.service';
 import { SidebarConfig } from './sidebar-config';
@@ -34,7 +35,7 @@ export class SidebarComponent {
         protected readonly accountService: AccountService,
         protected overlayContainer: OverlayContainer,
         private svcUser: UserService,
-        private svcPersistantPersonal: PersonalInfoPersistantService
+        private svcPersistantPersonal: PersonalInfoPersistantService,
     ) {
         //FIXME: add pipe with first name and last name
         this.accountService.getUser().subscribe((userResponse) => {
@@ -79,6 +80,7 @@ export class SidebarComponent {
 
     public selectPage(select: SidebarConfig) {
         this.router.navigate([select.navigationRoute]);
+
     }
 
     public closeSession() {

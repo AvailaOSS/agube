@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, HostListener, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -29,7 +30,8 @@ export class MeasureDialogComponent {
         private readonly svcWaterMeter: WaterMeterService,
         public dialogRef: MatDialogRef<MeasureDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private data: MeasureDialogData,
-        private svcNotification: NotificationService
+        private svcNotification: NotificationService,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.waterMeterId = data.waterMeterId;
         this.measureForm = this.formBuilder.group({
@@ -63,14 +65,18 @@ export class MeasureDialogComponent {
                 date: date,
             })
             .subscribe({
-                next: (response) => this.close(true),
-                error: (error) =>
+                next: (response) => {
+                    this.close(true);
+                },
+                error: (error) => {
                     this.svcNotification.warning({
                         message:
                             'La Hora ' +
                             format(date, 'dd-MM-yyyy HH:mm') +
                             ' es posterior a la actual, eso no es posible',
                     }),
+                        this.googleAnalyticsService.exception('error_water_meter_measure', true);
+                },
             });
     }
 

@@ -10,6 +10,7 @@ import { AgubeApiModule } from '@availa/agube-rest-api';
 import { AuthModule, AuthRoute } from '@availa/auth-fe';
 import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             ],
             isolate: true,
         }),
+        NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId),
+        NgxGoogleAnalyticsRouterModule,
         MatTooltipModule,
         MatMenuModule,
         MatIconModule,

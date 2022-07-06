@@ -9,6 +9,7 @@ import {
     UserService,
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { IDetail } from '../manage/detail';
@@ -38,7 +39,8 @@ export class Detail {
         protected activatedRoute: ActivatedRoute,
         protected svcDwelling: DwellingService,
         protected svcUser: UserService,
-        protected svcNotification: NotificationService
+        protected svcNotification: NotificationService,
+        protected googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.person = undefined;
         this.phones = [];
@@ -48,6 +50,7 @@ export class Detail {
             let par = params as IDetail;
             this.personId = par.personId;
         });
+        this.googleAnalyticsService.event('event', 'view_person');
     }
 
     protected getUserPhoto(userId: number) {
@@ -84,6 +87,7 @@ export class Detail {
                     return;
                 }
                 this.dwellings = response;
+
             },
             error: (error) =>
                 this.svcNotification.warning({

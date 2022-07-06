@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService, OwnerService, UserService } from '@availa/agube-rest-api';
 import { Detail } from '../detail';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-detail-owner',
@@ -17,9 +18,10 @@ export class OwnerDetailComponent extends Detail implements OnInit {
         protected override activatedRoute: ActivatedRoute,
         protected override svcDwelling: DwellingService,
         protected override svcUser: UserService,
-        protected override svcNotification: NotificationService
+        protected override svcNotification: NotificationService,
+        protected override googleAnalyticsService: GoogleAnalyticsService
     ) {
-        super(router, activatedRoute, svcDwelling, svcUser, svcNotification);
+        super(router, activatedRoute, svcDwelling, svcUser, svcNotification, googleAnalyticsService);
     }
 
     ngOnInit(): void {
@@ -34,8 +36,21 @@ export class OwnerDetailComponent extends Detail implements OnInit {
                 this.getDwellingAndConfigureMap();
                 this.getDwellingDetails();
                 this.getUserPhoto(owner.user.id!);
+                this.googleAnalyticsService.gtag('event', 'view_owner', {
+                    dwelling_id: owner?.dwelling_id,
+                    discharge_date: owner.discharge_date,
+                    release_date: owner?.release_date,
+                    email: owner.user?.email,
+                    first_name: owner.user?.first_name,
+                    geolocation: owner.user?.geolocation,
+                    last_name: owner.user?.last_name,
+                    phones: owner.user.phones,
+                });
             },
-            error: (error) => this.svcNotification.warning({ message: error.error }),
+            error: (error) => {
+                this.svcNotification.warning({ message: error.error });
+                this.googleAnalyticsService.exception('error_view_owner', false);
+            },
         });
     }
 }

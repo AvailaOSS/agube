@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WaterMeter } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterType } from '../water-meter-type.enum';
 import { WaterMeterManager } from '../water-meter.manager';
@@ -59,6 +60,7 @@ export class WaterMeterDialogComponent {
             .subscribe({
                 next: (response: WaterMeter) => {
                     this.svcPersistant.emit(response);
+
                     this.close();
                 },
                 error: (error: any) => this.svcNotification.warning({ message: error }),

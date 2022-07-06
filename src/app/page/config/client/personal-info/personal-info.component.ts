@@ -6,6 +6,7 @@ import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
 import { Observable } from 'rxjs';
 import { PersonalInfoPersistantService } from './personal-info-persistant.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-personal-info',

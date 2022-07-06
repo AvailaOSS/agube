@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, DwellingService } from '@availa/agube-rest-api';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { ResidentComponent } from '../resident/resident.component';
 
 @Component({
@@ -13,7 +14,10 @@ export class OwnerComponent extends ResidentComponent implements OnInit {
         icon: 'hail',
     };
 
-    constructor(protected override svcUser: UserService, protected override svcDwelling: DwellingService) {
+    constructor(
+        protected override svcUser: UserService,
+        protected override svcDwelling: DwellingService
+    ) {
         super(svcUser, svcDwelling);
     }
 

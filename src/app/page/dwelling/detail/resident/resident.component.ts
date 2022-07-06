@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService, UserDetail, DwellingService } from '@availa/agube-rest-api';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { PersonTitle } from './person-title';
 
 @Component({
@@ -16,7 +17,10 @@ export class ResidentComponent implements OnInit {
     };
     public userDetail: UserDetail | undefined;
 
-    constructor(protected svcUser: UserService, protected svcDwelling: DwellingService) {}
+    constructor(
+        protected svcUser: UserService,
+        protected svcDwelling: DwellingService
+    ) {}
 
     ngOnInit(): void {
         if (!this.dwellingId) {
@@ -27,6 +31,7 @@ export class ResidentComponent implements OnInit {
                 return;
             }
             this.getUser(response.user.id);
+
         });
     }
 

@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -45,7 +46,8 @@ export class PersonalConfigComponent implements OnInit {
         private svcAccount: AccountService,
         private svcUser: UserService,
         protected overlayContainer: OverlayContainer,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.selectedLanguage = this.languages.filter((lang) => lang.code === this.translate.currentLang)[0];
     }
@@ -67,6 +69,10 @@ export class PersonalConfigComponent implements OnInit {
 
     public selectLenguaje(language: Language) {
         this.selectedLanguage = language;
+        this.googleAnalyticsService.gtag('event', 'language', {
+            lang: language.code,
+
+        });
     }
 
     public updateConfig() {
@@ -89,6 +95,10 @@ export class PersonalConfigComponent implements OnInit {
             })
             .subscribe((response) => {
                 this.setControlToggle(response);
+                this.googleAnalyticsService.gtag('event', 'theme_type', {
+                    lang: response.lang,
+                    mode: response.mode,
+                });
                 window.location.reload();
             });
     }

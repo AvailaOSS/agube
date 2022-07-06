@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ManagerService, UserDwellingDetail, UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { User } from '@availa/auth-fe/lib/login/models/user';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-page-dwelling-client',
@@ -43,6 +44,7 @@ export class ClientComponent implements OnInit {
                 next: (response) => {
                     if (!response.length) {
                         this.loading = false;
+
                         return;
                     }
                     this.dwellings = response;

@@ -18,6 +18,7 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '@availa/notification';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-reservoir',
@@ -57,6 +58,7 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         private svcReservoirCache: ReservoirCacheService,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.svcManager.userIsManager().subscribe((response) => {
             this.canLoad = response.is_manager;
@@ -71,6 +73,7 @@ export class DetailComponent implements OnInit {
                 type: WaterMeterType.RESERVOIR,
             };
         });
+        this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
     }
 
     public goToEditGeolocation() {

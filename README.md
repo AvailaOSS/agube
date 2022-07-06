@@ -37,3 +37,35 @@ Publish Frontend Image into Gitlab Registry
 > docker build --no-cache -t registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe .
 
 > docker push registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe
+
+## publish in google analytics
+> EXAMPLE:
+    gtag("event", "create_reservoir", {
+        manager_id: 1,
+        reservoir_id: 1,
+        capacity: 7,
+        outlet_flow: 70,
+        inet_flow: 700,
+    });
+
+
+|PROJECT |EVENT | DESCRIPTION |
+|---|---|---|
+| agube | create_reservoir | manager create new reservoir  |
+| agube | create_reservoir_exit | manager create new reservoir and exit  |
+| agube | view_reservoir | manager click on reservoir detail |
+| agube | create_dwelling | manager create new dwelling  |
+| agube | create_dwelling_exit | manager create new dwelling and exit  |
+| agube | view_dwelling | manager click on dwelling detail |
+| agube | create_owner | manager create new owner  |
+| agube | create_resident | manager create new resident  |
+| agube | update_address | manager edit address  |
+| agube | update_manager_parameters | manager update parameters|
+| agube | view_resident | manager click on resident´s list view|
+| agube | view_owner | manager click on owner´s list view|
+| agube | view_person | manager click on person detail view|
+| agube | theme_type | user selected theme|
+| agube | language | user selected language|
+| contact-book | create_contact_book_tag | manager create tag contact  |
+| contact-book | view_contact_book | manager open contact  |
+| contact-book | add_contact_book | manager add new contact  |

@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -31,10 +32,11 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcReservoir: ReservoirService,
         private svcReservoirCache: ReservoirCacheService,
         private svcAccount: AccountService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         super();
-
+        this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
         // configure address form
         this.addressInputForm = {
             country: new FormControl('', Validators.required),
@@ -89,10 +91,18 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.svcReservoirCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
+                this.googleAnalyticsService.gtag('event', 'create_reservoir', {
+                    manager_id: response?.user_id,
+                    reservoir_id: response?.id,
+                    capacity: response.capacity,
+                    outlet_flow: response.outlet_flow,
+                    inet_flow: response.inlet_flow,
+                });
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_reservoir_create', true);
             },
         });
     }
@@ -109,11 +119,19 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.svcReservoirCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
+                this.googleAnalyticsService.gtag('event', 'create_reservoir_exit', {
+                    manager_id: response?.user_id,
+                    reservoir_id: response?.id,
+                    capacity: response.capacity,
+                    outlet_flow: response.outlet_flow,
+                    inet_flow: response.inlet_flow,
+                });
                 this.exit();
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_reservoir_create_exit', true);
             },
         });
     }

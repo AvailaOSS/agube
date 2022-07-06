@@ -2,6 +2,7 @@ export const environment = {
     production: true,
     appName: 'Agube',
     googleMapsApiKey: '',
+    googleAnalyticsId: 'G-59LQ32RCLM',
     // docker-compose.yml contains port config
     authBackendUrl: 'http://localhost:30004/api/v1.0.0/auth',
     subscriptionBackendUrl: 'http://localhost:30001/api/v1.0.0/subscription',
