@@ -7,17 +7,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./client-page.component.scss'],
 })
 export class ClientPageComponent implements OnInit {
-    constructor(private googleAnalyticsService: GoogleAnalyticsService) {
-        this.googleAnalyticsService.pageView('client_page_view', 'client_page_view');
-    }
+    constructor() {}
 
-    ngOnInit(): void {
-        this.googleAnalyticsService.event(
-            'client_page_load',
-            'client_page_load_category',
-            'client_page_load_label',
-            0,
-            false
-        );
-    }
+    ngOnInit(): void {}
 }

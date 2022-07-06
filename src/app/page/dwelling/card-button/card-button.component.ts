@@ -12,7 +12,7 @@ export class CardButtonComponent {
     @Input() public dwelling: UserDwellingDetail | undefined;
     @Input() public dwellingPath: string | undefined;
 
-    constructor(private router: Router, private googleAnalyticsService: GoogleAnalyticsService) {}
+    constructor(private router: Router) {}
 
     public goToDwellingDetail() {
         if (!this.dwellingPath || !this.dwelling) {
@@ -22,12 +22,5 @@ export class CardButtonComponent {
         this.router.navigate([this.dwellingPath], {
             queryParams: { dwellingId: this.dwelling.id },
         });
-        this.googleAnalyticsService.event(
-            'dwelling_action_go_to_dwelling_detail',
-            'dwelling_category_go_to_dwelling_detail',
-            'dwelling_label_go_to_dwelling_detail',
-            0,
-            true
-        );
     }
 }

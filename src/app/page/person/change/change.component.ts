@@ -39,8 +39,7 @@ export class ChangeComponent implements OnInit {
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         public svcNotification: NotificationService,
-        public svcDwelling: DwellingService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        public svcDwelling: DwellingService
     ) {
         this.dwelling = undefined;
         this.currentPerson = undefined;
@@ -72,13 +71,7 @@ export class ChangeComponent implements OnInit {
 
     public saveAndExit() {
         this.save();
-        this.googleAnalyticsService.event(
-            'reservoir_action_update',
-            'reservoir_category_update',
-            'reservoir_label_update',
-            0,
-            true
-        );
+
         this.exit();
     }
 

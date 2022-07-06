@@ -28,8 +28,7 @@ export class WaterMeterDialogComponent {
         @Inject(MAT_DIALOG_DATA) private data: WaterMeterDialogData,
         private svcNotification: NotificationService,
         private svcWaterMeterManager: WaterMeterManager,
-        private svcPersistant: WaterMeterPersistantService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private svcPersistant: WaterMeterPersistantService
     ) {
         this.id = data.id;
         this.type = data.type;
@@ -61,13 +60,7 @@ export class WaterMeterDialogComponent {
             .subscribe({
                 next: (response: WaterMeter) => {
                     this.svcPersistant.emit(response);
-                    this.googleAnalyticsService.event(
-                        'water_meter_load',
-                        'water_meter_category',
-                        'water_meter_label',
-                        0,
-                        true
-                    );
+
                     this.close();
                 },
                 error: (error: any) => this.svcNotification.warning({ message: error }),

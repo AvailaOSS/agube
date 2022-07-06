@@ -146,13 +146,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 code: this.code.value,
             },
         };
-        this.googleAnalyticsService.event(
-            'dwelling_action_create',
-            'dwelling_category_create',
-            'dwelling_label_create',
-            0,
-            true
-        );
 
         return this.svcDwelling.createDwelling(dwelling);
     }

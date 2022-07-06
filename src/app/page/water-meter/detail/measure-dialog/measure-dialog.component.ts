@@ -66,13 +66,6 @@ export class MeasureDialogComponent {
             })
             .subscribe({
                 next: (response) => {
-                    this.googleAnalyticsService.event(
-                        'water_meter_measure_load',
-                        'water_meter_measure_category',
-                        'water_meter_measure_label',
-                        0,
-                        true
-                    );
                     this.close(true);
                 },
                 error: (error) => {

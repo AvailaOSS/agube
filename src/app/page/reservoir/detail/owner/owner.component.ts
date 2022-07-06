@@ -15,13 +15,7 @@ export class OwnerComponent implements OnInit {
     public userDetail: UserDetail | undefined;
     @Input() public reservoirId: number | undefined;
 
-    constructor(
-        protected svcUser: UserService,
-        protected svcReservoir: ReservoirService,
-        protected googleAnalyticsService: GoogleAnalyticsService
-    ) {
-        this.googleAnalyticsService.pageView('/owner-reservoir-view', 'owner_reservoir_view');
-    }
+    constructor(protected svcUser: UserService, protected svcReservoir: ReservoirService) {}
 
     ngOnInit(): void {
         if (!this.reservoirId) {
@@ -33,13 +27,6 @@ export class OwnerComponent implements OnInit {
             }
             this.svcUser.getUserDetail(responseOwner.user.id!).subscribe((response) => {
                 this.userDetail = response;
-                this.googleAnalyticsService.event(
-                    'reservoir_action',
-                    'reservoir_category',
-                    'reservoir_label',
-                    0,
-                    false
-                );
             });
         });
     }

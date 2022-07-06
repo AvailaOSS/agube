@@ -19,10 +19,9 @@ export class OwnerComponent extends ChangeComponent {
         route: ActivatedRoute,
         formBuilder: FormBuilder,
         svcNotification: NotificationService,
-        svcDwelling: DwellingService,
-        googleAnalyticsService: GoogleAnalyticsService
+        svcDwelling: DwellingService
     ) {
-        super(location, router, route, formBuilder, svcNotification, svcDwelling, googleAnalyticsService);
+        super(location, router, route, formBuilder, svcNotification, svcDwelling);
         this.title = 'GENERAL.TEXT.OWNER';
     }
 

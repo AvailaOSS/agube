@@ -31,11 +31,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private svcTableReload: TableReloadService,
-        private svcReservoir: ReservoirCacheService,
-        private googleAnalyticsService: GoogleAnalyticsService
-    ) {
-        this.googleAnalyticsService.pageView('page_reservoir_view', 'page_reservoir_view');
-    }
+        private svcReservoir: ReservoirCacheService
+    ) {}
     ngAfterViewInit() {
         this.loadReservoirs();
     }
@@ -44,7 +41,6 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.svcTableReload.reload().subscribe((reload) => {
             if (reload) {
                 this.loadReservoirs();
-                this.googleAnalyticsService.event('reservoir_load', 'reservoir_category', 'reservoir_label', 0, false);
             }
         });
     }
