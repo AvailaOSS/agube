@@ -10,7 +10,7 @@
             [matAutocomplete]="auto"
         />
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of autocomplete" (click)="selectOptionFilter(option)">
+            <mat-option *ngFor="let option of autocomplete" (click)="filtering(option)">
                 {{ option | address }}
             </mat-option>
         </mat-autocomplete>
@@ -88,11 +88,11 @@
         <mat-form-field appearance="fill" *ngIf="flat">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.FLAT.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="flat" />
-         </mat-form-field>
+        </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="gate">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.GATE.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="gate" />
-         </mat-form-field>
+        </mat-form-field>
     </div>
     <div class="filter-results">
         <span class="filter-selection" *ngIf="!loadingCandidates; else isloadingCandidates">

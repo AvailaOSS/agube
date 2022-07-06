@@ -118,43 +118,12 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             gate: this.gate,
         });
 
-        // on address form value has changed
-        this.addressFormGroup.valueChanges.subscribe((response: FormGroup) => {
-            // if Street has been selected
-            if (this.selectedStreetCandidate) {
-                // fill missing address fields
-                this.fillMissingAddress(this.selectedStreetCandidate);
-
-                if (this.clickUser) {
-                    this.selectedStreetCandidate.lat = this.clickUser!.center.lat;
-                    this.selectedStreetCandidate.lon = this.clickUser!.center.lon;
-                }
-            }
-        });
-
         // receive all addresses from the manager for initialize the autocomplete
         this.loadAutocomplete();
     }
 
     override ngAfterViewInit(): void {
         // do not execute ngAfterViewInit here
-    }
-
-    public selectOptionFilter(option: Address) {
-        // override the form with selected candidate information
-        if (this.street && this.cp) {
-            this.country?.setValue(option.country);
-            this.state?.setValue(option.state);
-            this.province?.setValue(option.province);
-            this.city?.setValue(option.city);
-            this.village?.setValue(option.village);
-            this.municipality?.setValue(option.municipality);
-            this.city_district?.setValue(option.city_district);
-            this.cp?.setValue(option.postcode);
-            this.street?.setValue(option.road);
-        }
-        // do filtering
-        this.filtering(option);
     }
 
     public filtering(option?: Address) {
@@ -186,7 +155,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     // replace address candidate with news
                     this.addressCandidates = response;
                     // select first option as candidate
-                    this.selectCandidate(response[0], this.clickUser);
+                    this.selectCandidate(response[0]);
                     this.loadingCandidates = false;
                 });
             } else {
@@ -195,7 +164,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 // replace address candidate with news
                 this.addressCandidates = response;
                 // select first option as candidate
-                this.selectCandidate(response[0], this.clickUser);
+                this.selectCandidate(response[0]);
                 this.loadingCandidates = false;
             }
         });
@@ -215,10 +184,9 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         let lon: string = candidate.lon;
 
         this.selectedStreetCandidate = candidate;
-        // ensure that form controls is filled
         this.fillFormControls(this.selectedStreetCandidate);
-
-        // reset the map to new location
+        //  ensure that form controls is filled
+        //  reset the map to new location
         if (clickConf) {
             lat = clickConf.center.lat;
             lon = clickConf.center.lon;
@@ -230,7 +198,6 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 zoom: candidate.zoom,
             };
         }
-
         this.initializeMap({
             id: this.mapId,
             center: {
@@ -244,7 +211,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             otherPoints: this.configureMap?.otherPoints,
         });
 
-        // emit the address
+        // // emit the address
         this.addressForm.emit({
             addressFormGroup: this.addressFormGroup!,
             location: this.selectedStreetCandidate,
@@ -316,21 +283,14 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         this.svcAddress.getAddress().subscribe((response) => {
             this.autocomplete = response;
             // if has some address set as selected option in filter
-            if (
-                response.length > 0 &&
-                this.configureMap &&
-                this.configureMap.selectOptionFilter !== undefined &&
-                this.configureMap.selectOptionFilter === false
-            ) {
-                this.selectOptionFilter(response[0]);
-            } else if (this.configureMap && this.configureMap.selectOptionFilter === true) {
+            if (this.configureMap && this.configureMap.selectOptionFilter === true) {
                 // go to the location configured
                 this.getLocationByCoordinate(
                     Number(this.configureMap!.center.lat),
                     Number(this.configureMap!.center.lon)
                 ).subscribe((response: LocationResponse) => {
                     this.candidateComponents?.deselectAll();
-                    this.selectCandidate(response, this.configureMap);
+                    this.selectCandidate(response);
                 });
             }
         });
@@ -429,6 +389,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
     }
 
     private fillFormControls(location: LocationResponse) {
+        console.log('location Fill Form', location.lat);
         if (!location.zoom) {
             location.zoom = MapComponent.zoom;
         }
@@ -436,9 +397,18 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         // FIXME: move this to pipe
         this.filter.setValue(location.display_name);
 
+        if (location.address.village && location.address.city_district) {
+            this.village?.setValue(location.address.village);
+            this.city_district?.setValue(location.address.city_district);
+        }
         if (this.street && location.address.road && this.cp) {
-            this.street.setValue(location.address.road);
-            this.cp.setValue(location.address.postcode);
+            this.state?.setValue(location.address.state);
+            this.country?.setValue(location.address.country);
+            this.province?.setValue(location.address.province);
+            this.city?.setValue(location.address.city);
+            this.municipality?.setValue(location.address.municipality);
+            this.cp?.setValue(location.address.postcode);
+            this.street?.setValue(location.address.road);
         }
 
         if (this.number && !this.number.value) {
@@ -446,24 +416,27 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
         }
 
         let city = location.address.city;
+
         if (!city) {
             city = location.address.state;
         }
 
         if (!city) {
             city = location.address.country;
+            this.country?.setValue(location.address.country);
         }
-
         if (!location.address.city) {
             location.address.city = city;
+            this.city?.setValue(location.address.city);
         }
 
         if (!location.address.province) {
             location.address.province = city;
+            this.province?.setValue(location.address.province);
         }
-
         if (!location.address.municipality) {
             location.address.municipality = city;
+            this.municipality?.setValue(location.address.municipality);
         }
 
         if (!location.address.postcode) {
@@ -472,22 +445,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
 
         if (!location.address.city_district) {
             location.address.city_district = city;
-        }
-    }
-
-    private fillMissingAddress(location: LocationResponse) {
-        // city in isolated places can be empty
-        if (!location.address.city) {
-            // fill isolated city with municipality place
-            location.address.city = location.address.municipality;
-        }
-
-        // city_district in isolated places can be empty
-        // fill isolated city_district with municipality place
-        if (!location.address.city_district && location.address.village) {
-            location.address.city_district = location.address.village;
-        } else if (!location.address.city_district && !location.address.village) {
-            location.address.city_district = location.address.municipality;
+            this.city_district?.setValue(location.address.city_district);
         }
     }
 }
