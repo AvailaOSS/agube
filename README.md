@@ -52,11 +52,14 @@ Publish Frontend Image into Gitlab Registry
 |PROJECT |EVENT | DESCRIPTION |
 |---|---|---|
 | agube | create_reservoir | manager create new reservoir  |
+| agube | create_reservoir_exit | manager create new reservoir and exit  |
 | agube | view_reservoir | manager click on reservoir detail |
 | agube | create_dwelling | manager create new dwelling  |
+| agube | create_dwelling_exit | manager create new dwelling and exit  |
+| agube | view_dwelling | manager click on dwelling detail |
 | agube | create_owner | manager create new owner  |
 | agube | create_resident | manager create new resident  |
-| agube | update_address | manager edit address  || agube | update_manager_parameters | manager update parameters|
+| agube | update_address | manager edit address  |
 | agube | update_manager_parameters | manager update parameters|
 | agube | view_resident | manager click on resident´s list view|
 | agube | view_owner | manager click on owner´s list view|

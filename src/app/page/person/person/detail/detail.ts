@@ -50,6 +50,7 @@ export class Detail {
             let par = params as IDetail;
             this.personId = par.personId;
         });
+        this.googleAnalyticsService.event('event', 'view_person');
     }
 
     protected getUserPhoto(userId: number) {
@@ -86,6 +87,7 @@ export class Detail {
                     return;
                 }
                 this.dwellings = response;
+
             },
             error: (error) =>
                 this.svcNotification.warning({

@@ -16,10 +16,9 @@ export class OwnerComponent extends ResidentComponent implements OnInit {
 
     constructor(
         protected override svcUser: UserService,
-        protected override svcDwelling: DwellingService,
-        protected override googleAnalyticsService: GoogleAnalyticsService
+        protected override svcDwelling: DwellingService
     ) {
-        super(svcUser, svcDwelling, googleAnalyticsService);
+        super(svcUser, svcDwelling);
     }
 
     override ngOnInit(): void {
@@ -31,13 +30,6 @@ export class OwnerComponent extends ResidentComponent implements OnInit {
                 return;
             }
             this.getUser(responseOwner.user.id);
-            this.googleAnalyticsService.event(
-                'dwelling_action_owner',
-                'dwelling_category_owner',
-                'dwelling_label_owner',
-                0,
-                true
-            );
         });
     }
 }

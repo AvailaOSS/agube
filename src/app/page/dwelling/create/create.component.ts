@@ -27,11 +27,11 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcDwelling: DwellingService,
         private svcDwellingCache: DwellingCacheService,
         private formBuilder: FormBuilder,
-        private googleAnalyticsService:GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         super();
 
-        this.googleAnalyticsService.pageView('/create-view', 'create_view');
+        this.googleAnalyticsService.pageView('/create_dwelling', 'create_dwelling');
     }
 
     ngOnInit(): void {
@@ -64,14 +64,26 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.svcDwellingCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
+                this.googleAnalyticsService.gtag('event', 'create_dwelling', {
+                    manager_id: response.id,
+                    water_meter: response.water_meter,
+                    geolocation: {
+                        address: response.geolocation.address,
+                        latitude: response.geolocation.latitude,
+                        longitude: response.geolocation.longitude,
+                        zoom: response.geolocation.zoom,
+                        horizontal_degree: response.geolocation.horizontal_degree,
+                        vertical_degree: response.geolocation.vertical_degree,
+                        number: response.geolocation.number,
+                        flat: response.geolocation.flat,
+                        gate: response.geolocation.gate,
+                    },
+                });
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
-                this.googleAnalyticsService.exception(
-                    'dwelling_create_failed',
-                    true
-                );
+                this.googleAnalyticsService.exception('error_dwelling_create', true);
             },
         });
     }
@@ -84,15 +96,27 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.svcDwellingCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
+                this.googleAnalyticsService.gtag('event', 'create_dwelling_exit', {
+                    manager_id: response?.id,
+                    water_meter: response.water_meter,
+                    geolocation: {
+                        address: response.geolocation.address,
+                        latitude: response.geolocation.latitude,
+                        longitude: response.geolocation.longitude,
+                        zoom: response.geolocation.zoom,
+                        horizontal_degree: response.geolocation?.horizontal_degree,
+                        vertical_degree: response.geolocation?.vertical_degree,
+                        number: response.geolocation?.number,
+                        flat: response.geolocation?.flat,
+                        gate: response.geolocation?.gate,
+                    },
+                });
                 this.exit();
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
-                this.googleAnalyticsService.exception(
-                    'dwelling_create_failed',
-                    true
-                );
+                this.googleAnalyticsService.exception('error_dwelling_create', true);
             },
         });
     }
@@ -101,7 +125,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
         switch (entity) {
             case 'code':
                 if (this.code.hasError('required')) {
-
                     return 'PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION';
                 }
 

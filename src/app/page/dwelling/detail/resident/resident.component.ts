@@ -19,8 +19,7 @@ export class ResidentComponent implements OnInit {
 
     constructor(
         protected svcUser: UserService,
-        protected svcDwelling: DwellingService,
-        protected googleAnalyticsService: GoogleAnalyticsService
+        protected svcDwelling: DwellingService
     ) {}
 
     ngOnInit(): void {
@@ -32,13 +31,7 @@ export class ResidentComponent implements OnInit {
                 return;
             }
             this.getUser(response.user.id);
-            this.googleAnalyticsService.event(
-                'dwelling_action_resident',
-                'dwelling_category_resident',
-                'dwelling_label_resident',
-                0,
-                true
-            );
+
         });
     }
 

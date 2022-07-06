@@ -36,9 +36,25 @@ export class OwnerDetailComponent extends Detail implements OnInit {
                 this.getDwellingAndConfigureMap();
                 this.getDwellingDetails();
                 this.getUserPhoto(owner.user.id!);
-                this.googleAnalyticsService.pageView('/owner-view', 'owner_view');
+                this.googleAnalyticsService.gtag("event", "view_owner", {
+                    dwelling_id: owner?.dwelling_id,
+                    discharge_date: owner.discharge_date,
+                    release_date: owner?.release_date,
+                    user: {
+                        email: owner.user?.email,
+                        first_name: owner.user?.first_name,
+                        geolocation: owner.user?.geolocation,
+                        last_name: owner.user?.last_name,
+                        phones: owner.user.phones
+
+
+                    },
+                });
             },
-            error: (error) => this.svcNotification.warning({ message: error.error }),
+            error: (error) => {
+                this.svcNotification.warning({ message: error.error })
+                this.googleAnalyticsService.exception('error_view_owner',false)
+            },
         });
     }
 }

@@ -8,10 +8,8 @@ import { TableReloadService } from './table/table-reload.service';
     styleUrls: ['./manager.component.scss'],
 })
 export class ManagerComponent {
-    constructor(private svcTableReload: TableReloadService,
-        private googleAnalyticsService: GoogleAnalyticsService) {
+    constructor(private svcTableReload: TableReloadService) {
 
-            this.googleAnalyticsService.pageView('/manager-dwelling', 'manager_dwelling_pageView');
         }
 
     public waterMeterChanged(change: boolean) {

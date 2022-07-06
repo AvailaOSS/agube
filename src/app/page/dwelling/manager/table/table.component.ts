@@ -27,10 +27,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private svcDwelling: DwellingCacheService,
-        private svcTableReload: TableReloadService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private svcTableReload: TableReloadService
     ) {
-        this.googleAnalyticsService.pageView('/table-dwelling', 'table_dwelling_pageView');
+
     }
 
     ngOnInit(): void {
@@ -72,12 +71,5 @@ export class TableComponent implements OnInit, AfterViewInit {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });
-        this.googleAnalyticsService.event(
-            'table_dwelling_action',
-            'table_dwelling_category',
-            'table_dwelling_label',
-            0,
-            false
-        );
     }
 }
