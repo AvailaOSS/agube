@@ -8,6 +8,7 @@ export interface LocationResponse {
 
 interface Address {
     city: string;
+    county?: string; // city substitute
     country: string;
     city_district: string;
     municipality: string;

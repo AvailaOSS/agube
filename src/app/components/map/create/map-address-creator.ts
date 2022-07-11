@@ -71,27 +71,32 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
     form.filter.setValue(location.display_name);
 
     // fill all fields
-    form.country?.setValue(location.address.country);
-    form.state?.setValue(location.address.state);
-    form.province?.setValue(location.address.province);
-    form.city?.setValue(location.address.city);
+    form.country.setValue(location.address.country);
+    form.state.setValue(location.address.state);
+    form.province.setValue(location.address.province);
+    form.city.setValue(location.address.city);
     form.village?.setValue(location.address.village);
-    form.municipality?.setValue(location.address.municipality);
-    form.city_district?.setValue(location.address.city_district);
-    form.cp?.setValue(location.address.postcode);
+    form.municipality.setValue(location.address.municipality);
+    form.city_district.setValue(location.address.city_district);
+    form.cp.setValue(location.address.postcode);
     form.street?.setValue(location.address.road);
     var street = location.address.road;
     if (!street) {
         form.street?.setValue(location.address.landuse);
+        form.street?.setErrors({ check: true });
+        form.street?.markAsTouched();
     }
 
     // fill city
     let city = location.address.city;
+    if (!city && location.address.county) {
+        city = location.address.county;
+        form.city.setValue(city);
+    }
 
     if (!city) {
-        if (!city) {
-            city = location.address.city_district;
-        }
+        city = location.address.city_district;
+
         if (!city) {
             city = location.address.municipality;
         }
@@ -106,24 +111,32 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
             city = location.address.country;
         }
         form.city.setValue(city);
+        form.city.setErrors({ check: true });
+        form.city.markAsTouched();
     }
 
     // if no city_district, set city as city_district
     if (!location.address.city_district) {
         location.address.city_district = city;
         form.city_district.setValue(location.address.city_district);
-    }
-
-    // if no municipality, set city as municipality
-    if (!location.address.municipality) {
-        location.address.municipality = city;
-        form.municipality.setValue(location.address.municipality);
+        form.city_district.setErrors({ check: true });
+        form.city_district.markAsTouched();
     }
 
     // if no province, set city as province
     if (!location.address.province) {
         location.address.province = city;
         form.province.setValue(location.address.province);
+        form.province.setErrors({ check: true });
+        form.province.markAsTouched();
+    }
+
+    // if no municipality, set city as municipality
+    if (!location.address.municipality) {
+        location.address.municipality = city;
+        form.municipality.setValue(location.address.municipality);
+        form.municipality.setErrors({ check: true });
+        form.municipality.markAsTouched();
     }
 
     // fill post code
@@ -131,9 +144,13 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
         location.address.postcode = '0000';
         form.cp.setValue(location.address.postcode);
     }
+    form.cp.setErrors({ check: true });
+    form.cp.markAsTouched();
 
     // fill number
     if (form.number && !form.number.value) {
-        form.number?.setValue(location.address.house_number);
+        form.number.setValue(location.address.house_number);
     }
+    form.number?.setErrors({ check: true });
+    form.number?.markAsTouched();
 }

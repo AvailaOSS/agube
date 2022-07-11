@@ -39,6 +39,10 @@
             <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY' | translate }}</mat-label>
             <input matInput type="text" [formControl]="form.city" />
             <mat-error *ngIf="form.city.invalid">{{ errorValidator('city') | translate }}</mat-error>
+            <button matSuffix mat-icon-button *ngIf="form.city.hasError('check')"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('city')">
+                <mat-icon>check</mat-icon>
+            </button>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="form.village">
             <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE' | translate }}</mat-label>
@@ -49,26 +53,46 @@
             <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY' | translate }}</mat-label>
             <input matInput type="text" [formControl]="form.municipality" />
             <mat-error *ngIf="form.municipality.invalid">{{ errorValidator('municipality') | translate }}</mat-error>
+            <button matSuffix mat-icon-button *ngIf="form.municipality.hasError('check')"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('municipality')">
+                <mat-icon>check</mat-icon>
+            </button>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="form.city_district">
             <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY_DISTRICT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="form.city_district" />
             <mat-error *ngIf="form.city_district.invalid">{{ errorValidator('city_district') | translate }}</mat-error>
+            <button matSuffix mat-icon-button *ngIf="form.city_district.hasError('check')"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('city_district')">
+                <mat-icon>check</mat-icon>
+            </button>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="form.cp">
             <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE' | translate }}</mat-label>
             <input matInput type="text" [formControl]="form.cp" />
             <mat-error *ngIf="form.cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
+            <button matSuffix mat-icon-button *ngIf="form.cp.hasError('check')"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('cp')">
+                <mat-icon>check</mat-icon>
+            </button>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="form.street">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.STREET.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="form.street" />
             <mat-error *ngIf="form.street.invalid">{{ errorValidator('street') | translate }}</mat-error>
+            <button matSuffix mat-icon-button *ngIf="form.street.hasError('check')"
+                matTooltip="COMPONENTS.MAP.CREATE.FORM.CHECK" (click)="checkField('street')">
+                <mat-icon>check</mat-icon>
+            </button>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="form.number">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.NUMBER.TEXT' | translate }}</mat-label>
             <input matInput type="text" [formControl]="form.number" />
             <mat-error *ngIf="form.number.invalid">{{ errorValidator('number') | translate }}</mat-error>
+            <button matSuffix mat-icon-button *ngIf="form.number.hasError('check')"
+                matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('number')">
+                <mat-icon>check</mat-icon>
+            </button>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="form.flat">
             <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.FLAT.TEXT' | translate }}</mat-label>

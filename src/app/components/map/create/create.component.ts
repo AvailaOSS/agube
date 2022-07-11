@@ -221,12 +221,6 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
         this.selectedStreetCandidate = location;
 
-        //  ensure that form controls is filled
-        if (!this.form) {
-            throw new Error('form must be initialized before this');
-        }
-        fillMissingAddressFields(this.form, this.selectedStreetCandidate);
-
         // if has new configuration, replace config
         if (mapConfiguration) {
             lat = mapConfiguration.center.lat;
@@ -239,6 +233,13 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                 zoom: location.zoom,
             };
         }
+
+        //  ensure that form controls is filled
+        if (!this.form) {
+            throw new Error('form must be initialized before this');
+        }
+
+        fillMissingAddressFields(this.form, this.selectedStreetCandidate);
 
         // reset the map to new location
         this.initializeMap({
@@ -295,6 +296,14 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         this.initializeMap(this.baseConfiguration!);
     }
 
+    public checkField(entity: string): void {
+        Object.entries(this.form!).find(([key, value]) => {
+            if (key === entity) {
+                value.setErrors(null);
+            }
+        });
+    }
+
     public errorValidator(entity: string) {
         switch (entity) {
             case 'filter':
@@ -321,30 +330,48 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                 if (this.form!.city && this.form!.city.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION';
                 }
+                if (this.form!.city && this.form!.city.hasError('check')) {
+                    return 'Necesita comprobación';
+                }
                 return '';
             case 'municipality':
                 if (this.form!.municipality && this.form!.municipality.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
+                }
+                if (this.form!.municipality && this.form!.municipality.hasError('check')) {
+                    return 'Necesita comprobación';
                 }
                 return '';
             case 'city_district':
                 if (this.form!.city_district && this.form!.city_district.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION';
                 }
+                if (this.form!.city_district && this.form!.city_district.hasError('check')) {
+                    return 'Necesita comprobación';
+                }
                 return '';
             case 'cp':
                 if (this.form!.cp && this.form!.cp.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
+                }
+                if (this.form!.cp && this.form!.cp.hasError('check')) {
+                    return 'Necesita comprobación';
                 }
                 return '';
             case 'street':
                 if (this.form!.street && this.form!.street.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
                 }
+                if (this.form!.street && this.form!.street.hasError('check')) {
+                    return 'Necesita comprobación';
+                }
                 return '';
             case 'number':
                 if (this.form!.number && this.form!.number.hasError('required')) {
                     return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
+                }
+                if (this.form!.number && this.form!.number.hasError('check')) {
+                    return 'Necesita comprobación';
                 }
                 return '';
             default:
