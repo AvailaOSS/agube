@@ -15,6 +15,7 @@ interface Address {
     province: string;
     state: string;
     road?: string;
+    landuse?: string; // road substitute
     house_number?: number;
     village?: string;
 }

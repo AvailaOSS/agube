@@ -48,6 +48,7 @@ export class DetailComponent implements OnInit {
 
     public showMap: boolean = true;
     private mapId: string = 'detail_map';
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,

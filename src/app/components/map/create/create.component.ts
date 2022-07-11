@@ -2,299 +2,87 @@ import { HttpClient } from '@angular/common/http';
 import {
     AfterViewInit,
     Component,
-    Output,
-    ViewChild,
     EventEmitter,
     Input,
     OnChanges,
+    OnInit,
+    Output,
     SimpleChanges,
+    ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import * as L from 'leaflet';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
-import { OnInit } from '@angular/core';
-import { AddressEmitter } from '../../../utils/address/address-emitter';
-import { InputForm } from './input-form';
-import { MapComponent } from '../map/map.component';
-import { ConfigureMap } from '../map/configure-map';
-import { MapEvent } from '../map/map-event';
-import { LocationResponse } from '../map/location-response';
 import { Address, AddressService } from '@availa/agube-rest-api';
+import * as L from 'leaflet';
+import { Observable } from 'rxjs';
+import { AddressEmitter } from 'src/app/utils/address/address-emitter';
+import { ConfigureMap } from '../map/configure-map';
+import { LocationResponse } from '../map/location-response';
+import { MapEvent } from '../map/map-event';
+import { MapComponent } from '../map/map.component';
+import { InputForm } from './input-form';
+import {
+    fillMissingAddressFields,
+    mapAddressFormBuilder,
+    MapAddressCreator,
+    MapAddressForm,
+} from './map-address-creator';
 
 @Component({
     selector: 'app-map-location-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent extends MapComponent implements AfterViewInit, OnInit, OnChanges {
+export class CreateComponent extends MapComponent implements MapAddressCreator, AfterViewInit, OnInit, OnChanges {
+    // -------------------------- MapAddressCreator vars -------------------------- //
+    form: MapAddressForm | undefined;
+    addressAlreadyCreated: Address[];
+    addressExamples: LocationResponse[];
+
+    // -------------------------- Public Class vars -------------------------- //
     @Input() public addressInputForm!: InputForm;
     @Input() public resetForm: boolean = false;
 
-    @ViewChild(MatSelectionList) public candidateComponents: MatSelectionList | undefined;
+    @ViewChild(MatSelectionList) public addressExampleSelector: MatSelectionList | undefined;
 
     @Output() public addressForm: EventEmitter<AddressEmitter> = new EventEmitter<AddressEmitter>();
 
-    public addressCandidates: LocationResponse[] = [];
-    public loadingCandidates: boolean = false;
+    public loadingExamples: boolean = false;
     public loadingMap: boolean = false;
+    public globalMapConfig: ConfigureMap | undefined;
 
-    // filter
-    public addressFormGroup: FormGroup | undefined;
-    public filter: FormControl = new FormControl('', Validators.required);
-    public country: FormControl | undefined;
-    public state: FormControl | undefined;
-    public province: FormControl | undefined;
-    public city: FormControl | undefined;
-    public village: FormControl | undefined;
-    public municipality: FormControl | undefined;
-    public city_district: FormControl | undefined;
-    public cp: FormControl | undefined;
-    public street: FormControl | undefined;
-    public number: FormControl | undefined;
-    public flat: FormControl | undefined;
-    public gate: FormControl | undefined;
-
-    public autocomplete: Address[] = [];
-    public clickUser: ConfigureMap | undefined;
-
-    private mapId = 'create_map';
-
+    // -------------------------- Private Class vars -------------------------- //
     // You can override this url for use other maps
     private zoom: number = MapComponent.zoom;
-    private static mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
-    private static mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
-    private static mapSearchUrlSufix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
+    private readonly waitToMapReload: number = 1000;
+    private static readonly mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
+    private static readonly mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
+    private static readonly mapSearchUrlSuffix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
+
+    // -------------------------- Angular Lifecycle -------------------------- //
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder, private svcAddress: AddressService) {
         super();
-        this.filter.markAsTouched();
+        this.form = undefined;
+        this.addressAlreadyCreated = [];
+        this.addressExamples = [];
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        // if parent says reset form then reset
-        let current = changes['resetForm'].currentValue;
-        let previous = changes['resetForm'].previousValue;
-        let hasValues = current && previous !== undefined;
-        let areDifferent = current !== previous;
-
-        if (hasValues && areDifferent) {
-            this.resetThisComponent();
-        }
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.resetFormIfHasChanged('resetForm', changes);
     }
 
-    ngOnInit(): void {
-        if (!this.addressInputForm) {
-            throw new Error('inputForm is necessary for this component');
-        }
-
-        // parent can initialize the Address Input Form
-        this.country = this.addressInputForm.country;
-        this.state = this.addressInputForm.state;
-        this.province = this.addressInputForm.province;
-        this.city = this.addressInputForm.city;
-        this.village = this.addressInputForm.village;
-        this.municipality = this.addressInputForm.municipality;
-        this.city_district = this.addressInputForm.city_district;
-        this.cp = this.addressInputForm.cp;
-        this.street = this.addressInputForm.street;
-        this.number = this.addressInputForm.number;
-        this.flat = this.addressInputForm.flat;
-        this.gate = this.addressInputForm.gate;
-
-        this.addressFormGroup = this.formBuilder.group({
-            filter: this.filter,
-            country: this.country,
-            state: this.state,
-            province: this.province,
-            city: this.city,
-            village: this.village,
-            municipality: this.municipality,
-            city_district: this.city_district,
-            cp: this.cp,
-            street: this.street,
-            number: this.number,
-            flat: this.flat,
-            gate: this.gate,
-        });
-
-        // receive all addresses from the manager for initialize the autocomplete
-        this.loadAutocomplete();
+    public ngOnInit(): void {
+        this.form = mapAddressFormBuilder(this.addressInputForm);
+        this.loadAddressAlreadyCreatedAndDrawMap();
     }
 
     override ngAfterViewInit(): void {
         // do not execute ngAfterViewInit here
     }
 
-    public filtering(option?: Address) {
-        this.loadingCandidates = true;
-        // get the filter value on the html filter
-        let localFilter = this.filter.value;
-
-        // if method has been called with parameter override the local filter
-        if (option) {
-            // filter with option selected
-            localFilter = option.country + ', ' + option.state + ', ' + option.city + ', ' + option.road;
-        }
-
-        // get location with the local filter
-        this.getLocationBySearch(localFilter).subscribe((response) => {
-            if (!response.length && option) {
-                // if road filter not working, filter again without using road
-                // retry filter again
-                // filter with country, state and city because the map can't search the road sometimes
-                localFilter = option.country + ', ' + option.state + ', ' + option.city;
-                // get location with the local filter
-                this.getLocationBySearch(localFilter).subscribe((response) => {
-                    if (!response.length) {
-                        // if no response, do nothing
-                        return;
-                    }
-                    // candidate components unselect
-                    this.candidateComponents?.deselectAll();
-                    // replace address candidate with news
-                    this.addressCandidates = response;
-                    // select first option as candidate
-                    this.selectCandidate(response[0]);
-                    this.loadingCandidates = false;
-                });
-            } else {
-                // candidate components unselect
-                this.candidateComponents?.deselectAll();
-                // replace address candidate with news
-                this.addressCandidates = response;
-                // select first option as candidate
-                this.selectCandidate(response[0]);
-                this.loadingCandidates = false;
-            }
-        });
-    }
-
-    public clearFilter() {
-        this.filter.setValue('');
-        this.initializeMap(this.configureMap!);
-    }
-
-    /**
-     * On candidate selected in the html
-     * @param candidate
-     */
-    public selectCandidate(candidate: LocationResponse, clickConf?: ConfigureMap) {
-        let lat: string = candidate.lat;
-        let lon: string = candidate.lon;
-
-        this.selectedStreetCandidate = candidate;
-        this.fillFormControls(this.selectedStreetCandidate);
-        //  ensure that form controls is filled
-        //  reset the map to new location
-        if (clickConf) {
-            lat = clickConf.center.lat;
-            lon = clickConf.center.lon;
-            this.selectedStreetCandidate = {
-                address: candidate.address,
-                display_name: candidate.display_name,
-                lat,
-                lon,
-                zoom: candidate.zoom,
-            };
-        }
-        this.initializeMap({
-            id: this.mapId,
-            center: {
-                lat: lat,
-                lon: lon,
-            },
-            zoom: MapComponent.zoom,
-            showCircle: true,
-            height: this.configureMap!.height,
-            dragging: this.configureMap!.dragging,
-            otherPoints: this.configureMap?.otherPoints,
-        });
-
-        // // emit the address
-        this.addressForm.emit({
-            addressFormGroup: this.addressFormGroup!,
-            location: this.selectedStreetCandidate,
-        });
-    }
-
-    public errorValidator(entity: string) {
-        switch (entity) {
-            case 'filter':
-                if (this.filter && this.filter.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FILTER.VALIDATION';
-                }
-                return '';
-            case 'country':
-                if (this.country && this.country.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.COUNTRY.VALIDATION';
-                }
-                return '';
-            case 'state':
-                if (this.state && this.state.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.STATE.VALIDATION';
-                }
-                return '';
-            case 'province':
-                if (this.province && this.province.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.PROVINCE.VALIDATION';
-                }
-                return '';
-            case 'city':
-                if (this.city && this.city.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION';
-                }
-                return '';
-            case 'municipality':
-                if (this.municipality && this.municipality.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
-                }
-                return '';
-            case 'city_district':
-                if (this.city_district && this.city_district.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION';
-                }
-                return '';
-            case 'cp':
-                if (this.cp && this.cp.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
-                }
-                return '';
-            case 'street':
-                if (this.street && this.street.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
-                }
-                return '';
-
-            case 'number':
-                if (this.number && this.number.hasError('required')) {
-                    return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
-                }
-                return '';
-            default:
-                return '';
-        }
-    }
-
-    /**
-     * receive all addresses from the manager for initialize the autocomplete
-     */
-    private loadAutocomplete() {
-        this.svcAddress.getAddress().subscribe((response) => {
-            this.autocomplete = response;
-            // if has some address set as selected option in filter
-            if (this.configureMap && this.configureMap.selectOptionFilter === true) {
-                // go to the location configured
-                this.getLocationByCoordinate(
-                    Number(this.configureMap!.center.lat),
-                    Number(this.configureMap!.center.lon)
-                ).subscribe((response: LocationResponse) => {
-                    this.candidateComponents?.deselectAll();
-                    this.selectCandidate(response);
-                });
-            }
-        });
-    }
+    // -------------------------- End Angular Lifecycle -------------------------- //
+    // -------------------------- Override Extends MapComponent -------------------------- //
 
     protected override initializeMap(conf: ConfigureMap): void {
         this.loadingMap = true;
@@ -305,7 +93,7 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
             }
 
             this.zoom = conf.zoom;
-            this.map = L.map('map', {
+            this.map = L.map(this.baseConfiguration!.id, {
                 center: [+conf.center.lat, +conf.center.lon],
                 doubleClickZoom: false,
                 zoom: this.zoom,
@@ -327,17 +115,15 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                 conf.otherPoints.forEach((point) => this.setCircle(+point.lat, +point.lon, point.description));
             }
 
-            if (this.filter.invalid) {
-                return;
-            }
+            this.loadingMap = false;
 
             this.map.on('click', (e: MapEvent) => {
                 if (e.sourceTarget._animateToZoom) {
                     this.zoom = e.sourceTarget._animateToZoom;
                 }
 
-                let clickConf: ConfigureMap = {
-                    id: this.mapId,
+                this.globalMapConfig = {
+                    id: this.baseConfiguration!.id,
                     center: {
                         lat: e.latlng.lat,
                         lon: e.latlng.lng,
@@ -353,99 +139,230 @@ export class CreateComponent extends MapComponent implements AfterViewInit, OnIn
                     this.map.removeLayer(circle);
                 }
 
-                this.initializeMap(clickConf);
-                this.clickUser = clickConf;
+                this.initializeMap(this.globalMapConfig);
 
-                this.getLocationByCoordinate(Number(clickConf.center.lat), Number(clickConf.center.lon)).subscribe(
-                    (response: LocationResponse) => {
-                        this.selectCandidate(response, clickConf);
-                        if (this.selectedStreetCandidate) {
-                            this.selectedStreetCandidate.zoom = this.zoom;
-                        }
+                this.searchLocationByCoordinate(
+                    Number(this.globalMapConfig.center.lat),
+                    Number(this.globalMapConfig.center.lon)
+                ).subscribe((response: LocationResponse) => {
+                    this.putLocationInMap(response, this.globalMapConfig);
+                    if (this.selectedStreetCandidate) {
+                        this.selectedStreetCandidate.zoom = this.zoom;
                     }
-                );
+                });
             });
-            this.loadingMap = false;
-        }, 1000);
+        }, this.waitToMapReload);
     }
 
-    private getLocationBySearch(filter: string): Observable<LocationResponse[]> {
+    // -------------------------- End Override Extends MapComponent -------------------------- //
+    // -------------------------- Class Methods by Interface MapAddressCreator -------------------------- //
+
+    public resetFormIfHasChanged(formName: string, changes: SimpleChanges): void {
+        // if parent says reset form then reset
+        let current = changes[formName].currentValue;
+        let previous = changes[formName].previousValue;
+        let hasValues = current && previous !== undefined;
+        let areDifferent = current !== previous;
+
+        if (hasValues && areDifferent) {
+            this.form!.reset();
+            this.loadAddressAlreadyCreatedAndDrawMap();
+        }
+    }
+
+    public loadAddressAlreadyCreatedAndDrawMap(): void {
+        this.svcAddress.getAddress().subscribe((response) => {
+            this.addressAlreadyCreated = response;
+            // if has some address set as selected option in filter
+            if (this.baseConfiguration && this.baseConfiguration.selectOptionFilter === true) {
+                // go to the location configured
+                this.searchLocationByCoordinate(
+                    Number(this.baseConfiguration!.center.lat),
+                    Number(this.baseConfiguration!.center.lon)
+                ).subscribe((response: LocationResponse) => {
+                    this.putLocationInMap(response);
+                });
+            }
+        });
+    }
+
+    public loadAddressExamples(address?: Address): void {
+        this.loadingExamples = true;
+        // get the filter value on the html filter
+
+        let searching = this.form!.filter.value;
+
+        // if method has been called with parameter override the local filter
+        if (address) {
+            // filter with address selected
+            searching = address.country + ', ' + address.state + ', ' + address.city + ', ' + address.road;
+        }
+
+        // get location with the local filter
+        this.searchLocation(searching).subscribe((response) => {
+            if (!response.length && address) {
+                // if road filter not working, filter again without using road
+                // retry filter again
+                // filter with country, state and city because the map can't search the road sometimes
+                searching = address.country + ', ' + address.state + ', ' + address.city;
+                // get location with the local filter
+                this.searchLocation(searching).subscribe((response) => {
+                    this.loadAddressExamplesFromResponse(response);
+                });
+            } else {
+                this.loadAddressExamplesFromResponse(response);
+            }
+        });
+    }
+
+    public putLocationInMap(location: LocationResponse, mapConfiguration?: ConfigureMap | undefined): void {
+        let lat: string = location.lat;
+        let lon: string = location.lon;
+
+        this.selectedStreetCandidate = location;
+
+        //  ensure that form controls is filled
+        if (!this.form) {
+            throw new Error('form must be initialized before this');
+        }
+        fillMissingAddressFields(this.form, this.selectedStreetCandidate);
+
+        // if has new configuration, replace config
+        if (mapConfiguration) {
+            lat = mapConfiguration.center.lat;
+            lon = mapConfiguration.center.lon;
+            this.selectedStreetCandidate = {
+                address: location.address,
+                display_name: location.display_name,
+                lat,
+                lon,
+                zoom: location.zoom,
+            };
+        }
+
+        // reset the map to new location
+        this.initializeMap({
+            id: this.baseConfiguration.id,
+            center: {
+                lat: lat,
+                lon: lon,
+            },
+            zoom: MapComponent.zoom,
+            showCircle: true,
+            height: this.baseConfiguration!.height,
+            dragging: this.baseConfiguration!.dragging,
+            otherPoints: this.baseConfiguration?.otherPoints,
+        });
+
+        // emit the address
+        this.addressForm.emit({
+            addressFormGroup: this.formBuilder.group({
+                filter: this.form!.filter,
+                country: this.form!.country,
+                state: this.form!.state,
+                province: this.form!.province,
+                city: this.form!.city,
+                village: this.form!.village,
+                municipality: this.form!.municipality,
+                city_district: this.form!.city_district,
+                cp: this.form!.cp,
+                street: this.form!.street,
+                number: this.form!.number,
+                flat: this.form!.flat,
+                gate: this.form!.gate,
+            }),
+            location: this.selectedStreetCandidate,
+        });
+    }
+
+    public searchLocation(filter: string): Observable<LocationResponse[]> {
         return this.http.get<LocationResponse[]>(
-            CreateComponent.mapSearchUrlPrefix + filter + CreateComponent.mapSearchUrlSufix
+            CreateComponent.mapSearchUrlPrefix + filter + CreateComponent.mapSearchUrlSuffix
         );
     }
 
-    private getLocationByCoordinate(lat: number, lon: number): Observable<LocationResponse> {
+    public searchLocationByCoordinate(lat: number, lon: number): Observable<LocationResponse> {
         return this.http.get<LocationResponse>(
-            CreateComponent.mapSearchCoordinatesUrlPrefix + `lat=${lat}&lon=${lon}` + CreateComponent.mapSearchUrlSufix
+            CreateComponent.mapSearchCoordinatesUrlPrefix + `lat=${lat}&lon=${lon}` + CreateComponent.mapSearchUrlSuffix
         );
     }
 
-    private resetThisComponent() {
-        this.loadAutocomplete();
-        this.number?.setValue('');
-        this.flat?.setValue('');
-        this.gate?.setValue('');
+    // -------------------------- End Class Methods by Interface MapAddressCreator -------------------------- //
+    // -------------------------- Class Methods  -------------------------- //
+
+    public clearFilter(): void {
+        this.form!.clearFilter();
+        this.initializeMap(this.baseConfiguration!);
     }
 
-    private fillFormControls(location: LocationResponse) {
-        console.log('location Fill Form', location.lat);
-        if (!location.zoom) {
-            location.zoom = MapComponent.zoom;
+    public errorValidator(entity: string) {
+        switch (entity) {
+            case 'filter':
+                if (this.form!.filter && this.form!.filter.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FILTER.VALIDATION';
+                }
+                return '';
+            case 'country':
+                if (this.form!.country && this.form!.country.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.COUNTRY.VALIDATION';
+                }
+                return '';
+            case 'state':
+                if (this.form!.state && this.form!.state.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.STATE.VALIDATION';
+                }
+                return '';
+            case 'province':
+                if (this.form!.province && this.form!.province.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.PROVINCE.VALIDATION';
+                }
+                return '';
+            case 'city':
+                if (this.form!.city && this.form!.city.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION';
+                }
+                return '';
+            case 'municipality':
+                if (this.form!.municipality && this.form!.municipality.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
+                }
+                return '';
+            case 'city_district':
+                if (this.form!.city_district && this.form!.city_district.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION';
+                }
+                return '';
+            case 'cp':
+                if (this.form!.cp && this.form!.cp.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
+                }
+                return '';
+            case 'street':
+                if (this.form!.street && this.form!.street.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
+                }
+                return '';
+            case 'number':
+                if (this.form!.number && this.form!.number.hasError('required')) {
+                    return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
+                }
+                return '';
+            default:
+                return '';
         }
+    }
 
-        // FIXME: move this to pipe
-        this.filter.setValue(location.display_name);
-
-        if (location.address.village && location.address.city_district) {
-            this.village?.setValue(location.address.village);
-            this.city_district?.setValue(location.address.city_district);
+    private loadAddressExamplesFromResponse(response: LocationResponse[]) {
+        if (!response.length) {
+            // if no response, do nothing
+            return;
         }
-        if (this.street && location.address.road && this.cp) {
-            this.state?.setValue(location.address.state);
-            this.country?.setValue(location.address.country);
-            this.province?.setValue(location.address.province);
-            this.city?.setValue(location.address.city);
-            this.municipality?.setValue(location.address.municipality);
-            this.cp?.setValue(location.address.postcode);
-            this.street?.setValue(location.address.road);
-        }
-
-        if (this.number && !this.number.value) {
-            this.number.setValue(location.address.house_number);
-        }
-
-        let city = location.address.city;
-
-        if (!city) {
-            city = location.address.state;
-        }
-
-        if (!city) {
-            city = location.address.country;
-            this.country?.setValue(location.address.country);
-        }
-        if (!location.address.city) {
-            location.address.city = city;
-            this.city?.setValue(location.address.city);
-        }
-
-        if (!location.address.province) {
-            location.address.province = city;
-            this.province?.setValue(location.address.province);
-        }
-        if (!location.address.municipality) {
-            location.address.municipality = city;
-            this.municipality?.setValue(location.address.municipality);
-        }
-
-        if (!location.address.postcode) {
-            location.address.postcode = '0000';
-        }
-
-        if (!location.address.city_district) {
-            location.address.city_district = city;
-            this.city_district?.setValue(location.address.city_district);
-        }
+        // candidate components unselect
+        this.addressExampleSelector?.deselectAll();
+        // replace address candidate with news
+        this.addressExamples = response;
+        // select first address as candidate
+        this.putLocationInMap(response[0]);
+        this.loadingExamples = false;
     }
 }

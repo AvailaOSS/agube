@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ dialogTitle | translate }}</h1>
 <div mat-dialog-content>
-    <app-map-location-create (addressForm)="addressFormReceive($event)" [configureMap]="configureMap"
+    <app-map-location-create (addressForm)="addressFormReceive($event)" [baseConfiguration]="configureMap"
         [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
     </app-map-location-create>
 </div>
