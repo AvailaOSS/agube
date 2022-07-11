@@ -152,7 +152,8 @@ export class DetailComponent implements OnInit {
                 this.configureMaps(response);
                 this.showMap = true;
                 this.googleAnalyticsService.gtag('event', 'update_address', {
-                    address: response.address,
+                    city: response.address.city,
+                    street: response.address?.road,
                     latitude: response.latitude,
                     longitude: response.longitude,
                     zoom: response.zoom,

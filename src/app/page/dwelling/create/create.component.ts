@@ -67,7 +67,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.gtag('event', 'create_dwelling', {
                     manager_id: response.id,
                     water_meter: response.water_meter,
-                    address: response.geolocation.address,
+                    street: response.geolocation.address?.road,
+                    city: response.geolocation.address.city,
                     latitude: response.geolocation.latitude,
                     longitude: response.geolocation.longitude,
                     zoom: response.geolocation.zoom,
@@ -97,7 +98,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.gtag('event', 'create_dwelling_exit', {
                     manager_id: response?.id,
                     water_meter: response.water_meter,
-                    address: response.geolocation.address,
+                    street: response.geolocation.address?.road,
+                    city: response.geolocation.address.city,
                     latitude: response.geolocation.latitude,
                     longitude: response.geolocation.longitude,
                     zoom: response.geolocation.zoom,
