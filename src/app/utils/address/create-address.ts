@@ -42,7 +42,7 @@ export class CreateAddress {
     public addressEmitter: AddressEmitter | undefined;
 
     constructor() {
-        this.setMapResolution('340px', '650px', '1020px');
+        this.setMapResolution('340px', '550px', '1020px');
     }
 
     public addressFormReceive(addressEmitter: AddressEmitter) {
@@ -59,7 +59,7 @@ export class CreateAddress {
     /**
      * configure map height
      * @param fullHd '370px'
-     * @param TwoK '650px'
+     * @param TwoK '550px'
      * @param FourK '1020px'
      */
     protected setMapResolution(fullHd: string, twoK: string, fourK: string) {

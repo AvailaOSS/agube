@@ -35,9 +35,9 @@
                         </mat-button-toggle>
                     </mat-button-toggle-group>
 
-                    <div *ngIf="showMap">
+                    <div *ngIf="showMap && configureMap">
                         <div *ngIf="mode == 'map'; else showStreetView">
-                            <app-map [configureMap]="configureMap"></app-map>
+                            <app-map [baseConfiguration]="configureMap"></app-map>
                         </div>
                         <ng-template #showStreetView>
                             <app-street-view [configureView]="configureView"></app-street-view>

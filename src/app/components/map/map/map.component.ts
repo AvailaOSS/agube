@@ -9,7 +9,7 @@ import * as L from 'leaflet';
     styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements AfterViewInit {
-    @Input() public configureMap: ConfigureMap | undefined;
+    @Input() public baseConfiguration!: ConfigureMap;
 
     public selectedStreetCandidate: LocationResponse | undefined;
 
@@ -29,10 +29,10 @@ export class MapComponent implements AfterViewInit {
     constructor() {}
 
     ngAfterViewInit(): void {
-        if (!this.configureMap) {
+        if (!this.baseConfiguration) {
             throw new Error('Configure Map before call');
         }
-        this.initializeMap(this.configureMap);
+        this.initializeMap(this.baseConfiguration);
     }
 
     protected initializeMap(conf: ConfigureMap): void {

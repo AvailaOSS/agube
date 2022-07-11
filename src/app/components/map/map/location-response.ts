@@ -8,6 +8,7 @@ export interface LocationResponse {
 
 interface Address {
     city: string;
+    county?: string; // city substitute
     country: string;
     city_district: string;
     municipality: string;
@@ -15,6 +16,7 @@ interface Address {
     province: string;
     state: string;
     road?: string;
+    landuse?: string; // road substitute
     house_number?: number;
     village?: string;
 }

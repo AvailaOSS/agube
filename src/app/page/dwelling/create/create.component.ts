@@ -35,11 +35,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     ngOnInit(): void {
-        this.svcDwellingCache.get().then((response) => {
-            if (response && response.length > 0) {
-                this.configureMap.otherPoints = response.map((dwelling) => build(dwelling));
-            }
-        });
+        this.loadCache();
     }
 
     public override addressFormReceive(addressEmitter: AddressEmitter) {
@@ -61,7 +57,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
         this.onSave()!.subscribe({
             next: (response) => {
-                this.svcDwellingCache.clean();
+                this.resetCache();
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_dwelling', {
@@ -125,7 +121,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 if (this.code.hasError('required')) {
                     return 'PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION';
                 }
-
                 return '';
             default:
                 return '';
@@ -146,5 +141,18 @@ export class CreateComponent extends CreateAddress implements OnInit {
         };
 
         return this.svcDwelling.createDwelling(dwelling);
+    }
+
+    private loadCache() {
+        this.svcDwellingCache.get().then((response) => {
+            if (response && response.length > 0) {
+                this.configureMap.otherPoints = response.map((dwelling) => build(dwelling));
+            }
+        });
+    }
+
+    private resetCache() {
+        this.svcDwellingCache.clean();
+        this.loadCache();
     }
 }

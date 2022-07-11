@@ -63,11 +63,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     ngOnInit(): void {
-        this.svcReservoirCache.get().then((response) => {
-            if (response && response.length > 0) {
-                this.configureMap.otherPoints = response.map((reservoir) => build(reservoir));
-            }
-        });
+        this.loadCache();
     }
 
     public override addressFormReceive(addressEmitter: AddressEmitter) {
@@ -83,12 +79,16 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
+    public exit() {
+        this.router.navigate(['manager/reservoirs']);
+    }
+
     public save() {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
             next: (response) => {
-                this.svcReservoirCache.clean();
+                this.resetCache();
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_reservoir', {
@@ -105,10 +105,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.exception('error_reservoir_create', true);
             },
         });
-    }
-
-    public exit() {
-        this.router.navigate(['manager/reservoirs']);
     }
 
     public saveAndExit() {
@@ -187,5 +183,18 @@ export class CreateComponent extends CreateAddress implements OnInit {
         };
 
         return this.svcReservoir.createReservoir(reservoir);
+    }
+
+    private loadCache() {
+        this.svcReservoirCache.get().then((response) => {
+            if (response && response.length > 0) {
+                this.configureMap.otherPoints = response.map((reservoir) => build(reservoir));
+            }
+        });
+    }
+
+    private resetCache() {
+        this.svcReservoirCache.clean();
+        this.loadCache();
     }
 }
