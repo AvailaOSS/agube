@@ -125,7 +125,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 if (this.code.hasError('required')) {
                     return 'PAGE.DWELLING.CREATE.CODE_COUNTER.VALIDATION';
                 }
-
                 return '';
             default:
                 return '';
