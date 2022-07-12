@@ -17,7 +17,7 @@ import { build } from 'src/app/utils/coordinates/coordinates-builder';
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     public reservoirForm: FormGroup | undefined;
-    public code = new FormControl('', [Validators.required]);
+    public code = new FormControl('');
     public capacity = new FormControl('', [Validators.required]);
     public inletFlow = new FormControl('', [Validators.required]);
     public outletFlow = new FormControl('', [Validators.required]);

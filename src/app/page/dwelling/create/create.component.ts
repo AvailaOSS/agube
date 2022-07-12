@@ -17,7 +17,7 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     public dwellingForm: FormGroup | undefined;
-    public code = new FormControl('', [Validators.required]);
+    public code = new FormControl('');
 
     public loadingPost = false;
 
