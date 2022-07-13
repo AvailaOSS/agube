@@ -120,7 +120,6 @@ class ReservoirWaterMeter(ExportModelOperationsMixin('ReservoirWaterMeter'), mod
     reservoir: Reservoir = models.ForeignKey(Reservoir,
                                              on_delete=models.RESTRICT)
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,
-                                                null=True,
                                                 on_delete=models.RESTRICT)
 
     class Meta:

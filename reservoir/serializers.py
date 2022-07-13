@@ -56,9 +56,11 @@ class ReservoirCreateSerializer(ModelSerializer):
                                      required=False,
                                      allow_null=True,
                                      queryset=User.objects.all())
-    water_meter = WaterMeterSerializer(many=False,
-                                       read_only=False,
-                                       write_only=True)
+    water_meter = WaterMeterSerializer(
+        required=False,
+        many=False,
+        read_only=False,
+        write_only=True)
 
     class Meta:
         ref_name = 'ReservoirCreate'
@@ -77,16 +79,21 @@ class ReservoirCreateSerializer(ModelSerializer):
         # Create geolocation
         validated_data['geolocation'] = GeolocationSerializer(
             data=validated_data.pop('geolocation')).self_create()
-        # Extract user_id & water_meter_code
+        # Extract user_id
         user = validated_data.pop('user_id')
-        water_meter_code = validated_data.pop('water_meter')['code']
+        water_meter_exist=False
+        if 'water_meter' in validated_data:
+            # Extract water_meter_code
+            water_meter_code = validated_data.pop('water_meter')['code']
+            water_meter_exist=True
         # Create reservoir
         reservoir: Reservoir = Reservoir.objects.create(**validated_data)
         # Add user to Reservoir
         if (user):
             reservoir.change_current_owner(user)
-        # Create water meter
-        reservoir.change_current_water_meter(water_meter_code)
+        if water_meter_exist:
+            # Create water meter
+            reservoir.change_current_water_meter(water_meter_code)
         return reservoir
 
 

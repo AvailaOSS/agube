@@ -1,3 +1,4 @@
+from genericpath import exists
 from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -48,9 +49,12 @@ class DwellingCreateSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     geolocation = GeolocationSerializer(many=False, read_only=False)
-    water_meter = WaterMeterSerializer(many=False,
-                                       read_only=False,
-                                       write_only=True)
+    water_meter = WaterMeterSerializer(
+        required=False,
+        many=False,
+        read_only=False,
+        write_only=True,
+    )
 
     class Meta:
         ref_name = 'DwellingCreate'
@@ -70,14 +74,19 @@ class DwellingCreateSerializer(ModelSerializer):
         # Create geolocation
         validated_data['geolocation'] = GeolocationSerializer(
             data=validated_data.pop('geolocation')).self_create()
-        # Extract water_meter_code
-        water_meter_code: WaterMeterSerializer = validated_data.pop(
-            'water_meter')['code']
+        water_meter_exist = False
+        if 'water_meter' in validated_data:
+            # Extract water_meter_code
+            water_meter_code: WaterMeterSerializer = validated_data.pop(
+                'water_meter')['code']
+            water_meter_exist = True
         # Create dwelling
         dwelling: Dwelling = Dwelling.objects.create(manager=manager,
                                                      **validated_data)
-        # Create water meter
-        dwelling.change_current_water_meter(water_meter_code)
+        if water_meter_exist:
+            # Create water meter
+            dwelling.change_current_water_meter(water_meter_code)
+
         return dwelling
 
 

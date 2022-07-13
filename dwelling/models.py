@@ -121,7 +121,6 @@ class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
     """A class used to represent an Dwelling Water Meter"""
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,
-                                                null=True,
                                                 on_delete=models.RESTRICT)
 
     class Meta:
