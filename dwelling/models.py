@@ -116,7 +116,8 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         self.save()
 
 
-class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'), models.Model):
+class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
+                         models.Model):
     """A class used to represent an Dwelling Water Meter"""
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,
