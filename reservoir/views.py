@@ -12,15 +12,15 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
 
-from reservoir.models import Reservoir, ReservoirWaterMeter,ReservoirOwner
+from reservoir.models import Reservoir, ReservoirWaterMeter, ReservoirOwner
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
                                    ReservoirOwnerSerializer,
                                    ReservoirResumeSerializer,
                                    get_reservoir_owner_serialized)
 
-
 TAG = 'reservoir'
+
 
 class ReservoirResumeView(APIView):
     permission_classes = [IsManagerAuthenticated]
@@ -35,11 +35,9 @@ class ReservoirResumeView(APIView):
         manager = self.request.user.id
         total_reservoirs = ReservoirOwner.objects.filter(
             user__id=manager, discharge_date__isnull=True).count()
-        data = {
-            'total_reservoirs': total_reservoirs
-
-        }
+        data = {'total_reservoirs': total_reservoirs}
         return Response(ReservoirResumeSerializer(data, many=False).data)
+
 
 class ReservoirListView(APIView):
     permission_classes = [IsManagerAuthenticated]
@@ -60,7 +58,10 @@ class ReservoirListView(APIView):
 
         list_of_serialized = []
         for reservoir in reservoirs:
-            water_meter_code: str = reservoir.get_current_water_meter().code
+            water_meter_code: str = ''
+            water_meter = reservoir.get_current_water_meter()
+            if water_meter:
+                water_meter_code = water_meter.code
             address: Address = reservoir.geolocation.address
             data = {
                 'id': reservoir.id,
@@ -168,13 +169,13 @@ class ReservoirOwnerView(generics.GenericAPIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(operation_id="getCurrentReservoirOwner",
-                        responses={200: ReservoirOwnerSerializer(many=False)})
+                         responses={200: ReservoirOwnerSerializer(many=False)})
     def get(self, request, pk):
         """
         Get Current Owner of the Reservoir
         """
         try:
-            reservoir:Reservoir = Reservoir.objects.get(id=pk)
+            reservoir: Reservoir = Reservoir.objects.get(id=pk)
             owner = reservoir.get_current_owner()
             if not owner:
                 return Response({'status': 'cannot find Current Owner'},
