@@ -80,10 +80,13 @@ class DwellingListView(APIView):
 
         list_of_serialized: list[DwellingDetailSerializer] = []
         for dwelling in houses:
-            water_meter_code: str = dwelling.get_current_water_meter().code
-
+            water_meter_code: str = ''
             resident_first_name = ''
             user_phone_number = ''
+
+            water_meter = dwelling.get_current_water_meter()
+            if water_meter :
+                water_meter_code = water_meter.code
 
             has_resident = dwelling.get_current_resident()
             if has_resident:
