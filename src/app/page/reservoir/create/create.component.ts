@@ -171,17 +171,28 @@ export class CreateComponent extends CreateAddress implements OnInit {
             return;
         }
 
-        let reservoir: ReservoirCreate = {
-            geolocation: this.getGeolocation(),
-            water_meter: {
-                code: this.code.value,
-            },
-            user_id: this.userId,
-            capacity: this.capacity.value,
-            inlet_flow: this.inletFlow.value,
-            outlet_flow: this.outletFlow.value,
-        };
+        let reservoir: ReservoirCreate;
+        if (this.code.value.length === 0) {
+            reservoir = {
+                geolocation: this.getGeolocation(),
 
+                user_id: this.userId,
+                capacity: this.capacity.value,
+                inlet_flow: this.inletFlow.value,
+                outlet_flow: this.outletFlow.value,
+            };
+        } else {
+            reservoir = {
+                geolocation: this.getGeolocation(),
+                water_meter: {
+                    code: this.code.value,
+                },
+                user_id: this.userId,
+                capacity: this.capacity.value,
+                inlet_flow: this.inletFlow.value,
+                outlet_flow: this.outletFlow.value,
+            };
+        }
         return this.svcReservoir.createReservoir(reservoir);
     }
 

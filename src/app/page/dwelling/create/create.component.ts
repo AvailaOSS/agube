@@ -133,13 +133,19 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     private onSave() {
-        let dwelling: DwellingCreate = {
-            geolocation: this.getGeolocation(),
-            water_meter: {
-                code: this.code.value,
-            },
-        };
-
+        let dwelling: DwellingCreate;
+        if (this.code.value.length === 0) {
+            dwelling = {
+                geolocation: this.getGeolocation(),
+            };
+        } else {
+            dwelling = {
+                geolocation: this.getGeolocation(),
+                water_meter: {
+                    code: this.code.value,
+                },
+            };
+        }
         return this.svcDwelling.createDwelling(dwelling);
     }
 

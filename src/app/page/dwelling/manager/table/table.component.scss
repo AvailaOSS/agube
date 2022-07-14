@@ -26,10 +26,7 @@
   }
   mat-card-content {
     margin: 0px $margin-x-medium $margin-x-medium $margin-x-medium;
+    height: 65%;
   }
-  .actions {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
+
 }
