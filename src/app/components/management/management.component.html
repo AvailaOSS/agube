@@ -1,13 +1,17 @@
 <div *ngIf="load" class="buttons-management">
     <button
         mat-raised-button
-        color="primary"
+        [color]="waterMeterId ? 'primary' : 'warn'"
         matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE.TOOLTIP' | translate }}"
         (click)="openChangeWaterMeter()"
     >
         <div>
             <mat-icon>update</mat-icon>
-            {{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE' | translate }}
+            {{
+                waterMeterId
+                    ? ('PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_WATER_METER_CODE' | translate)
+                    : ('PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.ADD_WATER_METER_CODE' | translate)
+            }}
         </div>
     </button>
     <button
@@ -19,7 +23,7 @@
     >
         <div>
             <mat-icon>hail</mat-icon>
-            {{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER' | translate }}
+            {{ textOwnerButton | translate }}
         </div>
     </button>
     <button
@@ -31,7 +35,7 @@
     >
         <div>
             <mat-icon>escalator_warning</mat-icon>
-            {{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT' | translate }}
+            {{textResidentButton | translate }}
         </div>
     </button>
 </div>

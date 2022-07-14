@@ -58,7 +58,6 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-        private svcDwellingCache: DwellingCacheService,
 
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
