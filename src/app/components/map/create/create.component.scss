@@ -19,6 +19,8 @@
         .filter-selection {
             min-width: 50%;
             width: 100%;
+            height: 220px;
+            overflow: auto;
             mat-selection-list {
                 width: 100%;
                 mat-list-option {
