@@ -134,6 +134,9 @@ export class DetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.svcPersistant.get().subscribe((res) => {
+            this.waterMeterId = res?.id!;
+        });
         if (!this.reservoirId) {
             return;
         }

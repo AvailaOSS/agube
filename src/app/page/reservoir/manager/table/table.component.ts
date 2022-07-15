@@ -21,6 +21,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     public isSelected: ReservoirDetail | undefined = undefined;
 
     public filter = new FormControl('');
+    public pageSide: number = 12;
 
     @Output() public selectedElement: EventEmitter<ReservoirDetail | undefined> = new EventEmitter<
         ReservoirDetail | undefined

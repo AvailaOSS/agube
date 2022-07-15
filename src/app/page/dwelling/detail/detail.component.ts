@@ -6,7 +6,7 @@ import {
     ManagerService,
     GeolocationService,
 } from '@availa/agube-rest-api';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ConfigureMap } from '../../../components/map/map/configure-map';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -76,6 +76,9 @@ export class DetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.svcPersistant.get().subscribe((res) => {
+            this.waterMeterId = res?.id!;
+        });
         if (!this.dwellingId) {
             return;
         }

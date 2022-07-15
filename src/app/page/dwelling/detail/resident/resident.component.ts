@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService, UserDetail, DwellingService } from '@availa/agube-rest-api';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { ChangeData } from 'src/app/page/person/change/change-data';
 import { PersonTitle } from './person-title';
 
 @Component({
@@ -17,27 +18,52 @@ export class ResidentComponent implements OnInit {
     };
     public userDetail: UserDetail | undefined;
 
+    public textResidentButton: string = '';
+    public textOwnerButton: string = '';
+
     constructor(
         protected svcUser: UserService,
-        protected svcDwelling: DwellingService
+        protected svcDwelling: DwellingService,
+        protected router: Router,
     ) {}
 
     ngOnInit(): void {
         if (!this.dwellingId) {
             return;
         }
-        this.svcDwelling.getCurrentResident(this.dwellingId).subscribe((response) => {
-            if (!response.user.id) {
-                return;
-            }
-            this.getUser(response.user.id);
 
+        this.svcDwelling.getCurrentResident(this.dwellingId).subscribe({
+            next: (responseOwner) => {
+                this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT';
+                if (!responseOwner.user.id) {
+                    return;
+                }
+                this.getUser(responseOwner.user.id);
+            },
+            error: () => {
+                this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.ADD_RESIDENT';
+            },
         });
     }
 
     public getUser(userId: number) {
         this.svcUser.getUserDetail(userId).subscribe((response) => {
             this.userDetail = response;
+        });
+
+    }
+    public goToChangeResident() {
+        let queryParams: ChangeData = {
+            dwellingId: this.dwellingId!,
+        };
+        this.router.navigate(['manager/dwellings/person/resident'], {
+            queryParams,
+        });
+    }
+
+    public goToChangeOwner() {
+        this.router.navigate(['manager/dwellings/person/owner'], {
+            queryParams: { dwellingId: this.dwellingId },
         });
     }
 }

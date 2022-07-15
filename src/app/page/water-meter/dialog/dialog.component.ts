@@ -60,9 +60,7 @@ export class WaterMeterDialogComponent {
             .subscribe({
                 next: (response: WaterMeter) => {
                     this.svcPersistant.emit(response);
-
                     this.close();
-                    window.location.reload();
                 },
                 error: (error: any) => this.svcNotification.warning({ message: error }),
             });

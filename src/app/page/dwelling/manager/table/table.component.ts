@@ -22,7 +22,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     public filter = new FormControl('');
 
-    public pageSize = 18;
+    public pageSize = 12;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 

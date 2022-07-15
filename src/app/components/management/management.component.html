@@ -14,28 +14,5 @@
             }}
         </div>
     </button>
-    <button
-        mat-raised-button
-        color="primary"
-        matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER.TOOLTIP' | translate }}"
-        (click)="goToChangeOwner()"
-        *ngIf="!reservoir"
-    >
-        <div>
-            <mat-icon>hail</mat-icon>
-            {{ textOwnerButton | translate }}
-        </div>
-    </button>
-    <button
-        mat-raised-button
-        color="primary"
-        matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT.TOOLTIP' | translate }}"
-        (click)="goToChangeResident()"
-        *ngIf="!reservoir"
-    >
-        <div>
-            <mat-icon>escalator_warning</mat-icon>
-            {{textResidentButton | translate }}
-        </div>
-    </button>
+
 </div>
