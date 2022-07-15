@@ -3,11 +3,18 @@ FROM node:16.14.2 AS nodebuilder
 
 WORKDIR /availa-agube
 
+# GIT ARGS
 ARG GITLAB_AUTH_TOKEN
+ARG APP_NAME
+ARG GOOGLE_MAPS_API_KEY
+ARG GOOGLE_ANALYTICS_ID
+ARG AUTH_BACKEND_API_URL
+ARG SUBSCRIPTION_BACKEND_API_URL
+ARG CONTACT_BOOK_BACKEND_API_URL
+ARG AGUBE_BACKEND_API_URL
 
 RUN npm config set -- '@availa:registry=https://gitlab.com/api/v4/packages/npm/:_authToken' "$GITLAB_AUTH_TOKEN"
 RUN npm config set -- '//gitlab.com/api/v4/packages/npm/:_authToken' "$GITLAB_AUTH_TOKEN"
-
 
 # Install dependencies
 COPY package*.json ./
@@ -15,6 +22,9 @@ RUN npm install
 
 # Copy code
 COPY . .
+
+# Config Frontend environments
+RUN npm run config -- --APP_NAME=$APP_NAME --GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY --GOOGLE_ANALYTICS_ID=$GOOGLE_ANALYTICS_ID --AUTH_BACKEND_API_URL=$AUTH_BACKEND_API_URL --SUBSCRIPTION_BACKEND_API_URL=$SUBSCRIPTION_BACKEND_API_URL --CONTACT_BOOK_BACKEND_API_URL=$CONTACT_BOOK_BACKEND_API_URL --AGUBE_BACKEND_API_URL=$AGUBE_BACKEND_API_URL
 
 # Build
 RUN npm run build

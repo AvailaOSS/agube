@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 1.6.3
+  RELEASE_VERSION: 1.7.0
 
 stages:
   - build
@@ -15,7 +15,15 @@ build_image_snapshot:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT" . --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
+    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT" .
+      --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
+      --build-arg APP_NAME=Agube
+      --build-arg GOOGLE_MAPS_API_KEY=""
+      --build-arg GOOGLE_ANALYTICS_ID=""
+      --build-arg AUTH_BACKEND_API_URL="http://localhost:30004"
+      --build-arg SUBSCRIPTION_BACKEND_API_URL="http://localhost:30001"
+      --build-arg CONTACT_BOOK_BACKEND_API_URL="http://localhost:30002"
+      --build-arg AGUBE_BACKEND_API_URL="http://localhost:30003"
     - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT"
   only:
     - snapshot
@@ -30,7 +38,15 @@ build_image_release_candidate:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-rc" . --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
+    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-rc" .
+      --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
+      --build-arg APP_NAME=Agube
+      --build-arg GOOGLE_MAPS_API_KEY="$GOOGLE_MAPS_API_KEY"
+      --build-arg GOOGLE_ANALYTICS_ID="$GOOGLE_ANALYTICS_ID"
+      --build-arg AUTH_BACKEND_API_URL="$AUTH_BACKEND_API_URL"
+      --build-arg SUBSCRIPTION_BACKEND_API_URL="$SUBSCRIPTION_BACKEND_API_URL"
+      --build-arg CONTACT_BOOK_BACKEND_API_URL="$CONTACT_BOOK_BACKEND_API_URL"
+      --build-arg AGUBE_BACKEND_API_URL="$AGUBE_BACKEND_API_URL"
     - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-rc"
   only:
     - release
@@ -45,7 +61,15 @@ build_image_release:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION . --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
+    - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION .
+      --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
+      --build-arg APP_NAME=Agube
+      --build-arg GOOGLE_MAPS_API_KEY="$GOOGLE_MAPS_API_KEY"
+      --build-arg GOOGLE_ANALYTICS_ID="$GOOGLE_ANALYTICS_ID"
+      --build-arg AUTH_BACKEND_API_URL="$AUTH_BACKEND_API_URL"
+      --build-arg SUBSCRIPTION_BACKEND_API_URL="$SUBSCRIPTION_BACKEND_API_URL"
+      --build-arg CONTACT_BOOK_BACKEND_API_URL="$CONTACT_BOOK_BACKEND_API_URL"
+      --build-arg AGUBE_BACKEND_API_URL="$AGUBE_BACKEND_API_URL"
     - docker tag $CI_REGISTRY_IMAGE:$RELEASE_VERSION $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION
     - docker push $CI_REGISTRY_IMAGE:latest
