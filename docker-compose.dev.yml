@@ -1,135 +1,19 @@
+version: "3.9"
 services:
-  # Root services
-  ## Root: DB
-  db:
-    hostname: db
-    container_name: postgres-db
-    image: postgres:13
+  # Frontend service
+  agube-env-fe:
+    container_name: test-fe
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: Agube
+        GOOGLE_MAPS_API_KEY:
+        GOOGLE_ANALYTICS_ID:
+        AUTH_BACKEND_API_URL: http://localhost:30004
+        SUBSCRIPTION_BACKEND_API_URL: http://localhost:30001
+        CONTACT_BOOK_BACKEND_API_URL: http://localhost:30002
+        AGUBE_BACKEND_API_URL: http://localhost:30003
+    command: nginx -g 'daemon off;'
     ports:
-      - 5432:5432
-    volumes:
-      - /private/var/lib/postgresql:/var/lib/postgresql
-    env_file:
-      - ./docker/dev/.env.db.dev
-    networks:
-      - backend
-
-  ## Root: RabbitMQ
-  rabbitmq:
-    hostname: rabbitmq
-    container_name: rabbitmq
-    image: rabbitmq:3.8-management
-    ports:
-      - 5672:5672
-      # Management plugin
-      - 15672:15672
-    env_file:
-      - ./docker/dev/.env.rabbit.dev
-    networks:
-      - backend
-
-  # Backend services
-  ## BE: agube
-  agube-be:
-    hostname: agube-be
-    container_name: agube-be
-    image: registry.gitlab.com/availa/proyectos/agube/backend/agube-be
-    command: python3 manage.py runserver 0:8000
-    ports:
-      - 8003:8000
-      - 5555:5555
-    environment:
-      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
-      - EMAIL_HOST=smtp.googlemail.com
-      - EMAIL_PORT=587
-      - EMAIL_HOST_USER=$DEV_USER_MAIL
-      - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
-      - REDIRECT_TO=localhost:8080/enable-account?id=
-    env_file:
-      - ./docker/dev/.env.be.dev
-    depends_on:
-      - db
-      - rabbitmq
-    networks:
-      - backend
-
-  ## BE: auth
-  auth-be:
-    hostname: auth-be
-    container_name: auth-be
-    image: registry.gitlab.com/availa/proyectos/auth/backend/auth-be
-    command: python3 manage.py runserver 0:8000
-    ports:
-      - 8000:8000
-    environment:
-      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
-    env_file:
-      - ./docker/dev/.env.be.dev
-    depends_on:
-      - db
-      - rabbitmq
-    networks:
-      - backend
-
-  ## BE: contact-book
-  contact-book-be:
-    hostname: contact-book-be
-    container_name: contact-book-be
-    image: registry.gitlab.com/availa/proyectos/contact-book/backend/contact-book-be
-    command: python3 manage.py runserver 0:8000
-    ports:
-      - 8002:8000
-    environment:
-      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
-    env_file:
-      - ./docker/dev/.env.be.dev
-    depends_on:
-      - db
-      - rabbitmq
-    networks:
-      - backend
-
-  ## BE: subscription
-  subscription-be:
-    hostname: subscription-be
-    container_name: subscription-be
-    image: registry.gitlab.com/availa/proyectos/subscription/backend/subscription-be
-    command: python3 manage.py runserver 0:8000
-    ports:
-      - 8001:8000
-    environment:
-      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
-      - EMAIL_HOST=smtp.googlemail.com
-      - EMAIL_PORT=587
-      - EMAIL_HOST_USER=$DEV_USER_MAIL
-      - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
-      - REDIRECT_TO=localhost:8080/enable-account?id=
-    env_file:
-      - ./docker/dev/.env.be.dev
-    depends_on:
-      - db
-      - rabbitmq
-    networks:
-      - backend
-
-  ## BE: task
-  task-be:
-    hostname: task-be
-    container_name: task-be
-    image: registry.gitlab.com/availa/proyectos/task/backend/task-be
-    command: python3 manage.py runserver 0:8000
-    ports:
-      - 8004:8000
-    environment:
-      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
-    env_file:
-      - ./docker/dev/.env.be.dev
-    depends_on:
-      - db
-      - rabbitmq
-    networks:
-      - backend
-
-networks:
-  backend:
-    driver: bridge
+      - 8080:8080

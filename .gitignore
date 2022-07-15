@@ -15,6 +15,7 @@
 # dependencies
 /node_modules
 *environment.dev.ts
+*environment.prod.ts
 
 # profiling files
 chrome-profiler-events*.json
@@ -51,6 +52,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+.env*
 
 # secret environments
 docker/*

@@ -1,0 +1,21 @@
+# Docs
+README.md
+
+# VSCode
+.vscode
+
+# Docker
+Dockerfile
+docker*
+
+# Node
+# node_modules
+
+# App
+environment.prod.ts
+.env
+
+# Git
+.git
+.gitignore
+.gitlab-ci
