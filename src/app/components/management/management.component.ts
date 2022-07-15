@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DwellingCreate, ReservoirCreate } from '@availa/agube-rest-api';
 import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-data';
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
+import { WaterMeterPersistantService } from 'src/app/page/water-meter/water-meter-persistant.service';
 import { Type } from '../../page/water-meter/detail/type';
 @Component({
     selector: 'app-management',
@@ -16,12 +17,11 @@ export class ManagementComponent implements OnInit {
     @Input() public load: boolean = false;
     @Input() public reservoir?: boolean = false;
 
-    constructor( private dialog: MatDialog) {}
+    constructor(private dialog: MatDialog, private svcPersistant: WaterMeterPersistantService) {}
     ngOnInit(): void {
         if (!this.manage?.id) {
             return;
         }
-
     }
 
     public openChangeWaterMeter() {
@@ -35,7 +35,12 @@ export class ManagementComponent implements OnInit {
             disableClose: true,
             data,
         });
+        this.dialog.afterAllClosed.subscribe(() => {
+            this.svcPersistant.get().subscribe((response) => {
+                if (response) {
+                    this.waterMeterId = response.id;
+                }
+            });
+        });
     }
-
-
 }
