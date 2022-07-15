@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { DwellingCreate, ReservoirCreate, DwellingService } from '@availa/agube-rest-api';
-import { ChangeData } from 'src/app/page/person/change/change-data';
+import { DwellingCreate, ReservoirCreate } from '@availa/agube-rest-api';
 import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-data';
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
 import { Type } from '../../page/water-meter/detail/type';
@@ -17,30 +15,13 @@ export class ManagementComponent implements OnInit {
     @Input() public type: Type | undefined;
     @Input() public load: boolean = false;
     @Input() public reservoir?: boolean = false;
-    public textOwnerButton: string = '';
-    public textResidentButton: string = '';
 
-    constructor(private router: Router, private dialog: MatDialog, private svcDwelling: DwellingService) {}
+    constructor( private dialog: MatDialog) {}
     ngOnInit(): void {
         if (!this.manage?.id) {
             return;
         }
-        this.svcDwelling.getCurrentOwner(this.manage.id).subscribe({
-            next: (responseOwner) => {
-                this.textOwnerButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER';
-            },
-            error: () => {
-                this.textOwnerButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.ADD_OWNER';
-            },
-        });
-        this.svcDwelling.getCurrentResident(this.manage.id).subscribe({
-            next: (responseOwner) => {
-                this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT';
-            },
-            error: () => {
-                this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.ADD_RESIDENT';
-            },
-        });
+
     }
 
     public openChangeWaterMeter() {
@@ -56,18 +37,5 @@ export class ManagementComponent implements OnInit {
         });
     }
 
-    public goToChangeResident() {
-        let queryParams: ChangeData = {
-            dwellingId: this.manage?.id!,
-        };
-        this.router.navigate(['manager/dwellings/person/resident'], {
-            queryParams,
-        });
-    }
 
-    public goToChangeOwner() {
-        this.router.navigate(['manager/dwellings/person/owner'], {
-            queryParams: { dwellingId: this.manage?.id },
-        });
-    }
 }
