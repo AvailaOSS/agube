@@ -1,7 +1,7 @@
-from genericpath import exists
 from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from manager.exceptions import ManagerLimitExceeded
 from manager.models import Manager
 from rest_framework.fields import CharField, ReadOnlyField, DecimalField
 from rest_framework.serializers import ModelSerializer, Serializer
@@ -71,6 +71,10 @@ class DwellingCreateSerializer(ModelSerializer):
             manager: Manager = Manager.objects.get(user_id=user.id)
         except ObjectDoesNotExist:
             raise UserManagerRequiredError()
+
+        if manager.has_exceeded_limit():
+            raise ManagerLimitExceeded()
+
         # Create geolocation
         validated_data['geolocation'] = GeolocationSerializer(
             data=validated_data.pop('geolocation')).self_create()

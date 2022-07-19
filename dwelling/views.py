@@ -1,19 +1,20 @@
 from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from manager.exceptions import ManagerLimitExceeded
+from manager.permissions import IsManagerAuthenticated
 from owner.models import Owner
 from owner.serializers import OwnerSerializer
 from resident.models import Resident
 from resident.serializers import ResidentSerializer
-from user.models import UserPhone
-from rest_framework.permissions import IsAuthenticated
-from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND
+from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
+from user.models import UserPhone
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
@@ -26,9 +27,9 @@ from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling, DwellingWaterMeter
-from dwelling.serializers import (DwellingResumeSerializer,
-                                  DwellingCreateSerializer,
-                                  DwellingDetailSerializer)
+from dwelling.serializers import (DwellingCreateSerializer,
+                                  DwellingDetailSerializer,
+                                  DwellingResumeSerializer)
 
 TAG = 'dwelling'
 
@@ -125,14 +126,23 @@ class DwellingCreateView(generics.CreateAPIView):
     permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(operation_id="createDwelling",
-                         operation_description="create a new Dwelling")
+                         operation_description="create a new Dwelling",
+                         responses={
+                             # TODO: make openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}) generic for all errors
+                             # TODO: create a Serializer for Errors
+                             HTTP_404_NOT_FOUND: openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}),
+                             HTTP_403_FORBIDDEN: openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}),
+                        }
+    )
     def post(self, request, *args, **kwargs):
         try:
             with transaction.atomic():
                 return super().post(request, *args, **kwargs)
         except (InvalidEmailError, EmailValidationError,
-                UserManagerRequiredError) as e:
+                UserManagerRequiredError ) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
+        except (ManagerLimitExceeded) as e:
+            return Response({'status': e.message}, status=HTTP_403_FORBIDDEN)
 
 
 class DwellingSetOwnerAsResidentView(APIView):
