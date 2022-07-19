@@ -32,7 +32,6 @@ export class AppComponent {
     public selectedLanguage: Language = this.languages[1];
 
     constructor(private translate: TranslateService, private svcAccount: AccountService, private svcUser: UserService) {
-        console.log(environment);
         this.selectLanguage(this.selectedLanguage);
         this.svcAccount.getUser().subscribe((userResponse) => {
             if (!userResponse) {
