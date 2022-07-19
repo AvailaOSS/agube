@@ -8,6 +8,7 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
     user: User = models.OneToOneField(User,
                                       primary_key=True,
                                       on_delete=models.RESTRICT)
+    dwelling_limit = models.PositiveIntegerField(default=5)
 
     class Meta:
         db_table = 'agube_manager_manager'
@@ -30,6 +31,10 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
             manager=self,
             max_daily_consumption=max_daily_consumption,
             hook_price=hook_price)
+
+    def has_exceeded_limit(self):
+        from dwelling.models import Dwelling
+        return Dwelling.objects.filter(manager=self).count() >= self.dwelling_limit
 
 
 class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), models.Model):
