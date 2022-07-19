@@ -19,6 +19,7 @@
     "GENERAL.BUTTON.EDIT": "Edit",
     "GENERAL.BUTTON.DELETE": "Erase",
     "GENERAL.TITLE.PHOTO": "Profile Picture",
+    "GENERAL.MANAGER.ERRORS.LIMIT_EXCEEDED": "You already have the housing limit for your subscription plan",
     "APP.CHANGE_LANGUAGE": "Change Language",
     "APP.THEME.CHANGE": "Change Theme",
     "APP.THEME.LIGHT": "Light Theme",
