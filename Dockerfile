@@ -18,7 +18,7 @@ RUN npm config set -- '//gitlab.com/api/v4/packages/npm/:_authToken' "$GITLAB_AU
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 # Copy code
 COPY . .

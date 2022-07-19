@@ -9,7 +9,7 @@ Dockerfile
 docker*
 
 # Node
-# node_modules
+node_modules
 
 # App
 environment.prod.ts
