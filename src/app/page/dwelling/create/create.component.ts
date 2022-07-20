@@ -1,14 +1,14 @@
-import { Coordinates } from './../../../components/map/map/configure-map';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
-import { CreateAddress } from 'src/app/utils/address/create-address';
+import { TranslateService } from '@ngx-translate/core';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
+import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-page-dwelling-create',
@@ -27,7 +27,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcDwelling: DwellingService,
         private svcDwellingCache: DwellingCacheService,
         private formBuilder: FormBuilder,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService
     ) {
         super();
 
@@ -108,7 +109,14 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.exit();
             },
             error: (error) => {
-                this.svcNotification.warning({ message: error });
+                var message = JSON.stringify(error.error);
+                if (error.status === 403) {
+                    // FIXME: no dynamic language detector
+                    this.svcTranslate
+                        .get('GENERAL.MANAGER.ERRORS.LIMIT_EXCEEDED')
+                        .subscribe((response) => (message = response));
+                }
+                this.svcNotification.warning({ message: message });
                 this.loadingPost = false;
                 this.googleAnalyticsService.exception('error_dwelling_create', true);
             },
@@ -146,6 +154,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 },
             };
         }
+
         return this.svcDwelling.createDwelling(dwelling);
     }
 

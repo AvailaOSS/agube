@@ -19,6 +19,7 @@
     "GENERAL.BUTTON.EDIT": "Editar",
     "GENERAL.BUTTON.DELETE": "Borrar",
     "GENERAL.TITLE.PHOTO": "Foto de perfil",
+    "GENERAL.MANAGER.ERRORS.LIMIT_EXCEEDED": "Ya tienes el límite de viviendas para tu plan de subscripción",
     "APP.CHANGE_LANGUAGE": "Cambiar Idioma",
     "APP.THEME.CHANGE": "Cambiar tema",
     "APP.THEME.LIGHT": "Tema Claro",

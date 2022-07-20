@@ -36,6 +36,8 @@ Publish Frontend Image into Gitlab Registry
 
 > docker build --no-cache -t registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe .
 
+> docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT" . --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN" --build-arg APP_NAME=Agube --build-arg GOOGLE_MAPS_API_KEY="" --build-arg GOOGLE_ANALYTICS_ID="" --build-arg AUTH_BACKEND_API_URL="http://localhost:30004" --build-arg SUBSCRIPTION_BACKEND_API_URL="http://localhost:30001" --build-arg CONTACT_BOOK_BACKEND_API_URL="http://localhost:30002" --build-arg AGUBE_BACKEND_API_URL="http://localhost:30003"
+
 > docker push registry.gitlab.com/availa/proyectos/agube/frontend/agube-fe
 
 ## publish in google analytics

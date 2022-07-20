@@ -219,6 +219,11 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         let lat: string = location.lat;
         let lon: string = location.lon;
 
+        let zoom: number = location.zoom;
+        if (!location.zoom) {
+            zoom = MapComponent.zoom;
+            location.zoom = MapComponent.zoom;
+        }
         this.selectedStreetCandidate = location;
 
         // if has new configuration, replace config
@@ -230,7 +235,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                 display_name: location.display_name,
                 lat,
                 lon,
-                zoom: location.zoom,
+                zoom,
             };
         }
 

@@ -27,7 +27,7 @@
         "@availa/auth-fe": "^1.2.2",
         "@availa/contact-book-fe": "^1.2.1",
         "@availa/notification": "^1.0.0",
-        "@availa/subscription-fe": "^1.1.1",
+        "@availa/subscription-fe": "^1.2.1",
         "@ngx-translate/core": "^14.0.0",
         "@ngx-translate/http-loader": "^7.0.0",
         "date-fns": "^2.28.0",
