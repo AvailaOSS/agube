@@ -8,7 +8,7 @@ from manager.models import Manager
 
 
 def person_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/person/media/person_<id>/photos/<filename>
+    # file will be uploaded to MEDIA_ROOT/person/<person_id>/photos/<filename>
     return 'person/{0}/photo/{1}'.format(instance.id, filename)
 
 
