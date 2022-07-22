@@ -12,6 +12,7 @@ __pycache__
 
 #django
 settings-local.py
+media
 
 #sqlite3
 db.sqlite3
