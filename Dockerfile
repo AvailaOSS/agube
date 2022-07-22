@@ -18,8 +18,8 @@ WORKDIR /availa-agube
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Log directory
-RUN install -d -m 0755 -o availa -g availa logs
+# Log & file storage directories
+RUN install -d -m 0755 -o availa -g availa logs /mnt/availa-agube/data
 
 # Switch user
 USER availa:availa
