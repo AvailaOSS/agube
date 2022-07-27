@@ -16,12 +16,19 @@ export class ManagerGuard implements CanActivate, CanLoad {
 
     canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         return new Promise<boolean | UrlTree>((resolve) => {
-            this.svcManager.userIsManager().subscribe((response) => {
-                if (response.is_manager) {
-                    resolve(true);
-                } else {
-                    resolve(this.router.parseUrl(SidebarRoute.CLIENT));
-                }
+            this.svcManager.userIsManager().subscribe({
+                next: (response) => {
+                    if (response.is_manager) {
+                        resolve(true);
+                    } else {
+                        resolve(this.router.parseUrl(SidebarRoute.CLIENT));
+                    }
+                },
+                error: (error) => {
+                    if (error.status === 401) {
+                        resolve(this.router.navigate(['/login']));
+                    }
+                },
             });
         });
     }
