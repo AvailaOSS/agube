@@ -42,21 +42,6 @@ export class OwnerComponent extends ChangeComponent {
         return this.svcDwelling.changeCurrentOwner(this.dwellingId, { user });
     }
 
-    override save() {
-        super.save();
-        this.onSave().subscribe({
-            next: (response) => {
-                this.resetForm();
-                this.loadCurrentOwner();
-                this.loadingPost = false;
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error });
-                this.loadingPost = false;
-            },
-        });
-    }
-
     override saveAndExit() {
         super.save();
         this.onSave().subscribe({
