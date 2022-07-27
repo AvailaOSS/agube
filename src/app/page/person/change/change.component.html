@@ -75,20 +75,6 @@
                         color="primary"
                         matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP' | translate }} {{
                             title | translate
-                        }}"
-                        (click)="save()"
-                        [disabled]="this.personForm.invalid"
-                    >
-                        <div>
-                            <mat-icon>save</mat-icon>
-                            {{ 'GENERAL.BUTTON.SAVE' | translate }}
-                        </div>
-                    </button>
-                    <button
-                        mat-raised-button
-                        color="primary"
-                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE.TOOLTIP' | translate }} {{
-                            title | translate
                         }}
                         {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SAVE_AND_CLOSE.TOOLTIP' | translate }}"
                         (click)="saveAndExit()"
