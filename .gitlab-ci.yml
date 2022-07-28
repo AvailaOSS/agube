@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 4.4.5-ci-cd
+  RELEASE_VERSION: 4.4.5-ci-cd-1
 
 stages:
   - build
@@ -16,7 +16,7 @@ build_image_snapshot:
     - docker build -t $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT" .
       --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
   only:
-    - snapshot
+    - develop
 
 build_image_release:
   stage: build
@@ -37,7 +37,7 @@ release_git_tag:
   variables:
     RELEASE_VERSION_SUFFIX: ""
   rules:
-    - if: $CI_COMMIT_BRANCH == "snapshot"
+    - if: $CI_COMMIT_BRANCH == "develop"
       variables:
         RELEASE_VERSION_SUFFIX: "-SNAPSHOT"
     - if: $CI_COMMIT_BRANCH == "master"
