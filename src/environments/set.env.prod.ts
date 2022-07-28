@@ -17,10 +17,10 @@ export const environment = {
    appName: "${env_APP_NAME}",
    googleMapsApiKey: "${env_GOOGLE_MAPS_API_KEY}",
    googleAnalyticsId: "${env_GOOGLE_ANALYTICS_ID}",
-   authBackendUrl:"${env_AUTH_BACKEND_API_URL}/api/v1.0.0/auth",
-   subscriptionBackendUrl: "${env_SUBSCRIPTION_BACKEND_API_URL}/api/v1.0.0/subscription",
-   contactBookBackendUrl: "${env_CONTACT_BOOK_BACKEND_API_URL}/api/v1.0.0/contact-book",
-   agubeBackendUrl: "${env_AGUBE_BACKEND_API_URL}/api/v1.0.0/agube",
+   authBackendUrl:"/api/v1.0.0/auth",
+   subscriptionBackendUrl: "/api/v1.0.0/subscription",
+   contactBookBackendUrl: "/api/v1.0.0/contact-book",
+   agubeBackendUrl: "/api/v1.0.0/agube",
 };`;
 
 if (!env_APP_NAME) {
@@ -33,22 +33,22 @@ if (!env_GOOGLE_MAPS_API_KEY) {
 if (!env_GOOGLE_ANALYTICS_ID) {
     console.error('GOOGLE_ANALYTICS_ID environment variable is optional');
 }
-if (!env_AUTH_BACKEND_API_URL) {
-    console.error('AUTH_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
-if (!env_SUBSCRIPTION_BACKEND_API_URL) {
-    console.error('SUBSCRIPTION_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
-if (!env_CONTACT_BOOK_BACKEND_API_URL) {
-    console.error('CONTACT_BOOK_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
-if (!env_AGUBE_BACKEND_API_URL) {
-    console.error('AGUBE_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
+// if (!env_AUTH_BACKEND_API_URL) {
+//     console.error('AUTH_BACKEND_API_URL environment variable is needed');
+//     process.exit(-1);
+// }
+// if (!env_SUBSCRIPTION_BACKEND_API_URL) {
+//     console.error('SUBSCRIPTION_BACKEND_API_URL environment variable is needed');
+//     process.exit(-1);
+// }
+// if (!env_CONTACT_BOOK_BACKEND_API_URL) {
+//     console.error('CONTACT_BOOK_BACKEND_API_URL environment variable is needed');
+//     process.exit(-1);
+// }
+// if (!env_AGUBE_BACKEND_API_URL) {
+//     console.error('AGUBE_BACKEND_API_URL environment variable is needed');
+//     process.exit(-1);
+// }
 
 // write the content to the respective file
 writeFile(targetPath, environmentFileContent, function (err: any) {
