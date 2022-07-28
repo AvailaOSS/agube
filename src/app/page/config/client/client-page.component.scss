@@ -1,53 +1,81 @@
-@import "../../../../assets/availa/sizes/margins.scss";
-@import "../../../../assets/availa/sizes/page.scss";
-.client-config-page {
-  @include my-page();
-  mat-card {
-    padding: 0;
-    display: inline-table;
-  }
-}
+@import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/page.scss';
 
+.client-config-page {
+    @media only screen and (min-width: 546px) {
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+    }
+    @media only screen and (min-width: 790px) {
+        // nothing to do
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+    }
+    @media only screen and (min-width: 1240px) {
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+    }
+    @media only screen and (min-width: 1440px) {
+        @include my-page();
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+    }
+}
 .client-config-column {
-  @include my-page-column();
+    @include my-page-column();
 }
 
 .form {
-  padding: $margin-x-medium;
-  .form-content {
-    display: inline-grid;
-    .theme-button {
-      margin-left: $margin-x-medium;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      mat-icon {
-        margin: 0 $margin-x-small 0 $margin-x-small;
-      }
-    }
-    .flag-button {
-      margin-left: $margin-x-medium;
-      display: flex;
-      align-items: center;
-      margin-right: $margin-x-small;
-      h4 {
-        margin-right: $margin-small;
-      }
-    }
-    mat-form-field {
-      margin: $margin-x-small;
-    }
-  }
-  mat-card-actions {
-    button {
-      div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        mat-icon {
-          margin-right: $margin-x-small;
+    padding: $margin-x-medium;
+    .form-content {
+        display: inline-grid;
+        .theme-button {
+            margin-left: $margin-x-medium;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            mat-icon {
+                margin: 0 $margin-x-small 0 $margin-x-small;
+            }
         }
-      }
+        .flag-button {
+            margin-left: $margin-x-medium;
+            display: flex;
+            align-items: center;
+            margin-right: $margin-x-small;
+            h4 {
+                margin-right: $margin-small;
+            }
+        }
+        mat-form-field {
+            margin: $margin-x-small;
+        }
     }
-  }
+    mat-card-actions {
+        button {
+            div {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                mat-icon {
+                    margin-right: $margin-x-small;
+                }
+            }
+        }
+    }
 }

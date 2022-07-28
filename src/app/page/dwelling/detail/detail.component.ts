@@ -1,25 +1,26 @@
-import {
-    DwellingService,
-    DwellingCreate,
-    Geolocation,
-    ManagerService,
-    GeolocationService,
-} from '@availa/agube-rest-api';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { ConfigureView } from 'src/app/components/map/view/map-location';
-import { ConfigureMap } from '../../../components/map/map/configure-map';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Type } from '../../water-meter/detail/type';
-import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
-import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
-import { Detail } from './detail';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
-import { NotificationService } from '@availa/notification';
-import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+    DwellingCreate,
+    DwellingService,
+    Geolocation,
+    GeolocationService,
+    ManagerService,
+} from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
+import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { ConfigureMap } from 'src/app/components/map/map/configure-map';
+import { ConfigureView } from 'src/app/components/map/view/map-location';
+import { environment } from 'src/environments/environment';
+import { Type } from '../../water-meter/detail/type';
+import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
+import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
+import { DialogOnlyMapComponent } from './../../../components/dialog-only-map/dialog-only-map.component';
+import { Detail } from './detail';
 
 @Component({
     selector: 'app-page-dwelling-detail',
@@ -31,6 +32,7 @@ export class DetailComponent implements OnInit {
     public dwelling: DwellingCreate | undefined;
 
     // map
+    public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
@@ -62,6 +64,7 @@ export class DetailComponent implements OnInit {
         public svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
+        this.canLoadStreetView = environment.googleMapsApiKey.length > 0;
         this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
         this.svcManager.userIsManager().subscribe({
             next: (response) => (this.canLoad = response.is_manager),
@@ -111,6 +114,37 @@ export class DetailComponent implements OnInit {
         this.router.navigate(['manager/dwellings/create']);
     }
 
+    public seeMap() {
+        if (!this.dwelling) {
+            return;
+        }
+
+        this.showMap = true;
+
+        const geolocation = this.dwelling.geolocation;
+
+        let data: DialogParameters = {
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            geolocation: geolocation,
+            configureMap: {
+                id: 'detail_map_dialog',
+                center: {
+                    lat: geolocation.latitude,
+                    lon: geolocation.longitude,
+                },
+                zoom: geolocation.zoom,
+                showCircle: true,
+                height: '500px',
+                dragging: false,
+                selectOptionFilter: true,
+            },
+        };
+
+        this.dialog.open(DialogOnlyMapComponent, {
+            width: '100%',
+            data,
+        });
+    }
     public goToEditGeolocation() {
         if (!this.dwelling) {
             return;

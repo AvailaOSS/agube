@@ -1,7 +1,10 @@
 <mat-drawer-container class="sidebar">
     <mat-drawer mode="side" opened>
         <div class="sidebar-content">
-            <mat-card class="mat-elevation-z0">
+            <div class="title-logo">
+                <img width="70px" height="70px" src="../../../Availa_logo_isotipo.svg" />
+            </div>
+            <mat-card class="mat-elevation-z0 title-w100">
                 <mat-card-title>
                     <h1>AGUBE</h1>
                 </mat-card-title>
@@ -22,6 +25,11 @@
                     </button>
                 </mat-card-actions>
             </mat-card>
+            <mat-card-actions class="close-w100">
+                <button mat-stroked-button (click)="closeSession()">
+                    <mat-icon color="warn">logout</mat-icon>
+                </button>
+            </mat-card-actions>
             <mat-divider></mat-divider>
             <mat-selection-list #shoes [multiple]="false">
                 <mat-list-option *ngFor="let page of pages" [value]="page" (click)="selectPage(page)">

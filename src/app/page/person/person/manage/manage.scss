@@ -1,13 +1,39 @@
 @import '../../../../../assets/availa/sizes/page.scss';
+@import '../../../../../assets/availa/sizes/margins.scss';
 
 .manager-residents-page {
-    @include my-page();
+    @media only screen and (max-width: 1240px) {
+        margin-bottom: $margin-extra-large;
+        display: inline-table !important;
+        height: 78% !important;
+        max-height: 88% !important;
+        min-height: 78% !important;
+        width: 100%;
+    }
+    @media only screen and (min-width: 1240px) {
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+        width: 85%;
+    }
+    @media only screen and (min-width: 1440px) {
+        @include my-page();
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+        margin-bottom: $margin-large;
+    }
 }
 
 .manager-residents-page-table {
-  @include my-page-column( );
-}
+    @include my-page-column();
 
+    margin-bottom: $margin-x-small;
+}
 .manager-residents-page-card {
-  @include my-page-column($columnIndex: 2, $totalColumns: 2);
+    @include my-page-column($columnIndex: 1, $totalColumns: 2);
 }

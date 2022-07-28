@@ -1,4 +1,3 @@
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -22,7 +21,6 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     public filter = new FormControl('');
     public pageSide: number = 12;
-
     @Output() public selectedElement: EventEmitter<ReservoirDetail | undefined> = new EventEmitter<
         ReservoirDetail | undefined
     >();

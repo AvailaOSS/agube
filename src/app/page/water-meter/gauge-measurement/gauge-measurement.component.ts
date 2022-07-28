@@ -23,7 +23,7 @@ export class GaugeMeasurementComponent extends DetailComponent implements OnInit
     override ngOnInit(): void {
         this.svcPersistance.get().subscribe((res) => {
             super.ngOnInit();
-            super.waterMeterId=res!.id
+            super.waterMeterId = res?.id;
         });
     }
 }

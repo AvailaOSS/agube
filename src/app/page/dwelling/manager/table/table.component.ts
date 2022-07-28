@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DwellingDetail } from '@availa/agube-rest-api';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
@@ -23,16 +22,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     public filter = new FormControl('');
 
     public pageSize = 12;
-
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
         private router: Router,
         private svcDwelling: DwellingCacheService,
         private svcTableReload: TableReloadService
-    ) {
-
-    }
+    ) {}
 
     ngOnInit(): void {
         this.svcTableReload.reload().subscribe((reload) => {

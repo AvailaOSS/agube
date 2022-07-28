@@ -46,9 +46,11 @@
         </div>
     </button>
     <ng-template #noUser>
-        <h2>
-            <mat-icon>{{ title.icon }}</mat-icon>
-            Sin {{ title.title | translate }}
-        </h2>
+        <div class="no-user">
+            <h2>
+                <mat-icon>{{ title.icon }}</mat-icon>
+                Sin {{ title.title | translate }}
+            </h2>
+        </div>
     </ng-template>
 </div>

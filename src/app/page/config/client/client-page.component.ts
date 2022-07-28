@@ -1,4 +1,3 @@
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

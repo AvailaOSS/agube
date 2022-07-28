@@ -8,3 +8,25 @@
         width: 100%;
     }
 }
+
+@media only screen and (max-width: 1450px) {
+    .water-meter {
+        display: block !important;
+        .detail {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 939px) {
+    .water-meter {
+        display: block !important;
+        .detail {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

@@ -40,7 +40,7 @@
             mat-icon-button
             *ngIf="phone!.phone.main; else notMainPhone"
             matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.FAVORITE' | translate }}"
-            (click)="setPhoneAsMain(false)"
+            (click)="setPhoneAsMain(phone!.phone.main)"
         >
             <mat-icon>star</mat-icon>
         </button>
@@ -48,7 +48,7 @@
             <button
                 mat-icon-button
                 matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.BUTTON.FAVORITE' | translate }}"
-                (click)="setPhoneAsMain(true)"
+                (click)="setPhoneAsMain(!phone!.phone.main)"
             >
                 <mat-icon>star_border</mat-icon>
             </button>

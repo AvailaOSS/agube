@@ -3,6 +3,8 @@
 div {
     margin: $margin-x-small;
     width: 100%;
+    justify-content: end;
+    display: flex;
     button {
         margin-right: $margin-x-small;
     }

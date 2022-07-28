@@ -1,13 +1,34 @@
 @import '../../../../assets/availa/sizes/page.scss';
-
+@import '../../../../assets/availa/sizes/margins.scss';
 .manager-dwelling-page {
-    @include my-page();
+    @media only screen and (max-width: 1240px) {
+        // nothing to do
+        margin-bottom: 180px;
+    }
+    @media only screen and (min-width: 1240px) {
+        display: flex;
+        flex-direction: row-reverse;
+        ::ng-deep .page-info {
+            min-width: 80%;
+            margin-left: 3%;
+        }
+        margin-bottom: $margin-large;
+    }
+    @media only screen and (min-width: 1440px) {
+        @include my-page();
+        margin-bottom: $margin-large;
+        ::ng-deep .page-info {
+            max-width: 50%;
+        }
+    }
 }
 
 .manager-dwelling-page-table {
-  @include my-page-column( );
+    @include my-page-column();
+
+    margin-bottom: $margin-x-small;
 }
 
 .manager-dwelling-page-card {
-  @include my-page-column($columnIndex: 2, $totalColumns: 2);
+    @include my-page-column($columnIndex: 1, $totalColumns: 2);
 }

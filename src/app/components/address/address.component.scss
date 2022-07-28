@@ -1,5 +1,6 @@
 @import '../../../assets/availa/sizes/margins.scss';
 
+
 .detail-info {
     margin-bottom: $margin-small;
     span {
@@ -12,5 +13,13 @@
     }
     h2 {
         margin: 5px 0 0 0;
+    }
+}
+
+@media only screen and (max-width: 1090px) {
+
+    .detail-info {
+        margin-left: $margin-medium !important;
+
     }
 }
