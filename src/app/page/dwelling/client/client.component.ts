@@ -32,7 +32,14 @@ export class ClientComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.svcManger.userIsManager().subscribe((response) => (this.userIsManager = response.is_manager));
+        this.svcManger.userIsManager().subscribe({
+            next: (response) => (this.userIsManager = response.is_manager),
+            error: (error) => {
+                if (error.status === 401) {
+                    this.svcAccount.logout();
+                }
+            },
+        });
         this.svcAccount.getUser().subscribe((user) => {
             this.user = user;
 

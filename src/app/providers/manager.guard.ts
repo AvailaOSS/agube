@@ -1,3 +1,4 @@
+import { AccountService } from '@availa/auth-fe';
 import { SidebarRoute } from './../page/home/sidebar-route';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router, UrlTree } from '@angular/router';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class ManagerGuard implements CanActivate, CanLoad {
-    constructor(private router: Router, private svcManager: ManagerService) {}
+    constructor(private router: Router, private svcManager: ManagerService, private svcAccount : AccountService) {}
 
     canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         return this.canLoad();
@@ -26,7 +27,7 @@ export class ManagerGuard implements CanActivate, CanLoad {
                 },
                 error: (error) => {
                     if (error.status === 401) {
-                        resolve(this.router.navigate(['/login']));
+                        this.svcAccount.logout();
                     }
                 },
             });

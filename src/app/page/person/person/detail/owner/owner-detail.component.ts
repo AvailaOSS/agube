@@ -1,9 +1,9 @@
-import { NotificationService } from '@availa/notification';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DwellingService, OwnerService, UserService } from '@availa/agube-rest-api';
-import { Detail } from '../detail';
+import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { Detail } from '../detail';
 
 @Component({
     selector: 'app-detail-owner',

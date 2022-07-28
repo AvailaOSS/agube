@@ -1,4 +1,3 @@
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import {
     DwellingService,
     DwellingCreate,
@@ -19,6 +18,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { NotificationService } from '@availa/notification';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { AccountService } from '@availa/auth-fe';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-page-dwelling-detail',
@@ -58,11 +59,18 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-
+        public svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
-        this.svcManager.userIsManager().subscribe((response) => (this.canLoad = response.is_manager));
+        this.svcManager.userIsManager().subscribe({
+            next: (response) => (this.canLoad = response.is_manager),
+            error: (error) => {
+                if (error.status === 401) {
+                    this.svcAccount.logout();
+                }
+            },
+        });
         this.loading = true;
         this.dwelling = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {

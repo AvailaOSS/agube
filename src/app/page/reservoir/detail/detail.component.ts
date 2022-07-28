@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '@availa/notification';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { AccountService } from '@availa/auth-fe';
 
 @Component({
     selector: 'app-reservoir',
@@ -59,6 +60,7 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         private svcReservoirCache: ReservoirCacheService,
+        private svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.svcManager.userIsManager().subscribe((response) => {
@@ -148,7 +150,12 @@ export class DetailComponent implements OnInit {
                 this.configureMaps(geolocation);
                 this.loading = false;
             },
-            error: (error) => (this.loading = false),
+            error: (error) => {
+                if (error.status === 401) {
+                    this.svcAccount.logout();
+                }
+                this.loading = false;
+            },
         });
 
         this.svcReservoir.getCurrentReservoirWaterMeter(this.reservoirId).subscribe((response) => {

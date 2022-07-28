@@ -97,10 +97,17 @@ export class PhonesComponent {
     }
 
     private getPhones(userId: number) {
-        this.svcUser.getUserPhone(userId).subscribe((phones) => {
-            this.phones = phones.map((phone) => {
-                return { phone: phone, isEditable: false };
-            });
+        this.svcUser.getUserPhone(userId).subscribe({
+            next: (phones) => {
+                this.phones = phones.map((phone) => {
+                    return { phone: phone, isEditable: false };
+                });
+            },
+            error: (error) => {
+                if (error.status === 401) {
+                    this.svcAccount.logout();
+                }
+            },
         });
     }
 
