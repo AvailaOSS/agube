@@ -45,12 +45,7 @@ export class TableResidentComponent extends PersonTable implements OnInit {
                 });
                 this.dataSource = new MatTableDataSource(list);
                 this.dataSource.paginator = this.paginator!;
-            },
-            error: (error) => {
-                if (error.status === 401) {
-                    this.svcAccount.logout();
-                }
-            },
+            }
         });
     }
 }

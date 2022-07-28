@@ -183,12 +183,6 @@ export class DetailComponent implements OnInit {
                 this.configureMaps(geolocation);
                 this.loading = false;
             },
-            error: (error) => {
-                if (error.status === 401) {
-                    this.svcAccount.logout();
-                }
-                this.loading = false;
-            },
         });
 
         this.svcReservoir.getCurrentReservoirWaterMeter(this.reservoirId).subscribe((response) => {

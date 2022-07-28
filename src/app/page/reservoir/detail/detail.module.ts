@@ -19,6 +19,8 @@ import { OwnerComponent } from './owner/owner.component';
 import { ResumeComponent } from './resume/resume.component';
 import { AddressModule } from 'src/app/components/address/address.module';
 import { DialogOnlyMapModule } from 'src/app/components/dialog-only-map/dialog-only-map.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
 
 @NgModule({
     declarations: [DetailComponent, ResumeComponent, OwnerComponent],
@@ -40,5 +42,6 @@ import { DialogOnlyMapModule } from 'src/app/components/dialog-only-map/dialog-o
         AddressModule,
         DialogOnlyMapModule,
     ],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class DetailModule {}

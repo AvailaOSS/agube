@@ -16,6 +16,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ContactBookModule } from '@availa/contact-book-fe';
 import { environment } from 'src/environments/environment';
+import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
     declarations: [ManagerPageComponent, ParametersComponent],
@@ -38,5 +40,6 @@ import { environment } from 'src/environments/environment';
             contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
         }),
     ],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class ManagerPageModule {}
