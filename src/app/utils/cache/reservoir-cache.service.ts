@@ -1,6 +1,7 @@
 import { ICacheService } from './interface-cache.service';
 import { Injectable } from '@angular/core';
 import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { AccountService } from '@availa/auth-fe';
 
 @Injectable({
     providedIn: 'root',
@@ -8,7 +9,7 @@ import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
 export class ReservoirCacheService implements ICacheService<ReservoirDetail> {
     cache: ReservoirDetail[] = [];
 
-    constructor(private svcReservoir: ReservoirService) {}
+    constructor(private svcReservoir: ReservoirService, private svcAccount: AccountService) {}
 
     public get(): Promise<ReservoirDetail[]> {
         var promise = new Promise<ReservoirDetail[]>((resolve, reject) => {
@@ -17,11 +18,18 @@ export class ReservoirCacheService implements ICacheService<ReservoirDetail> {
                 resolve(this.cache);
                 return;
             }
-            this.svcReservoir.getReservoirs().subscribe((response) => {
-                this.cache = response;
-                console.debug('reservoirs received directly from backend');
-                resolve(this.cache);
-                return;
+            this.svcReservoir.getReservoirs().subscribe({
+                next: (response) => {
+                    this.cache = response;
+                    console.debug('reservoirs received directly from backend');
+                    resolve(this.cache);
+                    return;
+                },
+                error: (error) => {
+                    if (error.status === 401) {
+                        this.svcAccount.logout();
+                    }
+                },
             });
         });
         return promise;
