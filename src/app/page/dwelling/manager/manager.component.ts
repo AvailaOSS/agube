@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { TableReloadService } from './table/table-reload.service';
 
 @Component({
@@ -9,8 +8,7 @@ import { TableReloadService } from './table/table-reload.service';
 })
 export class ManagerComponent {
     constructor(private svcTableReload: TableReloadService) {
-
-        }
+    }
 
     public waterMeterChanged(change: boolean) {
         this.svcTableReload.emitReload(change);

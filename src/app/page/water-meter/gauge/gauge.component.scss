@@ -9,3 +9,16 @@
         }
     }
 }
+@media only screen and (max-width: 1450px) {
+    .chart {
+        justify-content: center;
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 939px) {
+    .chart {
+        justify-content: center;
+        display: flex;
+    }
+}

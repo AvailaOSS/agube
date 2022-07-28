@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '@availa/notification';
@@ -30,7 +31,8 @@ export class PasswordComponent {
     constructor(
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
-        private svcUser: UserService
+        private svcUser: UserService,
+        private svcTranslate: TranslateService
     ) {
         this.passwordForm = this.formBuilder.group({
             username: this.username,
@@ -68,7 +70,15 @@ export class PasswordComponent {
                 this.loadSave = false;
             },
             error: (error) => {
-                this.svcNotification.warning({ message: error }, 8);
+                let message = JSON.stringify(error.error);
+
+                if (error.status === 404) {
+                    this.svcTranslate
+                        .get('PAGE.CONFIG.CLIENT.PASSWORD.FORM.ERROR')
+                        .subscribe((response) => (message = response));
+                }
+                this.svcNotification.warning({ message: message });
+
                 this.loadSave = false;
             },
         });

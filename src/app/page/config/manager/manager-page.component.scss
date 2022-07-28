@@ -2,40 +2,72 @@
 @import '../../../../assets/availa/sizes/page.scss';
 
 .manager-page {
-  @include my-page();
-  mat-card {
-    padding: 0;
-  }
+    @media only screen and (min-width: 546px) {
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+        width: 100%;
+    }
+    @media only screen and (min-width: 790px) {
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+        width: 100%;
+    }
+    @media only screen and (min-width: 1240px) {
+        @include my-page($columns: 1);
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+        width: 50%;
+    }
+    @media only screen and (min-width: 1440px) {
+        @include my-page();
+        margin-bottom: $margin-large;
+        display: inline-table !important;
+        height: 88% !important;
+        max-height: 88% !important;
+        min-height: 88% !important;
+        width: 50%;
+    }
 }
 
 .manager-page-column {
-  @include my-page-column();
+    @include my-page-column();
 }
 
 .form {
-  padding: $margin-x-medium;
-  .form-content {
-    display: inline-grid;
-    mat-form-field {
-      margin: $margin-x-small;
-    }
-  }
-  mat-card-actions {
-    button {
-      div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        mat-icon {
-          margin-right: $margin-x-small;
+    padding: $margin-x-medium;
+    .form-content {
+        display: inline-grid;
+        mat-form-field {
+            margin: $margin-x-small;
         }
-      }
     }
-  }
+    mat-card-actions {
+        button {
+            div {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                min-width: 150px;
+                mat-icon {
+                    margin-right: $margin-x-small;
+                }
+            }
+        }
+    }
 }
-mat-card-content{
-  div{
-    margin-top: $margin-x-medium;
-  }
+mat-card-content {
+    div {
+        margin-top: $margin-x-medium;
+    }
 }
-

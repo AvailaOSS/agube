@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReservoirDetail } from '@availa/agube-rest-api';
 
 @Component({
@@ -6,12 +6,10 @@ import { ReservoirDetail } from '@availa/agube-rest-api';
     templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.scss'],
 })
-export class ManagerComponent implements OnInit {
+export class ManagerComponent {
     public element: ReservoirDetail | undefined;
 
     constructor() {}
-
-    ngOnInit(): void {}
 
     public readSelected(element: ReservoirDetail | undefined) {
         if (!element) {

@@ -1,5 +1,22 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
+@media only screen and (max-width: 1050px) {
+    .detail-info {
+        margin-bottom: $margin-small;
+        margin-left: 70px !important;
+        span {
+            display: flex;
+            align-items: center;
+            margin: $margin-x-small 0 0 0;
+            h3 {
+                margin: 0 0 0 $margin-x-small;
+            }
+        }
+        h2 {
+            margin: 5px 0 0 0;
+        }
+    }
+}
 .detail-content-all {
     display: flex;
     width: 100%;
@@ -19,13 +36,14 @@
             margin: $margin-x-small 0 0 0;
         }
     }
+
     button {
         margin-left: $margin-x-small;
         height: 40px;
         margin-top: $margin-small;
-        min-width: 40%;
+        min-width: 187px;
         text-align: center;
-        max-width: 55%;
+        max-width: 180px;
         text-align: center;
         div {
             display: inline-flex;
@@ -33,6 +51,48 @@
             mat-icon {
                 padding-top: 5px;
             }
+        }
+    }
+}
+@media only screen and (max-width: 1050px) {
+    .detail-content-all {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .detail-info {
+            margin-bottom: $margin-small;
+            width: 100% !important;
+            span {
+                display: flex;
+                margin: $margin-x-small 0 0 0;
+                h3 {
+                    margin: 0 0 0 $margin-x-small;
+                }
+            }
+            h2 {
+                margin: $margin-x-small 0 0 0;
+            }
+        }
+        button {
+            margin-left: $margin-medium !important;
+            height: 40px;
+            margin-top: $margin-small;
+            min-width: 187px;
+            text-align: center;
+            max-width: 180px;
+            text-align: center;
+            div {
+                display: inline-flex;
+                text-align: center;
+                mat-icon {
+                    padding-top: 5px;
+                }
+            }
+        }
+        .no-user {
+            width: 100%;
+            margin-left: 55px;
         }
     }
 }

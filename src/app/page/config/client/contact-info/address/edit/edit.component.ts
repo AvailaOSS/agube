@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserGeolocation, UserService } from '@availa/agube-rest-api';
@@ -25,7 +26,8 @@ export class EditComponent extends CreateAddress {
     constructor(
         protected svcNotification: NotificationService,
         protected svcUser: UserService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private svcTranslate: TranslateService
     ) {
         super();
     }
@@ -47,10 +49,14 @@ export class EditComponent extends CreateAddress {
                     this.updatedEvent.next(response);
                     this.geolocation!.isEditable = !this.geolocation!.isEditable;
                 },
-                error: (error) =>
-                    this.svcNotification.warning({
-                        message: error,
-                    }),
+                error: (error) => {
+                    let message: string = JSON.stringify(error.error);
+
+                    this.svcTranslate
+                        .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ERROR')
+                        .subscribe((response) => (message = response));
+                    this.svcNotification.warning({ message });
+                },
             });
     }
 
@@ -98,10 +104,14 @@ export class EditComponent extends CreateAddress {
             next: (response) => {
                 this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
             },
-            error: (error) =>
-                this.svcNotification.warning({
-                    message: error,
-                }),
+            error: (error) => {
+                let message: string = JSON.stringify(error.error);
+
+                this.svcTranslate
+                    .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.FORM.ERROR')
+                    .subscribe((response) => (message = response));
+                this.svcNotification.warning({ message });
+            },
         });
     }
 }

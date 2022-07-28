@@ -18,6 +18,7 @@ import { ManagementModule } from 'src/app/components/management/management.modul
 import { OwnerComponent } from './owner/owner.component';
 import { ResumeComponent } from './resume/resume.component';
 import { AddressModule } from 'src/app/components/address/address.module';
+import { DialogOnlyMapModule } from 'src/app/components/dialog-only-map/dialog-only-map.module';
 
 @NgModule({
     declarations: [DetailComponent, ResumeComponent, OwnerComponent],
@@ -37,6 +38,7 @@ import { AddressModule } from 'src/app/components/address/address.module';
         MatProgressSpinnerModule,
         ManagementModule,
         AddressModule,
+        DialogOnlyMapModule,
     ],
 })
 export class DetailModule {}

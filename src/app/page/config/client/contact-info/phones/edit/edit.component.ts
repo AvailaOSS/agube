@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserService, UserPhone } from '@availa/agube-rest-api';
@@ -10,8 +11,6 @@ import { EditablePhone } from './editable-phone';
     styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent {
-    private infoMessage: string = 'Esta funcionalidad aún no está disponible';
-
     @Input() public userId: number | undefined;
     @Input() public phone: EditablePhone | undefined;
 
@@ -25,7 +24,11 @@ export class EditComponent {
         Validators.maxLength(13),
     ]);
 
-    constructor(private svcNotification: NotificationService, private svcUser: UserService) {
+    constructor(
+        private svcNotification: NotificationService,
+        private svcUser: UserService,
+        private svcTranslate: TranslateService
+    ) {
         //TODO: COMPLETE THIS COMPONENT
     }
 
@@ -40,11 +43,16 @@ export class EditComponent {
             next: (response) => {
                 this.event.next(this.phone!.phone);
                 this.phone!.isEditable = !this.phone!.isEditable;
+                this.phone!.phone.main = true;
             },
-            error: (error) =>
-                this.svcNotification.warning({
-                    message: error,
-                }),
+            error: (error) => {
+                let message: string = JSON.stringify(error.error);
+
+                this.svcTranslate
+                    .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ERROR')
+                    .subscribe((response) => (message = response));
+                this.svcNotification.warning({ message });
+            },
         });
     }
 
@@ -85,10 +93,14 @@ export class EditComponent {
             next: (response) => {
                 this.deleteEvent.next(this.phone!.phone.phone_id);
             },
-            error: (error) =>
-                this.svcNotification.warning({
-                    message: error,
-                }),
+            error: (error) => {
+                let message: string = JSON.stringify(error.error);
+
+                this.svcTranslate
+                    .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.ERROR')
+                    .subscribe((response) => (message = response));
+                this.svcNotification.warning({ message });
+            },
         });
     }
 

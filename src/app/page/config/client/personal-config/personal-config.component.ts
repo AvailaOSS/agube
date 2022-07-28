@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ThemeMode } from 'src/app/page/home/theme-mode';
 import { Language } from 'src/app/utils/language';
 import { ConfigureMode } from './personal-config';
+import { NotificationService } from '@availa/notification';
 
 @Component({
     selector: 'app-personal-config',
@@ -47,7 +48,9 @@ export class PersonalConfigComponent implements OnInit {
         private svcUser: UserService,
         protected overlayContainer: OverlayContainer,
         private translate: TranslateService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private svcNotification: NotificationService
     ) {
         this.selectedLanguage = this.languages.filter((lang) => lang.code === this.translate.currentLang)[0];
     }
@@ -71,7 +74,6 @@ export class PersonalConfigComponent implements OnInit {
         this.selectedLanguage = language;
         this.googleAnalyticsService.gtag('event', 'language', {
             lang: language.code,
-
         });
     }
 
@@ -93,13 +95,25 @@ export class PersonalConfigComponent implements OnInit {
                 mode: configureMode.mode,
                 lang: configureMode.language,
             })
-            .subscribe((response) => {
-                this.setControlToggle(response);
-                this.googleAnalyticsService.gtag('event', 'theme_type', {
-                    lang: response.lang,
-                    mode: response.mode,
-                });
-                window.location.reload();
+            .subscribe({
+                next: (response) => {
+                    this.setControlToggle(response);
+                    this.googleAnalyticsService.gtag('event', 'theme_type', {
+                        lang: response.lang,
+                        mode: response.mode,
+                    });
+                    window.location.reload();
+                },
+                error: (error) => {
+                    let message = JSON.stringify(error.error);
+
+                    if (error.status === 404) {
+                        this.svcTranslate
+                            .get('PAGE.CONFIG.CLIENT.CONFIGURE-MODE.LANGUAGE.ERROR')
+                            .subscribe((response) => (message = response));
+                    }
+                    this.svcNotification.warning({ message: message });
+                },
             });
     }
 

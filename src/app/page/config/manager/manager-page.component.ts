@@ -1,4 +1,3 @@
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./manager-page.component.scss'],
 })
 export class ManagerPageComponent implements OnInit {
-    constructor(private googleAnalyticsService: GoogleAnalyticsService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }

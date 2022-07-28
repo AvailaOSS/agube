@@ -19,14 +19,29 @@
                             <app-owner [reservoirId]="reservoir.id"></app-owner>
                         </div>
                     </div>
-                    <app-management
-                        [reservoir]="true"
-                        [manage]="reservoir"
-                        [waterMeterId]="waterMeterId"
-                        [type]="type"
-                        [load]="canLoad"
-                    >
-                    </app-management>
+                    <div class="content-buttons-map">
+
+                        <app-management
+                            [reservoir]="true"
+                            [manage]="reservoir"
+                            [waterMeterId]="waterMeterId"
+                            [type]="type"
+                            [load]="canLoad"
+                        >
+                        </app-management>
+                        <div class="buttons-map">
+                            <button
+                                mat-raised-button
+                                [color]="'primary'"
+                                matTooltip="Ver mapa"
+                                (click)="seeMap()"
+                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                            >
+                                <mat-icon>map</mat-icon>
+                                {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
+                            </button>
+                        </div>
+                    </div>
                     <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
                     </app-water-meter-detail>
                 </div>

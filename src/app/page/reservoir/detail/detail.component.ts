@@ -1,25 +1,26 @@
-import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+    Geolocation,
+    GeolocationService,
+    ManagerService,
+    ReservoirCreate,
+    ReservoirService,
+} from '@availa/agube-rest-api';
+import { AccountService } from '@availa/auth-fe';
+import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
+import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
+import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { Detail } from './detail';
-import { Type } from '../../water-meter/detail/type';
-import {
-    ReservoirService,
-    Geolocation,
-    ManagerService,
-    ReservoirCreate,
-    GeolocationService,
-} from '@availa/agube-rest-api';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { NotificationService } from '@availa/notification';
-import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
-import { AccountService } from '@availa/auth-fe';
 
 @Component({
     selector: 'app-reservoir',
@@ -116,6 +117,38 @@ export class DetailComponent implements OnInit {
             } else {
                 this.showMap = true;
             }
+        });
+    }
+
+    public seeMap() {
+        if (!this.reservoir) {
+            return;
+        }
+
+        this.showMap = true;
+
+        const geolocation = this.reservoir.geolocation;
+
+        let data: DialogParameters = {
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            geolocation: geolocation,
+            configureMap: {
+                id: 'detail_map_dialog',
+                center: {
+                    lat: geolocation.latitude,
+                    lon: geolocation.longitude,
+                },
+                zoom: geolocation.zoom,
+                showCircle: true,
+                height: '500px',
+                dragging: false,
+                selectOptionFilter: true,
+            },
+        };
+
+        this.dialog.open(DialogOnlyMapComponent, {
+            width: '100%',
+            data,
         });
     }
 
