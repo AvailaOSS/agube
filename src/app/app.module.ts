@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { SidebarRoute } from './page/home/sidebar-route';
 import { DwellingCacheService } from './utils/cache/dwelling-cache.service';
 import { ReservoirCacheService } from './utils/cache/reservoir-cache.service';
+import { ErrorInterceptor } from './utils/error.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new MultiTranslateHttpLoader(http, [
@@ -67,7 +68,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatIconModule,
         MatButtonModule,
     ],
-    providers: [DwellingCacheService, ReservoirCacheService],
+    providers: [
+        DwellingCacheService,
+        ReservoirCacheService,
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

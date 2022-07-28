@@ -17,6 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { InfoComponent } from './info/info.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
 
 @NgModule({
     declarations: [ManagerComponent, TableComponent, InfoComponent],
@@ -37,5 +39,6 @@ import { InfoComponent } from './info/info.component';
         TranslateModule,
         MatPaginatorModule,
     ],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class ManagerModule {}

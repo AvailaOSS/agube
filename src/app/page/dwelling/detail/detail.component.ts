@@ -68,11 +68,6 @@ export class DetailComponent implements OnInit {
         this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
         this.svcManager.userIsManager().subscribe({
             next: (response) => (this.canLoad = response.is_manager),
-            error: (error) => {
-                if (error.status === 401) {
-                    this.svcAccount.logout();
-                }
-            },
         });
         this.loading = true;
         this.dwelling = undefined;

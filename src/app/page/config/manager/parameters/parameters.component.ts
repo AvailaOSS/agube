@@ -34,26 +34,13 @@ export class ParametersComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.svcManager.userIsManager().subscribe({
-            next: () => {},
-            error: (error) => {
-                if (error.status === 401) {
-                    this.svcAccount.logout();
-                }
-            },
-        });
+
         this.svcManager.getManagerConfiguration().subscribe({
             next: (response) => {
-                console.log(response);
                 this.hook_price.setValue(response.hook_price);
                 this.max_daily_consumption.setValue(response.max_daily_consumption);
                 this.releaseDate = response.release_date === undefined ? undefined : new Date(response.release_date);
-            },
-            error: (error) => {
-                if (error.status === 401) {
-                    this.svcAccount.logout();
-                }
-            },
+            }
         });
     }
 

@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { InfoComponent } from './info/info.component';
 import { ManagerRoutingModule } from './manager-routing.module';
@@ -38,6 +40,6 @@ import { TableComponent } from './table/table.component';
         TranslateModule,
         MatPaginatorModule,
     ],
-    providers: [TableReloadService],
+    providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class ManagerDwellingModule {}

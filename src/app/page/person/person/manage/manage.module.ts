@@ -22,6 +22,8 @@ import { ManagerResidentComponent } from './resident/manager.component';
 import { TableResidentComponent } from './resident/table/table.component';
 import { AddressModule } from 'src/app/components/address/address.module';
 import { CardButtonModule } from 'src/app/page/dwelling/card-button/card-button.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
 
 @NgModule({
     declarations: [
@@ -50,5 +52,6 @@ import { CardButtonModule } from 'src/app/page/dwelling/card-button/card-button.
         AddressModule,
         CardButtonModule,
     ],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class ManageModule {}

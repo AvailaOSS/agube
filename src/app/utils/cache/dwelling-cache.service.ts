@@ -24,12 +24,7 @@ export class DwellingCacheService implements ICacheService<DwellingDetail> {
                     console.debug('dwellings received directly from backend');
                     resolve(this.cache);
                     return;
-                },
-                error: (error) => {
-                    if (error.status === 401) {
-                        this.svcAccount.logout();
-                    }
-                },
+                }
             });
         });
         return promise;
