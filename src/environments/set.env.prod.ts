@@ -6,22 +6,6 @@ const targetPath = `./src/environments/environment.prod.ts`;
 const env_APP_NAME = argv.APP_NAME;
 const env_GOOGLE_MAPS_API_KEY = argv.GOOGLE_MAPS_API_KEY;
 const env_GOOGLE_ANALYTICS_ID = argv.GOOGLE_ANALYTICS_ID;
-const env_AUTH_BACKEND_API_URL = argv.AUTH_BACKEND_API_URL;
-const env_SUBSCRIPTION_BACKEND_API_URL = argv.SUBSCRIPTION_BACKEND_API_URL;
-const env_CONTACT_BOOK_BACKEND_API_URL = argv.CONTACT_BOOK_BACKEND_API_URL;
-const env_AGUBE_BACKEND_API_URL = argv.AGUBE_BACKEND_API_URL;
-
-const environmentFileContent = `
-export const environment = {
-   production: true,
-   appName: "${env_APP_NAME}",
-   googleMapsApiKey: "${env_GOOGLE_MAPS_API_KEY}",
-   googleAnalyticsId: "${env_GOOGLE_ANALYTICS_ID}",
-   authBackendUrl:"${env_AUTH_BACKEND_API_URL}/api/v1.0.0/auth",
-   subscriptionBackendUrl: "${env_SUBSCRIPTION_BACKEND_API_URL}/api/v1.0.0/subscription",
-   contactBookBackendUrl: "${env_CONTACT_BOOK_BACKEND_API_URL}/api/v1.0.0/contact-book",
-   agubeBackendUrl: "${env_AGUBE_BACKEND_API_URL}/api/v1.0.0/agube",
-};`;
 
 if (!env_APP_NAME) {
     console.error('APP_NAME environment variable is needed');
@@ -33,21 +17,57 @@ if (!env_GOOGLE_MAPS_API_KEY) {
 if (!env_GOOGLE_ANALYTICS_ID) {
     console.error('GOOGLE_ANALYTICS_ID environment variable is optional');
 }
-if (!env_AUTH_BACKEND_API_URL) {
-    console.error('AUTH_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
-if (!env_SUBSCRIPTION_BACKEND_API_URL) {
-    console.error('SUBSCRIPTION_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
-if (!env_CONTACT_BOOK_BACKEND_API_URL) {
-    console.error('CONTACT_BOOK_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
-}
-if (!env_AGUBE_BACKEND_API_URL) {
-    console.error('AGUBE_BACKEND_API_URL environment variable is needed');
-    process.exit(-1);
+
+var environmentFileContent = '';
+
+if (env_APP_NAME === 'Agube-dev') {
+    // FOR SNAPSHOT
+    const env_AUTH_BACKEND_API_URL = argv.AUTH_BACKEND_API_URL;
+    const env_SUBSCRIPTION_BACKEND_API_URL = argv.SUBSCRIPTION_BACKEND_API_URL;
+    const env_CONTACT_BOOK_BACKEND_API_URL = argv.CONTACT_BOOK_BACKEND_API_URL;
+    const env_AGUBE_BACKEND_API_URL = argv.AGUBE_BACKEND_API_URL;
+
+    if (!env_AUTH_BACKEND_API_URL) {
+        console.error('AUTH_BACKEND_API_URL environment variable is needed');
+        process.exit(-1);
+    }
+    if (!env_SUBSCRIPTION_BACKEND_API_URL) {
+        console.error('SUBSCRIPTION_BACKEND_API_URL environment variable is needed');
+        process.exit(-1);
+    }
+    if (!env_CONTACT_BOOK_BACKEND_API_URL) {
+        console.error('CONTACT_BOOK_BACKEND_API_URL environment variable is needed');
+        process.exit(-1);
+    }
+    if (!env_AGUBE_BACKEND_API_URL) {
+        console.error('AGUBE_BACKEND_API_URL environment variable is needed');
+        process.exit(-1);
+    }
+
+    environmentFileContent = `
+    export const environment = {
+       production: true,
+       appName: "${env_APP_NAME}",
+       googleMapsApiKey: "${env_GOOGLE_MAPS_API_KEY}",
+       googleAnalyticsId: "${env_GOOGLE_ANALYTICS_ID}",
+       authBackendUrl:"${env_AUTH_BACKEND_API_URL}/api/v1.0.0/auth",
+       subscriptionBackendUrl: "${env_SUBSCRIPTION_BACKEND_API_URL}/api/v1.0.0/subscription",
+       contactBookBackendUrl: "${env_CONTACT_BOOK_BACKEND_API_URL}/api/v1.0.0/contact-book",
+       agubeBackendUrl: "${env_AGUBE_BACKEND_API_URL}/api/v1.0.0/agube",
+    };`;
+} else {
+    // FOR RELEASE CANDIDATE AND RELEASE
+    environmentFileContent = `
+    export const environment = {
+       production: true,
+       appName: "${env_APP_NAME}",
+       googleMapsApiKey: "${env_GOOGLE_MAPS_API_KEY}",
+       googleAnalyticsId: "${env_GOOGLE_ANALYTICS_ID}",
+       authBackendUrl:"/api/v1.0.0/auth",
+       subscriptionBackendUrl: "/api/v1.0.0/subscription",
+       contactBookBackendUrl: "/api/v1.0.0/contact-book",
+       agubeBackendUrl: "/api/v1.0.0/agube",
+    };`;
 }
 
 // write the content to the respective file
