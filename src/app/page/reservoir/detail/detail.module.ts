@@ -1,26 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ReservoirRoutingModule } from './detail-routing.module';
-import { DetailComponent } from './detail.component';
-import { StreetViewModule } from 'src/app/components/map/view/view.module';
-import { MatCardModule } from '@angular/material/card';
+import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { PipesModule } from 'src/app/pipes/pipes.module';
-import { MapModule } from 'src/app/components/map/map/map.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { WaterMeterModule } from '../../water-meter/water-meter.module';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ManagementModule } from 'src/app/components/management/management.module';
-import { OwnerComponent } from './owner/owner.component';
-import { ResumeComponent } from './resume/resume.component';
 import { AddressModule } from 'src/app/components/address/address.module';
 import { DialogOnlyMapModule } from 'src/app/components/dialog-only-map/dialog-only-map.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
+import { ManagementModule } from 'src/app/components/management/management.module';
+import { MapModule } from 'src/app/components/map/map/map.module';
+import { StreetViewModule } from 'src/app/components/map/view/view.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
+import { WaterMeterModule } from '../../water-meter/water-meter.module';
+import { ReservoirRoutingModule } from './detail-routing.module';
+import { DetailComponent } from './detail.component';
+import { OwnerComponent } from './owner/owner.component';
+import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
     declarations: [DetailComponent, ResumeComponent, OwnerComponent],
@@ -42,6 +39,5 @@ import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
         AddressModule,
         DialogOnlyMapModule,
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class DetailModule {}
