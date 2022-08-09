@@ -1,6 +1,3 @@
-import { ResidentDetailComponent } from './../detail/resident/resident-detail.component';
-import { OwnerDetailComponent } from './../detail/owner/owner-detail.component';
-import { OwnerDetail } from '@availa/agube-rest-api';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,16 +11,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddressModule } from 'src/app/components/address/address.module';
+import { CardButtonModule } from 'src/app/page/dwelling/card-button/card-button.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { OwnerDetailComponent } from './../detail/owner/owner-detail.component';
+import { ResidentDetailComponent } from './../detail/resident/resident-detail.component';
 import { ManagerRoutingModule } from './manage-routing.module';
 import { ManagerOwnerComponent } from './owner/manager.component';
 import { TableOwnerComponent } from './owner/table/table.component';
 import { ManagerResidentComponent } from './resident/manager.component';
 import { TableResidentComponent } from './resident/table/table.component';
-import { AddressModule } from 'src/app/components/address/address.module';
-import { CardButtonModule } from 'src/app/page/dwelling/card-button/card-button.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
 
 @NgModule({
     declarations: [
@@ -52,6 +49,5 @@ import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
         AddressModule,
         CardButtonModule,
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class ManageModule {}

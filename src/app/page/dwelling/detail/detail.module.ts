@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -14,7 +13,6 @@ import { DialogModule } from 'src/app/components/dialog/dialog.module';
 import { MapModule } from 'src/app/components/map/map/map.module';
 import { StreetViewModule } from 'src/app/components/map/view/view.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
-import { ErrorInterceptor } from 'src/app/utils/error.interceptor';
 import { ManagementModule } from '../../../components/management/management.module';
 import { GaugeModule as WaterMeterGaugeModule } from '../../water-meter/gauge/gauge.module';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
@@ -45,6 +43,5 @@ import { ResidentComponent } from './resident/resident.component';
         AddressModule,
         DialogOnlyMapModule,
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class DetailModule {}
