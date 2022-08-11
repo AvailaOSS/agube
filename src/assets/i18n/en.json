@@ -24,7 +24,7 @@
     "APP.THEME.CHANGE": "Change Theme",
     "APP.THEME.LIGHT": "Light Theme",
     "APP.THEME.DARK": "Dark Theme",
-    "COMPONENTS.MAP.CREATE.FILTER.TEXT": "Street, Post Code, Town, Province...",
+    "COMPONENTS.MAP.CREATE.FILTER.TEXT": "Search for a Street, City or Province...",
     "COMPONENTS.MAP.CREATE.FILTER.VALIDATION": "Perform a search and we will take care of obtaining the necessary data",
     "COMPONENTS.MAP.CREATE.FILTER.TOOLTIP": "Press enter key to search",
     "COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP": "Go",

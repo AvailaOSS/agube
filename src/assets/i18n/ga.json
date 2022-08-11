@@ -24,7 +24,7 @@
     "APP.THEME.CHANGE": "Cambiar tema",
     "APP.THEME.LIGHT": "Tema Claro",
     "APP.THEME.DARK": "Tema Oscuro",
-    "COMPONENTS.MAP.CREATE.FILTER.TEXT": "Rúa, CP, Cidade, Provincia...",
+    "COMPONENTS.MAP.CREATE.FILTER.TEXT": "Busca unha Rúa, Cidade o Provincia...",
     "COMPONENTS.MAP.CREATE.FILTER.VALIDATION": "Realiza unha búsqueda e encargarémosnos de obter os datos necesarios",
     "COMPONENTS.MAP.CREATE.FILTER.TOOLTIP": "Presiona tecla enter para buscar",
     "COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP": "Ir",
