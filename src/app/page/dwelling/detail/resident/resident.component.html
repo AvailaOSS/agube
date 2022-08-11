@@ -21,25 +21,17 @@
             <h3>{{ userDetail.main_phone.phone_number }}</h3>
         </span>
     </div>
-    <button
-        mat-raised-button
-        color="primary"
+    <button *ngIf="canLoad && textOwnerButton" mat-raised-button color="primary"
         matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER.TOOLTIP' | translate }}"
-        (click)="goToChangeOwner()"
-        *ngIf="textOwnerButton"
-    >
+        (click)="goToChangeOwner()">
         <div>
             <mat-icon>hail</mat-icon>
             {{ textOwnerButton | translate }}
         </div>
     </button>
-    <button
-        mat-raised-button
-        color="primary"
+    <button *ngIf="canLoad && textResidentButton" mat-raised-button color="primary"
         matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT.TOOLTIP' | translate }}"
-        (click)="goToChangeResident()"
-        *ngIf="textResidentButton"
-    >
+        (click)="goToChangeResident()">
         <div>
             <mat-icon>escalator_warning</mat-icon>
             {{ textResidentButton | translate }}
