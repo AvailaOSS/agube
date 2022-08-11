@@ -23,7 +23,7 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
-from dwelling.exceptions import (EmailValidationError, InvalidEmailError,
+from dwelling.exceptions import (DwellingWithoutWaterMeterError, EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling, DwellingWaterMeter
@@ -357,6 +357,9 @@ class DwellingWaterMeterChunkView(APIView):
         try:
             water_meter = Dwelling.objects.get(id=pk).get_current_water_meter()
 
+            if not water_meter:
+                raise DwellingWithoutWaterMeterError()
+
             measures_serialized = []
 
             measures = WaterMeterMeasurement.objects.filter(
@@ -389,3 +392,5 @@ class DwellingWaterMeterChunkView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'},
                             status=HTTP_404_NOT_FOUND)
+        except DwellingWithoutWaterMeterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
