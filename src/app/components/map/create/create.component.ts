@@ -330,7 +330,9 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     public checkField(entity: string): void {
         Object.entries(this.form!).find(([key, value]) => {
             if (key === entity) {
-                value.setErrors(null);
+                if (value.value !== undefined && value.value.length > 0) {
+                    value.setErrors(null);
+                }
             }
         });
     }
