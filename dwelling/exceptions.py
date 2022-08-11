@@ -1,3 +1,11 @@
+class DwellingWithoutWaterMeterError(Exception):
+    """Exception raised when Dwelling has not WaterMeter yet.
+    """
+    def __init__(self):
+        self.message = "Dwelling without WaterMeter"
+        super().__init__(self.message)
+
+
 class OwnerAlreadyIsResidentError(Exception):
     """Exception raised when Owner already is Resident.
     """
