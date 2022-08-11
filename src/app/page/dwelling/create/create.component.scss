@@ -14,8 +14,13 @@
   padding: 0 $margin-x-medium;
   .form-content {
     margin: $margin-x-small;
+    mat-form-field{
+      display: flex;
+      justify-content: end;
+    }
   }
   mat-card-actions {
+    margin-right: $margin-x-small;
     button {
       div {
         height: 100%;

@@ -1,7 +1,6 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
 .selector-geolocation-map {
-    width: 100%;
     overflow: hidden;
     .filter {
         margin-top: $margin-x-small;
@@ -9,39 +8,62 @@
     }
     .address-form {
         margin-top: $margin-x-medium;
-        margin-bottom: $margin-x-medium;
-        mat-form-field {
-            margin: 0 $margin-x-small $margin-small 0;
+        display: flex;
+        flex-wrap: wrap;
+        // TODO:  @media only screen and (max-width: XXXXpx) set as enum in /assets/availa/sizes/resolutions.scss
+        @media only screen and (max-width: 1240px) {
+            justify-content: space-between;
+        }
+        @media only screen and (min-width: 1240px) {
+            justify-content: end;
+            mat-form-field {
+                margin-left: $margin-x-small;
+            }
         }
     }
-    .filter-results {
+}
+
+.fullMap {
+    width: 100%;
+    p {
         display: flex;
-        .filter-selection {
-            min-width: 50%;
-            width: 100%;
-            height: 220px;
+        justify-content: center;
+    }
+}
+
+.filter-results {
+    display: flex;
+    p {
+        display: flex;
+        justify-content: center;
+    }
+    .filter-selection {
+        margin-right: 15px;
+        min-width: 50%;
+        width: 100%;
+        height: 220px;
+        mat-selection-list {
             overflow: auto;
-            mat-selection-list {
-                width: 100%;
-                mat-list-option {
-                    div {
-                        display: flex;
-                        align-items: center;
-                    }
+            width: 100%;
+            height: 100%;
+            mat-list-option {
+                div {
+                    display: flex;
+                    align-items: center;
                 }
             }
         }
-        .map {
-            display: flex;
-            justify-content: center;
-            .map-spinner {
-                position: absolute;
-                z-index: 9999;
-                margin: 10em;
-            }
+    }
+    .map {
+        display: flex;
+        justify-content: center;
+        .map-spinner {
+            position: absolute;
+            z-index: 9999;
+            margin: 10em;
         }
-        div {
-            width: 100%;
-        }
+    }
+    div {
+        width: 100%;
     }
 }

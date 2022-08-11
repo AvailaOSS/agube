@@ -47,6 +47,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     @Output() public addressForm: EventEmitter<AddressEmitter> = new EventEmitter<AddressEmitter>();
 
+    public userHasFiltered: boolean = false;
+    public userHasMapClicked: boolean = false;
     public loadingExamples: boolean = false;
     public loadingMap: boolean = false;
     public globalMapConfig: ConfigureMap | undefined;
@@ -150,6 +152,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                         this.selectedStreetCandidate.zoom = this.zoom;
                     }
                 });
+
+                this.userHasMapClicked = true;
             });
         }, this.waitToMapReload);
     }
@@ -187,6 +191,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     }
 
     public loadAddressExamples(address?: Address): void {
+        this.userHasFiltered = true;
         this.loadingExamples = true;
         // get the filter value on the html filter
 
@@ -262,6 +267,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
         // emit the address
         this.addressForm.emit({
+            userHasMapClicked: this.userHasMapClicked,
             addressFormGroup: this.formBuilder.group({
                 filter: this.form!.filter,
                 country: this.form!.country,
@@ -297,8 +303,28 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     // -------------------------- Class Methods  -------------------------- //
 
     public clearFilter(): void {
+        this.userHasFiltered = false;
+        this.userHasMapClicked = false;
         this.form!.clearFilter();
-        this.initializeMap(this.baseConfiguration!);
+        this.addressForm.emit({
+            userHasMapClicked: this.userHasMapClicked,
+            addressFormGroup: this.formBuilder.group({
+                filter: this.form!.filter,
+                country: this.form!.country,
+                state: this.form!.state,
+                province: this.form!.province,
+                city: this.form!.city,
+                village: this.form!.village,
+                municipality: this.form!.municipality,
+                city_district: this.form!.city_district,
+                cp: this.form!.cp,
+                street: this.form!.street,
+                number: this.form!.number,
+                flat: this.form!.flat,
+                gate: this.form!.gate,
+            }),
+            location: this.selectedStreetCandidate!,
+        });
     }
 
     public checkField(entity: string): void {
