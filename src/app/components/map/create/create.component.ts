@@ -109,7 +109,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             tiles.addTo(this.map);
 
             let circle: L.Circle | undefined = undefined;
-            if (conf.showCircle) {
+            if (conf.showCircle && this.userHasMapClicked) {
                 circle = this.setCircle(+conf.center.lat, +conf.center.lon, undefined, '#2ECC71');
             }
 
@@ -242,6 +242,9 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                 lon,
                 zoom,
             };
+        } else {
+            // with automatic selection
+            this.userHasMapClicked = false;
         }
 
         //  ensure that form controls is filled
@@ -330,7 +333,9 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     public checkField(entity: string): void {
         Object.entries(this.form!).find(([key, value]) => {
             if (key === entity) {
-                value.setErrors(null);
+                if (value.value !== undefined && value.value.length > 0) {
+                    value.setErrors(null);
+                }
             }
         });
     }
@@ -362,7 +367,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION';
                 }
                 if (this.form!.city && this.form!.city.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'municipality':
@@ -370,7 +375,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
                 }
                 if (this.form!.municipality && this.form!.municipality.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'city_district':
@@ -378,7 +383,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION';
                 }
                 if (this.form!.city_district && this.form!.city_district.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'cp':
@@ -386,7 +391,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
                 }
                 if (this.form!.cp && this.form!.cp.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'street':
@@ -394,7 +399,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
                 }
                 if (this.form!.street && this.form!.street.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'number':
@@ -402,7 +407,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
                 }
                 if (this.form!.number && this.form!.number.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             default:

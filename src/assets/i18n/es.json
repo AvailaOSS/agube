@@ -30,6 +30,7 @@
     "COMPONENTS.MAP.CREATE.FILTER.BUTTON.GO.TOOLTIP": "Ir",
     "COMPONENTS.MAP.CREATE.FILTER.BUTTON.CLEAR.TOOLTIP": "Borrar y Reiniciar búsqueda",
     "COMPONENTS.MAP.CREATE.FORM.CHECK": "Validadar",
+    "COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR": "Corrige el campo o pulsa el botón de Alerta para Validar",
     "COMPONENTS.MAP.CREATE.FORM.NEED_TO_BE_CHECKED": "Necesita ser validado",
     "COMPONENTS.MAP.CREATE.FORM.STREET.TEXT": "Calle",
     "COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION": "Escribe la calle que le corresponde",

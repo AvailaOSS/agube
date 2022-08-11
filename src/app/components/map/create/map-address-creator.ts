@@ -68,8 +68,6 @@ export function mapAddressFormBuilder(addressInputForm: InputForm): MapAddressFo
 }
 
 export function fillMissingAddressFields(form: MapAddressForm, location: LocationResponse): void {
-    form.filter.setValue(location.display_name);
-
     // fill all fields
     form.country.setValue(location.address.country);
     form.state.setValue(location.address.state);
