@@ -362,7 +362,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION';
                 }
                 if (this.form!.city && this.form!.city.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'municipality':
@@ -370,7 +370,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.MUNICIPALITY.VALIDATION';
                 }
                 if (this.form!.municipality && this.form!.municipality.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'city_district':
@@ -378,7 +378,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION';
                 }
                 if (this.form!.city_district && this.form!.city_district.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'cp':
@@ -386,7 +386,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.CP.VALIDATION';
                 }
                 if (this.form!.cp && this.form!.cp.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'street':
@@ -394,7 +394,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.STREET.VALIDATION';
                 }
                 if (this.form!.street && this.form!.street.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             case 'number':
@@ -402,7 +402,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     return 'COMPONENTS.MAP.CREATE.FORM.NUMBER.VALIDATION';
                 }
                 if (this.form!.number && this.form!.number.hasError('check')) {
-                    return 'Necesita comprobación';
+                    return 'COMPONENTS.MAP.CREATE.FORM.CHECK.ERROR';
                 }
                 return '';
             default:

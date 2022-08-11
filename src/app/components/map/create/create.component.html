@@ -65,7 +65,7 @@
                 <mat-error *ngIf="form.city.invalid">{{ errorValidator('city') | translate }}</mat-error>
                 <button matSuffix mat-icon-button *ngIf="form.city.hasError('check')"
                     matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('city')">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>error</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="form.village">
@@ -81,7 +81,7 @@
                 <button matSuffix mat-icon-button *ngIf="form.municipality.hasError('check')"
                     matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}"
                     (click)="checkField('municipality')">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>error</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="form.city_district">
@@ -92,7 +92,7 @@
                 <button matSuffix mat-icon-button *ngIf="form.city_district.hasError('check')"
                     matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}"
                     (click)="checkField('city_district')">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>error</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="form.cp">
@@ -101,7 +101,7 @@
                 <mat-error *ngIf="form.cp.invalid">{{ errorValidator('cp') | translate }}</mat-error>
                 <button matSuffix mat-icon-button *ngIf="form.cp.hasError('check')"
                     matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('cp')">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>error</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="form.street">
@@ -110,7 +110,7 @@
                 <mat-error *ngIf="form.street.invalid">{{ errorValidator('street') | translate }}</mat-error>
                 <button matSuffix mat-icon-button *ngIf="form.street.hasError('check')"
                     matTooltip="COMPONENTS.MAP.CREATE.FORM.CHECK" (click)="checkField('street')">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>error</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="form.number">
@@ -119,7 +119,7 @@
                 <mat-error *ngIf="form.number.invalid">{{ errorValidator('number') | translate }}</mat-error>
                 <button matSuffix mat-icon-button *ngIf="form.number.hasError('check')"
                     matTooltip="{{ 'COMPONENTS.MAP.CREATE.FORM.CHECK' | translate }}" (click)="checkField('number')">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>error</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="form.flat">
