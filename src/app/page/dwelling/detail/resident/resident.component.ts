@@ -11,6 +11,7 @@ import { PersonTitle } from './person-title';
 })
 export class ResidentComponent implements OnInit {
     @Input() public dwellingId: number | undefined;
+    @Input() public canLoad: boolean | undefined;
 
     public title: PersonTitle = {
         title: 'GENERAL.TEXT.RESIDENT',
