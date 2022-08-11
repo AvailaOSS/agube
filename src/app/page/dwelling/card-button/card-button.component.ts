@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDwellingDetail } from '@availa/agube-rest-api';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-card-button',
