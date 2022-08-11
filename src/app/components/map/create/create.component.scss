@@ -1,7 +1,6 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
 .selector-geolocation-map {
-    width: 100%;
     overflow: hidden;
     .filter {
         margin-top: $margin-x-small;
@@ -9,9 +8,17 @@
     }
     .address-form {
         margin-top: $margin-x-medium;
-        margin-bottom: $margin-x-medium;
-        mat-form-field {
-            margin: 0 $margin-x-small $margin-small 0;
+        display: flex;
+        flex-wrap: wrap;
+        // TODO:  @media only screen and (max-width: XXXXpx) set as enum in /assets/availa/sizes/resolutions.scss
+        @media only screen and (max-width: 1240px) {
+            justify-content: space-between;
+        }
+        @media only screen and (min-width: 1240px) {
+            justify-content: end;
+            mat-form-field {
+                margin-left: $margin-x-small;
+            }
         }
     }
 }

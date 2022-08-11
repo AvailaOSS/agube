@@ -16,11 +16,11 @@
     margin: $margin-x-small;
     mat-form-field{
       display: flex;
-      margin-top: $margin-x-small;
       justify-content: end;
     }
   }
   mat-card-actions {
+    margin-right: $margin-x-small;
     button {
       div {
         height: 100%;
