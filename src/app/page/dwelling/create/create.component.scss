@@ -14,6 +14,11 @@
   padding: 0 $margin-x-medium;
   .form-content {
     margin: $margin-x-small;
+    mat-form-field{
+      display: flex;
+      margin-top: $margin-x-small;
+      justify-content: end;
+    }
   }
   mat-card-actions {
     button {

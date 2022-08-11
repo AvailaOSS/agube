@@ -1,37 +1,42 @@
-@import "../../../../assets/availa/sizes/margins.scss";
-@import "../../../../assets/availa/sizes/page.scss";
+@import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/page.scss';
 
 .create-reservoir-page {
-  @include my-page(1);
+    @include my-page(1);
 }
 
 .create-reservoir-page-card {
-  @include my-page-column(1, 1);
+    @include my-page-column(1, 1);
 }
 
 .form {
-  padding: $margin-x-medium;
-  .form-content {
-    margin: $margin-x-small;
-    .form-reservoir {
-      display: flex;
-      width: 52%;
-      justify-content: space-between;
-    }
-    mat-form-field {
-      margin-bottom: $margin-x-small;
-    }
-  }
-  mat-card-actions {
-    button {
-      div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        mat-icon {
-          margin-right: $margin-x-small;
+    padding: $margin-x-medium;
+    .form-content {
+        margin: $margin-x-small;
+        .form-reservoir {
+            display: flex;
+            justify-content: end;
+            margin-top: $margin-x-small;
+            mat-form-field {
+                margin-left: $margin-x-small;
+            }
         }
-      }
+        mat-form-field {
+            display: flex;
+            justify-content: end;
+            margin-bottom: $margin-x-small;
+        }
     }
-  }
+    mat-card-actions {
+        button {
+            div {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                mat-icon {
+                    margin-right: $margin-x-small;
+                }
+            }
+        }
+    }
 }

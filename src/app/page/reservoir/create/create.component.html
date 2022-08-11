@@ -4,54 +4,57 @@
             <div class="form">
                 <h1>{{ 'PAGE.RESERVOIR.CREATE.TITLE' | translate }}</h1>
                 <div class="form-content">
-                    <mat-form-field appearance="fill">
-                        <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
-                        <input matInput placeholder="0-123456789" [formControl]="code" (keydown.enter)="save()"
-                            autofocus />
-                        <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
-                    </mat-form-field>
-                    <div class="form-reservoir">
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{ 'PAGE.RESERVOIR.CREATE.CAPACITY' | translate }}</mat-label>
-                            <input matInput placeholder="1000" type="number" max="9999999" [formControl]="capacity"
-                                (keydown.enter)="save()" />
-                            <span matPrefix>
-                                <mat-icon>opacity</mat-icon>
-                            </span>
-                            <span matSuffix>L</span>
-                            <mat-error *ngIf="capacity.invalid">{{ errorValidator('capacity') | translate }}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{ 'PAGE.RESERVOIR.CREATE.INLET_FLOW' | translate }}</mat-label>
-                            <input matInput placeholder="1000" type="number" max="9999999" [formControl]="inletFlow"
-                                (keydown.enter)="save()" />
-                            <span matPrefix>
-                                <mat-icon>arrow_forward_ios</mat-icon>
-                            </span>
-                            <span matSuffix>m<sup>3</sup></span>
-                            <mat-error *ngIf="inletFlow.invalid">{{
-                                errorValidator('inletFlow') | translate
-                                }}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>{{ 'PAGE.RESERVOIR.CREATE.OUTLET_FLOW' | translate }}</mat-label>
-                            <input matInput placeholder="1000" type="number" max="9999999" [formControl]="outletFlow"
-                                (keydown.enter)="save()" />
-                            <span matPrefix>
-                                <mat-icon>arrow_back_ios</mat-icon>
-                            </span>
-                            <span matSuffix>m<sup>3</sup></span>
-                            <mat-error *ngIf="outletFlow.invalid">{{
-                                errorValidator('outletFlow') | translate
-                                }}</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <app-map-location-create (addressForm)="addressFormReceive($event)" [baseConfiguration]="configureMap"
-                        [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
+                    <app-map-location-create (addressForm)="addressFormReceive($event)"
+                        [baseConfiguration]="configureMap" [addressInputForm]="addressInputForm"
+                        [resetForm]="resetChildForm">
                     </app-map-location-create>
+                    <span *ngIf="addressEmitter?.userHasFiltered">
+                        <div class="form-reservoir">
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{ 'PAGE.RESERVOIR.CREATE.CAPACITY' | translate }}</mat-label>
+                                <input matInput placeholder="1000" type="number" max="9999999" [formControl]="capacity"
+                                    (keydown.enter)="save()" />
+                                <span matPrefix>
+                                    <mat-icon>opacity</mat-icon>
+                                </span>
+                                <span matSuffix>L</span>
+                                <mat-error *ngIf="capacity.invalid">{{ errorValidator('capacity') | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{ 'PAGE.RESERVOIR.CREATE.INLET_FLOW' | translate }}</mat-label>
+                                <input matInput placeholder="1000" type="number" max="9999999" [formControl]="inletFlow"
+                                    (keydown.enter)="save()" />
+                                <span matPrefix>
+                                    <mat-icon>arrow_forward_ios</mat-icon>
+                                </span>
+                                <span matSuffix>m<sup>3</sup></span>
+                                <mat-error *ngIf="inletFlow.invalid">{{
+                                    errorValidator('inletFlow') | translate
+                                    }}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{ 'PAGE.RESERVOIR.CREATE.OUTLET_FLOW' | translate }}</mat-label>
+                                <input matInput placeholder="1000" type="number" max="9999999"
+                                    [formControl]="outletFlow" (keydown.enter)="save()" />
+                                <span matPrefix>
+                                    <mat-icon>arrow_back_ios</mat-icon>
+                                </span>
+                                <span matSuffix>m<sup>3</sup></span>
+                                <mat-error *ngIf="outletFlow.invalid">{{
+                                    errorValidator('outletFlow') | translate
+                                    }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
+                            <input matInput placeholder="0-123456789" [formControl]="code" autofocus />
+                            <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
+                        </mat-form-field>
+                    </span>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
-                <mat-card-actions [align]="'end'">
+                <mat-card-actions [align]="'end'" *ngIf="addressEmitter?.userHasFiltered">
                     <button mat-button matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
                         (click)="exit()">
                         {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}
