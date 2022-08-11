@@ -48,6 +48,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     @Output() public addressForm: EventEmitter<AddressEmitter> = new EventEmitter<AddressEmitter>();
 
     public userHasFiltered: boolean = false;
+    public userHasMapClicked: boolean = false;
     public loadingExamples: boolean = false;
     public loadingMap: boolean = false;
     public globalMapConfig: ConfigureMap | undefined;
@@ -151,6 +152,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                         this.selectedStreetCandidate.zoom = this.zoom;
                     }
                 });
+
+                this.userHasMapClicked = true;
             });
         }, this.waitToMapReload);
     }
@@ -264,7 +267,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
         // emit the address
         this.addressForm.emit({
-            userHasFiltered: this.userHasFiltered,
+            userHasMapClicked: this.userHasMapClicked,
             addressFormGroup: this.formBuilder.group({
                 filter: this.form!.filter,
                 country: this.form!.country,
@@ -301,9 +304,10 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     public clearFilter(): void {
         this.userHasFiltered = false;
+        this.userHasMapClicked = false;
         this.form!.clearFilter();
         this.addressForm.emit({
-            userHasFiltered: this.userHasFiltered,
+            userHasMapClicked: this.userHasMapClicked,
             addressFormGroup: this.formBuilder.group({
                 filter: this.form!.filter,
                 country: this.form!.country,

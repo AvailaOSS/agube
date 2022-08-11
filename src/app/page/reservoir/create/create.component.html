@@ -8,7 +8,7 @@
                         [baseConfiguration]="configureMap" [addressInputForm]="addressInputForm"
                         [resetForm]="resetChildForm">
                     </app-map-location-create>
-                    <span *ngIf="addressEmitter?.userHasFiltered">
+                    <span *ngIf="addressEmitter?.userHasMapClicked">
                         <div class="form-reservoir">
                             <mat-form-field appearance="fill">
                                 <mat-label>{{ 'PAGE.RESERVOIR.CREATE.CAPACITY' | translate }}</mat-label>
@@ -54,7 +54,7 @@
                     </span>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
-                <mat-card-actions [align]="'end'" *ngIf="addressEmitter?.userHasFiltered">
+                <mat-card-actions [align]="'end'" *ngIf="addressEmitter?.userHasMapClicked">
                     <button mat-button matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
                         (click)="exit()">
                         {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}

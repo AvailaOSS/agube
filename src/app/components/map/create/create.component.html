@@ -20,7 +20,30 @@
         <mat-error *ngIf="form.filter.invalid">{{ errorValidator('filter') | translate }}</mat-error>
     </mat-form-field>
     <span *ngIf="userHasFiltered">
-        <div class="address-form">
+        <div class="filter-results">
+            <span class="filter-selection">
+                <p>{{ 'COMPONENTS.MAP.CREATE.MAP.SHORTCUT' | translate }}</p>
+                <mat-selection-list [multiple]="false">
+                    <mat-list-option matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
+                        *ngFor="let candidate of addressExamples" (click)="putLocationInMap(candidate)">
+                        <div>
+                            <mat-icon>place</mat-icon>
+                            {{ candidate.display_name | slice: 0:100 }}
+                        </div>
+                    </mat-list-option>
+                </mat-selection-list>
+            </span>
+            <span class="fullMap">
+                <p>{{ 'COMPONENTS.MAP.CREATE.MAP.HEADER' | translate }}</p>
+                <div class="map">
+                    <mat-spinner *ngIf="loadingMap" class="map-spinner"></mat-spinner>
+                    <div id="{{baseConfiguration.id}}" [ngStyle]="{ height: baseConfiguration?.height }"
+                        matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
+                        [matTooltipDisabled]="form.filter.invalid"></div>
+                </div>
+            </span>
+        </div>
+        <div class="address-form" *ngIf="userHasMapClicked">
             <mat-form-field appearance="fill" *ngIf="form.country">
                 <mat-label>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY' | translate }}</mat-label>
                 <input matInput type="text" [formControl]="form.country" />
@@ -107,25 +130,6 @@
                 <mat-label>{{ 'COMPONENTS.MAP.CREATE.FORM.GATE.TEXT' | translate }}</mat-label>
                 <input matInput type="text" [formControl]="form.gate" />
             </mat-form-field>
-        </div>
-        <div class="filter-results">
-            <span class="filter-selection">
-                <mat-selection-list [multiple]="false">
-                    <mat-list-option matTooltip="{{ 'COMPONENTS.MAP.CREATE.OPTIONS.TEXT' | translate }}"
-                        *ngFor="let candidate of addressExamples" (click)="putLocationInMap(candidate)">
-                        <div>
-                            <mat-icon>place</mat-icon>
-                            {{ candidate.display_name | slice: 0:100 }}
-                        </div>
-                    </mat-list-option>
-                </mat-selection-list>
-            </span>
-            <div class="map">
-                <mat-spinner *ngIf="loadingMap" class="map-spinner"></mat-spinner>
-                <div id="{{baseConfiguration.id}}" [ngStyle]="{ height: baseConfiguration?.height }"
-                    matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
-                    [matTooltipDisabled]="form.filter.invalid"></div>
-            </div>
         </div>
     </span>
 </div>

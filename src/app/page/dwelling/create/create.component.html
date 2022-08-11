@@ -8,14 +8,14 @@
                         [baseConfiguration]="configureMap" [addressInputForm]="addressInputForm"
                         [resetForm]="resetChildForm">
                     </app-map-location-create>
-                    <mat-form-field appearance="fill" *ngIf="addressEmitter?.userHasFiltered">
+                    <mat-form-field appearance="fill" *ngIf="addressEmitter?.userHasMapClicked">
                         <mat-label>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</mat-label>
                         <input matInput placeholder="0-123456789" [formControl]="code" autofocus />
                         <mat-error *ngIf="code.invalid">{{ errorValidator('code') | translate }}</mat-error>
                     </mat-form-field>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
-                <mat-card-actions [align]="'end'" *ngIf="addressEmitter?.userHasFiltered">
+                <mat-card-actions [align]="'end'" *ngIf="addressEmitter?.userHasMapClicked">
                     <button mat-button matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
                         (click)="exit()">
                         {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}

@@ -45,6 +45,8 @@
     "COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION": "Escribe o Barrio que lle corresponde",
     "COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION": "Escribe a Ciudade que lle corresponde",
     "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Seleccionar",
+    "COMPONENTS.MAP.CREATE.MAP.SHORTCUT": "Búsqueda de acceso rápido",
+    "COMPONENTS.MAP.CREATE.MAP.HEADER": "Móvete polo mapa e selecciona o Lugar",
     "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Faz Click para marcar a dirección",
     "COMPONENTS.UPLOAD.TITLE.SAVE": "Cambiar Foto de Perfil",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.TITLE": "Configuración",

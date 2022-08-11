@@ -45,6 +45,8 @@
     "COMPONENTS.MAP.CREATE.FORM.CITY_DISTRICT.VALIDATION": "Write the village to which the Dwelling corresponds",
     "COMPONENTS.MAP.CREATE.FORM.CITY.VALIDATION": "Write the City to which the Dwelling corresponds",
     "COMPONENTS.MAP.CREATE.OPTIONS.TEXT": "Select",
+    "COMPONENTS.MAP.CREATE.MAP.SHORTCUT": "Quick access search",
+    "COMPONENTS.MAP.CREATE.MAP.HEADER": "Move around the map and select the Place",
     "COMPONENTS.MAP.CREATE.MAP.TOOLTIP": "Click to mark the address",
     "COMPONENTS.UPLOAD.TITLE.SAVE": "Change profile picture",
     "PAGE.CONFIG.CLIENT.CONFIGURE-MODE.TITLE": "Configuration",

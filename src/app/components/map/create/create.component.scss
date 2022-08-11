@@ -14,34 +14,49 @@
             margin: 0 $margin-x-small $margin-small 0;
         }
     }
-    .filter-results {
+}
+
+.fullMap {
+    width: 100%;
+    p {
         display: flex;
-        .filter-selection {
-            min-width: 50%;
-            width: 100%;
-            height: 220px;
+        justify-content: center;
+    }
+}
+
+.filter-results {
+    display: flex;
+    p {
+        display: flex;
+        justify-content: center;
+    }
+    .filter-selection {
+        margin-right: 15px;
+        min-width: 50%;
+        width: 100%;
+        height: 220px;
+        mat-selection-list {
             overflow: auto;
-            mat-selection-list {
-                width: 100%;
-                mat-list-option {
-                    div {
-                        display: flex;
-                        align-items: center;
-                    }
+            width: 100%;
+            height: 100%;
+            mat-list-option {
+                div {
+                    display: flex;
+                    align-items: center;
                 }
             }
         }
-        .map {
-            display: flex;
-            justify-content: center;
-            .map-spinner {
-                position: absolute;
-                z-index: 9999;
-                margin: 10em;
-            }
+    }
+    .map {
+        display: flex;
+        justify-content: center;
+        .map-spinner {
+            position: absolute;
+            z-index: 9999;
+            margin: 10em;
         }
-        div {
-            width: 100%;
-        }
+    }
+    div {
+        width: 100%;
     }
 }
