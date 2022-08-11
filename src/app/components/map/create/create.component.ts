@@ -109,7 +109,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             tiles.addTo(this.map);
 
             let circle: L.Circle | undefined = undefined;
-            if (conf.showCircle) {
+            if (conf.showCircle && this.userHasMapClicked) {
                 circle = this.setCircle(+conf.center.lat, +conf.center.lon, undefined, '#2ECC71');
             }
 
@@ -242,6 +242,9 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                 lon,
                 zoom,
             };
+        } else {
+            // with automatic selection
+            this.userHasMapClicked = false;
         }
 
         //  ensure that form controls is filled
