@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
+from reservoir.exceptions import ReservoirWithoutWaterMeterError
 from watermeter.models import WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
@@ -241,10 +242,15 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
         try:
             reservoir = Reservoir.objects.get(id=pk)
             water_meter = reservoir.get_current_water_meter()
+
+            if not water_meter:
+                raise ReservoirWithoutWaterMeterError()
+
             return Response(self.get_serializer(water_meter).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'},
-                            status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+        except ReservoirWithoutWaterMeterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(operation_id="changeCurrentReservoirWaterMeter")
     def post(self, request, pk):
