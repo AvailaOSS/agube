@@ -49,11 +49,11 @@ export class DetailComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private svcReservoir: ReservoirService,
+        private svcReservoirCache: ReservoirCacheService,
         private svcPersistantWaterMeter: WaterMeterPersistantService,
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
-        private svcReservoirCache: ReservoirCacheService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();

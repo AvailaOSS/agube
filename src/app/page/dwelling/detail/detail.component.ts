@@ -16,6 +16,7 @@ import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
+import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
@@ -56,6 +57,7 @@ export class DetailComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private svcDwelling: DwellingService,
+        private svcCacheDwelling: DwellingCacheService,
         private svcManager: ManagerService,
         private svcPersistant: WaterMeterPersistantService,
         private svcGeolocation: GeolocationService,
@@ -190,6 +192,7 @@ export class DetailComponent implements OnInit {
             next: (response) => {
                 this.dwelling!.geolocation = response;
                 this.configureMaps(response);
+                this.svcCacheDwelling.clean();
                 this.showMap = true;
                 this.googleAnalyticsService.gtag('event', 'update_address', {
                     city: response.address.city,
