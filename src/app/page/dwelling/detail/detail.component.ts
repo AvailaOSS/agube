@@ -11,6 +11,7 @@ import {
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
@@ -19,7 +20,6 @@ import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
-import { DialogOnlyMapComponent } from './../../../components/dialog-only-map/dialog-only-map.component';
 import { Detail } from './detail';
 
 @Component({
@@ -81,7 +81,7 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcPersistant.get().subscribe((res) => {
             this.waterMeterId = res?.id!;
         });
@@ -140,6 +140,7 @@ export class DetailComponent implements OnInit {
             data,
         });
     }
+
     public goToEditGeolocation() {
         if (!this.dwelling) {
             return;
@@ -153,7 +154,7 @@ export class DetailComponent implements OnInit {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             geolocation: geolocation,
             configureMap: {
-                id: this.mapId,
+                id: 'edit_address_map',
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
