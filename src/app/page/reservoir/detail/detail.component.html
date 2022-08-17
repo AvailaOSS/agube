@@ -18,7 +18,6 @@
                         </div>
                     </div>
                     <div class="content-buttons-map">
-
                         <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeterId"
                             [type]="type" [load]="true">
                         </app-management>
@@ -30,7 +29,8 @@
                             </button>
                         </div>
                     </div>
-                    <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="true">
+                    <app-water-meter-detail *ngIf="waterMeterId" [waterMeterId]="waterMeterId!" [type]="type"
+                        [canAddReading]="true">
                     </app-water-meter-detail>
                 </div>
                 <div class="reservoir-map">

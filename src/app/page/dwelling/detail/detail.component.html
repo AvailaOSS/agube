@@ -30,7 +30,8 @@
                             </button>
                         </div>
                     </div>
-                    <app-gauge-measurement [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
+                    <app-gauge-measurement *ngIf="waterMeterId" [waterMeterId]="waterMeterId!" [type]="type"
+                        [canAddReading]="canLoad">
                     </app-gauge-measurement>
                 </div>
                 <div class="dwelling-map">
