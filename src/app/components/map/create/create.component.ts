@@ -181,11 +181,13 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             this.addressAlreadyCreated = response;
             // if has some address set as selected option in filter
             if (this.baseConfiguration && this.baseConfiguration.selectOptionFilter === true) {
+                const lat: number = Number(this.baseConfiguration!.center.lat);
+                const lon: number = Number(this.baseConfiguration!.center.lon);
                 // go to the location configured
-                this.searchLocationByCoordinate(
-                    Number(this.baseConfiguration!.center.lat),
-                    Number(this.baseConfiguration!.center.lon)
-                ).subscribe((response: LocationResponse) => {
+                this.searchLocationByCoordinate(lat, lon).subscribe((response: LocationResponse) => {
+                    // ensure that lat and lon is the user settled
+                    response.lat = String(lat);
+                    response.lon = String(lon);
                     this.putLocationInMap(response);
                 });
             }
