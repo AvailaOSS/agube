@@ -79,6 +79,7 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
     form.cp.setValue(location.address.postcode);
     form.street?.setValue(location.address.road);
     var street = location.address.road;
+
     if (!street) {
         form.street?.setValue(location.address.landuse);
         form.street?.setErrors({ check: true });
@@ -142,6 +143,7 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
         location.address.postcode = '0000';
         form.cp.setValue(location.address.postcode);
     }
+
     form.cp.setErrors({ check: true });
     form.cp.markAsTouched();
 
@@ -149,6 +151,9 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
     if (form.number && !form.number.value) {
         form.number.setValue(location.address.house_number);
     }
-    form.number?.setErrors({ check: true });
-    form.number?.markAsTouched();
+
+    if (form.number?.errors?.['required']) {
+        form.number?.setErrors({ check: true });
+        form.number?.markAsTouched();
+    }
 }

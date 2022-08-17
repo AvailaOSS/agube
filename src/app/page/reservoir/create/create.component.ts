@@ -49,8 +49,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
             cp: new FormControl('', Validators.required),
             street: new FormControl(''),
             number: new FormControl(''),
-            flat: new FormControl(''),
-            gate: new FormControl(''),
         };
 
         // configure map height
@@ -62,7 +60,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.loadCache();
     }
 
@@ -120,7 +118,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
                     reservoir_id: response?.id,
                     capacity: response.capacity,
                     outlet_flow: response.outlet_flow,
-                    inet_flow: response.inlet_flow,
+                    inlet_flow: response.inlet_flow,
                 });
                 this.exit();
             },
