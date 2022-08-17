@@ -16,6 +16,10 @@ export class WaterMeterPersistantService {
         return this.subject;
     }
 
+    public clear() {
+        this.subject.next(undefined);
+    }
+
     public emit(waterMeter: WaterMeter) {
         this.subject.next(waterMeter);
         this.emitReload(true);

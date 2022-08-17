@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-    Geolocation,
-    GeolocationService,
-    ManagerService,
-    ReservoirCreate,
-    ReservoirService,
-} from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
+import { Geolocation, GeolocationService, ReservoirCreate, ReservoirService, WaterMeter } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
@@ -43,13 +36,11 @@ export class DetailComponent implements OnInit {
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '500px';
 
-    public waterMeterId: number | undefined;
+    public waterMeter: WaterMeter | undefined;
 
     public type: Type | undefined = undefined;
 
     public loading: boolean = false;
-
-    public canLoad: boolean = false;
 
     public showMap: boolean = true;
     private mapId: string = 'detail_map';
@@ -58,19 +49,15 @@ export class DetailComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private svcReservoir: ReservoirService,
-        private svcManager: ManagerService,
-        private svcPersistant: WaterMeterPersistantService,
+        private svcPersistantWaterMeter: WaterMeterPersistantService,
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         private svcReservoirCache: ReservoirCacheService,
-        private svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
-        this.svcManager.userIsManager().subscribe((response) => {
-            this.canLoad = response.is_manager;
-        });
+
         this.loading = true;
         this.reservoir = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
@@ -82,6 +69,18 @@ export class DetailComponent implements OnInit {
             };
         });
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
+    }
+
+    public ngOnInit(): void {
+        if (!this.reservoirId) {
+            return;
+        }
+
+        // first, get the reservoir
+        this.loadReservoir(this.reservoirId);
+
+        // second, get the water meter
+        this.loadWaterMeter(this.reservoirId);
     }
 
     public goToEditGeolocation() {
@@ -172,15 +171,12 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.svcPersistant.get().subscribe((res) => {
-            this.waterMeterId = res?.id!;
-        });
-        if (!this.reservoirId) {
-            return;
-        }
+    public goToNewReservoir() {
+        this.router.navigate(['manager/reservoirs/create']);
+    }
 
-        this.svcReservoir.getReservoir(this.reservoirId).subscribe({
+    private loadReservoir(reservoirId: number) {
+        this.svcReservoir.getReservoir(reservoirId).subscribe({
             next: (reservoir) => {
                 this.reservoir = reservoir;
                 let geolocation = this.reservoir.geolocation;
@@ -188,15 +184,22 @@ export class DetailComponent implements OnInit {
                 this.loading = false;
             },
         });
-
-        this.svcReservoir.getCurrentReservoirWaterMeter(this.reservoirId).subscribe((response) => {
-            this.waterMeterId = response.id;
-            this.svcPersistant.emit(response);
-        });
     }
 
-    public goToNewReservoir() {
-        this.router.navigate(['manager/reservoirs/create']);
+    private loadWaterMeter(reservoirId: number) {
+        // first persist the current water meter and then subscribe to keep updated
+        this.svcReservoir.getCurrentReservoirWaterMeter(reservoirId).subscribe({
+            next: (response) => {
+                this.waterMeter = response;
+                // override the current water meter into resistant service
+                this.svcPersistantWaterMeter.emit(response);
+                // subscribe to service to keep the code updated to changes
+                this.svcPersistantWaterMeter.get().subscribe((response) => {
+                    this.waterMeter = response;
+                });
+            },
+            error: () => this.svcPersistantWaterMeter.clear(),
+        });
     }
 
     private configureMaps(geolocation: Geolocation) {

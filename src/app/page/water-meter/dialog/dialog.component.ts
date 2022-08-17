@@ -28,7 +28,7 @@ export class WaterMeterDialogComponent {
         @Inject(MAT_DIALOG_DATA) private data: WaterMeterDialogData,
         private svcNotification: NotificationService,
         private svcWaterMeterManager: WaterMeterManager,
-        private svcPersistant: WaterMeterPersistantService,
+        private svcPersistantWaterMeter: WaterMeterPersistantService,
         private svcDwellingCache: DwellingCacheService,
         private svcReservoirCache: DwellingCacheService
     ) {
@@ -38,7 +38,7 @@ export class WaterMeterDialogComponent {
             code: this.code,
         });
 
-        this.svcPersistant.get().subscribe((response) => {
+        this.svcPersistantWaterMeter.get().subscribe((response) => {
             if (response) {
                 this.currentCode = response.code;
             }
@@ -61,7 +61,7 @@ export class WaterMeterDialogComponent {
             )
             .subscribe({
                 next: (response: WaterMeter) => {
-                    this.svcPersistant.emit(response);
+                    this.svcPersistantWaterMeter.emit(response);
                     this.close();
                 },
                 error: (error: any) => this.svcNotification.warning({ message: error }),

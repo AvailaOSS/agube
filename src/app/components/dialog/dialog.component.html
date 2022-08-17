@@ -1,10 +1,8 @@
 <h1 mat-dialog-title>{{ dialogTitle | translate }}</h1>
-<div mat-dialog-content>
-    <app-map-location-create (addressForm)="addressFormReceive($event)" [baseConfiguration]="configureMap"
-        [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
-    </app-map-location-create>
-</div>
-<div mat-dialog-actions [align]="'end'">
+<app-map-location-edit (addressForm)="addressFormReceive($event)" [baseConfiguration]="configureMap"
+    [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
+</app-map-location-edit>
+<mat-card-actions [align]="'end'">
     <button mat-raised-button
         matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL.TOOLTIP' | translate }}"
         (click)="closeDialog()" cdkFocusInitial>
@@ -16,4 +14,4 @@
         <mat-icon>save</mat-icon>
         {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE' | translate }}
     </button>
-</div>
+</mat-card-actions>

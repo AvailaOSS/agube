@@ -49,6 +49,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     public userHasFiltered: boolean = false;
     public userHasMapClicked: boolean = false;
+    public automaticMode: boolean = false;
     public loadingExamples: boolean = false;
     public loadingMap: boolean = false;
     public globalMapConfig: ConfigureMap | undefined;
@@ -63,7 +64,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     // -------------------------- Angular Lifecycle -------------------------- //
 
-    constructor(private http: HttpClient, private formBuilder: FormBuilder, private svcAddress: AddressService) {
+    constructor(protected http: HttpClient, protected formBuilder: FormBuilder, protected svcAddress: AddressService) {
         super();
         this.form = undefined;
         this.addressAlreadyCreated = [];
@@ -109,7 +110,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             tiles.addTo(this.map);
 
             let circle: L.Circle | undefined = undefined;
-            if (conf.showCircle && this.userHasMapClicked) {
+            if (conf.showCircle && (this.userHasMapClicked || this.automaticMode)) {
                 circle = this.setCircle(+conf.center.lat, +conf.center.lon, undefined, '#2ECC71');
             }
 
@@ -141,7 +142,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     this.map.removeLayer(circle);
                 }
 
-                this.initializeMap(this.globalMapConfig);
+                // duplicated command, it already running in putLocationInMap
+                // this.initializeMap(this.globalMapConfig);
 
                 this.searchLocationByCoordinate(
                     Number(this.globalMapConfig.center.lat),
@@ -179,11 +181,13 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             this.addressAlreadyCreated = response;
             // if has some address set as selected option in filter
             if (this.baseConfiguration && this.baseConfiguration.selectOptionFilter === true) {
+                const lat: number = Number(this.baseConfiguration!.center.lat);
+                const lon: number = Number(this.baseConfiguration!.center.lon);
                 // go to the location configured
-                this.searchLocationByCoordinate(
-                    Number(this.baseConfiguration!.center.lat),
-                    Number(this.baseConfiguration!.center.lon)
-                ).subscribe((response: LocationResponse) => {
+                this.searchLocationByCoordinate(lat, lon).subscribe((response: LocationResponse) => {
+                    // ensure that lat and lon is the user settled
+                    response.lat = String(lat);
+                    response.lon = String(lon);
                     this.putLocationInMap(response);
                 });
             }
@@ -244,7 +248,11 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             };
         } else {
             // with automatic selection
-            this.userHasMapClicked = false;
+            if (this.automaticMode) {
+                this.userHasMapClicked = true;
+            } else {
+                this.userHasMapClicked = false;
+            }
         }
 
         //  ensure that form controls is filled
@@ -252,7 +260,9 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             throw new Error('form must be initialized before this');
         }
 
-        fillMissingAddressFields(this.form, this.selectedStreetCandidate);
+        if (!this.automaticMode) {
+            fillMissingAddressFields(this.form, this.selectedStreetCandidate);
+        }
 
         // reset the map to new location
         this.initializeMap({
