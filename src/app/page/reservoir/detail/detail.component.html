@@ -20,7 +20,7 @@
                     <div class="content-buttons-map">
 
                         <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeterId"
-                            [type]="type" [load]="canLoad">
+                            [type]="type" [load]="true">
                         </app-management>
                         <div class="buttons-map">
                             <button mat-raised-button [color]="'primary'" matTooltip="Ver mapa" (click)="seeMap()"
@@ -30,7 +30,7 @@
                             </button>
                         </div>
                     </div>
-                    <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="canLoad">
+                    <app-water-meter-detail [waterMeterId]="waterMeterId!" [type]="type" [canAddReading]="true">
                     </app-water-meter-detail>
                 </div>
                 <div class="reservoir-map">

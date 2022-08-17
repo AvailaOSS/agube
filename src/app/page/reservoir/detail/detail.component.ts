@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-    Geolocation,
-    GeolocationService,
-    ManagerService,
-    ReservoirCreate,
-    ReservoirService,
-} from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
+import { Geolocation, GeolocationService, ReservoirCreate, ReservoirService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
@@ -49,8 +42,6 @@ export class DetailComponent implements OnInit {
 
     public loading: boolean = false;
 
-    public canLoad: boolean = false;
-
     public showMap: boolean = true;
     private mapId: string = 'detail_map';
 
@@ -58,19 +49,15 @@ export class DetailComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private svcReservoir: ReservoirService,
-        private svcManager: ManagerService,
         private svcPersistant: WaterMeterPersistantService,
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         private svcReservoirCache: ReservoirCacheService,
-        private svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
-        this.svcManager.userIsManager().subscribe((response) => {
-            this.canLoad = response.is_manager;
-        });
+
         this.loading = true;
         this.reservoir = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
