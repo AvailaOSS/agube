@@ -6,10 +6,19 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditModule } from '../map/edit/edit.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [DialogComponent],
-    imports: [CommonModule, TranslateModule, MatTooltipModule, MatIconModule, EditModule, MatButtonModule],
+    imports: [
+        CommonModule,
+        TranslateModule,
+        MatTooltipModule,
+        MatIconModule,
+        EditModule,
+        MatButtonModule,
+        MatCardModule,
+    ],
     exports: [DialogComponent],
 })
 export class DialogModule {}
