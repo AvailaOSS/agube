@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="content-buttons-map">
-                        <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeterId"
+                        <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeter?.id"
                             [type]="type" [load]="true">
                         </app-management>
                         <div class="buttons-map">
@@ -29,9 +29,12 @@
                             </button>
                         </div>
                     </div>
-                    <app-water-meter-detail *ngIf="waterMeterId" [waterMeterId]="waterMeterId!" [type]="type"
-                        [canAddReading]="true">
-                    </app-water-meter-detail>
+                    <span *ngIf="waterMeter">
+                        <p>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate}}</p>
+                        <h3>{{waterMeter.code }}</h3>
+                        <app-water-meter-detail [waterMeterId]="waterMeter.id" [type]="type" [canAddReading]="true">
+                        </app-water-meter-detail>
+                    </span>
                 </div>
                 <div class="reservoir-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
