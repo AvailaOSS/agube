@@ -15,7 +15,7 @@ import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
-import { environment } from 'src/environments/environment';
+import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
@@ -64,7 +64,7 @@ export class DetailComponent implements OnInit {
         public svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
-        this.canLoadStreetView = environment.googleMapsApiKey.length > 0;
+        this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
         this.svcManager.userIsManager().subscribe({
             next: (response) => (this.canLoad = response.is_manager),

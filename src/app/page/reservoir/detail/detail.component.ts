@@ -17,6 +17,7 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ConfigureMap } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
@@ -32,8 +33,10 @@ export class DetailComponent implements OnInit {
     public reservoir: ReservoirCreate | undefined;
 
     // map
+    public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
+
     // map config
     public mode: string = 'map';
     private mapZoomDefault: number = 15;
@@ -64,6 +67,7 @@ export class DetailComponent implements OnInit {
         private svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
+        this.canLoadStreetView = isStreetViewAvailable();
         this.svcManager.userIsManager().subscribe((response) => {
             this.canLoad = response.is_manager;
         });
