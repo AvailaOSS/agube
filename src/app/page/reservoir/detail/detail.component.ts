@@ -71,6 +71,29 @@ export class DetailComponent implements OnInit {
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
     }
 
+    public ngOnInit(): void {
+        this.svcPersistant.get().subscribe((res) => {
+            this.waterMeterId = res?.id!;
+        });
+        if (!this.reservoirId) {
+            return;
+        }
+
+        this.svcReservoir.getReservoir(this.reservoirId).subscribe({
+            next: (reservoir) => {
+                this.reservoir = reservoir;
+                let geolocation = this.reservoir.geolocation;
+                this.configureMaps(geolocation);
+                this.loading = false;
+            },
+        });
+
+        this.svcReservoir.getCurrentReservoirWaterMeter(this.reservoirId).subscribe((response) => {
+            this.waterMeterId = response.id;
+            this.svcPersistant.emit(response);
+        });
+    }
+
     public goToEditGeolocation() {
         if (!this.reservoir) {
             return;
@@ -156,29 +179,6 @@ export class DetailComponent implements OnInit {
                 this.showMap = true;
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
-        });
-    }
-
-    ngOnInit(): void {
-        this.svcPersistant.get().subscribe((res) => {
-            this.waterMeterId = res?.id!;
-        });
-        if (!this.reservoirId) {
-            return;
-        }
-
-        this.svcReservoir.getReservoir(this.reservoirId).subscribe({
-            next: (reservoir) => {
-                this.reservoir = reservoir;
-                let geolocation = this.reservoir.geolocation;
-                this.configureMaps(geolocation);
-                this.loading = false;
-            },
-        });
-
-        this.svcReservoir.getCurrentReservoirWaterMeter(this.reservoirId).subscribe((response) => {
-            this.waterMeterId = response.id;
-            this.svcPersistant.emit(response);
         });
     }
 
