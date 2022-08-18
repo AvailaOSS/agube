@@ -197,14 +197,15 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     public loadAddressExamples(address?: Address): void {
         this.userHasFiltered = true;
         this.loadingExamples = true;
-        // get the filter value on the html filter
 
+        // get the filter value on the html filter
         let searching = this.form!.filter.value;
 
         // if method has been called with parameter override the local filter
         if (address) {
             // filter with address selected
             searching = address.country + ', ' + address.state + ', ' + address.city + ', ' + address.road;
+            this.form?.filter.setValue(address.road);
         }
 
         // get location with the local filter
