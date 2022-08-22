@@ -59,6 +59,11 @@ python agube-consumer.py
 Execute tests with coverage statistics
 
 ```bash
+python manage.py migrate --settings=agube.settings-local
+python manage.py test watermeter --settings=agube.settings-local
+```
+
+```bash
 pytest --cov --cov-report=html
 ```
 

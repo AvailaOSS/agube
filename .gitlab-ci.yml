@@ -1,9 +1,21 @@
 variables:
-  RELEASE_VERSION: 1.1.5
+  RELEASE_VERSION: 1.2.0
 
 stages:
+  - test
   - build
   - release
+
+unit_tests:
+  stage: test
+  image: python:3.9.0
+  before_script:
+    - pip install -r requirements.txt
+    - python manage.py migrate --settings=agube.settings-local
+  script:
+    - python manage.py test watermeter --settings=agube.settings-local
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 build_image_snapshot:
   stage: build

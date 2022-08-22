@@ -1,60 +1,52 @@
-from datetime import timedelta
-
-from address.models import Address, FullAddress
 from django.test import TestCase
-from django.utils import timezone
-from dwelling.models import Dwelling
+from watermeter.models import WaterMeter
 
-from watermeter.models import WaterMeter, WaterMeterMeasurement
+class WaterMeterMeasurementTestCase(TestCase):
 
-
-class WaterMeterTestCase(TestCase):
     def setUp(self):
-        # create address
-        address = Address.objects.create(street='Stark Industries',
-                                         is_external=False)
-        full_address = FullAddress.objects.create(address=address,
-                                                  number=25,
-                                                  flat='1',
-                                                  gate='1A',
-                                                  town='EE UU')
-        # create a dwelling
-        dwelling = Dwelling.objects.create(full_address=full_address,
-                                           release_date=timezone.now())
-        # create a water meter
-        WaterMeter.objects.create(code='water_meter_tony_stark')
+        lion = WaterMeter.objects.create(code="lion")
+        self.assertEqual(lion.get_last_measurement(), None)
+        lion.add_measurement(100.00, "2022-07-18 10:16:01+0000")
 
-    def test_get_water_meter(self):
-        """test water_meter obtains correctly"""
-        water_meter = WaterMeter.objects.get(id=1)
-        self.assertEqual(water_meter,
-                         WaterMeter.objects.get(code='water_meter_tony_stark'))
-        self.assertEqual(water_meter.code, 'water_meter_tony_stark')
-        self.assertLessEqual(water_meter.release_date, timezone.now())
-        self.assertEqual(water_meter.discharge_date, None)
+    def test_compute_diff(self):
+        """Compute the diff with the previous measurement"""
+        lion = WaterMeter.objects.get(code="lion")
+        # check that setUp works!
+        prev = lion.get_last_measurement()
+        self.assertNotEqual(prev, None)
+        self.assertEqual(prev.measurement, 100.00)
+        self.assertEqual(prev.measurement_diff, 0)
 
-    def test_add_measurement(self):
-        """test water_meter add measurement correctly"""
-        water_meter = WaterMeter.objects.get(id=1)
-        self.assertEqual(WaterMeterMeasurement.objects.filter().all().count(),
-                         0)
-        # add measurement
-        water_meter.add_measurement(1.0)
-        self.assertEqual(WaterMeterMeasurement.objects.filter().all().count(),
-                         1)
-        # add measurement
-        tomorrow = timezone.now() + timedelta(days=1)
-        water_meter.add_measurement(1.2, date=tomorrow)
-        self.assertEqual(WaterMeterMeasurement.objects.filter().all().count(),
-                         2)
-        # get measurements
-        measurements = water_meter.get_measurements()
-        self.assertEqual(len(measurements), 2)
-        self.assertEqual(measurements[len(measurements) - 1].date, tomorrow)
+        # create new measures
+        measure = 110.00
+        prev = lion.add_measurement(measure, "2022-07-20 10:16:01+0000")
+        self.assertEqual(len(lion.get_measurements()), 2)
+        self.assertEqual(prev.measurement, measure)
+        self.assertEqual(prev.measurement_diff, 5000)
 
-    def test_discharge(self):
-        """test water_meter discharge correctly"""
-        water_meter = WaterMeter.objects.get(id=1)
-        self.assertEqual(water_meter.discharge_date, None)
-        water_meter.discharge()
-        self.assertNotEqual(water_meter.discharge_date, None)
+        measure = 110.334
+        prev = lion.add_measurement(measure, "2022-07-21 10:16:01+0000")
+        self.assertEqual(len(lion.get_measurements()), 3)
+        self.assertEqual(float(prev.measurement), measure)
+        self.assertEqual(float(prev.measurement_diff), 334)
+
+        measure = 110.54
+        prev = lion.add_measurement(measure, "2022-07-22 10:16:01+0000")
+        self.assertEqual(len(lion.get_measurements()), 4)
+        self.assertEqual(float(prev.measurement), measure)
+        self.assertEqual(float(prev.measurement_diff), 206.0)
+
+        measure = 120.78
+        lion.add_measurement(measure, "2022-08-21 10:00:01+0000")
+        self.assertEqual(len(lion.get_measurements()), 5)
+        prev = lion.get_last_measurement()
+        self.assertEqual(float(prev.measurement), measure)
+        self.assertEqual(float(prev.measurement_diff), 353.0)
+
+        # back to the future! ¡The date is in the past!
+        measure = 100.78
+        current = lion.add_measurement(measure, "2022-07-19 12:00:01+0000")
+        self.assertEqual(len(lion.get_measurements()), 6)
+        prev = lion.get_last_measurement(current.date)
+        self.assertEqual(float(prev.measurement), measure)
+        self.assertEqual(float(prev.measurement_diff), 780.0)
