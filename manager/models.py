@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
+from django.db.models import Q
 
 
 class Manager(ExportModelOperationsMixin('Manager'), models.Model):
@@ -35,6 +36,11 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
     def has_exceeded_limit(self):
         from dwelling.models import Dwelling
         return Dwelling.objects.filter(manager=self).count() >= self.dwelling_limit
+
+    def get_closest_config(self, date):
+        return ManagerConfiguration.objects.filter(
+            Q(manager=self, release_date__lte=date, discharge_date__gte=date) | Q(manager=self, release_date__gte=date, discharge_date__isnull=True)
+        ).first()
 
 
 class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), models.Model):
