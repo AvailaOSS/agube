@@ -13,7 +13,7 @@ unit_tests:
     - pip install -r requirements.txt
     - python manage.py migrate --settings=agube.settings-local
   script:
-    - python manage.py test watermeter --settings=agube.settings-local
+    - python manage.py test watermeter/tests --settings=agube.settings-local
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 

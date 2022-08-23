@@ -1,6 +1,6 @@
 from manager.models import Manager
 from rest_framework.permissions import IsAuthenticated
-from django.core.exceptions import ObjectDoesNotExist
+
 
 class IsManagerAuthenticated(IsAuthenticated):
     """
@@ -10,7 +10,7 @@ class IsManagerAuthenticated(IsAuthenticated):
     def has_permission(self, request, view):
         if (not super().has_permission(request, view)):
             return False
-            
+
         try:
             Manager.objects.get(user=request.user)
             return True
