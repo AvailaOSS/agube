@@ -1,5 +1,8 @@
+from django.core.exceptions import ObjectDoesNotExist
+from dwelling.models import DwellingWaterMeter
 from rest_framework.fields import DateTimeField, ReadOnlyField
-from rest_framework.serializers import ModelSerializer, Serializer
+from rest_framework.serializers import (ModelSerializer, Serializer,
+                                        SerializerMethodField)
 
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 
@@ -29,6 +32,25 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     date = DateTimeField(required=False)
+    measurement_diff = ReadOnlyField()
+    max_daily_consumption = SerializerMethodField()
+
+    def get_max_daily_consumption(self, obj):
+        # the serializer can return model or dict
+        if type(obj) is dict:
+            current_measure = WaterMeterMeasurement.objects.get(id=obj.get('id'))
+        elif type(obj) is WaterMeterMeasurement:
+            current_measure = obj
+        else:
+            # if the serializer does not return nothing, ignore...
+            return 0.0
+
+        try:
+            dwelling_water_meter = DwellingWaterMeter.objects.get(water_meter = current_measure.water_meter)
+        except ObjectDoesNotExist:
+            return 0.0
+
+        return dwelling_water_meter.dwelling.manager.get_closest_config(current_measure.date).max_daily_consumption
 
     class Meta:
         ref_name = 'WaterMeterMeasurement'
@@ -36,6 +58,8 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
         fields = (
             'id',
             'measurement',
+            'measurement_diff',
+            'max_daily_consumption',
             'date',
         )
 

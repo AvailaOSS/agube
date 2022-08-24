@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
+from django.db.models import Q
 
 
 class Manager(ExportModelOperationsMixin('Manager'), models.Model):
@@ -35,6 +36,30 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
     def has_exceeded_limit(self):
         from dwelling.models import Dwelling
         return Dwelling.objects.filter(manager=self).count() >= self.dwelling_limit
+
+    def get_closest_config(self, date):
+        # date is before from configured, return the first configuration
+        query1 = Q(manager=self)
+        query1.add(Q(discharge_date__gte=date), Q.AND)
+        query1.add(Q(release_date__gte=date), Q.AND)
+
+        # date is between, return it
+        query2 = Q(manager=self)
+        query2.add(Q(discharge_date__gte=date), Q.AND)
+        query2.add(Q(release_date__lt=date), Q.AND)
+
+        # date is less than or equal actual config, return actual configuration
+        query3 = Q(manager=self)
+        query3.add(Q(discharge_date__isnull=True), Q.AND)
+        query3.add(Q(release_date__lte=date), Q.AND)
+
+        # date is grater than actual config, return actual configuration
+        query4 = Q(manager=self)
+        query4.add(Q(discharge_date__isnull=True), Q.AND)
+        query4.add(Q(release_date__gt=date), Q.AND)
+
+        queryset = ManagerConfiguration.objects.filter(query1 | query2 | query3 | query4)
+        return queryset.first()
 
 
 class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), models.Model):
