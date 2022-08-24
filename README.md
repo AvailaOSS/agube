@@ -56,15 +56,19 @@ python agube-consumer.py
 
 ## ✅ Tests
 
-Execute tests with coverage statistics
+Execute tests manually
 
 ```bash
 python manage.py migrate --settings=agube.settings-local
+python manage.py test agube/tests --settings=agube.settings-local
 python manage.py test watermeter/tests --settings=agube.settings-local
 ```
 
+Execute tests with coverage statistics
+
 ```bash
-pytest --cov --cov-report=html
+pytest
+pytest --cov-report=html
 ```
 
 ## ✔️ Check django project
