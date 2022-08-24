@@ -32,6 +32,7 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
     """
     id = ReadOnlyField()
     date = DateTimeField(required=False)
+    measurement_diff = ReadOnlyField()
     max_daily_consumption = SerializerMethodField()
 
     def get_max_daily_consumption(self, obj):
