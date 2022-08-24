@@ -48,13 +48,17 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         query2.add(Q(discharge_date__gte=date), Q.AND)
         query2.add(Q(release_date__lt=date), Q.AND)
 
-        # date is greater than actual config, return actual configuration
+        # date is less than or equal actual config, return actual configuration
         query3 = Q(manager=self)
         query3.add(Q(discharge_date__isnull=True), Q.AND)
         query3.add(Q(release_date__lte=date), Q.AND)
 
-        queryset = ManagerConfiguration.objects.filter(query1 | query2 | query3)
+        # date is grater than actual config, return actual configuration
+        query4 = Q(manager=self)
+        query4.add(Q(discharge_date__isnull=True), Q.AND)
+        query4.add(Q(release_date__gt=date), Q.AND)
 
+        queryset = ManagerConfiguration.objects.filter(query1 | query2 | query3 | query4)
         return queryset.first()
 
 
