@@ -37,9 +37,10 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
 
     def get_max_daily_consumption(self, obj):
         try:
-            return DwellingWaterMeter.objects.get(water_meter__id= obj.water_meter.id).dwelling.manager.get_closest_config(obj.date).max_daily_consumption
+            dwellingWaterMeter = DwellingWaterMeter.objects.get(water_meter__id= obj.water_meter.id)
         except ObjectDoesNotExist:
             return 0.0
+        return dwellingWaterMeter.dwelling.manager.get_closest_config(obj.date).max_daily_consumption
 
     class Meta:
         ref_name = 'WaterMeterMeasurement'

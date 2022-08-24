@@ -38,9 +38,24 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         return Dwelling.objects.filter(manager=self).count() >= self.dwelling_limit
 
     def get_closest_config(self, date):
-        return ManagerConfiguration.objects.filter(
-            Q(manager=self, release_date__lte=date, discharge_date__gte=date) | Q(manager=self, release_date__gte=date, discharge_date__isnull=True)
-        ).first()
+        # date is before from configured, return the first configuration
+        query1 = Q(manager=self)
+        query1.add(Q(discharge_date__gte=date), Q.AND)
+        query1.add(Q(release_date__gte=date), Q.AND)
+
+        # date is between, return it
+        query2 = Q(manager=self)
+        query2.add(Q(discharge_date__gte=date), Q.AND)
+        query2.add(Q(release_date__lt=date), Q.AND)
+
+        # date is greater than actual config, return actual configuration
+        query3 = Q(manager=self)
+        query3.add(Q(discharge_date__isnull=True), Q.AND)
+        query3.add(Q(release_date__lte=date), Q.AND)
+
+        queryset = ManagerConfiguration.objects.filter(query1 | query2 | query3)
+
+        return queryset.first()
 
 
 class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), models.Model):

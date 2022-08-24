@@ -98,5 +98,5 @@ class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'),
             lapsed_days = (dateparse.parse_datetime(self.date) - prev.date).days
             if lapsed_days == 0:
                 lapsed_days = 1
-            self.measurement_diff = round(((self.measurement - float(prev.measurement)) * m3L) / lapsed_days)
+            self.measurement_diff = round(((float(self.measurement) - float(prev.measurement)) * m3L) / lapsed_days)
         # else will put 0 as default
