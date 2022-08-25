@@ -138,17 +138,13 @@ class ReservoirWaterMeterChunkView(APIView):
 
                 # if len is full do not add more elements
                 if len(measures_serialized) < chunk:
-                    data = {
-                        'id': measure.id,
-                        'measurement': measure.measurement,
-                        'date': measure.date,
-                    }
+
                     # if len is full do not add more elements
                     if len(measures_serialized) < chunk:
                         measures_serialized.append(
-                            WaterMeterMeasurementSerializer(data,
-                                                            many=False).data)
+                            WaterMeterMeasurementSerializer(measure, many=False).data)
 
+            # FIXME: do not build json manually
             data = {
                 'id': water_meter.id,
                 'code': water_meter.code,
@@ -157,7 +153,7 @@ class ReservoirWaterMeterChunkView(APIView):
                 'measures': measures_serialized,
             }
 
-            return Response(WaterMeterDetailSerializer(data, many=False).data)
+            return Response(data)
         except ObjectDoesNotExist:
             return Response(
                 {'status': 'cannot find current water meter measures'},
