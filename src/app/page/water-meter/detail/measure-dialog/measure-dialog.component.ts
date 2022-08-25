@@ -71,6 +71,7 @@ export class MeasureDialogComponent {
                 error: (error) => {
                     this.svcNotification.warning({
                         message:
+                            // FIXME: it should be translated
                             'La Hora ' +
                             format(date, 'dd-MM-yyyy HH:mm') +
                             ' es posterior a la actual, eso no es posible',
