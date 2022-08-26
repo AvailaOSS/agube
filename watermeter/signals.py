@@ -35,8 +35,7 @@ def measure_update(sender, created, instance, **kwargs):
         if (resident == None):
             return
 
-        manager_configuration: ManagerConfiguration = ManagerConfiguration.objects.get(
-            manager=dwelling_water_meter.dwelling.manager)
+        manager_configuration: ManagerConfiguration = dwelling_water_meter.dwelling.manager.get_closest_config(watermeter_measurement.date)
 
         # Select template
         if (watermeter_measurement.measurement_diff >
