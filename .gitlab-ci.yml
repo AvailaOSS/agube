@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 1.9.4
+  RELEASE_VERSION: 1.9.5
 
 stages:
   - build
@@ -20,13 +20,15 @@ build_image_snapshot:
       --build-arg APP_NAME=Agube-dev
       --build-arg GOOGLE_MAPS_API_KEY=""
       --build-arg GOOGLE_ANALYTICS_ID=""
-      --build-arg AUTH_BACKEND_API_URL="http://localhost:30004"
-      --build-arg SUBSCRIPTION_BACKEND_API_URL="http://localhost:30001"
-      --build-arg CONTACT_BOOK_BACKEND_API_URL="http://localhost:30002"
-      --build-arg AGUBE_BACKEND_API_URL="http://localhost:30003"
+      --build-arg AUTH_BACKEND_API_URL="http://localhost:8000"
+      --build-arg SUBSCRIPTION_BACKEND_API_URL="http://localhost:8001"
+      --build-arg CONTACT_BOOK_BACKEND_API_URL="http://localhost:8002"
+      --build-arg AGUBE_BACKEND_API_URL="http://localhost:8003"
+    - docker tag $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT" $CI_REGISTRY_IMAGE:SNAPSHOT
     - docker push $CI_REGISTRY_IMAGE:$RELEASE_VERSION"-SNAPSHOT"
+    - docker push $CI_REGISTRY_IMAGE:SNAPSHOT
   only:
-    - snapshot
+    - develop
 
 build_image_release_candidate:
   stage: build
@@ -74,7 +76,7 @@ release_git_tag:
   variables:
     RELEASE_VERSION_SUFFIX: ""
   rules:
-    - if: $CI_COMMIT_BRANCH == "snapshot"
+    - if: $CI_COMMIT_BRANCH == "develop"
       variables:
         RELEASE_VERSION_SUFFIX: "-SNAPSHOT"
     - if: $CI_COMMIT_BRANCH == "release"
