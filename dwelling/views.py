@@ -49,10 +49,10 @@ class DwellingResumeView(APIView):
             manager__user=manager, discharge_date__isnull=True).count()
 
         total_residents = Resident.objects.filter(
-            dwelling__manager__user=manager).count()
+            dwelling__manager__user=manager, discharge_date__isnull=True).count()
 
         total_owners = Owner.objects.filter(
-            dwelling__manager__user=manager).count()
+            dwelling__manager__user=manager, discharge_date__isnull=True).count()
 
         data = {
             'total_dwellings': total_dwellings,
