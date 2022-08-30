@@ -129,6 +129,9 @@ class ReservoirWaterMeterChunkView(APIView):
             water_meter = Reservoir.objects.get(
                 id=pk).get_current_water_meter()
 
+            if not water_meter:
+                raise ReservoirWithoutWaterMeterError()
+
             measures_serialized = []
 
             measures = WaterMeterMeasurement.objects.filter(
@@ -158,7 +161,8 @@ class ReservoirWaterMeterChunkView(APIView):
             return Response(
                 {'status': 'cannot find current water meter measures'},
                 status=HTTP_404_NOT_FOUND)
-
+        except ReservoirWithoutWaterMeterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
 class ReservoirOwnerView(generics.GenericAPIView):
     queryset = Reservoir.objects.all()
