@@ -7,7 +7,7 @@
     "build": "ng build agube-rest-api-lib",
     "npm_pack": "cd dist/agube-rest-api-lib && npm pack",
     "package": "npm run build && npm run npm_pack",
-    "publish": "npm publish dist/agube-rest-api-lib/availa-agube-rest-api-4.5.0.tgz",
+    "publish": "npm publish dist/agube-rest-api-lib/availa-agube-rest-api-${npm_package_version}.tgz",
     "package-publish": "npm run package && npm run publish",
     "test": "ng test",
     "lint": "ng lint"
