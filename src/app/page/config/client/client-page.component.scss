@@ -34,10 +34,12 @@
         height: 88% !important;
         max-height: 88% !important;
         min-height: 88% !important;
+        width: 50%;
     }
 }
 .client-config-column {
     @include my-page-column();
+    margin-bottom: $margin-x-small;
 }
 
 .form {
