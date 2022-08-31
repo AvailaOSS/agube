@@ -15,8 +15,10 @@ import {
   HttpClient,
   HttpEvent,
   HttpHeaders,
+  HttpParams,
   HttpResponse,
 } from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 import { Injectable, Optional } from '@angular/core';
 import { ReservoirResume } from '../model/reservoirResume';
 import { Observable } from 'rxjs';
@@ -605,46 +607,175 @@ export class ReservoirService {
     );
   }
 
-    /**
-     *
-     * get Resume of the Reservoir
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-     public getResume(observe?: 'body', reportProgress?: boolean): Observable<ReservoirResume>;
-     public getResume(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ReservoirResume>>;
-     public getResume(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ReservoirResume>>;
-     public getResume(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+  /**
+   *
+   * get Resume of the Reservoir
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getResume(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ReservoirResume>;
+  public getResume(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ReservoirResume>>;
+  public getResume(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ReservoirResume>>;
+  public getResume(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-         let headers = this.defaultHeaders;
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
 
-         // authentication (Basic) required
-         if (this.configuration.username || this.configuration.password) {
-             headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
-         }
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
 
-         // to determine the Accept header
-         let httpHeaderAccepts: string[] = [
-             'application/json'
-         ];
-         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-         if (httpHeaderAcceptSelected != undefined) {
-             headers = headers.set('Accept', httpHeaderAcceptSelected);
-         }
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
 
-         // to determine the Content-Type header
-         const consumes: string[] = [
-             'application/json'
-         ];
+    return this.httpClient.get<ReservoirResume>(
+      `${this.basePath}/reservoir/resume`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 
-         return this.httpClient.get<ReservoirResume>(`${this.basePath}/reservoir/resume`,
-             {
-                 withCredentials: this.configuration.withCredentials,
-                 headers: headers,
-                 observe: observe,
-                 reportProgress: reportProgress
-             }
-         );
-     }
+  /**
+   *
+   * Return a pagination of reservoir water meter measurements between dates.
+   * @param id A unique integer value identifying this reservoir.
+   * @param startDate Filter start date
+   * @param endDate Filter end date
+   * @param page A page number within the paginated result set.
+   * @param pageSize Number of results to return per page.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getReservoirWaterMeterMeasurements(
+    id: number,
+    startDate: string,
+    endDate: string,
+    page?: number,
+    pageSize?: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<any>;
+  public getReservoirWaterMeterMeasurements(
+    id: number,
+    startDate: string,
+    endDate: string,
+    page?: number,
+    pageSize?: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<any>>;
+  public getReservoirWaterMeterMeasurements(
+    id: number,
+    startDate: string,
+    endDate: string,
+    page?: number,
+    pageSize?: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<any>>;
+  public getReservoirWaterMeterMeasurements(
+    id: number,
+    startDate: string,
+    endDate: string,
+    page?: number,
+    pageSize?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getReservoirWaterMeterMeasurements.'
+      );
+    }
 
+    if (startDate === null || startDate === undefined) {
+      throw new Error(
+        'Required parameter startDate was null or undefined when calling getReservoirWaterMeterMeasurements.'
+      );
+    }
+
+    if (endDate === null || endDate === undefined) {
+      throw new Error(
+        'Required parameter endDate was null or undefined when calling getReservoirWaterMeterMeasurements.'
+      );
+    }
+
+    let queryParameters = new HttpParams({
+      encoder: new CustomHttpUrlEncodingCodec(),
+    });
+    if (page !== undefined && page !== null) {
+      queryParameters = queryParameters.set('page', <any>page);
+    }
+    if (pageSize !== undefined && pageSize !== null) {
+      queryParameters = queryParameters.set('page_size', <any>pageSize);
+    }
+    if (startDate !== undefined && startDate !== null) {
+      queryParameters = queryParameters.set('start_date', <any>startDate);
+    }
+    if (endDate !== undefined && endDate !== null) {
+      queryParameters = queryParameters.set('end_date', <any>endDate);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<any>(
+      `${this.basePath}/reservoir/${encodeURIComponent(
+        String(id)
+      )}/water-meter/measurements`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
 }
