@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DwellingService, ReservoirService, WaterMeter, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
 import { Observable } from 'rxjs';
+import { DateMeasurementFilter } from './detail/date-measurement-filter';
 import { WaterMeterType } from './water-meter-type.enum';
 
 @Injectable({
@@ -30,10 +31,19 @@ export class WaterMeterManager {
         }
     }
 
-    public getChunk(id: number, chunk: number, type: WaterMeterType): Observable<WaterMeterWithMeasurements> | any {
+    public getChunk(
+        id: number,
+        chunk: number,
+        date: DateMeasurementFilter,
+        type: WaterMeterType
+    ): Observable<WaterMeterWithMeasurements> | any {
         if (+type === +WaterMeterType.DWELLING) {
+            console.log(date);
+
+            // this.svcDwelling.getCurrentWaterMeterMeasuresChunk(startDate:date.dateStart,endDate:date.dateEnd,chunk, id);
             return this.svcDwelling.getCurrentWaterMeterMeasuresChunk(chunk, id);
         } else if (+type === +WaterMeterType.RESERVOIR) {
+            // this.svcReservoir.getReservoirCurrentWaterMeterMeasuresChunk(startDate:date.dateStart,endDate:date.dateEnd,chunk, id);
             return this.svcReservoir.getReservoirCurrentWaterMeterMeasuresChunk(chunk, id);
         } else {
             return undefined;

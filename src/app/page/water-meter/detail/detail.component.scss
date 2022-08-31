@@ -17,6 +17,9 @@
                     margin-right: $margin-x-medium;
                     width: 12% !important;
                 }
+                mat-form-field {
+                    margin-left: 15px;
+                }
                 .filter {
                     width: 30%;
                 }
@@ -29,6 +32,9 @@
     }
 }
 
+.button-reading {
+    margin-left: 40px;
+}
 .overflow {
     color: #ff5f5f;
 }
