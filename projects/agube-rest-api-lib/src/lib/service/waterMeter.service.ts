@@ -45,31 +45,31 @@ export class WaterMeterService {
 
   /**
    *
-   * Create a new Measurement for this Water Meter
-   * @param id
+   * Create a new measurement for this water meter
+   * @param id A unique integer value identifying this water meter.
    * @param data
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public addWaterMeterMeasure(
+  public addWaterMeterMeasurement(
     id: number,
     data: WaterMeterMeasurement,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeterMeasurement>;
-  public addWaterMeterMeasure(
+  public addWaterMeterMeasurement(
     id: number,
     data: WaterMeterMeasurement,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeterMeasurement>>;
-  public addWaterMeterMeasure(
+  public addWaterMeterMeasurement(
     id: number,
     data: WaterMeterMeasurement,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeterMeasurement>>;
-  public addWaterMeterMeasure(
+  public addWaterMeterMeasurement(
     id: number,
     data: WaterMeterMeasurement,
     observe: any = 'body',
@@ -77,13 +77,13 @@ export class WaterMeterService {
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling addWaterMeterMeasure.'
+        'Required parameter id was null or undefined when calling addWaterMeterMeasurement.'
       );
     }
 
     if (data === null || data === undefined) {
       throw new Error(
-        'Required parameter data was null or undefined when calling addWaterMeterMeasure.'
+        'Required parameter data was null or undefined when calling addWaterMeterMeasurement.'
       );
     }
 
@@ -115,74 +115,10 @@ export class WaterMeterService {
     }
 
     return this.httpClient.post<WaterMeterMeasurement>(
-      `${this.basePath}/water-meter/${encodeURIComponent(String(id))}/measure`,
+      `${this.basePath}/water-meter/${encodeURIComponent(
+        String(id)
+      )}/measurement`,
       data,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
-  }
-
-  /**
-   *
-   * Return a list of water meter measures.
-   * @param id
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public getWaterMeterMeasures(
-    id: number,
-    observe?: 'body',
-    reportProgress?: boolean
-  ): Observable<Array<WaterMeterMeasurement>>;
-  public getWaterMeterMeasures(
-    id: number,
-    observe?: 'response',
-    reportProgress?: boolean
-  ): Observable<HttpResponse<Array<WaterMeterMeasurement>>>;
-  public getWaterMeterMeasures(
-    id: number,
-    observe?: 'events',
-    reportProgress?: boolean
-  ): Observable<HttpEvent<Array<WaterMeterMeasurement>>>;
-  public getWaterMeterMeasures(
-    id: number,
-    observe: any = 'body',
-    reportProgress: boolean = false
-  ): Observable<any> {
-    if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling getWaterMeterMeasures.'
-      );
-    }
-
-    let headers = this.defaultHeaders;
-
-    // authentication (Basic) required
-    if (this.configuration.username || this.configuration.password) {
-      headers = headers.set(
-        'Authorization',
-        'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
-      );
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-
-    return this.httpClient.get<Array<WaterMeterMeasurement>>(
-      `${this.basePath}/water-meter/${encodeURIComponent(String(id))}/measure`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
