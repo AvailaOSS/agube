@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { WaterMeterMeasurement, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
 import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
 import { format } from 'date-fns';
+import { range } from 'rxjs';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
@@ -25,6 +26,7 @@ export class DetailComponent implements OnInit {
     public next: string = '';
     public previous: string = '';
     public page: number | undefined;
+    public pageIndex: number | undefined = 1;
 
     @Input() public waterMeterId: number | undefined;
     @Input() public type: Type | undefined;
@@ -104,10 +106,11 @@ export class DetailComponent implements OnInit {
         this.propertiesServices.getProperties(url).subscribe((response) => {
             this.dataSource = new MatTableDataSource(response.results);
             this.dataSource.paginator = this.paginator!;
+            this.page = response.num_pages;
+
             if (response.links.next) {
                 // set the components next property here from the response
                 this.next = response.links.next;
-                this.page = response.num_pages;
             }
             if (response.links.previous) {
                 // set the components previous property here from the response
@@ -116,12 +119,22 @@ export class DetailComponent implements OnInit {
         });
     }
     // function fetches the next paginated items by using the url in the next property
-    public fetchNext() {
+    public fetchNext(index: number) {
         this.setProperties(this.next);
+        if (index >= this.page!) {
+            this.pageIndex = this.page;
+        } else {
+            this.pageIndex! += 1;
+        }
     }
     // function fetches the previous paginated items by using the url in the previous property
-    public fetchPrevious() {
+    public fetchPrevious(index: number) {
         this.setProperties(this.previous);
+        if (index === 1) {
+            this.pageIndex! = 1;
+        } else {
+            this.pageIndex! -= 1;
+        }
     }
 
     public loadWaterMeterMeasures() {
@@ -140,11 +153,10 @@ export class DetailComponent implements OnInit {
                     if (!response) {
                         return;
                     }
-                    if (response.links) {
-                        this.next = response.links.next!;
-                        this.previous = response.links.previous!;
-                        this.page = response.num_pages;
-                    }
+                    this.previous = response.links!.previous!;
+                    this.next = response.links!.next!;
+                    this.page = response.num_pages;
+                    this.pageIndex = 1;
 
                     this.svcPersistance.get().subscribe((waterMeter) => {
                         let water: WaterMeterWithMeasurements = {

@@ -115,11 +115,12 @@
         </div>
 
         <div [align]="'end'">
-            <button mat-raised-button color="primary" (click)="fetchPrevious()">
+
+            <button mat-raised-button color="primary" (click)="fetchPrevious(pageIndex!)">
                 <mat-icon>arrow_back_ios</mat-icon>
             </button>
-            {{ page }}
-            <button mat-raised-button color="primary" (click)="fetchNext()">
+            {{ pageIndex }} / {{ page }}
+            <button mat-raised-button color="primary" (click)="fetchNext(pageIndex!)">
                 <mat-icon>arrow_forward_ios</mat-icon>
             </button>
         </div>
