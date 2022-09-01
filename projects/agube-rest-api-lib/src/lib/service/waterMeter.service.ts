@@ -24,6 +24,7 @@ import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { WaterMeterMeasurement } from '../model/waterMeterMeasurement';
+import { WaterMeterMeasurementsPagination } from '../model/waterMeterMeasurementsPagination';
 
 @Injectable()
 export class WaterMeterService {
@@ -147,7 +148,7 @@ export class WaterMeterService {
     pageSize?: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<any>;
+  ): Observable<WaterMeterMeasurementsPagination>;
   public getWaterMeterMeasurements(
     id: number,
     startDate: string,
@@ -156,7 +157,7 @@ export class WaterMeterService {
     pageSize?: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<any>>;
+  ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getWaterMeterMeasurements(
     id: number,
     startDate: string,
@@ -165,7 +166,7 @@ export class WaterMeterService {
     pageSize?: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<any>>;
+  ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getWaterMeterMeasurements(
     id: number,
     startDate: string,

@@ -29,6 +29,7 @@ import { ReservoirCreate } from '../model/reservoirCreate';
 import { ReservoirDetail } from '../model/reservoirDetail';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
+import { WaterMeterMeasurementsPagination } from '../model/waterMeterMeasurementsPagination';
 
 @Injectable()
 export class ReservoirService {
@@ -681,7 +682,7 @@ export class ReservoirService {
     pageSize?: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<any>;
+  ): Observable<WaterMeterMeasurementsPagination>;
   public getReservoirWaterMeterMeasurements(
     id: number,
     startDate: string,
@@ -690,7 +691,7 @@ export class ReservoirService {
     pageSize?: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<any>>;
+  ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getReservoirWaterMeterMeasurements(
     id: number,
     startDate: string,
@@ -699,7 +700,7 @@ export class ReservoirService {
     pageSize?: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<any>>;
+  ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getReservoirWaterMeterMeasurements(
     id: number,
     startDate: string,

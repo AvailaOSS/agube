@@ -30,6 +30,7 @@ import { Owner } from '../model/owner';
 import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
+import { WaterMeterMeasurementsPagination } from '../model/waterMeterMeasurementsPagination';
 
 @Injectable()
 export class DwellingService {
@@ -979,7 +980,7 @@ export class DwellingService {
     pageSize?: number,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<any>;
+  ): Observable<WaterMeterMeasurementsPagination>;
   public getDwellingWaterMeterMeasurements(
     id: number,
     startDate: string,
@@ -988,7 +989,7 @@ export class DwellingService {
     pageSize?: number,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<any>>;
+  ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getDwellingWaterMeterMeasurements(
     id: number,
     startDate: string,
@@ -997,7 +998,7 @@ export class DwellingService {
     pageSize?: number,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<any>>;
+  ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getDwellingWaterMeterMeasurements(
     id: number,
     startDate: string,
