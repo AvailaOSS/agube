@@ -3,7 +3,7 @@ from django.utils import dateparse, timezone
 from django_prometheus.models import ExportModelOperationsMixin
 
 from watermeter.exceptions import (WaterMeterDisabledError,
-                                   WaterMeterMeasureInFutureError)
+                                   WaterMeterMeasurementInFutureError)
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
@@ -35,7 +35,7 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
         if self.discharge_date:
             raise WaterMeterDisabledError()
         if dateparse.parse_datetime(date) > timezone.now():
-            raise WaterMeterMeasureInFutureError()
+            raise WaterMeterMeasurementInFutureError()
         return WaterMeterMeasurement.objects.create(water_meter=self,
                                                     measurement=measurement,
                                                     date=date)

@@ -3,43 +3,51 @@ from drf_yasg.utils import swagger_auto_schema
 from manager.permissions import IsManagerAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
+from agube.pagination import CustomPagination
 
 from watermeter.exceptions import (WaterMeterDisabledError,
-                                   WaterMeterMeasureInFutureError)
+                                   WaterMeterMeasurementInFutureError)
 from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterMeasurementSerializer
 
 TAG = 'water-meter'
 
 
-class WaterMeterMeasurementView(APIView):
+class WaterMeterMeasurementView(GenericAPIView):
     permission_classes = [IsManagerAuthenticated]
+    serializer_class = WaterMeterMeasurementSerializer
+    queryset = WaterMeter.objects.all()
+    pagination_class = CustomPagination
 
     @swagger_auto_schema(
-        operation_id="getWaterMeterMeasures",
-        responses={200: WaterMeterMeasurementSerializer(many=True)},
+        operation_id="getWaterMeterMeasurements",
         tags=[TAG],
     )
     def get(self, request, pk):
         """
-        Return a list of water meter measures.
+        Return a pagination of water meter measurements.
         """
-        # Get Dwelling
-        water_meter: WaterMeter = WaterMeter.objects.get(id=pk)
-        measurements = water_meter.get_measurements()
-        return Response((WaterMeterMeasurementSerializer(measurements,
-                                                         many=True).data))
+        watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
+        queryset = watermeter.get_measurements()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data
+        else:
+            serializer = self.get_serializer(queryset, many=True)
+            data = serializer.data
+        return Response(data)
 
     @swagger_auto_schema(
-        operation_id="addWaterMeterMeasure",
-        request_body=WaterMeterMeasurementSerializer,
-        responses={200: WaterMeterMeasurementSerializer(many=False)},
+        operation_id="addWaterMeterMeasurement",
         tags=[TAG],
     )
     def post(self, request, pk):
         """
-        Create a new Measurement for this Water Meter
+        Create a new measurement for this water meter
         """
         # Get Water Meter
         water_meter: WaterMeter = WaterMeter.objects.get(id=pk)
@@ -57,5 +65,6 @@ class WaterMeterMeasurementView(APIView):
             return Response(
                 (WaterMeterMeasurementSerializer(water_meter_measurement,
                                                  many=False).data))
-        except (WaterMeterDisabledError, WaterMeterMeasureInFutureError) as e:
+        except (WaterMeterDisabledError,
+                WaterMeterMeasurementInFutureError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
