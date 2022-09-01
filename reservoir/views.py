@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from address.models import Address
 from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
@@ -19,6 +20,8 @@ from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirOwnerSerializer,
                                    ReservoirResumeSerializer,
                                    get_reservoir_owner_serialized)
+
+from agube.pagination import CustomPagination, CustomPaginationInspector
 
 TAG = 'reservoir'
 
@@ -145,7 +148,8 @@ class ReservoirWaterMeterChunkView(APIView):
                     # if len is full do not add more elements
                     if len(measures_serialized) < chunk:
                         measures_serialized.append(
-                            WaterMeterMeasurementSerializer(measure, many=False).data)
+                            WaterMeterMeasurementSerializer(measure,
+                                                            many=False).data)
 
             # FIXME: do not build json manually
             data = {
@@ -248,7 +252,8 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
 
             return Response(self.get_serializer(water_meter).data)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find reservoir'}, status=HTTP_404_NOT_FOUND)
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
         except ReservoirWithoutWaterMeterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
@@ -267,3 +272,84 @@ class ReservoirWaterMeterView(generics.GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find reservoir'},
                             status=HTTP_404_NOT_FOUND)
+
+
+class ReservoirWaterMeterMeasurementsView(generics.GenericAPIView):
+    permission_classes = [IsManagerAuthenticated]
+    serializer_class = WaterMeterMeasurementSerializer
+    queryset = Reservoir.objects.all()
+    pagination_class = CustomPagination
+
+    @swagger_auto_schema(
+        operation_id="getReservoirWaterMeterMeasurements",
+        paginator_inspectors=[CustomPaginationInspector],
+        manual_parameters=[
+            openapi.Parameter('start_date',
+                              openapi.IN_QUERY,
+                              description="Filter start date",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE,
+                              required=True),
+            openapi.Parameter('end_date',
+                              openapi.IN_QUERY,
+                              description="Filter end date",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE,
+                              required=True)
+        ],
+        tags=[TAG],
+    )
+    def get(self, request, pk):
+        """
+        Return a pagination of reservoir water meter measurements between dates.
+        """
+        # Get Reservoir
+        try:
+            reservoir: Reservoir = Reservoir.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find reservoir'},
+                            status=HTTP_404_NOT_FOUND)
+
+        # Extract filtering data
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+
+        # Get reservoir water meter historical
+        watermeter_list = reservoir.get_historical_water_meter()
+        if watermeter_list == []:
+            raise ReservoirWithoutWaterMeterError()
+
+        # Get measurements filtered between dates
+        measurement_list = []
+        for watermeter in watermeter_list:
+            # TODO: Break loop if water meter is out of date range (assure list order)
+            # Example, not working if request filter dates are type date (!= datetime)
+            # # Control watermeter was present between dates
+            # if watermeter.release_date > dateparse.parse_datetime(end_date):
+            #     continue
+            # if watermeter.discharge_date != None:
+            #     if watermeter.discharge_date < dateparse.parse_datetime(start_date):
+            #         continue
+
+            measurement_list = measurement_list + watermeter.get_measurements_between_dates(
+                start_date, end_date)
+
+        if measurement_list == []:
+            return Response(
+                {
+                    'status':
+                    'cannot find watermeter measurements between given dates'
+                },
+                status=HTTP_404_NOT_FOUND)
+
+        queryset = measurement_list
+        page = self.paginate_queryset(queryset)
+        # Create result pagination
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data
+        else:
+            serializer = self.get_serializer(queryset, many=True)
+            data = serializer.data
+        return Response(data)

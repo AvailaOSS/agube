@@ -5,7 +5,8 @@ from reservoir.views import (ReservoirCreateView, ReservoirListView,
                              ReservoirWaterMeterChunkView,
                              ReservoirWaterMeterHistoricalView,
                              ReservoirWaterMeterView,
-                             ReservoirResumeView)
+                             ReservoirResumeView,
+                             ReservoirWaterMeterMeasurementsView)
 
 __url_reservoir = [
     path('resume', ReservoirResumeView.as_view()),
@@ -16,7 +17,9 @@ __url_reservoir = [
     path('<int:pk>/water-meter/historical',
          ReservoirWaterMeterHistoricalView.as_view()),
     path('<int:pk>/water-meter/<int:chunk>',
-         ReservoirWaterMeterChunkView.as_view())
+         ReservoirWaterMeterChunkView.as_view()),
+    path('<int:pk>/water-meter/measurements',
+         ReservoirWaterMeterMeasurementsView.as_view())
 ]
 
 urlpatterns = [
