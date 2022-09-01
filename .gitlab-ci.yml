@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 4.6.1
+  RELEASE_VERSION: 4.6.2
 
 stages:
   - build
@@ -17,6 +17,7 @@ build_image_snapshot:
       --build-arg GITLAB_AUTH_TOKEN="$GITLAB_AUTH_TOKEN"
   only:
     - develop
+    - snapshot
 
 build_image_release:
   stage: build
