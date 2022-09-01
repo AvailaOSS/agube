@@ -4,7 +4,9 @@ from manager.permissions import IsManagerAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.generics import GenericAPIView
-from agube.pagination import CustomPagination
+from agube.pagination import CustomPagination, CustomPaginationInspector
+
+from drf_yasg import openapi
 
 from watermeter.exceptions import (WaterMeterDisabledError,
                                    WaterMeterMeasurementInFutureError)
@@ -22,15 +24,33 @@ class WaterMeterMeasurementView(GenericAPIView):
 
     @swagger_auto_schema(
         operation_id="getWaterMeterMeasurements",
+        paginator_inspectors=[CustomPaginationInspector],
+        manual_parameters=[
+            openapi.Parameter('start_date',
+                              openapi.IN_QUERY,
+                              description="Filter start date",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE,
+                              required=True),
+            openapi.Parameter('end_date',
+                              openapi.IN_QUERY,
+                              description="Filter end date",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE,
+                              required=True)
+        ],
         tags=[TAG],
     )
     def get(self, request, pk):
         """
-        Return a pagination of water meter measurements.
+        Return a pagination of water meter measurements between dates.
         """
-        watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
-        queryset = watermeter.get_measurements()
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
 
+        watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
+        queryset = watermeter.get_measurements_between_dates(
+            start_date, end_date)
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
