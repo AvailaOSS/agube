@@ -5,7 +5,7 @@ class WaterMeterDisabledError(Exception):
         self.message = "Can't update Water Meter if it is disabled"
         super().__init__(self.message)
 
-class WaterMeterMeasureInFutureError(Exception):
+class WaterMeterMeasurementInFutureError(Exception):
     """Exception raised when the measure is in the future.
     """
     def __init__(self):

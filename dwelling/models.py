@@ -124,5 +124,5 @@ class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
                                                 on_delete=models.RESTRICT)
 
     class Meta:
-        ordering = ["water_meter__release_date"]
+        ordering = ["-water_meter__release_date"]
         db_table = 'agube_dwelling_dwelling_water_meter'

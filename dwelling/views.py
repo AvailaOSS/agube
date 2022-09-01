@@ -23,13 +23,16 @@ from watermeter.serializers import (WaterMeterDetailSerializer,
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
-from dwelling.exceptions import (DwellingWithoutWaterMeterError, EmailValidationError, InvalidEmailError,
+from dwelling.exceptions import (DwellingWithoutWaterMeterError,
+                                 EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
 from dwelling.models import Dwelling, DwellingWaterMeter
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingResumeSerializer)
+
+from agube.pagination import CustomPagination, CustomPaginationInspector
 
 TAG = 'dwelling'
 
@@ -86,7 +89,7 @@ class DwellingListView(APIView):
             user_phone_number = ''
 
             water_meter = dwelling.get_current_water_meter()
-            if water_meter :
+            if water_meter:
                 water_meter_code = water_meter.code
 
             has_resident = dwelling.get_current_resident()
@@ -125,21 +128,31 @@ class DwellingCreateView(generics.CreateAPIView):
     serializer_class = DwellingCreateSerializer
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(operation_id="createDwelling",
-                         operation_description="create a new Dwelling",
-                         responses={
-                             # TODO: make openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}) generic for all errors
-                             # TODO: create a Serializer for Errors
-                             HTTP_404_NOT_FOUND: openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}),
-                             HTTP_403_FORBIDDEN: openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}),
-                        }
-    )
+    @swagger_auto_schema(
+        operation_id="createDwelling",
+        operation_description="create a new Dwelling",
+        responses={
+            # TODO: make openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}) generic for all errors
+            # TODO: create a Serializer for Errors
+            HTTP_404_NOT_FOUND:
+            openapi.Schema(type=openapi.TYPE_OBJECT,
+                           properties={
+                               'status':
+                               openapi.Schema(type=openapi.TYPE_STRING)
+                           }),
+            HTTP_403_FORBIDDEN:
+            openapi.Schema(type=openapi.TYPE_OBJECT,
+                           properties={
+                               'status':
+                               openapi.Schema(type=openapi.TYPE_STRING)
+                           }),
+        })
     def post(self, request, *args, **kwargs):
         try:
             with transaction.atomic():
                 return super().post(request, *args, **kwargs)
         except (InvalidEmailError, EmailValidationError,
-                UserManagerRequiredError ) as e:
+                UserManagerRequiredError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
         except (ManagerLimitExceeded) as e:
             return Response({'status': e.message}, status=HTTP_403_FORBIDDEN)
@@ -148,9 +161,8 @@ class DwellingCreateView(generics.CreateAPIView):
 class DwellingSetOwnerAsResidentView(APIView):
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(
-        operation_id="setOwnerAsResident",
-        responses={200: ResidentSerializer(many=False)})
+    @swagger_auto_schema(operation_id="setOwnerAsResident",
+                         responses={200: ResidentSerializer(many=False)})
     def post(self, request, pk):
         try:
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
@@ -228,9 +240,8 @@ class DwellingResidentView(generics.GenericAPIView):
     serializer_class = ResidentSerializer
     permission_classes = [IsAuthenticated]
 
-    @swagger_auto_schema(
-        operation_id="getCurrentResident",
-        responses={200: ResidentSerializer(many=False)})
+    @swagger_auto_schema(operation_id="getCurrentResident",
+                         responses={200: ResidentSerializer(many=False)})
     def get(self, request, pk):
         """
         Get current Resident
@@ -372,7 +383,8 @@ class DwellingWaterMeterChunkView(APIView):
                     # if len is full do not add more elements
                     if len(measures_serialized) < chunk:
                         measures_serialized.append(
-                            WaterMeterMeasurementSerializer(measure, many=False).data)
+                            WaterMeterMeasurementSerializer(measure,
+                                                            many=False).data)
 
             # FIXME: do not build json manually
             data = {
@@ -389,3 +401,84 @@ class DwellingWaterMeterChunkView(APIView):
                             status=HTTP_404_NOT_FOUND)
         except DwellingWithoutWaterMeterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
+
+
+class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
+    permission_classes = [IsManagerAuthenticated]
+    serializer_class = WaterMeterMeasurementSerializer
+    queryset = Dwelling.objects.all()
+    pagination_class = CustomPagination
+
+    @swagger_auto_schema(
+        operation_id="getDwellingWaterMeterMeasurements",
+        paginator_inspectors=[CustomPaginationInspector],
+        manual_parameters=[
+            openapi.Parameter('start_date',
+                              openapi.IN_QUERY,
+                              description="Filter start date",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE,
+                              required=True),
+            openapi.Parameter('end_date',
+                              openapi.IN_QUERY,
+                              description="Filter end date",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE,
+                              required=True)
+        ],
+        tags=[TAG],
+    )
+    def get(self, request, pk):
+        """
+        Return a pagination of dwelling water meter measurements between dates.
+        """
+        # Get Dwelling
+        try:
+            dwelling: Dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'},
+                            status=HTTP_404_NOT_FOUND)
+
+        # Extract filtering data
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+
+        # Get dwelling water meter historical
+        watermeter_list = dwelling.get_historical_water_meter()
+        if watermeter_list == []:
+            raise DwellingWithoutWaterMeterError()
+
+        # Get measurements filtered between dates
+        measurement_list = []
+        for watermeter in watermeter_list:
+            # TODO: Break loop if water meter is out of date range (assure list order)
+            # Example, not working if request filter dates are type date (!= datetime)
+            # # Control watermeter was present between dates
+            # if watermeter.release_date > dateparse.parse_datetime(end_date):
+            #     continue
+            # if watermeter.discharge_date != None:
+            #     if watermeter.discharge_date < dateparse.parse_datetime(start_date):
+            #         continue
+
+            measurement_list = measurement_list + watermeter.get_measurements_between_dates(
+                start_date, end_date)
+
+        if measurement_list == []:
+            return Response(
+                {
+                    'status':
+                    'cannot find watermeter measurements between given dates'
+                },
+                status=HTTP_404_NOT_FOUND)
+
+        queryset = measurement_list
+        page = self.paginate_queryset(queryset)
+        # Create result pagination
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data
+        else:
+            serializer = self.get_serializer(queryset, many=True)
+            data = serializer.data
+        return Response(data)

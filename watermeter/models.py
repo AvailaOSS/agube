@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils import dateparse, timezone
+from datetime import date
 from django_prometheus.models import ExportModelOperationsMixin
 
 from watermeter.exceptions import (WaterMeterDisabledError,
-                                   WaterMeterMeasureInFutureError)
+                                   WaterMeterMeasurementInFutureError)
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
@@ -35,7 +36,7 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
         if self.discharge_date:
             raise WaterMeterDisabledError()
         if dateparse.parse_datetime(date) > timezone.now():
-            raise WaterMeterMeasureInFutureError()
+            raise WaterMeterMeasurementInFutureError()
         return WaterMeterMeasurement.objects.create(water_meter=self,
                                                     measurement=measurement,
                                                     date=date)
@@ -47,6 +48,15 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
             WaterMeterMeasurement.objects.filter(
                 water_meter=self,
                 date__lte=before_date).order_by('-date')[:chunk])
+    
+    def get_measurements_between_dates(self, start_date, end_date):
+        # type: (date, date) -> list[WaterMeterMeasurement]
+        """get list of water meter measurements between dates"""
+        return list(
+            WaterMeterMeasurement.objects.filter(
+                water_meter=self,
+                date__gte=start_date,
+                date__lte=end_date).order_by('-date'))
 
     def get_measurements(self):
         # type: (WaterMeter) -> list[WaterMeterMeasurement]
