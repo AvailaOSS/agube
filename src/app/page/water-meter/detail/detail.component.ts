@@ -4,11 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { WaterMeterMeasurement, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
+import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
 import { format } from 'date-fns';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
 import { DateMeasurementFilter } from './date-measurement-filter';
+import { OurService } from './get-propierties.service';
 import { MeasureDialogData } from './measure-dialog/measure-dialog-data';
 import { MeasureDialogComponent } from './measure-dialog/measure-dialog.component';
 import { Type } from './type';
@@ -19,11 +21,11 @@ import { Type } from './type';
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-    public pageIndex: number = 0;
-    public pageSize: number = 50;
-    public lowValue: number = 0;
-    public highValue: number = 50;
-    public pageEvent: any;
+    public properties: any;
+    public next: string = '';
+    public previous: string = '';
+    public page: number | undefined;
+
     @Input() public waterMeterId: number | undefined;
     @Input() public type: Type | undefined;
     @Input() public canAddReading: boolean | undefined;
@@ -36,9 +38,9 @@ export class DetailComponent implements OnInit {
 
     public filter = new FormControl('');
 
-    public chunks = ['5', '10', '15'];
+    public chunks = ['3', '5', '10'];
     public chunk: string = this.chunks[0];
-    public dateStart = new FormControl(new Date(new Date().getFullYear(), new Date().getMonth(), 1), [
+    public dateStart = new FormControl(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1), [
         Validators.required,
     ]);
     public dateEnd = new FormControl(new Date(), [Validators.required]);
@@ -47,7 +49,8 @@ export class DetailComponent implements OnInit {
     constructor(
         protected svcWaterMeterManager: WaterMeterManager,
         public dialog: MatDialog,
-        protected svcPersistance: WaterMeterPersistantService
+        protected svcPersistance: WaterMeterPersistantService,
+        public propertiesServices: OurService
     ) {}
 
     ngOnInit(): void {
@@ -97,16 +100,30 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public getPaginatorData(event: any): any {
-        if (event.pageIndex === this.pageIndex + 1) {
-            this.lowValue = this.lowValue + this.pageSize;
-            this.highValue = this.highValue + this.pageSize;
-        } else if (event.pageIndex === this.pageIndex - 1) {
-            this.lowValue = this.lowValue - this.pageSize;
-            this.highValue = this.highValue - this.pageSize;
-        }
-        this.pageIndex = event.pageIndex;
+    public setProperties(url: string) {
+        this.propertiesServices.getProperties(url).subscribe((response) => {
+            this.dataSource = new MatTableDataSource(response.results);
+            this.dataSource.paginator = this.paginator!;
+            if (response.links.next) {
+                // set the components next property here from the response
+                this.next = response.links.next;
+                this.page = response.num_pages;
+            }
+            if (response.links.previous) {
+                // set the components previous property here from the response
+                this.previous = response.links.previous;
+            }
+        });
     }
+    // function fetches the next paginated items by using the url in the next property
+    public fetchNext() {
+        this.setProperties(this.next);
+    }
+    // function fetches the previous paginated items by using the url in the previous property
+    public fetchPrevious() {
+        this.setProperties(this.previous);
+    }
+
     public loadWaterMeterMeasures() {
         let date: DateMeasurementFilter;
         if (!this.type?.id!) {
@@ -119,17 +136,26 @@ export class DetailComponent implements OnInit {
                 dateEnd: format(this.dateEnd.value, 'yyyy-MM-dd'),
             };
             this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
-                next: (response: WaterMeterWithMeasurements) => {
+                next: (response: WaterMeterMeasurementsPagination) => {
                     if (!response) {
                         return;
                     }
+                    if (response.links) {
+                        this.next = response.links.next!;
+                        this.previous = response.links.previous!;
+                        this.page = response.num_pages;
+                    }
+
                     this.svcPersistance.get().subscribe((waterMeter) => {
+                        let water: WaterMeterWithMeasurements = {
+                            measures: response.results,
+                        };
                         this.waterMeter = {
                             waterMeter: waterMeter!,
-                            waterMeterWithMeasure: response,
+                            waterMeterWithMeasure: water,
                         };
                     });
-                    this.dataSource = new MatTableDataSource(response.measures);
+                    this.dataSource = new MatTableDataSource(response.results);
                     this.dataSource.paginator = this.paginator!;
                 },
                 error: (error: any) => {

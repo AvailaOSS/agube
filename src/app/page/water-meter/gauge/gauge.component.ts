@@ -82,7 +82,6 @@ export class GaugeComponent implements OnChanges {
         const previousWaterMeterMeasurement = data.filter(
             (x) => isBefore(new Date(x.date!), currentDate) && differenceInDays(new Date(x.date!), currentDate) < 0
         )[0];
-
         if (!previousWaterMeterMeasurement) {
             return 0;
         }

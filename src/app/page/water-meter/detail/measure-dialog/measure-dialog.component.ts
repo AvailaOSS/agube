@@ -60,7 +60,7 @@ export class MeasureDialogComponent {
         });
 
         this.svcWaterMeter
-            .addWaterMeterMeasure(this.waterMeterId, {
+            .addWaterMeterMeasurement(this.waterMeterId, {
                 measurement: this.measurement.value,
                 date: date,
             })
