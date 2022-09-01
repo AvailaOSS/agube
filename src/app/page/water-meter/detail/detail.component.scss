@@ -42,6 +42,11 @@
 .no-overflow {
     color: #009500d1;
 }
+.final-table-measurement {
+    display: flex;
+    justify-content: space-between;
+}
+
 @media only screen and (max-width: 1450px) {
     .water-meter {
         display: flex;

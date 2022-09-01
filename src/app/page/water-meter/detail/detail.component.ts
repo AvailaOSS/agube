@@ -34,7 +34,7 @@ export class DetailComponent implements OnInit {
 
     public waterMeter: WaterMeterGauge | undefined;
     public waterMeterCode: string | undefined;
-
+    public noData: boolean = false;
     public displayedColumns: string[] = ['measurement', 'date', 'measurement_diff'];
     public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
 
@@ -148,6 +148,18 @@ export class DetailComponent implements OnInit {
                 dateStart: format(this.dateStart.value, 'yyyy-MM-dd'),
                 dateEnd: format(this.dateEnd.value, 'yyyy-MM-dd'),
             };
+
+            this.svcPersistance.get().subscribe((waterMeter) => {
+                let water: WaterMeterWithMeasurements;
+                water = {
+                    measures: [],
+                };
+
+                this.waterMeter = {
+                    waterMeter: waterMeter!,
+                    waterMeterWithMeasure: water,
+                };
+            });
             this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
                 next: (response: WaterMeterMeasurementsPagination) => {
                     if (!response) {
@@ -157,20 +169,12 @@ export class DetailComponent implements OnInit {
                     this.next = response.links!.next!;
                     this.page = response.num_pages;
                     this.pageIndex = 1;
-
-                    this.svcPersistance.get().subscribe((waterMeter) => {
-                        let water: WaterMeterWithMeasurements = {
-                            measures: response.results,
-                        };
-                        this.waterMeter = {
-                            waterMeter: waterMeter!,
-                            waterMeterWithMeasure: water,
-                        };
-                    });
+                    this.noData = false;
                     this.dataSource = new MatTableDataSource(response.results);
                     this.dataSource.paginator = this.paginator!;
                 },
                 error: (error: any) => {
+                    this.noData = true;
                     this.dataSource = new MatTableDataSource();
                     this.dataSource.paginator = this.paginator!;
                 },

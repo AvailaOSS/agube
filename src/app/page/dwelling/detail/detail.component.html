@@ -5,9 +5,11 @@
                 <div class="dwelling-info">
                     <h1>
                         {{ dwelling.geolocation | geolocation }}
-                        <mat-icon *ngIf="canLoad"
+                        <mat-icon
+                            *ngIf="canLoad"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
-                            (click)="goToEditGeolocation()">
+                            (click)="goToEditGeolocation()"
+                        >
                             edit
                         </mat-icon>
                     </h1>
@@ -19,31 +21,51 @@
                         </div>
                     </div>
                     <div class="content-buttons-map">
-                        <app-management [manage]="dwelling" [waterMeterId]="waterMeterId" [type]="type"
-                            [load]="canLoad">
+                        <app-management
+                            [manage]="dwelling"
+                            [waterMeterId]="waterMeterId"
+                            [type]="type"
+                            [load]="canLoad"
+                        >
                         </app-management>
                         <div class="buttons-map">
-                            <button mat-raised-button [color]="'primary'" matTooltip="Ver mapa" (click)="seeMap()"
-                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}">
+                            <button
+                                mat-raised-button
+                                [color]="'primary'"
+                                matTooltip="Ver mapa"
+                                (click)="seeMap()"
+                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                            >
                                 <mat-icon>map</mat-icon>
                                 {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                             </button>
                         </div>
                     </div>
-                    <app-gauge-measurement *ngIf="waterMeterId" [waterMeterId]="waterMeterId!" [type]="type"
-                        [canAddReading]="canLoad">
-                    </app-gauge-measurement>
+                    <div class="position-gauge">
+                        <app-gauge-measurement
+                            *ngIf="waterMeterId"
+                            [waterMeterId]="waterMeterId!"
+                            [type]="type"
+                            [canAddReading]="canLoad"
+                        >
+                        </app-gauge-measurement>
+                    </div>
                 </div>
                 <div class="dwelling-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
-                        <mat-button-toggle (click)="mode = 'map'"
+                        <mat-button-toggle
+                            (click)="mode = 'map'"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
-                            matTooltipPosition="left">
+                            matTooltipPosition="left"
+                        >
                             <mat-icon>map</mat-icon>
                         </mat-button-toggle>
-                        <mat-button-toggle *ngIf="canLoadStreetView" (click)="mode = 'streetView'"
+                        <mat-button-toggle
+                            *ngIf="canLoadStreetView"
+                            (click)="mode = 'streetView'"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-                            matTooltipPosition="right">
+                            matTooltipPosition="right"
+                        >
                             <mat-icon>360</mat-icon>
                         </mat-button-toggle>
                     </mat-button-toggle-group>
