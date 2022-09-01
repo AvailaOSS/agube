@@ -1,17 +1,18 @@
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from manager.permissions import IsManagerAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.generics import GenericAPIView
-from agube.pagination import CustomPagination, CustomPaginationInspector
 
 from drf_yasg import openapi
 
+from manager.permissions import IsManagerAuthenticated
 from watermeter.exceptions import (WaterMeterDisabledError,
                                    WaterMeterMeasurementInFutureError)
 from watermeter.models import WaterMeter
 from watermeter.serializers import WaterMeterMeasurementSerializer
+from agube.pagination import CustomPagination, CustomPaginationInspector
 
 TAG = 'water-meter'
 
@@ -45,12 +46,26 @@ class WaterMeterMeasurementView(GenericAPIView):
         """
         Return a pagination of water meter measurements between dates.
         """
+        # Get Water Meter
+        try:
+            watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find watermeter'},
+                            status=HTTP_404_NOT_FOUND)
+        # Extract filtering data
         start_date = request.query_params.get('start_date')
         end_date = request.query_params.get('end_date')
-
-        watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
+        # Get measurements filtered between dates
         queryset = watermeter.get_measurements_between_dates(
             start_date, end_date)
+        if queryset == []:
+            return Response(
+                {
+                    'status':
+                    'cannot find watermeter measurements between given dates'
+                },
+                status=HTTP_404_NOT_FOUND)
+        # Create result pagination
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -70,7 +85,11 @@ class WaterMeterMeasurementView(GenericAPIView):
         Create a new measurement for this water meter
         """
         # Get Water Meter
-        water_meter: WaterMeter = WaterMeter.objects.get(id=pk)
+        try:
+            watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find watermeter'},
+                            status=HTTP_404_NOT_FOUND)
         # Extract data
         measurement = request.data.pop('measurement')
         date = None
@@ -80,10 +99,10 @@ class WaterMeterMeasurementView(GenericAPIView):
             date = timezone.now()
         # Add Water Meter
         try:
-            water_meter_measurement = water_meter.add_measurement(measurement,
-                                                                  date=date)
+            watermeter_measurement = watermeter.add_measurement(measurement,
+                                                                date=date)
             return Response(
-                (WaterMeterMeasurementSerializer(water_meter_measurement,
+                (WaterMeterMeasurementSerializer(watermeter_measurement,
                                                  many=False).data))
         except (WaterMeterDisabledError,
                 WaterMeterMeasurementInFutureError) as e:
