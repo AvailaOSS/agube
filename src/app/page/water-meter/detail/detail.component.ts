@@ -27,6 +27,7 @@ export class DetailComponent implements OnInit {
     public previous: string = '';
     public page: number | undefined;
     public pageIndex: number | undefined = 1;
+    public waterResults: WaterMeterWithMeasurements | undefined;
 
     @Input() public waterMeterId: number | undefined;
     @Input() public type: Type | undefined;
@@ -37,7 +38,6 @@ export class DetailComponent implements OnInit {
     public noData: boolean = false;
     public displayedColumns: string[] = ['measurement', 'date', 'measurement_diff'];
     public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
-
     public filter = new FormControl('');
 
     public chunks = ['3', '5', '10'];
@@ -45,7 +45,10 @@ export class DetailComponent implements OnInit {
     public dateStart = new FormControl(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1), [
         Validators.required,
     ]);
-    public dateEnd = new FormControl(new Date(), [Validators.required]);
+    public dateEnd = new FormControl(
+        new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
+        [Validators.required]
+    );
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
@@ -57,6 +60,16 @@ export class DetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadWaterMeterMeasures();
+        this.svcPersistance.get().subscribe((waterMeter) => {
+            this.waterResults = {
+                measures: [],
+            };
+
+            this.waterMeter = {
+                waterMeter: waterMeter!,
+                waterMeterWithMeasure: this.waterResults,
+            };
+        });
     }
 
     public applyFilter() {
@@ -149,17 +162,6 @@ export class DetailComponent implements OnInit {
                 dateEnd: format(this.dateEnd.value, 'yyyy-MM-dd'),
             };
 
-            this.svcPersistance.get().subscribe((waterMeter) => {
-                let water: WaterMeterWithMeasurements;
-                water = {
-                    measures: [],
-                };
-
-                this.waterMeter = {
-                    waterMeter: waterMeter!,
-                    waterMeterWithMeasure: water,
-                };
-            });
             this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
                 next: (response: WaterMeterMeasurementsPagination) => {
                     if (!response) {
@@ -172,6 +174,15 @@ export class DetailComponent implements OnInit {
                     this.noData = false;
                     this.dataSource = new MatTableDataSource(response.results);
                     this.dataSource.paginator = this.paginator!;
+                    this.svcPersistance.get().subscribe((waterMeter) => {
+                        this.waterResults = {
+                            measures: response.results,
+                        };
+                        this.waterMeter = {
+                            waterMeter: waterMeter!,
+                            waterMeterWithMeasure: this.waterResults,
+                        };
+                    });
                 },
                 error: (error: any) => {
                     this.noData = true;

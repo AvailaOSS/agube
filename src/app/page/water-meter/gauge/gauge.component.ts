@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { WaterMeterMeasurement } from '@availa/agube-rest-api';
+import { differenceInDays, isBefore } from 'date-fns';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 import { WaterMeterGauge } from './water-meter-gauge';
-import { differenceInDays, isBefore } from 'date-fns';
 
 @Component({
     selector: 'app-water-meter-gauge',
@@ -45,7 +45,6 @@ export class GaugeComponent implements OnChanges {
 
         let sum = 0;
         for (let index = 0; index < measures.length; index++) {
-            console.log('measures', measures);
             sum += this.minusMeasure(measures[index], measures);
         }
 
@@ -82,7 +81,6 @@ export class GaugeComponent implements OnChanges {
         const previousWaterMeterMeasurement = data.filter(
             (x) => isBefore(new Date(x.date!), currentDate) && differenceInDays(new Date(x.date!), currentDate) < 0
         )[0];
-        console.log(previousWaterMeterMeasurement);
         if (!previousWaterMeterMeasurement) {
             return 0;
         }
