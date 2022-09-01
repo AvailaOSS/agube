@@ -37,7 +37,6 @@ export class GaugeComponent implements OnChanges {
         if (!this.maxDailyConsumption) {
             return;
         }
-
         let measures = this.waterMeter?.waterMeterWithMeasure?.measures;
 
         if (!measures) {
@@ -46,6 +45,7 @@ export class GaugeComponent implements OnChanges {
 
         let sum = 0;
         for (let index = 0; index < measures.length; index++) {
+            console.log('measures', measures);
             sum += this.minusMeasure(measures[index], measures);
         }
 
@@ -82,16 +82,20 @@ export class GaugeComponent implements OnChanges {
         const previousWaterMeterMeasurement = data.filter(
             (x) => isBefore(new Date(x.date!), currentDate) && differenceInDays(new Date(x.date!), currentDate) < 0
         )[0];
+        console.log(previousWaterMeterMeasurement);
         if (!previousWaterMeterMeasurement) {
             return 0;
         }
 
-        let lapsedDays = differenceInDays(new Date(current.date!), new Date(previousWaterMeterMeasurement.date!));
+        let lapsedDays = differenceInDays(
+            new Date(current.date!),
+            new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1)
+        );
 
         if (lapsedDays === 0) {
             lapsedDays = 1;
         }
 
-        return (+(+current.measurement - +previousWaterMeterMeasurement.measurement).toFixed(3) * 1000) / lapsedDays;
+        return (+(+current.measurement + +previousWaterMeterMeasurement.measurement).toFixed(3) * 1000) / lapsedDays;
     }
 }
