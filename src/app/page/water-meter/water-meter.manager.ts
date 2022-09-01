@@ -38,13 +38,9 @@ export class WaterMeterManager {
         type: WaterMeterType
     ): Observable<WaterMeterWithMeasurements> | any {
         if (+type === +WaterMeterType.DWELLING) {
-            console.log(date);
-
-            // this.svcDwelling.getCurrentWaterMeterMeasuresChunk(startDate:date.dateStart,endDate:date.dateEnd,chunk, id);
-            return this.svcDwelling.getCurrentWaterMeterMeasuresChunk(chunk, id);
+            return this.svcDwelling.getDwellingWaterMeterMeasurements(id, date.dateStart, date.dateEnd,undefined,chunk);
         } else if (+type === +WaterMeterType.RESERVOIR) {
-            // this.svcReservoir.getReservoirCurrentWaterMeterMeasuresChunk(startDate:date.dateStart,endDate:date.dateEnd,chunk, id);
-            return this.svcReservoir.getReservoirCurrentWaterMeterMeasuresChunk(chunk, id);
+            return  this.svcReservoir.getReservoirWaterMeterMeasurements(id,date.dateStart,date.dateEnd);
         } else {
             return undefined;
         }
