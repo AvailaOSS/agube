@@ -237,6 +237,8 @@
     "PAGE.RESIDENTS.CREATE.TITLE": "Rexistra un novo Residente",
     "PAGE.WATER_METER.CONTENT.RELEASE_DATE": "Fecha de alta",
     "PAGE.WATER_METER.CONTENT.NO_COUNTER": "Sen Contador",
+    "PAGE.WATER_METER.DETAIL.SELECTOR.DATESTART": "Comenzo",
+    "PAGE.WATER_METER.DETAIL.SELECTOR.DATEEND": "Fin",
     "PAGE.WATER_METER.DETAIL.SELECTOR.TEXT": "Cantidade de Lecturas",
     "PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP": "Cambiar o total das lecturas a ensiñar",
     "PAGE.WATER_METER.DETAIL.FILTER.TEXT": " mes-día, año, mes, día",

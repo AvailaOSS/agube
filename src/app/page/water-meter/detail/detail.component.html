@@ -3,7 +3,7 @@
         <div class="header">
             <div class="selector-and-filter">
                 <mat-form-field appearance="fill">
-                    <mat-label>Fecha Comienzo</mat-label>
+                    <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.DATESTART' | translate }}</mat-label>
                     <input
                         matInput
                         [matDatepicker]="pickerStart"
@@ -14,7 +14,7 @@
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Fecha Fin</mat-label>
+                    <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.DATEEND' | translate }}</mat-label>
                     <input
                         matInput
                         [matDatepicker]="pickerEnd"
