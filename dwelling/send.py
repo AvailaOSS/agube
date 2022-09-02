@@ -38,6 +38,7 @@ def send_user_creation_email(user: User, email_type: EmailType):
     template = get_template(email_type.value)
     context = {
         'app_name': settings.PUBLIC_APP_NAME,
+        'app_url': settings.PUBLIC_APP_URL,
         'activation_code': user.username,
         'first_name': user.first_name,
         'manager_name': manager.user.first_name + ' ' + manager.user.last_name,
