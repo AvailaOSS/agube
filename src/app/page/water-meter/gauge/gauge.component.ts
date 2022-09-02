@@ -4,6 +4,7 @@ import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/mod
 import { differenceInDays, format, isBefore } from 'date-fns';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 import { DateMeasurementFilter } from '../detail/date-measurement-filter';
+import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterGauge } from './water-meter-gauge';
 
 @Component({
@@ -29,7 +30,7 @@ export class GaugeComponent implements OnChanges {
         data: ['', 0],
     };
 
-    constructor(private svcWaterMeterService: WaterMeterService) {}
+    constructor(private svcWaterMeterService: WaterMeterService, private svcPersistance: WaterMeterPersistantService) {}
 
     ngOnChanges(): void {
         let date: DateMeasurementFilter = {
@@ -40,7 +41,9 @@ export class GaugeComponent implements OnChanges {
             .getWaterMeterMeasurements(this.waterMeter?.waterMeter.id!, date.dateStart, date.dateEnd, undefined, 100)
             .subscribe({
                 next: (rest) => {
-                    this.computeAverage(rest);
+                    this.svcPersistance.get().subscribe(() => {
+                        this.computeAverage(rest);
+                    });
                 },
                 error: () => {
                     this.computeAverage();

@@ -98,6 +98,7 @@ export class DetailComponent implements OnInit {
         dialogRef.afterClosed().subscribe((reload) => {
             if (reload) {
                 this.ngOnInit();
+                this.svcPersistance.emit(this.waterMeter!.waterMeter);
             }
         });
     }
