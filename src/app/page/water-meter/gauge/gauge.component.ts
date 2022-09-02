@@ -34,12 +34,17 @@ export class GaugeComponent implements OnChanges {
     ngOnChanges(): void {
         let date: DateMeasurementFilter = {
             dateStart: format(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1), 'yyyy-MM-dd'),
-            dateEnd: format(new Date, 'yyyy-MM-dd'),
+            dateEnd: format(new Date(), 'yyyy-MM-dd'),
         };
         this.svcWaterMeterService
             .getWaterMeterMeasurements(this.waterMeter?.waterMeter.id!, date.dateStart, date.dateEnd, undefined, 100)
-            .subscribe((rest) => {
-                this.computeAverage(rest);
+            .subscribe({
+                next: (rest) => {
+                    this.computeAverage(rest);
+                },
+                error: () => {
+                    this.computeAverage();
+                },
             });
     }
 
