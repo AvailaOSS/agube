@@ -6,7 +6,6 @@ import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
 import { Observable } from 'rxjs';
 import { PersonalInfoPersistantService } from './personal-info-persistant.service';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-personal-info',
@@ -93,6 +92,8 @@ export class PersonalInfoComponent implements OnInit {
                         this.last_name.setValue(response.last_name);
                         this.main_phone = response.main_phone;
                     }, 1500);
+
+                    this.svcPersistantPersonal.emit(true);
                 },
                 error: (error) => {
                     this.loadSave = false;
