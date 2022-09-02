@@ -35,7 +35,7 @@ export class SidebarComponent {
         protected readonly accountService: AccountService,
         protected overlayContainer: OverlayContainer,
         private svcUser: UserService,
-        private svcPersistantPersonal: PersonalInfoPersistantService,
+        private svcPersistantPersonal: PersonalInfoPersistantService
     ) {
         //FIXME: add pipe with first name and last name
         this.accountService.getUser().subscribe((userResponse) => {
@@ -47,6 +47,7 @@ export class SidebarComponent {
 
             this.svcPersistantPersonal.get().subscribe((response) => {
                 setTimeout(() => {
+                    this.svcUser.getUserDetail(userResponse.user_id).subscribe((response) => (this.user = response));
                     this.svcUser.getUserPhoto(this.userId!).subscribe({
                         next: (response) => {
                             if (!response) {
@@ -80,7 +81,6 @@ export class SidebarComponent {
 
     public selectPage(select: SidebarConfig) {
         this.router.navigate([select.navigationRoute]);
-
     }
 
     public closeSession() {
