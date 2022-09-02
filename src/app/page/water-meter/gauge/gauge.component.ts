@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { WaterMeterMeasurement } from '@availa/agube-rest-api';
-import { differenceInDays, isBefore } from 'date-fns';
+import { WaterMeterMeasurement, WaterMeterService } from '@availa/agube-rest-api';
+import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
+import { differenceInDays, format, isBefore } from 'date-fns';
 import { Configuration } from 'src/app/components/chart/chart-configure';
+import { DateMeasurementFilter } from '../detail/date-measurement-filter';
 import { WaterMeterGauge } from './water-meter-gauge';
 
 @Component({
@@ -27,17 +29,30 @@ export class GaugeComponent implements OnChanges {
         data: ['', 0],
     };
 
-    constructor() {}
+    constructor(private svcWaterMeterService: WaterMeterService) {}
 
     ngOnChanges(): void {
-        this.computeAverage();
+        let date: DateMeasurementFilter = {
+            dateStart: format(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1), 'yyyy-MM-dd'),
+            dateEnd: format(new Date, 'yyyy-MM-dd'),
+        };
+        this.svcWaterMeterService
+            .getWaterMeterMeasurements(this.waterMeter?.waterMeter.id!, date.dateStart, date.dateEnd, undefined, 100)
+            .subscribe((rest) => {
+                this.computeAverage(rest);
+            });
     }
 
-    private computeAverage() {
+    private computeAverage(measurement?: WaterMeterMeasurementsPagination) {
         if (!this.maxDailyConsumption) {
             return;
         }
-        let measures = this.waterMeter?.waterMeterWithMeasure?.measures;
+        let measures;
+        if (measurement) {
+            measures = measurement!.results;
+        } else {
+            measures = this.waterMeter?.waterMeterWithMeasure?.measures;
+        }
 
         if (!measures) {
             return;
