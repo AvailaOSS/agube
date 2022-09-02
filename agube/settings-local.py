@@ -25,6 +25,7 @@ SECRET_KEY = 'q32oo=%+f$+$9f10vvg#ysk&azthlts*4phkc(0lezf_sgd6@^'
 DEBUG = True
 
 PUBLIC_APP_NAME = 'Agube'
+PUBLIC_APP_URL = 'http://localhost:8000'
 
 # MQ BROKER
 MQ_BROKER_URL = ''

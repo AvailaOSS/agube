@@ -28,6 +28,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 PUBLIC_APP_NAME = os.environ.get("PUBLIC_APP_NAME")
+PUBLIC_APP_URL = os.environ.get("PUBLIC_APP_URL")
 
 # MQ BROKER
 MQ_BROKER_URL = os.environ.get("MQ_BROKER_URL")
