@@ -4,7 +4,7 @@ import { ManagerService } from '@availa/agube-rest-api';
 import { DetailComponent } from '../detail/detail.component';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
-import { OurService } from '../detail/get-propierties.service';
+import { GetPropertiesService } from '../detail/get-propierties.service';
 
 @Component({
     selector: 'app-gauge-measurement',
@@ -19,7 +19,7 @@ export class GaugeMeasurementComponent extends DetailComponent implements OnInit
         public override dialog: MatDialog,
         protected override svcPersistance: WaterMeterPersistantService,
         protected svcManager: ManagerService,
-        public override propertiesServices: OurService
+        public override propertiesServices: GetPropertiesService
     ) {
         super(svcWaterMeterManager, dialog, svcPersistance, propertiesServices);
     }

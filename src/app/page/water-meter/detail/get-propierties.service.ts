@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class OurService {
+export class GetPropertiesService {
     constructor(private http: HttpClient) {}
 
     // Here,we make our request to the backend API, this observer takes in the backend

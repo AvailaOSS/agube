@@ -6,12 +6,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { WaterMeterMeasurement, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
 import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
 import { format } from 'date-fns';
-import { range } from 'rxjs';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
 import { DateMeasurementFilter } from './date-measurement-filter';
-import { OurService } from './get-propierties.service';
+import { GetPropertiesService } from './get-propierties.service';
 import { MeasureDialogData } from './measure-dialog/measure-dialog-data';
 import { MeasureDialogComponent } from './measure-dialog/measure-dialog.component';
 import { Type } from './type';
@@ -55,7 +54,7 @@ export class DetailComponent implements OnInit {
         protected svcWaterMeterManager: WaterMeterManager,
         public dialog: MatDialog,
         protected svcPersistance: WaterMeterPersistantService,
-        public propertiesServices: OurService
+        public propertiesServices: GetPropertiesService
     ) {}
 
     ngOnInit(): void {
