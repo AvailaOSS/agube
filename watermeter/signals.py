@@ -1,4 +1,3 @@
-import datetime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
@@ -8,6 +7,7 @@ from watermeter.send import send_email_measurement, MeasurementEmailType
 from watermeter.models import WaterMeterMeasurement
 from dwelling.models import DwellingWaterMeter
 from resident.models import Resident
+from watermeter.utils import is_24h_old_than_now
 
 
 @receiver(post_save, sender=WaterMeterMeasurement)
@@ -17,8 +17,7 @@ def measure_update(sender, created, instance, **kwargs):
             id=instance.id)
 
         # Check if measurement is last and recent (24h)
-        if watermeter_measurement != watermeter_measurement.water_meter.get_last_measurement(
-        ) or (datetime.datetime.now(datetime.timezone.utc) - watermeter_measurement.date) > datetime.timedelta(hours=24):
+        if watermeter_measurement != watermeter_measurement.water_meter.get_last_measurement() or is_24h_old_than_now( watermeter_measurement.date):
             return
 
         # Check if watermeter is from a Dwelling
