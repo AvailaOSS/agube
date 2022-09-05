@@ -8,6 +8,7 @@ import { SidebarComponent } from '../sidebar.component';
 })
 export class ManagerPageComponent extends SidebarComponent {
     ngOnInit(): void {
+        this.page = 'manager/home/dwellings';
         this.pages = [
             {
                 navigationRoute: 'manager/home/client/config',
