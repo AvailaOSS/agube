@@ -8,7 +8,7 @@ from rest_framework.generics import GenericAPIView, UpdateAPIView
 from drf_yasg import openapi
 
 from manager.permissions import IsManagerAuthenticated
-from watermeter.exceptions import (WaterMeterDisabledError,
+from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import WaterMeterMeasurementSerializer
@@ -91,6 +91,7 @@ class WaterMeterMeasurementView(GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find watermeter'},
                             status=HTTP_404_NOT_FOUND)
+
         # Extract data
         measurement = request.data.pop('measurement')
         date = None
@@ -98,6 +99,7 @@ class WaterMeterMeasurementView(GenericAPIView):
             date = request.data.pop('date')
         else:
             date = timezone.now()
+
         # Add Water Meter
         try:
             watermeter_measurement = watermeter.add_measurement(measurement,
@@ -126,4 +128,8 @@ class MeasurementView(UpdateAPIView):
         """
         Return the measurement updated with new changes
         """
-        return super().put(request, *args, **kwargs)
+        try:
+            return super().put(request, *args, **kwargs)
+        except (WaterMeterMeasurementAlreadyExpiredToUpdateError,
+                WaterMeterMeasurementInFutureError) as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
