@@ -1,3 +1,5 @@
+import datetime, calendar
+from django.utils import timezone, dateparse
 from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -19,6 +21,7 @@ from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
                                     WaterMeterSerializer)
+from watermeter.utils import get_watermeter_measurements_from_watermeters
 
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
@@ -30,7 +33,8 @@ from dwelling.exceptions import (DwellingWithoutWaterMeterError,
 from dwelling.models import Dwelling, DwellingWaterMeter
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
-                                  DwellingResumeSerializer)
+                                  DwellingResumeSerializer,
+                                  DwellingWaterMeterMonthConsumptionSerializer)
 
 from agube.pagination import CustomPagination, CustomPaginationInspector
 
@@ -52,10 +56,12 @@ class DwellingResumeView(APIView):
             manager__user=manager, discharge_date__isnull=True).count()
 
         total_residents = Resident.objects.filter(
-            dwelling__manager__user=manager, discharge_date__isnull=True).count()
+            dwelling__manager__user=manager,
+            discharge_date__isnull=True).count()
 
         total_owners = Owner.objects.filter(
-            dwelling__manager__user=manager, discharge_date__isnull=True).count()
+            dwelling__manager__user=manager,
+            discharge_date__isnull=True).count()
 
         data = {
             'total_dwellings': total_dwellings,
@@ -482,3 +488,68 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
             serializer = self.get_serializer(queryset, many=True)
             data = serializer.data
         return Response(data)
+
+
+class DwellingWaterMeterMonthConsumption(APIView):
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="getDwellingMonthConsumption",
+        manual_parameters=[
+            openapi.Parameter('date',
+                              openapi.IN_QUERY,
+                              description="Date for month consumption",
+                              type=openapi.TYPE_STRING,
+                              format=openapi.FORMAT_DATE)
+        ],
+        responses={
+            200: DwellingWaterMeterMonthConsumptionSerializer(many=False)
+        },
+        tag=[TAG])
+    def get(self, request, pk):
+        """
+        Return current month consumption for the dwelling.
+        """
+        # Get Dwelling
+        try:
+            dwelling: Dwelling = Dwelling.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find dwelling'},
+                            status=HTTP_404_NOT_FOUND)
+
+        # Request filters
+        request_query_date = request.query_params.get('date')
+        if request_query_date is None:
+            request_date = timezone.now().date
+        else:
+            request_date = dateparse.parse_date(request_query_date)
+        month_start = datetime.date(request_date.year, request_date.month, 1)
+        month_end = month_start + datetime.timedelta(
+            days=calendar.monthrange(month_start.year, month_start.month)[1])
+
+        # Get dwelling water meter historical
+        watermeter_list = dwelling.get_historical_water_meter()
+        if watermeter_list == []:
+            raise DwellingWithoutWaterMeterError()
+        # Get measurement list filtered between dates
+        measurement_list = get_watermeter_measurements_from_watermeters(
+            watermeter_list,
+            start_datetime=month_start,
+            end_datetime=month_end)
+
+        # Compute consumption
+        month_consumption = 0
+        if measurement_list != []:
+            for measurement in measurement_list:
+                month_consumption += measurement.measurement_diff
+
+        # Build response
+        response_data = {
+            'id': dwelling.id,
+            'date': request_date,
+            'month_consumption': month_consumption
+        }
+        response_serializer = DwellingWaterMeterMonthConsumptionSerializer(
+            data=response_data)
+        if response_serializer.is_valid():
+            return (Response(response_serializer.data))

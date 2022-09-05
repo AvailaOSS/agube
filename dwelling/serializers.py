@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from manager.exceptions import ManagerLimitExceeded
 from manager.models import Manager
-from rest_framework.fields import CharField, ReadOnlyField, DecimalField
+from rest_framework.fields import CharField, ReadOnlyField, DecimalField, DateField, IntegerField
 from rest_framework.serializers import ModelSerializer, Serializer
 from watermeter.serializers import WaterMeterSerializer
 
@@ -128,3 +128,15 @@ class DwellingDetailSerializer(Serializer):
 
     class Meta:
         ref_name = 'DwellingDetail'
+
+
+class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
+    """
+    Dwelling Month Water Consumption Serializer
+    """
+    id = IntegerField()
+    date = DateField()
+    month_consumption = IntegerField()
+
+    class Meta:
+        ref_name = 'DwellingWaterMonthConsumption'
