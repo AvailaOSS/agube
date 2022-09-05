@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class ClientComponent extends SidebarComponent {
     ngOnInit(): void {
+        this.page = 'client/dwellings';
         this.pages = [
             {
                 navigationRoute: 'client/config',
