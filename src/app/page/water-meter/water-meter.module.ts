@@ -1,3 +1,4 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -40,6 +41,7 @@ import { GaugeMeasurementComponent } from './gauge-measurement/gauge-measurement
         TranslateModule,
         GaugeModule,
         MatPaginatorModule,
+        MatProgressBarModule,
     ],
     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
     exports: [DetailComponent, GaugeMeasurementComponent],
