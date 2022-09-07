@@ -26,6 +26,7 @@ import { AgubeRestConfigurationService } from '../configuration.service';
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { DwellingResume } from '../model/dwellingResume';
+import { DwellingWaterMonthConsumption } from '../model/dwellingWaterMonthConsumption';
 import { Owner } from '../model/owner';
 import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
@@ -1068,6 +1069,87 @@ export class DwellingService {
       `${this.basePath}/dwelling/${encodeURIComponent(
         String(id)
       )}/water-meter/masurements/`,
+      {
+        params: queryParameters,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Return current month consumption for the dwelling.
+   * @param id
+   * @param date Date for month consumption
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+   public getDwellingMonthConsumption(
+    id: string,
+    date?: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<DwellingWaterMonthConsumption>;
+  public getDwellingMonthConsumption(
+    id: string,
+    date?: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<DwellingWaterMonthConsumption>>;
+  public getDwellingMonthConsumption(
+    id: string,
+    date?: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<DwellingWaterMonthConsumption>>;
+  public getDwellingMonthConsumption(
+    id: string,
+    date?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getDwellingMonthConsumption.'
+      );
+    }
+
+    let queryParameters = new HttpParams({
+      encoder: new CustomHttpUrlEncodingCodec(),
+    });
+    if (date !== undefined && date !== null) {
+      queryParameters = queryParameters.set('date', <any>date);
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<DwellingWaterMonthConsumption>(
+      `${this.basePath}/dwelling/${encodeURIComponent(
+        String(id)
+      )}/water-meter/month-consumption/`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
