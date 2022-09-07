@@ -7,17 +7,17 @@
             <mat-card class="mat-elevation-z0 title-w100">
                 <mat-card-title>
                     <h1>
-                        <a href={{page}}>AGUBE</a>
+                        <a href="{{ home }}">AGUBE</a>
                     </h1>
                 </mat-card-title>
                 <mat-card-content *ngIf="user">
                     <div class="avatar" *ngIf="profilePhoto">
-                        <a href={{page}}>
+                        <a href="{{ profile }}">
                             <img [src]="profilePhoto" />
                         </a>
                     </div>
                     <div class="avatar-icon" *ngIf="!profilePhoto">
-                        <a href={{page}}>
+                        <a href="{{ profile }}">
                             <mat-icon> account_circle </mat-icon>
                         </a>
                     </div>

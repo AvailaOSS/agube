@@ -7,16 +7,18 @@ import { Component } from '@angular/core';
     styleUrls: ['../sidebar.component.scss'],
 })
 export class ClientComponent extends SidebarComponent {
+    public override home: string = 'client/dwellings';
+    public override profile: string='client/config';
     ngOnInit(): void {
-        this.page = 'client/dwellings';
+
         this.pages = [
             {
-                navigationRoute: 'client/config',
+                navigationRoute: this.profile,
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
                 icon: 'person',
             },
             {
-                navigationRoute: 'client/dwellings',
+                navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
                 icon: 'store',
             },
