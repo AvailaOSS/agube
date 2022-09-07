@@ -18,7 +18,8 @@ import { ThemeMode } from './theme-mode';
 })
 export class SidebarComponent {
     public pages: SidebarConfig[] = [];
-    public page: string = '';
+    public home: string = '';
+    public profile: string = '';
     public user: UserDetail | undefined;
 
     public toggleControl = new FormControl(false);

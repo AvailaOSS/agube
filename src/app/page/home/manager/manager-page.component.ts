@@ -7,11 +7,12 @@ import { SidebarComponent } from '../sidebar.component';
     styleUrls: ['../sidebar.component.scss'],
 })
 export class ManagerPageComponent extends SidebarComponent {
+    public override home: string = 'manager/home/dwellings';
+    public override profile: string='manager/home/client/config';
     ngOnInit(): void {
-        this.page = 'manager/home/dwellings';
         this.pages = [
             {
-                navigationRoute: 'manager/home/client/config',
+                navigationRoute: this.profile,
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
                 icon: 'person',
             },
@@ -21,7 +22,7 @@ export class ManagerPageComponent extends SidebarComponent {
                 icon: 'store',
             },
             {
-                navigationRoute: 'manager/home/dwellings',
+                navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
                 icon: 'holiday_village',
             },
