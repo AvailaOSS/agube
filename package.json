@@ -23,7 +23,7 @@
         "@angular/platform-browser": "~13.2.0",
         "@angular/platform-browser-dynamic": "~13.2.0",
         "@angular/router": "~13.2.0",
-        "@availa/agube-rest-api": "^4.7.0-test",
+        "@availa/agube-rest-api": "^4.8.0",
         "@availa/auth-fe": "^1.2.4",
         "@availa/contact-book-fe": "^1.2.1",
         "@availa/notification": "^1.0.0",

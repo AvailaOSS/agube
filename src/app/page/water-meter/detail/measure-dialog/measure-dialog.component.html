@@ -42,7 +42,7 @@
         matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}"
         color="primary"
         (click)="save()"
-        [disabled]="!disabled || measureForm.invalid"
+        [disabled]="disabled || measureForm.invalid"
     >
         {{ 'GENERAL.BUTTON.SAVE' | translate }}
     </button>
