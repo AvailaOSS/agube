@@ -14,6 +14,8 @@ import { set, format } from 'date-fns';
     styleUrls: ['./measure-dialog.component.scss'],
 })
 export class MeasureDialogComponent {
+    public disabled: boolean = true;
+    public loadingPost: boolean = false;
     public waterMeterId: number = -1;
     public measureForm: FormGroup;
     public measurement = new FormControl('', [Validators.required]);
@@ -47,7 +49,6 @@ export class MeasureDialogComponent {
 
         this.date.setValue(new Date());
     }
-
     public save(): void {
         // stop here if form is invalid
         if (this.measureForm.invalid) {
@@ -66,9 +67,13 @@ export class MeasureDialogComponent {
             })
             .subscribe({
                 next: (response) => {
+                    this.disabled = false;
+                    this.loadingPost = true;
                     this.close(true);
                 },
                 error: (error) => {
+                    this.disabled = true;
+                    this.loadingPost = false;
                     this.svcNotification.warning({
                         message:
                             // FIXME: it should be translated
@@ -91,7 +96,6 @@ export class MeasureDialogComponent {
 
     public saveAndClose() {
         this.save();
-        this.close(true);
     }
 
     public errorValidator(entity: string) {
