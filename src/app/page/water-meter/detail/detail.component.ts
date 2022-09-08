@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { WaterMeterMeasurement, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
 import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
-import { format } from 'date-fns';
+import { format, differenceInHours, parseISO } from 'date-fns';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
@@ -13,6 +13,8 @@ import { DateMeasurementFilter } from './date-measurement-filter';
 import { GetPropertiesService } from './get-propierties.service';
 import { MeasureDialogData } from './measure-dialog/measure-dialog-data';
 import { MeasureDialogComponent } from './measure-dialog/measure-dialog.component';
+import { MeasureEditDialogData } from './measure-edit-dialog/measure-edit-dialog-data';
+import { MeasureEditDialogComponent } from './measure-edit-dialog/measure-edit-dialog.component';
 import { Type } from './type';
 
 @Component({
@@ -50,12 +52,14 @@ export class DetailComponent implements OnInit {
     );
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+    private readonly measureAllowEdit: number = 24;
+
     constructor(
         protected svcWaterMeterManager: WaterMeterManager,
         public dialog: MatDialog,
         protected svcPersistance: WaterMeterPersistantService,
         public propertiesServices: GetPropertiesService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.loadWaterMeterMeasures();
@@ -80,6 +84,26 @@ export class DetailComponent implements OnInit {
         this.dataSource.filter = '';
     }
 
+    public openEditMeasureDialog() {
+
+        let data: MeasureEditDialogData = {
+            currentMeasurement: this.dataSource.data[0],
+        };
+
+        const dialogRef = this.dialog.open(MeasureEditDialogComponent, {
+            hasBackdrop: true,
+            width: '600px',
+            disableClose: true,
+            data,
+        });
+
+        dialogRef.afterClosed().subscribe((reload) => {
+            if (reload) {
+                this.loadWaterMeterMeasures();
+            }
+        });
+    }
+
     public openMeasureDialog() {
         if (!this.waterMeterId) {
             return;
@@ -101,6 +125,24 @@ export class DetailComponent implements OnInit {
                 this.svcPersistance.emit(this.waterMeter!.waterMeter);
             }
         });
+    }
+
+    public isMeasurementEditable(measure: WaterMeterMeasurement) {
+
+        if (!measure.date) {
+            return;
+        }
+
+        const difference = differenceInHours(
+            new Date(),
+            parseISO(String(measure.date))
+        );
+
+        if (this.measureAllowEdit > difference) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public isOverflow(measure: WaterMeterMeasurement) {

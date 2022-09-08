@@ -21,9 +21,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GaugeModule } from './gauge/gauge.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { GaugeMeasurementComponent } from './gauge-measurement/gauge-measurement.component';
+import { MeasureEditDialogComponent } from './detail/measure-edit-dialog/measure-edit-dialog.component';
 
 @NgModule({
-    declarations: [DetailComponent, MeasureDialogComponent, WaterMeterDialogComponent, GaugeMeasurementComponent],
+    declarations: [DetailComponent, MeasureDialogComponent, WaterMeterDialogComponent, GaugeMeasurementComponent, MeasureEditDialogComponent],
     imports: [
         CommonModule,
         WaterMeterRoutingModule,
