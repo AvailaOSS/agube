@@ -48,6 +48,8 @@ export class MeasureDialogComponent extends MeasureDialog {
         if (this.measureForm.invalid) {
             return;
         }
+        this.disabled = true;
+        this.loadingPost = true;
 
         let date = set(this.date.value, {
             hours: this.hour.value,
@@ -60,11 +62,7 @@ export class MeasureDialogComponent extends MeasureDialog {
                 date: date,
             })
             .subscribe({
-                next: (response) => {
-                    this.disabled = false;
-                    this.loadingPost = true;
-                    this.close(true);
-                },
+                next: (response) => this.close(true),
                 error: (error) => {
                     this.disabled = true;
                     this.loadingPost = false;
@@ -81,6 +79,8 @@ export class MeasureDialogComponent extends MeasureDialog {
     }
 
     public override close(reload: boolean): void {
+        this.disabled = false;
+        this.loadingPost = false;
         this.dialogRef.close(reload);
     }
 
