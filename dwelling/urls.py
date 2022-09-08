@@ -20,7 +20,7 @@ __url_dwelling = [
          DwellingWaterMeterHistoricalView.as_view()),
     path('<int:pk>/water-meter/<int:chunk>',
          DwellingWaterMeterChunkView.as_view()),
-    path('<int:pk>/water-meter/masurements/',
+    path('<int:pk>/water-meter/measurements/',
          DwellingWaterMeterMeasurementsView.as_view()),
     path('<int:pk>/water-meter/month-consumption/',
          DwellingWaterMeterMonthConsumption.as_view())

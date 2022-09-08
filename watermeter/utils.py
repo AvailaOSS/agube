@@ -13,11 +13,17 @@ def get_watermeter_measurements_from_watermeters(
         end_datetime=None):
     measurement_list = []
 
-    parsed_start_datetime = __parse_datetime(start_datetime)
-    parsed_end_datetime = __parse_datetime(end_datetime)
+    do_filter = False
+    if start_datetime != None and end_datetime != None:
+        parsed_start_datetime = __parse_datetime(start_datetime)
+        parsed_end_datetime = __parse_datetime(end_datetime)
+        do_filter = True
+    else:
+        if (start_datetime != None) != (end_datetime != None):
+            raise Exception("all/none filters must be given")
 
     for watermeter in watermeter_list:
-        if parsed_start_datetime != None and parsed_end_datetime != None:
+        if (do_filter):
             # Control watermeter was present between dates
             if watermeter.release_date > parsed_end_datetime:
                 continue
