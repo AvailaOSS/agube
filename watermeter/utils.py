@@ -1,22 +1,20 @@
-from datetime import datetime, date, time, timezone
-from django.utils import dateparse
 import datetime
+from datetime import datetime, date
+
+from agube.utils import parse_datetime
+from watermeter.models import WaterMeter, WaterMeterMeasurement
 
 
-def is_24h_old_than_now(date):
-    return (datetime.datetime.now(datetime.timezone.utc) - date) > datetime.timedelta(hours=24)
-
-
-def get_watermeter_measurements_from_watermeters(
-        watermeter_list,
-        start_datetime=None,
-        end_datetime=None):
+def get_watermeter_measurements_from_watermeters(watermeter_list,
+                                                 start_datetime=None,
+                                                 end_datetime=None):
+    # type: (list[WaterMeter], datetime | date | str, datetime | date | str) -> list[WaterMeterMeasurement]
     measurement_list = []
 
     do_filter = False
     if start_datetime != None and end_datetime != None:
-        parsed_start_datetime = __parse_datetime(start_datetime)
-        parsed_end_datetime = __parse_datetime(end_datetime)
+        parsed_start_datetime = parse_datetime(start_datetime)
+        parsed_end_datetime = parse_datetime(end_datetime)
         do_filter = True
     else:
         if (start_datetime != None) != (end_datetime != None):
@@ -36,11 +34,3 @@ def get_watermeter_measurements_from_watermeters(
             measurement_list += watermeter.get_measurements()
 
     return measurement_list
-
-
-def __parse_datetime(var) -> datetime:
-    if isinstance(var, datetime):
-        return var
-    if isinstance(var, date):
-        return datetime.combine(var, time(), timezone.utc)
-    return dateparse.parse_datetime(datetime)

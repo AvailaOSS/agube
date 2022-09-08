@@ -5,7 +5,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 
 from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
-from watermeter.utils import is_24h_old_than_now
+from agube.utils import is_24h_old_than_now
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):

@@ -7,7 +7,7 @@ from watermeter.send import MeasurementEditedEmailType, send_email_measurement, 
 from watermeter.models import WaterMeterMeasurement
 from dwelling.models import DwellingWaterMeter
 from resident.models import Resident
-from watermeter.utils import is_24h_old_than_now
+from agube.utils import is_24h_old_than_now
 
 
 @receiver(post_save, sender=WaterMeterMeasurement)
