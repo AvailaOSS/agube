@@ -1,5 +1,4 @@
 from datetime import datetime, date, time, timezone
-from watermeter.models import WaterMeter, WaterMeterMeasurement
 from django.utils import dateparse
 import datetime
 
@@ -9,9 +8,9 @@ def is_24h_old_than_now(date):
 
 
 def get_watermeter_measurements_from_watermeters(
-        watermeter_list: list[WaterMeter],
+        watermeter_list,
         start_datetime=None,
-        end_datetime=None) -> list[WaterMeterMeasurement]:
+        end_datetime=None):
     measurement_list = []
 
     parsed_start_datetime = __parse_datetime(start_datetime)
