@@ -2,7 +2,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { noFutureDate } from './no-future-date';
 
 export class MeasureDialog {
-    public disabled: boolean = true;
+    public disabled: boolean = false;
     public loadingPost: boolean = false;
     public measurement = new FormControl('', [Validators.required]);
     public date = new FormControl(new Date(), [Validators.required, noFutureDate]);
