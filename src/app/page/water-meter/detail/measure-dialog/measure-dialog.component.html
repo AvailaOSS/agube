@@ -10,40 +10,33 @@
         <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE' | translate }}</mat-label>
         <input matInput [matDatepicker]="picker1" [formControl]="date" />
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
+        <mat-datepicker #picker1 (closed)="checkTime()"></mat-datepicker>
         <mat-error *ngIf="date.invalid">{{ errorValidator('date') | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR' | translate }}</mat-label>
         <mat-select [formControl]="hour">
-            <mat-option *ngFor="let h of hoursList" value="{{ h }}">{{ h }}</mat-option>
+            <mat-option *ngFor="let h of hoursList" value="{{ h }}" (click)="setTime(h, 'hour')">{{ h }}</mat-option>
         </mat-select>
         <mat-error *ngIf="hour.invalid">{{ errorValidator('hour') | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES' | translate }}</mat-label>
         <mat-select [formControl]="minutes">
-            <mat-option *ngFor="let m of minutesList" value="{{ m }}">{{ m }}</mat-option>
+            <mat-option *ngFor="let m of minutesList" value="{{ m }}" (click)="setTime(m, 'min')">{{ m }}</mat-option>
         </mat-select>
         <mat-error *ngIf="minutes.invalid">{{ errorValidator('minutes') | translate }}</mat-error>
     </mat-form-field>
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
 <div mat-dialog-actions [align]="'end'">
-    <button
-        mat-button
-        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP' | translate }}"
-        (click)="close(false)"
-    >
+    <button mat-button matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.TOOLTIP' | translate }}"
+        (click)="close(false)">
         {{ 'GENERAL.BUTTON.CLOSE_WITHOUT_SAVING' | translate }}
     </button>
-    <button
-        mat-raised-button
-        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}"
-        color="primary"
-        (click)="save()"
-        [disabled]="disabled || measureForm.invalid"
-    >
+    <button mat-raised-button
+        matTooltip="{{ 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.BUTTON.CLOSE.SAVE.TOOLTIP' | translate }}" color="primary"
+        (click)="save()" [disabled]="disabled || measureForm.invalid">
         {{ 'GENERAL.BUTTON.SAVE' | translate }}
     </button>
 </div>
