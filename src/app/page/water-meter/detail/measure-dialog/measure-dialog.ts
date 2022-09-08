@@ -13,9 +13,13 @@ export class MeasureDialog {
     public hoursList = this.range(24);
     public minutesList = this.range(60);
 
-    public save(): void {}
+    public save(): void { }
 
-    public close(reload: boolean): void {}
+    public checkTime() { }
+
+    public setTime(time: number, type: string) { }
+
+    public close(reload: boolean): void { }
 
     public saveAndClose() {
         this.save();
@@ -41,6 +45,9 @@ export class MeasureDialog {
             case 'hour':
                 if (this.hour.hasError('required') || this.minutes.hasError('required')) {
                     return 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED';
+                }
+                if (this.hour.hasError('dateInFuture') || this.minutes.hasError('dateInFuture')) {
+                    return 'PAGE.WATER_METER.DIALOG.MEASURE.FORM.DATE.VALIDATION.DATE_IN_FUTURE';
                 }
                 return '';
             default:

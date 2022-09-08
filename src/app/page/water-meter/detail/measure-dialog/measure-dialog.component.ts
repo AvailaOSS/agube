@@ -6,7 +6,7 @@ import { WaterMeterService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { noFutureDate } from './no-future-date';
 import { MeasureDialogData } from './measure-dialog-data';
-import { set, format } from 'date-fns';
+import { set, isFuture } from 'date-fns';
 import { MeasureDialog } from './measure-dialog';
 
 @Component({
@@ -43,6 +43,52 @@ export class MeasureDialogComponent extends MeasureDialog {
         }
     }
 
+    public override checkTime() {
+        let date = set(this.date.value, {
+            hours: this.hour.value,
+            minutes: this.minutes.value,
+        });
+
+        if (isFuture(date)) {
+            this.hour.setErrors({ dateInFuture: true });
+            this.minutes.setErrors({ dateInFuture: true });
+        } else {
+            this.hour.setErrors(null);
+            this.minutes.setErrors(null);
+        }
+    }
+
+    public override setTime(time: number, type: string) {
+        let date: Date;
+        switch (type) {
+            case 'hour':
+                this.hour.setErrors(null);
+                date = set(this.date.value, {
+                    hours: time,
+                    minutes: this.minutes.value,
+                });
+                break;
+            case 'min':
+                this.minutes.setErrors(null);
+                date = set(this.date.value, {
+                    hours: this.hour.value,
+                    minutes: time + 1,
+                });
+                break;
+            default:
+                console.debug('set time "hour" or "min" instead of ', time)
+                return;
+        }
+
+        if (isFuture(date)) {
+            this.hour.setErrors({ dateInFuture: true });
+            this.minutes.setErrors({ dateInFuture: true });
+        } else {
+            this.hour.setErrors(null);
+            this.minutes.setErrors(null);
+        }
+    }
+
     public override save(): void {
         // stop here if form is invalid
         if (this.measureForm.invalid) {
@@ -66,14 +112,8 @@ export class MeasureDialogComponent extends MeasureDialog {
                 error: (error) => {
                     this.disabled = true;
                     this.loadingPost = false;
-                    this.svcNotification.warning({
-                        message:
-                            // FIXME: it should be translated
-                            'La Hora ' +
-                            format(date, 'dd-MM-yyyy HH:mm') +
-                            ' es posterior a la actual, eso no es posible',
-                    }),
-                        this.googleAnalyticsService.exception('error_water_meter_measure', true);
+                    this.svcNotification.warning({message: error.error.status}),
+                    this.googleAnalyticsService.exception('error_water_meter_measure', true);
                 },
             });
     }

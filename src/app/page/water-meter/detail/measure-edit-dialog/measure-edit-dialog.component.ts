@@ -70,9 +70,7 @@ export class MeasureEditDialogComponent extends MeasureDialog {
 			error: (error) => {
 				this.disabled = false;
 				this.loadingPost = false;
-				this.svcNotification.warning({
-					message: error.error.status
-				}),
+				this.svcNotification.warning({message: error.error.status}),
 				this.googleAnalyticsService.exception('error_update_water_meter_measure', true);
 			},
 		});
