@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils import dateparse, timezone
-from datetime import date
+from datetime import date, datetime, timedelta
 from django_prometheus.models import ExportModelOperationsMixin
 
-from watermeter.exceptions import (WaterMeterDisabledError,
+from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
+from watermeter.utils import is_24h_old_than_now
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
@@ -48,7 +49,7 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
             WaterMeterMeasurement.objects.filter(
                 water_meter=self,
                 date__lte=before_date).order_by('-date')[:chunk])
-    
+
     def get_measurements_between_dates(self, start_date, end_date):
         # type: (date, date) -> list[WaterMeterMeasurement]
         """get list of water meter measurements between dates"""
@@ -96,16 +97,27 @@ class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'),
 
     def save(self, *args, **kwargs):
         """Before save the Measurement, compute the difference with the previous measurement"""
+        if self.id:
+            persistant_measure = self.water_meter.get_last_measurement()
+            if persistant_measure and is_24h_old_than_now(persistant_measure.date):
+                raise WaterMeterMeasurementAlreadyExpiredToUpdateError()
+            if self.date > timezone.now():
+                raise WaterMeterMeasurementInFutureError()
         self.compute_diff()
         super(WaterMeterMeasurement, self).save(*args, **kwargs)
 
     def compute_diff(self):
         """Compute the diff with the previous measurement"""
-        prev = self.water_meter.get_last_measurement(self.date)
+        __date = self.date
+        if not isinstance(__date, datetime):
+            __date = dateparse.parse_datetime(self.date)
+
+        prev = self.water_meter.get_last_measurement(__date - timedelta(minutes=1))
         if prev:
             #1 m3 == 1000 L
             m3L = 1000
-            lapsed_days = (dateparse.parse_datetime(self.date) - prev.date).days
+
+            lapsed_days = (__date - prev.date).days
             if lapsed_days == 0:
                 lapsed_days = 1
             self.measurement_diff = round(((float(self.measurement) - float(prev.measurement)) * m3L) / lapsed_days)

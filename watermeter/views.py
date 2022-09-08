@@ -3,18 +3,19 @@ from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, UpdateAPIView
 
 from drf_yasg import openapi
 
 from manager.permissions import IsManagerAuthenticated
-from watermeter.exceptions import (WaterMeterDisabledError,
+from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
-from watermeter.models import WaterMeter
+from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import WaterMeterMeasurementSerializer
 from agube.pagination import CustomPagination, CustomPaginationInspector
 
-TAG = 'water-meter'
+TAG_WATER_METER = 'water-meter'
+TAG_MEASUREMENT = 'measurement'
 
 
 class WaterMeterMeasurementView(GenericAPIView):
@@ -40,7 +41,7 @@ class WaterMeterMeasurementView(GenericAPIView):
                               format=openapi.FORMAT_DATE,
                               required=True)
         ],
-        tags=[TAG],
+        tags=[TAG_WATER_METER],
     )
     def get(self, request, pk):
         """
@@ -78,7 +79,7 @@ class WaterMeterMeasurementView(GenericAPIView):
 
     @swagger_auto_schema(
         operation_id="addWaterMeterMeasurement",
-        tags=[TAG],
+        tags=[TAG_WATER_METER],
     )
     def post(self, request, pk):
         """
@@ -90,6 +91,7 @@ class WaterMeterMeasurementView(GenericAPIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find watermeter'},
                             status=HTTP_404_NOT_FOUND)
+
         # Extract data
         measurement = request.data.pop('measurement')
         date = None
@@ -97,6 +99,7 @@ class WaterMeterMeasurementView(GenericAPIView):
             date = request.data.pop('date')
         else:
             date = timezone.now()
+
         # Add Water Meter
         try:
             watermeter_measurement = watermeter.add_measurement(measurement,
@@ -105,5 +108,28 @@ class WaterMeterMeasurementView(GenericAPIView):
                 (WaterMeterMeasurementSerializer(watermeter_measurement,
                                                  many=False).data))
         except (WaterMeterDisabledError,
+                WaterMeterMeasurementInFutureError) as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
+
+
+class MeasurementView(UpdateAPIView):
+    # FIXME: check that Manager Has Permission about this Measure
+    permission_classes = [IsManagerAuthenticated]
+    queryset = WaterMeterMeasurement.objects.all()
+    serializer_class = WaterMeterMeasurementSerializer
+    lookup_field = 'pk'
+    http_method_names = ["put"] # it ignore PATCH method
+
+    @swagger_auto_schema(
+        operation_id="updateMeasurement",
+        tags=[TAG_MEASUREMENT],
+    )
+    def put(self, request, *args, **kwargs):
+        """
+        Return the measurement updated with new changes
+        """
+        try:
+            return super().put(request, *args, **kwargs)
+        except (WaterMeterMeasurementAlreadyExpiredToUpdateError,
                 WaterMeterMeasurementInFutureError) as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)

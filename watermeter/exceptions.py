@@ -11,3 +11,10 @@ class WaterMeterMeasurementInFutureError(Exception):
     def __init__(self):
         self.message = "Measures connot be in the future"
         super().__init__(self.message)
+
+class WaterMeterMeasurementAlreadyExpiredToUpdateError(Exception):
+    """Exception raised when the measure cannot be updated if is older than 24h
+    """
+    def __init__(self):
+        self.message = "Measures cannot be updated because is older than 24h"
+        super().__init__(self.message)

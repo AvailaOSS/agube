@@ -13,6 +13,11 @@ class MeasurementEmailType(Enum):
     EXCESIVE_MEASUREMENT_EMAIL = "measurement_over_limit_email.html"
 
 
+class MeasurementEditedEmailType(Enum):
+    CORRECT_MEASUREMENT_EMAIL = "measurement_edited_under_limit_email.html"
+    EXCESIVE_MEASUREMENT_EMAIL = "measurement_edited_over_limit_email.html"
+
+
 def send_email_measurement(user: User,
                            watermeter_measurement: WaterMeterMeasurement,
                            manager_configuration: ManagerConfiguration,

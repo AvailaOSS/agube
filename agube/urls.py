@@ -13,7 +13,7 @@ from manager.urls import urlpatterns as urls_manager
 from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions
-from watermeter.urls import urlpatterns as urls_water_meter
+from watermeter.urls import urlpatterns as urls_water_meter, urlpatternsMeasurement
 from geolocation.urls import urlpatterns as urls_geolocation
 
 current_version = 'v1.0.0'
@@ -40,6 +40,7 @@ urlpatterns = [
     path(base_url + 'reservoir', include(urls_reservoir)),
     path(base_url + 'phone', include(urls_phone)),
     path(base_url + 'water-meter', include(urls_water_meter)),
+    path(base_url + 'measurement', include(urlpatternsMeasurement)),
     path(base_url + 'manager', include(urls_manager)),
     path(base_url + 'user', include(urls_user)),
     path(base_url + 'resident', include(urls_resident)),
