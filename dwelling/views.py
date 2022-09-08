@@ -1,5 +1,7 @@
 import datetime, calendar
-from django.utils import timezone, dateparse
+from django.utils import timezone
+from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
+from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
 from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -436,6 +438,15 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
         """
         Return a pagination of dwelling water meter measurements between dates.
         """
+        # Validate date filters
+        try:
+            datetime_filters = validate_query_date_filters(
+                request.query_params.get('start_date'),
+                request.query_params.get('end_date'))
+        except (DateFilterBadFormatError, DateFilterNoEndDateError,
+                DateFilterStartGtEnd) as e:
+            return Response({'status': e.message}, status=HTTP_400_BAD_REQUEST)
+
         # Get Dwelling
         try:
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
@@ -443,33 +454,22 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
             return Response({'status': 'cannot find dwelling'},
                             status=HTTP_404_NOT_FOUND)
 
-        # Extract filtering data
-        request_query_start_date = request.query_params.get('start_date')
-        request_query_end_date = request.query_params.get('end_date')
-
-        if (request_query_start_date != None) != (request_query_end_date != None):
-            return Response({'status': 'both/none date filters must be given'},
-                            status=HTTP_400_BAD_REQUEST)
-
         # Get dwelling water meter historical
         watermeter_list = dwelling.get_historical_water_meter()
         if watermeter_list == []:
             raise DwellingWithoutWaterMeterError()
 
-        # Get measurements filtered between dates
-        if request_query_start_date is None and request_query_end_date is None:
+        # Get measurements
+        if datetime_filters is None:
             measurement_list = get_watermeter_measurements_from_watermeters(
                 watermeter_list)
         else:
-            start_date = dateparse.parse_date(request_query_start_date)
-            end_date = dateparse.parse_date(request_query_end_date)
-            if (start_date is None) or (end_date is None):
-                return Response({'status': 'date filter/s have an incorrect format'},
-                            status=HTTP_400_BAD_REQUEST)
+            # Get measurements filtered between dates
+            start_datetime, end_datetime = datetime_filters
             measurement_list = get_watermeter_measurements_from_watermeters(
                 watermeter_list,
-                start_datetime=start_date,
-                end_datetime=end_date)
+                start_datetime=start_datetime,
+                end_datetime=end_datetime)
 
         # Create result pagination
         queryset = measurement_list
@@ -516,10 +516,11 @@ class DwellingWaterMeterMonthConsumption(APIView):
         if request_query_date is None:
             request_date = timezone.now().date
         else:
-            request_date = dateparse.parse_date(request_query_date)
+            request_date = parse_query_date(request_query_date)
             if request_date is None:
-                return Response({'status': 'query date has an incorrect format'},
-                                status=HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'status': 'query date has an incorrect format'},
+                    status=HTTP_400_BAD_REQUEST)
         month_start = datetime.date(request_date.year, request_date.month, 1)
         month_end = month_start + datetime.timedelta(
             days=calendar.monthrange(month_start.year, month_start.month)[1])
@@ -531,8 +532,8 @@ class DwellingWaterMeterMonthConsumption(APIView):
         # Get measurement list filtered between dates
         measurement_list = get_watermeter_measurements_from_watermeters(
             watermeter_list,
-            start_datetime=month_start,
-            end_datetime=month_end)
+            start_datetime=parse_query_datetime(month_start),
+            end_datetime=parse_query_datetime(month_end))
 
         # Compute consumption
         month_consumption = 0

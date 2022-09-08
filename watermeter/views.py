@@ -1,4 +1,4 @@
-from django.utils import timezone, dateparse
+from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
@@ -6,6 +6,8 @@ from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.generics import GenericAPIView, UpdateAPIView
 
 from drf_yasg import openapi
+from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
+from agube.utils import validate_query_date_filters
 
 from manager.permissions import IsManagerAuthenticated
 from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
@@ -45,6 +47,15 @@ class WaterMeterMeasurementView(GenericAPIView):
         """
         Return a pagination of water meter measurements between dates.
         """
+        # Validate date filters
+        try:
+            datetime_filters = validate_query_date_filters(
+                request.query_params.get('start_date'),
+                request.query_params.get('end_date'))
+        except (DateFilterBadFormatError, DateFilterNoEndDateError,
+                DateFilterStartGtEnd) as e:
+            return Response({'status': e.message}, status=HTTP_400_BAD_REQUEST)
+            
         # Get Water Meter
         try:
             watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
@@ -52,25 +63,15 @@ class WaterMeterMeasurementView(GenericAPIView):
             return Response({'status': 'cannot find watermeter'},
                             status=HTTP_404_NOT_FOUND)
 
-        # Extract filtering data
-        request_query_start_date = request.query_params.get('start_date')
-        request_query_end_date = request.query_params.get('end_date')
-
-        if (request_query_start_date != None) != (request_query_end_date != None):
-            return Response({'status': 'both/none date filters must be given'},
-                            status=HTTP_400_BAD_REQUEST)
-
-        # Get measurements filtered between dates
-        if request_query_start_date is None and request_query_end_date is None:
+        # Get measurements
+        if datetime_filters is None:
             measurement_list = watermeter.get_measurements()
         else:
-            start_date = dateparse.parse_date(request_query_start_date)
-            end_date = dateparse.parse_date(request_query_end_date)
-            if (start_date is None) or (end_date is None):
-                return Response({'status': 'date filter/s have an incorrect format'},
-                            status=HTTP_400_BAD_REQUEST)
+            # Get measurements filtered between dates
+            start_datetime, end_datetime = datetime_filters
             measurement_list = watermeter.get_measurements_between_dates(
-                start_date, end_date)
+                start_date=start_datetime,
+                end_date=end_datetime)
 
         # Create result pagination
         queryset = measurement_list
