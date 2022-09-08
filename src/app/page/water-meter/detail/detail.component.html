@@ -77,6 +77,13 @@
                     </td>
                 </ng-container>
 
+                <ng-container matColumnDef="daysApart">
+                    <th mat-header-cell *matHeaderCellDef>daysApart</th>
+                    <td mat-cell *matCellDef="let element; let i = index;">
+                       <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART.TOOLTIP' | translate }}">{{ computeDaysApart(element, i) }} {{ 'PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART' | translate }}</span>
+                    </td>
+                </ng-container>
+
                 <ng-container matColumnDef="measurement_diff">
                     <th mat-header-cell *matHeaderCellDef>measurement_diff</th>
                     <td

@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { WaterMeterMeasurement, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
 import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
-import { format, differenceInHours, parseISO } from 'date-fns';
+import { format, differenceInHours, parseISO, differenceInMinutes, differenceInDays } from 'date-fns';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
@@ -37,7 +37,7 @@ export class DetailComponent implements OnInit {
     public waterMeter: WaterMeterGauge | undefined;
     public waterMeterCode: string | undefined;
     public noData: boolean = false;
-    public displayedColumns: string[] = ['measurement', 'date', 'measurement_diff'];
+    public displayedColumns: string[] = ['measurement', 'date', 'daysApart', 'measurement_diff'];
     public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
     public filter = new FormControl('');
 
@@ -61,7 +61,7 @@ export class DetailComponent implements OnInit {
         public propertiesServices: GetPropertiesService
     ) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.loadWaterMeterMeasures();
         this.svcPersistance.get().subscribe((waterMeter) => {
             this.waterResults = {
@@ -73,6 +73,23 @@ export class DetailComponent implements OnInit {
                 waterMeterWithMeasure: this.waterResults,
             };
         });
+    }
+
+    public computeDaysApart(measurement: WaterMeterMeasurement, index: number): number {
+        let previousMeasurement = this.dataSource.data[index + 1]
+
+        if (!previousMeasurement) {
+            return 0
+        }
+
+        let current = new Date(measurement.date!);
+        let previous = new Date(previousMeasurement.date!);
+
+        let diff = differenceInDays(current, previous);
+        if (diff <= 0) {
+            return Math.round(differenceInMinutes(current, previous) / 60 / 24 * 100) / 100
+        }
+        return diff;
     }
 
     public applyFilter() {

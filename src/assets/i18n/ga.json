@@ -248,6 +248,8 @@
     "PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP": "Abrir formulario de Nova Lectura",
     "PAGE.WATER_METER.DETAIL.TABLE.MEASUREMENT.TOOLTIP": "Lectura do contador",
     "PAGE.WATER_METER.DETAIL.TABLE.DATE.TOOLTIP": "Data",
+    "PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART": "Días",
+    "PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART.TOOLTIP": "Días transcurridos en comparación coa lectura anterior",
     "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP": "Litros consumidos en comparación coa lectura anterior",
     "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP.MAX_DAILY_CONSUMPTION": "Consumo diario máximo permitido na data",
     "PAGE.WATER_METER.DIALOG.TITLE": "Realizando cambio de Contador",
