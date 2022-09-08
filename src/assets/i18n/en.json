@@ -248,6 +248,8 @@
     "PAGE.WATER_METER.DETAIL.BUTTON.TEXT.TOOLTIP": "Open New Reading form",
     "PAGE.WATER_METER.DETAIL.TABLE.MEASUREMENT.TOOLTIP": "Water Meter Reading",
     "PAGE.WATER_METER.DETAIL.TABLE.DATE.TOOLTIP": "Date",
+    "PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART": "Days",
+    "PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART.TOOLTIP": "Days elapsed with respect to the previous reading",
     "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP": "Liters consumed compared to the previous reading",
     "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP.MAX_DAILY_CONSUMPTION": "Maximum daily consumption allowed on the date",
     "PAGE.WATER_METER.DIALOG.TITLE": "Making a change of accountant",
