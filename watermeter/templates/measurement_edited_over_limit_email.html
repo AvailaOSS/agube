@@ -4,7 +4,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet" />
   <style type="text/css">
     * {
-      font-family: "Ubuntu";
+      font-family: "Ubuntu", Arial, sans-serif;
     }
 
     h1 {
@@ -20,16 +20,18 @@
     .data {
       font-weight: bold;
     }
+    .color-out-of-range {
+      font-weight: bold;
+      color: red;
+    }
   </style>
 </head>
 
 <body style="margin-left: 1em">
   <h1>Notificación de <span class="color-primary">{{app_name}}</span></h1>
   <div style="margin-left: 1em">
-    <p><span class="color-primary">{{user_first_name}}</span>, se ha realizado la lectura del contador de su vivienda</p>
-    <p>La lectura del contador con código <span class="data">{{watermeter_code}}</span> a <span class="data">{{measurement_date}}</span> es de <span class="data">{{watermeter_measurement}}</span> m<sup>3</sup></p>
-    <p>Su media de consumo diario desde la última medición es de <span class="data">{{measurement_difference}}</span> litros/día
-    <p>El consumo máximo diario establecido por su comunidad es de <span class="data">{{max_daily_consumption}}</span> litros/día</p>
+    <p><span class="color-primary">{{user_first_name}}</span>, la última lectura que se notificó fué erronea, la correcta es de <span class="data">{{watermeter_measurement}}</span> m<sup>3</sup></p>
+    <p class="color-out-of-range">Su consumo {{measurement_difference}} litros/día excede el máximo establecido por su comunidad, que es de <span class="data">{{max_daily_consumption}}</span> litros/día</p></p>
     <p></p>
     <hr style="width: 45em"/>
     <p>
