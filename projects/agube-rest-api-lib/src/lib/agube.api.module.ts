@@ -15,6 +15,7 @@ import { ReservoirService } from './service/reservoir.service';
 import { ResidentService } from './service/resident.service';
 import { UserService } from './service/user.service';
 import { WaterMeterService } from './service/waterMeter.service';
+import { MeasurementService } from './service/measurement.service';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { WaterMeterService } from './service/waterMeter.service';
     UserService,
     ReservoirService,
     WaterMeterService,
+    MeasurementService,
     ResidentService,
     OwnerService,
     GeolocationService,
