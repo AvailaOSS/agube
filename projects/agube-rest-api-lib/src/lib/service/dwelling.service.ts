@@ -966,64 +966,52 @@ export class DwellingService {
    *
    * Return a pagination of dwelling water meter measurements between dates.
    * @param id A unique integer value identifying this dwelling.
-   * @param startDate Filter start date
-   * @param endDate Filter end date
    * @param page A page number within the paginated result set.
    * @param pageSize Number of results to return per page.
+   * @param startDate Filter start date
+   * @param endDate Filter end date
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public getDwellingWaterMeterMeasurements(
     id: number,
-    startDate: string,
-    endDate: string,
     page?: number,
     pageSize?: number,
+    startDate?: string,
+    endDate?: string,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<WaterMeterMeasurementsPagination>;
   public getDwellingWaterMeterMeasurements(
     id: number,
-    startDate: string,
-    endDate: string,
     page?: number,
     pageSize?: number,
+    startDate?: string,
+    endDate?: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getDwellingWaterMeterMeasurements(
     id: number,
-    startDate: string,
-    endDate: string,
     page?: number,
     pageSize?: number,
+    startDate?: string,
+    endDate?: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getDwellingWaterMeterMeasurements(
     id: number,
-    startDate: string,
-    endDate: string,
     page?: number,
     pageSize?: number,
+    startDate?: string,
+    endDate?: string,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
         'Required parameter id was null or undefined when calling getDwellingWaterMeterMeasurements.'
-      );
-    }
-
-    if (startDate === null || startDate === undefined) {
-      throw new Error(
-        'Required parameter startDate was null or undefined when calling getDwellingWaterMeterMeasurements.'
-      );
-    }
-
-    if (endDate === null || endDate === undefined) {
-      throw new Error(
-        'Required parameter endDate was null or undefined when calling getDwellingWaterMeterMeasurements.'
       );
     }
 
@@ -1068,7 +1056,7 @@ export class DwellingService {
     return this.httpClient.get<any>(
       `${this.basePath}/dwelling/${encodeURIComponent(
         String(id)
-      )}/water-meter/masurements/`,
+      )}/water-meter/measurements/`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
