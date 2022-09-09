@@ -51,9 +51,17 @@ export class WaterMeterManager {
                 );
             }
         } else if (+type! === +WaterMeterType.RESERVOIR) {
-            return this.svcReservoir.getReservoirWaterMeterMeasurements(id, undefined, chunk);
-        } else {
-            return undefined;
+            if (!date?.dateStart && !date?.dateEnd) {
+                return this.svcReservoir.getReservoirWaterMeterMeasurements(id, undefined, chunk);
+            } else {
+                return this.svcReservoir.getReservoirWaterMeterMeasurements(
+                    id,
+                    undefined,
+                    chunk,
+                    String(date.dateStart),
+                    String(date.dateEnd)
+                );
+            }
         }
     }
 }
