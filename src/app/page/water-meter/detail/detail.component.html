@@ -24,25 +24,6 @@
                     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field class="filter" appearance="standard">
-                    <mat-label>m<sup>3</sup>, {{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT' | translate }}</mat-label>
-                    <input
-                        matInput
-                        matTooltip="{{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP' | translate }}"
-                        matTooltipPosition="right"
-                        (keyup)="applyFilter()"
-                        [formControl]="filter"
-                    />
-                    <button
-                        matSuffix
-                        mat-icon-button
-                        matTooltip="{{ 'PAGE.WATER_METER.DETAIL.FILTER.TEXT.BUTTON_TOOLTIP' | translate }}"
-                        *ngIf="filter.value.length > 0"
-                        (click)="clearFilter()"
-                    >
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </mat-form-field>
             </div>
             <div *ngIf="canAddReading">
                 <button
@@ -113,7 +94,7 @@
         </div>
 
         <div *ngIf="!noData" [align]="'end'" class="final-table-measurement">
-            <mat-form-field class="selector" appearance="standard">
+            <mat-form-field  appearance="standard">
                 <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TEXT' | translate }}</mat-label>
                 <mat-select matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}" [(value)]="chunk">
                     <mat-option *ngFor="let chnk of chunks" value="{{ chnk }}" (click)="loadWaterMeterMeasures()">
@@ -121,12 +102,12 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <div style="margin-top: 15px">
-                <button mat-raised-button color="primary" (click)="fetchPrevious(pageIndex!)">
+            <div class="button-pagination">
+                <button mat-raised-button (click)="fetchPrevious(pageIndex!)">
                     <mat-icon>arrow_back_ios</mat-icon>
                 </button>
                 {{ pageIndex }} / {{ page }}
-                <button mat-raised-button color="primary" (click)="fetchNext(pageIndex!)">
+                <button mat-raised-button (click)="fetchNext(pageIndex!)">
                     <mat-icon>arrow_forward_ios</mat-icon>
                 </button>
             </div>

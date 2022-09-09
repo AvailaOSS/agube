@@ -1,3 +1,4 @@
+import { NotificationService } from '@availa/notification';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,15 +42,10 @@ export class DetailComponent implements OnInit {
     public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
     public filter = new FormControl('');
 
-    public chunks = ['3', '5', '10'];
+    public chunks = ['5', '10', '15'];
     public chunk: string = this.chunks[0];
-    public dateStart = new FormControl(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1), [
-        Validators.required,
-    ]);
-    public dateEnd = new FormControl(
-        new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
-        [Validators.required]
-    );
+    public dateStart = new FormControl();
+    public dateEnd = new FormControl();
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     private readonly measureAllowEdit: number = 24;
@@ -58,8 +54,9 @@ export class DetailComponent implements OnInit {
         protected svcWaterMeterManager: WaterMeterManager,
         public dialog: MatDialog,
         protected svcPersistance: WaterMeterPersistantService,
-        public propertiesServices: GetPropertiesService
-    ) { }
+        public propertiesServices: GetPropertiesService,
+        public svcNotification: NotificationService
+    ) {}
 
     public ngOnInit(): void {
         this.loadWaterMeterMeasures();
@@ -214,41 +211,52 @@ export class DetailComponent implements OnInit {
         if (!this.type?.id!) {
             return;
         }
+        this.noData = true;
 
-        if (this.dateEnd.value >= this.dateStart.value) {
-            date = {
-                dateStart: format(this.dateStart.value, 'yyyy-MM-dd'),
-                dateEnd: format(this.dateEnd.value, 'yyyy-MM-dd'),
-            };
+        if (this.dateStart.value && this.dateEnd.value) {
+            if (this.dateEnd.value >= this.dateStart.value) {
+                date = {
+                    dateStart: format(this.dateStart.value, 'yyyy-MM-dd'),
+                    dateEnd: format(this.dateEnd.value, 'yyyy-MM-dd'),
+                };
 
-            this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
-                next: (response: WaterMeterMeasurementsPagination) => {
-                    if (!response) {
-                        return;
-                    }
-                    this.previous = response.links!.previous!;
-                    this.next = response.links!.next!;
-                    this.page = response.num_pages;
-                    this.pageIndex = 1;
-                    this.noData = false;
-                    this.dataSource = new MatTableDataSource(response.results);
-                    this.dataSource.paginator = this.paginator!;
-                    this.svcPersistance.get().subscribe((waterMeter) => {
-                        this.waterResults = {
-                            measures: response.results,
-                        };
-                        this.waterMeter = {
-                            waterMeter: waterMeter!,
-                            waterMeterWithMeasure: this.waterResults,
-                        };
-                    });
-                },
-                error: (error: any) => {
-                    this.noData = true;
-                    this.dataSource = new MatTableDataSource();
-                    this.dataSource.paginator = this.paginator!;
-                },
-            });
+                this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
+                    next: (response: WaterMeterMeasurementsPagination) => {
+                        if (!response) {
+                            return;
+                        }
+                        this.previous = response.links!.previous!;
+                        this.next = response.links!.next!;
+                        this.page = response.num_pages;
+                        this.pageIndex = 1;
+                        this.noData = false;
+                        this.dataSource = new MatTableDataSource(response.results);
+                        this.dataSource.paginator = this.paginator!;
+                        this.svcPersistance.get().subscribe((waterMeter) => {
+                            this.waterResults = {
+                                measures: response.results,
+                            };
+                            this.waterMeter = {
+                                waterMeter: waterMeter!,
+                                waterMeterWithMeasure: this.waterResults,
+                            };
+                        });
+                    },
+                    error: (error: any) => {
+                        this.noData = true;
+                        this.svcNotification.warning({
+                            message: 'No hay Lecturas entre esas fechas',
+                        });
+                        this.dataSource = new MatTableDataSource();
+                        this.dataSource.paginator = this.paginator!;
+                    },
+                });
+            } else {
+                this.noData = true;
+                this.svcNotification.warning({
+                    message: 'La fecha fin no puede ser mayor que la fecha comienzo',
+                });
+            }
         }
     }
 }
