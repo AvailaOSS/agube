@@ -13,10 +13,7 @@
             .selector-and-filter {
                 display: flex;
                 width: 100%;
-                .selector {
-                    margin-right: $margin-x-medium;
-                    width: 12% !important;
-                }
+
                 mat-form-field {
                     margin-left: 15px;
                 }
@@ -28,6 +25,9 @@
         .scroll {
             height: 65%;
             overflow: auto;
+        }
+        .no-data {
+            text-align: center;
         }
     }
 }
@@ -45,7 +45,18 @@
 
 .final-table-measurement {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    mat-form-field {
+        width: 15% !important;
+    }
+    .button-pagination {
+        margin-top: 15px;
+        button {
+            mat-icon {
+                color: #7fd3f7 !important;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 1450px) {

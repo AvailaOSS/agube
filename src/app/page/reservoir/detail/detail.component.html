@@ -32,7 +32,7 @@
                     <span *ngIf="waterMeter">
                         <p>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate}}</p>
                         <h3>{{waterMeter.code }}</h3>
-                        <app-water-meter-detail [waterMeterId]="waterMeter.id" [type]="type" [canAddReading]="true">
+                        <app-water-meter-detail [reservoirId]="reservoirId" [waterMeterId]="waterMeter.id" [type]="type" [canAddReading]="true">
                         </app-water-meter-detail>
                     </span>
                 </div>
