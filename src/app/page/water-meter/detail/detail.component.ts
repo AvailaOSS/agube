@@ -24,29 +24,30 @@ import { Type } from './type';
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-    public properties: any;
-    public next: string = '';
-    public previous: string = '';
-    public page: number | undefined;
-    public pageIndex: number | undefined = 1;
-    public waterResults: WaterMeterWithMeasurements | undefined;
-
     @Input() public waterMeterId: number | undefined;
+    @Input() public reservoirId: number | undefined;
+    @Input() public dwellingId: number | undefined;
     @Input() public type: Type | undefined;
     @Input() public canAddReading: boolean | undefined;
 
-    public waterMeter: WaterMeterGauge | undefined;
-    public waterMeterCode: string | undefined;
-    public noData: boolean = false;
-    public displayedColumns: string[] = ['measurement', 'date', 'daysApart', 'measurement_diff'];
-    public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
-    public noDataSource: boolean = false;
-    public filter = new FormControl('');
-
     public chunks = ['5', '10', '15'];
     public chunk: string = this.chunks[0];
+    public displayedColumns: string[] = ['measurement', 'date', 'daysApart', 'measurement_diff'];
     public dateStart = new FormControl();
     public dateEnd = new FormControl();
+    public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
+    public filter = new FormControl('');
+    public noData: boolean = false;
+    public noDataSource: boolean = false;
+    public next: string = '';
+    public previous: string = '';
+    public properties: any;
+    public page: number | undefined;
+    public pageIndex: number | undefined = 1;
+    public waterMeter: WaterMeterGauge | undefined;
+    public waterMeterCode: string | undefined;
+    public waterResults: WaterMeterWithMeasurements | undefined;
+
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     private readonly measureAllowEdit: number = 24;
@@ -68,6 +69,7 @@ export class DetailComponent implements OnInit {
 
             this.waterMeter = {
                 waterMeter: waterMeter!,
+                dwellingId:this.dwellingId,
                 waterMeterWithMeasure: this.waterResults,
             };
         });
@@ -285,6 +287,7 @@ export class DetailComponent implements OnInit {
                     };
                     this.waterMeter = {
                         waterMeter: waterMeter!,
+                        dwellingId: this.dwellingId,
                         waterMeterWithMeasure: this.waterResults,
                     };
                 });
