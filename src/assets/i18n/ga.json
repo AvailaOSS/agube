@@ -92,6 +92,7 @@
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MAXLENGTH": "A contrasinal debe ter hasta 16 caracteres.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD": "Confirmar Contrasinal",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.ERROR":"Usuario incompatible",
+    "PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK": "Contrasinal cambiada",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.REQUIRED": "Inserta unha contrasinal de confirmación",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH": "A contrasinal debe ter polo menos 5 caracteres.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH": "A contrasinal debe ter hasta 16 caracteres.",

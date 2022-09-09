@@ -92,6 +92,7 @@
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MAXLENGTH": "The password must be up to 16 characters.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD": "Confirm Password",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.ERROR": "Incompatible User",
+    "PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK": "Password changed",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.REQUIRED": "Insert a confirmation password",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH": "The confirmation password must have at least 5 characters.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH": "The confirmation password must be up to 16 characters.",
