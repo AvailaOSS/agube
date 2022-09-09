@@ -92,6 +92,7 @@
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.PASSWORD.VALIDATION.MAXLENGTH": "La contraseña debe tener hasta 16 caracteres.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD": "Confirmar Contraseña",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.ERROR": "Usuario incompatible",
+    "PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK": "Contraseña cambiada",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.REQUIRED": "Inserta una contraseña de confirmación",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MINLENGTH": "La contraseña de confirmación debe tener al menos 5 caracteres.",
     "PAGE.CONFIG.CLIENT.PASSWORD.FORM.CONFIRM_PASSWORD.VALIDATION.MAXLENGTH": "La contraseña de confirmación debe tener hasta 16 caracteres.",

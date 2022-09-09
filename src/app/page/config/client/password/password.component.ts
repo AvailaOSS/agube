@@ -1,10 +1,10 @@
-import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangePassword, UserService } from '@availa/auth-rest-api';
 import { NotificationService } from '@availa/notification';
-import { passwordMatches } from './password-validator';
-import { UserService, ChangePassword } from '@availa/auth-rest-api';
+import { TranslateService } from '@ngx-translate/core';
 import { isEdge } from 'src/app/utils/edge-detector';
+import { passwordMatches } from './password-validator';
 
 @Component({
     selector: 'app-password',
@@ -68,6 +68,12 @@ export class PasswordComponent {
                 this.password.setValue('');
                 this.confirmPassword.setValue('');
                 this.loadSave = false;
+                let message = JSON.stringify('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK');
+                this.svcTranslate
+                    .get('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK')
+                    .subscribe((response) => (message = response));
+
+                this.svcNotification.success({ message: message });
             },
             error: (error) => {
                 let message = JSON.stringify(error.error);
