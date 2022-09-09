@@ -40,18 +40,17 @@ export class WaterMeterManager {
     ): Observable<WaterMeterWithMeasurements> | any {
         if (+type! === +WaterMeterType.DWELLING) {
             if (!date?.dateStart && !date?.dateEnd) {
-                return this.svcDwelling.getDwellingWaterMeterMeasurements(id, undefined, chunk);
+                return this.svcDwelling.getDwellingWaterMeterMeasurements(id, '2022-09-01','2022-09-30', chunk);
             } else {
                 return this.svcDwelling.getDwellingWaterMeterMeasurements(
                     id,
-                    undefined,
-                    chunk,
                     String(date.dateStart),
-                    String(date.dateEnd)
+                    String(date.dateEnd),
+                    chunk,
                 );
             }
         } else if (+type! === +WaterMeterType.RESERVOIR) {
-            return this.svcReservoir.getReservoirWaterMeterMeasurements(id, undefined, chunk);
+            return this.svcReservoir.getReservoirWaterMeterMeasurements(id,  '2022-09-01','2022-09-30', chunk);
         } else {
             return undefined;
         }

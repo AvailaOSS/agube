@@ -96,12 +96,7 @@ export class DetailComponent implements OnInit {
         this.dataSource.filter = this.filter.value.trim().toLowerCase();
     }
 
-    public clearFilter() {
-        this.filter.setValue('');
-        this.dataSource.filter = '';
-    }
-
-    public openEditMeasureDialog() {
+      public openEditMeasureDialog() {
 
         let data: MeasureEditDialogData = {
             currentMeasurement: this.dataSource.data[0],
