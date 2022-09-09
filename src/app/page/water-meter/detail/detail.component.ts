@@ -69,17 +69,17 @@ export class DetailComponent implements OnInit {
 
             this.waterMeter = {
                 waterMeter: waterMeter!,
-                dwellingId:this.dwellingId,
+                dwellingId: this.dwellingId,
                 waterMeterWithMeasure: this.waterResults,
             };
         });
     }
 
     public computeDaysApart(measurement: WaterMeterMeasurement, index: number): number {
-        let previousMeasurement = this.dataSource.data[index + 1]
+        let previousMeasurement = this.dataSource.data[index + 1];
 
         if (!previousMeasurement) {
-            return 0
+            return 0;
         }
 
         let current = new Date(measurement.date!);
@@ -87,7 +87,7 @@ export class DetailComponent implements OnInit {
 
         let diff = differenceInDays(current, previous);
         if (diff <= 0) {
-            return Math.round(differenceInMinutes(current, previous) / 60 / 24 * 100) / 100
+            return Math.round((differenceInMinutes(current, previous) / 60 / 24) * 100) / 100;
         }
         return diff;
     }
@@ -96,8 +96,7 @@ export class DetailComponent implements OnInit {
         this.dataSource.filter = this.filter.value.trim().toLowerCase();
     }
 
-      public openEditMeasureDialog() {
-
+    public openEditMeasureDialog() {
         let data: MeasureEditDialogData = {
             currentMeasurement: this.dataSource.data[0],
         };
@@ -110,8 +109,10 @@ export class DetailComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe((reload) => {
+            console.log(reload);
             if (reload) {
-                this.loadWaterMeterMeasures();
+                this.ngOnInit();
+                this.svcPersistance.emit(this.waterMeter!.waterMeter);
             }
         });
     }
@@ -148,15 +149,11 @@ export class DetailComponent implements OnInit {
     }
 
     public isMeasurementEditable(measure: WaterMeterMeasurement) {
-
         if (!measure.date) {
             return;
         }
 
-        const difference = differenceInHours(
-            new Date(),
-            parseISO(String(measure.date))
-        );
+        const difference = differenceInHours(new Date(), parseISO(String(measure.date)));
 
         if (this.measureAllowEdit > difference) {
             return true;
