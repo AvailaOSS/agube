@@ -5,7 +5,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 
 from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
-from watermeter.utils import is_24h_old_than_now
+from agube.utils import is_24h_old_than_now
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
@@ -50,14 +50,21 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
                 water_meter=self,
                 date__lte=before_date).order_by('-date')[:chunk])
 
-    def get_measurements_between_dates(self, start_date, end_date):
-        # type: (date, date) -> list[WaterMeterMeasurement]
+    def get_measurements_between_dates(self, end_date, start_date=None):
+        # type: (date | datetime, date | datetime) -> list[WaterMeterMeasurement]
         """get list of water meter measurements between dates"""
+        # end date as end of the day (lt)
+        end_date += timedelta(days=1)
+        if start_date is None:
+            return list(
+            WaterMeterMeasurement.objects.filter(
+                water_meter=self,
+                date__lt=end_date).order_by('-date'))
         return list(
             WaterMeterMeasurement.objects.filter(
                 water_meter=self,
                 date__gte=start_date,
-                date__lte=end_date).order_by('-date'))
+                date__lt=end_date).order_by('-date'))
 
     def get_measurements(self):
         # type: (WaterMeter) -> list[WaterMeterMeasurement]
