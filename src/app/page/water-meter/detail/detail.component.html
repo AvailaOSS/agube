@@ -9,7 +9,18 @@
                         [matDatepicker]="pickerStart"
                         [formControl]="dateStart"
                         (dateChange)="loadWaterMeterMeasures()"
+                        matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.DATESTART' | translate }}"
                     />
+                    <button
+                        *ngIf="dateStart.value"
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearFilter()"
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
                     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
@@ -20,7 +31,18 @@
                         [matDatepicker]="pickerEnd"
                         [formControl]="dateEnd"
                         (dateChange)="loadWaterMeterMeasures()"
+                        matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.DATEEND' | translate }}"
                     />
+                    <button
+                        *ngIf="dateEnd.value"
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearFilterEnd()"
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
                     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
@@ -40,8 +62,8 @@
             </div>
         </div>
 
-        <div class="scroll">
-            <table mat-table [dataSource]="dataSource">
+        <div class="scroll" *ngIf="!noData; else Data">
+            <table mat-table [dataSource]="dataSource" *ngIf="!noDataSource; else DataSource">
                 <ng-container matColumnDef="measurement">
                     <th mat-header-cell *matHeaderCellDef>measurement</th>
                     <td mat-cell *matCellDef="let element">
@@ -91,10 +113,16 @@
 
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
-        </div>
 
+            <ng-template #DataSource>
+                <p class="no-data">No contiene lecturas entre estas fechas</p>
+            </ng-template>
+        </div>
+        <ng-template #Data>
+            <p class="no-data">La fecha introducida en Desde no puede ser posterior a la fecha introducida en Hasta</p>
+        </ng-template>
         <div *ngIf="!noData" [align]="'end'" class="final-table-measurement">
-            <mat-form-field  appearance="standard">
+            <mat-form-field appearance="standard">
                 <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TEXT' | translate }}</mat-label>
                 <mat-select matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}" [(value)]="chunk">
                     <mat-option *ngFor="let chnk of chunks" value="{{ chnk }}" (click)="loadWaterMeterMeasures()">
@@ -103,11 +131,19 @@
                 </mat-select>
             </mat-form-field>
             <div class="button-pagination">
-                <button mat-raised-button (click)="fetchPrevious(pageIndex!)">
+                <button
+                    matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.PREV' | translate }}"
+                    mat-raised-button
+                    (click)="fetchPrevious(pageIndex!)"
+                >
                     <mat-icon>arrow_back_ios</mat-icon>
                 </button>
                 {{ pageIndex }} / {{ page }}
-                <button mat-raised-button (click)="fetchNext(pageIndex!)">
+                <button
+                    matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.NEXT' | translate }}"
+                    mat-raised-button
+                    (click)="fetchNext(pageIndex!)"
+                >
                     <mat-icon>arrow_forward_ios</mat-icon>
                 </button>
             </div>

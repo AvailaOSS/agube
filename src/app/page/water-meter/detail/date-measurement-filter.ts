@@ -1,4 +1,4 @@
 export interface DateMeasurementFilter {
-    dateStart: string;
-    dateEnd: string;
+    dateStart?: string;
+    dateEnd?: string;
 }

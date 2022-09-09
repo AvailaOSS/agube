@@ -1,11 +1,11 @@
-import { NotificationService } from '@availa/notification';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { WaterMeterMeasurement, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
 import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
+import { NotificationService } from '@availa/notification';
 import { format, differenceInHours, parseISO, differenceInMinutes, differenceInDays } from 'date-fns';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
@@ -40,6 +40,7 @@ export class DetailComponent implements OnInit {
     public noData: boolean = false;
     public displayedColumns: string[] = ['measurement', 'date', 'daysApart', 'measurement_diff'];
     public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
+    public noDataSource: boolean = false;
     public filter = new FormControl('');
 
     public chunks = ['5', '10', '15'];
@@ -118,6 +119,14 @@ export class DetailComponent implements OnInit {
         });
     }
 
+    public clearFilter() {
+        this.dateStart.setValue(null);
+        this.loadWaterMeterMeasures();
+    }
+    public clearFilterEnd() {
+        this.dateEnd.setValue(null);
+        this.loadWaterMeterMeasures();
+    }
     public openMeasureDialog() {
         if (!this.waterMeterId) {
             return;
@@ -205,58 +214,86 @@ export class DetailComponent implements OnInit {
             this.pageIndex! -= 1;
         }
     }
+    public formatDate(date: any): string {
+        return (date = format(date, 'yyyy-MM-dd'));
+    }
 
+    public sendDateFormat(date: DateMeasurementFilter): DateMeasurementFilter {
+        if (this.dateStart.value !== null && this.dateEnd.value === null) {
+            return (date = {
+                dateStart: this.formatDate(this.dateStart.value),
+                dateEnd: this.formatDate(new Date()),
+            });
+        }
+
+        if (this.dateStart.value === null && this.dateEnd.value !== null) {
+            return (date = {
+                dateStart: '2022-01-01',
+                dateEnd: this.formatDate(this.dateEnd.value),
+            });
+        }
+        if (this.dateStart.value !== null && this.dateEnd.value !== null) {
+            return (date = {
+                dateStart: this.formatDate(this.dateStart.value),
+
+                dateEnd: this.formatDate(this.dateEnd.value),
+            });
+        }
+        return date;
+    }
     public loadWaterMeterMeasures() {
-        let date: DateMeasurementFilter;
+        let date: DateMeasurementFilter = {};
         if (!this.type?.id!) {
             return;
         }
-        this.noData = true;
+        this.noData = false;
 
-        if (this.dateStart.value && this.dateEnd.value) {
-            if (this.dateEnd.value >= this.dateStart.value) {
-                date = {
-                    dateStart: format(this.dateStart.value, 'yyyy-MM-dd'),
-                    dateEnd: format(this.dateEnd.value, 'yyyy-MM-dd'),
-                };
-
-                this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
-                    next: (response: WaterMeterMeasurementsPagination) => {
-                        if (!response) {
-                            return;
-                        }
-                        this.previous = response.links!.previous!;
-                        this.next = response.links!.next!;
-                        this.page = response.num_pages;
-                        this.pageIndex = 1;
-                        this.noData = false;
-                        this.dataSource = new MatTableDataSource(response.results);
-                        this.dataSource.paginator = this.paginator!;
-                        this.svcPersistance.get().subscribe((waterMeter) => {
-                            this.waterResults = {
-                                measures: response.results,
-                            };
-                            this.waterMeter = {
-                                waterMeter: waterMeter!,
-                                waterMeterWithMeasure: this.waterResults,
-                            };
-                        });
-                    },
-                    error: (error: any) => {
-                        this.noData = true;
-                        this.svcNotification.warning({
-                            message: 'No hay Lecturas entre esas fechas',
-                        });
-                        this.dataSource = new MatTableDataSource();
-                        this.dataSource.paginator = this.paginator!;
-                    },
-                });
-            } else {
+        if (this.dateStart.value !== null) {
+            if (this.formatDate(this.dateStart.value) >= this.formatDate(new Date())) {
                 this.noData = true;
-                this.svcNotification.warning({
-                    message: 'La fecha fin no puede ser mayor que la fecha comienzo',
-                });
+                this.noDataSource = false;
+            }
+            if (this.dateEnd.value !== null) {
+                if (this.formatDate(this.dateStart.value) >= this.formatDate(this.dateEnd.value)) {
+                    this.noData = true;
+                    this.noDataSource = false;
+                }
             }
         }
+        date = this.sendDateFormat(date);
+        this.svcWaterMeterManager.getChunk(this.type?.id!, +this.chunk, date, this.type?.type).subscribe({
+            next: (response: WaterMeterMeasurementsPagination) => {
+                if (!response) {
+                    return;
+                }
+                if (response.results.length === 0) {
+                    this.noDataSource = true;
+                    this.noData = false;
+                    return;
+                }
+                this.previous = response.links!.previous!;
+                this.next = response.links!.next!;
+                this.page = response.num_pages;
+                this.pageIndex = 1;
+                this.noDataSource = false;
+                this.noData = false;
+                this.dataSource = new MatTableDataSource(response.results);
+                this.dataSource.paginator = this.paginator!;
+                this.svcPersistance.get().subscribe((waterMeter) => {
+                    this.waterResults = {
+                        measures: response.results,
+                    };
+                    this.waterMeter = {
+                        waterMeter: waterMeter!,
+                        waterMeterWithMeasure: this.waterResults,
+                    };
+                });
+            },
+            error: (error: any) => {
+                this.noData = true;
+                this.dataSource = new MatTableDataSource();
+                this.dataSource.paginator = this.paginator!;
+            },
+        });
     }
 }
