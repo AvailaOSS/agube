@@ -73,7 +73,7 @@ export class PasswordComponent {
                     .get('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK')
                     .subscribe((response) => (message = response));
 
-                this.svcNotification.info({ message: message });
+                this.svcNotification.success({ message: message });
             },
             error: (error) => {
                 let message = JSON.stringify(error.error);
