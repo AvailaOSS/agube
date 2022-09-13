@@ -5,6 +5,7 @@ import { Configuration } from 'src/app/components/chart/chart-configure';
 
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterGauge } from './water-meter-gauge';
+import { waterMeterMonth } from './water-meter-gauge-month';
 
 @Component({
     selector: 'app-water-meter-gauge',
@@ -43,7 +44,7 @@ export class GaugeComponent implements OnChanges {
             });
     }
 
-    private computeAverage(measurement?: any) {
+    private computeAverage(measurement: waterMeterMonth) {
         let total = measurement.month_consumption;
 
         this.configureChart = {
