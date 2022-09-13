@@ -14,5 +14,5 @@
 export interface DwellingWaterMonthConsumption { 
     id: number;
     date: string;
-    monthConsumption: number;
+    month_consumption: number;
 }

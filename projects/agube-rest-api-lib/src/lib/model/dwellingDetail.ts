@@ -11,14 +11,14 @@
  */
 
 export interface DwellingDetail {
-  readonly id?: string;
+  readonly id?: number;
   readonly city?: string;
   readonly road?: string;
-  readonly number?: string;
-  readonly residentFullName?: string;
-  readonly residentPhone?: string;
-  readonly waterMeterCode?: string;
-  readonly watermeterLastMonthConsumption?: string;
-  readonly latitude?: string;
-  readonly longitude?: string;
+  readonly number?: number;
+  readonly resident_full_name?: string;
+  readonly resident_phone?: string;
+  readonly water_meter_code?: string;
+  readonly watermeter_last_month_consumption?: number;
+  readonly latitude?: number;
+  readonly longitude?: number;
 }
