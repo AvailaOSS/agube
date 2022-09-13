@@ -1,28 +1,22 @@
-from django.utils import timezone
-from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
+import calendar
+import datetime
 from agube.utils import parse_query_date, validate_query_date_filters
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
+from django.utils import timezone
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from manager.exceptions import ManagerLimitExceeded
-from manager.permissions import IsManagerAuthenticated
-from owner.models import Owner
-from owner.serializers import OwnerSerializer
-from resident.models import Resident
-from resident.permissions import IsDwellingBelongsResident
-from resident.serializers import ResidentSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-from watermeter.models import WaterMeter, WaterMeterMeasurement
-from watermeter.serializers import (WaterMeterDetailSerializer,
-                                    WaterMeterMeasurementSerializer,
-                                    WaterMeterSerializer)
-from watermeter.utils import get_watermeter_measurements_from_watermeters
 
+from address.models import Address
+from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
+from agube.pagination import CustomPagination, CustomPaginationInspector
+from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
+from comment.models import Comment
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
@@ -30,13 +24,25 @@ from dwelling.exceptions import (DwellingWithoutWaterMeterError,
                                  EmailValidationError, InvalidEmailError,
                                  OwnerAlreadyIsResidentError,
                                  UserManagerRequiredError)
-from dwelling.models import Dwelling, DwellingWaterMeter
+from dwelling.models import Dwelling, DwellingWaterMeter, DwellingComment
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingResumeSerializer,
-                                  DwellingWaterMeterMonthConsumptionSerializer)
-
-from agube.pagination import CustomPagination, CustomPaginationInspector
+                                  DwellingWaterMeterMonthConsumptionSerializer, DwellingCommentSerializer,
+                                  DwellingCommentCreateSerializer)
+from manager.exceptions import ManagerLimitExceeded
+from manager.permissions import IsManagerAuthenticated
+from owner.models import Owner
+from owner.serializers import OwnerSerializer
+from resident.models import Resident
+from resident.permissions import IsDwellingBelongsResident
+from resident.serializers import ResidentSerializer
+from user.models import UserPhone
+from watermeter.models import WaterMeter, WaterMeterMeasurement
+from watermeter.serializers import (WaterMeterDetailSerializer,
+                                    WaterMeterMeasurementSerializer,
+                                    WaterMeterSerializer)
+from watermeter.utils import get_watermeter_measurements_from_watermeters
 
 TAG = 'dwelling'
 
@@ -518,4 +524,78 @@ class DwellingWaterMeterMonthConsumption(APIView):
         response_serializer = DwellingWaterMeterMonthConsumptionSerializer(
             data=response_data)
         if response_serializer.is_valid():
-            return (Response(response_serializer.data))
+            return Response(response_serializer.data)
+
+
+class DwellingCommentCreateView(generics.CreateAPIView):
+    queryset = DwellingComment.objects.all()
+    serializer_class = DwellingCommentCreateSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(
+        operation_id="createDwellingComment",
+        tag=[TAG])
+    def post(self, request, *args, **kwargs):
+        """ Create a new Comment for this dwelling. """
+        return super(DwellingCommentListView, self).post(request, *args, **kwargs)
+
+
+class DwellingCommentListView(generics.ListAPIView):
+    serializer_class = DwellingCommentSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    def get_queryset(self):
+        #  see here: https://github.com/axnsan12/drf-yasg/issues/333#issuecomment-474883875
+        if getattr(self, 'swagger_fake_view', False):
+            # queryset just for schema generation metadata
+            return Comment.objects.none()
+        pk = self.kwargs['pk']
+        return list(map(lambda dwelling: dwelling.comment, DwellingComment.objects.filter(dwelling__id=pk)))
+
+    @swagger_auto_schema(
+        operation_id="getDwellingComments",
+        tag=[TAG])
+    def get(self, request, *args, **kwargs):
+        """ Return the full list of comments for this dwelling. """
+        return super(DwellingCommentListView, self).get(request, *args, **kwargs)
+
+
+class DwellingCommentView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DwellingCommentSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    def get_queryset(self):
+        #  see here: https://github.com/axnsan12/drf-yasg/issues/333#issuecomment-474883875
+        if getattr(self, 'swagger_fake_view', False):
+            # queryset just for schema generation metadata
+            return Comment.objects.none()
+        pk = self.kwargs['pk']
+        return Comment.objects.filter(id=pk)
+
+    @swagger_auto_schema(
+        operation_id="getComment",
+        tag=[TAG])
+    def get(self, request, *args, **kwargs):
+        """ Return the Comment """
+        return super(DwellingCommentView, self).get(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_id="updateComment",
+        tag=[TAG])
+    def put(self, request, *args, **kwargs):
+        """ Update the Comment """
+        return super(DwellingCommentView, self).put(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_id="patchComment",
+        tag=[TAG])
+    def patch(self, request, *args, **kwargs):
+        """ Update the Comment """
+        return super(DwellingCommentView, self).patch(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_id="deleteComment",
+        tag=[TAG])
+    def delete(self, request, *args, **kwargs):
+        """ Delete the Comment """
+        return super(DwellingCommentView, self).delete(request, *args, **kwargs)

@@ -1,14 +1,15 @@
-from geolocation.serializers import GeolocationSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from manager.exceptions import ManagerLimitExceeded
-from manager.models import Manager
 from rest_framework.fields import ReadOnlyField, DateField, IntegerField
 from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
-from watermeter.serializers import WaterMeterSerializer
 
+from comment.models import Comment
 from dwelling.exceptions import UserManagerRequiredError
-from dwelling.models import Dwelling
+from dwelling.models import DwellingComment, Dwelling
+from geolocation.serializers import GeolocationSerializer
+from manager.exceptions import ManagerLimitExceeded
+from manager.models import Manager
+from watermeter.serializers import WaterMeterSerializer
 
 
 class DwellingResumeSerializer(Serializer):
@@ -183,3 +184,28 @@ class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
 
     class Meta:
         ref_name = 'DwellingWaterMonthConsumption'
+
+
+class DwellingCommentCreateSerializer(ModelSerializer):
+    dwelling_id = IntegerField()
+
+    class Meta:
+        model = Comment
+        fields = ('dwelling_id', 'message')
+
+    def to_representation(self, obj):
+        return {
+            'dwelling_id': DwellingComment.objects.get(comment=obj.id).dwelling.id,
+            'message': obj.message,
+        }
+
+    def create(self, validated_data):
+        dwelling = Dwelling.objects.get(id=validated_data.pop('dwelling_id'))
+        message = validated_data.pop('message')
+        return dwelling.add_comment(message)
+
+
+class DwellingCommentSerializer(ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('message', 'created')
