@@ -18,11 +18,12 @@ import {
   HttpParams,
   HttpResponse,
 } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
 import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
+import { DwellingCommentCreate } from '../model/dwellingCommentCreate';
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { DwellingResume } from '../model/dwellingResume';
@@ -30,8 +31,9 @@ import { DwellingWaterMonthConsumption } from '../model/dwellingWaterMonthConsum
 import { Owner } from '../model/owner';
 import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
-import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
 import { WaterMeterMeasurementsPagination } from '../model/waterMeterMeasurementsPagination';
+import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
+import { Comment } from './../model/comment';
 
 @Injectable()
 export class DwellingService {
@@ -362,6 +364,78 @@ export class DwellingService {
 
     return this.httpClient.post<DwellingCreate>(
       `${this.basePath}/dwelling/create`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Create a new Comment for this dwelling.
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createDwellingComment(
+    data: DwellingCommentCreate,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<DwellingCommentCreate>;
+  public createDwellingComment(
+    data: DwellingCommentCreate,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<DwellingCommentCreate>>;
+  public createDwellingComment(
+    data: DwellingCommentCreate,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<DwellingCommentCreate>>;
+  public createDwellingComment(
+    data: DwellingCommentCreate,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling createDwellingComment.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<DwellingCommentCreate>(
+      `${this.basePath}/dwelling/comment`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -1082,6 +1156,72 @@ export class DwellingService {
 
   /**
    *
+   * Return the full list of comments for this dwelling.
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getDwellingComments(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Comment>>;
+  public getDwellingComments(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Comment>>>;
+  public getDwellingComments(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Comment>>>;
+  public getDwellingComments(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getDwellingComments.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<Comment>>(
+      `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/comment`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
    * Return current month consumption for the dwelling.
    * @param id
    * @param date Date for month consumption
@@ -1089,25 +1229,25 @@ export class DwellingService {
    * @param reportProgress flag to report request and response progress.
    */
   public getDwellingMonthConsumption(
-    id: string,
+    id: number,
     date?: string,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<DwellingWaterMonthConsumption>;
   public getDwellingMonthConsumption(
-    id: string,
+    id: number,
     date?: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<DwellingWaterMonthConsumption>>;
   public getDwellingMonthConsumption(
-    id: string,
+    id: number,
     date?: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<DwellingWaterMonthConsumption>>;
   public getDwellingMonthConsumption(
-    id: string,
+    id: number,
     date?: string,
     observe: any = 'body',
     reportProgress: boolean = false
