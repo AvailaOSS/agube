@@ -67,7 +67,8 @@
                 <ng-container matColumnDef="measurement">
                     <th mat-header-cell *matHeaderCellDef>measurement</th>
                     <td mat-cell *matCellDef="let element">
-                        <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.MEASUREMENT.TOOLTIP' | translate }}">{{ element.measurement }}
+                        <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.MEASUREMENT.TOOLTIP' | translate }}"
+                            >{{ element.measurement }}
                             <span matSuffix>m<sup>3</sup></span>
                         </span>
                     </td>
@@ -76,34 +77,45 @@
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef>date</th>
                     <td mat-cell *matCellDef="let element">
-                       <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.DATE.TOOLTIP' | translate }}">{{ element.date | date: 'longDate' }} {{ element.date | date: 'shortTime' }}</span>
+                        <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.DATE.TOOLTIP' | translate }}"
+                            >{{ element.date | date: 'longDate' }} {{ element.date | date: 'shortTime' }}</span
+                        >
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="daysApart">
                     <th mat-header-cell *matHeaderCellDef>daysApart</th>
-                    <td mat-cell *matCellDef="let element; let i = index;">
-                       <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART.TOOLTIP' | translate }}">{{ computeDaysApart(element, i) }} {{ 'PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART' | translate }}</span>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART.TOOLTIP' | translate }}"
+                            >{{ computeDaysApart(element, i) }}
+                            {{ 'PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART' | translate }}</span
+                        >
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="measurement_diff">
                     <th mat-header-cell *matHeaderCellDef>measurement_diff</th>
-                    <td
-                        mat-cell
-                        *matCellDef="let element; let i = index;"
-                    >
-                        <span [ngClass]="!isOverflow(element) ? 'no-overflow' : 'overflow'"
-                        matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP' | translate }}">
-                        {{ element.measurement_diff }}
-                        <span matSuffix> L</span></span>
-                        / <span matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP.MAX_DAILY_CONSUMPTION' | translate }}">{{ element.max_daily_consumption }}<span matSuffix> L</span></span>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <span
+                            [ngClass]="!isOverflow(element) ? 'no-overflow' : 'overflow'"
+                            matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP' | translate }}"
+                        >
+                            {{ element.measurement_diff }}
+                            <span matSuffix> L</span></span
+                        >
+                        /
+                        <span
+                            matTooltip="{{
+                                'PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP.MAX_DAILY_CONSUMPTION' | translate
+                            }}"
+                            >{{ element.max_daily_consumption }}<span matSuffix> L</span></span
+                        >
                         <button
                             mat-button
                             matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}"
-                            *ngIf="i===0"
+                            *ngIf="i === 0"
                             (click)="openEditMeasureDialog()"
-                            disabled="{{!isMeasurementEditable(element)}}"
+                            disabled="{{ !isMeasurementEditable(element) }}"
                         >
                             <mat-icon>edit_note</mat-icon>
                             {{ 'GENERAL.BUTTON.EDIT' | translate }}
@@ -114,18 +126,22 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
             <ng-template #emptyDataSource>
-                <p class="no-data">No contiene lecturas entre estas fechas</p>
+                <p class="no-data">
+                    {{ 'PAGE.WATER_METER.DETAIL.EMPTYDATA' | translate }}
+                </p>
             </ng-template>
-
         </div>
         <ng-template #firstDateIsNotValid>
-            <p class="no-data">La fecha introducida en Desde no puede ser posterior a la fecha introducida en Hasta</p>
+            <p class="no-data">{{ 'PAGE.WATER_METER.DETAIL.FIRSTDATE.INVALID' | translate }}</p>
         </ng-template>
 
         <div *ngIf="isFirstDateValid" [align]="'end'" class="final-table-measurement">
             <mat-form-field appearance="standard">
                 <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TEXT' | translate }}</mat-label>
-                <mat-select matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}" [(value)]="pageSize">
+                <mat-select
+                    matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}"
+                    [(value)]="pageSize"
+                >
                     <mat-option *ngFor="let page of pages" value="{{ page }}" (click)="loadWaterMeterMeasures()">
                         {{ page }}
                     </mat-option>
