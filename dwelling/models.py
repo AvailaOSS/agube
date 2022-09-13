@@ -142,6 +142,22 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
         return round(month_consumption)
 
+    def get_last_month_consumption(self):
+        now = timezone.now()
+        return self.get_month_consumption(now -
+                                          datetime.timedelta(days=now.day))
+
+    def get_last_month_max_consumption(self):
+        now = timezone.now()
+        month_last_day = now - datetime.timedelta(days=now.day)
+        month_days = calendar.monthrange(month_last_day.year,
+                                         month_last_day.month)[1]
+        return month_days * self.get_max_daily_consumption(month_last_day)
+
+    def get_max_daily_consumption(self, date):
+        return self.manager.get_closest_config(date).max_daily_consumption
+
+
 class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
                          models.Model):
     """A class used to represent an Dwelling Water Meter"""

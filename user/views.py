@@ -264,44 +264,14 @@ class UserDwellingDetailView(APIView):
                                                 is_owner=False))
         return Response(serialized_data_list)
 
-    def __serialize_user_dwelling_data(self, dwelling_list_set, is_owner,
-                                       is_resident):
+    def __serialize_user_dwelling_data(self, dwelling_list_set, is_owner: bool,
+                                       is_resident: bool):
         list_of_serialized: list[UserDwellingDetailSerializer] = []
         for dwelling in dwelling_list_set:
-            water_meter = dwelling.get_current_water_meter()
-            water_meter_code = ''
-            if water_meter:
-                water_meter_code = water_meter.code
-
-            resident_first_name = ''
-            resident_phone_number = ''
-            dwelling_resident: Resident = dwelling.get_current_resident()
-            if dwelling_resident != None:
-                resident_first_name = dwelling_resident.user.first_name
-                try:
-                    user_phone: UserPhone = UserPhone.objects.get(
-                        user=dwelling_resident.user, main=True)
-                    if user_phone:
-                        resident_phone_number = user_phone.phone.phone_number
-                except ObjectDoesNotExist:
-                    pass
-            address: Address = dwelling.geolocation.address
-            data = {
-                'id': dwelling.id,
-                'water_meter_code': water_meter_code,
-                'city': address.city,
-                'road': address.road,
-                'number': dwelling.geolocation.number,
-                'resident_first_name': resident_first_name,
-                'resident_phone': resident_phone_number,
-                'is_owner': is_owner,
-                'is_resident': is_resident,
-                'latitude': dwelling.geolocation.latitude,
-                'longitude': dwelling.geolocation.longitude
-            }
-
-            list_of_serialized.append(
-                UserDwellingDetailSerializer(data, many=False).data)
+            serializer = UserDwellingDetailSerializer(dwelling, many=False)
+            serializer.set_is_owner(is_owner)
+            serializer.set_is_resident(is_resident)
+            list_of_serialized.append(serializer.data)
         return list_of_serialized
 
 

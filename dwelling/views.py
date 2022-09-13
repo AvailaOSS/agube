@@ -1,7 +1,6 @@
 from django.utils import timezone
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
 from agube.utils import parse_query_date, validate_query_date_filters
-from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg import openapi
@@ -18,7 +17,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-from user.models import UserPhone
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
@@ -87,47 +85,12 @@ class DwellingListView(APIView):
         """
         # Get Dwelling
         manager_id = self.request.user.id
-        houses: list[Dwelling] = Dwelling.objects.filter(
+        dwelling_list: list[Dwelling] = Dwelling.objects.filter(
             manager__user_id=manager_id, discharge_date__isnull=True)
 
         list_of_serialized: list[DwellingDetailSerializer] = []
-        for dwelling in houses:
-            water_meter_code: str = ''
-            resident_first_name = ''
-            user_phone_number = ''
-
-            water_meter = dwelling.get_current_water_meter()
-            if water_meter:
-                water_meter_code = water_meter.code
-
-            has_resident = dwelling.get_current_resident()
-            if has_resident:
-                resident = has_resident.user
-                resident_first_name = resident.first_name
-                try:
-                    user_phone: UserPhone = UserPhone.objects.get(
-                        user=resident, main=True)
-                    if user_phone:
-                        user_phone_number = user_phone.phone.phone_number
-                except ObjectDoesNotExist:
-                    pass
-
-            address: Address = dwelling.geolocation.address
-            data = {
-                'id': dwelling.id,
-                'city': address.city,
-                'road': address.road,
-                'number': dwelling.geolocation.number,
-                'water_meter_code': water_meter_code,
-                'resident_first_name': resident_first_name,
-                'resident_phone': user_phone_number,
-                'latitude': dwelling.geolocation.latitude,
-                'longitude': dwelling.geolocation.longitude,
-            }
-
-            list_of_serialized.append(
-                DwellingDetailSerializer(data, many=False).data)
-
+        for dwelling in dwelling_list:
+            list_of_serialized.append(DwellingDetailSerializer(dwelling, many=False).data)
         return Response(list_of_serialized)
 
 
