@@ -76,6 +76,14 @@ class DwellingListView(APIView):
 
     @swagger_auto_schema(
         operation_id="getDwellings",
+        manual_parameters=[
+            openapi.Parameter(
+                'inAlert',
+                openapi.IN_QUERY,
+                description=
+                "Alert status: None/False -> All Manager Dwellings; True -> Manager Dwellings whose consumption is over the limit",
+                type=openapi.TYPE_BOOLEAN)
+        ],
         responses={200: DwellingDetailSerializer(many=True)},
         tags=[TAG],
     )
@@ -83,14 +91,25 @@ class DwellingListView(APIView):
         """
         Return a list of all Dwelling Detail.
         """
-        # Get Dwelling
+        # Request filter
+        in_alert = request.query_params.get('inAlert')
+        do_filter_alert = True if in_alert == 'true' else False
+
+        # Get Dwellings for user as manager
         manager_id = self.request.user.id
         dwelling_list: list[Dwelling] = Dwelling.objects.filter(
             manager__user_id=manager_id, discharge_date__isnull=True)
-
+            
         list_of_serialized: list[DwellingDetailSerializer] = []
         for dwelling in dwelling_list:
-            list_of_serialized.append(DwellingDetailSerializer(dwelling, many=False).data)
+
+            if do_filter_alert:
+                # Jump to next iteration if consumption is OK (< limit)
+                if dwelling.get_last_month_consumption() < dwelling.get_last_month_max_consumption():
+                    continue
+                
+            list_of_serialized.append(
+                DwellingDetailSerializer(dwelling, many=False).data)
         return Response(list_of_serialized)
 
 
