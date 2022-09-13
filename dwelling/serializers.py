@@ -203,9 +203,3 @@ class DwellingCommentCreateSerializer(ModelSerializer):
         dwelling = Dwelling.objects.get(id=validated_data.pop('dwelling_id'))
         message = validated_data.pop('message')
         return dwelling.add_comment(message)
-
-
-class DwellingCommentSerializer(ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = ('message', 'created')

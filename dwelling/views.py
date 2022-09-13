@@ -17,6 +17,7 @@ from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError,
 from agube.pagination import CustomPagination, CustomPaginationInspector
 from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
 from comment.models import Comment
+from comment.serializers import CommentSerializer
 from dwelling.assemblers import (PersonTag, create_user,
                                  get_dwelling_owner_serialized,
                                  get_dwelling_resident_serialized)
@@ -28,7 +29,7 @@ from dwelling.models import Dwelling, DwellingWaterMeter, DwellingComment
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingResumeSerializer,
-                                  DwellingWaterMeterMonthConsumptionSerializer, DwellingCommentSerializer,
+                                  DwellingWaterMeterMonthConsumptionSerializer,
                                   DwellingCommentCreateSerializer)
 from manager.exceptions import ManagerLimitExceeded
 from manager.permissions import IsManagerAuthenticated
@@ -541,7 +542,7 @@ class DwellingCommentCreateView(generics.CreateAPIView):
 
 
 class DwellingCommentListView(generics.ListAPIView):
-    serializer_class = DwellingCommentSerializer
+    serializer_class = CommentSerializer
     permission_classes = [IsManagerAuthenticated]
 
     def get_queryset(self):
@@ -558,44 +559,3 @@ class DwellingCommentListView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         """ Return the full list of comments for this dwelling. """
         return super(DwellingCommentListView, self).get(request, *args, **kwargs)
-
-
-class DwellingCommentView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = DwellingCommentSerializer
-    permission_classes = [IsManagerAuthenticated]
-
-    def get_queryset(self):
-        #  see here: https://github.com/axnsan12/drf-yasg/issues/333#issuecomment-474883875
-        if getattr(self, 'swagger_fake_view', False):
-            # queryset just for schema generation metadata
-            return Comment.objects.none()
-        pk = self.kwargs['pk']
-        return Comment.objects.filter(id=pk)
-
-    @swagger_auto_schema(
-        operation_id="getComment",
-        tag=[TAG])
-    def get(self, request, *args, **kwargs):
-        """ Return the Comment """
-        return super(DwellingCommentView, self).get(request, *args, **kwargs)
-
-    @swagger_auto_schema(
-        operation_id="updateComment",
-        tag=[TAG])
-    def put(self, request, *args, **kwargs):
-        """ Update the Comment """
-        return super(DwellingCommentView, self).put(request, *args, **kwargs)
-
-    @swagger_auto_schema(
-        operation_id="patchComment",
-        tag=[TAG])
-    def patch(self, request, *args, **kwargs):
-        """ Update the Comment """
-        return super(DwellingCommentView, self).patch(request, *args, **kwargs)
-
-    @swagger_auto_schema(
-        operation_id="deleteComment",
-        tag=[TAG])
-    def delete(self, request, *args, **kwargs):
-        """ Delete the Comment """
-        return super(DwellingCommentView, self).delete(request, *args, **kwargs)
