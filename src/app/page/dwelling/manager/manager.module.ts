@@ -21,11 +21,8 @@ import { ManagerComponent } from './manager.component';
 import { TableReloadService } from './table/table-reload.service';
 import { TableComponent } from './table/table.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { TableTabComponent } from './table-tab/table-tab.component';
-import { AlertsComponent } from './alerts/alerts.component';
-
 @NgModule({
-    declarations: [ManagerComponent, TableComponent, InfoComponent, TableTabComponent,AlertsComponent],
+    declarations: [ManagerComponent, TableComponent, InfoComponent],
     imports: [
         CommonModule,
         ManagerRoutingModule,
@@ -43,7 +40,6 @@ import { AlertsComponent } from './alerts/alerts.component';
         TranslateModule,
         MatPaginatorModule,
         MatTabsModule,
-
     ],
     providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })

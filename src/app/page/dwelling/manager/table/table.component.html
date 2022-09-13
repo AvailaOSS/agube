@@ -87,6 +87,28 @@
                     {{ element.resident_phone }}
                 </td>
             </ng-container>
+
+            <ng-container matColumnDef="water_meter">
+                <th mat-header-cell *matHeaderCellDef>water_meter</th>
+                <td
+                    class="priority-5"
+                    mat-cell
+                    *matCellDef="let element; let i = index"
+                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}"
+                >
+                    {{ accumulate![i].month_consumption | json }}
+                    <mat-icon
+                        *ngIf="+accumulate![i].month_consumption! >= +managerConfiguration!.max_daily_consumption!"
+                        class="overflow"
+                        >trending_up</mat-icon
+                    >
+                    <mat-icon
+                    *ngIf="+accumulate![i].month_consumption! < +managerConfiguration!.max_daily_consumption!"
+                    class="no-overflow"
+                    >trending_down</mat-icon
+                >
+                </td>
+            </ng-container>
             <tr
                 mat-row
                 class="table-row"

@@ -3,7 +3,10 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DwellingDetail } from '@availa/agube-rest-api';
+import { DwellingDetail, DwellingService, ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
+import { format } from 'date-fns';
+import { DateMeasurementFilter } from 'src/app/page/water-meter/detail/date-measurement-filter';
+import { waterMeterMonth } from 'src/app/page/water-meter/gauge/water-meter-gauge-month';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
@@ -14,21 +17,33 @@ import { TableReloadService } from './table-reload.service';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
-    public displayedColumns: string[] = ['water_meter_code', 'full_address', 'resident_first_name', 'resident_phone'];
+    public displayedColumns: string[] = [
+        'water_meter_code',
+        'full_address',
+        'resident_first_name',
+        'resident_phone',
+        'water_meter',
+    ];
     public dataSource: MatTableDataSource<DwellingDetail> = new MatTableDataSource();
-
+    public accumulate: waterMeterMonth[] | undefined = [];
     public isSelected: DwellingDetail | undefined = undefined;
 
     public filter = new FormControl('');
 
     public pageSize = 12;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+    public managerConfiguration: ManagerConfiguration | undefined;
     constructor(
         private router: Router,
         private svcDwelling: DwellingCacheService,
-        private svcTableReload: TableReloadService
-    ) {}
+        private svcTableReload: TableReloadService,
+        private svcManager: ManagerService,
+        private svcDwellingService: DwellingService
+    ) {
+        this.svcManager.getManagerConfiguration().subscribe((res) => {
+            this.managerConfiguration = res;
+        });
+    }
 
     ngOnInit(): void {
         this.svcTableReload.reload().subscribe((reload) => {
@@ -66,8 +81,22 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     private loadDwellings() {
         this.svcDwelling.get().then((response) => {
+            response.forEach((dwelling) => {
+                this.getDwellingWaterMeter(dwelling.id!);
+            });
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
+        });
+    }
+    public getDwellingWaterMeter(waterMeter: number) {
+        let date: DateMeasurementFilter = {
+            dateEnd: format(new Date(), 'yyyy-MM-dd'),
+        };
+
+        this.svcDwellingService.getDwellingMonthConsumption(String(waterMeter), date.dateEnd).subscribe((res) => {
+            if (res) {
+                this.accumulate!.push(res);
+            }
         });
     }
 }

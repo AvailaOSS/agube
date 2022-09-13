@@ -41,6 +41,9 @@
         .priority-4 {
             display: none;
         }
+        .priority-5 {
+            display: none;
+        }
 
         .filter {
             display: block !important;
@@ -76,5 +79,14 @@
     }
     mat-card-content {
         margin: 0px $margin-x-medium 0px $margin-x-medium;
+    }
+    .overflow {
+        color: #ff5f5f;
+        margin-left: 5px;
+    }
+
+    .no-overflow {
+        color: #009500d1;
+        margin-left: 5px;
     }
 }
