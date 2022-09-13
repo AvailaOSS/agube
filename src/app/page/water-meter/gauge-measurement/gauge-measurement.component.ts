@@ -18,19 +18,19 @@ export class GaugeMeasurementComponent extends DetailComponent implements OnInit
     constructor(
         protected override svcWaterMeterManager: WaterMeterManager,
         public override dialog: MatDialog,
-        protected override svcPersistance: WaterMeterPersistantService,
+        protected override svcWaterMeterPersistance: WaterMeterPersistantService,
         protected svcManager: ManagerService,
         public override propertiesServices: GetPropertiesService,
         public override svcNotification: NotificationService
     ) {
-        super(svcWaterMeterManager, dialog, svcPersistance, propertiesServices, svcNotification);
+        super(svcWaterMeterManager, dialog, svcWaterMeterPersistance, propertiesServices, svcNotification);
     }
 
     override ngOnInit(): void {
         this.svcManager
             .getManagerConfiguration()
             .subscribe((response) => (this.maxDailyConsumption = +response.max_daily_consumption));
-        this.svcPersistance.get().subscribe((res) => {
+        this.svcWaterMeterPersistance.get().subscribe((res) => {
             super.ngOnInit();
             super.waterMeterId = res?.id;
         });
