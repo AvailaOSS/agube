@@ -245,7 +245,7 @@ export class DetailComponent implements OnInit {
 
     private initializeDates() {
         let dates = dateValidator(this.dateStart, this.dateEnd);
-        this.dateStart.setValue(dates.dateStart);
+        this.dateStart.setValue('');
         this.dateEnd.setValue(dates.dateEnd);
         this.isFirstDateValid = true;
     }
