@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DwellingService } from '@availa/agube-rest-api';
-import { format } from 'date-fns';
+import { DwellingWaterMonthConsumption } from '@availa/agube-rest-api/lib/model/dwellingWaterMonthConsumption';
+import { differenceInDays, format } from 'date-fns';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
@@ -43,8 +44,12 @@ export class GaugeComponent implements OnChanges {
             });
     }
 
-    private computeAverage(measurement?: any) {
-        let total = measurement.month_consumption;
+    private computeAverage(measurement:DwellingWaterMonthConsumption ) {
+        let date = new Date();
+        let dateMonth = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate());
+
+        let dateAccumulate = differenceInDays(date, dateMonth);
+        let total = measurement.month_consumption! / dateAccumulate;
 
         this.configureChart = {
             id: 'water_meter_gauge',

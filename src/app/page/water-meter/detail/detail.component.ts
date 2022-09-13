@@ -255,6 +255,7 @@ export class DetailComponent implements OnInit {
             this.waterMeter = {
                 waterMeter: waterMeter!,
                 dwellingId: this.dwellingId,
+                reservoirId: String(this.reservoirId) || undefined,
                 waterMeterWithMeasure: {
                     measures: measures,
                 },

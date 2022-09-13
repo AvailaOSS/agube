@@ -20,11 +20,12 @@ export class ManagerPageComponent extends SidebarComponent {
                 navigationRoute: 'manager/home/manager/client/dwellings',
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
                 icon: 'store',
+
             },
             {
                 navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
-                icon: 'holiday_village',
+                icon: 'holiday_village'
             },
             {
                 navigationRoute: 'manager/home/reservoirs',

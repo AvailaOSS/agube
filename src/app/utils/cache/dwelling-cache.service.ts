@@ -24,7 +24,7 @@ export class DwellingCacheService implements ICacheService<DwellingDetail> {
                     console.debug('dwellings received directly from backend');
                     resolve(this.cache);
                     return;
-                }
+                },
             });
         });
         return promise;
