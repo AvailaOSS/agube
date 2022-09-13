@@ -11,8 +11,7 @@ export class DwellingCacheService implements ICacheService<DwellingDetail> {
 
     constructor(private svcDwelling: DwellingService, private svcAccount: AccountService) {}
 
-    public get(filter?: boolean): Promise<DwellingDetail[]> {
-        console.log(filter);
+    public get(): Promise<DwellingDetail[]> {
         var promise = new Promise<DwellingDetail[]>((resolve, reject) => {
             if (this.cache.length > 0) {
                 console.debug('dwellings from cache');

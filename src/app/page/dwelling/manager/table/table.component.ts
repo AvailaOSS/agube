@@ -5,10 +5,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DwellingDetail, DwellingService, ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
-import { format } from 'date-fns';
-import { waterMeterMonth } from 'src/app/page/water-meter/gauge/water-meter-gauge-month';
+import { DwellingWaterMonthConsumption } from '@availa/agube-rest-api/lib/model/dwellingWaterMonthConsumption';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
-import { dateValidator } from 'src/app/utils/date/date-filter';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
 
@@ -26,7 +24,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         'water_meter',
     ];
     public dataSource: MatTableDataSource<DwellingDetail> = new MatTableDataSource();
-    public accumulate: waterMeterMonth[] | undefined = [];
+    public accumulate: DwellingWaterMonthConsumption[] | undefined = [];
     public isSelected: DwellingDetail | undefined = undefined;
 
     public filter = new FormControl('');
@@ -80,33 +78,23 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
 
-    private loadDwellings(filter?: boolean) {
-        this.svcDwelling.get(filter).then((response) => {
-            response.forEach((dwelling) => {
-                this.getDwellingWaterMeter(dwelling.id!);
-            });
+    private loadDwellings() {
+        this.svcDwelling.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
         });
     }
-    public getDwellingWaterMeter(waterMeter: number) {
-        let dateEnd = format(new Date(), 'yyyy-MM-dd');
 
-        this.svcDwellingService.getDwellingMonthConsumption(String(waterMeter), dateEnd).subscribe((res) => {
-            if (res) {
-                this.accumulate!.push(res);
-            }
-        });
-    }
     public filterOptions(evt: MatSlideToggleChange) {
         if (evt.checked) {
-            // this.loadDwellings()
-            let data = this.dataSource.data.filter(dat => +dat.water_meter_code === 333)
-            this.dataSource = new MatTableDataSource(data);
-            this.dataSource.paginator = this.paginator!;
+            this.svcDwellingService.getDwellings(evt.checked).subscribe({
+                next: (response) => {
+                    this.dataSource = new MatTableDataSource(response);
+                    this.dataSource.paginator = this.paginator!;
+                },
+            });
         } else {
-
-            this.loadDwellings(evt.checked);
+            this.loadDwellings();
         }
     }
 }

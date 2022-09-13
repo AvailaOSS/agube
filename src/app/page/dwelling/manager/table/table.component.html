@@ -29,7 +29,7 @@
                 <mat-slide-toggle
                     matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.TOGGLE.DWELLING_FILTER_TOOLTIP' | translate }}"
                     (change)="filterOptions($event)"
-                    style="margin-right: 10px;"
+                    style="margin-right: 10px"
                     >{{ 'PAGE.DWELLING.MANAGER.TABLE.TOGGLE.DWELLING_FILTER' | translate }}</mat-slide-toggle
                 >
                 <button
@@ -78,7 +78,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'GENERAL.TEXT.RESIDENT' | translate }}"
                 >
-                    {{ element.resident_first_name }}
+                    {{ element.resident_full_name }}
                 </td>
             </ng-container>
 
@@ -102,15 +102,11 @@
                     *matCellDef="let element; let i = index"
                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}"
                 >
-                    {{ accumulate![i].month_consumption | json }}
-                    <mat-icon
-                        *ngIf="+accumulate![i].month_consumption! >= +managerConfiguration!.max_daily_consumption!"
-                        class="overflow"
+                    {{ element.watermeter_last_month_consumption }}
+                    <mat-icon *ngIf="element.watermeter_last_month_consumption > this.managerConfiguration?.max_daily_consumption!" class="overflow"
                         >trending_up</mat-icon
                     >
-                    <mat-icon
-                        *ngIf="+accumulate![i].month_consumption! < +managerConfiguration!.max_daily_consumption!"
-                        class="no-overflow"
+                    <mat-icon *ngIf="element.watermeter_last_month_consumption <= this.managerConfiguration?.max_daily_consumption!" class="no-overflow"
                         >trending_down</mat-icon
                     >
                 </td>
