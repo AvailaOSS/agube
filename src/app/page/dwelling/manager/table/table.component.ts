@@ -8,6 +8,7 @@ import { DwellingDetail, DwellingService, ManagerConfiguration, ManagerService }
 import { format } from 'date-fns';
 import { waterMeterMonth } from 'src/app/page/water-meter/gauge/water-meter-gauge-month';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { dateValidator } from 'src/app/utils/date/date-filter';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
 
@@ -89,11 +90,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
     public getDwellingWaterMeter(waterMeter: number) {
-        let date: any = {
-            dateEnd: format(new Date(), 'yyyy-MM-dd'),
-        };
+        let dateEnd = format(new Date(), 'yyyy-MM-dd');
 
-        this.svcDwellingService.getDwellingMonthConsumption(String(waterMeter), date.dateEnd).subscribe((res) => {
+        this.svcDwellingService.getDwellingMonthConsumption(String(waterMeter), dateEnd).subscribe((res) => {
             if (res) {
                 this.accumulate!.push(res);
             }
@@ -101,6 +100,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
     public filterOptions(evt: MatSlideToggleChange) {
         if (evt.checked) {
+            // this.loadDwellings()
+            let data = this.dataSource.data.filter(dat => +dat.water_meter_code === 333)
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.paginator = this.paginator!;
+        } else {
+
             this.loadDwellings(evt.checked);
         }
     }
