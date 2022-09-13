@@ -7,7 +7,7 @@ export interface DateFilter {
 }
 
 export function formatDate(date: any): string {
-    return date = String(format(date, 'yyyy-MM-dd'));
+    return (date = String(format(date, 'yyyy-MM-dd')));
 }
 
 export function dateValidator(dateStart: FormControl, dateEnd: FormControl): DateFilter {

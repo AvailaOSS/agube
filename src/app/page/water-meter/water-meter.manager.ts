@@ -54,8 +54,8 @@ export class WaterMeterManager {
                     id,
                     undefined,
                     pageSize,
-                    date.dateStart ? String(date.dateStart) : undefined,
-                    date.dateEnd ? String(date.dateEnd) : undefined
+                    date.dateStart ? formatDate(date.dateStart) : undefined,
+                    date.dateEnd ? formatDate(date.dateEnd) : undefined
                 );
             default:
                 throw new Error('type in ' + type + ' is not valid...');
