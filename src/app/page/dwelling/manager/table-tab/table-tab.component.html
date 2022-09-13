@@ -2,15 +2,16 @@
     <mat-tab-group mat-align-tabs="center" dynamicHeight>
         <mat-tab label="Tabla">
             <ng-template mat-tab-label>
-                <mat-icon>list</mat-icon>
-                Viviendas totales
+                <mat-icon matTooltip="{{ 'PAGE.DWELLING.MANAGER.TAB.DWELLING' | translate }}">list</mat-icon>
+                {{ 'PAGE.DWELLING.MANAGER.TAB.DWELLING' | translate }}
             </ng-template>
             <app-table></app-table>
         </mat-tab>
         <mat-tab label="Alertas">
             <ng-template mat-tab-label>
-                <mat-icon>warning</mat-icon>
-                Alertas
+                <mat-icon matTooltip="{{ 'PAGE.DWELLING.MANAGER.TAB.ALERT' | translate }}">warning</mat-icon>
+
+                {{ 'PAGE.DWELLING.MANAGER.TAB.ALERT' | translate }}
             </ng-template>
             alertas
         </mat-tab>
