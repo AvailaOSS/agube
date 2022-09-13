@@ -1,4 +1,4 @@
-<mat-card class="table-card">
+<mat-card>
     <mat-tab-group mat-align-tabs="center" dynamicHeight>
         <mat-tab label="Tabla">
             <ng-template mat-tab-label>
@@ -10,10 +10,9 @@
         <mat-tab label="Alertas">
             <ng-template mat-tab-label>
                 <mat-icon matTooltip="{{ 'PAGE.DWELLING.MANAGER.TAB.ALERT' | translate }}">warning</mat-icon>
-
                 {{ 'PAGE.DWELLING.MANAGER.TAB.ALERT' | translate }}
             </ng-template>
-            alertas
+            <app-alerts></app-alerts>
         </mat-tab>
     </mat-tab-group>
 </mat-card>
