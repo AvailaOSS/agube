@@ -20,7 +20,10 @@ import { ManagerRoutingModule } from './manager-routing.module';
 import { ManagerComponent } from './manager.component';
 import { TableReloadService } from './table/table-reload.service';
 import { TableComponent } from './table/table.component';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+
 @NgModule({
     declarations: [ManagerComponent, TableComponent, InfoComponent],
     imports: [
@@ -39,7 +42,8 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatTooltipModule,
         TranslateModule,
         MatPaginatorModule,
-        MatTabsModule,
+        MatButtonToggleModule,
+        MatSlideToggleModule
     ],
     providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })

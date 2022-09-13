@@ -26,6 +26,11 @@
                 </mat-form-field>
             </div>
             <div [align]="'end'">
+                <mat-slide-toggle
+                    matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.TOGGLE.DWELLING_FILTER_TOOLTIP' | translate }}"
+                    (change)="filterOptions($event)"
+                    >{{ 'PAGE.DWELLING.MANAGER.TABLE.TOGGLE.DWELLING_FILTER' | translate }}</mat-slide-toggle
+                >
                 <button
                     mat-raised-button
                     color="primary"
@@ -103,10 +108,10 @@
                         >trending_up</mat-icon
                     >
                     <mat-icon
-                    *ngIf="+accumulate![i].month_consumption! < +managerConfiguration!.max_daily_consumption!"
-                    class="no-overflow"
-                    >trending_down</mat-icon
-                >
+                        *ngIf="+accumulate![i].month_consumption! < +managerConfiguration!.max_daily_consumption!"
+                        class="no-overflow"
+                        >trending_down</mat-icon
+                    >
                 </td>
             </ng-container>
             <tr
