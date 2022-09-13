@@ -243,6 +243,8 @@
     "PAGE.WATER_METER.DETAIL.SELECTOR.TEXT": "Measures to Show",
     "PAGE.WATER_METER.DETAIL.SELECTOR.PREV": "Previous page",
     "PAGE.WATER_METER.DETAIL.SELECTOR.NEXT": "Next page",
+    "PAGE.WATER_METER.DETAIL.FIRSTDATE.INVALID": "The date entered in From cannot be later than the date entered in To",
+    "PAGE.WATER_METER.DETAIL.EMPTYDATA": "Contains no readings between these dates",
     "PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP": "Change the total readings to display",
     "PAGE.WATER_METER.DETAIL.FILTER.TEXT": "month-day, year, month, day",
     "PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP": "Search",

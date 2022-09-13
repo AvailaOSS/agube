@@ -243,6 +243,8 @@
     "PAGE.WATER_METER.DETAIL.SELECTOR.TEXT": "Cantidade de Lecturas",
     "PAGE.WATER_METER.DETAIL.SELECTOR.PREV": "Páxina anterior",
     "PAGE.WATER_METER.DETAIL.SELECTOR.NEXT": "Páxina seguinte",
+    "PAGE.WATER_METER.DETAIL.FIRSTDATE.INVALID": "A fecha introducida en Desde non pode ser posterior á fecha introducida en Hasta",
+    "PAGE.WATER_METER.DETAIL.EMPTYDATA": "Non contide lecturas entre estas fechas",
     "PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP": "Cambiar o total das lecturas a ensiñar",
     "PAGE.WATER_METER.DETAIL.FILTER.TEXT": " mes-día, año, mes, día",
     "PAGE.WATER_METER.DETAIL.FILTER.TEXT.TOOLTIP": "Buscar",
