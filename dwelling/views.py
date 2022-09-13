@@ -1,8 +1,6 @@
-import datetime, calendar
 from django.utils import timezone
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
-from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
-from address.models import Address
+from agube.utils import parse_query_date, validate_query_date_filters
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from drf_yasg import openapi
@@ -19,7 +17,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-from user.models import UserPhone
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
@@ -79,6 +76,14 @@ class DwellingListView(APIView):
 
     @swagger_auto_schema(
         operation_id="getDwellings",
+        manual_parameters=[
+            openapi.Parameter(
+                'inAlert',
+                openapi.IN_QUERY,
+                description=
+                "Alert status: None/False -> All Manager Dwellings; True -> Manager Dwellings whose consumption is over the limit",
+                type=openapi.TYPE_BOOLEAN)
+        ],
         responses={200: DwellingDetailSerializer(many=True)},
         tags=[TAG],
     )
@@ -86,49 +91,25 @@ class DwellingListView(APIView):
         """
         Return a list of all Dwelling Detail.
         """
-        # Get Dwelling
+        # Request filter
+        in_alert = request.query_params.get('inAlert')
+        do_filter_alert = True if in_alert == 'true' else False
+
+        # Get Dwellings for user as manager
         manager_id = self.request.user.id
-        houses: list[Dwelling] = Dwelling.objects.filter(
+        dwelling_list: list[Dwelling] = Dwelling.objects.filter(
             manager__user_id=manager_id, discharge_date__isnull=True)
-
+            
         list_of_serialized: list[DwellingDetailSerializer] = []
-        for dwelling in houses:
-            water_meter_code: str = ''
-            resident_first_name = ''
-            user_phone_number = ''
+        for dwelling in dwelling_list:
 
-            water_meter = dwelling.get_current_water_meter()
-            if water_meter:
-                water_meter_code = water_meter.code
-
-            has_resident = dwelling.get_current_resident()
-            if has_resident:
-                resident = has_resident.user
-                resident_first_name = resident.first_name
-                try:
-                    user_phone: UserPhone = UserPhone.objects.get(
-                        user=resident, main=True)
-                    if user_phone:
-                        user_phone_number = user_phone.phone.phone_number
-                except ObjectDoesNotExist:
-                    pass
-
-            address: Address = dwelling.geolocation.address
-            data = {
-                'id': dwelling.id,
-                'city': address.city,
-                'road': address.road,
-                'number': dwelling.geolocation.number,
-                'water_meter_code': water_meter_code,
-                'resident_first_name': resident_first_name,
-                'resident_phone': user_phone_number,
-                'latitude': dwelling.geolocation.latitude,
-                'longitude': dwelling.geolocation.longitude,
-            }
-
+            if do_filter_alert:
+                # Jump to next iteration if consumption is OK (< limit)
+                if dwelling.get_last_month_consumption() < dwelling.get_last_month_max_consumption():
+                    continue
+                
             list_of_serialized.append(
-                DwellingDetailSerializer(data, many=False).data)
-
+                DwellingDetailSerializer(dwelling, many=False).data)
         return Response(list_of_serialized)
 
 
@@ -515,32 +496,18 @@ class DwellingWaterMeterMonthConsumption(APIView):
         # Request filters
         request_query_date = request.query_params.get('date')
         if request_query_date is None:
-            request_date = timezone.now().date
+            request_date = timezone.now().date()
         else:
             request_date = parse_query_date(request_query_date)
             if request_date is None:
                 return Response(
                     {'status': 'query date has an incorrect format'},
                     status=HTTP_400_BAD_REQUEST)
-        month_start = datetime.date(request_date.year, request_date.month, 1)
-        month_end = month_start + datetime.timedelta(
-            days=calendar.monthrange(month_start.year, month_start.month)[1])
 
-        # Get dwelling water meter historical
-        watermeter_list = dwelling.get_historical_water_meter()
-        if watermeter_list == []:
-            raise DwellingWithoutWaterMeterError()
-        # Get measurement list filtered between dates
-        measurement_list = get_watermeter_measurements_from_watermeters(
-            watermeter_list,
-            start_datetime=parse_query_datetime(month_start),
-            end_datetime=parse_query_datetime(month_end))
-
-        # Compute consumption
-        month_consumption = 0
-        if measurement_list != []:
-            for measurement in measurement_list:
-                month_consumption += measurement.measurement_diff
+        try:
+            month_consumption = dwelling.get_month_consumption(request_date)
+        except DwellingWithoutWaterMeterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
         # Build response
         response_data = {

@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from manager.exceptions import ManagerLimitExceeded
 from manager.models import Manager
-from rest_framework.fields import CharField, ReadOnlyField, DecimalField, DateField, IntegerField
-from rest_framework.serializers import ModelSerializer, Serializer
+from rest_framework.fields import ReadOnlyField, DateField, IntegerField
+from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
 from watermeter.serializers import WaterMeterSerializer
 
 from dwelling.exceptions import UserManagerRequiredError
@@ -94,40 +94,83 @@ class DwellingCreateSerializer(ModelSerializer):
         return dwelling
 
 
-class DwellingDetailSerializer(Serializer):
+class DwellingDetailSerializer(ModelSerializer):
     """
     Dwelling Detail ModelSerializer
     """
     id = ReadOnlyField()
-    city = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
-    road = CharField(max_length=None,
-                     min_length=None,
-                     allow_blank=False,
-                     trim_whitespace=True)
-    number = CharField(max_length=None,
-                       min_length=None,
-                       allow_blank=False,
-                       trim_whitespace=True)
-    water_meter_code = CharField(max_length=None,
-                                 min_length=None,
-                                 allow_blank=True,
-                                 trim_whitespace=True)
-    resident_first_name = CharField(max_length=None,
-                                    min_length=None,
-                                    allow_blank=False,
-                                    trim_whitespace=True)
-    resident_phone = CharField(max_length=None,
-                               min_length=None,
-                               allow_blank=False,
-                               trim_whitespace=True)
-    latitude = DecimalField(max_digits=18, decimal_places=15)
-    longitude = DecimalField(max_digits=18, decimal_places=15)
+    city = SerializerMethodField()
+    road = SerializerMethodField()
+    number = SerializerMethodField()
+    resident_full_name = SerializerMethodField()
+    resident_phone = SerializerMethodField()
+    water_meter_code = SerializerMethodField()
+    watermeter_last_month_consumption = SerializerMethodField()
+    latitude = SerializerMethodField()
+    longitude = SerializerMethodField()
 
     class Meta:
         ref_name = 'DwellingDetail'
+        model = Dwelling
+        fields = ('id', 'city', 'road', 'number', 'resident_full_name',
+                  'resident_phone', 'water_meter_code',
+                  'watermeter_last_month_consumption', 'latitude', 'longitude')
+
+    @staticmethod
+    def __get_dwelling_obj(obj) -> Dwelling:
+        # the serializer can return model or dict
+        if type(obj) is dict:
+            return Dwelling.objects.get(id=obj.get('id'))
+        elif type(obj) is Dwelling:
+            return obj
+
+    def get_city(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.geolocation.address.city
+
+    def get_road(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.geolocation.address.road
+
+    def get_number(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.geolocation.number
+
+    def get_resident_full_name(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        resident = dwelling.get_current_resident()
+        return resident.user.get_full_name() if resident else ''
+
+    def get_resident_phone(self, obj):
+        from user.models import UserPhone
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        resident = dwelling.get_current_resident()
+        user_phone_number = ''
+        if resident:
+            try:
+                user_phone: UserPhone = UserPhone.objects.get(
+                    user=resident.user, main=True)
+                if user_phone:
+                    user_phone_number = user_phone.phone.phone_number
+            except ObjectDoesNotExist:
+                pass
+        return user_phone_number
+
+    def get_water_meter_code(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.get_current_water_meter().code
+
+    def get_watermeter_last_month_consumption(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.get_last_month_consumption()
+
+    def get_latitude(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.geolocation.latitude
+
+    def get_longitude(self, obj):
+        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+        return dwelling.geolocation.longitude
 
 
 class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
