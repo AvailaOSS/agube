@@ -13,7 +13,7 @@ def person_directory_path(instance, filename):
 
 
 class Person(ExportModelOperationsMixin('Person'), models.Model):
-    """A class used to represent an Person"""
+    """A class used to represent a Person"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.RESTRICT)
     user: User = models.OneToOneField(User, on_delete=models.RESTRICT)
     photo = models.ImageField(null=True, upload_to=person_directory_path)
@@ -40,7 +40,7 @@ class Person(ExportModelOperationsMixin('Person'), models.Model):
 
 
 class PersonConfig(ExportModelOperationsMixin('PersonConfig'), models.Model):
-    """A class used to represent an Person Config"""
+    """A class used to represent a Person Config"""
     person: Person = models.OneToOneField(
         Person,
         on_delete=models.CASCADE,
