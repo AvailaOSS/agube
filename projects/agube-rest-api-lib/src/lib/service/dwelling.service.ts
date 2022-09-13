@@ -786,25 +786,37 @@ export class DwellingService {
   /**
    *
    * Return a list of all Dwelling Detail.
+   * @param inAlert Alert status: None/False -&gt; All Manager Dwellings; True -&gt; Manager Dwellings whose consumption is over the limit
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public getDwellings(
+    inAlert?: boolean,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<DwellingDetail>>;
   public getDwellings(
+    inAlert?: boolean,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<DwellingDetail>>>;
   public getDwellings(
+    inAlert?: boolean,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<DwellingDetail>>>;
   public getDwellings(
+    inAlert?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
+    let queryParameters = new HttpParams({
+      encoder: new CustomHttpUrlEncodingCodec(),
+    });
+    if (inAlert !== undefined && inAlert !== null) {
+      queryParameters = queryParameters.set('inAlert', <any>inAlert);
+    }
+
     let headers = this.defaultHeaders;
 
     // authentication (Basic) required
@@ -830,6 +842,7 @@ export class DwellingService {
     return this.httpClient.get<Array<DwellingDetail>>(
       `${this.basePath}/dwelling`,
       {
+        params: queryParameters,
         withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
@@ -1075,7 +1088,7 @@ export class DwellingService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-   public getDwellingMonthConsumption(
+  public getDwellingMonthConsumption(
     id: string,
     date?: string,
     observe?: 'body',

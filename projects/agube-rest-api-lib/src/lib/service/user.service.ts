@@ -459,22 +459,22 @@ export class UserService {
    * @param reportProgress flag to report request and response progress.
    */
   public getDwellingDetail(
-    id: number,
+    id: string,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<UserDwellingDetail>>;
   public getDwellingDetail(
-    id: number,
+    id: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
-    id: number,
+    id: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
-    id: number,
+    id: string,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
