@@ -102,23 +102,20 @@
                     *matCellDef="let element; let i = index"
                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION' | translate }}"
                 >
-                    {{ element.watermeter_last_month_consumption }}
-                    <mat-icon
-                        *ngIf="
-                            +element.watermeter_last_month_consumption >
-                            +this.managerConfiguration?.max_daily_consumption! * 30
-                        "
-                        class="overflow"
-                        >trending_up</mat-icon
-                    >
-                    <mat-icon
-                        *ngIf="
-                            +element.watermeter_last_month_consumption <=
-                            +this.managerConfiguration?.max_daily_consumption! * 30
-                        "
-                        class="no-overflow"
-                        >trending_down</mat-icon
-                    >
+                    <div>
+                        <span>{{ element.watermeter_last_month_consumption }}</span>
+
+                        <mat-icon
+                            *ngIf="+element.watermeter_last_month_consumption > +this.managerConfigurationNumber!"
+                            class="overflow"
+                            >trending_up</mat-icon
+                        >
+                        <mat-icon
+                            *ngIf="+element.watermeter_last_month_consumption <= +this.managerConfigurationNumber!"
+                            class="no-overflow"
+                            >trending_down</mat-icon
+                        >
+                    </div>
                 </td>
             </ng-container>
             <tr
