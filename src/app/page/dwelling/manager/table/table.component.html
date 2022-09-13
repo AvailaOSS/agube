@@ -100,13 +100,23 @@
                     class="priority-5"
                     mat-cell
                     *matCellDef="let element; let i = index"
-                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}"
+                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION' | translate }}"
                 >
                     {{ element.watermeter_last_month_consumption }}
-                    <mat-icon *ngIf="element.watermeter_last_month_consumption > this.managerConfiguration?.max_daily_consumption!" class="overflow"
+                    <mat-icon
+                        *ngIf="
+                            +element.watermeter_last_month_consumption >
+                            +this.managerConfiguration?.max_daily_consumption! * 30
+                        "
+                        class="overflow"
                         >trending_up</mat-icon
                     >
-                    <mat-icon *ngIf="element.watermeter_last_month_consumption <= this.managerConfiguration?.max_daily_consumption!" class="no-overflow"
+                    <mat-icon
+                        *ngIf="
+                            +element.watermeter_last_month_consumption <=
+                            +this.managerConfiguration?.max_daily_consumption! * 30
+                        "
+                        class="no-overflow"
                         >trending_down</mat-icon
                     >
                 </td>

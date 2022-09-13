@@ -16,6 +16,7 @@ import { TableReloadService } from './table-reload.service';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
+    //fields to table
     public displayedColumns: string[] = [
         'water_meter_code',
         'full_address',
@@ -23,12 +24,12 @@ export class TableComponent implements OnInit, AfterViewInit {
         'resident_phone',
         'water_meter',
     ];
+    //table data sources
     public dataSource: MatTableDataSource<DwellingDetail> = new MatTableDataSource();
-    public accumulate: DwellingWaterMonthConsumption[] | undefined = [];
     public isSelected: DwellingDetail | undefined = undefined;
-
+    //filter
     public filter = new FormControl('');
-
+    //pagination
     public pageSize = 12;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     public managerConfiguration: ManagerConfiguration | undefined;
@@ -45,6 +46,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
+        //reload dwellings
         this.svcTableReload.reload().subscribe((reload) => {
             if (reload) {
                 this.loadDwellings();
@@ -55,20 +57,22 @@ export class TableComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         this.loadDwellings();
     }
-
+    //go to create dwelling
     public goToNewDwelling() {
         this.router.navigate(['manager/dwellings/create']);
     }
 
+    //apply filter in table
     public applyFilter() {
         this.dataSource.filter = this.filter.value.trim().toLowerCase();
     }
 
+    //clear filter table
     public clearFilter() {
         this.filter.setValue('');
         this.dataSource.filter = '';
     }
-
+    //go to dwelling detail , click in table
     public goToDwelling(dwelling: DwellingDetail) {
         const queryParams: Detail = {
             dwellingId: dwelling.id!,
@@ -77,7 +81,7 @@ export class TableComponent implements OnInit, AfterViewInit {
             queryParams,
         });
     }
-
+    //private method , load dwelling
     private loadDwellings() {
         this.svcDwelling.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
@@ -85,6 +89,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
 
+    //filter option data table to exceeded measurement dwelling
     public filterOptions(evt: MatSlideToggleChange) {
         if (evt.checked) {
             this.svcDwellingService.getDwellings(evt.checked).subscribe({
