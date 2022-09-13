@@ -12,6 +12,7 @@ from manager.permissions import IsManagerAuthenticated
 from owner.models import Owner
 from owner.serializers import OwnerSerializer
 from resident.models import Resident
+from resident.permissions import IsDwellingBelongsResident
 from resident.serializers import ResidentSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -143,17 +144,17 @@ class DwellingCreateView(generics.CreateAPIView):
             # TODO: make openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}) generic for all errors
             # TODO: create a Serializer for Errors
             HTTP_404_NOT_FOUND:
-            openapi.Schema(type=openapi.TYPE_OBJECT,
-                           properties={
-                               'status':
-                               openapi.Schema(type=openapi.TYPE_STRING)
-                           }),
+                openapi.Schema(type=openapi.TYPE_OBJECT,
+                               properties={
+                                   'status':
+                                       openapi.Schema(type=openapi.TYPE_STRING)
+                               }),
             HTTP_403_FORBIDDEN:
-            openapi.Schema(type=openapi.TYPE_OBJECT,
-                           properties={
-                               'status':
-                               openapi.Schema(type=openapi.TYPE_STRING)
-                           }),
+                openapi.Schema(type=openapi.TYPE_OBJECT,
+                               properties={
+                                   'status':
+                                       openapi.Schema(type=openapi.TYPE_STRING)
+                               }),
         })
     def post(self, request, *args, **kwargs):
         try:
@@ -325,7 +326,7 @@ class DwellingWaterMeterHistoricalView(APIView):
 class DwellingWaterMeterView(generics.GenericAPIView):
     queryset = WaterMeter.objects.all()
     serializer_class = WaterMeterSerializer
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentDwellingWaterMeter",
@@ -412,7 +413,7 @@ class DwellingWaterMeterChunkView(APIView):
 
 
 class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
     serializer_class = WaterMeterMeasurementSerializer
     queryset = Dwelling.objects.all()
     pagination_class = CustomPagination
@@ -485,7 +486,7 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
 
 
 class DwellingWaterMeterMonthConsumption(APIView):
-    permission_classes = [IsManagerAuthenticated]
+    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getDwellingMonthConsumption",
