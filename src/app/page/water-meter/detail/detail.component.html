@@ -62,8 +62,8 @@
             </div>
         </div>
 
-        <div class="scroll" *ngIf="!noData; else Data">
-            <table mat-table [dataSource]="dataSource" *ngIf="!noDataSource; else DataSource">
+        <div class="scroll" *ngIf="isFirstDateValid; else firstDateIsNotValid">
+            <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0; else emptyDataSource">
                 <ng-container matColumnDef="measurement">
                     <th mat-header-cell *matHeaderCellDef>measurement</th>
                     <td mat-cell *matCellDef="let element">
@@ -113,20 +113,21 @@
 
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
-
-            <ng-template #DataSource>
+            <ng-template #emptyDataSource>
                 <p class="no-data">No contiene lecturas entre estas fechas</p>
             </ng-template>
+
         </div>
-        <ng-template #Data>
+        <ng-template #firstDateIsNotValid>
             <p class="no-data">La fecha introducida en Desde no puede ser posterior a la fecha introducida en Hasta</p>
         </ng-template>
-        <div *ngIf="!noData" [align]="'end'" class="final-table-measurement">
+
+        <div *ngIf="isFirstDateValid" [align]="'end'" class="final-table-measurement">
             <mat-form-field appearance="standard">
                 <mat-label>{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TEXT' | translate }}</mat-label>
-                <mat-select matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}" [(value)]="chunk">
-                    <mat-option *ngFor="let chnk of chunks" value="{{ chnk }}" (click)="loadWaterMeterMeasures()">
-                        {{ chnk }}
+                <mat-select matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.TOOLTIP' | translate }}" [(value)]="pageSize">
+                    <mat-option *ngFor="let page of pages" value="{{ page }}" (click)="loadWaterMeterMeasures()">
+                        {{ page }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

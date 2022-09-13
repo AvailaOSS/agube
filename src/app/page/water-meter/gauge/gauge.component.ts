@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { DwellingService } from '@availa/agube-rest-api';
 import { format } from 'date-fns';
 import { Configuration } from 'src/app/components/chart/chart-configure';
-import { DateMeasurementFilter } from '../detail/date-measurement-filter';
+
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterGauge } from './water-meter-gauge';
 
@@ -32,12 +32,10 @@ export class GaugeComponent implements OnChanges {
     constructor(private svcDwellingService: DwellingService, private svcPersistance: WaterMeterPersistantService) {}
 
     ngOnChanges(): void {
-        let date: DateMeasurementFilter = {
-            dateEnd: format(new Date(), 'yyyy-MM-dd'),
-        };
+        let date = format(new Date(), 'yyyy-MM-dd');
 
         this.svcDwellingService
-            .getDwellingMonthConsumption(String(this.waterMeter?.dwellingId!), date.dateEnd)
+            .getDwellingMonthConsumption(String(this.waterMeter?.dwellingId!), date)
             .subscribe((res) => {
                 this.svcPersistance.get().subscribe(() => {
                     this.computeAverage(res);
