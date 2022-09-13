@@ -1,13 +1,17 @@
+import calendar
+import datetime
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
+from agube.utils import parse_query_datetime
 from geolocation.models import Geolocation
 from manager.models import Manager
 from watermeter.models import WaterMeter
 
-from dwelling.exceptions import OwnerAlreadyIsResidentError
+from dwelling.exceptions import DwellingWithoutWaterMeterError, OwnerAlreadyIsResidentError
+from watermeter.utils import get_watermeter_measurements_from_watermeters
 
 
 class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
@@ -115,6 +119,28 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         self.discharge_date = timezone.now()
         self.save()
 
+    def get_month_consumption(self, date):
+        # type: (Dwelling, datetime.date | datetime.datetime) -> int
+        # Get dwelling water meter historical
+        watermeter_list = self.get_historical_water_meter()
+        if watermeter_list == []:
+            raise DwellingWithoutWaterMeterError()
+        # Get measurement list filtered between dates
+        month_start = datetime.date(date.year, date.month, 1)
+        month_end = datetime.date(
+            date.year, date.month,
+            calendar.monthrange(month_start.year, month_start.month)[1])
+        measurement_list = get_watermeter_measurements_from_watermeters(
+            watermeter_list,
+            start_datetime=parse_query_datetime(month_start),
+            end_datetime=parse_query_datetime(month_end))
+        # Compute consumption
+        month_consumption = 0
+        if measurement_list != []:
+            for measurement in measurement_list:
+                month_consumption += measurement.measurement_diff
+
+        return round(month_consumption)
 
 class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
                          models.Model):

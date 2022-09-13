@@ -1,7 +1,6 @@
-import datetime, calendar
 from django.utils import timezone
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
-from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
+from agube.utils import parse_query_date, validate_query_date_filters
 from address.models import Address
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -515,32 +514,18 @@ class DwellingWaterMeterMonthConsumption(APIView):
         # Request filters
         request_query_date = request.query_params.get('date')
         if request_query_date is None:
-            request_date = timezone.now().date
+            request_date = timezone.now().date()
         else:
             request_date = parse_query_date(request_query_date)
             if request_date is None:
                 return Response(
                     {'status': 'query date has an incorrect format'},
                     status=HTTP_400_BAD_REQUEST)
-        month_start = datetime.date(request_date.year, request_date.month, 1)
-        month_end = month_start + datetime.timedelta(
-            days=calendar.monthrange(month_start.year, month_start.month)[1])
 
-        # Get dwelling water meter historical
-        watermeter_list = dwelling.get_historical_water_meter()
-        if watermeter_list == []:
-            raise DwellingWithoutWaterMeterError()
-        # Get measurement list filtered between dates
-        measurement_list = get_watermeter_measurements_from_watermeters(
-            watermeter_list,
-            start_datetime=parse_query_datetime(month_start),
-            end_datetime=parse_query_datetime(month_end))
-
-        # Compute consumption
-        month_consumption = 0
-        if measurement_list != []:
-            for measurement in measurement_list:
-                month_consumption += measurement.measurement_diff
+        try:
+            month_consumption = dwelling.get_month_consumption(request_date)
+        except DwellingWithoutWaterMeterError as e:
+            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
         # Build response
         response_data = {
