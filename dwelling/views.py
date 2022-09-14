@@ -538,7 +538,7 @@ class DwellingCommentCreateView(generics.CreateAPIView):
         tag=[TAG])
     def post(self, request, *args, **kwargs):
         """ Create a new Comment for this dwelling. """
-        return super(DwellingCommentListView, self).post(request, *args, **kwargs)
+        return super(DwellingCommentCreateView, self).post(request, *args, **kwargs)
 
 
 class DwellingCommentListView(generics.ListAPIView):
@@ -551,7 +551,7 @@ class DwellingCommentListView(generics.ListAPIView):
             # queryset just for schema generation metadata
             return Comment.objects.none()
         pk = self.kwargs['pk']
-        return list(map(lambda dwelling: dwelling.comment, DwellingComment.objects.filter(dwelling__id=pk)))
+        return list(map(lambda dwelling: dwelling.comment, DwellingComment.objects.filter(dwelling__id=pk).order_by('-comment__created')))
 
     @swagger_auto_schema(
         operation_id="getDwellingComments",
