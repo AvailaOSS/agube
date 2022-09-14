@@ -3,20 +3,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommentsService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CommentManager } from '../comment.manager';
-import { CreatedialogComponent } from '../createdialog/createdialog.component';
+import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 import { CommentCreate } from '../type';
 
 @Component({
-    selector: 'app-editdialog',
-    templateUrl: '../createdialog/createdialog.component.html',
-    styleUrls: ['../createdialog/createdialog.component.scss'],
+    selector: 'app-edit-comment-dialog',
+    templateUrl: '../create-dialog/create-dialog.component.html',
+    styleUrls: ['../create-dialog/create-dialog.component.scss'],
 })
-export class EditdialogComponent extends CreatedialogComponent {
+export class EditDialogComponent extends CreateDialogComponent {
     constructor(
         private svcComment: CommentsService,
         protected override managerComment: CommentManager,
         protected override svcNotification: NotificationService,
-        protected override dialogRef: MatDialogRef<CreatedialogComponent>,
+        protected override dialogRef: MatDialogRef<CreateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) protected override data: CommentCreate
     ) {
         super(managerComment, svcNotification, dialogRef, data);

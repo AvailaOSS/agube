@@ -6,17 +6,17 @@ import { CommentManager } from '../comment.manager';
 import { CommentConfig } from '../type';
 
 @Component({
-    selector: 'app-createdialog',
-    templateUrl: './createdialog.component.html',
-    styleUrls: ['./createdialog.component.scss'],
+    selector: 'app-create-comment-dialog',
+    templateUrl: './create-dialog.component.html',
+    styleUrls: ['./create-dialog.component.scss'],
 })
-export class CreatedialogComponent {
+export class CreateDialogComponent {
     public message = new FormControl('', [Validators.required]);
 
     constructor(
         protected managerComment: CommentManager,
         protected svcNotification: NotificationService,
-        protected dialogRef: MatDialogRef<CreatedialogComponent>,
+        protected dialogRef: MatDialogRef<CreateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) protected data: CommentConfig
     ) {}
 
