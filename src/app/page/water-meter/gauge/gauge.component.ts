@@ -36,7 +36,7 @@ export class GaugeComponent implements OnChanges {
         let date = format(new Date(), 'yyyy-MM-dd');
 
         this.svcDwellingService
-            .getDwellingMonthConsumption(String(this.waterMeter?.dwellingId!), date)
+            .getDwellingMonthConsumption(this.waterMeter?.dwellingId!, date)
             .subscribe((res) => {
                 this.svcPersistance.get().subscribe(() => {
                     this.computeAverage(res);
