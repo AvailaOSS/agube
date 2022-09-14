@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,7 +22,6 @@ import { DetailRoutingModule } from './detail-routing.module';
 import { DetailComponent } from './detail.component';
 import { OwnerComponent } from './owner/owner.component';
 import { ResidentComponent } from './resident/resident.component';
-
 
 @NgModule({
     declarations: [DetailComponent, ResidentComponent, OwnerComponent],
@@ -44,7 +44,11 @@ import { ResidentComponent } from './resident/resident.component';
         DialogModule,
         AddressModule,
         DialogOnlyMapModule,
-        CommentModule
+        CommentModule,
+    ],
+    providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} },
     ],
 })
 export class DetailModule {}

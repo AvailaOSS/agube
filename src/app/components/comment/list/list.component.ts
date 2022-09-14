@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Comment, CommentsService, ManagerService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CommentManager } from '../comment.manager';
@@ -23,14 +23,18 @@ export class ListComponent implements OnInit {
         private managerComment: CommentManager,
         private svcNotification: NotificationService,
         private svcManager: ManagerService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        @Inject(MAT_DIALOG_DATA) public data: CommentConfig
     ) {
+        if (this.config === undefined && data) {
+            this.config = data;
+        }
         this.svcManager.userIsManager().subscribe({
             next: (response) => (this.canLoad = response.is_manager),
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (this.config === undefined) {
             throw new Error('Config of Comment is necessary');
         }
