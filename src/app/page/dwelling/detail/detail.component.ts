@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+    Comment,
     DwellingCreate,
     DwellingService,
     Geolocation,
@@ -11,6 +12,7 @@ import {
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { CommentConfig, CommentType } from 'src/app/components/comment/type';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
@@ -50,6 +52,7 @@ export class DetailComponent implements OnInit {
     public showMap: boolean = true;
 
     public loading: boolean = false;
+    public configCommentComponent: CommentConfig | undefined;
 
     public canLoad: boolean = false;
 
@@ -76,6 +79,10 @@ export class DetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
             this.dwellingId = par.dwellingId;
+            this.configCommentComponent = {
+                id: this.dwellingId!,
+                type: CommentType.DWELLING,
+            };
             this.type = {
                 id: par.dwellingId,
                 type: WaterMeterType.DWELLING,
@@ -91,6 +98,7 @@ export class DetailComponent implements OnInit {
             return;
         }
 
+        // FIXME: Extract to his own method
         this.svcDwelling.getDwelling(this.dwellingId).subscribe({
             next: (dwelling) => {
                 this.dwelling = dwelling;
@@ -101,6 +109,7 @@ export class DetailComponent implements OnInit {
             error: (error) => (this.loading = false),
         });
 
+        // FIXME: Extract to his own method
         this.svcDwelling.getCurrentDwellingWaterMeter(this.dwellingId).subscribe((response) => {
             this.waterMeterId = response.id;
             this.svcPersistant.emit(response);

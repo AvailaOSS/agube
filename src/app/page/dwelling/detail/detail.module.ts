@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddressModule } from 'src/app/components/address/address.module';
+import { CommentModule } from 'src/app/components/comment/comment.module';
 import { DialogOnlyMapModule } from 'src/app/components/dialog-only-map/dialog-only-map.module';
 import { DialogModule } from 'src/app/components/dialog/dialog.module';
 import { MapModule } from 'src/app/components/map/map/map.module';
@@ -20,6 +21,7 @@ import { DetailRoutingModule } from './detail-routing.module';
 import { DetailComponent } from './detail.component';
 import { OwnerComponent } from './owner/owner.component';
 import { ResidentComponent } from './resident/resident.component';
+
 
 @NgModule({
     declarations: [DetailComponent, ResidentComponent, OwnerComponent],
@@ -42,6 +44,7 @@ import { ResidentComponent } from './resident/resident.component';
         DialogModule,
         AddressModule,
         DialogOnlyMapModule,
+        CommentModule
     ],
 })
 export class DetailModule {}

@@ -1,0 +1,26 @@
+<mat-list *ngIf="!loadingComments; else isCommentsLoading">
+    <h1 class="title-card">{{ 'COMPONENTS.COMMENT.TITLE' | translate }}
+        <mat-icon *ngIf="canLoad" matTooltip="{{ 'GENERAL.BUTTON.ADD' | translate }}"
+            (click)="createComment()">
+            add
+        </mat-icon>
+    </h1>
+
+    <mat-list-item *ngFor="let comment of comments">
+        <mat-icon mat-list-icon>visibility</mat-icon>
+        <div mat-line>{{comment.message}}</div>
+        <div mat-line>
+            {{comment.created | date}}
+        </div>
+        <button mat-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}" (click)="updateComment(comment)">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}" (click)="deleteComment(comment)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-list-item>
+</mat-list>
+
+<ng-template #isCommentsLoading>
+    <mat-spinner></mat-spinner>
+</ng-template>
