@@ -6,6 +6,8 @@ from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
 from agube.utils import parse_query_datetime
+
+from comment.models import Comment
 from geolocation.models import Geolocation
 from manager.models import Manager
 from watermeter.models import WaterMeter
@@ -15,7 +17,7 @@ from watermeter.utils import get_watermeter_measurements_from_watermeters
 
 
 class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
-    """A class used to represent an Dwelling"""
+    """A class used to represent a Dwelling"""
     manager: Manager = models.ForeignKey(Manager, on_delete=models.PROTECT)
     geolocation: Geolocation = models.ForeignKey(Geolocation,
                                                  on_delete=models.PROTECT)
@@ -36,8 +38,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
         Parameters
         ----------
-        user : django.contrib.auth.models.User
-            user saved in database"""
+        user : django.contrib.auth.models.User saved in database"""
         owner = self.get_current_owner()
         if owner:
             owner.discharge()
@@ -114,6 +115,10 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             raise OwnerAlreadyIsResidentError()
         self.change_current_resident(owner.user)
 
+    def add_comment(self, message):
+        """add new Comment to this Dwelling"""
+        return DwellingComment.objects.create(dwelling=self, comment=Comment.objects.create(message=message)).comment
+
     def discharge(self):
         """discharge this Dwelling"""
         self.discharge_date = timezone.now()
@@ -160,7 +165,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
 class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
                          models.Model):
-    """A class used to represent an Dwelling Water Meter"""
+    """A class used to represent a Dwelling Water Meter"""
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,
                                                 on_delete=models.RESTRICT)
@@ -168,3 +173,11 @@ class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
     class Meta:
         ordering = ["-water_meter__release_date"]
         db_table = 'agube_dwelling_dwelling_water_meter'
+
+
+class DwellingComment(ExportModelOperationsMixin('DwellingComment'), models.Model):
+    dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
+    comment: Comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'agube_dwelling_comment'

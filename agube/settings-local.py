@@ -67,7 +67,8 @@ INSTALLED_APPS = [
     'geolocation',
     'person',
     'owner',
-    'resident'
+    'resident',
+    'comment'
 ]
 
 MIDDLEWARE = [

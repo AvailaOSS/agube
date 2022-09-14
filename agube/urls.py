@@ -15,6 +15,7 @@ from reservoir.urls import urlpatterns as urls_reservoir
 from rest_framework import permissions
 from watermeter.urls import urlpatterns as urls_water_meter, urlpatternsMeasurement
 from geolocation.urls import urlpatterns as urls_geolocation
+from comment.urls import urlpatterns as urls_comments
 
 current_version = 'v1.0.0'
 module_name = 'agube'
@@ -45,7 +46,8 @@ urlpatterns = [
     path(base_url + 'user', include(urls_user)),
     path(base_url + 'resident', include(urls_resident)),
     path(base_url + 'owner', include(urls_owner)),
-    path(base_url + 'geolocation', include(urls_geolocation))
+    path(base_url + 'geolocation', include(urls_geolocation)),
+    path(base_url + 'comments', include(urls_comments))
 ]
 
 if settings.DEBUG:
