@@ -66,6 +66,7 @@
             .reservoir-content-info {
                 margin-left: $margin-small;
                 display: flex;
+                height: auto;
                 .reservoir-resident {
                     margin-left: $margin-medium;
                     flex-direction: column;
