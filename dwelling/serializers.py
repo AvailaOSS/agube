@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.fields import ReadOnlyField, DateField, IntegerField
 from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
 
+from dwelling.exceptions import DwellingWithoutWaterMeterError
 from comment.models import Comment
 from dwelling.exceptions import UserManagerRequiredError
 from dwelling.models import DwellingComment, Dwelling
@@ -159,11 +160,17 @@ class DwellingDetailSerializer(ModelSerializer):
 
     def get_water_meter_code(self, obj):
         dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.get_current_water_meter().code
+        water_meter = dwelling.get_current_water_meter()
+        if not water_meter:
+            return ''
+        return water_meter.code
 
     def get_watermeter_last_month_consumption(self, obj):
         dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.get_last_month_consumption()
+        try:
+            return dwelling.get_last_month_consumption()
+        except DwellingWithoutWaterMeterError:
+            return ''
 
     def get_latitude(self, obj):
         dwelling: Dwelling = self.__get_dwelling_obj(obj)
