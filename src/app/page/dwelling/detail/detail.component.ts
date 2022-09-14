@@ -12,6 +12,7 @@ import {
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { ListComponent } from 'src/app/components/comment/list/list.component';
 import { CommentConfig, CommentType } from 'src/app/components/comment/type';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
@@ -149,6 +150,14 @@ export class DetailComponent implements OnInit {
         this.dialog.open(DialogOnlyMapComponent, {
             width: '100%',
             data,
+        });
+    }
+
+    public seeComments() {
+        this.dialog.open(ListComponent, {
+            hasBackdrop: true,
+            width: '100%',
+            data: this.configCommentComponent,
         });
     }
 

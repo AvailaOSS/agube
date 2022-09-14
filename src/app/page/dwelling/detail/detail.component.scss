@@ -1,10 +1,26 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
 
+@mixin dynamic-button {
+    button {
+        width: 215px;
+        margin-top: $margin-small;
+        margin-bottom: $margin-small;
+        div {
+            align-items: center;
+            display: flex;
+            mat-icon {
+                margin-right: $margin-x-small;
+            }
+        }
+    }
+}
+
 .detail-page {
     @include my-page($columns: 1);
     margin-bottom: $margin-large;
 }
+
 .position-gauge {
     margin-top: 80px;
 }
@@ -56,6 +72,15 @@
     }
 }
 
+@media only screen and (max-width: 1950px) {
+    .button-comments {
+        display: flex !important;
+    }
+    .comments-list {
+        display: none;
+    }
+}
+
 .page-content {
     @include my-page-column($columnIndex: 1, $totalColumns: 1);
     .mat-card {
@@ -84,14 +109,16 @@
                 }
             }
         }
-        .dwelling-map {
+        .column-right {
             width: 35%;
             height: 1%;
-            mat-button-toggle-group {
-                display: flex;
-                justify-content: center;
-                text-align: center;
-                border: none;
+            .dwelling-map {
+                mat-button-toggle-group {
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    border: none;
+                }
             }
         }
     }
@@ -100,23 +127,20 @@
         margin: 0 auto;
     }
 }
+
 .content-buttons-map {
     display: flex;
 }
+
 .buttons-map {
     display: none;
-    button {
-        width: 215px;
-        margin-top: $margin-small;
-        margin-bottom: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
-        }
-    }
+    @include dynamic-button;
+}
+
+.button-comments {
+    display: none;
+    margin-left: $margin-x-small;
+    @include dynamic-button;
 }
 
 .buttons-management {

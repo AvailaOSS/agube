@@ -9,15 +9,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CreatedialogComponent } from './createdialog/createdialog.component';
-import { EditdialogComponent } from './editdialog/editdialog.component';
+import { CreateDialogComponent } from './create-dialog/create-dialog.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-    declarations: [ListComponent, CreatedialogComponent, EditdialogComponent],
+    declarations: [ListComponent, CreateDialogComponent, EditDialogComponent],
     imports: [
         TranslateModule,
         CommonModule,

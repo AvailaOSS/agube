@@ -10,6 +10,7 @@ import { DialogParameters } from '../dialog/dialog-parameter';
 export class DialogOnlyMapComponent implements OnInit {
     @Output() submitClicked: EventEmitter<Geolocation | undefined> = new EventEmitter<Geolocation | undefined>();
     public configureMap: any;
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: DialogParameters,
         public dialogRef: MatDialogRef<DialogOnlyMapComponent>
@@ -18,6 +19,7 @@ export class DialogOnlyMapComponent implements OnInit {
     ngOnInit(): void {
         this.configureMap = this.data.configureMap;
     }
+
     public closeDialog() {
         this.submitClicked.emit(undefined);
         this.dialogRef.close();

@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Comment, CommentsService, ManagerService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { CommentManager } from '../comment.manager';
-import { CreatedialogComponent } from '../createdialog/createdialog.component';
-import { EditdialogComponent } from '../editdialog/editdialog.component';
+import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
+import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { CommentConfig, CommentCreate } from '../type';
 
 @Component({
@@ -23,14 +23,18 @@ export class ListComponent implements OnInit {
         private managerComment: CommentManager,
         private svcNotification: NotificationService,
         private svcManager: ManagerService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        @Inject(MAT_DIALOG_DATA) public data: CommentConfig
     ) {
+        if (this.config === undefined && data) {
+            this.config = data;
+        }
         this.svcManager.userIsManager().subscribe({
             next: (response) => (this.canLoad = response.is_manager),
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (this.config === undefined) {
             throw new Error('Config of Comment is necessary');
         }
@@ -38,7 +42,7 @@ export class ListComponent implements OnInit {
     }
 
     public createComment() {
-        const dialogRef = this.dialog.open(CreatedialogComponent, {
+        const dialogRef = this.dialog.open(CreateDialogComponent, {
             hasBackdrop: true,
             width: '500px',
             data: this.config,
@@ -59,7 +63,7 @@ export class ListComponent implements OnInit {
             created: comment.created,
         };
 
-        const dialogRef = this.dialog.open(EditdialogComponent, {
+        const dialogRef = this.dialog.open(EditDialogComponent, {
             hasBackdrop: true,
             width: '500px',
             data,
