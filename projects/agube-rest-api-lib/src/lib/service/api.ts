@@ -20,6 +20,8 @@ export * from './owner.service';
 import { OwnerService } from './owner.service';
 export * from './geolocation.service';
 import { GeolocationService } from './geolocation.service';
+export * from './comments.service';
+import { CommentsService } from './comments.service';
 export const APIS = [
   AddressService,
   DwellingService,
@@ -32,4 +34,5 @@ export const APIS = [
   ResidentService,
   OwnerService,
   GeolocationService,
+  CommentsService
 ];

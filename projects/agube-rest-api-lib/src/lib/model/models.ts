@@ -23,3 +23,5 @@ export * from './userPhone';
 export * from './waterMeter';
 export * from './waterMeterMeasurement';
 export * from './waterMeterWithMeasurements';
+export * from './comment';
+export * from './dwellingCommentCreate';
