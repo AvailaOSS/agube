@@ -16,12 +16,12 @@ export class ManagerPageComponent extends SidebarComponent {
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
                 icon: 'person',
             },
-            {
-                navigationRoute: 'manager/home/manager/client/dwellings',
-                title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
-                icon: 'store',
+            // {
+            //     navigationRoute: 'manager/home/manager/client/dwellings',
+            //     title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
+            //     icon: 'store',
 
-            },
+            // },
             {
                 navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
