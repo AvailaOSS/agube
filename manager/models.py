@@ -21,12 +21,16 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         super(Manager, self).save(*args, **kwargs)
         self.create_configuration(__default_max_daily_consumption,
                                   __default_hook_price)
+        # create manager message
+        if self.pk is None:
+            ManagerMessage.objects.get_or_create(manager=self)
 
     def create_configuration(self, max_daily_consumption, hook_price):
+        # type: (float, float) -> ManagerConfiguration
         """create Manager Configuration and discharge others"""
         # discharge old configurations
         for configuration in ManagerConfiguration.objects.filter(
-                discharge_date__isnull=True).filter(manager=self):
+                discharge_date__isnull=True, manager=self):
             configuration.discharge()
         return ManagerConfiguration.objects.create(
             manager=self,
@@ -35,7 +39,8 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
 
     def has_exceeded_limit(self):
         from dwelling.models import Dwelling
-        return Dwelling.objects.filter(manager=self).count() >= self.dwelling_limit
+        return Dwelling.objects.filter(
+            manager=self).count() >= self.dwelling_limit
 
     def get_closest_config(self, date):
         # date is before from configured, return the first configuration
@@ -58,11 +63,22 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         query4.add(Q(discharge_date__isnull=True), Q.AND)
         query4.add(Q(release_date__gt=date), Q.AND)
 
-        queryset = ManagerConfiguration.objects.filter(query1 | query2 | query3 | query4)
+        queryset = ManagerConfiguration.objects.filter(query1 | query2 | query3
+                                                       | query4)
         return queryset.first()
 
+    def get_current_configuration(self):
+        # type: (Manager) -> ManagerConfiguration
+        return ManagerConfiguration.objects.filter(
+            discharge_date__isnull=True, manager=self).latest('release_date')
 
-class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), models.Model):
+    def get_current_message(self):
+        # type: (Manager) -> ManagerMessage
+        return ManagerMessage.objects.filter(manager=self)
+
+
+class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'),
+                           models.Model):
     manager: Manager = models.ForeignKey(Manager,
                                          on_delete=models.RESTRICT,
                                          unique=False)
@@ -84,3 +100,13 @@ class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'), m
         """discharge this Configuration"""
         self.discharge_date = timezone.now()
         self.save()
+
+
+class ManagerMessage(ExportModelOperationsMixin('ManagerMessage'),
+                     models.Model):
+    manager: Manager = models.OneToOneField(Manager, on_delete=models.RESTRICT)
+    is_active = models.BooleanField(default=False)
+    message = models.TextField(max_length=500, null=True, default=None)
+
+    class Meta:
+        db_table = 'agube_manager_message'
