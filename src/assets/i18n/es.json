@@ -119,6 +119,8 @@
     "PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE": "Notificaciones",
     "PAGE.CONFIG.MANAGER.NOTIFICATION.SUBTITLE": "Notificación de lecturas",
     "PAGE.CONFIG.MANAGER.NOTIFICATION.MESSAGE": "Se adjuntará ésta información en las notificaciones de toma de lecturas*",
+    "PAGE.CONFIG.MANAGER.NOTIFICATION.MESSAGE_ERROR": "No se ha podido actualizar el mensaje, llame a su administrador",
+    "PAGE.CONFIG.MANAGER.NOTIFICATION.MESSAGE_REQUIRED": "No se puede tener el campo vacio",
     "PAGE.CONFIG.MANAGER.TAGS.CREATE.TITLE": "Crear Etiquetas",
     "PAGE.CONFIG.MANAGER.TAGS.CREATE.FORM.AUTOCOMPLETE": "Nombre de la etiqueta",
     "PAGE.CONFIG.MANAGER.TAGS.CREATE.BUTTON.TOOLTIP": "Guardar Creación de etiquetas",

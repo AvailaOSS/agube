@@ -3,7 +3,8 @@
     <div class="form-content">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.SUBTITLE' | translate }}</mat-label>
-            <textarea matInput [formControl]="message"></textarea>
+            <textarea matInput cdkTextareaAutosize [formControl]="message" autofocus></textarea>
+            <mat-error *ngIf="message.invalid">{{ errorValidator('message') | translate }}</mat-error>
         </mat-form-field>
         <mat-card-subtitle class="subtitle">
             {{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.MESSAGE' | translate }}
