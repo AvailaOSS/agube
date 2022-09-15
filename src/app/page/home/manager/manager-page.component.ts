@@ -8,8 +8,9 @@ import { SidebarComponent } from '../sidebar.component';
 })
 export class ManagerPageComponent extends SidebarComponent {
     public override home: string = 'manager/home/dwellings';
-    public override profile: string='manager/home/client/config';
-    ngOnInit(): void {
+    public override profile: string = 'manager/home/client/config';
+
+    public ngOnInit(): void {
         this.pages = [
             {
                 navigationRoute: this.profile,
@@ -25,7 +26,7 @@ export class ManagerPageComponent extends SidebarComponent {
             {
                 navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
-                icon: 'holiday_village'
+                icon: 'holiday_village',
             },
             {
                 navigationRoute: 'manager/home/reservoirs',
@@ -37,11 +38,11 @@ export class ManagerPageComponent extends SidebarComponent {
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT',
                 icon: 'escalator_warning',
             },
-            {
-                navigationRoute: 'manager/home/person/owners',
-                title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_OWNERS',
-                icon: 'hail',
-            },
+            // {
+            //     navigationRoute: 'manager/home/person/owners',
+            //     title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_OWNERS',
+            //     icon: 'hail',
+            // },
             {
                 navigationRoute: 'manager/home/config',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
