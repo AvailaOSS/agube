@@ -104,7 +104,7 @@
                 >
                     <div>
                         <span *ngIf="element.watermeter_last_month_consumption > 0; else noData">
-                            {{ element.watermeter_last_month_consumption }}
+                            {{ element.watermeter_last_month_consumption }} L
                         </span>
                         <ng-template #noData>
                             <span>{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate }}</span>
