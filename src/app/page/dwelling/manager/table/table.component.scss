@@ -18,6 +18,9 @@
             justify-content: space-between;
             align-items: center;
             div {
+                mat-slide-toggle {
+                    margin-right: 10px;
+                }
                 mat-form-field {
                     width: auto;
                 }

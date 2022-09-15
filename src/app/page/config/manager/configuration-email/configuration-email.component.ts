@@ -1,3 +1,4 @@
+import { ManagerMessage } from '@availa/agube-rest-api/lib/model/managerMessage';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ManagerService } from '@availa/agube-rest-api';
@@ -32,14 +33,13 @@ export class ConfigurationEmailComponent implements OnInit {
     }
     public ngOnInit(): void {
         this.svcManager.getManagerMessage().subscribe((res) => {
-            console.log(res);
             this.message.setValue(res.message);
         });
     }
 
     public saveNotification() {
         this.loadSave = true;
-        let data: any = {
+        let data: ManagerMessage = {
             is_active: true,
             message: this.message.value,
         };
