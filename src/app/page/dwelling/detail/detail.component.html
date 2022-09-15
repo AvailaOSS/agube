@@ -29,7 +29,7 @@
                                 {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                             </button>
                         </div>
-                        <div class="button-comments">
+                        <div *ngIf="canLoad" class="button-comments">
                             <button mat-raised-button [color]="'primary'" matTooltip="Ver mapa" (click)="seeComments()"
                                 matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}">
                                 <mat-icon>visibility</mat-icon>
@@ -67,7 +67,7 @@
                             </ng-template>
                         </div>
                     </div>
-                    <app-comment-list class="comments-list" [config]="configCommentComponent"></app-comment-list>
+                    <app-comment-list *ngIf="canLoad" class="comments-list" [config]="configCommentComponent"></app-comment-list>
                 </div>
             </mat-card-content>
         </mat-card>

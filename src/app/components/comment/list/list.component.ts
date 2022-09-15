@@ -16,22 +16,17 @@ export class ListComponent implements OnInit {
     @Input() public config: CommentConfig | undefined;
     public loadingComments: boolean = false;
     public comments: Comment[] = [];
-    public canLoad: boolean = false;
 
     constructor(
         private svcComments: CommentsService,
         private managerComment: CommentManager,
         private svcNotification: NotificationService,
-        private svcManager: ManagerService,
         public dialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) public data: CommentConfig
     ) {
         if (this.config === undefined && data) {
             this.config = data;
         }
-        this.svcManager.userIsManager().subscribe({
-            next: (response) => (this.canLoad = response.is_manager),
-        });
     }
 
     public ngOnInit(): void {

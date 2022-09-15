@@ -1,6 +1,6 @@
 <mat-list *ngIf="!loadingComments; else isCommentsLoading">
     <h1 class="title-card">{{ 'COMPONENTS.COMMENT.TITLE' | translate }}
-        <mat-icon *ngIf="canLoad" matTooltip="{{ 'GENERAL.BUTTON.ADD' | translate }}" (click)="createComment()">
+        <mat-icon matTooltip="{{ 'GENERAL.BUTTON.ADD' | translate }}" (click)="createComment()">
             add
         </mat-icon>
     </h1>
