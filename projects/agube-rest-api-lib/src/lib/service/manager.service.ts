@@ -23,6 +23,7 @@ import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { Manager } from '../model/manager';
 import { ManagerConfiguration } from '../model/managerConfiguration';
+import { ManagerMessage } from '../model/managerMessage';
 import { UserIsManager } from '../model/userIsManager';
 
 @Injectable()
@@ -78,9 +79,8 @@ export class ManagerService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -131,9 +131,8 @@ export class ManagerService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -198,18 +197,16 @@ export class ManagerService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected:
-      | string
-      | undefined = this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
@@ -261,9 +258,8 @@ export class ManagerService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
@@ -273,6 +269,133 @@ export class ManagerService {
 
     return this.httpClient.get<UserIsManager>(
       `${this.basePath}/manager/is-manager`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Get manager message
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getManagerMessage(
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ManagerMessage>;
+  public getManagerMessage(
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ManagerMessage>>;
+  public getManagerMessage(
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ManagerMessage>>;
+  public getManagerMessage(
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<ManagerMessage>(
+      `${this.basePath}/manager/message`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Update manager message
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public updateManagerMessage(
+    data: ManagerMessage,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ManagerMessage>;
+  public updateManagerMessage(
+    data: ManagerMessage,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ManagerMessage>>;
+  public updateManagerMessage(
+    data: ManagerMessage,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ManagerMessage>>;
+  public updateManagerMessage(
+    data: ManagerMessage,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling updateManagerMessage.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.put<ManagerMessage>(
+      `${this.basePath}/manager/message`,
+      data,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
