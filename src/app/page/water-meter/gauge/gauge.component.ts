@@ -44,12 +44,15 @@ export class GaugeComponent implements OnChanges {
             });
     }
 
-    private computeAverage(measurement:DwellingWaterMonthConsumption ) {
-        let date = new Date();
-        let dateMonth = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate());
+    private computeAverage(measurement: DwellingWaterMonthConsumption) {
+        let dateActualMonth = new Date();
+        let datePastMonth = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate());
 
-        let dateAccumulate = differenceInDays(date, dateMonth);
-        let total = measurement.month_consumption! / dateAccumulate;
+        let dayAccumulate = differenceInDays(dateActualMonth, datePastMonth);
+
+        let maxConsumption = +this.maxDailyConsumption! * +dayAccumulate;
+
+        let total = (measurement.month_consumption! * 100) / maxConsumption;
 
         this.configureChart = {
             id: 'water_meter_gauge',

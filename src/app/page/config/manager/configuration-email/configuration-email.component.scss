@@ -1,0 +1,20 @@
+@import '../../../../../assets/availa/sizes/margins.scss';
+.form-content {
+    width: 100%;
+}
+.subtitle {
+    justify-content: end;
+    display: flex;
+}
+.button-save-info {
+    margin-right: $margin-small;
+    display: table;
+    span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+button {
+    width: auto;
+    max-width: 120px;
+}

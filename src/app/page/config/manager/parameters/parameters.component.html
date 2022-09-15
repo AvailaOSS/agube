@@ -1,5 +1,6 @@
 <div class="form">
     <h1>{{ 'PAGE.CONFIG.MANAGER.TITLE' | translate }}</h1>
+    <h3>{{ 'PAGE.CONFIG.MANAGER.SUBTITLE' | translate }}</h3>
     <div class="form-content">
         <mat-form-field appearance="fill">
             <mat-label>{{ 'PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE' | translate }}</mat-label>
@@ -29,13 +30,15 @@
             </mat-error>
         </mat-form-field>
     </div>
+
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
+
     <mat-card-actions [align]="'end'">
-        <span mat-line class="button-save-info">
-            <span>
+        <span mat-line class="button-save-info" style="margin-top: 15px">
+            <mat-card-subtitle>
                 {{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION' | translate }} {{ releaseDate | date: 'longDate' }}
-                {{ releaseDate | date: 'shortTime' }}
-            </span>
+                {{ releaseDate | date: 'shortTime' }}*
+            </mat-card-subtitle>
         </span>
         <button
             mat-raised-button

@@ -110,7 +110,7 @@ export class MeasureDialogComponent extends MeasureDialog {
             .subscribe({
                 next: (response) => this.close(true),
                 error: (error) => {
-                    this.disabled = true;
+                    this.disabled = false;
                     this.loadingPost = false;
                     this.svcNotification.warning({message: error.error.status}),
                     this.googleAnalyticsService.exception('error_water_meter_measure', true);
