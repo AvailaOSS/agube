@@ -5,7 +5,7 @@ from enum import Enum
 
 from django.contrib.auth.models import User
 from watermeter.models import WaterMeterMeasurement
-from manager.models import ManagerConfiguration
+from manager.models import ManagerConfiguration, ManagerMessage
 
 
 class MeasurementEmailType(Enum):
@@ -25,6 +25,11 @@ def send_email_measurement(user: User,
 
     app_name = settings.PUBLIC_APP_NAME
 
+    # manager message
+    manager_message : ManagerMessage = ManagerMessage.objects.get(manager=manager_configuration.manager)
+    p_string = '<p>{0}</p>'
+    message = p_string.format(str(manager_message.message) if manager_message.is_active and manager_message.message else '')
+
     # build template
     template = get_template(email_template)
     context = {
@@ -35,6 +40,7 @@ def send_email_measurement(user: User,
         'watermeter_measurement': str(watermeter_measurement.measurement).replace(".",","),
         'measurement_difference': str(watermeter_measurement.measurement_diff).replace(".",","),
         'max_daily_consumption': str(manager_configuration.max_daily_consumption).replace(".",","),
+        'manager_message' : message,
         'email_contact': settings.EMAIL_HOST_USER,
     }
     content = template.render(context)
