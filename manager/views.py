@@ -2,12 +2,15 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.status import HTTP_404_NOT_FOUND
 
-from manager.models import Manager, ManagerConfiguration
+from manager.models import Manager, ManagerConfiguration, ManagerMessage
+from manager.permissions import IsManagerAuthenticated
 from person.models import Person
 from manager.serializers import (ManagerConfigurationSerializer,
-                                 ManagerSerializer, UserIsManagerSerializer)
+                                 ManagerMessageSerializer, ManagerSerializer,
+                                 UserIsManagerSerializer)
 
 TAG_MANAGER = 'manager'
 
@@ -68,8 +71,7 @@ class ManagerConfigurationView(APIView):
             manager = Manager.objects.get(user=request.user)
         except:
             # Request user is normal User
-            manager = Person.objects.get(
-                user=request.user).manager
+            manager = Person.objects.get(user=request.user).manager
 
         try:
             configuration: ManagerConfiguration = ManagerConfiguration.objects.filter(
@@ -103,3 +105,41 @@ class ManagerConfigurationUpdateView(APIView):
             request.data.pop('hook_price'))
         return Response(
             ManagerConfigurationSerializer(configuration, many=False).data)
+
+
+class ManagerMessageView(GenericAPIView):
+    permission_classes = [IsManagerAuthenticated]
+    serializer_class = ManagerMessageSerializer
+
+    @swagger_auto_schema(
+        operation_id="getManagerMessage",
+        responses={200: ManagerMessageSerializer(many=False)},
+        tags=[TAG_MANAGER]
+    )
+    def get(self, request):
+        """
+        Get manager message
+        """
+        manager = Manager.objects.get(user=self.request.user)
+        manager_message = ManagerMessage.objects.get_or_create(
+            manager=manager)[0]
+        serializer = ManagerMessageSerializer(manager_message, many=False)
+
+        return Response(serializer.data)
+
+    @swagger_auto_schema(
+        operation_id="updateManagerMessage",
+        tags=[TAG_MANAGER],
+    )
+    def put(self, request):
+        """
+        Update manager message
+        """
+        serializer = ManagerMessageSerializer(data=request.data)
+        if serializer.is_valid(True):
+            manager = Manager.objects.get(user=self.request.user)
+            manager_message: ManagerMessage = ManagerMessage.objects.get_or_create(
+                manager=manager)[0]
+            serializer.update(manager_message, serializer.validated_data)
+
+        return Response(serializer.validated_data)
