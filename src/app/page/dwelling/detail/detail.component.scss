@@ -35,10 +35,10 @@
     }
 }
 
-@media only screen and (max-width: 1450px) {
+@media only screen and (max-width: 1660px) {
     .mat-card-content {
         display: block;
-        justify-content: center !important;
+        // justify-content: center !important;
         .dwelling-info {
             width: 100% !important;
         }
@@ -47,10 +47,13 @@
         }
         .buttons-map {
             display: flex !important;
+            margin-left: $margin-x-small;
+            background-color: blue;
         }
         .content-buttons-map {
+            background-color: red;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: center;
         }
         .dwelling-resident {
             margin-left: 0px !important;
