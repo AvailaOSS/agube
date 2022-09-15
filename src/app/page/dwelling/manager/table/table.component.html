@@ -103,15 +103,25 @@
                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION' | translate }}"
                 >
                     <div>
-                        <span>{{ element.watermeter_last_month_consumption }}</span>
-
+                        <span *ngIf="element.watermeter_last_month_consumption > 0; else noData">
+                            {{ element.watermeter_last_month_consumption }}
+                        </span>
+                        <ng-template #noData>
+                            <span>{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate }}</span>
+                        </ng-template>
                         <mat-icon
-                            *ngIf="+element.watermeter_last_month_consumption > +this.managerConfigurationNumber!"
+                            *ngIf="
+                                element.watermeter_last_month_consumption > 0 &&
+                                +element.watermeter_last_month_consumption > +this.managerConfigurationNumber!
+                            "
                             class="overflow"
                             >trending_up</mat-icon
                         >
                         <mat-icon
-                            *ngIf="+element.watermeter_last_month_consumption <= +this.managerConfigurationNumber!"
+                            *ngIf="
+                                element.watermeter_last_month_consumption > 0 &&
+                                +element.watermeter_last_month_consumption <= +this.managerConfigurationNumber!
+                            "
                             class="no-overflow"
                             >trending_down</mat-icon
                         >

@@ -25,7 +25,6 @@ export class ParametersComponent implements OnInit {
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
         private googleAnalyticsService: GoogleAnalyticsService,
-        private svcAccount: AccountService
     ) {
         this.parametersForm = this.formBuilder.group({
             hook_price: this.hook_price,

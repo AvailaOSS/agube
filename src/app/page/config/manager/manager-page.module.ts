@@ -16,9 +16,10 @@ import { environment } from 'src/environments/environment';
 import { ManagerPageRoutingModule } from './manager-page-routing.module';
 import { ManagerPageComponent } from './manager-page.component';
 import { ParametersComponent } from './parameters/parameters.component';
+import { ConfigurationEmailComponent } from './configuration-email/configuration-email.component';
 
 @NgModule({
-    declarations: [ManagerPageComponent, ParametersComponent],
+    declarations: [ManagerPageComponent, ParametersComponent, ConfigurationEmailComponent],
     imports: [
         CommonModule,
         MatButtonModule,

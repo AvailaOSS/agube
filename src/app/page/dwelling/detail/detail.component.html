@@ -28,6 +28,11 @@
                                 <mat-icon>map</mat-icon>
                                 {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                             </button>
+                            <button mat-raised-button [color]="'primary'" matTooltip="Ver mapa" (click)="seeMap()"
+                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}">
+                                <mat-icon>map</mat-icon>
+                                {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
+                            </button>
                         </div>
                         <div *ngIf="canLoad" class="button-comments">
                             <button mat-raised-button [color]="'primary'" matTooltip="Ver mapa" (click)="seeComments()"
