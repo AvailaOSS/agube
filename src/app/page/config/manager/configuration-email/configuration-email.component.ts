@@ -32,7 +32,6 @@ export class ConfigurationEmailComponent implements OnInit {
     }
     public ngOnInit(): void {
         this.svcManager.getManagerMessage().subscribe((res) => {
-            console.log(res);
             this.message.setValue(res.message);
         });
     }

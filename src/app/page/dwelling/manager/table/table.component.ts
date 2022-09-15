@@ -91,6 +91,23 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.svcDwelling.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
+            this.dataSource.filterPredicate = (data: DwellingDetail, filter: string): boolean => {
+                const dataStr = Object.keys(data)
+                    .reduce((currentTerm: string, key: string) => {
+                        return currentTerm + (data as { [key: string]: any })[key] + '◬';
+                    }, '')
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase();
+
+                const transformedFilter = filter
+                    .trim()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase();
+
+                return dataStr.indexOf(transformedFilter) != -1;
+            };
         });
     }
 
