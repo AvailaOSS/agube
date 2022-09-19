@@ -193,21 +193,25 @@ export class DetailComponent implements OnInit {
 
     // function fetches the next paginated items by using the url in the next property
     public fetchNext(index: number) {
-        this.setProperties(this.next);
-        if (index >= this.page!) {
-            this.pageIndex = this.page;
-        } else {
-            this.pageIndex! += 1;
+        if (this.next !== null) {
+            this.setProperties(this.next);
+            if (index >= this.page!) {
+                this.pageIndex = this.page;
+            } else {
+                this.pageIndex! += 1;
+            }
         }
     }
 
     // function fetches the previous paginated items by using the url in the previous property
     public fetchPrevious(index: number) {
-        this.setProperties(this.previous);
-        if (index === 1) {
-            this.pageIndex! = 1;
-        } else {
-            this.pageIndex! -= 1;
+        if (this.previous !== null) {
+            this.setProperties(this.previous);
+            if (index === 1) {
+                this.pageIndex! = 1;
+            } else {
+                this.pageIndex! -= 1;
+            }
         }
     }
 
