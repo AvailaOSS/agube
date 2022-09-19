@@ -1,4 +1,5 @@
 from django.core.mail import EmailMultiAlternatives
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.loader import get_template
 from django.conf import settings
 from enum import Enum
@@ -26,10 +27,14 @@ def send_email_measurement(user: User,
     app_name = settings.PUBLIC_APP_NAME
 
     # manager message
-    manager_message : ManagerMessage = ManagerMessage.objects.get(manager=manager_configuration.manager)
-    p_string = '<p>{0}</p>'
-    message = p_string.format(str(manager_message.message) if manager_message.is_active and manager_message.message else '')
-
+    message = ''
+    try:
+        manager_message : ManagerMessage = ManagerMessage.objects.get(manager=manager_configuration.manager)
+        p_string = '<p>{0}</p>'
+        message = p_string.format(str(manager_message.message) if manager_message.is_active and manager_message.message else '')
+    except ObjectDoesNotExist:
+        pass
+    
     # build template
     template = get_template(email_template)
     context = {
