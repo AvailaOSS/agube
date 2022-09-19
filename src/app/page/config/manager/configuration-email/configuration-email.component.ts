@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class ConfigurationEmailComponent implements OnInit {
     public loadSave: boolean = false;
     public message = new FormControl('', [Validators.required]);
+    public checked: boolean = false;
 
     constructor(
         private svcManager: ManagerService,
@@ -34,13 +35,14 @@ export class ConfigurationEmailComponent implements OnInit {
     public ngOnInit(): void {
         this.svcManager.getManagerMessage().subscribe((res) => {
             this.message.setValue(res.message);
+            this.checked = res.is_active;
         });
     }
 
     public saveNotification() {
         this.loadSave = true;
         let data: ManagerMessage = {
-            is_active: true,
+            is_active: this.checked,
             message: this.message.value,
         };
         this.svcManager.updateManagerMessage(data).subscribe({

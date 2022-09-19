@@ -1,5 +1,16 @@
 <div class="form">
-    <h3>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE' | translate }}</h3>
+    <div class="container-form-configuration">
+        <h3>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE' | translate }}</h3>
+        <div class="container-form-toggle">
+            <p>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE_ACTIVE' | translate }}</p>
+            <mat-slide-toggle
+                matTooltip="{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE_ACTIVE' | translate }}"
+                [(ngModel)]="checked"
+                name="adjuntar al final del correo"
+            >
+            </mat-slide-toggle>
+        </div>
+    </div>
     <div class="form-content">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.SUBTITLE' | translate }}</mat-label>
@@ -15,7 +26,7 @@
         <button
             mat-raised-button
             color="primary"
-            matTooltip="{{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP' | translate }}"
+            matTooltip="{{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP_ACTIVE' | translate }}"
             (click)="saveNotification()"
             [disabled]="message.invalid || loadSave"
         >
