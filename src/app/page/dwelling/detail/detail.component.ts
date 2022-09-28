@@ -157,6 +157,7 @@ export class DetailComponent implements OnInit {
         this.dialog.open(ListComponent, {
             hasBackdrop: true,
             width: '100%',
+            height:'50%',
             data: this.configCommentComponent,
         });
     }

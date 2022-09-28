@@ -8,7 +8,17 @@
         width: 100%;
     }
 }
-
+@media only screen and (min-width: 1950px) {
+    .water-meter {
+        display: flex;
+        width: 36%;
+        margin-top: $margin-small;
+        margin-left: $margin-x-medium;
+        .detail {
+            width: 100%;
+        }
+    }
+}
 @media only screen and (max-width: 1450px) {
     .water-meter {
         display: block !important;
