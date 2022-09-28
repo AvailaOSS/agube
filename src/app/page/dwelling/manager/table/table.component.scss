@@ -121,4 +121,15 @@
         color: #009500d1;
         margin-left: 5px;
     }
+    .color-data-empty {
+        color: #ffffffb3;
+    }
+    .container-consumption {
+        width: 70px;
+        margin-left: $margin-x-small;
+    }
+    .container-consumption-data {
+        justify-content: center !important;
+        display: flex !important;
+    }
 }
