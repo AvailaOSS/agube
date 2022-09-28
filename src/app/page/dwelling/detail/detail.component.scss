@@ -73,32 +73,29 @@
     }
 }
 
-@media only screen and (max-width: 1950px) {
+@media only screen and (max-width: 2240px) {
     .button-comments {
         display: flex !important;
     }
     .comments-list {
         display: none;
     }
-
 }
-@media only screen and (min-width: 1950px) {
+@media only screen and (min-width: 2240px) {
     .button-comments {
         display: none !important;
     }
     .comments-list {
         display: inline-block;
-        width: 58% !important;
+        width: auto !important;
+        margin-top: $margin-small;
     }
-    .dwelling-info{
-        width: 15% !important;
+    .dwelling-info {
+        width: 35% !important;
     }
-    .column-right{
-        width: 75% !important;
-
-        overflow: scroll;
+    .column-right {
+        width: 45% !important;
     }
-
 }
 .page-content {
     @include my-page-column($columnIndex: 1, $totalColumns: 1);
@@ -111,7 +108,7 @@
         justify-content: space-between;
         width: 100%;
         .dwelling-info {
-            width: 60%;
+            width: 55%;
             margin-top: $margin-x-medium;
             margin-left: $margin-x-medium;
             mat-icon {
@@ -131,6 +128,7 @@
         .column-right {
             width: 35%;
             height: 1%;
+            margin-right: $margin-x-medium;
             .dwelling-map {
                 mat-button-toggle-group {
                     display: flex;
@@ -178,4 +176,7 @@
             }
         }
     }
+}
+.custom-dialog-container .mat-dialog-container {
+    overflow-y: hidden;
 }

@@ -156,8 +156,7 @@ export class DetailComponent implements OnInit {
     public seeComments() {
         this.dialog.open(ListComponent, {
             hasBackdrop: true,
-            width: '100%',
-            height:'50%',
+            panelClass: ['custom-dialog-container'],
             data: this.configCommentComponent,
         });
     }
