@@ -106,7 +106,9 @@
                             {{ element.watermeter_last_month_consumption }} L
                         </span>
                         <ng-template #noData>
-                            <span>{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate }}</span>
+                            <span class="color-data-empty">{{
+                                'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate
+                            }}</span>
                         </ng-template>
                         <mat-icon
                             *ngIf="
