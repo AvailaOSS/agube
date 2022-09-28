@@ -121,7 +121,11 @@
         color: #009500d1;
         margin-left: 5px;
     }
-    .color-data-empty{
+    .color-data-empty {
         color: rgba(255, 255, 255, 0.7);
+    }
+    .container-consumption {
+        width: 70px;
+        margin-left: $margin-x-small;
     }
 }
