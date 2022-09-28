@@ -102,10 +102,10 @@
                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION' | translate }}"
                 >
                     <div>
-                        <span *ngIf="element.watermeter_last_month_consumption > 0; else noData">
+                        <span *ngIf="element.watermeter_last_month_consumption > 0; else emptyDataSource">
                             {{ element.watermeter_last_month_consumption }} L
                         </span>
-                        <ng-template #noData>
+                        <ng-template #emptyDataSource>
                             <span class="color-data-empty">{{
                                 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate
                             }}</span>
