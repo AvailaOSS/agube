@@ -1,6 +1,5 @@
 import mimetypes
 
-from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
@@ -18,7 +17,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
 
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
@@ -402,16 +400,18 @@ class UserCreateGeolocationView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
+        #FIXME: use serializer with methods
         # extract data
-        geolocation = request.data.pop('geolocation')
+        new_geolocation = GeolocationSerializer(data=request.data.pop('geolocation')).self_create()
         main = request.data.pop('main')
         # if new is main change others as not main
         if main:
             update_geolocation_to_not_main(pk)
-        # create a new address
-        created_user_address = create_user_geolocation(user, geolocation, main)
+        # create a new geolocation
+        created_user_geolocation = create_user_geolocation(user, new_geolocation,
+                                                       main)
         return Response(
-            UserGeolocationUpdateSerializer(created_user_address).data)
+            UserGeolocationUpdateSerializer(created_user_geolocation).data)
 
     @swagger_auto_schema(
         operation_id="getUserGeolocation",
@@ -430,7 +430,7 @@ class UserCreateGeolocationView(APIView):
                             status=HTTP_404_NOT_FOUND)
 
 
-class UserAddressUpdateDeleteView(APIView):
+class UserGeolocationUpdateDeleteView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
@@ -448,6 +448,7 @@ class UserAddressUpdateDeleteView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
+        #FIXME: use serializer with methods
         # extract data
         geolocation_data = request.data.pop('geolocation')
         main = request.data.pop('main')
@@ -466,42 +467,19 @@ class UserAddressUpdateDeleteView(APIView):
             return Response({'status': 'cannot update main address'},
                             status=HTTP_404_NOT_FOUND)
 
-        update_this_geolocation = user_geolocation.geolocation
+        # update geolocation
+        geolocation_serializer = GeolocationSerializer(data=geolocation_data)
+        updated_geolocation = geolocation_serializer.self_update(
+            user_geolocation.geolocation)
 
-        address_data = geolocation_data.get('address')
-        address = Address.objects.get_or_create(
-            is_external=address_data.get('is_external'),
-            city=address_data.get('city'),
-            country=address_data.get('country'),
-            city_district=address_data.get('city_district'),
-            municipality=address_data.get('municipality'),
-            postcode=address_data.get('postcode'),
-            province=address_data.get('province'),
-            state=address_data.get('state'),
-            village=address_data.get('village'),
-            road=address_data.get('road'),
-        )[0]
-
-        update_this_geolocation.address = address
-        update_this_geolocation.latitude = geolocation_data.get('latitude')
-        update_this_geolocation.longitude = geolocation_data.get('longitude')
-        update_this_geolocation.zoom = geolocation_data.get('zoom')
-        update_this_geolocation.horizontal_degree = geolocation_data.get(
-            'horizontal_degree')
-        update_this_geolocation.vertical_degree = geolocation_data.get(
-            'vertical_degree')
-        update_this_geolocation.number = geolocation_data.get('number')
-        update_this_geolocation.flat = geolocation_data.get('flat')
-        update_this_geolocation.gate = geolocation_data.get('gate')
-        update_this_geolocation.save()
-
+        # update user geolocation
         user_geolocation.main = main
         user_geolocation.save()
 
-        # FIXME: use UserGeolocationUpdateSerializer directly instead of manually
+        # FIXME: use UserGeolocationUpdateSerializer instead of manually
         data = {
             "id": user_geolocation.id,
-            "geolocation": GeolocationSerializer(update_this_geolocation).data,
+            "geolocation": GeolocationSerializer(updated_geolocation).data,
             'main': user_geolocation.main,
         }
 

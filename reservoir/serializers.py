@@ -77,7 +77,7 @@ class ReservoirCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         # Create geolocation
-        validated_data['geolocation'] = GeolocationSerializer(
+        new_geolocation = GeolocationSerializer(
             data=validated_data.pop('geolocation')).self_create()
         # Extract user_id
         user = validated_data.pop('user_id')
@@ -87,7 +87,7 @@ class ReservoirCreateSerializer(ModelSerializer):
             water_meter_code = validated_data.pop('water_meter')['code']
             water_meter_exist=True
         # Create reservoir
-        reservoir: Reservoir = Reservoir.objects.create(**validated_data)
+        reservoir: Reservoir = Reservoir.objects.create(geolocation=new_geolocation, **validated_data)
         # Add user to Reservoir
         if (user):
             reservoir.change_current_owner(user)

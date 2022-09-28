@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.utils.crypto import get_random_string
+from geolocation.models import Geolocation
 from owner.models import Owner
 from user.models import UserGeolocation, UserPhone
 from user.serializers import UserCreateSerializer
@@ -24,30 +25,30 @@ class PersonTag(Enum):
     OWNER = "Propietario"
     RESIDENT = "Residente"
 
-
+# FIXME: pass model objects not validated_data (is not a serializer)
 def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
     new_phone = Phone.objects.create(
         phone_number=validated_data.pop('phone_number'))
     UserPhone.objects.create(user=user, phone=new_phone, main=main)
 
 
-def create_user_geolocation(user: User, validated_data: GeolocationSerializer,
+def create_user_geolocation(user: User, geolocation: Geolocation,
                             main: bool):
     # create user geolocation
     return UserGeolocation.objects.create(
-        user=user, geolocation=GeolocationSerializer(
-            data=validated_data).self_create(), main=main)
+        user=user, geolocation=geolocation, main=main)
 
 
+# FIXME: pass model objects not validated_data (is not a serializer)
 def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
                 manager: Manager):
 
     with transaction.atomic():
         # Extract unnecessary data
         phones: list[PhoneSerializer] = validated_data.pop('phones')
-        geolocations: list[GeolocationSerializer] = []
+        geolocation_serializer_list: list[GeolocationSerializer] = []
         if 'geolocation' in validated_data:
-            geolocations = validated_data.pop('geolocation')
+            geolocation_serializer_list = GeolocationSerializer(data=validated_data.pop('geolocation'), many=True)
 
         # Generate activation code for the new user
         retry = True
@@ -79,8 +80,8 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
 
         # Create User geolocation
         first_iteration = True
-        for geolocation in geolocations:
-            create_user_geolocation(user, geolocation, first_iteration)
+        for geolocation_serializer in geolocation_serializer_list:
+            create_user_geolocation(user, geolocation_serializer.self_create(), first_iteration)
             first_iteration = False
 
         # Important: create Person after create User
@@ -108,7 +109,6 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
 def get_all_user_geolocation_serialized(user: User):
     list_of_serialized: list[GeolocationSerializer] = []
     for geolocation_iteration in UserGeolocation.objects.filter(user=user):
-        geolocation = geolocation_iteration.geolocation
         list_of_serialized.append(GeolocationSerializer(
             geolocation_iteration.geolocation, many=False).data)
 

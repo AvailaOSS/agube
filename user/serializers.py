@@ -126,7 +126,7 @@ class UserPhoneUpdateSerializer(Serializer):
 
 class UserGeolocationUpdateSerializer(Serializer):
     """
-    User Geolocation ModelSerializer
+    User Geolocation Update Serializer
     """
     id = ReadOnlyField()
     geolocation = GeolocationSerializer(many=False, read_only=False)
