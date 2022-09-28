@@ -128,4 +128,8 @@
         width: 70px;
         margin-left: $margin-x-small;
     }
+    .container-consumption-data {
+        justify-content: center !important;
+        display: flex !important;
+    }
 }

@@ -101,7 +101,7 @@
                     *matCellDef="let element; let i = index"
                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION' | translate }}"
                 >
-                    <div>
+                    <div class="container-consumption-data">
                         <mat-icon
                             *ngIf="
                                 element.watermeter_last_month_consumption > 0 &&
