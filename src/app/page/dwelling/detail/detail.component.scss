@@ -80,14 +80,25 @@
     .comments-list {
         display: none;
     }
+
 }
 @media only screen and (min-width: 1950px) {
     .button-comments {
-        display: flex !important;
+        display: none !important;
     }
     .comments-list {
-        display: flex;
+        display: inline-block;
+        width: 58% !important;
     }
+    .dwelling-info{
+        width: 15% !important;
+    }
+    .column-right{
+        width: 75% !important;
+
+        overflow: scroll;
+    }
+
 }
 .page-content {
     @include my-page-column($columnIndex: 1, $totalColumns: 1);
