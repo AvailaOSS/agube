@@ -2,10 +2,12 @@
 <div>
     <mat-form-field class="form" appearance="fill">
         <mat-label>{{ 'COMPONENTS.COMMENT.CREATE.TITLE' | translate }}</mat-label>
-        <textarea matInput cdkTextareaAutosize [formControl]="message" autofocus (keydown.enter)="save()"></textarea>
+        <textarea  matInput cdkTextareaAutosize [formControl]="message" autofocus (keydown.enter)="save()" (ngModelChange)="changes($event)"  maxlength="58"></textarea>
+
         <mat-error *ngIf="message.invalid">{{ errorValidator('message') | translate }}</mat-error>
     </mat-form-field>
 </div>
+<mat-label *ngIf="loadMessageLength">{{messageLength}} / {{permitedLenngth}}</mat-label>
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button matTooltip="{{ 'GENERAL.BUTTON.SAVE_AND_EXIT' | translate }}" color="primary"
         (click)="save()" [disabled]="message.invalid">

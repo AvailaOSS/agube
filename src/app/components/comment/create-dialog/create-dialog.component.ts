@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationService } from '@availa/notification';
@@ -13,12 +13,19 @@ import { CommentConfig } from '../type';
 export class CreateDialogComponent {
     public message = new FormControl('', [Validators.required]);
 
+    public messageLength: Number = 0;
+    public loadMessageLength = false;
+    public permitedLenngth: Number = 58;
     constructor(
         protected managerComment: CommentManager,
         protected svcNotification: NotificationService,
         protected dialogRef: MatDialogRef<CreateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) protected data: CommentConfig
     ) {}
+    changes(changes: string): void {
+        this.loadMessageLength = true;
+        this.messageLength = changes.length;
+    }
 
     public save(): void {
         // stop here if form is invalid
