@@ -21,8 +21,8 @@ import { ManagerComponent } from './manager.component';
 import { TableReloadService } from './table/table-reload.service';
 import { TableComponent } from './table/table.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MapModule } from 'src/app/components/map/map/map.module';
 
 @NgModule({
     declarations: [ManagerComponent, TableComponent, InfoComponent],
@@ -43,7 +43,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         TranslateModule,
         MatPaginatorModule,
         MatButtonToggleModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MapModule,
     ],
     providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })

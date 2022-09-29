@@ -1,4 +1,6 @@
+@use '../../../../assets/availa/palette/colors.scss' as color;
 @import '../../../../assets/availa/sizes/margins.scss';
+
 .water-meter {
     display: flex;
     width: 100%;
@@ -35,12 +37,13 @@
 .button-reading {
     margin-left: 40px;
 }
+
 .overflow {
-    color: #ff5f5f;
+    color: #ff5f5f; // FIXME: use colors.scss
 }
 
 .no-overflow {
-    color: #009500d1;
+    color: #009500d1; // FIXME: use colors.scss
 }
 
 .final-table-measurement {
@@ -50,10 +53,10 @@
         width: 15% !important;
     }
     .button-pagination {
-        margin-top: 15px;
+        margin-top: 15px; // FIXME: use margins.scss
         button {
             mat-icon {
-                color: #7fd3f7 !important;
+                color: color.$light-primary-text !important;
             }
         }
     }

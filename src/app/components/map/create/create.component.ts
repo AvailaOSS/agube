@@ -23,9 +23,9 @@ import { MapComponent } from '../map/map.component';
 import { InputForm } from './input-form';
 import {
     fillMissingAddressFields,
-    mapAddressFormBuilder,
     MapAddressCreator,
     MapAddressForm,
+    mapAddressFormBuilder,
 } from './map-address-creator';
 
 @Component({
@@ -109,13 +109,13 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
             tiles.addTo(this.map);
 
-            let circle: L.Circle | undefined = undefined;
-            if (conf.showCircle && (this.userHasMapClicked || this.automaticMode)) {
-                circle = this.setCircle(+conf.center.lat, +conf.center.lon, undefined, '#2ECC71');
+            let marker: L.Marker | undefined = undefined;
+            if (conf.showMarker && (this.userHasMapClicked || this.automaticMode)) {
+                marker = this.setMarker(conf.center);
             }
 
             if (conf.otherPoints) {
-                conf.otherPoints.forEach((point) => this.setCircle(+point.lat, +point.lon, point.description));
+                conf.otherPoints.forEach((point) => this.setMarker(point));
             }
 
             this.loadingMap = false;
@@ -130,16 +130,17 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                     center: {
                         lat: e.latlng.lat,
                         lon: e.latlng.lng,
+                        type: conf.center.type,
                     },
                     zoom: this.zoom,
-                    showCircle: true,
+                    showMarker: true,
                     height: conf.height,
                     dragging: conf.dragging,
                     otherPoints: conf.otherPoints,
                 };
 
-                if (circle) {
-                    this.map.removeLayer(circle);
+                if (marker) {
+                    this.map.removeLayer(marker);
                 }
 
                 // duplicated command, it already running in putLocationInMap
@@ -271,9 +272,10 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             center: {
                 lat: lat,
                 lon: lon,
+                type: this.baseConfiguration.center.type,
             },
             zoom: MapComponent.zoom,
-            showCircle: true,
+            showMarker: true,
             height: this.baseConfiguration!.height,
             dragging: this.baseConfiguration!.dragging,
             otherPoints: this.baseConfiguration?.otherPoints,

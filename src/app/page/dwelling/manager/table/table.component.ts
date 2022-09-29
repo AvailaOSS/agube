@@ -16,7 +16,7 @@ import { TableReloadService } from './table-reload.service';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
-    //fields to table
+    // fields to table
     public displayedColumns: string[] = [
         'water_meter_code',
         'full_address',
@@ -24,15 +24,20 @@ export class TableComponent implements OnInit, AfterViewInit {
         'resident_phone',
         'water_meter',
     ];
-    //table data sources
+
+    // table data sources
     public dataSource: MatTableDataSource<DwellingDetail> = new MatTableDataSource();
     public isSelected: DwellingDetail | undefined = undefined;
-    //filter
+
+    // filter
     public filter = new FormControl('');
-    //pagination
+
+    // pagination
     public pageSize = 12;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+
     public managerConfigurationNumber: number | undefined;
+
     constructor(
         private router: Router,
         private svcDwelling: DwellingCacheService,

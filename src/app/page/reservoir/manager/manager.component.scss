@@ -3,25 +3,42 @@
 
 .manager-reservoir-page {
     @media only screen and (max-width: 1240px) {
-        // nothing to do
         margin-bottom: 180px;
+
+        ::ng-deep #manager_full_reservoir_map{
+            width: 100% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
     }
     @media only screen and (min-width: 1240px) {
-        // @include my-page();
         display: flex;
         flex-direction: row-reverse;
         margin-bottom: 70px;
         ::ng-deep .page-info {
             min-width: 80%;
             margin-left: 3%;
-       }
-       margin-bottom: $margin-large;
+        }
+        ::ng-deep #manager_full_reservoir_map {
+            margin-left: 3%;
+            width: 100% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        margin-bottom: $margin-large;
     }
-    @media only screen and (min-width: 1467px) {
+
+    @media only screen and (min-width: 1440px) {
         @include my-page();
         margin-bottom: $margin-large;
         ::ng-deep .page-info {
             max-width: 50%;
+        }
+        ::ng-deep #manager_full_reservoir_map {
+            width: 80% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            margin-left: 3%;
         }
     }
 }

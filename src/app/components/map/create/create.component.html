@@ -37,7 +37,7 @@
                 <p>{{ 'COMPONENTS.MAP.CREATE.MAP.HEADER' | translate }}</p>
                 <div class="map">
                     <mat-spinner *ngIf="loadingMap" class="map-spinner"></mat-spinner>
-                    <div id="{{baseConfiguration.id}}" [ngStyle]="{ height: baseConfiguration?.height }"
+                    <div id="{{baseConfiguration.id}}" class="leftleat-map" [ngStyle]="{ height: baseConfiguration!.height }"
                         matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}" matTooltipPosition="left"
                         [matTooltipDisabled]="form.filter.invalid"></div>
                 </div>

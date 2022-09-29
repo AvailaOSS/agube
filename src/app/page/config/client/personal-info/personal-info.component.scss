@@ -1,9 +1,12 @@
+@use '../../../../../assets/availa/palette/colors.scss' as color;
 @import '../../../../../assets/availa/sizes/margins.scss';
+
 .email-info {
     float: right;
 }
+
 input[type='file']::-webkit-file-upload-button {
-    background-color: #7fd3f7;
+    background-color: color.$light-primary-text;
     color: black;
     padding: 0.5rem;
     font-family: sans-serif;

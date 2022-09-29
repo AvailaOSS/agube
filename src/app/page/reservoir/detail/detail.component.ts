@@ -7,7 +7,7 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
-import { ConfigureMap } from 'src/app/components/map/map/configure-map';
+import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
@@ -32,6 +32,7 @@ export class DetailComponent implements OnInit {
 
     // map config
     public mode: string = 'map';
+    private readonly mapType: MapIconType = MapIconType.RESERVOIR;
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '500px';
@@ -100,9 +101,10 @@ export class DetailComponent implements OnInit {
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
+                    type: this.mapType,
                 },
                 zoom: geolocation.zoom,
-                showCircle: true,
+                showMarker: true,
                 height: '300px',
                 dragging: false,
                 selectOptionFilter: true,
@@ -140,9 +142,10 @@ export class DetailComponent implements OnInit {
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
+                    type: this.mapType,
                 },
                 zoom: geolocation.zoom,
-                showCircle: true,
+                showMarker: true,
                 height: '500px',
                 dragging: false,
                 selectOptionFilter: true,
@@ -208,9 +211,10 @@ export class DetailComponent implements OnInit {
             center: {
                 lat: geolocation.latitude,
                 lon: geolocation.longitude,
+                type: this.mapType,
             },
             zoom: geolocation.zoom,
-            showCircle: true,
+            showMarker: true,
             height: this.mapHeight,
             dragging: false,
         };
