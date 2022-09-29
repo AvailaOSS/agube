@@ -10,7 +10,7 @@ import {
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
-import { ConfigureMap } from 'src/app/components/map/map/configure-map';
+import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { IDetail } from '../manage/detail';
 
@@ -87,7 +87,6 @@ export class Detail {
                     return;
                 }
                 this.dwellings = response;
-
             },
             error: (error) =>
                 this.svcNotification.warning({
@@ -102,9 +101,10 @@ export class Detail {
             center: {
                 lat: geolocation.latitude,
                 lon: geolocation.longitude,
+                type: MapIconType.HOUSE,
             },
             zoom: geolocation.zoom,
-            showCircle: true,
+            showMarker: true,
             height: this.mapHeight,
             dragging: false,
         };

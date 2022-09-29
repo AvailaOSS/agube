@@ -8,6 +8,7 @@ import { EditableGeolocation } from './editable-geolocation';
 import { DialogComponent } from '../../../../../../components/dialog/dialog.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { Geolocation } from '@availa/agube-rest-api';
+import { MapIconType } from 'src/app/components/map/map/configure-map';
 
 @Component({
     selector: 'app-address-editable',
@@ -75,9 +76,10 @@ export class EditComponent extends CreateAddress {
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
+                    type: MapIconType.HOUSE,
                 },
                 zoom: geolocation.zoom,
-                showCircle: true,
+                showMarker: true,
                 height: '350px',
                 dragging: false,
                 selectOptionFilter: true,

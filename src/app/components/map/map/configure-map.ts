@@ -2,7 +2,7 @@ export interface ConfigureMap {
     id: string;
     center: Coordinates;
     zoom: number;
-    showCircle: boolean;
+    showMarker: boolean;
     height: string;
     width?: string;
     dragging: boolean;
@@ -15,4 +15,12 @@ export interface Coordinates {
     lat: string;
     lon: string;
     description?: string;
+    type: MapIconType;
+}
+
+export enum MapIconType {
+    HOUSE = '/assets/icons/house.svg',
+    RESERVOIR = '/assets/icons/reservoir.svg',
+    WATER_SOURCE = '/assets/icons/watersource.svg',
+    WORK = '/assets/icons/wheelbarrow.svg',
 }

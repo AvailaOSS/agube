@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { DwellingDetail } from '@availa/agube-rest-api/public-api';
-import { ConfigureMap } from 'src/app/components/map/map/configure-map';
+import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
 import { TableReloadService } from './table/table-reload.service';
@@ -41,9 +41,10 @@ export class ManagerComponent implements OnInit {
                     center: {
                         lat: String(firstDwellingDetected.latitude!),
                         lon: String(firstDwellingDetected.longitude!),
+                        type: MapIconType.HOUSE,
                     },
                     zoom: this.mapZoom,
-                    showCircle: true,
+                    showMarker: true,
                     height: this.mapHeight,
                     width: this.mapWidth,
                     dragging: true,

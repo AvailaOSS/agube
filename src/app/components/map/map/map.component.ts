@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { LocationResponse } from './location-response';
-import { ConfigureMap } from './configure-map';
 import * as L from 'leaflet';
+import { ConfigureMap, Coordinates } from './configure-map';
+import { LocationResponse } from './location-response';
 
 @Component({
     selector: 'app-map',
@@ -54,31 +54,25 @@ export class MapComponent implements AfterViewInit {
 
         tiles.addTo(this.map);
 
-        if (conf.showCircle) {
-            this.setCircle(+conf.center.lat, +conf.center.lon);
+        if (conf.showMarker) {
+            this.setMarker(conf.center);
         }
 
         if (conf.otherPoints) {
-            conf.otherPoints.forEach((point) => this.setCircle(+point.lat, +point.lon, point.description));
+            conf.otherPoints.forEach((point) => this.setMarker(point));
         }
     }
 
-    protected setCircle(
-        lat: number,
-        lon: number,
-        popupDescription: string | undefined = undefined,
-        circleColor = MapComponent.circleColor,
-        circleOpacity = MapComponent.circleOpacity,
-        circleRadius = MapComponent.circleRadius
-    ) {
-        let circle = L.circle([lat, lon], {
-            fillColor: circleColor,
-            fillOpacity: circleOpacity,
-            radius: circleRadius,
-        }).addTo(this.map);
+    protected setMarker(point: Coordinates) {
+        var myIcon = L.icon({
+            iconUrl: point.type,
+            iconSize: [30, 30],
+        });
 
-        if (popupDescription) {
-            circle.bindPopup(popupDescription);
+        let circle = L.marker([+point.lat, +point.lon], { icon: myIcon }).addTo(this.map);
+
+        if (point.description) {
+            circle.bindPopup(point.description);
 
             circle.on('mouseover', (ev) => {
                 ev.target.openPopup();

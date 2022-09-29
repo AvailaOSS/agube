@@ -9,6 +9,7 @@ import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
+import { MapIconType } from 'src/app/components/map/map/configure-map';
 
 @Component({
     selector: 'app-page-reservoir-create',
@@ -37,6 +38,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     ) {
         super();
         this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
+        this.configureMap.center.type = MapIconType.RESERVOIR;
         // configure address form
         this.addressInputForm = {
             country: new FormControl('', Validators.required),

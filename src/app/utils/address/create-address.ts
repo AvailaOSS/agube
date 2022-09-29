@@ -2,7 +2,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Geolocation } from '@availa/agube-rest-api';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
-import { ConfigureMap } from 'src/app/components/map/map/configure-map';
+import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { addressGenerator } from 'src/app/utils/address/address';
 import { detect } from 'src/app/utils/screen/detector';
 import { ResolutionType } from '../screen/type';
@@ -31,9 +31,10 @@ export class CreateAddress {
         center: {
             lat: '39.92666',
             lon: '-2.33976',
+            type: MapIconType.HOUSE,
         },
         zoom: 6,
-        showCircle: false,
+        showMarker: false,
         height: '450px',
         dragging: false,
         selectOptionFilter: false,
