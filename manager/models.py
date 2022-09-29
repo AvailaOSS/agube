@@ -16,14 +16,17 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         db_table = 'agube_manager_manager'
 
     def save(self, *args, **kwargs):
-        __default_max_daily_consumption = 1000
-        __default_hook_price = 100
         """save the Manager and create default config"""
         super(Manager, self).save(*args, **kwargs)
+
+        if self.pk is None:
+            # create default config
+            __default_max_daily_consumption = 1000
+            __default_hook_price = 100
             self.create_configuration(__default_max_daily_consumption,
                                       __default_hook_price)
+                                      
             # create manager message
-        if self.pk is None:
             ManagerMessage.objects.get_or_create(manager=self)
 
     def create_configuration(self, max_daily_consumption, hook_price):
