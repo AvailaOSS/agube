@@ -15,7 +15,7 @@ export class ManagerComponent implements OnInit {
     // map config parameters
     public configureMap: ConfigureMap | undefined;
     private readonly mapId: string = 'manager_full_reservoir_map';
-    private readonly mapZoom: number = 14;
+    private readonly mapZoom: number = 16;
     private readonly mapHeight: string = '450px';
     private readonly mapWidth: string = '850px';
 
@@ -26,18 +26,18 @@ export class ManagerComponent implements OnInit {
     }
 
     private loadMap() {
-        // get location from dwellings
+        // get location from reservoirs
         this.svcReservoirCache.get().then((response) => {
-            // check if has dwellings, else ignore it
+            // check if has reservoirs, else ignore it
             if (response && response.length > 0) {
                 // get first result
-                var firstDwellingDetected: ReservoirDetail = response[1];
-                // set location around the first dwelling
+                var firstReservoirDetected: ReservoirDetail = response[1];
+                // set location around the first reservoir
                 var buildConfigMap: ConfigureMap = {
                     id: this.mapId,
                     center: {
-                        lat: String(firstDwellingDetected.latitude!),
-                        lon: String(firstDwellingDetected.longitude!),
+                        lat: String(firstReservoirDetected.latitude!),
+                        lon: String(firstReservoirDetected.longitude!),
                         type: MapIconType.RESERVOIR,
                     },
                     zoom: this.mapZoom,
@@ -47,8 +47,8 @@ export class ManagerComponent implements OnInit {
                     dragging: true,
                     scrollWheelZoom: true,
                 };
-                // add others dwellings in the map
-                buildConfigMap.otherPoints = response.map((dwelling) => build(dwelling));
+                // add others Reservoirs in the map
+                buildConfigMap.otherPoints = response.map((reservoir) => build(reservoir));
                 // replace the undefined config with built config
                 this.configureMap = buildConfigMap;
             }
