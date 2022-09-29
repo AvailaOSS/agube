@@ -81,6 +81,7 @@
         display: none;
     }
 }
+
 @media only screen and (min-width: 2240px) {
     .button-comments {
         display: none !important;
@@ -97,6 +98,7 @@
         width: 45% !important;
     }
 }
+
 .page-content {
     @include my-page-column($columnIndex: 1, $totalColumns: 1);
     .mat-card {
@@ -177,6 +179,7 @@
         }
     }
 }
+
 .custom-dialog-container .mat-dialog-container {
     overflow-y: hidden;
 }
