@@ -11,10 +11,10 @@ import { CommentConfig } from '../type';
     styleUrls: ['./create-dialog.component.scss'],
 })
 export class CreateDialogComponent {
-    //textarea variable in form
+    // textarea variable in form
     public message = new FormControl('', [Validators.required]);
 
-    //Verification  textarea length
+    // verification  textarea length
     public messageLength: Number = 0;
     public loadMessageLength = false;
     public allowedMessageLength: Number = 58;
@@ -26,7 +26,7 @@ export class CreateDialogComponent {
         @Inject(MAT_DIALOG_DATA) protected data: CommentConfig
     ) {}
 
-    //verification changes in textarea
+    // verification changes in textarea
     changes(changes: string): void {
         this.loadMessageLength = true;
         this.messageLength = changes.length;
@@ -50,12 +50,12 @@ export class CreateDialogComponent {
             });
     }
 
-    //close dialog
+    // close dialog
     public close(reload: boolean): void {
         this.dialogRef.close(reload);
     }
 
-    //validator if have any error in textarea
+    // validator if have any error in textarea
     public errorValidator(entity: string) {
         switch (entity) {
             case 'message':
