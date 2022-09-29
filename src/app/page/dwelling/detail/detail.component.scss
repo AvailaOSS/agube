@@ -1,6 +1,5 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
-
 @mixin dynamic-button {
     button {
         width: 215px;
@@ -18,97 +17,6 @@
 
 .detail-page {
     @include my-page($columns: 1);
-}
-
-@media only screen and (max-width: 735px) {
-    .mat-card-content {
-        .content-buttons-map {
-            display: block !important;
-        }
-    }
-    .buttons-map {
-        margin-left: 74px !important;
-    }
-}
-
-@media only screen and (max-width: 1660px) {
-    .mat-card-content {
-        display: block;
-        .dwelling-info {
-            width: 100% !important;
-        }
-        .dwelling-map {
-            display: none;
-        }
-        .buttons-map {
-            display: flex !important;
-            margin-left: $margin-x-small;
-        }
-        .content-buttons-map {
-            display: block;
-            justify-content: center;
-        }
-        .dwelling-resident {
-            margin-left: 0px !important;
-            flex-direction: column;
-            display: flex;
-            height: 60%;
-        }
-    }
-}
-@media only screen and (min-width: 1879px) {
-    .button-comments {
-        display: flex !important;
-    }
-    .comments-list {
-        display: none;
-    }
-
-    .dwelling-info {
-        width: 45% !important;
-    }
-    .column-right {
-        width: 30% !important;
-    }
-    .position-gauge {
-        display: flex !important;
-    }
-}
-
-@media only screen and (max-width: 2312px) {
-    .button-comments {
-        display: flex !important;
-    }
-    .comments-list {
-        display: none;
-    }
-
-    .dwelling-info {
-        width: 51% !important;
-    }
-    .column-right {
-        width: 40% !important;
-    }
-    .position-gauge {
-        display: flex !important;
-    }
-}
-
-@media only screen and (min-width: 2312px) {
-    .button-comments {
-        display: none !important;
-    }
-    .comments-list {
-        display: inline-block;
-        width: auto !important;
-        margin-top: $margin-small;
-    }
-    .dwelling-info {
-        width: 35% !important;
-    }
-    .column-right {
-        width: 45% !important;
-    }
 }
 
 .page-content {
@@ -194,4 +102,97 @@
 
 .custom-dialog-container .mat-dialog-container {
     overflow-y: hidden;
+}
+
+@media only screen and (max-width: 735px) {
+    .mat-card-content {
+        .content-buttons-map {
+            display: block !important;
+        }
+    }
+    .buttons-map {
+        margin-left: 74px !important;
+    }
+}
+
+@media only screen and (max-width: 1660px) {
+    .mat-card-content {
+        display: block;
+        .dwelling-info {
+            width: 100% !important;
+        }
+        .dwelling-map {
+            display: none;
+        }
+        .buttons-map {
+            display: flex !important;
+            margin-left: $margin-x-small;
+        }
+        .content-buttons-map {
+            display: block;
+            justify-content: center;
+        }
+        .dwelling-resident {
+            margin-left: 0px !important;
+            flex-direction: column;
+            display: flex;
+            height: 60%;
+        }
+    }
+}
+
+@media only screen and (min-width: 1879px) {
+    .button-comments {
+        display: flex !important;
+    }
+    .comments-list {
+        display: none;
+    }
+
+    .dwelling-info {
+        width: 45% !important;
+    }
+    .column-right {
+        width: 30% !important;
+    }
+    .position-gauge {
+        display: flex !important;
+        height: fit-content;
+    }
+}
+
+@media only screen and (min-width: 2312px) {
+    .button-comments {
+        display: none !important;
+    }
+    .comments-list {
+        display: inline-block;
+        width: auto !important;
+        margin-top: $margin-small;
+    }
+    .dwelling-info {
+        width: 35% !important;
+    }
+    .column-right {
+        width: 45% !important;
+    }
+}
+
+@media only screen and (max-width: 2312px) {
+    .button-comments {
+        display: flex !important;
+    }
+    .comments-list {
+        display: none;
+    }
+
+    .dwelling-info {
+        width: 51% !important;
+    }
+    .column-right {
+        width: 40% !important;
+    }
+    .position-gauge {
+        display: flex !important;
+    }
 }

@@ -92,6 +92,7 @@ export class DetailComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        // Persistant to send waterMeterID
         this.svcPersistant.get().subscribe((res) => {
             this.waterMeterId = res?.id!;
         });
@@ -233,7 +234,7 @@ export class DetailComponent implements OnInit {
             },
         });
     }
-
+    // Configure Map to show in dwelling detail
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
             id: this.mapId,

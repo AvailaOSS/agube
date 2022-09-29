@@ -110,14 +110,13 @@ $agube-fe-theme: mat.define-light-theme(
 
 h1,
 h2,
-h4
-{
+h4 {
     color: mat.get-color-from-palette($agube-fe-primary, 600);
 }
 
-h3{
-    color:#558DA6 !important;
-    margin-left: 10px
+h3 {
+    color: #558da6 !important;
+    margin-left: 10px;
 }
 .color-blocked-tag {
     background-color: mat.get-color-from-palette($agube-fe-warn, 600) !important;

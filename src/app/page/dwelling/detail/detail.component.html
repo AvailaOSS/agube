@@ -21,17 +21,15 @@
                         </div>
                     </div>
 
-                    <div class="content-buttons-map" >
-                        <div style="display: flex;
-                        height: fit-content;" >
-
+                    <div class="content-buttons-map">
+                        <div style="display: flex; height: fit-content">
                             <app-management
-                            [manage]="dwelling"
-                            [waterMeterId]="waterMeterId"
-                            [type]="type"
-                            [load]="canLoad"
+                                [manage]="dwelling"
+                                [waterMeterId]="waterMeterId"
+                                [type]="type"
+                                [load]="canLoad"
                             >
-                        </app-management>
+                            </app-management>
                             <div class="buttons-map">
                                 <button
                                     mat-raised-button
@@ -57,8 +55,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="position-gauge" style="    display: flex;
-                        height: fit-content;">
+                        <div class="position-gauge">
                             <app-gauge-measurement
                                 *ngIf="waterMeterId"
                                 [waterMeterId]="waterMeterId!"
@@ -74,18 +71,18 @@
                     <div class="dwelling-map">
                         <mat-button-toggle-group #group="matButtonToggleGroup">
                             <mat-button-toggle
-                            (click)="mode = 'map'"
+                                (click)="mode = 'map'"
                                 matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
                                 matTooltipPosition="left"
                             >
                                 <mat-icon>map</mat-icon>
                             </mat-button-toggle>
                             <mat-button-toggle
-                            *ngIf="canLoadStreetView"
+                                *ngIf="canLoadStreetView"
                                 (click)="mode = 'streetView'"
                                 matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
                                 matTooltipPosition="right"
-                                >
+                            >
                                 <mat-icon>360</mat-icon>
                             </mat-button-toggle>
                         </mat-button-toggle-group>
