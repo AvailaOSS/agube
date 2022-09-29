@@ -1,20 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReservoirDetail } from '@availa/agube-rest-api';
+import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
+import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { build } from 'src/app/utils/coordinates/coordinates-builder';
 
 @Component({
     selector: 'app-manager-reservoir',
     templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.scss'],
 })
-export class ManagerComponent {
+export class ManagerComponent implements OnInit {
     public element: ReservoirDetail | undefined;
 
-    constructor() {}
+    // map config parameters
+    public configureMap: ConfigureMap | undefined;
+    private readonly mapId: string = 'manager_full_reservoir_map';
+    private readonly mapZoom: number = 14;
+    private readonly mapHeight: string = '450px';
+    private readonly mapWidth: string = '850px';
+
+    constructor(private svcReservoirCache: ReservoirCacheService) {}
+
+    public ngOnInit(): void {
+        this.loadMap();
+    }
 
     public readSelected(element: ReservoirDetail | undefined) {
         if (!element) {
             return;
         }
         this.element = element;
+    }
+
+    private loadMap() {
+        // get location from dwellings
+        this.svcReservoirCache.get().then((response) => {
+            // check if has dwellings, else ignore it
+            if (response && response.length > 0) {
+                // get first result
+                var firstDwellingDetected: ReservoirDetail = response[1];
+                // set location around the first dwelling
+                var buildConfigMap: ConfigureMap = {
+                    id: this.mapId,
+                    center: {
+                        lat: String(firstDwellingDetected.latitude!),
+                        lon: String(firstDwellingDetected.longitude!),
+                        type: MapIconType.RESERVOIR,
+                    },
+                    zoom: this.mapZoom,
+                    showMarker: true,
+                    height: this.mapHeight,
+                    width: this.mapWidth,
+                    dragging: true,
+                    scrollWheelZoom: true,
+                };
+                // add others dwellings in the map
+                buildConfigMap.otherPoints = response.map((dwelling) => build(dwelling));
+                // replace the undefined config with built config
+                this.configureMap = buildConfigMap;
+            }
+        });
     }
 }

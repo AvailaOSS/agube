@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { MapModule } from 'src/app/components/map/map/map.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { InfoComponent } from './info/info.component';
@@ -36,6 +37,7 @@ import { TableComponent } from './table/table.component';
         MatTooltipModule,
         TranslateModule,
         MatPaginatorModule,
+        MapModule,
     ],
 })
 export class ManagerModule {}

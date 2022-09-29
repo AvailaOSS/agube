@@ -13,7 +13,7 @@ import { TableReloadService } from './table/table-reload.service';
 export class ManagerComponent implements OnInit {
     // map config parameters
     public configureMap: ConfigureMap | undefined;
-    private readonly mapId: string = 'manager_full_map';
+    private readonly mapId: string = 'manager_full_houses_map';
     private readonly mapZoom: number = 16;
     private readonly mapHeight: string = '450px';
     private readonly mapWidth: string = '850px';
