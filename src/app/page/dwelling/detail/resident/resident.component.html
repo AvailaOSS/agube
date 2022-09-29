@@ -5,20 +5,24 @@
             <h2>{{ title.title | translate }}</h2>
         </span>
         <span>
-            {{ 'GENERAL.TEXT.FIRST_NAME' | translate }}
-            <h3>{{ userDetail.first_name }}</h3>
+
+            <h4> {{ 'GENERAL.TEXT.FIRST_NAME' | translate }}</h4>
+            {{ userDetail.first_name }}
         </span>
         <span>
-            {{ 'GENERAL.TEXT.LAST_NAME' | translate }}
-            <h3>{{ userDetail.last_name }}</h3>
+
+            <h4>{{ 'GENERAL.TEXT.LAST_NAME' | translate }}</h4>
+            {{ userDetail.last_name }}
         </span>
         <span>
-            {{ 'GENERAL.TEXT.EMAIL' | translate }}
-            <h3>{{ userDetail.email }}</h3>
+
+            <h4>{{ 'GENERAL.TEXT.EMAIL' | translate }}</h4>
+            {{ userDetail.email }}
         </span>
         <span>
-            {{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}
-            <h3>{{ userDetail.main_phone.phone_number }}</h3>
+
+            <h4>{{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}</h4>
+            {{ userDetail.main_phone.phone_number }}
         </span>
     </div>
     <button *ngIf="canLoad && textOwnerButton" mat-raised-button color="primary"

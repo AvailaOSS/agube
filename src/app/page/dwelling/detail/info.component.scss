@@ -24,16 +24,17 @@
     justify-content: space-between;
     .detail-info {
         margin-bottom: $margin-small;
+        margin-left: $margin-small;
         width: 56%;
         span {
             display: flex;
             margin: $margin-x-small 0 0 0;
-            h3 {
-                margin: 0 0 0 $margin-x-small;
+            h4 {
+                margin: 0 $margin-x-small 0 $margin-x-small;
             }
         }
         h2 {
-            margin: 5px 0 0 0;
+            margin: 0 0 0 0;
         }
     }
 

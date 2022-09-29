@@ -15,7 +15,14 @@
         }
     }
 }
+
 @media only screen and (max-width: 939px) {
+    .buttons-management {
+        margin-left: 74px !important;
+    }
+}
+
+@media only screen and (max-width: 1077px) {
     .buttons-management {
         margin-left: 74px !important;
     }

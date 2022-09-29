@@ -109,7 +109,8 @@ $agube-fe-theme: mat.define-light-theme(
 }
 
 h1,
-h2
+h2,
+h4
 {
     color: mat.get-color-from-palette($agube-fe-primary, 600);
 }
