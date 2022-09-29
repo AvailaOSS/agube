@@ -3,9 +3,7 @@ import mimetypes
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from dwelling.assemblers import create_user_geolocation
 from dwelling.models import Dwelling
-from geolocation.serializers import GeolocationSerializer
 from owner.models import Owner
 from person.models import Person, PersonConfig
 from person.serializers import PersonPhotoSerializer
@@ -26,9 +24,10 @@ from user.models import (UserGeolocation, UserPhone,
 from user.permissions import IsManagerOfUser, IsUserMatch
 from user.send import send_email_modification_email
 from user.serializers import (PersonConfigSerializer, UserDetailSerializer,
-                              UserGeolocationUpdateSerializer,
+                              UserGeolocationSerializer,
                               UserPhoneUpdateSerializer)
 from user.serializers_external import UserDwellingDetailSerializer
+from user.exceptions import UserGeolocationError, UserGeolocationMainUpdateError, UserGeolocationMainDeleteError
 
 TAG_USER = 'user'
 
@@ -382,40 +381,12 @@ class UserPhoneUpdateDeleteView(APIView):
         return Response({'status': 'delete successfull!'})
 
 
-class UserCreateGeolocationView(APIView):
+class UserGeolocationView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
-        operation_id="addUserGeolocation",
-        request_body=UserGeolocationUpdateSerializer,
-        responses={200: UserGeolocationUpdateSerializer(many=False)},
-        tags=[TAG_USER],
-    )
-    def post(self, request, pk):
-        """
-        Add new User Geolocation
-        """
-        try:
-            user = User.objects.get(id=pk)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find user'},
-                            status=HTTP_404_NOT_FOUND)
-        #FIXME: use serializer with methods
-        # extract data
-        new_geolocation = GeolocationSerializer(data=request.data.pop('geolocation')).self_create()
-        main = request.data.pop('main')
-        # if new is main change others as not main
-        if main:
-            update_geolocation_to_not_main(pk)
-        # create a new geolocation
-        created_user_geolocation = create_user_geolocation(user, new_geolocation,
-                                                       main)
-        return Response(
-            UserGeolocationUpdateSerializer(created_user_geolocation).data)
-
-    @swagger_auto_schema(
         operation_id="getUserGeolocation",
-        responses={200: UserGeolocationUpdateSerializer(many=True)},
+        responses={200: UserGeolocationSerializer(many=True)},
         tags=[TAG_USER],
     )
     def get(self, request, pk):
@@ -429,14 +400,34 @@ class UserCreateGeolocationView(APIView):
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
 
+    @swagger_auto_schema(
+        operation_id="addUserGeolocation",
+        request_body=UserGeolocationSerializer,
+        responses={201: UserGeolocationSerializer(many=False)},
+        tags=[TAG_USER],
+    )
+    def post(self, request, pk):
+        """
+        Add new User Geolocation
+        """
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'},
+                            status=HTTP_404_NOT_FOUND)
+
+        new_user_geolocation = UserGeolocationSerializer(
+            data=request.data).self_create(user)
+        return Response(UserGeolocationSerializer(new_user_geolocation).data)
+
 
 class UserGeolocationUpdateDeleteView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateUserGeolocation",
-        request_body=UserGeolocationUpdateSerializer,
-        responses={200: UserGeolocationUpdateSerializer(many=False)},
+        request_body=UserGeolocationSerializer,
+        responses={200: UserGeolocationSerializer(many=False)},
         tags=[TAG_USER],
     )
     def put(self, request, pk, geolocation_id):
@@ -448,42 +439,20 @@ class UserGeolocationUpdateDeleteView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
-        #FIXME: use serializer with methods
-        # extract data
-        geolocation_data = request.data.pop('geolocation')
-        main = request.data.pop('main')
-        # if new is main change others as not main
-        if main:
-            update_geolocation_to_not_main(pk)
-        # update phone with new data
+
         try:
-            user_geolocation: UserGeolocation = UserGeolocation.objects.get(
-                user__id=pk, geolocation__id=geolocation_id)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find user address'},
-                            status=HTTP_404_NOT_FOUND)
+            updated_user_geolocation = UserGeolocationSerializer(
+                data=request.data).self_update(user, geolocation_id)
+        except (UserGeolocationError, UserGeolocationMainUpdateError) as e:
+            if isinstance(e, UserGeolocationError):
+                return Response({'status': e.message},
+                                status=HTTP_404_NOT_FOUND)
+            if isinstance(e, UserGeolocationMainUpdateError):
+                return Response({'status': e.message},
+                                status=HTTP_400_BAD_REQUEST)
 
-        if user_geolocation.main:
-            return Response({'status': 'cannot update main address'},
-                            status=HTTP_404_NOT_FOUND)
-
-        # update geolocation
-        geolocation_serializer = GeolocationSerializer(data=geolocation_data)
-        updated_geolocation = geolocation_serializer.self_update(
-            user_geolocation.geolocation)
-
-        # update user geolocation
-        user_geolocation.main = main
-        user_geolocation.save()
-
-        # FIXME: use UserGeolocationUpdateSerializer instead of manually
-        data = {
-            "id": user_geolocation.id,
-            "geolocation": GeolocationSerializer(updated_geolocation).data,
-            'main': user_geolocation.main,
-        }
-
-        return Response(UserGeolocationUpdateSerializer(data, many=False).data)
+        return Response(
+            UserGeolocationSerializer(updated_user_geolocation).data)
 
     @swagger_auto_schema(
         operation_id="deleteUserGeolocation",
@@ -497,12 +466,13 @@ class UserGeolocationUpdateDeleteView(APIView):
             user_geolocation: UserGeolocation = UserGeolocation.objects.get(
                 user__id=pk, geolocation__id=geolocation_id)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find User Geolocation'},
+            return Response({'status': UserGeolocationError().message},
                             status=HTTP_404_NOT_FOUND)
 
         if user_geolocation.main:
-            return Response({'status': 'cannot delete main address'},
-                            status=HTTP_404_NOT_FOUND)
+            return Response(
+                {'status': UserGeolocationMainDeleteError().message},
+                status=HTTP_400_BAD_REQUEST)
 
         geolocation = user_geolocation.geolocation
         user_geolocation.delete()

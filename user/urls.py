@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from user.views import (UserGeolocationUpdateDeleteView, UserCreateGeolocationView,
+from user.views import (UserGeolocationUpdateDeleteView, UserGeolocationView,
                         UserCreatePhoneView, UserCustomDetailView,
                         UserCustomDetailUpdateView, UserDwellingDetailView,
                         UserPhoneUpdateDeleteView, ConfigView,
@@ -15,7 +15,7 @@ __url_user = [
     path('<int:pk>/config', ConfigView.as_view()),
     path('<int:pk>/config/update', PersonConfigUpdateView.as_view()),
     path('<int:pk>/dwelling', UserDwellingDetailView.as_view()),
-    path('<int:pk>/geolocation', UserCreateGeolocationView.as_view()),
+    path('<int:pk>/geolocation', UserGeolocationView.as_view()),
     path('<int:pk>/geolocation/<int:geolocation_id>',
          UserGeolocationUpdateDeleteView.as_view()),
     path('<int:pk>/phone', UserCreatePhoneView.as_view()),

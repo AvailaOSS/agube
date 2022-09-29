@@ -7,7 +7,6 @@ from django.utils.crypto import get_random_string
 from geolocation.models import Geolocation
 from owner.models import Owner
 from user.models import UserGeolocation, UserPhone
-from user.serializers import UserCreateSerializer
 from manager.models import Manager
 from person.models import Person
 from phone.models import Phone
@@ -16,7 +15,6 @@ from phone.serializers import PhoneSerializer
 from resident.models import Resident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
-from geolocation.serializers import GeolocationSerializer
 from person.models import PersonConfig
 
 
@@ -25,8 +23,8 @@ class PersonTag(Enum):
     OWNER = "Propietario"
     RESIDENT = "Residente"
 
-# FIXME: pass model objects not validated_data (is not a serializer)
-def create_phone(user: User, validated_data: PhoneSerializer, main: bool):
+# FIXME: pass model objects not validated_data
+def create_phone(user: User, validated_data, main: bool):
     new_phone = Phone.objects.create(
         phone_number=validated_data.pop('phone_number'))
     UserPhone.objects.create(user=user, phone=new_phone, main=main)
@@ -39,10 +37,10 @@ def create_user_geolocation(user: User, geolocation: Geolocation,
         user=user, geolocation=geolocation, main=main)
 
 
-# FIXME: pass model objects not validated_data (is not a serializer)
-def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
+# FIXME: pass model objects not validated_data
+def create_user(tag: PersonTag, validated_data,
                 manager: Manager):
-
+    from geolocation.serializers import GeolocationSerializer
     with transaction.atomic():
         # Extract unnecessary data
         phones: list[PhoneSerializer] = validated_data.pop('phones')
@@ -107,6 +105,7 @@ def create_user(tag: PersonTag, validated_data: UserCreateSerializer,
 
 
 def get_all_user_geolocation_serialized(user: User):
+    from geolocation.serializers import GeolocationSerializer
     list_of_serialized: list[GeolocationSerializer] = []
     for geolocation_iteration in UserGeolocation.objects.filter(user=user):
         list_of_serialized.append(GeolocationSerializer(
