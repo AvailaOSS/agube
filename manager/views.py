@@ -85,7 +85,7 @@ class ManagerConfigurationView(APIView):
 
 
 class ManagerConfigurationUpdateView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="updateManagerConfiguration",
@@ -98,13 +98,10 @@ class ManagerConfigurationUpdateView(APIView):
         Update manager configuration
         """
         manager: Manager = Manager.objects.get(user_id=self.request.user.id)
+        new_configuration = ManagerConfigurationSerializer(data=request.data).self_create(manager)
 
-        # create a new
-        configuration = manager.create_configuration(
-            request.data.pop('max_daily_consumption'),
-            request.data.pop('hook_price'))
         return Response(
-            ManagerConfigurationSerializer(configuration, many=False).data)
+            ManagerConfigurationSerializer(new_configuration).data)
 
 
 class ManagerMessageView(GenericAPIView):
