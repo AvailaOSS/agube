@@ -18,48 +18,6 @@
 
 .detail-page {
     @include my-page($columns: 1);
-    margin-bottom: $margin-large;
-}
-
-.position-gauge {
-    margin-top: 80px;
-}
-
-@media only screen and (max-width: 1050px) {
-    .dwelling-content-info {
-        display: block !important;
-    }
-
-    .detail-info {
-        margin-left: 70px !important;
-    }
-}
-
-@media only screen and (max-width: 1660px) {
-    .mat-card-content {
-        display: block;
-        // justify-content: center !important;
-        .dwelling-info {
-            width: 100% !important;
-        }
-        .dwelling-map {
-            display: none;
-        }
-        .buttons-map {
-            display: flex !important;
-            margin-left: $margin-x-small;
-        }
-        .content-buttons-map {
-            display: flex;
-            justify-content: center;
-        }
-        .dwelling-resident {
-            margin-left: 0px !important;
-            flex-direction: column;
-            display: flex;
-            height: 60%;
-        }
-    }
 }
 
 @media only screen and (max-width: 735px) {
@@ -73,16 +31,70 @@
     }
 }
 
-@media only screen and (max-width: 2240px) {
+@media only screen and (max-width: 1660px) {
+    .mat-card-content {
+        display: block;
+        .dwelling-info {
+            width: 100% !important;
+        }
+        .dwelling-map {
+            display: none;
+        }
+        .buttons-map {
+            display: flex !important;
+            margin-left: $margin-x-small;
+        }
+        .content-buttons-map {
+            display: block;
+            justify-content: center;
+        }
+        .dwelling-resident {
+            margin-left: 0px !important;
+            flex-direction: column;
+            display: flex;
+            height: 60%;
+        }
+    }
+}
+@media only screen and (min-width: 1879px) {
     .button-comments {
         display: flex !important;
     }
     .comments-list {
         display: none;
     }
+
+    .dwelling-info {
+        width: 45% !important;
+    }
+    .column-right {
+        width: 30% !important;
+    }
+    .position-gauge {
+        display: flex !important;
+    }
 }
 
-@media only screen and (min-width: 2240px) {
+@media only screen and (max-width: 2312px) {
+    .button-comments {
+        display: flex !important;
+    }
+    .comments-list {
+        display: none;
+    }
+
+    .dwelling-info {
+        width: 51% !important;
+    }
+    .column-right {
+        width: 40% !important;
+    }
+    .position-gauge {
+        display: flex !important;
+    }
+}
+
+@media only screen and (min-width: 2312px) {
     .button-comments {
         display: none !important;
     }
@@ -148,7 +160,7 @@
 }
 
 .content-buttons-map {
-    display: flex;
+    display: block;
 }
 
 .buttons-map {

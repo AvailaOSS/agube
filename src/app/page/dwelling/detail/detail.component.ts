@@ -44,7 +44,7 @@ export class DetailComponent implements OnInit {
     private readonly mapType: MapIconType = MapIconType.HOUSE;
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
-    private mapHeight: string = '500px';
+    private mapHeight: string = '400px';
     private mapId: string = 'detail_map';
     public waterMeterId: number | undefined;
 
