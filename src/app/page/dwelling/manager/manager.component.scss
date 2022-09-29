@@ -3,8 +3,12 @@
 
 .manager-dwelling-page {
     @media only screen and (max-width: 1240px) {
-        // nothing to do
         margin-bottom: 180px;
+        ::ng-deep #manager_full_houses_map {
+            width: 100% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
     }
     @media only screen and (min-width: 1240px) {
         display: flex;
@@ -15,7 +19,9 @@
         }
         ::ng-deep #manager_full_houses_map {
             margin-left: 3%;
-            max-width: 850px;
+            width: 100% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
         }
         margin-bottom: $margin-large;
     }
@@ -24,6 +30,12 @@
         margin-bottom: $margin-large;
         ::ng-deep .page-info {
             max-width: 50%;
+        }
+        ::ng-deep #manager_full_houses_map {
+            width: 80% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            margin-left: 3%;
         }
     }
 }
