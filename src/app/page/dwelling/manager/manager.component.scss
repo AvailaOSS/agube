@@ -13,6 +13,10 @@
             min-width: 80%;
             margin-left: 3%;
         }
+        ::ng-deep #manager_full_map {
+            margin-left: 3%;
+            max-width: 850px;
+        }
         margin-bottom: $margin-large;
     }
     @media only screen and (min-width: 1440px) {
@@ -26,10 +30,5 @@
 
 .manager-dwelling-page-table {
     @include my-page-column();
-
     margin-bottom: $margin-x-small;
-}
-
-.manager-dwelling-page-card {
-    @include my-page-column($columnIndex: 1, $totalColumns: 2);
 }

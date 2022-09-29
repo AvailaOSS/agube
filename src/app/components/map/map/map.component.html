@@ -1,1 +1,3 @@
-<div *ngIf="baseConfiguration" id="{{ baseConfiguration.id }}" [ngStyle]="{ height: baseConfiguration.height }"></div>
+<div *ngIf="baseConfiguration" id="{{ baseConfiguration.id }}" class="leftleat-map"
+    [ngStyle]="{ height: baseConfiguration.height, width: baseConfiguration.width ? baseConfiguration.width : '100%' }">
+</div>

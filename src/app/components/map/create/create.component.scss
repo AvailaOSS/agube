@@ -1,3 +1,4 @@
+@use '../../../../assets/availa/palette/colors.scss' as color;
 @import '../../../../assets/availa/sizes/margins.scss';
 
 .selector-geolocation-map {
@@ -62,6 +63,10 @@
             position: absolute;
             z-index: 9999;
             margin: 10em;
+        }
+        .leftleat-map {
+            border: 2px solid color.$light-primary-text;
+            border-radius: 20px 50px;
         }
     }
     div {

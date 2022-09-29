@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { LocationResponse } from './location-response';
 import { ConfigureMap } from './configure-map';
 import * as L from 'leaflet';
@@ -44,7 +44,7 @@ export class MapComponent implements AfterViewInit {
             doubleClickZoom: false,
             zoom: conf.zoom,
             dragging: conf.dragging,
-            scrollWheelZoom: undefined,
+            scrollWheelZoom: conf.scrollWheelZoom,
         });
 
         const tiles = L.tileLayer(this.mapViewUrl, {
@@ -56,6 +56,10 @@ export class MapComponent implements AfterViewInit {
 
         if (conf.showCircle) {
             this.setCircle(+conf.center.lat, +conf.center.lon);
+        }
+
+        if (conf.otherPoints) {
+            conf.otherPoints.forEach((point) => this.setCircle(+point.lat, +point.lon, point.description));
         }
     }
 

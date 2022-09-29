@@ -1,4 +1,7 @@
 <div class="manager-dwelling-page">
-    <app-info> </app-info>
+    <div>
+        <app-info></app-info>
+        <app-map *ngIf="configureMap" [baseConfiguration]="configureMap"></app-map>
+    </div>
     <app-table class="manager-dwelling-page-table"></app-table>
 </div>
