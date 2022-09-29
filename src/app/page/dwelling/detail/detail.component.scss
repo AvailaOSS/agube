@@ -1,5 +1,6 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
+
 @mixin dynamic-button {
     button {
         width: 215px;
@@ -102,6 +103,11 @@
 
 .custom-dialog-container .mat-dialog-container {
     overflow-y: hidden;
+}
+
+.content-buttons-generics-map {
+    display: flex;
+    height: fit-content;
 }
 
 @media only screen and (max-width: 735px) {
