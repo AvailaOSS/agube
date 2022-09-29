@@ -21,7 +21,7 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
 
         if self.pk is None:
             # create default config
-            __default_max_daily_consumption = 1000
+            __default_max_daily_consumption = 100
             __default_hook_price = 100
             self.create_configuration(__default_max_daily_consumption,
                                       __default_hook_price)
