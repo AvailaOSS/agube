@@ -25,13 +25,6 @@ export class ManagerComponent implements OnInit {
         this.loadMap();
     }
 
-    public readSelected(element: ReservoirDetail | undefined) {
-        if (!element) {
-            return;
-        }
-        this.element = element;
-    }
-
     private loadMap() {
         // get location from dwellings
         this.svcReservoirCache.get().then((response) => {

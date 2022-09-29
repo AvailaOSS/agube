@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,17 +14,18 @@ import { TableReloadService } from './table-reload.service';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, AfterViewInit {
+    //fields to table
     public displayedColumns: string[] = ['capacity', 'inlet_flow', 'outlet_flow', 'full_address'];
-    public dataSource: MatTableDataSource<ReservoirDetail> = new MatTableDataSource();
 
+    //table data sources
+    public dataSource: MatTableDataSource<ReservoirDetail> = new MatTableDataSource();
     public isSelected: ReservoirDetail | undefined = undefined;
 
+    // filter
     public filter = new FormControl('');
-    public pageSide: number = 12;
-    @Output() public selectedElement: EventEmitter<ReservoirDetail | undefined> = new EventEmitter<
-        ReservoirDetail | undefined
-    >();
 
+    // pagination
+    public pageSide: number = 12;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
@@ -32,11 +33,12 @@ export class TableComponent implements OnInit, AfterViewInit {
         private svcTableReload: TableReloadService,
         private svcReservoir: ReservoirCacheService
     ) {}
-    ngAfterViewInit() {
+
+    public ngAfterViewInit() {
         this.loadReservoirs();
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcTableReload.reload().subscribe((reload) => {
             if (reload) {
                 this.loadReservoirs();
