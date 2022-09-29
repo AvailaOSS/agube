@@ -1,22 +1,5 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
-@media only screen and (max-width: 1050px) {
-    .detail-info {
-        margin-bottom: $margin-small;
-        margin-left: 70px !important;
-        span {
-            display: flex;
-            align-items: center;
-            margin: $margin-x-small 0 0 0;
-            h3 {
-                margin: 0 0 0 $margin-x-small;
-            }
-        }
-        h2 {
-            margin: 5px 0 0 0;
-        }
-    }
-}
 .detail-content-all {
     display: flex;
     width: 100%;
@@ -24,16 +7,17 @@
     justify-content: space-between;
     .detail-info {
         margin-bottom: $margin-small;
+        margin-left: $margin-small;
         width: 56%;
         span {
             display: flex;
             margin: $margin-x-small 0 0 0;
-            h3 {
-                margin: 0 0 0 $margin-x-small;
+            h4 {
+                margin: 0 $margin-x-small 0 $margin-x-small;
             }
         }
         h2 {
-            margin: $margin-x-small 0 0 0;
+            margin: 0 0 0 0;
         }
     }
 
@@ -54,6 +38,11 @@
         }
     }
 }
+.no-user {
+    width: 100%;
+    margin-left: $margin-x-small;
+}
+
 @media only screen and (max-width: 1050px) {
     .detail-content-all {
         display: flex;
@@ -62,20 +51,21 @@
         justify-content: space-between;
         .detail-info {
             margin-bottom: $margin-small;
-            width: 100% !important;
+            margin-left: $margin-medium !important;
             span {
                 display: flex;
+                align-items: center;
                 margin: $margin-x-small 0 0 0;
                 h3 {
                     margin: 0 0 0 $margin-x-small;
                 }
             }
             h2 {
-                margin: $margin-x-small 0 0 0;
+                margin: 5px 0 0 0;
             }
         }
         button {
-            margin-left: $margin-medium !important;
+            margin-left: $margin-medium;
             height: 40px;
             margin-top: $margin-small;
             min-width: 187px;
@@ -90,9 +80,9 @@
                 }
             }
         }
-        .no-user {
-            width: 100%;
-            margin-left: 55px;
-        }
+    }
+    .no-user {
+        width: 100%;
+        margin-left: $margin-medium;
     }
 }

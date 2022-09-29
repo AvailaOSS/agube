@@ -44,7 +44,7 @@ export class DetailComponent implements OnInit {
     private readonly mapType: MapIconType = MapIconType.HOUSE;
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
-    private mapHeight: string = '500px';
+    private mapHeight: string = '400px';
     private mapId: string = 'detail_map';
     public waterMeterId: number | undefined;
 
@@ -92,6 +92,7 @@ export class DetailComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        // Persistant to send waterMeterID
         this.svcPersistant.get().subscribe((res) => {
             this.waterMeterId = res?.id!;
         });
@@ -233,7 +234,7 @@ export class DetailComponent implements OnInit {
             },
         });
     }
-
+    // Configure Map to show in dwelling detail
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
             id: this.mapId,

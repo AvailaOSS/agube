@@ -20,48 +20,51 @@
                             <app-resident [dwellingId]="dwelling.id" [canLoad]="canLoad"></app-resident>
                         </div>
                     </div>
+
                     <div class="content-buttons-map">
-                        <app-management
-                            [manage]="dwelling"
-                            [waterMeterId]="waterMeterId"
-                            [type]="type"
-                            [load]="canLoad"
-                        >
-                        </app-management>
-                        <div class="buttons-map">
-                            <button
-                                mat-raised-button
-                                [color]="'primary'"
-                                matTooltip="Ver mapa"
-                                (click)="seeMap()"
-                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                        <div class="content-buttons-generics-map">
+                            <app-management
+                                [manage]="dwelling"
+                                [waterMeterId]="waterMeterId"
+                                [type]="type"
+                                [load]="canLoad"
                             >
-                                <mat-icon>map</mat-icon>
-                                {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
-                            </button>
+                            </app-management>
+                            <div class="buttons-map">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeMap()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon>map</mat-icon>
+                                    {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
+                                </button>
+                            </div>
+                            <div *ngIf="canLoad" class="button-comments">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeComments()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon>visibility</mat-icon>
+                                    {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
+                                </button>
+                            </div>
                         </div>
-                        <div *ngIf="canLoad" class="button-comments">
-                            <button
-                                mat-raised-button
-                                [color]="'primary'"
-                                matTooltip="Ver mapa"
-                                (click)="seeComments()"
-                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                        <div class="position-gauge">
+                            <app-gauge-measurement
+                                *ngIf="waterMeterId"
+                                [waterMeterId]="waterMeterId!"
+                                [dwellingId]="dwellingId"
+                                [type]="type"
+                                [canAddReading]="canLoad"
                             >
-                                <mat-icon>visibility</mat-icon>
-                                {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
-                            </button>
+                            </app-gauge-measurement>
                         </div>
-                    </div>
-                    <div class="position-gauge">
-                        <app-gauge-measurement
-                            *ngIf="waterMeterId"
-                            [waterMeterId]="waterMeterId!"
-                            [dwellingId]="dwellingId"
-                            [type]="type"
-                            [canAddReading]="canLoad"
-                        >
-                        </app-gauge-measurement>
                     </div>
                 </div>
                 <div class="column-right">
