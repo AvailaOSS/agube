@@ -11,7 +11,13 @@ import { CommentConfig } from '../type';
     styleUrls: ['./create-dialog.component.scss'],
 })
 export class CreateDialogComponent {
+    // textarea variable in form
     public message = new FormControl('', [Validators.required]);
+
+    // verification  textarea length
+    public messageLength: Number = 0;
+    public loadMessageLength = false;
+    public allowedMessageLength: Number = 58;
 
     constructor(
         protected managerComment: CommentManager,
@@ -19,6 +25,12 @@ export class CreateDialogComponent {
         protected dialogRef: MatDialogRef<CreateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) protected data: CommentConfig
     ) {}
+
+    // verification changes in textarea
+    changes(changes: string): void {
+        this.loadMessageLength = true;
+        this.messageLength = changes.length;
+    }
 
     public save(): void {
         // stop here if form is invalid
@@ -33,15 +45,17 @@ export class CreateDialogComponent {
                 message: this.message.value,
             })
             .subscribe({
-                next: (value) => this.close(true),
+                next: () => this.close(true),
                 error: (error) => this.svcNotification.warning({ message: error.error.status }),
             });
     }
 
+    // close dialog
     public close(reload: boolean): void {
         this.dialogRef.close(reload);
     }
 
+    // validator if have any error in textarea
     public errorValidator(entity: string) {
         switch (entity) {
             case 'message':

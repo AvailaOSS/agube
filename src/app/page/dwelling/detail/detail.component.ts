@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-    Comment,
     DwellingCreate,
     DwellingService,
     Geolocation,
@@ -32,6 +31,7 @@ import { Detail } from './detail';
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
+
     public dwellingId: number | undefined;
     public dwelling: DwellingCreate | undefined;
 
@@ -156,7 +156,7 @@ export class DetailComponent implements OnInit {
     public seeComments() {
         this.dialog.open(ListComponent, {
             hasBackdrop: true,
-            width: '100%',
+            panelClass: ['custom-dialog-container'],
             data: this.configCommentComponent,
         });
     }

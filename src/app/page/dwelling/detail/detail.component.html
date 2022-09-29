@@ -92,12 +92,12 @@
                                 <app-street-view [configureView]="configureView"></app-street-view>
                             </ng-template>
                         </div>
+                        <app-comment-list
+                            *ngIf="canLoad"
+                            class="comments-list"
+                            [config]="configCommentComponent"
+                        ></app-comment-list>
                     </div>
-                    <app-comment-list
-                        *ngIf="canLoad"
-                        class="comments-list"
-                        [config]="configCommentComponent"
-                    ></app-comment-list>
                 </div>
             </mat-card-content>
         </mat-card>

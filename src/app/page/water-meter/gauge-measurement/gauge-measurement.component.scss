@@ -1,4 +1,5 @@
 @import '../../../../assets/availa/sizes/margins.scss';
+
 .water-meter {
     display: flex;
     width: 96%;
@@ -6,6 +7,30 @@
     margin-left: $margin-x-medium;
     .detail {
         width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1950px) {
+    .water-meter {
+        display: flex;
+        width: 100%;
+        margin-top: $margin-small;
+        margin-left: $margin-x-medium;
+        .detail {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 1950px) {
+    .water-meter {
+        display: flex;
+        width: 96%;
+        margin-top: $margin-small;
+        margin-left: $margin-x-medium;
+        .detail {
+            width: 100%;
+        }
     }
 }
 
