@@ -67,7 +67,6 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-        public svcAccount: AccountService,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
@@ -92,30 +91,13 @@ export class DetailComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        // Persistant to send waterMeterID
-        this.svcPersistant.get().subscribe((res) => {
-            this.waterMeterId = res?.id!;
-        });
+        this.cleanRefreshWaterMeter();
         if (!this.dwellingId) {
             return;
         }
 
-        // FIXME: Extract to his own method
-        this.svcDwelling.getDwelling(this.dwellingId).subscribe({
-            next: (dwelling) => {
-                this.dwelling = dwelling;
-                let geolocation = this.dwelling.geolocation;
-                this.configureMaps(geolocation);
-                this.loading = false;
-            },
-            error: (error) => (this.loading = false),
-        });
-
-        // FIXME: Extract to his own method
-        this.svcDwelling.getCurrentDwellingWaterMeter(this.dwellingId).subscribe((response) => {
-            this.waterMeterId = response.id;
-            this.svcPersistant.emit(response);
-        });
+        this.loadDwelling(this.dwellingId);
+        this.loadWaterMeter(this.dwellingId);
     }
 
     public goToNewDwelling() {
@@ -232,6 +214,35 @@ export class DetailComponent implements OnInit {
                 this.svcNotification.warning({ message: error.error });
                 this.googleAnalyticsService.exception('error_address_update', true);
             },
+        });
+    }
+    // Clean and refresh water Meter
+    private cleanRefreshWaterMeter() {
+        this.svcPersistant.clear();
+        // Persistant to send waterMeterID
+        this.svcPersistant.get().subscribe((res) => {
+            this.waterMeterId = res?.id!;
+        });
+    }
+    // Load dwelling in own method
+    private loadDwelling(dwellingId: number) {
+        this.svcDwelling.getDwelling(dwellingId).subscribe({
+            next: (dwelling) => {
+                this.dwelling = dwelling;
+                let geolocation = this.dwelling.geolocation;
+                this.configureMaps(geolocation);
+                this.loading = false;
+            },
+            error: (error) => (this.loading = false),
+        });
+    }
+    // Load water meter in own method
+    private loadWaterMeter(dwellingId: number) {
+        // first persist the current water meter and then subscribe to keep updated
+        this.svcDwelling.getCurrentDwellingWaterMeter(dwellingId).subscribe((response) => {
+            this.waterMeterId = response.id;
+            // override the current water meter into resistant service
+            this.svcPersistant.emit(response);
         });
     }
     // Configure Map to show in dwelling detail

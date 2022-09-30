@@ -5,8 +5,11 @@
                 <div class="reservoir-info">
                     <h1>
                         {{ reservoir.geolocation | geolocation }}
-                        <mat-icon matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
-                            (click)="goToEditGeolocation()">
+                        <mat-icon
+                            *ngIf="canLoad"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
+                            (click)="goToEditGeolocation()"
+                        >
                             edit
                         </mat-icon>
                     </h1>
@@ -18,34 +21,53 @@
                         </div> -->
                     </div>
                     <div class="content-buttons-map">
-                        <app-management [reservoir]="true" [manage]="reservoir" [waterMeterId]="waterMeter?.id"
-                            [type]="type" [load]="true">
+                        <app-management
+                            [manage]="reservoir"
+                            [waterMeterId]="waterMeterId"
+                            [type]="type"
+                            [load]="canLoad"
+                        >
                         </app-management>
-                        <div class="buttons-map">
-                            <button mat-raised-button [color]="'primary'" matTooltip="Ver mapa" (click)="seeMap()"
-                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}">
+                        <div *ngIf="canLoad" class="buttons-map">
+                            <button
+                                mat-raised-button
+                                [color]="'primary'"
+                                matTooltip="Ver mapa"
+                                (click)="seeMap()"
+                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                            >
                                 <mat-icon>map</mat-icon>
                                 {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                             </button>
                         </div>
                     </div>
                     <span *ngIf="waterMeter">
-                        <p>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate}}</p>
-                        <h3>{{waterMeter.code }}</h3>
-                        <app-water-meter-detail [reservoirId]="reservoirId" [waterMeterId]="waterMeter.id" [type]="type" [canAddReading]="true">
+                        <p>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</p>
+                        <h3>{{ waterMeter.code }}</h3>
+                        <app-water-meter-detail
+                            [reservoirId]="reservoirId"
+                            [waterMeterId]="waterMeterId"
+                            [type]="type"
+                            [canAddReading]="true"
+                        >
                         </app-water-meter-detail>
                     </span>
                 </div>
                 <div class="reservoir-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
-                        <mat-button-toggle (click)="mode = 'map'"
+                        <mat-button-toggle
+                            (click)="mode = 'map'"
                             matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
-                            matTooltipPosition="left">
+                            matTooltipPosition="left"
+                        >
                             <mat-icon>map</mat-icon>
                         </mat-button-toggle>
-                        <mat-button-toggle *ngIf="canLoadStreetView" (click)="mode = 'streetView'"
+                        <mat-button-toggle
+                            *ngIf="canLoadStreetView"
+                            (click)="mode = 'streetView'"
                             matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-                            matTooltipPosition="right">
+                            matTooltipPosition="right"
+                        >
                             <mat-icon>360</mat-icon>
                         </mat-button-toggle>
                     </mat-button-toggle-group>

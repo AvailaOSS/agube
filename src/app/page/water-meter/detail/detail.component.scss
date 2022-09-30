@@ -39,11 +39,11 @@
 }
 
 .overflow {
-    color: #ff5f5f; // FIXME: use colors.scss
+    color: color.$overflow-primary-text;
 }
 
 .no-overflow {
-    color: #009500d1; // FIXME: use colors.scss
+    color: color.$no-overflow-primary-text;
 }
 
 .final-table-measurement {
@@ -53,8 +53,8 @@
         width: 15% !important;
     }
     .button-pagination {
-        margin-top: 15px; // FIXME: use margins.scss
-        button {
+        margin-top: $margin-small;
+         button {
             mat-icon {
                 color: color.$light-primary-text !important;
             }
