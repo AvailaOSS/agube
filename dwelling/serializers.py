@@ -78,7 +78,7 @@ class DwellingCreateSerializer(ModelSerializer):
             raise ManagerLimitExceeded()
 
         # Create geolocation
-        validated_data['geolocation'] = GeolocationSerializer(
+        new_geolocation = GeolocationSerializer(
             data=validated_data.pop('geolocation')).self_create()
         water_meter_exist = False
         if 'water_meter' in validated_data:
@@ -88,6 +88,7 @@ class DwellingCreateSerializer(ModelSerializer):
             water_meter_exist = True
         # Create dwelling
         dwelling: Dwelling = Dwelling.objects.create(manager=manager,
+                                                     geolocation=new_geolocation,
                                                      **validated_data)
         if water_meter_exist:
             # Create water meter
@@ -202,7 +203,8 @@ class DwellingCommentCreateSerializer(ModelSerializer):
 
     def to_representation(self, obj):
         return {
-            'dwelling_id': DwellingComment.objects.get(comment=obj.id).dwelling.id,
+            'dwelling_id':
+            DwellingComment.objects.get(comment=obj.id).dwelling.id,
             'message': obj.message,
         }
 

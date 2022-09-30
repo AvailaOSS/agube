@@ -1,12 +1,9 @@
 import mimetypes
 
-from address.models import Address
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from dwelling.assemblers import create_user_geolocation
 from dwelling.models import Dwelling
-from geolocation.serializers import GeolocationSerializer
 from owner.models import Owner
 from person.models import Person, PersonConfig
 from person.serializers import PersonPhotoSerializer
@@ -18,7 +15,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
 
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
@@ -28,9 +24,10 @@ from user.models import (UserGeolocation, UserPhone,
 from user.permissions import IsManagerOfUser, IsUserMatch
 from user.send import send_email_modification_email
 from user.serializers import (PersonConfigSerializer, UserDetailSerializer,
-                              UserGeolocationUpdateSerializer,
+                              UserGeolocationSerializer,
                               UserPhoneUpdateSerializer)
 from user.serializers_external import UserDwellingDetailSerializer
+from user.exceptions import UserGeolocationError, UserGeolocationMainUpdateError, UserGeolocationMainDeleteError
 
 TAG_USER = 'user'
 
@@ -384,38 +381,12 @@ class UserPhoneUpdateDeleteView(APIView):
         return Response({'status': 'delete successfull!'})
 
 
-class UserCreateGeolocationView(APIView):
+class UserGeolocationView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
-        operation_id="addUserGeolocation",
-        request_body=UserGeolocationUpdateSerializer,
-        responses={200: UserGeolocationUpdateSerializer(many=False)},
-        tags=[TAG_USER],
-    )
-    def post(self, request, pk):
-        """
-        Add new User Geolocation
-        """
-        try:
-            user = User.objects.get(id=pk)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find user'},
-                            status=HTTP_404_NOT_FOUND)
-        # extract data
-        geolocation = request.data.pop('geolocation')
-        main = request.data.pop('main')
-        # if new is main change others as not main
-        if main:
-            update_geolocation_to_not_main(pk)
-        # create a new address
-        created_user_address = create_user_geolocation(user, geolocation, main)
-        return Response(
-            UserGeolocationUpdateSerializer(created_user_address).data)
-
-    @swagger_auto_schema(
         operation_id="getUserGeolocation",
-        responses={200: UserGeolocationUpdateSerializer(many=True)},
+        responses={200: UserGeolocationSerializer(many=True)},
         tags=[TAG_USER],
     )
     def get(self, request, pk):
@@ -429,14 +400,34 @@ class UserCreateGeolocationView(APIView):
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
 
+    @swagger_auto_schema(
+        operation_id="addUserGeolocation",
+        request_body=UserGeolocationSerializer,
+        responses={201: UserGeolocationSerializer(many=False)},
+        tags=[TAG_USER],
+    )
+    def post(self, request, pk):
+        """
+        Add new User Geolocation
+        """
+        try:
+            user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'status': 'cannot find user'},
+                            status=HTTP_404_NOT_FOUND)
 
-class UserAddressUpdateDeleteView(APIView):
+        new_user_geolocation = UserGeolocationSerializer(
+            data=request.data).self_create(user)
+        return Response(UserGeolocationSerializer(new_user_geolocation).data)
+
+
+class UserGeolocationUpdateDeleteView(APIView):
     permission_classes = [IsManagerOfUser | IsUserMatch]
 
     @swagger_auto_schema(
         operation_id="updateUserGeolocation",
-        request_body=UserGeolocationUpdateSerializer,
-        responses={200: UserGeolocationUpdateSerializer(many=False)},
+        request_body=UserGeolocationSerializer,
+        responses={200: UserGeolocationSerializer(many=False)},
         tags=[TAG_USER],
     )
     def put(self, request, pk, geolocation_id):
@@ -448,64 +439,20 @@ class UserAddressUpdateDeleteView(APIView):
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find user'},
                             status=HTTP_404_NOT_FOUND)
-        # extract data
-        geolocation_data = request.data.pop('geolocation')
-        main = request.data.pop('main')
-        # if new is main change others as not main
-        if main:
-            update_geolocation_to_not_main(pk)
-        # update phone with new data
+
         try:
-            user_geolocation: UserGeolocation = UserGeolocation.objects.get(
-                user__id=pk, geolocation__id=geolocation_id)
-        except ObjectDoesNotExist:
-            return Response({'status': 'cannot find user address'},
-                            status=HTTP_404_NOT_FOUND)
+            updated_user_geolocation = UserGeolocationSerializer(
+                data=request.data).self_update(user, geolocation_id)
+        except (UserGeolocationError, UserGeolocationMainUpdateError) as e:
+            if isinstance(e, UserGeolocationError):
+                return Response({'status': e.message},
+                                status=HTTP_404_NOT_FOUND)
+            if isinstance(e, UserGeolocationMainUpdateError):
+                return Response({'status': e.message},
+                                status=HTTP_400_BAD_REQUEST)
 
-        if user_geolocation.main:
-            return Response({'status': 'cannot update main address'},
-                            status=HTTP_404_NOT_FOUND)
-
-        update_this_geolocation = user_geolocation.geolocation
-
-        address_data = geolocation_data.get('address')
-        address = Address.objects.get_or_create(
-            is_external=address_data.get('is_external'),
-            city=address_data.get('city'),
-            country=address_data.get('country'),
-            city_district=address_data.get('city_district'),
-            municipality=address_data.get('municipality'),
-            postcode=address_data.get('postcode'),
-            province=address_data.get('province'),
-            state=address_data.get('state'),
-            village=address_data.get('village'),
-            road=address_data.get('road'),
-        )[0]
-
-        update_this_geolocation.address = address
-        update_this_geolocation.latitude = geolocation_data.get('latitude')
-        update_this_geolocation.longitude = geolocation_data.get('longitude')
-        update_this_geolocation.zoom = geolocation_data.get('zoom')
-        update_this_geolocation.horizontal_degree = geolocation_data.get(
-            'horizontal_degree')
-        update_this_geolocation.vertical_degree = geolocation_data.get(
-            'vertical_degree')
-        update_this_geolocation.number = geolocation_data.get('number')
-        update_this_geolocation.flat = geolocation_data.get('flat')
-        update_this_geolocation.gate = geolocation_data.get('gate')
-        update_this_geolocation.save()
-
-        user_geolocation.main = main
-        user_geolocation.save()
-
-        # FIXME: use UserGeolocationUpdateSerializer directly instead of manually
-        data = {
-            "id": user_geolocation.id,
-            "geolocation": GeolocationSerializer(update_this_geolocation).data,
-            'main': user_geolocation.main,
-        }
-
-        return Response(UserGeolocationUpdateSerializer(data, many=False).data)
+        return Response(
+            UserGeolocationSerializer(updated_user_geolocation).data)
 
     @swagger_auto_schema(
         operation_id="deleteUserGeolocation",
@@ -519,12 +466,13 @@ class UserAddressUpdateDeleteView(APIView):
             user_geolocation: UserGeolocation = UserGeolocation.objects.get(
                 user__id=pk, geolocation__id=geolocation_id)
         except ObjectDoesNotExist:
-            return Response({'status': 'cannot find User Geolocation'},
+            return Response({'status': UserGeolocationError().message},
                             status=HTTP_404_NOT_FOUND)
 
         if user_geolocation.main:
-            return Response({'status': 'cannot delete main address'},
-                            status=HTTP_404_NOT_FOUND)
+            return Response(
+                {'status': UserGeolocationMainDeleteError().message},
+                status=HTTP_400_BAD_REQUEST)
 
         geolocation = user_geolocation.geolocation
         user_geolocation.delete()

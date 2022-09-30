@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from dwelling.assemblers import create_user_geolocation
 from geolocation.serializers import GeolocationSerializer
 from phone.serializers import PhoneSerializer
 from rest_framework.fields import BooleanField, CharField, ReadOnlyField
@@ -124,13 +126,67 @@ class UserPhoneUpdateSerializer(Serializer):
         ref_name = 'UserPhone'
 
 
-class UserGeolocationUpdateSerializer(Serializer):
+class UserGeolocationSerializer(ModelSerializer):
     """
-    User Geolocation ModelSerializer
+    User Geolocation Update Serializer
     """
-    id = ReadOnlyField()
-    geolocation = GeolocationSerializer(many=False, read_only=False)
-    main = BooleanField()
+    geolocation = GeolocationSerializer()
 
     class Meta:
         ref_name = 'UserGeolocation'
+        model = UserGeolocation
+        fields = ('id', 'geolocation', 'main')
+
+    def create(self, user: User, validated_data) -> UserGeolocation:
+        from user.models import update_geolocation_to_not_main
+
+        new_geolocation = GeolocationSerializer(
+            data=validated_data.pop('geolocation')).self_create()
+        main = validated_data.pop('main')
+
+        # if new is main change others as not main
+        if main:
+            update_geolocation_to_not_main(user.id)
+
+        # create a new geolocation
+        return create_user_geolocation(user, new_geolocation, main)
+
+    def self_create(self, user: User):
+        if self.is_valid(True):
+            return self.create(user, self.validated_data)
+
+    def update(self, user: User, geolocation_id,
+               validated_data) -> UserGeolocation:
+        from user.exceptions import UserGeolocationError, UserGeolocationMainUpdateError
+        from user.models import update_geolocation_to_not_main
+
+        geolocation_data = validated_data.pop('geolocation')
+        main = validated_data.pop('main')
+
+        # update geolocation
+        try:
+            user_geolocation: UserGeolocation = UserGeolocation.objects.get(
+                user=user, geolocation__id=geolocation_id)
+        except ObjectDoesNotExist:
+            raise UserGeolocationError
+
+        if user_geolocation.main:
+            raise UserGeolocationMainUpdateError
+
+        # if modifiying as main change others as not main
+        if main:
+            update_geolocation_to_not_main(user.id)
+
+        # update user geolocation
+        GeolocationSerializer(data=geolocation_data).self_update(
+            user_geolocation.geolocation)
+
+        # update user geolocation
+        user_geolocation.main = main
+        user_geolocation.save()
+
+        return user_geolocation
+
+    def self_update(self, user: User, geolocation_id) -> UserGeolocation:
+        if self.is_valid(True):
+            return self.update(user, geolocation_id, self.validated_data)
