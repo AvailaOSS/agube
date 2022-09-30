@@ -3,10 +3,14 @@ import { Coordinates, MapIconType } from 'src/app/components/map/map/configure-m
 import { isReservoirDetail } from '../models/model-detector';
 
 export function build(object: DwellingDetail | ReservoirDetail): Coordinates {
+    let suffix = '';
+    if (object.number) {
+        suffix = ' nº ' + object.number;
+    }
     let coordinates: Coordinates = {
         lat: String(object.latitude),
         lon: String(object.longitude),
-        description: object.road + ' nº ' + object.number,
+        description: object.road + suffix,
         type: getMapIconType(object),
     };
     return coordinates;
