@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Geolocation, GeolocationService, ReservoirCreate, ReservoirService, WaterMeter } from '@availa/agube-rest-api';
+import {
+    Geolocation,
+    GeolocationService, ReservoirCreate,
+    ReservoirService,
+    WaterMeter
+} from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
@@ -45,6 +50,7 @@ export class DetailComponent implements OnInit {
 
     public showMap: boolean = true;
     private mapId: string = 'detail_map';
+    public waterMeterId: number | undefined;
 
     constructor(
         private router: Router,
@@ -73,10 +79,17 @@ export class DetailComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        // Clear cache persistant
+        this.svcPersistantWaterMeter.clear();
+        // Get waterMeter to this ReservoirID
+        this.svcPersistantWaterMeter.get().subscribe((res) => {
+            if (res!==undefined) {
+                this.waterMeter = res;
+            }
+        });
         if (!this.reservoirId) {
             return;
         }
-
         // first, get the reservoir
         this.loadReservoir(this.reservoirId);
 
@@ -193,13 +206,9 @@ export class DetailComponent implements OnInit {
         // first persist the current water meter and then subscribe to keep updated
         this.svcReservoir.getCurrentReservoirWaterMeter(reservoirId).subscribe({
             next: (response) => {
-                this.waterMeter = response;
+                this.waterMeterId = response.id;
                 // override the current water meter into resistant service
                 this.svcPersistantWaterMeter.emit(response);
-                // subscribe to service to keep the code updated to changes
-                this.svcPersistantWaterMeter.get().subscribe((response) => {
-                    this.waterMeter = response;
-                });
             },
             error: () => this.svcPersistantWaterMeter.clear(),
         });
