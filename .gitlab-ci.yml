@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 1.17.0
+  RELEASE_VERSION: 1.17.1
 
 stages:
   - build
