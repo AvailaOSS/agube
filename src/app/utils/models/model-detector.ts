@@ -8,3 +8,8 @@ export function isReservoirDetail(object: DwellingDetail | ReservoirDetail): obj
     // TS now knows that objects within this if statement are always type ReservoirDetail
     // This is because the type guard isReservoirDetail narrowed down the type to ReservoirDetail
 }
+
+export function isDwellingDetail(object: DwellingDetail | ReservoirDetail): object is DwellingDetail {
+    let obj = (object as DwellingDetail)
+    return obj.resident_full_name !== undefined && obj.resident_phone !== undefined;
+}
