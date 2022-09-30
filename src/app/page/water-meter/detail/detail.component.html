@@ -152,6 +152,7 @@
                     matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.PREV' | translate }}"
                     mat-raised-button
                     (click)="fetchPrevious(pageIndex!)"
+                    [disabled]="page === 0 || page === undefined"
                 >
                     <mat-icon>arrow_back_ios</mat-icon>
                 </button>
@@ -160,6 +161,7 @@
                     matTooltip="{{ 'PAGE.WATER_METER.DETAIL.SELECTOR.NEXT' | translate }}"
                     mat-raised-button
                     (click)="fetchNext(pageIndex!)"
+                    [disabled]="page === 0 || page === undefined"
                 >
                     <mat-icon>arrow_forward_ios</mat-icon>
                 </button>
