@@ -1,6 +1,6 @@
 {
     "name": "agube-fe",
-    "version": "1.17.0",
+    "version": "1.17.1",
     "scripts": {
         "ng": "ng",
         "config": "ts-node ./src/environments/set.env.prod.ts",
