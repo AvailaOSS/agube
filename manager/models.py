@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
 from django.db.models import Q
@@ -15,19 +16,28 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         db_table = 'agube_manager_manager'
 
     def save(self, *args, **kwargs):
-        __default_max_daily_consumption = 1000
-        __default_hook_price = 100
         """save the Manager and create default config"""
         super(Manager, self).save(*args, **kwargs)
-        self.create_configuration(__default_max_daily_consumption,
-                                  __default_hook_price)
-        # create manager message
+
         if self.pk is None:
+            # create default config
+            __default_max_daily_consumption = 100
+            __default_hook_price = 100
+            self.create_configuration(__default_max_daily_consumption,
+                                      __default_hook_price)
+                                      
+            # create manager message
             ManagerMessage.objects.get_or_create(manager=self)
 
     def create_configuration(self, max_daily_consumption, hook_price):
-        # type: (float, float) -> ManagerConfiguration
         """create Manager Configuration and discharge others"""
+        # type: (float, float) -> ManagerConfiguration
+
+        # check if last configuration is the same
+        current_configuration = self.get_current_configuration()
+        if current_configuration.compare(hook_price, max_daily_consumption):
+                return current_configuration
+
         # discharge old configurations
         for configuration in ManagerConfiguration.objects.filter(
                 discharge_date__isnull=True, manager=self):
@@ -68,9 +78,14 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         return queryset.first()
 
     def get_current_configuration(self):
-        # type: (Manager) -> ManagerConfiguration
-        return ManagerConfiguration.objects.filter(
-            discharge_date__isnull=True, manager=self).latest('release_date')
+        # type: (Manager) -> ManagerConfiguration | None
+        try:
+            manager_configuration = ManagerConfiguration.objects.filter(
+                discharge_date__isnull=True,
+                manager=self).latest('release_date')
+            return manager_configuration
+        except ObjectDoesNotExist:
+            return None
 
     def get_current_message(self):
         # type: (Manager) -> ManagerMessage
@@ -100,6 +115,9 @@ class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'),
         """discharge this Configuration"""
         self.discharge_date = timezone.now()
         self.save()
+
+    def compare(self, hook_price, max_daily_consumption) -> bool:
+        return self.hook_price == hook_price and self.max_daily_consumption == max_daily_consumption
 
 
 class ManagerMessage(ExportModelOperationsMixin('ManagerMessage'),

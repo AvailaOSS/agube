@@ -30,16 +30,22 @@ class ManagerConfigurationSerializer(ModelSerializer):
     """
     ManagerConfiguration ModelSerializer
     """
-    id = ReadOnlyField()
-    release_date = ReadOnlyField()
-    discharge_date = ReadOnlyField()
 
     class Meta:
         ref_name = 'ManagerConfiguration'
         model = ManagerConfiguration
         fields = ('id', 'max_daily_consumption', 'hook_price', 'release_date',
                   'discharge_date')
+        read_only_fields = ['release_date', 'discharge_date']
 
+    def create(self, manager: Manager, validated_data):
+        return manager.create_configuration(
+            validated_data.pop('max_daily_consumption'),
+            validated_data.pop('hook_price'))
+
+    def self_create(self, manager: Manager):
+        self.is_valid(True)
+        return self.create(manager, self.validated_data)
 
 class ManagerMessageSerializer(ModelSerializer):
 
@@ -50,7 +56,8 @@ class ManagerMessageSerializer(ModelSerializer):
         extra_kwargs = {'is_active': {'required': True}}
 
     def update(self, instance: ManagerMessage, validated_data):
-        instance.is_active = validated_data.get('is_active', instance.is_active)
+        instance.is_active = validated_data.get('is_active',
+                                                instance.is_active)
         instance.message = validated_data.get('message', instance.message)
         instance.save()
         return instance
