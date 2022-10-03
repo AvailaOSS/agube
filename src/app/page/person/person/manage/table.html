@@ -37,7 +37,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'PAGE.RESIDENTS.MANAGER.TABLE.COLUMN.FIRST_NAME' | translate }}"
                 >
-                    {{ element.first_name }}
+                    {{ element.first_name | titlecase }}
                 </td>
             </ng-container>
             <ng-container matColumnDef="last_name">
@@ -48,7 +48,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'PAGE.RESIDENTS.MANAGER.TABLE.COLUMN.LAST_NAME' | translate }}"
                 >
-                    {{ element.last_name }}
+                    {{ element.last_name| titlecase }}
                 </td>
             </ng-container>
             <ng-container matColumnDef="email">

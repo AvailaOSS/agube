@@ -7,9 +7,9 @@
                     <h2>{{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.TITLE_1' | translate }} {{ title | translate }}</h2>
                     <p>
                         {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_1' | translate }}
-                        {{ title | translate }}
+                        {{ title | translate | titlecase }}
                         {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_2' | translate }}
-                        <strong>{{ currentPerson | userDetail }}</strong>
+                        <strong>{{ currentPerson | userDetail | titlecase }}</strong>
                         {{ 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.SUBTITLE_3' | translate }}
                     </p>
                 </div>
