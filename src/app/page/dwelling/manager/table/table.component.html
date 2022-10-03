@@ -77,7 +77,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'GENERAL.TEXT.RESIDENT' | translate }}"
                 >
-                    {{ element.resident_full_name }}
+                    {{ element.resident_full_name | titlecase }}
                 </td>
             </ng-container>
 
