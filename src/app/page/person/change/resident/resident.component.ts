@@ -33,8 +33,8 @@ export class ResidentComponent extends ChangeComponent {
     private onSave() {
         this.loadingPost = true;
         let user: UserCreate = {
-            first_name: this.first_name.value,
-            last_name: this.last_name.value,
+            first_name: this.first_name.value.toLowerCase().trim(),
+            last_name: this.last_name.value.toLowerCase().trim(),
             email: this.email.value,
             phones: [{ phone_number: this.phone_number.value }],
         };

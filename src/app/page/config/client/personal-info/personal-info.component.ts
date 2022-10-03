@@ -70,8 +70,8 @@ export class PersonalInfoComponent implements OnInit {
 
         let personalInfo: PersonalInfo = {
             email: this.email.value,
-            first_name: this.first_name.value,
-            last_name: this.last_name.value,
+            first_name: this.first_name.value.trim().toLowerCase(),
+            last_name: this.last_name.value.trim().toLowerCase(),
         };
 
         this.loadSave = true;
