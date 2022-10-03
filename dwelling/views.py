@@ -112,7 +112,7 @@ class DwellingListView(APIView):
 
             if do_filter_alert:
                 # Jump to next iteration if consumption is OK (< limit)
-                if dwelling.get_last_month_consumption() < dwelling.get_last_month_max_consumption():
+                if dwelling.get_last_month_consumption() < dwelling.get_last_month_max_posible_consumption():
                     continue
                 
             list_of_serialized.append(
@@ -502,6 +502,7 @@ class DwellingWaterMeterMonthConsumption(APIView):
 
         # Request filters
         request_query_date = request.query_params.get('date')
+        request_date : datetime.date
         if request_query_date is None:
             request_date = timezone.now().date()
         else:
@@ -516,16 +517,19 @@ class DwellingWaterMeterMonthConsumption(APIView):
         except DwellingWithoutWaterMeterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
+        month_max_posible_consumption = dwelling.get_month_max_posible_consumption(request_date)
+
         # Build response
         response_data = {
             'id': dwelling.id,
-            'date': request_date,
-            'month_consumption': month_consumption
+            'date': str(request_date),
+            'month_consumption': month_consumption,
+            'month_max_posible_consumption': month_max_posible_consumption
         }
         response_serializer = DwellingWaterMeterMonthConsumptionSerializer(
             data=response_data)
-        if response_serializer.is_valid():
-            return Response(response_serializer.data)
+        if response_serializer.is_valid(True):
+            return Response(response_serializer.validated_data)
 
 
 class DwellingCommentCreateView(generics.CreateAPIView):

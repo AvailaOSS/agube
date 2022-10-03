@@ -189,9 +189,11 @@ class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
     id = IntegerField()
     date = DateField()
     month_consumption = IntegerField()
+    month_max_posible_consumption = IntegerField()
 
     class Meta:
         ref_name = 'DwellingWaterMonthConsumption'
+
 
 
 class DwellingCommentCreateSerializer(ModelSerializer):

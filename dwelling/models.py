@@ -9,7 +9,7 @@ from agube.utils import parse_query_datetime
 
 from comment.models import Comment
 from geolocation.models import Geolocation
-from manager.models import Manager
+from manager.models import Manager, ManagerConfiguration
 from watermeter.models import WaterMeter
 
 from dwelling.exceptions import DwellingWithoutWaterMeterError, OwnerAlreadyIsResidentError
@@ -117,7 +117,9 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
     def add_comment(self, message):
         """add new Comment to this Dwelling"""
-        return DwellingComment.objects.create(dwelling=self, comment=Comment.objects.create(message=message)).comment
+        return DwellingComment.objects.create(
+            dwelling=self,
+            comment=Comment.objects.create(message=message)).comment
 
     def discharge(self):
         """discharge this Dwelling"""
@@ -125,39 +127,88 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         self.save()
 
     def get_month_consumption(self, date):
-        # type: (Dwelling, datetime.date | datetime.datetime) -> int
+        # type: (Dwelling, datetime.date) -> int
+        """calculate consumption for the month of the given date"""
         # Get dwelling water meter historical
         watermeter_list = self.get_historical_water_meter()
         if watermeter_list == []:
             raise DwellingWithoutWaterMeterError()
         # Get measurement list filtered between dates
-        month_start = datetime.date(date.year, date.month, 1)
-        month_end = datetime.date(
-            date.year, date.month,
-            calendar.monthrange(month_start.year, month_start.month)[1])
+        month_start_datetime = parse_query_datetime(
+            datetime.date(date.year, date.month, 1))
+        month_end_datetime = parse_query_datetime(
+            datetime.date(
+                date.year, date.month,
+                calendar.monthrange(month_start_datetime.year,
+                                    month_start_datetime.month)[1]))
         measurement_list = get_watermeter_measurements_from_watermeters(
             watermeter_list,
-            start_datetime=parse_query_datetime(month_start),
-            end_datetime=parse_query_datetime(month_end))
+            start_datetime=month_start_datetime,
+            end_datetime=month_end_datetime)
+
         # Compute consumption
         month_consumption = 0
         if measurement_list != []:
             for measurement in measurement_list:
                 month_consumption += measurement.measurement_diff
-
         return round(month_consumption)
+
+    def get_month_max_posible_consumption(self, date):
+        # type: (Dwelling, datetime.date) -> int
+        """calculate maximum posible consumption for the month of the given date"""
+        from agube.utils import timedelta_in_days
+
+        month_start_datetime = parse_query_datetime(
+            datetime.date(date.year, date.month, 1))
+        month_range = calendar.monthrange(month_start_datetime.year,
+                                          month_start_datetime.month)
+        month_days = month_range[1]
+        month_end_datetime = month_start_datetime + datetime.timedelta(
+            days=month_days)
+
+        # configuration at start of the month
+        first_config = self.manager.get_closest_config(month_start_datetime)
+        # configurations for the month
+        month_configuration_list = ManagerConfiguration.objects.filter(
+            manager=self.manager,
+            release_date__gte=month_start_datetime,
+            release_date__lt=month_end_datetime).order_by('release_date')
+        if len(month_configuration_list) == 0:
+            month_max_posible_consumption = first_config.max_daily_consumption * month_days
+            return month_max_posible_consumption
+
+        # calculate month max posible consumption (+= each config * uptime days)
+        month_max_posible_consumption = 0
+        last_config_start_date = month_start_datetime
+
+        last_iteration_config = first_config
+        for manager_configuration in month_configuration_list:
+
+            # diff = actual.release_date - last.release_date
+            datetime_diff = manager_configuration.release_date - last_config_start_date
+            last_config_uptime_days = timedelta_in_days(datetime_diff)
+
+            # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
+            month_max_posible_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
+
+            last_config_start_date = manager_configuration.release_date
+            last_iteration_config = manager_configuration
+
+        # calculate until end of month
+        datetime_diff = month_end_datetime - last_iteration_config.release_date
+        last_config_uptime_days = timedelta_in_days(datetime_diff)
+        # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
+        month_max_posible_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
+
+        return round(month_max_posible_consumption)
 
     def get_last_month_consumption(self):
         now = timezone.now()
         return self.get_month_consumption(now -
                                           datetime.timedelta(days=now.day))
 
-    def get_last_month_max_consumption(self):
-        now = timezone.now()
-        month_last_day = now - datetime.timedelta(days=now.day)
-        month_days = calendar.monthrange(month_last_day.year,
-                                         month_last_day.month)[1]
-        return month_days * self.get_max_daily_consumption(month_last_day)
+    def get_last_month_max_posible_consumption(self):
+        return self.get_month_max_posible_consumption(timezone.now().date)
 
     def get_max_daily_consumption(self, date):
         return self.manager.get_closest_config(date).max_daily_consumption
@@ -175,7 +226,8 @@ class DwellingWaterMeter(ExportModelOperationsMixin('DwellingWaterMeter'),
         db_table = 'agube_dwelling_dwelling_water_meter'
 
 
-class DwellingComment(ExportModelOperationsMixin('DwellingComment'), models.Model):
+class DwellingComment(ExportModelOperationsMixin('DwellingComment'),
+                      models.Model):
     dwelling: Dwelling = models.ForeignKey(Dwelling, on_delete=models.RESTRICT)
     comment: Comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 
