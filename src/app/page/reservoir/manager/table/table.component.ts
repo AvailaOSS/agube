@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ReservoirDetail } from '@availa/agube-rest-api';
 import { Detail } from 'src/app/page/reservoir/detail/detail';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { goToReservoir } from 'src/app/utils/redirections/redirector';
 import { TableReloadService } from './table-reload.service';
 
 @Component({
@@ -63,9 +64,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         const queryParams: Detail = {
             reservoirId: reservoir.id!,
         };
-        this.router.navigate(['/manager/home/reservoirs/detail'], {
-            queryParams,
-        });
+        goToReservoir(this.router, queryParams);
     }
 
     private loadReservoirs() {

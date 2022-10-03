@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { DwellingDetail, DwellingService, ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
 import { differenceInDays } from 'date-fns';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { goToDwelling } from 'src/app/utils/redirections/redirector';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
 
@@ -55,7 +56,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         //reload dwellings
         this.svcTableReload.reload().subscribe((reload) => {
             if (reload) {
@@ -64,9 +65,10 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         this.loadDwellings();
     }
+
     //go to create dwelling
     public goToNewDwelling() {
         this.router.navigate(['manager/dwellings/create']);
@@ -82,15 +84,15 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.filter.setValue('');
         this.dataSource.filter = '';
     }
+
     //go to dwelling detail , click in table
     public goToDwelling(dwelling: DwellingDetail) {
         const queryParams: Detail = {
             dwellingId: dwelling.id!,
         };
-        this.router.navigate(['/manager/home/manager/client/dwellings/detail'], {
-            queryParams,
-        });
+        goToDwelling(this.router, queryParams);
     }
+
     //private method , load dwelling
     private loadDwellings() {
         this.svcDwelling.clean();

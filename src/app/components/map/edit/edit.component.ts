@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AddressService } from '@availa/agube-rest-api';
 import { CreateComponent } from '../create/create.component';
 
@@ -14,11 +15,12 @@ export class EditComponent extends CreateComponent implements OnInit {
     override automaticMode = true;
 
     constructor(
+        protected override router: Router,
         protected override http: HttpClient,
         protected override formBuilder: FormBuilder,
         protected override svcAddress: AddressService
     ) {
-        super(http, formBuilder, svcAddress);
+        super(router, http, formBuilder, svcAddress);
         this.form = undefined;
         this.addressAlreadyCreated = [];
         this.addressExamples = [];

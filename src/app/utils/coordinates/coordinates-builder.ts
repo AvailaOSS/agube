@@ -19,6 +19,7 @@ export function build(object: DwellingDetail | ReservoirDetail): Coordinates {
     }
 
     let coordinates: Coordinates = {
+        id: object.id!,
         lat: String(object.latitude),
         lon: String(object.longitude),
         description: object.road + suffix,

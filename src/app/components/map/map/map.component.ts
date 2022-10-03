@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
+import { redirector } from 'src/app/utils/redirections/redirector';
 import { ConfigureMap, Coordinates } from './configure-map';
 import { LocationResponse } from './location-response';
 
@@ -26,7 +28,7 @@ export class MapComponent implements AfterViewInit {
     protected static readonly circleOpacity = 0.5;
     protected static readonly circleRadius = 10;
 
-    constructor() {}
+    constructor(protected router: Router) {}
 
     ngAfterViewInit(): void {
         if (!this.baseConfiguration) {
@@ -69,19 +71,20 @@ export class MapComponent implements AfterViewInit {
             iconSize: [30, 30],
         });
 
-        let circle = L.marker([+point.lat, +point.lon], { icon: myIcon }).addTo(this.map);
+        let marker = L.marker([+point.lat, +point.lon], { icon: myIcon }).addTo(this.map);
+
+        marker.on('click', () => redirector(this.router, point));
 
         if (point.description) {
-            circle.bindPopup(point.description);
-
-            circle.on('mouseover', (ev) => {
+            marker.bindPopup(point.description);
+            marker.on('mouseover', (ev) => {
                 ev.target.openPopup();
             });
-            circle.on('mouseout', (ev) => {
+            marker.on('mouseout', (ev) => {
                 ev.target.closePopup();
             });
         }
 
-        return circle;
+        return marker;
     }
 }
