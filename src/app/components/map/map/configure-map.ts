@@ -12,6 +12,7 @@ export interface ConfigureMap {
 }
 
 export interface Coordinates {
+    id?: number;
     lat: string;
     lon: string;
     description?: string;

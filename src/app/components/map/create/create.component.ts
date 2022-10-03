@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
+import { Router } from '@angular/router';
 import { Address, AddressService } from '@availa/agube-rest-api';
 import * as L from 'leaflet';
 import { Observable } from 'rxjs';
@@ -64,8 +65,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     // -------------------------- Angular Lifecycle -------------------------- //
 
-    constructor(protected http: HttpClient, protected formBuilder: FormBuilder, protected svcAddress: AddressService) {
-        super();
+    constructor(protected override router: Router, protected http: HttpClient, protected formBuilder: FormBuilder, protected svcAddress: AddressService) {
+        super(router);
         this.form = undefined;
         this.addressAlreadyCreated = [];
         this.addressExamples = [];
