@@ -5,7 +5,7 @@ from dwelling.views import (
     DwellingOwnerView, DwellingResidentView, DwellingSetOwnerAsResidentView,
     DwellingView, DwellingWaterMeterChunkView,
     DwellingWaterMeterHistoricalView, DwellingWaterMeterView,
-    DwellingWaterMeterMeasurementsView, DwellingWaterMeterMonthConsumption,
+    DwellingWaterMeterMeasurementsView, DwellingMonthConsumption,
     DwellingCommentCreateView, DwellingCommentListView)
 
 __url_dwelling = [
@@ -23,8 +23,8 @@ __url_dwelling = [
          DwellingWaterMeterChunkView.as_view()),
     path('<int:pk>/water-meter/measurements/',
          DwellingWaterMeterMeasurementsView.as_view()),
-    path('<int:pk>/water-meter/month-consumption/',
-         DwellingWaterMeterMonthConsumption.as_view()),
+    path('<int:pk>/month-consumption/',
+         DwellingMonthConsumption.as_view()),
     path('<int:pk>/comment', DwellingCommentListView.as_view()),
     path('comment', DwellingCommentCreateView.as_view())
 ]

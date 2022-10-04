@@ -2,7 +2,7 @@ from person.permissions import IsPersonEnabled
 from resident.models import Resident
 
 
-class IsDwellingBelongsResident(IsPersonEnabled):
+class IsDwellingResident(IsPersonEnabled):
     """
     Allows access only to authenticated persons enabled.
     """

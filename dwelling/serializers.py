@@ -181,9 +181,9 @@ class DwellingDetailSerializer(ModelSerializer):
         return dwelling.geolocation.longitude
 
 
-class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
+class DwellingMonthConsumptionSerializer(Serializer):
     """
-    Dwelling Month Water Consumption Serializer
+    Dwelling Month Consumption Serializer
     """
     id = IntegerField()
     date = DateField()
@@ -192,8 +192,7 @@ class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
     month_consumption_percentage = IntegerField()
 
     class Meta:
-        ref_name = 'DwellingWaterMonthConsumption'
-
+        ref_name = 'DwellingMonthConsumption'
 
 class DwellingCommentCreateSerializer(ModelSerializer):
     dwelling_id = IntegerField()

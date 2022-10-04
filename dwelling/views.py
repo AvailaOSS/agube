@@ -1,6 +1,4 @@
-import calendar
 import datetime
-from agube.utils import parse_query_date, validate_query_date_filters
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.utils import timezone
@@ -15,7 +13,7 @@ from rest_framework.views import APIView
 from address.models import Address
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
 from agube.pagination import CustomPagination, CustomPaginationInspector
-from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
+from agube.utils import parse_query_date, validate_query_date_filters
 from comment.models import Comment
 from comment.serializers import CommentSerializer
 from dwelling.assemblers import (PersonTag, create_user,
@@ -29,14 +27,14 @@ from dwelling.models import Dwelling, DwellingWaterMeter, DwellingComment
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingResumeSerializer,
-                                  DwellingWaterMeterMonthConsumptionSerializer,
+                                  DwellingMonthConsumptionSerializer,
                                   DwellingCommentCreateSerializer)
 from manager.exceptions import ManagerLimitExceeded
 from manager.permissions import IsManagerAuthenticated
 from owner.models import Owner
 from owner.serializers import OwnerSerializer
 from resident.models import Resident
-from resident.permissions import IsDwellingBelongsResident
+from resident.permissions import IsDwellingResident
 from resident.serializers import ResidentSerializer
 from user.models import UserPhone
 from watermeter.models import WaterMeter, WaterMeterMeasurement
@@ -314,7 +312,7 @@ class DwellingWaterMeterHistoricalView(APIView):
 class DwellingWaterMeterView(generics.GenericAPIView):
     queryset = WaterMeter.objects.all()
     serializer_class = WaterMeterSerializer
-    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
+    permission_classes = [IsDwellingResident | IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentDwellingWaterMeter",
@@ -401,7 +399,7 @@ class DwellingWaterMeterChunkView(APIView):
 
 
 class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
-    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
+    permission_classes = [IsDwellingResident | IsManagerAuthenticated]
     serializer_class = WaterMeterMeasurementSerializer
     queryset = Dwelling.objects.all()
     pagination_class = CustomPagination
@@ -473,8 +471,8 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
         return Response(data)
 
 
-class DwellingWaterMeterMonthConsumption(APIView):
-    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
+class DwellingMonthConsumption(APIView):
+    permission_classes = [IsDwellingResident | IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getDwellingMonthConsumption",
@@ -486,7 +484,7 @@ class DwellingWaterMeterMonthConsumption(APIView):
                               format=openapi.FORMAT_DATE)
         ],
         responses={
-            200: DwellingWaterMeterMonthConsumptionSerializer(many=False)
+            200: DwellingMonthConsumptionSerializer(many=False)
         },
         tag=[TAG])
     def get(self, request, pk):
@@ -528,7 +526,7 @@ class DwellingWaterMeterMonthConsumption(APIView):
             'max_month_consumption': max_month_consumption,
             'month_consumption_percentage': month_consumption_percentage
         }
-        response_serializer = DwellingWaterMeterMonthConsumptionSerializer(
+        response_serializer = DwellingMonthConsumptionSerializer(
             data=response_data)
         if response_serializer.is_valid(True):
             return Response(response_serializer.validated_data)
