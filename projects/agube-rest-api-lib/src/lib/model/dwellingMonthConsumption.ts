@@ -10,9 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface DwellingWaterMonthConsumption { 
-    id: number;
-    date: string;
-    month_consumption: number;
+export interface DwellingMonthConsumption {
+  readonly id?: number;
+  readonly date?: string;
+  readonly month_consumption?: number;
+  readonly max_month_consumption?: number;
+  readonly month_consumption_percentage?: number;
 }

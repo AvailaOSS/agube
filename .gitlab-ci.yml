@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 4.12.0
+  RELEASE_VERSION: 4.13.0
 
 stages:
   - build
