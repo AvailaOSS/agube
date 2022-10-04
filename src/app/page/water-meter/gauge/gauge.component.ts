@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DwellingService } from '@availa/agube-rest-api';
-import { DwellingWaterMonthConsumption } from '@availa/agube-rest-api/lib/model/dwellingWaterMonthConsumption';
-import { differenceInDays, format } from 'date-fns';
+import { DwellingMonthConsumption } from '@availa/agube-rest-api/lib/model/dwellingMonthConsumption';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
@@ -16,6 +15,7 @@ export class GaugeComponent implements OnChanges {
     @Input() public maxDailyConsumption: number | undefined;
     @Input() public waterMeter: WaterMeterGauge | undefined;
 
+    public measurement: DwellingMonthConsumption | undefined;
     public configureChart: Configuration = {
         id: 'water_meter_gauge',
         options: {
@@ -33,26 +33,16 @@ export class GaugeComponent implements OnChanges {
     constructor(private svcDwellingService: DwellingService, private svcPersistance: WaterMeterPersistantService) {}
 
     ngOnChanges(): void {
-        let date = format(new Date(), 'yyyy-MM-dd');
-
-        this.svcDwellingService
-            .getDwellingMonthConsumption(this.waterMeter?.dwellingId!, date)
-            .subscribe((res) => {
-                this.svcPersistance.get().subscribe(() => {
-                    this.computeAverage(res);
-                });
+        this.svcDwellingService.getDwellingMonthConsumption(this.waterMeter?.dwellingId!).subscribe((res) => {
+            this.measurement = res;
+            this.svcPersistance.get().subscribe(() => {
+                this.computeAverage(res);
             });
+        });
     }
 
-    private computeAverage(measurement: DwellingWaterMonthConsumption) {
-        let dateActualMonth = new Date();
-        let datePastMonth = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate());
-
-        let dayAccumulate = differenceInDays(dateActualMonth, datePastMonth);
-
-        let maxConsumption = +this.maxDailyConsumption! * +dayAccumulate;
-
-        let total = (measurement.month_consumption! * 100) / maxConsumption;
+    private computeAverage(measurement: DwellingMonthConsumption) {
+        let total = measurement.month_consumption_percentage;
 
         this.configureChart = {
             id: 'water_meter_gauge',
