@@ -153,7 +153,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
                 month_consumption += measurement.measurement_diff
         return round(month_consumption)
 
-    def get_month_max_posible_consumption(self, date):
+    def get_max_month_consumption(self, date):
         # type: (Dwelling, datetime.date) -> int
         """calculate maximum posible consumption for the month of the given date"""
         from agube.utils import timedelta_in_days
@@ -174,11 +174,11 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             release_date__gte=month_start_datetime,
             release_date__lt=month_end_datetime).order_by('release_date')
         if len(month_configuration_list) == 0:
-            month_max_posible_consumption = first_config.max_daily_consumption * month_days
-            return month_max_posible_consumption
+            max_month_consumption = first_config.max_daily_consumption * month_days
+            return max_month_consumption
 
         # calculate month max posible consumption (+= each config * uptime days)
-        month_max_posible_consumption = 0
+        max_month_consumption = 0
         last_config_start_date = month_start_datetime
 
         last_iteration_config = first_config
@@ -189,7 +189,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             last_config_uptime_days = timedelta_in_days(datetime_diff)
 
             # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
-            month_max_posible_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
+            max_month_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
 
             last_config_start_date = manager_configuration.release_date
             last_iteration_config = manager_configuration
@@ -198,17 +198,17 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         datetime_diff = month_end_datetime - last_iteration_config.release_date
         last_config_uptime_days = timedelta_in_days(datetime_diff)
         # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
-        month_max_posible_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
+        max_month_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
 
-        return round(month_max_posible_consumption)
+        return round(max_month_consumption)
 
     def get_last_month_consumption(self):
         now = timezone.now()
         return self.get_month_consumption(now -
                                           datetime.timedelta(days=now.day))
 
-    def get_last_month_max_posible_consumption(self):
-        return self.get_month_max_posible_consumption(timezone.now().date)
+    def get_last_max_month_consumption(self):
+        return self.get_max_month_consumption(timezone.now().date())
 
     def get_max_daily_consumption(self, date):
         return self.manager.get_closest_config(date).max_daily_consumption

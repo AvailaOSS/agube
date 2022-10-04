@@ -87,9 +87,8 @@ class DwellingCreateSerializer(ModelSerializer):
                 'water_meter')['code']
             water_meter_exist = True
         # Create dwelling
-        dwelling: Dwelling = Dwelling.objects.create(manager=manager,
-                                                     geolocation=new_geolocation,
-                                                     **validated_data)
+        dwelling: Dwelling = Dwelling.objects.create(
+            manager=manager, geolocation=new_geolocation, **validated_data)
         if water_meter_exist:
             # Create water meter
             dwelling.change_current_water_meter(water_meter_code)
@@ -189,11 +188,11 @@ class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
     id = IntegerField()
     date = DateField()
     month_consumption = IntegerField()
-    month_max_posible_consumption = IntegerField()
+    max_month_consumption = IntegerField()
+    month_consumption_percentage = IntegerField()
 
     class Meta:
         ref_name = 'DwellingWaterMonthConsumption'
-
 
 
 class DwellingCommentCreateSerializer(ModelSerializer):
