@@ -27,7 +27,7 @@ import { DwellingCommentCreate } from '../model/dwellingCommentCreate';
 import { DwellingCreate } from '../model/dwellingCreate';
 import { DwellingDetail } from '../model/dwellingDetail';
 import { DwellingResume } from '../model/dwellingResume';
-import { DwellingWaterMonthConsumption } from '../model/dwellingWaterMonthConsumption';
+import { DwellingMonthConsumption } from '../model/dwellingMonthConsumption';
 import { Owner } from '../model/owner';
 import { Resident } from '../model/resident';
 import { WaterMeter } from '../model/waterMeter';
@@ -1228,24 +1228,24 @@ export class DwellingService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getDwellingMonthConsumption(
+   public getDwellingMonthConsumption(
     id: number,
     date?: string,
     observe?: 'body',
     reportProgress?: boolean
-  ): Observable<DwellingWaterMonthConsumption>;
+  ): Observable<DwellingMonthConsumption>;
   public getDwellingMonthConsumption(
     id: number,
     date?: string,
     observe?: 'response',
     reportProgress?: boolean
-  ): Observable<HttpResponse<DwellingWaterMonthConsumption>>;
+  ): Observable<HttpResponse<DwellingMonthConsumption>>;
   public getDwellingMonthConsumption(
     id: number,
     date?: string,
     observe?: 'events',
     reportProgress?: boolean
-  ): Observable<HttpEvent<DwellingWaterMonthConsumption>>;
+  ): Observable<HttpEvent<DwellingMonthConsumption>>;
   public getDwellingMonthConsumption(
     id: number,
     date?: string,
@@ -1287,10 +1287,10 @@ export class DwellingService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<DwellingWaterMonthConsumption>(
+    return this.httpClient.get<DwellingMonthConsumption>(
       `${this.basePath}/dwelling/${encodeURIComponent(
         String(id)
-      )}/water-meter/month-consumption/`,
+      )}/month-consumption/`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
