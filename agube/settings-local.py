@@ -68,7 +68,8 @@ INSTALLED_APPS = [
     'person',
     'owner',
     'resident',
-    'comment'
+    'comment',
+    'springsource',
 ]
 
 MIDDLEWARE = [
