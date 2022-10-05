@@ -1,30 +1,29 @@
 from django.core.exceptions import ObjectDoesNotExist
-from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from address.models import Address
-from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
-from agube.utils import validate_query_date_filters
-from manager.permissions import IsManagerAuthenticated
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-from reservoir.exceptions import ReservoirWithoutWaterMeterError
-from watermeter.models import WaterMeterMeasurement
-from watermeter.serializers import (WaterMeterDetailSerializer,
-                                    WaterMeterMeasurementSerializer,
-                                    WaterMeterSerializer)
 
+from address.models import Address
+from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
+from agube.pagination import CustomPagination, CustomPaginationInspector
+from agube.utils import validate_query_date_filters
+from manager.permissions import IsManagerAuthenticated
+from reservoir.exceptions import ReservoirWithoutWaterMeterError
 from reservoir.models import Reservoir, ReservoirWaterMeter, ReservoirOwner
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
                                    ReservoirOwnerSerializer,
                                    ReservoirResumeSerializer,
                                    get_reservoir_owner_serialized)
+from watermeter.models import WaterMeterMeasurement
+from watermeter.serializers import (WaterMeterDetailSerializer,
+                                    WaterMeterMeasurementSerializer,
+                                    WaterMeterSerializer)
 from watermeter.utils import get_watermeter_measurements_from_watermeters
-
-from agube.pagination import CustomPagination, CustomPaginationInspector
 
 TAG = 'reservoir'
 
@@ -43,6 +42,7 @@ class ReservoirResumeView(APIView):
         total_reservoirs = ReservoirOwner.objects.filter(
             user__id=manager, discharge_date__isnull=True).count()
         data = {'total_reservoirs': total_reservoirs}
+        # FIXME: do it like -> SpringSourceResumeView (Serializer has the responsability to create te representation)
         return Response(ReservoirResumeSerializer(data, many=False).data)
 
 
