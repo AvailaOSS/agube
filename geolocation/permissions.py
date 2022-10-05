@@ -1,11 +1,12 @@
-from manager.permissions import IsManagerAuthenticated
-
-from geolocation.models import Geolocation
-from dwelling.models import Dwelling
-from reservoir.models import ReservoirOwner
-from person.models import Person
-from user.models import UserGeolocation
 from django.core.exceptions import ObjectDoesNotExist
+
+from dwelling.models import Dwelling
+from geolocation.models import Geolocation
+from manager.permissions import IsManagerAuthenticated
+from person.models import Person
+from reservoir.models import ReservoirOwner
+from springsource.models import SpringSource
+from user.models import UserGeolocation
 
 
 class IsManagerOfGeolocation(IsManagerAuthenticated):
@@ -25,23 +26,29 @@ class IsManagerOfGeolocation(IsManagerAuthenticated):
 
         # Dwelling
         try:
-            dwelling = Dwelling.objects.get(manager__user=request.user,
-                                            geolocation=geolocation)
+            dwelling = Dwelling.objects.get(manager__user=request.user, geolocation=geolocation)
             return True
         except ObjectDoesNotExist:
             pass
+
         # Reservoir
         try:
-            reservoir_owner = ReservoirOwner.objects.get(
-                user=request.user, reservoir__geolocation=geolocation)
+            reservoir_owner = ReservoirOwner.objects.get(user=request.user, reservoir__geolocation=geolocation)
             return True
         except ObjectDoesNotExist:
             pass
+
+        # Spring Source
+        try:
+            spring_source = SpringSource.objects.get(manager__user=request.user, geolocation=geolocation)
+            return True
+        except ObjectDoesNotExist:
+            pass
+
         # User
         try:
-            person = Person.objects.get(
-                manager__user=request.user,
-                user=UserGeolocation.objects.get(geolocation=geolocation).user)
+            person = Person.objects.get(manager__user=request.user,
+                                        user=UserGeolocation.objects.get(geolocation=geolocation).user)
             return True
         except ObjectDoesNotExist:
             pass
