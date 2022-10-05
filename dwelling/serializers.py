@@ -185,13 +185,12 @@ class DwellingMonthConsumptionSerializer(Serializer):
     """
     Dwelling Month Consumption Serializer
     """
-    id = IntegerField(read_only=True)
-    date = DateField(read_only=True)
-    month_consumption = IntegerField(read_only=True)
-    max_month_consumption = IntegerField(read_only=True)
+    id = IntegerField()
+    date = DateField()
+    month_consumption = IntegerField()
+    max_month_consumption = IntegerField()
     month_consumption_percentage = DecimalField(max_digits=5,
-                                                decimal_places=2,
-                                                read_only=True)
+                                                decimal_places=2)
 
     class Meta:
         ref_name = 'DwellingMonthConsumption'
