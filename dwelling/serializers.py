@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.fields import ReadOnlyField, DateField, IntegerField
+from rest_framework.fields import ReadOnlyField, DateField, IntegerField, DecimalField
 from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
 
 from dwelling.exceptions import DwellingWithoutWaterMeterError
@@ -185,14 +185,17 @@ class DwellingMonthConsumptionSerializer(Serializer):
     """
     Dwelling Month Consumption Serializer
     """
-    id = IntegerField()
-    date = DateField()
-    month_consumption = IntegerField()
-    max_month_consumption = IntegerField()
-    month_consumption_percentage = IntegerField()
+    id = IntegerField(read_only=True)
+    date = DateField(read_only=True)
+    month_consumption = IntegerField(read_only=True)
+    max_month_consumption = IntegerField(read_only=True)
+    month_consumption_percentage = DecimalField(max_digits=5,
+                                                decimal_places=2,
+                                                read_only=True)
 
     class Meta:
         ref_name = 'DwellingMonthConsumption'
+
 
 class DwellingCommentCreateSerializer(ModelSerializer):
     dwelling_id = IntegerField()
