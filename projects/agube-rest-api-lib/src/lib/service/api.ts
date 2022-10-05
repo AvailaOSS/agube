@@ -22,6 +22,8 @@ export * from './geolocation.service';
 import { GeolocationService } from './geolocation.service';
 export * from './comments.service';
 import { CommentsService } from './comments.service';
+export * from './springsource.service';
+import { SpringSourceService } from './springsource.service';
 export const APIS = [
   AddressService,
   DwellingService,
@@ -34,5 +36,6 @@ export const APIS = [
   ResidentService,
   OwnerService,
   GeolocationService,
-  CommentsService
+  CommentsService,
+  SpringSourceService,
 ];
