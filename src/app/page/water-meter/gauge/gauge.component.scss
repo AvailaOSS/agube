@@ -5,14 +5,35 @@
     .chart-info {
         text-align: center;
         h3 {
-            margin: 0;
+            margin: $margin-small;
+        }
+    }
+    .chart-info {
+        text-align: center;
+        margin: $margin-x-small;
+        h3{
+            margin:5px
+        }
+    }
+    .container-chart-info{
+        h4{
+            margin: 0px;
+        }
+        h3{
+            margin:5px
         }
     }
 }
+
+
 @media only screen and (max-width: 1450px) {
     .chart {
         justify-content: center;
         display: flex;
+        .chart-info {
+            text-align: center;
+            margin: $margin-x-small;
+        }
     }
 }
 
@@ -20,5 +41,9 @@
     .chart {
         justify-content: center;
         display: flex;
+        .chart-info {
+            text-align: center;
+            margin: $margin-x-small;
+        }
     }
 }

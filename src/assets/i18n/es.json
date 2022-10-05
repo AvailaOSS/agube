@@ -113,7 +113,7 @@
     "PAGE.CONFIG.MANAGER.SUBTITLE": "Tu Comunidad",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Precio de enganche",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "El precio de enganche no puede estar vacio",
-    "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION": "Máximo consumo diario",
+    "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION": "Máximo consumo diario permitido",
     "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION.VALIDATION.REQUIRED": "El consumo máximo diario no puede estar vacio",
     "PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION": "Última actualización",
     "PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE": "Notificaciones",
@@ -272,7 +272,7 @@
     "PAGE.WATER_METER.DETAIL.TABLE.DATE.TOOLTIP": "Fecha",
     "PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART": "Días",
     "PAGE.WATER_METER.DETAIL.TABLE.DAYS_APART.TOOLTIP": "Días transcurridos respecto la lectura anterior",
-    "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP": "Litros Consumidos respecto la lectura anterior",
+    "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP": "Media de litros Consumidos respecto la lectura anterior",
     "PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP.MAX_DAILY_CONSUMPTION": "Máximo consumo diario permitido en la fecha",
     "PAGE.WATER_METER.DIALOG.TITLE": "Realizando cambio de Contador",
     "PAGE.WATER_METER.DIALOG.NEW_WATER_METER": "Nuevo Contador",
@@ -289,5 +289,7 @@
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR": "Hora",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES": "Minutos",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "Necesitamos la hora y los minutos en la que se tomó la Lectura",
-    "PAGE.WATER_METER.GAUGE.INFO": "Consumo total mensual"
+    "PAGE.WATER_METER.GAUGE.INFO": "Consumo actual",
+    "PAGE.WATER_METER.GAUGE.INFO-CONSUMER": "Litros Consumidos",
+    "PAGE.WATER_METER.GAUGE.INFO-CONSUMER-MONTH": "al mes"
 }
