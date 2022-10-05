@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, date, time
 from typing import Tuple
 from django.utils import dateparse, timezone as django_timezone
 from agube.exceptions import DateFilterNoEndDateError, DateFilterBadFormatError, DateFilterStartGtEnd
+import decimal
 
 
 def is_24h_old_than_now(date):
@@ -39,8 +40,9 @@ def __date_to_datetime(var) -> datetime:
                             django_timezone.get_current_timezone())
 
 
-def validate_query_date_filters(query_start_date: str,
-                                query_end_date: str) -> Tuple[datetime, datetime]:
+def validate_query_date_filters(
+        query_start_date: str,
+        query_end_date: str) -> Tuple[datetime, datetime]:
 
     if (query_start_date is None) and (query_end_date is None):
         return None
@@ -53,13 +55,16 @@ def validate_query_date_filters(query_start_date: str,
     end_datetime = parse_query_datetime(query_end_date)
 
     # If after parse is None, bad format
-    if (start_datetime is None and query_start_date != None) or (end_datetime is None):
+    if (start_datetime is None
+            and query_start_date != None) or (end_datetime is None):
         raise DateFilterBadFormatError
 
     return validate_datetime_filters(start_datetime, end_datetime)
 
-def validate_datetime_filters(start_datetime: datetime,
-                              end_datetime: datetime) -> Tuple[datetime, datetime]:
+
+def validate_datetime_filters(
+        start_datetime: datetime,
+        end_datetime: datetime) -> Tuple[datetime, datetime]:
     if end_datetime != None:
         if start_datetime != None:
             if start_datetime > end_datetime:
@@ -69,3 +74,7 @@ def validate_datetime_filters(start_datetime: datetime,
             raise DateFilterNoEndDateError
 
     return start_datetime, end_datetime
+
+
+def timedelta_in_days(timedelta: timedelta) -> decimal:
+    return decimal.Decimal(timedelta.total_seconds()/86400)

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.fields import ReadOnlyField, DateField, IntegerField
+from rest_framework.fields import ReadOnlyField, DateField, IntegerField, DecimalField
 from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
 
 from dwelling.exceptions import DwellingWithoutWaterMeterError
@@ -87,9 +87,8 @@ class DwellingCreateSerializer(ModelSerializer):
                 'water_meter')['code']
             water_meter_exist = True
         # Create dwelling
-        dwelling: Dwelling = Dwelling.objects.create(manager=manager,
-                                                     geolocation=new_geolocation,
-                                                     **validated_data)
+        dwelling: Dwelling = Dwelling.objects.create(
+            manager=manager, geolocation=new_geolocation, **validated_data)
         if water_meter_exist:
             # Create water meter
             dwelling.change_current_water_meter(water_meter_code)
@@ -182,16 +181,20 @@ class DwellingDetailSerializer(ModelSerializer):
         return dwelling.geolocation.longitude
 
 
-class DwellingWaterMeterMonthConsumptionSerializer(Serializer):
+class DwellingMonthConsumptionSerializer(Serializer):
     """
-    Dwelling Month Water Consumption Serializer
+    Dwelling Month Consumption Serializer
     """
-    id = IntegerField()
-    date = DateField()
-    month_consumption = IntegerField()
+    id = IntegerField(read_only=True)
+    date = DateField(read_only=True)
+    month_consumption = IntegerField(read_only=True)
+    max_month_consumption = IntegerField(read_only=True)
+    month_consumption_percentage = DecimalField(max_digits=5,
+                                                decimal_places=2,
+                                                read_only=True)
 
     class Meta:
-        ref_name = 'DwellingWaterMonthConsumption'
+        ref_name = 'DwellingMonthConsumption'
 
 
 class DwellingCommentCreateSerializer(ModelSerializer):

@@ -1,6 +1,4 @@
-import calendar
 import datetime
-from agube.utils import parse_query_date, validate_query_date_filters
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.utils import timezone
@@ -15,7 +13,7 @@ from rest_framework.views import APIView
 from address.models import Address
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
 from agube.pagination import CustomPagination, CustomPaginationInspector
-from agube.utils import parse_query_date, parse_query_datetime, validate_query_date_filters
+from agube.utils import parse_query_date, validate_query_date_filters
 from comment.models import Comment
 from comment.serializers import CommentSerializer
 from dwelling.assemblers import (PersonTag, create_user,
@@ -29,14 +27,14 @@ from dwelling.models import Dwelling, DwellingWaterMeter, DwellingComment
 from dwelling.serializers import (DwellingCreateSerializer,
                                   DwellingDetailSerializer,
                                   DwellingResumeSerializer,
-                                  DwellingWaterMeterMonthConsumptionSerializer,
+                                  DwellingMonthConsumptionSerializer,
                                   DwellingCommentCreateSerializer)
 from manager.exceptions import ManagerLimitExceeded
 from manager.permissions import IsManagerAuthenticated
 from owner.models import Owner
 from owner.serializers import OwnerSerializer
 from resident.models import Resident
-from resident.permissions import IsDwellingBelongsResident
+from resident.permissions import IsDwellingResident
 from resident.serializers import ResidentSerializer
 from user.models import UserPhone
 from watermeter.models import WaterMeter, WaterMeterMeasurement
@@ -106,15 +104,16 @@ class DwellingListView(APIView):
         manager_id = self.request.user.id
         dwelling_list: list[Dwelling] = Dwelling.objects.filter(
             manager__user_id=manager_id, discharge_date__isnull=True)
-            
+
         list_of_serialized: list[DwellingDetailSerializer] = []
         for dwelling in dwelling_list:
 
             if do_filter_alert:
                 # Jump to next iteration if consumption is OK (< limit)
-                if dwelling.get_last_month_consumption() < dwelling.get_last_month_max_consumption():
+                if dwelling.get_last_month_consumption(
+                ) < dwelling.get_last_max_month_consumption():
                     continue
-                
+
             list_of_serialized.append(
                 DwellingDetailSerializer(dwelling, many=False).data)
         return Response(list_of_serialized)
@@ -132,17 +131,17 @@ class DwellingCreateView(generics.CreateAPIView):
             # TODO: make openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}) generic for all errors
             # TODO: create a Serializer for Errors
             HTTP_404_NOT_FOUND:
-                openapi.Schema(type=openapi.TYPE_OBJECT,
-                               properties={
-                                   'status':
-                                       openapi.Schema(type=openapi.TYPE_STRING)
-                               }),
+            openapi.Schema(type=openapi.TYPE_OBJECT,
+                           properties={
+                               'status':
+                               openapi.Schema(type=openapi.TYPE_STRING)
+                           }),
             HTTP_403_FORBIDDEN:
-                openapi.Schema(type=openapi.TYPE_OBJECT,
-                               properties={
-                                   'status':
-                                       openapi.Schema(type=openapi.TYPE_STRING)
-                               }),
+            openapi.Schema(type=openapi.TYPE_OBJECT,
+                           properties={
+                               'status':
+                               openapi.Schema(type=openapi.TYPE_STRING)
+                           }),
         })
     def post(self, request, *args, **kwargs):
         try:
@@ -314,7 +313,7 @@ class DwellingWaterMeterHistoricalView(APIView):
 class DwellingWaterMeterView(generics.GenericAPIView):
     queryset = WaterMeter.objects.all()
     serializer_class = WaterMeterSerializer
-    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
+    permission_classes = [IsDwellingResident | IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getCurrentDwellingWaterMeter",
@@ -401,7 +400,7 @@ class DwellingWaterMeterChunkView(APIView):
 
 
 class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
-    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
+    permission_classes = [IsDwellingResident | IsManagerAuthenticated]
     serializer_class = WaterMeterMeasurementSerializer
     queryset = Dwelling.objects.all()
     pagination_class = CustomPagination
@@ -473,8 +472,8 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
         return Response(data)
 
 
-class DwellingWaterMeterMonthConsumption(APIView):
-    permission_classes = [IsDwellingBelongsResident | IsManagerAuthenticated]
+class DwellingMonthConsumption(APIView):
+    permission_classes = [IsDwellingResident | IsManagerAuthenticated]
 
     @swagger_auto_schema(
         operation_id="getDwellingMonthConsumption",
@@ -485,9 +484,7 @@ class DwellingWaterMeterMonthConsumption(APIView):
                               type=openapi.TYPE_STRING,
                               format=openapi.FORMAT_DATE)
         ],
-        responses={
-            200: DwellingWaterMeterMonthConsumptionSerializer(many=False)
-        },
+        responses={200: DwellingMonthConsumptionSerializer(many=False)},
         tag=[TAG])
     def get(self, request, pk):
         """
@@ -502,6 +499,7 @@ class DwellingWaterMeterMonthConsumption(APIView):
 
         # Request filters
         request_query_date = request.query_params.get('date')
+        request_date: datetime.date
         if request_query_date is None:
             request_date = timezone.now().date()
         else:
@@ -516,16 +514,30 @@ class DwellingWaterMeterMonthConsumption(APIView):
         except DwellingWithoutWaterMeterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
+        max_month_consumption = dwelling.get_max_month_consumption(
+            request_date)
+        month_consumption_percentage = round(
+            month_consumption * 100 /
+            max_month_consumption, 2) if month_consumption > 0 else 0
+
         # Build response
         response_data = {
-            'id': dwelling.id,
-            'date': request_date,
-            'month_consumption': month_consumption
+            'id':
+            dwelling.id,
+            'date':
+            str(request_date),
+            'month_consumption':
+            month_consumption,
+            'max_month_consumption':
+            max_month_consumption,
+            'month_consumption_percentage':
+            month_consumption_percentage
+            if month_consumption_percentage < 1000 else '999.99'
         }
-        response_serializer = DwellingWaterMeterMonthConsumptionSerializer(
+        response_serializer = DwellingMonthConsumptionSerializer(
             data=response_data)
-        if response_serializer.is_valid():
-            return Response(response_serializer.data)
+        if response_serializer.is_valid(True):
+            return Response(response_serializer.validated_data)
 
 
 class DwellingCommentCreateView(generics.CreateAPIView):
@@ -533,12 +545,11 @@ class DwellingCommentCreateView(generics.CreateAPIView):
     serializer_class = DwellingCommentCreateSerializer
     permission_classes = [IsManagerAuthenticated]
 
-    @swagger_auto_schema(
-        operation_id="createDwellingComment",
-        tag=[TAG])
+    @swagger_auto_schema(operation_id="createDwellingComment", tag=[TAG])
     def post(self, request, *args, **kwargs):
         """ Create a new Comment for this dwelling. """
-        return super(DwellingCommentCreateView, self).post(request, *args, **kwargs)
+        return super(DwellingCommentCreateView,
+                     self).post(request, *args, **kwargs)
 
 
 class DwellingCommentListView(generics.ListAPIView):
@@ -551,11 +562,14 @@ class DwellingCommentListView(generics.ListAPIView):
             # queryset just for schema generation metadata
             return Comment.objects.none()
         pk = self.kwargs['pk']
-        return list(map(lambda dwelling: dwelling.comment, DwellingComment.objects.filter(dwelling__id=pk).order_by('-comment__created')))
+        return list(
+            map(
+                lambda dwelling: dwelling.comment,
+                DwellingComment.objects.filter(
+                    dwelling__id=pk).order_by('-comment__created')))
 
-    @swagger_auto_schema(
-        operation_id="getDwellingComments",
-        tag=[TAG])
+    @swagger_auto_schema(operation_id="getDwellingComments", tag=[TAG])
     def get(self, request, *args, **kwargs):
         """ Return the full list of comments for this dwelling. """
-        return super(DwellingCommentListView, self).get(request, *args, **kwargs)
+        return super(DwellingCommentListView,
+                     self).get(request, *args, **kwargs)
