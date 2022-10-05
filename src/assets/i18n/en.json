@@ -113,7 +113,7 @@
     "PAGE.CONFIG.MANAGER.SUBTITLE": "Your community",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE": "Hook price",
     "PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE.VALIDATION.REQUIRED": "The deposit price cannot be empty",
-    "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION": "Maximum daily consumption",
+    "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION": "Maximum daily consumption allowed",
     "PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION.VALIDATION.REQUIRED": "The maximum daily consumption cannot be empty",
     "PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION": "Last update",
     "PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE": "Notifications",
@@ -289,5 +289,7 @@
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.HOUR": "Hour",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES": "Minutes",
     "PAGE.WATER_METER.DIALOG.MEASURE.FORM.MINUTES.VALIDATION.REQUIRED": "We need the hour and minutes in which the Reading was taken",
-    "PAGE.WATER_METER.GAUGE.INFO": "Total monthly consumption"
+    "PAGE.WATER_METER.GAUGE.INFO": "Current  daily consumption",
+    "PAGE.WATER_METER.GAUGE.INFO-CONSUMER": "Liters consumed",
+    "PAGE.WATER_METER.GAUGE.INFO-CONSUMER-MONTH": "a month"
 }

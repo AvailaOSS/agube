@@ -1,10 +1,21 @@
 <div class="chart" *ngIf="waterMeter">
     <div class="chart-info">{{ 'PAGE.WATER_METER.GAUGE.INFO' | translate }}</div>
     <app-gauge *ngIf="waterMeter && maxDailyConsumption" [config]="configureChart"> </app-gauge>
-    <div class="chart-info">
-        Consumido en el mes
-        <h3>{{ measurement?.month_consumption }} L</h3>
+    <div class="chart-info" *ngIf="measurement?.month_consumption !== 0; else EmptyMonthConsumption">
+        <div class="container-chart-info">
+            <h4>{{'PAGE.WATER_METER.GAUGE.INFO-CONSUMER'|translate}}</h4>
+            <h3>
+                <span> {{ measurement?.month_consumption }} / {{ measurement?.max_month_consumption }} </span>
+            </h3>
+            <h4>{{'PAGE.WATER_METER.GAUGE.INFO-CONSUMER-MONTH'|translate}}</h4>
+        </div>
     </div>
+
+    <ng-template #EmptyMonthConsumption>
+        <div class="chart-info">
+            <h3>{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate }}</h3>
+        </div>
+    </ng-template>
     <div class="chart-info">
         {{ 'PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION' | translate }}
         <h3>{{ maxDailyConsumption }} L</h3>

@@ -2,7 +2,6 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { DwellingService } from '@availa/agube-rest-api';
 import { DwellingMonthConsumption } from '@availa/agube-rest-api/lib/model/dwellingMonthConsumption';
 import { Configuration } from 'src/app/components/chart/chart-configure';
-
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterGauge } from './water-meter-gauge';
 
@@ -33,10 +32,10 @@ export class GaugeComponent implements OnChanges {
     constructor(private svcDwellingService: DwellingService, private svcPersistance: WaterMeterPersistantService) {}
 
     ngOnChanges(): void {
-        this.svcDwellingService.getDwellingMonthConsumption(this.waterMeter?.dwellingId!).subscribe((res) => {
-            this.measurement = res;
+        this.svcDwellingService.getDwellingMonthConsumption(this.waterMeter?.dwellingId!).subscribe((measurement) => {
+            this.measurement = measurement;
             this.svcPersistance.get().subscribe(() => {
-                this.computeAverage(res);
+                this.computeAverage(measurement);
             });
         });
     }
