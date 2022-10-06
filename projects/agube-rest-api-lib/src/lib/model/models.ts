@@ -25,6 +25,7 @@ export * from './waterMeterMeasurement';
 export * from './waterMeterWithMeasurements';
 export * from './comment';
 export * from './dwellingCommentCreate';
+export * from './reservoirCommentCreate';
 export * from './springSource';
 export * from './springSourceDetail';
 export * from './springSourceResume';
