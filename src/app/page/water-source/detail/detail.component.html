@@ -2,7 +2,7 @@
     <div class="page-content">
         <mat-card *ngIf="!loading">
             <mat-card-content *ngIf="waterSource">
-                <div class="reservoir-info">
+                <div class="water-source-info">
                     <h1>
                         {{ waterSource.geolocation | geolocation }}
                         <mat-icon
@@ -13,7 +13,7 @@
                             edit
                         </mat-icon>
                     </h1>
-                    <div class="reservoir-content-info">
+                    <div class="water-source-content-info">
                         <app-address [geolocation]="waterSource.geolocation"></app-address>
                         <app-water-source-resume [reservoirId]="waterSource.id"></app-water-source-resume>
                         <!-- <div class="reservoir-resident">
@@ -53,7 +53,7 @@
                         </app-water-meter-detail>
                     </span>
                 </div>
-                <div class="reservoir-map">
+                <div class="water-source-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
                         <mat-button-toggle
                             (click)="mode = 'map'"

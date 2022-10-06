@@ -15,7 +15,7 @@ export function goToReservoir(router: Router, queryParams: ReservoirDetailData) 
     });
 }
 export function goToWaterSource(router: Router, queryParams: ReservoirDetailData) {
-    router.navigate(['/manager/home/waterSource/detail'], {
+    router.navigate(['/manager/home/watersources/detail'], {
         queryParams,
     });
 }

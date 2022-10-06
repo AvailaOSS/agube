@@ -48,7 +48,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     public goToNewWaterSource() {
-        this.router.navigate(['manager/reservoirs/create']);
+        this.router.navigate(['manager/watersources/create']);
     }
 
     public applyFilter() {
