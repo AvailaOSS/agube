@@ -21,24 +21,38 @@
                         </div> -->
                     </div>
                     <div class="content-buttons-map">
-                        <app-management
-                            [manage]="reservoir"
-                            [waterMeterId]="waterMeterId"
-                            [type]="type"
-                            [load]="canLoad"
-                        >
-                        </app-management>
-                        <div *ngIf="canLoad" class="buttons-map">
-                            <button
-                                mat-raised-button
-                                [color]="'primary'"
-                                matTooltip="Ver mapa"
-                                (click)="seeMap()"
-                                matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                        <div class="content-buttons-generics-map">
+                            <app-management
+                                [manage]="reservoir"
+                                [waterMeterId]="waterMeterId"
+                                [type]="type"
+                                [load]="canLoad"
                             >
-                                <mat-icon>map</mat-icon>
-                                {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
-                            </button>
+                            </app-management>
+                            <div *ngIf="canLoad" class="buttons-map">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeMap()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon>map</mat-icon>
+                                    {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
+                                </button>
+                            </div>
+                            <div *ngIf="canLoad" class="button-comments">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeComments()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon>visibility</mat-icon>
+                                    {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <span *ngIf="waterMeter">
@@ -53,31 +67,38 @@
                         </app-water-meter-detail>
                     </span>
                 </div>
-                <div class="reservoir-map">
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                        <mat-button-toggle
-                            (click)="mode = 'map'"
-                            matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
-                            matTooltipPosition="left"
-                        >
-                            <mat-icon>map</mat-icon>
-                        </mat-button-toggle>
-                        <mat-button-toggle
-                            *ngIf="canLoadStreetView"
-                            (click)="mode = 'streetView'"
-                            matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
-                            matTooltipPosition="right"
-                        >
-                            <mat-icon>360</mat-icon>
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-                    <div *ngIf="showMap && configureMap">
-                        <div *ngIf="mode == 'map'; else showStreetView">
-                            <app-map [baseConfiguration]="configureMap"></app-map>
+                <div class="column-right">
+                    <div class="reservoir-map">
+                        <mat-button-toggle-group #group="matButtonToggleGroup">
+                            <mat-button-toggle
+                                (click)="mode = 'map'"
+                                matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
+                                matTooltipPosition="left"
+                            >
+                                <mat-icon>map</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle
+                                *ngIf="canLoadStreetView"
+                                (click)="mode = 'streetView'"
+                                matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
+                                matTooltipPosition="right"
+                            >
+                                <mat-icon>360</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                        <div *ngIf="showMap && configureMap">
+                            <div *ngIf="mode == 'map'; else showStreetView">
+                                <app-map [baseConfiguration]="configureMap"></app-map>
+                            </div>
+                            <ng-template #showStreetView>
+                                <app-street-view [configureView]="configureView"></app-street-view>
+                            </ng-template>
                         </div>
-                        <ng-template #showStreetView>
-                            <app-street-view [configureView]="configureView"></app-street-view>
-                        </ng-template>
+                        <app-comment-list
+                            *ngIf="canLoad"
+                            class="comments-list"
+                            [config]="configCommentComponent"
+                        ></app-comment-list>
                     </div>
                 </div>
             </mat-card-content>

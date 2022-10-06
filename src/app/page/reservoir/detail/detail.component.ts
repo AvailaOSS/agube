@@ -11,6 +11,8 @@ import {
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { ListComponent } from 'src/app/components/comment/list/list.component';
+import { CommentConfig, CommentType } from 'src/app/components/comment/type';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
@@ -50,6 +52,9 @@ export class DetailComponent implements OnInit {
     public type: Type | undefined = undefined;
 
     public showMap: boolean = true;
+
+    public configCommentComponent: CommentConfig | undefined;
+
     public loading: boolean = false;
     public canLoad: boolean = true;
 
@@ -75,6 +80,10 @@ export class DetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
             this.reservoirId = par.reservoirId;
+            this.configCommentComponent = {
+                id: this.reservoirId!,
+                type: CommentType.RESERVOIR,
+            };
             this.type = {
                 id: par.reservoirId,
                 type: WaterMeterType.RESERVOIR,
@@ -92,6 +101,51 @@ export class DetailComponent implements OnInit {
 
         this.loadReservoir(this.reservoirId);
         this.loadWaterMeter(this.reservoirId);
+    }
+
+    public goToNewReservoir() {
+        this.router.navigate(['manager/reservoirs/create']);
+    }
+
+    public seeMap() {
+        if (!this.reservoir) {
+            return;
+        }
+
+        this.showMap = true;
+
+        const geolocation = this.reservoir.geolocation;
+
+        let data: DialogParameters = {
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            geolocation: geolocation,
+            configureMap: {
+                id: 'detail_map_dialog',
+                center: {
+                    lat: geolocation.latitude,
+                    lon: geolocation.longitude,
+                    type: this.mapType,
+                },
+                zoom: geolocation.zoom,
+                showMarker: true,
+                height: '500px',
+                dragging: false,
+                selectOptionFilter: true,
+            },
+        };
+
+        this.dialog.open(DialogOnlyMapComponent, {
+            width: '100%',
+            data,
+        });
+    }
+
+    public seeComments() {
+        this.dialog.open(ListComponent, {
+            hasBackdrop: true,
+            panelClass: ['custom-dialog-container'],
+            data: this.configCommentComponent,
+        });
     }
 
     public goToEditGeolocation() {
@@ -135,39 +189,6 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public seeMap() {
-        if (!this.reservoir) {
-            return;
-        }
-
-        this.showMap = true;
-
-        const geolocation = this.reservoir.geolocation;
-
-        let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
-            configureMap: {
-                id: 'detail_map_dialog',
-                center: {
-                    lat: geolocation.latitude,
-                    lon: geolocation.longitude,
-                    type: this.mapType,
-                },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '500px',
-                dragging: false,
-                selectOptionFilter: true,
-            },
-        };
-
-        this.dialog.open(DialogOnlyMapComponent, {
-            width: '100%',
-            data,
-        });
-    }
-
     public updateGeolocation(result: Geolocation) {
         if (!this.reservoir) {
             return;
@@ -184,9 +205,6 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public goToNewReservoir() {
-        this.router.navigate(['manager/reservoirs/create']);
-    }
     // Clean and refresh water Meter
     private cleanRefreshWaterMeter() {
         this.svcPersistant.clear();

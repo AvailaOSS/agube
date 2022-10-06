@@ -10,5 +10,6 @@ export interface CommentCreate extends CommentConfig {
 
 export enum CommentType {
     DWELLING,
+    RESERVOIR,
     SPRING_SOURCE
 }
