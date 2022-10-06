@@ -30,6 +30,7 @@ import { ReservoirDetail } from '../model/reservoirDetail';
 import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
 import { WaterMeterMeasurementsPagination } from '../model/waterMeterMeasurementsPagination';
+import { ReservoirCommentCreate } from '../model/reservoirCommentCreate';
 
 @Injectable()
 export class ReservoirService {
@@ -196,6 +197,78 @@ export class ReservoirService {
 
     return this.httpClient.post<ReservoirCreate>(
       `${this.basePath}/reservoir/create`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Create a new Comment for this Reservoir.
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createReservoirComment(
+    data: ReservoirCommentCreate,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<ReservoirCommentCreate>;
+  public createReservoirComment(
+    data: ReservoirCommentCreate,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<ReservoirCommentCreate>>;
+  public createReservoirComment(
+    data: ReservoirCommentCreate,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<ReservoirCommentCreate>>;
+  public createReservoirComment(
+    data: ReservoirCommentCreate,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling createReservoirComment.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<ReservoirCommentCreate>(
+      `${this.basePath}/reservoir/comment`,
       data,
       {
         withCredentials: this.configuration.withCredentials,
@@ -465,6 +538,72 @@ export class ReservoirService {
 
     return this.httpClient.get<ReservoirCreate>(
       `${this.basePath}/reservoir/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Return the full list of comments for this Reservoir.
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getReservoirComments(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Comment>>;
+  public getReservoirComments(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Comment>>>;
+  public getReservoirComments(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Comment>>>;
+  public getReservoirComments(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getReservoirComments.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<Comment>>(
+      `${this.basePath}/reservoir/${encodeURIComponent(String(id))}/comment`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,
