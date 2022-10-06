@@ -76,5 +76,5 @@ def validate_datetime_filters(
     return start_datetime, end_datetime
 
 
-def timedelta_in_days(timedelta: timedelta) -> decimal:
-    return decimal.Decimal(timedelta.total_seconds()/86400)
+def timedelta_in_days(timedelta: timedelta):
+    return timedelta.total_seconds()/86400

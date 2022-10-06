@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from dwelling.models import DwellingWaterMeter
-from rest_framework.fields import DateTimeField, ReadOnlyField
+from rest_framework.fields import ReadOnlyField
 from rest_framework.serializers import (ModelSerializer, Serializer,
                                         SerializerMethodField)
 
@@ -30,27 +30,7 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
     """
     WaterMeter ModelSerializer
     """
-    id = ReadOnlyField()
-    date = DateTimeField(required=False)
-    measurement_diff = ReadOnlyField()
     max_daily_consumption = SerializerMethodField()
-
-    def get_max_daily_consumption(self, obj):
-        # the serializer can return model or dict
-        if type(obj) is dict:
-            current_measure = WaterMeterMeasurement.objects.get(id=obj.get('id'))
-        elif type(obj) is WaterMeterMeasurement:
-            current_measure = obj
-        else:
-            # if the serializer does not return nothing, ignore...
-            return 0.0
-
-        try:
-            dwelling_water_meter = DwellingWaterMeter.objects.get(water_meter = current_measure.water_meter)
-        except ObjectDoesNotExist:
-            return 0.0
-
-        return dwelling_water_meter.dwelling.manager.get_closest_config(current_measure.date).max_daily_consumption
 
     class Meta:
         ref_name = 'WaterMeterMeasurement'
@@ -58,10 +38,44 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
         fields = (
             'id',
             'measurement',
-            'measurement_diff',
-            'max_daily_consumption',
             'date',
+            'average_daily_flow',
+            'max_daily_consumption',
         )
+        read_only_fields = ['average_daily_flow']
+        extra_kwargs = {'date': {'required': False}}
+
+    def create(self, watermeter: WaterMeter, validated_data):
+        from django.utils import timezone
+        
+        measurement = validated_data.pop('measurement')
+        measurement_date = validated_data.pop('date') if 'date' in validated_data else timezone.now()
+        # Add Water Meter
+        return watermeter.add_measurement(measurement, measurement_date=measurement_date)
+
+    def self_create(self, watermeter):
+        if self.is_valid(True):
+            return self.create(watermeter, self.validated_data)
+
+    def get_max_daily_consumption(self, obj):
+        # the serializer can return model or dict
+        if type(obj) is dict:
+            current_measure = WaterMeterMeasurement.objects.get(
+                id=obj.get('id'))
+        elif type(obj) is WaterMeterMeasurement:
+            current_measure = obj
+        else:
+            # if the serializer does not return nothing, ignore...
+            return 0.0
+
+        try:
+            dwelling_water_meter = DwellingWaterMeter.objects.get(
+                water_meter=current_measure.water_meter)
+        except ObjectDoesNotExist:
+            return 0.0
+
+        return dwelling_water_meter.dwelling.manager.get_closest_config(
+            current_measure.date).max_daily_consumption
 
 
 class WaterMeterDetailSerializer(Serializer):

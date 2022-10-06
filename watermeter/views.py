@@ -10,8 +10,9 @@ from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError,
 from agube.utils import validate_query_date_filters
 
 from manager.permissions import IsManagerAuthenticated
-from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
-                                   WaterMeterMeasurementInFutureError)
+from watermeter.exceptions import (
+    WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
+    WaterMeterMeasurementInFutureError)
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import WaterMeterMeasurementSerializer
 from agube.pagination import CustomPagination, CustomPaginationInspector
@@ -55,7 +56,7 @@ class WaterMeterMeasurementView(GenericAPIView):
         except (DateFilterBadFormatError, DateFilterNoEndDateError,
                 DateFilterStartGtEnd) as e:
             return Response({'status': e.message}, status=HTTP_400_BAD_REQUEST)
-            
+
         # Get Water Meter
         try:
             watermeter: WaterMeter = WaterMeter.objects.get(id=pk)
@@ -70,8 +71,7 @@ class WaterMeterMeasurementView(GenericAPIView):
             # Get measurements filtered between dates
             start_datetime, end_datetime = datetime_filters
             measurement_list = watermeter.get_measurements_between_dates(
-                start_date=start_datetime,
-                end_date=end_datetime)
+                start_date=start_datetime, end_date=end_datetime)
 
         # Create result pagination
         queryset = measurement_list
@@ -100,24 +100,19 @@ class WaterMeterMeasurementView(GenericAPIView):
             return Response({'status': 'cannot find watermeter'},
                             status=HTTP_404_NOT_FOUND)
 
-        # Extract data
-        measurement = request.data.pop('measurement')
-        date = None
-        if 'date' in request.data:
-            date = request.data.pop('date')
-        else:
-            date = timezone.now()
-
-        # Add Water Meter
         try:
-            watermeter_measurement = watermeter.add_measurement(measurement,
-                                                                date=date)
+            watermeter_measurement = WaterMeterMeasurementSerializer(
+                data=request.data).self_create(watermeter)
             return Response(
-                (WaterMeterMeasurementSerializer(watermeter_measurement,
-                                                 many=False).data))
+                (WaterMeterMeasurementSerializer(watermeter_measurement).data))
         except (WaterMeterDisabledError,
                 WaterMeterMeasurementInFutureError) as e:
-            return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
+            if isinstance(e, WaterMeterDisabledError):
+                return Response({'status': e.message},
+                                status=HTTP_404_NOT_FOUND)
+            if isinstance(e, WaterMeterMeasurementInFutureError):
+                return Response({'status': e.message},
+                                status=HTTP_400_BAD_REQUEST)
 
 
 class MeasurementView(UpdateAPIView):
@@ -126,7 +121,7 @@ class MeasurementView(UpdateAPIView):
     queryset = WaterMeterMeasurement.objects.all()
     serializer_class = WaterMeterMeasurementSerializer
     lookup_field = 'pk'
-    http_method_names = ["put"] # it ignore PATCH method
+    http_method_names = ["put"]  # it ignore PATCH method
 
     @swagger_auto_schema(
         operation_id="updateMeasurement",

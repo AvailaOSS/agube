@@ -24,23 +24,23 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
             self.release_date = timezone.now()
         super(WaterMeter, self).save(*args, **kwargs)
 
-    def add_measurement(self, measurement, date=timezone.now()):
-        # type: (WaterMeter, float, timezone) -> WaterMeterMeasurement
+    def add_measurement(self, measurement, measurement_date: datetime =timezone.now()):
+        # type: (WaterMeter, float, datetime) -> WaterMeterMeasurement
         """water meter add measurement
 
         Parameters
         ----------
-        measurement : str
+        measurement : float
             measurement read from the water meter
         date : datetime
             date of read measurement"""
         if self.discharge_date:
             raise WaterMeterDisabledError()
-        if dateparse.parse_datetime(date) > timezone.now():
+        if measurement_date > timezone.now():
             raise WaterMeterMeasurementInFutureError()
         return WaterMeterMeasurement.objects.create(water_meter=self,
                                                     measurement=measurement,
-                                                    date=date)
+                                                    date=measurement_date)
 
     def get_measurements_chunk(self, chunk=5, before_date=timezone.now()):
         # type: (int, timezone) -> list[WaterMeterMeasurement]
@@ -74,7 +74,7 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
                 water_meter=self).order_by('-date'))
 
     def get_last_measurement(self, before_date=timezone.now()):
-        """get the previous measurement"""
+        """get most recent measurement before given date"""
         chunk = self.get_measurements_chunk(1, before_date)
         if len(chunk):
             return chunk[0]
@@ -90,42 +90,40 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
 class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'), models.Model):
     """A class used to represent an Water Meter Measurement"""
     measurement = models.DecimalField(decimal_places=3, max_digits=12)
-    measurement_diff = models.DecimalField(decimal_places=3, max_digits=12, default=0)
     date = models.DateTimeField()
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,
                                                 on_delete=models.PROTECT)
+    average_daily_flow = models.DecimalField(decimal_places=3, max_digits=12, default=0)
 
     class Meta:
         ordering = ["-date"]
         db_table = 'agube_watermeter_water_meter_measurement'
 
     def __str__(self):
-        return str(self.id) + " " + str(self.measurement) + " " + str(self.measurement_diff) + " " + str(self.date) + " " + str(self.water_meter.id)
+        return str(self.id) + " " + str(self.measurement) + " " + str(self.average_daily_flow) + " " + str(self.date) + " " + str(self.water_meter.id)
 
     def save(self, *args, **kwargs):
         """Before save the Measurement, compute the difference with the previous measurement"""
         if self.id:
-            persistant_measure = self.water_meter.get_last_measurement()
-            if persistant_measure and is_24h_old_than_now(persistant_measure.date):
+            last_measurement = self.water_meter.get_last_measurement()
+            if last_measurement and is_24h_old_than_now(last_measurement.date):
                 raise WaterMeterMeasurementAlreadyExpiredToUpdateError()
             if self.date > timezone.now():
                 raise WaterMeterMeasurementInFutureError()
-        self.compute_diff()
+
+        # set average daily flow
+        self.calculate_average_daily_flow()
         super(WaterMeterMeasurement, self).save(*args, **kwargs)
 
-    def compute_diff(self):
+    def calculate_average_daily_flow(self):
         """Compute the diff with the previous measurement"""
-        __date = self.date
-        if not isinstance(__date, datetime):
-            __date = dateparse.parse_datetime(self.date)
+        from agube.utils import timedelta_in_days
+        from decimal import Decimal
 
-        prev = self.water_meter.get_last_measurement(__date - timedelta(minutes=1))
-        if prev:
+        previous_measurement = self.water_meter.get_last_measurement(self.date - timedelta(minutes=1))
+        if previous_measurement:
             #1 m3 == 1000 L
-            m3L = 1000
-
-            lapsed_days = (__date - prev.date).days
-            if lapsed_days == 0:
-                lapsed_days = 1
-            self.measurement_diff = round(((float(self.measurement) - float(prev.measurement)) * m3L) / lapsed_days)
+            m3L = 1000.0
+            lapsed_days = timedelta_in_days(self.date - previous_measurement.date)
+            self.average_daily_flow = Decimal(round(((float(self.measurement) - float(previous_measurement.measurement)) / lapsed_days) * m3L, 3))
         # else will put 0 as default
