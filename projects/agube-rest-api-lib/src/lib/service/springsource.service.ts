@@ -25,6 +25,7 @@ import { SpringSourceResume } from '../model/springSourceResume';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
 import { SpringSourceCommentCreate } from '../model/springSourceCommentCreate';
+import { Comment } from './../model/comment';
 
 @Injectable()
 export class SpringSourceService {

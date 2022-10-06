@@ -31,6 +31,7 @@ import { WaterMeter } from '../model/waterMeter';
 import { WaterMeterWithMeasurements } from '../model/waterMeterWithMeasurements';
 import { WaterMeterMeasurementsPagination } from '../model/waterMeterMeasurementsPagination';
 import { ReservoirCommentCreate } from '../model/reservoirCommentCreate';
+import { Comment } from './../model/comment';
 
 @Injectable()
 export class ReservoirService {
