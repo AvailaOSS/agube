@@ -67,7 +67,17 @@
         margin: 0 auto;
     }
 }
-
+.content-detail {
+    width: auto;
+    height: auto;
+    border: 1px solid #b2e4fa;
+    margin: $margin-small;
+    border-radius: $margin-small;
+    text-align: center;
+    justify-content: center;
+    margin: $margin-small auto;
+    padding: $margin-small;
+}
 .content-buttons-map {
     display: block;
 }
