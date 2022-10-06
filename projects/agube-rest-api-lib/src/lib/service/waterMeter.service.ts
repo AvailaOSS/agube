@@ -220,7 +220,7 @@ export class WaterMeterService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<any>(
+    return this.httpClient.get<WaterMeterMeasurementsPagination>(
       `${this.basePath}/water-meter/${encodeURIComponent(
         String(id)
       )}/measurement`,
