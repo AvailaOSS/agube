@@ -22,8 +22,8 @@ const routes: Routes = [
                 loadChildren: () => import('../../../reservoir/manager/manager.module').then((m) => m.ManagerModule),
             },
             {
-                path: 'watersources',
-                loadChildren: () => import('../../../water-source/manager/manager.module').then((m) => m.ManagerWaterSourceModule),
+                path: 'springsources',
+                loadChildren: () => import('../../../spring-source/manager/manager.module').then((m) => m.ManagerSpringSourceModule),
             },
             {
                 path: 'config',

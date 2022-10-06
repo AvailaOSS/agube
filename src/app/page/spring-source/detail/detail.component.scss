@@ -29,18 +29,18 @@
         flex-wrap: wrap;
         justify-content: space-between;
         width: 100%;
-        .water-source-info {
+        .spring-source-info {
             width: 55%;
             margin-top: $margin-x-medium;
             margin-left: $margin-x-medium;
             mat-icon {
                 cursor: pointer;
             }
-            .water-source-content-info {
+            .spring-source-content-info {
                 margin-left: $margin-small;
                 display: flex;
                 justify-content: center;
-                .water-source-resident {
+                .spring-source-resident {
                     margin-left: $margin-medium;
                     flex-direction: column;
                     display: flex;
@@ -52,7 +52,7 @@
             width: 35%;
             height: 1%;
             margin-right: $margin-x-medium;
-            .water-source-map {
+            .spring-source-map {
                 mat-button-toggle-group {
                     display: flex;
                     justify-content: center;
@@ -110,6 +110,7 @@
     height: fit-content;
 }
 
+// meadias queries
 @media only screen and (max-width: 735px) {
     .mat-card-content {
         .content-buttons-map {
@@ -124,10 +125,10 @@
 @media only screen and (max-width: 1660px) {
     .mat-card-content {
         display: block;
-        .water-source-info {
+        .spring-source-info {
             width: 100% !important;
         }
-        .water-source-map {
+        .spring-source-map {
             display: none;
         }
         .buttons-map {
@@ -139,7 +140,7 @@
             display: block;
             justify-content: center;
         }
-        .water-source-resident {
+        .spring-source-resident {
             margin-left: 0px !important;
             flex-direction: column;
             display: flex;
@@ -157,7 +158,7 @@
         display: none;
     }
 
-    .water-source-info {
+    .spring-source-info {
         width: 45% !important;
     }
     .column-right {
@@ -179,7 +180,7 @@
         width: auto !important;
         margin-top: $margin-small;
     }
-    .water-source-info {
+    .spring-source-info {
         width: 35% !important;
     }
     .column-right {
@@ -196,7 +197,7 @@
         display: none;
     }
 
-    .water-source-info {
+    .spring-source-info {
         width: 51% !important;
     }
     .column-right {

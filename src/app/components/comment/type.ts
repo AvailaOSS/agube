@@ -10,5 +10,5 @@ export interface CommentCreate extends CommentConfig {
 
 export enum CommentType {
     DWELLING,
-    WATER_SOURCE
+    SPRING_SOURCE
 }

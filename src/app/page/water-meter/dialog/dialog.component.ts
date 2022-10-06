@@ -32,7 +32,6 @@ export class WaterMeterDialogComponent {
         private svcPersistantWaterMeter: WaterMeterPersistantService,
         private svcDwellingCache: DwellingCacheService,
         private svcReservoirCache: ReservoirCacheService
-        // private svcWaterSourceCache: WaterSourceCacheService
     ) {
         this.id = data.id;
         this.type = data.type;
@@ -78,10 +77,6 @@ export class WaterMeterDialogComponent {
             case WaterMeterType.RESERVOIR:
                 this.svcReservoirCache.clean();
                 break;
-            case WaterMeterType.WATERSOURCE:
-                this.svcReservoirCache.clean();
-                // this.svcWaterSourceCache.clean();
-                    break;
             default:
                 break;
         }

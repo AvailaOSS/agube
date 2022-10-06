@@ -16,8 +16,8 @@ export class CommentManager {
                     dwelling_id: meta.id,
                     message: meta.message,
                 });
-            // FIX: CREATEWATERSOURCE
-            case CommentType.WATER_SOURCE:
+            // CREATE OBSERVATION spring source
+            case CommentType.SPRING_SOURCE:
                 return this.svcDwelling.createDwellingComment({
                     dwelling_id: meta.id,
                     message: meta.message,
@@ -27,12 +27,12 @@ export class CommentManager {
         }
     }
 
-      // FIX: loadWATERSOURCE
+      // FIX: loadSPRINGSOURCE
     public load(meta: CommentConfig): Observable<Comment[]> {
         switch (meta.type) {
             case CommentType.DWELLING:
                 return this.svcDwelling.getDwellingComments(meta.id);
-            case CommentType.WATER_SOURCE:
+            case CommentType.SPRING_SOURCE:
                 return this.svcDwelling.getDwellingComments(meta.id);
             default:
                 throw new Error('Type provided ' + meta.type + ' is not valid for this operation');

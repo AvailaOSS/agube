@@ -18,9 +18,6 @@ export class WaterMeterManager {
                 return this.svcDwelling.changeCurrentDwellingWaterMeter(id, waterMeter);
             case WaterMeterType.RESERVOIR:
                 return this.svcReservoir.changeCurrentReservoirWaterMeter(id, waterMeter);
-            case WaterMeterType.WATERSOURCE:
-                    return this.svcReservoir.changeCurrentReservoirWaterMeter(id, waterMeter);
-                    // return this.svcWaterSource.changeCurrentWaterSourceWaterMeter(id, waterMeter);
             default:
                 throw new Error('type in ' + type + ' is not valid...');
         }
@@ -32,9 +29,6 @@ export class WaterMeterManager {
                 return this.svcDwelling.getCurrentDwellingWaterMeter(id);
             case WaterMeterType.RESERVOIR:
                 return this.svcReservoir.getCurrentReservoirWaterMeter(id);
-            case WaterMeterType.WATERSOURCE:
-                return this.svcReservoir.getCurrentReservoirWaterMeter(id);
-                // return this.svcWaterSource.getCurrentWaterSourceWaterMeter(id);
             default:
                 throw new Error('type in ' + type + ' is not valid...');
         }
@@ -63,21 +57,6 @@ export class WaterMeterManager {
                     date.dateStart ? formatDate(date.dateStart) : undefined,
                     date.dateEnd ? formatDate(date.dateEnd) : undefined
                 );
-                case WaterMeterType.WATERSOURCE:
-                    return this.svcReservoir.getReservoirWaterMeterMeasurements(
-                        id,
-                        undefined,
-                        pageSize,
-                        date.dateStart ? formatDate(date.dateStart) : undefined,
-                        date.dateEnd ? formatDate(date.dateEnd) : undefined
-                );
-                // return this.svcWaterSource.getWaterSourceWaterMeterMeasurements(
-                //     id,
-                //     undefined,
-                //     pageSize,
-                //     date.dateStart ? formatDate(date.dateStart) : undefined,
-                //     date.dateEnd ? formatDate(date.dateEnd) : undefined
-                // );
             default:
                 throw new Error('type in ' + type + ' is not valid...');
         }

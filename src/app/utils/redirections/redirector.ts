@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Coordinates, MapIconType } from 'src/app/components/map/map/configure-map';
 import { Detail as DwellingDetailData } from 'src/app/page/dwelling/detail/detail';
 import { Detail as ReservoirDetailData } from 'src/app/page/reservoir/detail/detail';
-import { Detail as WaterSourceDetailData } from 'src/app/page/water-source/detail/detail';
+import { Detail as SpringSourceDetailData } from 'src/app/page/spring-source/detail/detail';
 export function goToDwelling(router: Router, queryParams: DwellingDetailData) {
     router.navigate(['/manager/home/manager/client/dwellings/detail'], {
         queryParams,
@@ -14,8 +14,8 @@ export function goToReservoir(router: Router, queryParams: ReservoirDetailData) 
         queryParams,
     });
 }
-export function goToWaterSource(router: Router, queryParams: WaterSourceDetailData) {
-    router.navigate(['/manager/home/watersources/detail'], {
+export function goToSpringSource(router: Router, queryParams: SpringSourceDetailData) {
+    router.navigate(['/manager/home/springsources/detail'], {
         queryParams,
     });
 }
@@ -35,9 +35,9 @@ export function redirector(router: Router, point: Coordinates) {
                 reservoirId: point.id,
             });
             break;
-        case MapIconType.WATER_SOURCE:
-            goToWaterSource(router, {
-                waterSourceId: point.id,
+        case MapIconType.SPRING_SOURCE:
+            goToSpringSource(router, {
+                springSourceId: point.id,
             });
             break;
         default:

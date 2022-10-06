@@ -1,27 +1,26 @@
 import { ICacheService } from './interface-cache.service';
 import { Injectable } from '@angular/core';
 import { SpringSourceDetail, SpringSourceService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
 
 @Injectable({
     providedIn: 'root',
 })
-export class WaterSourceCacheService implements ICacheService<SpringSourceDetail> {
+export class SpringSourceCacheService implements ICacheService<SpringSourceDetail> {
     cache: SpringSourceDetail[] = [];
 
-    constructor(private svcWaterSource: SpringSourceService, private svcAccount: AccountService) {}
+    constructor(private svcSpringSource: SpringSourceService) {}
 
     public get(): Promise<SpringSourceDetail[]> {
-        var promise = new Promise<SpringSourceDetail[]>((resolve, reject) => {
+        var promise = new Promise<SpringSourceDetail[]>((resolve) => {
             if (this.cache.length > 0) {
-                console.debug('WaterSources from cache');
+                console.debug('SpringSources from cache');
                 resolve(this.cache);
                 return;
             }
-            this.svcWaterSource.getSpringSources().subscribe({
+            this.svcSpringSource.getSpringSources().subscribe({
                 next: (response) => {
                     this.cache = response;
-                    console.debug('WaterSources received directly from backend');
+                    console.debug('SpringSources received directly from backend');
                     resolve(this.cache);
                     return;
                 },

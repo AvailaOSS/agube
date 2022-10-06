@@ -1,7 +1,18 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
 
-.manager-water-source-page {
+
+
+
+.manager-spring-source-page-table {
+    @include my-page-column();
+    margin-bottom: $margin-x-small;
+}
+
+
+.manager-spring-source-page {
+
+    // medias queries
     @media only screen and (max-width: 1240px) {
         margin-bottom: 180px;
 
@@ -11,6 +22,7 @@
             margin-top: 20px;
         }
     }
+
     @media only screen and (min-width: 1240px) {
         display: flex;
         flex-direction: row-reverse;
@@ -43,7 +55,3 @@
     }
 }
 
-.manager-water-source-page-table {
-    @include my-page-column();
-    margin-bottom: $margin-x-small;
-}

@@ -1,3 +1,3 @@
 export interface Detail {
-    waterSourceId: number;
+    springSourceId: number;
 }

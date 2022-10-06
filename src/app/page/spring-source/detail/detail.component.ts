@@ -20,18 +20,19 @@ import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
 import { Type } from '../../water-meter/detail/type';
-import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { Detail } from './detail';
+import { SpringSourceCacheService } from 'src/app/utils/cache/spring-source-cache.service';
 
 @Component({
-    selector: 'app-water-source',
+    selector: 'app-spring-source',
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-    public waterSourceId: number | undefined;
-    public waterSource: SpringSource | undefined;
+    // variables
+    public springSourceId: number | undefined;
+    public springSource: SpringSource | undefined;
 
     // map
     public canLoadStreetView: boolean = false;
@@ -40,7 +41,7 @@ export class DetailComponent implements OnInit {
 
     // map config
     public mode: string = 'map';
-    private readonly mapType: MapIconType = MapIconType.WATER_SOURCE;
+    private readonly mapType: MapIconType = MapIconType.SPRING_SOURCE;
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '500px';
@@ -53,14 +54,12 @@ export class DetailComponent implements OnInit {
     public showMap: boolean = true;
     public loading: boolean = false;
     public canLoad: boolean = false;
-    public configCommentComponent: CommentConfig | undefined;
 
     constructor(
-        private router: Router,
         private activatedRoute: ActivatedRoute,
-        private svcWaterSource: SpringSourceService,
+        private svcSpringSourceCache: SpringSourceCacheService,
+        private svcSpringSource: SpringSourceService,
         private svcManager: ManagerService,
-        private svcPersistant: WaterMeterPersistantService,
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
@@ -72,48 +71,33 @@ export class DetailComponent implements OnInit {
             next: (response) => (this.canLoad = response.is_manager),
         });
         this.loading = true;
-        this.waterSource = undefined;
+        this.springSource = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
-            this.waterSourceId = par.waterSourceId;
-            this.configCommentComponent = {
-                id: this.waterSourceId!,
-                type: CommentType.WATER_SOURCE,
-            };
+            this.springSourceId = par.springSourceId;
+
             this.type = {
-                id: par.waterSourceId,
-                type: WaterMeterType.WATERSOURCE,
+                id: par.springSourceId,
+                type: WaterMeterType.SPRINGSOURCE,
             };
         });
     }
 
+    // initialize load spring Source
     public ngOnInit(): void {
-        this.cleanRefreshWaterMeter();
-
-        // Get waterMeter to this waterSourceID
-        if (!this.waterSourceId) {
+        if (!this.springSourceId) {
             return;
         }
-
-        this.loadWaterSource(this.waterSourceId);
+        this.loadSpringSource(this.springSourceId);
     }
 
-    public seeComments() {
-        this.dialog.open(ListComponent, {
-            hasBackdrop: true,
-            panelClass: ['custom-dialog-container'],
-            data: this.configCommentComponent,
-        });
-    }
-
+    // Edit geolocation with dialog
     public goToEditGeolocation() {
-        if (!this.waterSource) {
+        if (!this.springSource) {
             return;
         }
-
         this.showMap = false;
-
-        const geolocation = this.waterSource.geolocation;
+        const geolocation = this.springSource.geolocation;
 
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
@@ -147,14 +131,15 @@ export class DetailComponent implements OnInit {
         });
     }
 
+    // dialog map to see map in little screen
     public seeMap() {
-        if (!this.waterSource) {
+        if (!this.springSource) {
             return;
         }
 
         this.showMap = true;
 
-        const geolocation = this.waterSource.geolocation;
+        const geolocation = this.springSource.geolocation;
 
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
@@ -180,14 +165,16 @@ export class DetailComponent implements OnInit {
         });
     }
 
+    // update geolocation function
     public updateGeolocation(result: Geolocation) {
-        if (!this.waterSource) {
+        if (!this.springSource) {
             return;
         }
 
         this.svcGeolocation.updateGeolocation(result.id!, result).subscribe({
             next: (response) => {
-                this.waterSource!.geolocation = response;
+                this.springSource!.geolocation = response;
+                this.svcSpringSourceCache.clean();
                 this.configureMaps(response);
                 this.showMap = true;
             },
@@ -195,30 +182,19 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public goToNewWaterSource() {
-        this.router.navigate(['manager/watersource/create']);
-    }
-    // Clean and refresh water Meter
-    private cleanRefreshWaterMeter() {
-        this.svcPersistant.clear();
-        // Persistant to send waterMeterID
-        this.svcPersistant.get().subscribe((res) => {
-            this.waterMeter = res;
-            this.waterMeterId = res?.id!;
-        });
-    }
-    // Load water-source in own method
-    private loadWaterSource(waterSourceId: number) {
-        this.svcWaterSource.getSpringSource(waterSourceId).subscribe({
-            next: (waterSource) => {
-                this.waterSource = waterSource;
-                let geolocation = this.waterSource.geolocation;
+    // Load spring-source in own method
+    private loadSpringSource(springSourceId: number) {
+        this.svcSpringSource.getSpringSource(springSourceId).subscribe({
+            next: (springSource) => {
+                this.springSource = springSource;
+                let geolocation = this.springSource.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
             },
         });
     }
 
+    // Configure Map
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
             id: 'detail_map',

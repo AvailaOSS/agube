@@ -1,11 +1,11 @@
 <div class="page-info">
-    <mat-card class="info-card" *ngIf="waterSourceResume">
+    <mat-card class="info-card" *ngIf="springSourceResume">
         <div class="row">
             <div class="row-info">
-                {{ 'PAGE.WATERSOURCE.MANAGER.INFO.WATERSOURCES' | translate }}
+                {{ 'PAGE.SPRINGSOURCE.MANAGER.INFO.SPRINGSOURCES' | translate }}
                 <span class="number">
                     <mat-icon>waterfall_chart</mat-icon>
-                    <h2>{{ waterSourceResume?.total_spring_sources || 'Sin datos' }}</h2>
+                    <h2>{{ springSourceResume?.total_spring_sources || 'Sin datos' }}</h2>
                 </span>
             </div>
         </div>

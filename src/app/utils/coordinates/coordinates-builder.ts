@@ -1,6 +1,6 @@
 import { DwellingDetail, ReservoirDetail, SpringSourceDetail } from '@availa/agube-rest-api';
 import { Coordinates, MapIconType } from 'src/app/components/map/map/configure-map';
-import { isDwellingDetail, isReservoirDetail, isWaterSourceDetail } from '../models/model-detector';
+import { isDwellingDetail, isReservoirDetail, isSpringSourceDetail } from '../models/model-detector';
 
 export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDetail): Coordinates {
     let suffix = '';
@@ -38,7 +38,7 @@ function getMapIconType(object: DwellingDetail | ReservoirDetail | SpringSourceD
         return MapIconType.HOUSE;
     }
     else {
-        return MapIconType.WATER_SOURCE;
+        return MapIconType.SPRING_SOURCE;
     }
 
 }

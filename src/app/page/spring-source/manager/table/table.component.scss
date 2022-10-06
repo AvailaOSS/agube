@@ -24,11 +24,14 @@
             }
         }
     }
+
+    // medias queries
     @media only screen and (max-width: 836px) {
         .priority-1 {
             display: none;
         }
     }
+
     @media only screen and (max-width: 880px) {
         .priority-3 {
             display: none;
@@ -47,6 +50,7 @@
             }
         }
     }
+
     @media only screen and (max-width: 1240px) {
         .priority-2 {
             display: none;

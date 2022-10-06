@@ -1,11 +1,11 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 @import '../../../../assets/availa/sizes/page.scss';
 
-.create-waterSource-page {
+.create-spring-source-page {
     @include my-page(1);
 }
 
-.create-waterSource-page-card {
+.create-spring-source-page-card {
     @include my-page-column(1, 1);
 }
 
@@ -13,7 +13,7 @@
     padding: $margin-x-medium;
     .form-content {
         margin: $margin-x-small;
-        .form-waterSource {
+        .form-spring-source {
             display: flex;
             justify-content: end;
             margin-top: $margin-x-small;

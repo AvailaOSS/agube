@@ -17,11 +17,11 @@ export function isDwellingDetail(
     let obj = object as DwellingDetail;
     return obj.resident_full_name !== undefined && obj.resident_phone !== undefined;
 }
-export function isWaterSourceDetail(
+export function isSpringSourceDetail(
     object: DwellingDetail | ReservoirDetail | SpringSourceDetail
 ): object is SpringSourceDetail {
     let obj = object as SpringSourceDetail;
     return obj.number !== undefined;
-    // TS now knows that objects within this if statement are always type ReservoirDetail
-    // This is because the type guard isReservoirDetail narrowed down the type to ReservoirDetail
+    // TS now knows that objects within this if statement are always type SpringSourceDetail
+    // This is because the type guard isSpringSourceDetail narrowed down the type to SpringSourceDetail
 }

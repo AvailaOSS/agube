@@ -7,10 +7,11 @@ import { SpringSourceResume, SpringSourceService } from '@availa/agube-rest-api'
     styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
-    public waterSourceResume: SpringSourceResume | undefined;
+    public springSourceResume: SpringSourceResume | undefined;
 
-    constructor(private svcWaterSource: SpringSourceService) {}
-    ngOnInit(): void {
-        this.svcWaterSource.getSpringSourceResume().subscribe((response) => (this.waterSourceResume = response));
+    constructor(private svcSpringSource: SpringSourceService) { }
+
+   public ngOnInit(): void {
+        this.svcSpringSource.getSpringSourceResume().subscribe((response) => (this.springSourceResume = response));
     }
 }
