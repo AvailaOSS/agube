@@ -54,6 +54,7 @@ export class DetailComponent implements OnInit {
     public showMap: boolean = true;
     public loading: boolean = false;
     public canLoad: boolean = false;
+    public configCommentComponent: CommentConfig | undefined;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -75,7 +76,10 @@ export class DetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
             this.springSourceId = par.springSourceId;
-
+            this.configCommentComponent = {
+                id: this.springSourceId!,
+                type: CommentType.SPRING_SOURCE,
+            };
             this.type = {
                 id: par.springSourceId,
                 type: WaterMeterType.SPRINGSOURCE,
@@ -89,6 +93,15 @@ export class DetailComponent implements OnInit {
             return;
         }
         this.loadSpringSource(this.springSourceId);
+    }
+
+    // Comments in dialog
+    public seeComments() {
+        this.dialog.open(ListComponent, {
+            hasBackdrop: true,
+            panelClass: ['custom-dialog-container'],
+            data: this.configCommentComponent,
+        });
     }
 
     // Edit geolocation with dialog

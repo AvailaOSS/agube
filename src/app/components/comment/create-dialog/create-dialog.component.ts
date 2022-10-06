@@ -33,6 +33,7 @@ export class CreateDialogComponent {
     }
 
     public save(): void {
+        console.log(this.data)
         // stop here if form is invalid
         if (this.message.invalid) {
             return;
