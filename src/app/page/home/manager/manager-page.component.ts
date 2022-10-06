@@ -26,22 +26,22 @@ export class ManagerPageComponent extends SidebarComponent {
             {
                 navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
-                icon: 'holiday_village',
+                icon: 'house',
             },
             {
                 navigationRoute: 'manager/home/reservoirs',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESERVOIRS',
-                icon: 'water_drop',
+                icon: 'reservoir',
             },
             {
                 navigationRoute: 'manager/home/springsources',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_WATER_SOURCES',
-                icon: 'waterfall_chart',
+                icon: 'spring_source',
             },
             {
                 navigationRoute: 'manager/home/person/residents',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT',
-                icon: 'escalator_warning',
+                icon: 'resident',
             },
             // {
             //     navigationRoute: 'manager/home/person/owners',

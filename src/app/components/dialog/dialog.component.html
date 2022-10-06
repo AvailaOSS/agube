@@ -11,7 +11,7 @@
     <button mat-raised-button color="primary"
         matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE.TOOLTIP' | translate }}"
         [disabled]="addressEmitter?.addressFormGroup?.status === 'INVALID'" (click)="saveAddress()">
-        <mat-icon>save</mat-icon>
+        <mat-icon svgIcon="save"></mat-icon>
         {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE' | translate }}
     </button>
 </mat-card-actions>

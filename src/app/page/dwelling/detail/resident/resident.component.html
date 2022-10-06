@@ -1,7 +1,7 @@
 <div class="detail-content-all">
     <div class="detail-info" *ngIf="userDetail; else noUser">
         <span>
-            <mat-icon>{{ title.icon }}</mat-icon>
+            <mat-icon svgIcon="{{ title.icon }}"></mat-icon>
             <h2>{{ title.title | translate }}</h2>
         </span>
         <span>
@@ -21,34 +21,27 @@
             {{ userDetail.main_phone.phone_number }}
         </span>
     </div>
-    <button
-        *ngIf="canLoad && textOwnerButton"
-        mat-raised-button
-        color="primary"
+    <button *ngIf="canLoad && textOwnerButton" mat-raised-button color="primary"
         matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_OWNER.TOOLTIP' | translate }}"
-        (click)="goToChangeOwner()"
-    >
+        (click)="goToChangeOwner()">
         <div>
-            <mat-icon>hail</mat-icon>
+            <mat-icon svgIcon="hail"></mat-icon>
             {{ textOwnerButton | translate }}
         </div>
     </button>
-    <button
-        *ngIf="canLoad && textResidentButton"
-        mat-raised-button
-        color="primary"
+    <button *ngIf="canLoad && textResidentButton" mat-raised-button color="primary"
         matTooltip="{{ 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT.TOOLTIP' | translate }}"
-        (click)="goToChangeResident()"
-    >
+        (click)="goToChangeResident()">
         <div>
-            <mat-icon>escalator_warning</mat-icon>
+            <mat-icon svgIcon="resident"></mat-icon>
             {{ textResidentButton | translate }}
         </div>
     </button>
     <ng-template #noUser>
         <div class="no-user">
             <h2>
-                <mat-icon>{{ title.icon }}</mat-icon>
+                <mat-icon svgIcon="{{ title.icon }}">
+                </mat-icon>
                 {{ textNoResidentButton | translate }}
             </h2>
         </div>

@@ -39,7 +39,7 @@
             <mat-divider></mat-divider>
             <mat-selection-list #shoes [multiple]="false">
                 <mat-list-option *ngFor="let page of pages" [value]="page" (click)="selectPage(page)">
-                    <mat-icon mat-list-icon>{{ page.icon }}</mat-icon>
+                    <mat-icon mat-list-icon svgIcon="{{page.icon}}"></mat-icon>
                     <div mat-line>{{ page.title | translate }}</div>
                 </mat-list-option>
             </mat-selection-list>

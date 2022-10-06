@@ -12,7 +12,8 @@ mat-list {
   display: flex;
   align-items: center;
   padding-left: $margin-x-small;
-  button {
+  mat-icon {
+    cursor: pointer;
     margin-left: $margin-small;
   }
 }

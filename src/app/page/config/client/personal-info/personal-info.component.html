@@ -16,20 +16,20 @@
             <input matInput placeholder="iroman@stark.com" [formControl]="email" (keydown.enter)="updateUser()" />
             <mat-error *ngIf="email.invalid">{{ errorValidator('email') | translate }}</mat-error>
         </mat-form-field>
-       <app-upload-images (sendFile)="receiveFile($event)" ></app-upload-images>
+        <app-upload-images (sendFile)="receiveFile($event)"></app-upload-images>
     </div>
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
     <mat-card-actions [align]="'end'">
         <button mat-raised-button color="primary"
-        matTooltip="{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP' | translate }}" (click)="updateUser()"
-        [disabled]="personalForm.invalid">
-        <div>
-            <mat-icon>save</mat-icon>
-            {{ 'GENERAL.BUTTON.SAVE' | translate }}
-        </div>
-    </button>
-</mat-card-actions>
-<mat-card-subtitle *ngIf="emailHasChanged()" class="email-info">
-    {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.EMAIL-INFO' | translate }}
-</mat-card-subtitle>
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP' | translate }}" (click)="updateUser()"
+            [disabled]="personalForm.invalid">
+            <div>
+                <mat-icon svgIcon="save"></mat-icon>
+                {{ 'GENERAL.BUTTON.SAVE' | translate }}
+            </div>
+        </button>
+    </mat-card-actions>
+    <mat-card-subtitle *ngIf="emailHasChanged()" class="email-info">
+        {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.EMAIL-INFO' | translate }}
+    </mat-card-subtitle>
 </div>
