@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservoirResume, ReservoirService } from '@availa/agube-rest-api';
+import { SpringSourceResume, SpringSourceService } from '@availa/agube-rest-api';
 
 @Component({
     selector: 'app-info',
@@ -7,10 +7,10 @@ import { ReservoirResume, ReservoirService } from '@availa/agube-rest-api';
     styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
-    public waterSourceResume: ReservoirResume | undefined;
+    public waterSourceResume: SpringSourceResume | undefined;
 
-    constructor(private svcWaterSource: ReservoirService) {}
+    constructor(private svcWaterSource: SpringSourceService) {}
     ngOnInit(): void {
-        this.svcWaterSource.getResume().subscribe((response) => (this.waterSourceResume = response));
+        this.svcWaterSource.getSpringSourceResume().subscribe((response) => (this.waterSourceResume = response));
     }
 }

@@ -5,8 +5,8 @@ import {
     Geolocation,
     GeolocationService,
     ManagerService,
-    ReservoirCreate,
-    ReservoirService,
+    SpringSource,
+    SpringSourceService,
     WaterMeter,
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
@@ -18,7 +18,6 @@ import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';
-import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
@@ -26,13 +25,13 @@ import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { Detail } from './detail';
 
 @Component({
-    selector: 'app-reservoir',
+    selector: 'app-water-source',
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
     public waterSourceId: number | undefined;
-    public waterSource: ReservoirCreate | undefined;
+    public waterSource: SpringSource | undefined;
 
     // map
     public canLoadStreetView: boolean = false;
@@ -53,14 +52,13 @@ export class DetailComponent implements OnInit {
 
     public showMap: boolean = true;
     public loading: boolean = false;
-    public canLoad: boolean = true;
+    public canLoad: boolean = false;
     public configCommentComponent: CommentConfig | undefined;
 
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private svcWaterSource: ReservoirService,
-        private svcCacheWaterSource: ReservoirCacheService,
+        private svcWaterSource: SpringSourceService,
         private svcManager: ManagerService,
         private svcPersistant: WaterMeterPersistantService,
         public dialog: MatDialog,
@@ -77,13 +75,13 @@ export class DetailComponent implements OnInit {
         this.waterSource = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
-            this.waterSourceId = par.reservoirId;
+            this.waterSourceId = par.waterSourceId;
             this.configCommentComponent = {
                 id: this.waterSourceId!,
                 type: CommentType.WATER_SOURCE,
             };
             this.type = {
-                id: par.reservoirId,
+                id: par.waterSourceId,
                 type: WaterMeterType.WATERSOURCE,
             };
         });
@@ -92,13 +90,12 @@ export class DetailComponent implements OnInit {
     public ngOnInit(): void {
         this.cleanRefreshWaterMeter();
 
-        // Get waterMeter to this ReservoirID
+        // Get waterMeter to this waterSourceID
         if (!this.waterSourceId) {
             return;
         }
 
-        this.loadReservoir(this.waterSourceId);
-        this.loadWaterMeter(this.waterSourceId);
+        this.loadWaterSource(this.waterSourceId);
     }
 
     public seeComments() {
@@ -192,15 +189,14 @@ export class DetailComponent implements OnInit {
             next: (response) => {
                 this.waterSource!.geolocation = response;
                 this.configureMaps(response);
-                this.svcCacheWaterSource.clean();
                 this.showMap = true;
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });
     }
 
-    public goToNewReservoir() {
-        this.router.navigate(['manager/reservoirs/create']);
+    public goToNewWaterSource() {
+        this.router.navigate(['manager/watersource/create']);
     }
     // Clean and refresh water Meter
     private cleanRefreshWaterMeter() {
@@ -211,25 +207,15 @@ export class DetailComponent implements OnInit {
             this.waterMeterId = res?.id!;
         });
     }
-    // Load reservoir in own method
-    private loadReservoir(waterSourceId: number) {
-        this.svcWaterSource.getReservoir(waterSourceId).subscribe({
-            next: (reservoir) => {
-                this.waterSource = reservoir;
+    // Load water-source in own method
+    private loadWaterSource(waterSourceId: number) {
+        this.svcWaterSource.getSpringSource(waterSourceId).subscribe({
+            next: (waterSource) => {
+                this.waterSource = waterSource;
                 let geolocation = this.waterSource.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
             },
-        });
-    }
-    // Load water meter in own method
-    private loadWaterMeter(waterSourceId: number) {
-        // first persist the current water meter and then subscribe to keep updated
-        this.svcWaterSource.getCurrentReservoirWaterMeter(waterSourceId).subscribe((response) => {
-            this.waterMeter = response;
-            this.waterMeterId = response.id;
-            // override the current water meter into resistant service
-            this.svcPersistant.emit(response);
         });
     }
 

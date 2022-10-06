@@ -1,3 +1,3 @@
 export interface Detail {
-    reservoirId: number;
+    waterSourceId: number;
 }

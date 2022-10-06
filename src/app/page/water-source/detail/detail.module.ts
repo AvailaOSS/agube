@@ -16,16 +16,14 @@ import { MapModule } from 'src/app/components/map/map/map.module';
 import { StreetViewModule } from 'src/app/components/map/view/view.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
-import { ReservoirRoutingModule } from './detail-routing.module';
+import { WaterSourceRoutingModule } from './detail-routing.module';
 import { DetailComponent } from './detail.component';
-import { OwnerComponent } from './owner/owner.component';
-import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
-    declarations: [DetailComponent, ResumeComponent, OwnerComponent],
+    declarations: [DetailComponent],
     imports: [
         CommonModule,
-        ReservoirRoutingModule,
+        WaterSourceRoutingModule,
         StreetViewModule,
         MatCardModule,
         MatButtonModule,

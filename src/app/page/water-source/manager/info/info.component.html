@@ -4,8 +4,8 @@
             <div class="row-info">
                 {{ 'PAGE.WATERSOURCE.MANAGER.INFO.WATERSOURCES' | translate }}
                 <span class="number">
-                    <mat-icon>water_drop</mat-icon>
-                    <h2>{{ waterSourceResume?.total_reservoirs | json }}</h2>
+                    <mat-icon>waterfall_chart</mat-icon>
+                    <h2>{{ waterSourceResume?.total_spring_sources || 'Sin datos' }}</h2>
                 </span>
             </div>
         </div>

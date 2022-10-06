@@ -1,15 +1,14 @@
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { SpringSource, SpringSourceService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
+import { NotificationService } from '@availa/notification';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { MapIconType } from 'src/app/components/map/map/configure-map';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
-import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
-import { MapIconType } from 'src/app/components/map/map/configure-map';
 
 @Component({
     selector: 'app-page-water-source-create',
@@ -19,10 +18,6 @@ import { MapIconType } from 'src/app/components/map/map/configure-map';
 export class CreateComponent extends CreateAddress implements OnInit {
     public waterSourceForm: FormGroup | undefined;
     public code = new FormControl('');
-    // FIX: REMOVE THIS OPTIONS
-    public capacity = new FormControl('', [Validators.required]);
-    public inletFlow = new FormControl('', [Validators.required]);
-    public outletFlow = new FormControl('', [Validators.required]);
 
     @Input() public userId: number = -1;
 
@@ -31,8 +26,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
     constructor(
         private router: Router,
         private svcNotification: NotificationService,
-        private svcWaterSource: ReservoirService,
-        private svcWaterSourceCache: ReservoirCacheService,
+        private svcWaterSource: SpringSourceService,
+        private svcWaterSourceCache: SpringSourceService,
         private svcAccount: AccountService,
         private formBuilder: FormBuilder,
         private googleAnalyticsService: GoogleAnalyticsService
@@ -67,27 +62,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadCache();
     }
 
-    // Fix: remove this function!
     public override addressFormReceive(addressEmitter: AddressEmitter) {
         super.addressFormReceive(addressEmitter);
         this.waterSourceForm = this.formBuilder.group({
             address: addressEmitter.addressFormGroup,
-
-            water_meter: this.formBuilder.group({
-                code: this.code,
-            }),
-            capacity: this.capacity,
-            inletFlow: this.inletFlow,
-            outletFlow: this.outletFlow,
         });
     }
-    // public override addressFormReceive(addressEmitter: AddressEmitter) {
-    //     super.addressFormReceive(addressEmitter);
-    //     this.waterSourceForm = this.formBuilder.group({
-    //         address: addressEmitter.addressFormGroup
-
-    //     });
-    // }
 
     public exit() {
         this.router.navigate(['manager/watersources']);
@@ -102,8 +82,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_water_source', {
-                    manager_id: response?.user_id,
-                    Water_source_id: response?.id
+                    Water_source_id: response?.id,
                 });
             },
             error: (error) => {
@@ -119,12 +98,11 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
         this.onSave()!.subscribe({
             next: (response) => {
-                this.svcWaterSourceCache.clean();
+
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_waterSource_exit', {
-                    manager_id: response?.user_id,
-                    waterSource_id: response?.id
+                    waterSource_id: response?.id,
                 });
                 this.exit();
             },
@@ -157,34 +135,21 @@ export class CreateComponent extends CreateAddress implements OnInit {
             return;
         }
 
-        let waterSource: ReservoirCreate;
+        let waterSource: SpringSource;
         if (this.code.value.length === 0) {
             waterSource = {
                 geolocation: this.getGeolocation(),
-                user_id: this.userId,
-                // FIX WATERMETERCREATE
-                capacity: this.capacity.value,
-                inlet_flow: this.inletFlow.value,
-                outlet_flow: this.outletFlow.value,
             };
         } else {
             waterSource = {
                 geolocation: this.getGeolocation(),
-                water_meter: {
-                    code: this.code.value,
-                },
-                user_id: this.userId,
-                // FIX WATERMETERCREATE
-                capacity: this.capacity.value,
-                inlet_flow: this.inletFlow.value,
-                outlet_flow: this.outletFlow.value,
             };
         }
-        return this.svcWaterSource.createReservoir(waterSource);
+        return this.svcWaterSource.createSpringSource(waterSource);
     }
 
     private loadCache() {
-        this.svcWaterSourceCache.get().then((response) => {
+        this.svcWaterSourceCache.getSpringSources().subscribe((response) => {
             if (response && response.length > 0) {
                 this.configureMap.otherPoints = response.map((waterSource) => build(waterSource));
             }
@@ -192,7 +157,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     private resetCache() {
-        this.svcWaterSourceCache.clean();
         this.loadCache();
     }
 }

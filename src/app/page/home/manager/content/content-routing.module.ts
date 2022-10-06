@@ -23,7 +23,7 @@ const routes: Routes = [
             },
             {
                 path: 'watersources',
-                loadChildren: () => import('../../../water-source/manager/manager.module').then((m) => m.ManagerModule),
+                loadChildren: () => import('../../../water-source/manager/manager.module').then((m) => m.ManagerWaterSourceModule),
             },
             {
                 path: 'config',

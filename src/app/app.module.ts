@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarRoute } from './page/home/sidebar-route';
 import { DwellingCacheService } from './utils/cache/dwelling-cache.service';
+import { WaterSourceCacheService } from './utils/cache/water-source-cache.service';
 import { ReservoirCacheService } from './utils/cache/reservoir-cache.service';
 import { ErrorInterceptor } from './utils/error.interceptor';
 
@@ -71,6 +72,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     providers: [
         DwellingCacheService,
         ReservoirCacheService,
+        WaterSourceCacheService,
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
     bootstrap: [AppComponent],
