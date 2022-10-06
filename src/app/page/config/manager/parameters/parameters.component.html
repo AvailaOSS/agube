@@ -34,8 +34,8 @@
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
 
     <mat-card-actions [align]="'end'">
-        <span mat-line class="button-save-info" style="margin-top: 15px">
-            <mat-card-subtitle>
+        <span mat-line class="button-save-info">
+            <mat-card-subtitle >
                 {{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION' | translate }} {{ releaseDate | date: 'longDate' }}
                 {{ releaseDate | date: 'shortTime' }}*
             </mat-card-subtitle>

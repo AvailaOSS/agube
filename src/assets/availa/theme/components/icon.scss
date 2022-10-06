@@ -1,6 +1,6 @@
 @mixin mat-icon() {
     .mat-icon {
-        fill: none;
+        fill: none !important;
     }
     button {
         .mat-icon {
