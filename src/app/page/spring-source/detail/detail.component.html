@@ -14,7 +14,9 @@
                         </mat-icon>
                     </h1>
                     <div class="spring-source-content-info">
-                        <app-address [geolocation]="springSource.geolocation"></app-address>
+                        <div class="content-detail">
+                            <app-address [geolocation]="springSource.geolocation"></app-address>
+                        </div>
                     </div>
                     <div class="content-buttons-map">
                         <div class="content-buttons-generics-map">
@@ -71,7 +73,6 @@
                             <ng-template #showStreetView>
                                 <app-street-view [configureView]="configureView"></app-street-view>
                             </ng-template>
-
                         </div>
                         <app-comment-list
                             *ngIf="canLoad"
