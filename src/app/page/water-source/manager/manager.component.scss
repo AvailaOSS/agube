@@ -4,7 +4,8 @@
 .manager-water-source-page {
     @media only screen and (max-width: 1240px) {
         margin-bottom: 180px;
-        ::ng-deep #manager_full_water_source_map {
+
+        ::ng-deep #manager_full_water_sources_map{
             width: 100% !important;
             margin-bottom: 20px;
             margin-top: 20px;
@@ -18,7 +19,7 @@
             min-width: 80%;
             margin-left: 3%;
         }
-        ::ng-deep #manager_full_water_source_map {
+        ::ng-deep #manager_full_water_sources_map {
             margin-left: 3%;
             width: 100% !important;
             margin-bottom: 20px;
@@ -33,7 +34,7 @@
         ::ng-deep .page-info {
             max-width: 50%;
         }
-        ::ng-deep #manager_full_water_source_map {
+        ::ng-deep #manager_full_water_sources_map {
             width: 80% !important;
             margin-bottom: 20px;
             margin-top: 20px;

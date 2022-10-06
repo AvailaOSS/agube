@@ -38,7 +38,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     ) {
         super();
         this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
-        this.configureMap.center.type = MapIconType.RESERVOIR;
+        this.configureMap.center.type = MapIconType.WATER_SOURCE;
         // configure address form
         this.addressInputForm = {
             country: new FormControl('', Validators.required),
@@ -136,22 +136,22 @@ export class CreateComponent extends CreateAddress implements OnInit {
         switch (entity) {
             case 'code':
                 if (this.code.hasError('required')) {
-                    return 'PAGE.RESERVOIR.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED';
+                    return 'PAGE.WATERSOURCE.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED';
                 }
                 return '';
             case 'capacity':
                 if (this.capacity.hasError('required')) {
-                    return 'PAGE.RESERVOIR.CREATE.CAPACITY.VALIDATION.REQUIRED';
+                    return 'PAGE.WATERSOURCE.CREATE.CAPACITY.VALIDATION.REQUIRED';
                 }
                 return '';
             case 'inletFlow':
                 if (this.inletFlow.hasError('required')) {
-                    return 'PAGE.RESERVOIR.CREATE.INLET_FLOW.VALIDATION.REQUIRED';
+                    return 'PAGE.WATERSOURCE.CREATE.INLET_FLOW.VALIDATION.REQUIRED';
                 }
                 return '';
             case 'outletFlow':
                 if (this.outletFlow.hasError('required')) {
-                    return 'PAGE.RESERVOIR.CREATE.OUTLET_FLOW.VALIDATION.REQUIRED';
+                    return 'PAGE.WATERSOURCE.CREATE.OUTLET_FLOW.VALIDATION.REQUIRED';
                 }
                 return '';
             default:

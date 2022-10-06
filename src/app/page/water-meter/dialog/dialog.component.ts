@@ -1,3 +1,4 @@
+import { ReservoirCacheService } from './../../../utils/cache/reservoir-cache.service';
 import { Component, HostListener, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -30,7 +31,8 @@ export class WaterMeterDialogComponent {
         private svcWaterMeterManager: WaterMeterManager,
         private svcPersistantWaterMeter: WaterMeterPersistantService,
         private svcDwellingCache: DwellingCacheService,
-        private svcReservoirCache: DwellingCacheService
+        private svcReservoirCache: ReservoirCacheService
+        // private svcWaterSourceCache: WaterSourceCacheService
     ) {
         this.id = data.id;
         this.type = data.type;
@@ -76,6 +78,10 @@ export class WaterMeterDialogComponent {
             case WaterMeterType.RESERVOIR:
                 this.svcReservoirCache.clean();
                 break;
+            case WaterMeterType.WATERSOURCE:
+                this.svcReservoirCache.clean();
+                // this.svcWaterSourceCache.clean();
+                    break;
             default:
                 break;
         }
