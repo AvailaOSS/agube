@@ -30,6 +30,18 @@
                                     {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                                 </button>
                             </div>
+                            <div class="button-comments">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeComments()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon>visibility</mat-icon>
+                                    {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,6 +71,7 @@
                             <ng-template #showStreetView>
                                 <app-street-view [configureView]="configureView"></app-street-view>
                             </ng-template>
+
                         </div>
                     </div>
                 </div>

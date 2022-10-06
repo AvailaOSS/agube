@@ -164,9 +164,9 @@ export class DetailComponent implements OnInit {
 
     public isOverflow(measure: WaterMeterMeasurement) {
         if (
-            measure.measurement_diff &&
+            measure.average_daily_flow &&
             measure.max_daily_consumption &&
-            measure.measurement_diff > measure.max_daily_consumption
+            measure.average_daily_flow > measure.max_daily_consumption
         ) {
             return true;
         } else {
