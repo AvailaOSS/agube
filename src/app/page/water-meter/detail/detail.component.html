@@ -100,7 +100,7 @@
                             [ngClass]="!isOverflow(element) ? 'no-overflow' : 'overflow'"
                             matTooltip="{{ 'PAGE.WATER_METER.DETAIL.TABLE.OVERFLOW.TOOLTIP' | translate }}"
                         >
-                            {{ element.measurement_diff }}
+                            {{ element.average_daily_flow | number:'1.0-0'}}
                             <span matSuffix> L</span></span
                         >
                         /
