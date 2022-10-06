@@ -34,7 +34,7 @@ export class ManagerComponent implements OnInit {
             // check if has dwellings, else ignore it
             if (response && response.length > 0) {
                 // get first result
-                var firstDwellingDetected: DwellingDetail = response[1];
+                var firstDwellingDetected: DwellingDetail = response[0];
                 // set location around the first dwelling
                 var buildConfigMap: ConfigureMap = {
                     id: this.mapId,

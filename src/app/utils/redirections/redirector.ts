@@ -35,6 +35,11 @@ export function redirector(router: Router, point: Coordinates) {
                 reservoirId: point.id,
             });
             break;
+        case MapIconType.WATER_SOURCE:
+            goToWaterSource(router, {
+                waterSourceId: point.id,
+            });
+            break;
         default:
             break;
     }

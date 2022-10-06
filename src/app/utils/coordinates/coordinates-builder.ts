@@ -18,15 +18,7 @@ export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDet
             suffix += '<br>' + dwelling.resident_phone;
         }
     }
-    if (isWaterSourceDetail(object)) {
-        let dwelling = object as DwellingDetail;
-        if (dwelling.resident_full_name) {
-            suffix += '<br>' + dwelling.resident_full_name;
-        }
-        if (dwelling.resident_phone) {
-            suffix += '<br>' + dwelling.resident_phone;
-        }
-    }
+
 
     let coordinates: Coordinates = {
         id: +object.id!,
@@ -43,10 +35,7 @@ function getMapIconType(object: DwellingDetail | ReservoirDetail | SpringSourceD
         return MapIconType.RESERVOIR;
     }
     else if (isDwellingDetail(object)) {
-        return MapIconType.RESERVOIR;
-    }
-    else if (isWaterSourceDetail(object)) {
-        return MapIconType.WATER_SOURCE;
+        return MapIconType.HOUSE;
     }
     else {
         return MapIconType.WATER_SOURCE;
