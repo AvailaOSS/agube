@@ -73,6 +73,11 @@
                             </ng-template>
 
                         </div>
+                        <app-comment-list
+                            *ngIf="canLoad"
+                            class="comments-list"
+                            [config]="configCommentComponent"
+                        ></app-comment-list>
                     </div>
                 </div>
             </mat-card-content>
