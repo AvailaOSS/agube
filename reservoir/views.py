@@ -11,14 +11,16 @@ from address.models import Address
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
 from agube.pagination import CustomPagination, CustomPaginationInspector
 from agube.utils import validate_query_date_filters
+from comment.models import Comment
+from comment.serializers import CommentSerializer
 from manager.permissions import IsManagerAuthenticated
 from reservoir.exceptions import ReservoirWithoutWaterMeterError
-from reservoir.models import Reservoir, ReservoirWaterMeter, ReservoirOwner
+from reservoir.models import Reservoir, ReservoirWaterMeter, ReservoirOwner, ReservoirComment
 from reservoir.serializers import (ReservoirCreateSerializer,
                                    ReservoirDetailSerializer,
                                    ReservoirOwnerSerializer,
                                    ReservoirResumeSerializer,
-                                   get_reservoir_owner_serialized)
+                                   get_reservoir_owner_serialized, ReservoirCommentCreateSerializer)
 from watermeter.models import WaterMeterMeasurement
 from watermeter.serializers import (WaterMeterDetailSerializer,
                                     WaterMeterMeasurementSerializer,
@@ -349,3 +351,38 @@ class ReservoirWaterMeterMeasurementsView(generics.GenericAPIView):
             serializer = self.get_serializer(queryset, many=True)
             data = serializer.data
         return Response(data)
+
+
+class ReservoirCommentCreateView(generics.CreateAPIView):
+    queryset = ReservoirComment.objects.all()
+    serializer_class = ReservoirCommentCreateSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    @swagger_auto_schema(operation_id="createReservoirComment", tag=[TAG])
+    def post(self, request, *args, **kwargs):
+        """ Create a new Comment for this Reservoir. """
+        return super(ReservoirCommentCreateView,
+                     self).post(request, *args, **kwargs)
+
+
+class ReservoirCommentListView(generics.ListAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [IsManagerAuthenticated]
+
+    def get_queryset(self):
+        #  see here: https://github.com/axnsan12/drf-yasg/issues/333#issuecomment-474883875
+        if getattr(self, 'swagger_fake_view', False):
+            # queryset just for schema generation metadata
+            return Comment.objects.none()
+        pk = self.kwargs['pk']
+        return list(
+            map(
+                lambda reservoir: reservoir.comment,
+                ReservoirComment.objects.filter(
+                    reservoir__id=pk).order_by('-comment__created')))
+
+    @swagger_auto_schema(operation_id="getReservoirComments", tag=[TAG])
+    def get(self, request, *args, **kwargs):
+        """ Return the full list of comments for this Reservoir. """
+        return super(ReservoirCommentListView,
+                     self).get(request, *args, **kwargs)
