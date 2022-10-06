@@ -150,7 +150,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         month_consumption = 0
         if measurement_list != []:
             for measurement in measurement_list:
-                month_consumption += measurement.measurement_diff
+                month_consumption += measurement.average_daily_flow
         return round(month_consumption)
 
     def get_max_month_consumption(self, date):

@@ -74,7 +74,7 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
                 water_meter=self).order_by('-date'))
 
     def get_last_measurement(self, before_date=timezone.now()):
-        """get the previous measurement"""
+        """get most recent measurement before given date"""
         chunk = self.get_measurements_chunk(1, before_date)
         if len(chunk):
             return chunk[0]
@@ -90,42 +90,40 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
 class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'), models.Model):
     """A class used to represent an Water Meter Measurement"""
     measurement = models.DecimalField(decimal_places=3, max_digits=12)
-    measurement_diff = models.DecimalField(decimal_places=3, max_digits=12, default=0)
     date = models.DateTimeField()
     water_meter: WaterMeter = models.ForeignKey(WaterMeter,
                                                 on_delete=models.PROTECT)
+    average_daily_flow = models.DecimalField(decimal_places=3, max_digits=12, default=0)
 
     class Meta:
         ordering = ["-date"]
         db_table = 'agube_watermeter_water_meter_measurement'
 
     def __str__(self):
-        return str(self.id) + " " + str(self.measurement) + " " + str(self.measurement_diff) + " " + str(self.date) + " " + str(self.water_meter.id)
+        return str(self.id) + " " + str(self.measurement) + " " + str(self.average_daily_flow) + " " + str(self.date) + " " + str(self.water_meter.id)
 
     def save(self, *args, **kwargs):
         """Before save the Measurement, compute the difference with the previous measurement"""
         if self.id:
-            persistant_measure = self.water_meter.get_last_measurement()
-            if persistant_measure and is_24h_old_than_now(persistant_measure.date):
+            last_measurement = self.water_meter.get_last_measurement()
+            if last_measurement and is_24h_old_than_now(last_measurement.date):
                 raise WaterMeterMeasurementAlreadyExpiredToUpdateError()
             if self.date > timezone.now():
                 raise WaterMeterMeasurementInFutureError()
-        self.compute_diff()
+
+        # set average daily flow
+        self.calculate_average_daily_flow()
         super(WaterMeterMeasurement, self).save(*args, **kwargs)
 
-    def compute_diff(self):
+    def calculate_average_daily_flow(self):
         """Compute the diff with the previous measurement"""
-        __date = self.date
-        if not isinstance(__date, datetime):
-            __date = dateparse.parse_datetime(self.date)
+        from agube.utils import timedelta_in_days
+        import decimal
 
-        prev = self.water_meter.get_last_measurement(__date - timedelta(minutes=1))
-        if prev:
+        previous_measurement = self.water_meter.get_last_measurement(self.date - timedelta(minutes=1))
+        if previous_measurement:
             #1 m3 == 1000 L
-            m3L = 1000
-
-            lapsed_days = (__date - prev.date).days
-            if lapsed_days == 0:
-                lapsed_days = 1
-            self.measurement_diff = round(((float(self.measurement) - float(prev.measurement)) * m3L) / lapsed_days)
+            m3L = decimal.Decimal(1000)
+            lapsed_days = timedelta_in_days(self.date - previous_measurement.date)
+            self.average_daily_flow = round(((self.measurement - previous_measurement.measurement) / lapsed_days) * m3L, 3)
         # else will put 0 as default

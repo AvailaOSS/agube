@@ -35,13 +35,13 @@ def measure_update(sender, created, instance, **kwargs):
 
     if created:
         # Select template
-        if (watermeter_measurement.measurement_diff > manager_configuration.max_daily_consumption):
+        if (watermeter_measurement.average_daily_flow > manager_configuration.max_daily_consumption):
             email_template = MeasurementEmailType.EXCESIVE_MEASUREMENT_EMAIL.value
         else:
             email_template = MeasurementEmailType.CORRECT_MEASUREMENT_EMAIL.value
     else:
         # Select template
-        if (watermeter_measurement.measurement_diff > manager_configuration.max_daily_consumption):
+        if (watermeter_measurement.average_daily_flow > manager_configuration.max_daily_consumption):
             email_template = MeasurementEditedEmailType.EXCESIVE_MEASUREMENT_EMAIL.value
         else:
             email_template = MeasurementEditedEmailType.CORRECT_MEASUREMENT_EMAIL.value

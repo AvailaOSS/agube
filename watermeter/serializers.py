@@ -38,11 +38,11 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
         fields = (
             'id',
             'measurement',
-            'measurement_diff',
             'date',
+            'average_daily_flow',
             'max_daily_consumption',
         )
-        read_only_fields = ['measurement_diff']
+        read_only_fields = ['average_daily_flow']
         extra_kwargs = {'date': {'required': False}}
 
     def create(self, watermeter: WaterMeter, validated_data):
