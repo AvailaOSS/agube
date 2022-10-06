@@ -2,9 +2,10 @@ from django.contrib.auth.models import User
 from rest_framework.fields import IntegerField, ReadOnlyField, SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
+from comment.models import Comment
 from geolocation.serializers import GeolocationSerializer
 from manager.models import Manager
-from springsource.models import SpringSource
+from springsource.models import SpringSource, SpringSourceComment
 
 
 class SpringSourceResumeSerializer(ModelSerializer):
@@ -87,3 +88,24 @@ class SpringSourceDetailSerializer(ModelSerializer):
 
     def get_longitude(self, obj):
         return self.__get_spring_source_obj(obj).geolocation.longitude
+
+
+class SpringSourceCommentCreateSerializer(ModelSerializer):
+    spring_source_id = IntegerField()
+
+    class Meta:
+        ref_name = 'SpringSourceCommentCreate'
+        model = Comment
+        fields = ('spring_source_id', 'message')
+
+    def to_representation(self, obj):
+        return {
+            'spring_source_id':
+                SpringSourceComment.objects.get(comment=obj.id).spring_source.id,
+            'message': obj.message,
+        }
+
+    def create(self, validated_data):
+        spring_source = SpringSource.objects.get(id=validated_data.pop('spring_source_id'))
+        message = validated_data.pop('message')
+        return spring_source.add_comment(message)
