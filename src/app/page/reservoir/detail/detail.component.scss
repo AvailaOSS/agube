@@ -1,49 +1,23 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
 
+@mixin dynamic-button {
+    button {
+        width: 215px;
+        margin-top: $margin-small;
+        margin-bottom: $margin-small;
+        div {
+            align-items: center;
+            display: flex;
+            mat-icon {
+                margin-right: $margin-x-small;
+            }
+        }
+    }
+}
+
 .detail-page {
     @include my-page($columns: 1);
-    margin-bottom: $margin-large;
-}
-
-@media only screen and (max-width: 1620px) {
-    .mat-card-content {
-        display: block;
-        justify-content: center !important;
-        .reservoir-info {
-            width: 100% !important;
-        }
-        .reservoir-map {
-            display: none;
-        }
-        .buttons-map {
-            display: flex !important;
-        }
-        .content-buttons-map {
-            display: flex;
-            justify-content: space-evenly;
-        }
-        .reservoir-resident {
-            margin-left: 0px;
-            flex-direction: column;
-            display: flex;
-            height: 60%;
-        }
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .reservoir-content-info {
-        .detail-info {
-            margin-left: 70px !important;
-
-        }
-    }
-    .reservoir-resident {
-        margin-left: $margin-medium !important;
-        flex-direction: column;
-        display: flex;
-        height: 60%;
-    }
 }
 
 .page-content {
@@ -76,7 +50,6 @@
             }
         }
         .reservoir-map {
-            width: 33%;
             margin-right: $margin-x-medium;
             mat-button-toggle-group {
                 display: flex;
@@ -109,6 +82,13 @@
         }
     }
 }
+
+.button-comments {
+    display: none;
+    margin-left: $margin-x-small;
+    @include dynamic-button;
+}
+
 .buttons-management {
     margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
     display: flex;
@@ -124,5 +104,104 @@
                 margin-right: $margin-x-small;
             }
         }
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .reservoir-content-info {
+        .detail-info {
+            margin-left: 70px !important;
+        }
+    }
+    .reservoir-resident {
+        margin-left: $margin-medium !important;
+        flex-direction: column;
+        display: flex;
+        height: 60%;
+    }
+}
+
+.content-buttons-generics-map {
+    display: flex;
+    height: fit-content;
+}
+
+@media only screen and (max-width: 735px) {
+    .mat-card-content {
+        .content-buttons-map {
+            display: block !important;
+        }
+    }
+    .buttons-map {
+        margin-left: 74px !important;
+    }
+}
+
+@media only screen and (max-width: 1660px) {
+    .mat-card-content {
+        display: block;
+        .reservoir-info {
+            width: 100% !important;
+        }
+        .reservoir-map {
+            display: none;
+        }
+        .buttons-map {
+            display: flex !important;
+            margin-left: $margin-x-small;
+        }
+        .content-buttons-map {
+            display: block;
+            justify-content: center;
+        }
+    }
+}
+
+@media only screen and (min-width: 1879px) {
+    .button-comments {
+        display: flex !important;
+    }
+    .comments-list {
+        display: none;
+    }
+
+    .reservoir-info {
+        width: 45% !important;
+    }
+    .column-right {
+        width: 30% !important;
+    }
+}
+
+@media only screen and (min-width: 2312px) {
+    .button-comments {
+        display: none !important;
+    }
+    .comments-list {
+        display: inline-block;
+        width: auto !important;
+        margin-top: $margin-small;
+    }
+    .reservoir-info {
+        width: 35% !important;
+    }
+    .column-right {
+        width: 45% !important;
+    }
+}
+
+@media only screen and (max-width: 2312px) {
+    .button-comments {
+        display: flex !important;
+    }
+    .comments-list {
+        display: none;
+    }
+
+    .reservoir-info {
+        width: 51% !important;
+    }
+    .column-right {
+        width: 40% !important;
     }
 }
