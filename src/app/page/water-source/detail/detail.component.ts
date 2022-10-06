@@ -11,6 +11,8 @@ import {
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { ListComponent } from 'src/app/components/comment/list/list.component';
+import { CommentConfig, CommentType } from 'src/app/components/comment/type';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
@@ -52,6 +54,7 @@ export class DetailComponent implements OnInit {
     public showMap: boolean = true;
     public loading: boolean = false;
     public canLoad: boolean = true;
+    public configCommentComponent: CommentConfig | undefined;
 
     constructor(
         private router: Router,
@@ -75,6 +78,10 @@ export class DetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
             let par = params as Detail;
             this.waterSourceId = par.reservoirId;
+            this.configCommentComponent = {
+                id: this.waterSourceId!,
+                type: CommentType.WATER_SOURCE,
+            };
             this.type = {
                 id: par.reservoirId,
                 type: WaterMeterType.WATERSOURCE,
@@ -92,6 +99,14 @@ export class DetailComponent implements OnInit {
 
         this.loadReservoir(this.waterSourceId);
         this.loadWaterMeter(this.waterSourceId);
+    }
+
+    public seeComments() {
+        this.dialog.open(ListComponent, {
+            hasBackdrop: true,
+            panelClass: ['custom-dialog-container'],
+            data: this.configCommentComponent,
+        });
     }
 
     public goToEditGeolocation() {

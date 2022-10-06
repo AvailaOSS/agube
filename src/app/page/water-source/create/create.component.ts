@@ -90,7 +90,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     // }
 
     public exit() {
-        this.router.navigate(['manager/waterSources']);
+        this.router.navigate(['manager/watersources']);
     }
 
     public save() {

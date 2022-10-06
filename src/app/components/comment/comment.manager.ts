@@ -16,14 +16,23 @@ export class CommentManager {
                     dwelling_id: meta.id,
                     message: meta.message,
                 });
+            // FIX: CREATEWATERSOURCE
+            case CommentType.WATER_SOURCE:
+                return this.svcDwelling.createDwellingComment({
+                    dwelling_id: meta.id,
+                    message: meta.message,
+                });
             default:
                 throw new Error('Type provided ' + meta.type + ' is not valid for this operation');
         }
     }
 
+      // FIX: loadWATERSOURCE
     public load(meta: CommentConfig): Observable<Comment[]> {
         switch (meta.type) {
             case CommentType.DWELLING:
+                return this.svcDwelling.getDwellingComments(meta.id);
+            case CommentType.WATER_SOURCE:
                 return this.svcDwelling.getDwellingComments(meta.id);
             default:
                 throw new Error('Type provided ' + meta.type + ' is not valid for this operation');
