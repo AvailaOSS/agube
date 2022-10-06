@@ -11,7 +11,7 @@
  */
 
 
-export interface SpringSourceCommentCreate { 
-    springSourceId: number;
+export interface SpringSourceCommentCreate {
+    spring_source_id: number;
     message: string;
 }

@@ -262,22 +262,22 @@ export class SpringSourceService {
    * @param reportProgress flag to report request and response progress.
    */
   public getSpringSourceComments(
-    id: string,
+    id: number,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<Array<Comment>>;
   public getSpringSourceComments(
-    id: string,
+    id: number,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<Array<Comment>>>;
   public getSpringSourceComments(
-    id: string,
+    id: number,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<Array<Comment>>>;
   public getSpringSourceComments(
-    id: string,
+    id: number,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
