@@ -13,7 +13,7 @@
 export interface WaterMeterMeasurement {
   readonly id?: number;
   measurement: string;
-  readonly measurement_diff?: string;
-  readonly max_daily_consumption?: string;
   date?: Date;
+  readonly average_daily_flow?: number;
+  readonly max_daily_consumption?: number;
 }
