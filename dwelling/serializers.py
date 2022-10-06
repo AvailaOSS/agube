@@ -200,6 +200,7 @@ class DwellingCommentCreateSerializer(ModelSerializer):
     dwelling_id = IntegerField()
 
     class Meta:
+        ref_name = 'DwellingCommentCreate'
         model = Comment
         fields = ('dwelling_id', 'message')
 

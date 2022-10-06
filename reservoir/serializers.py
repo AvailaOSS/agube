@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
-from rest_framework.fields import CharField, ReadOnlyField, DecimalField
+from rest_framework.fields import CharField, ReadOnlyField, DecimalField, IntegerField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
 
+from comment.models import Comment
 from dwelling.assemblers import (get_all_user_geolocation_serialized,
                                  get_user_phones_serialized)
 from geolocation.serializers import GeolocationSerializer
-from reservoir.models import Reservoir, ReservoirOwner
+from reservoir.models import Reservoir, ReservoirOwner, ReservoirComment
 from user.serializers import UserCreateSerializer
 from watermeter.serializers import WaterMeterSerializer
 
@@ -182,3 +183,24 @@ class ReservoirDetailSerializer(Serializer):
 def get_reservoir_owner_serialized(
         owner: ReservoirOwner) -> ReservoirOwnerSerializer:
     return ReservoirOwnerSerializer(owner, many=False).data
+
+
+class ReservoirCommentCreateSerializer(ModelSerializer):
+    reservoir_id = IntegerField()
+
+    class Meta:
+        ref_name = 'ReservoirCommentCreate'
+        model = Comment
+        fields = ('reservoir_id', 'message')
+
+    def to_representation(self, obj):
+        return {
+            'reservoir_id':
+                ReservoirComment.objects.get(comment=obj.id).reservoir.id,
+            'message': obj.message,
+        }
+
+    def create(self, validated_data):
+        reservoir = Reservoir.objects.get(id=validated_data.pop('reservoir_id'))
+        message = validated_data.pop('message')
+        return reservoir.add_comment(message)

@@ -3,6 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
+
+from comment.models import Comment
 from geolocation.models import Geolocation
 from watermeter.models import WaterMeter
 
@@ -11,7 +13,7 @@ class Reservoir(ExportModelOperationsMixin('Reservoir'), models.Model):
     """A class used to represent an Reservoir"""
     geolocation: Geolocation = models.ForeignKey(Geolocation,
                                                  on_delete=models.PROTECT)
-    capacity = models.DecimalField( max_digits=10, decimal_places=3)
+    capacity = models.DecimalField(max_digits=10, decimal_places=3)
     inlet_flow = models.DecimalField(max_digits=10, decimal_places=3)
     outlet_flow = models.DecimalField(max_digits=10, decimal_places=3)
     release_date = models.DateTimeField()
@@ -86,6 +88,12 @@ class Reservoir(ExportModelOperationsMixin('Reservoir'), models.Model):
         except ObjectDoesNotExist:
             return None
 
+    def add_comment(self, message):
+        """add new Comment to this Reservoir"""
+        return ReservoirComment.objects.create(
+            reservoir=self,
+            comment=Comment.objects.create(message=message)).comment
+
     def discharge(self):
         """discharge this Reservoir"""
         self.discharge_date = timezone.now()
@@ -125,3 +133,12 @@ class ReservoirWaterMeter(ExportModelOperationsMixin('ReservoirWaterMeter'), mod
     class Meta:
         ordering = ["-water_meter__release_date"]
         db_table = 'agube_reservoir_reservoir_water_meter'
+
+
+class ReservoirComment(ExportModelOperationsMixin('ReservoirComment'),
+                       models.Model):
+    reservoir: Reservoir = models.ForeignKey(Reservoir, on_delete=models.RESTRICT)
+    comment: Comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'agube_reservoir_comment'
