@@ -1,0 +1,68 @@
+<mat-card class="table-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h2>{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.TITLE' | translate }}</h2>
+        </mat-card-title>
+        <div class="filter">
+            <div>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.FILTER' | translate }}</mat-label>
+                    <input
+                        matInput
+                        matTooltip="{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.FILTER.TOOLTIP' | translate }}"
+                        matTooltipPosition="right"
+                        (keyup)="applyFilter()"
+                        [formControl]="filter"
+                    />
+                    <button
+                        matSuffix
+                        mat-icon-button
+                        matTooltip="{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
+                        *ngIf="filter.value.length > 0"
+                        (click)="clearFilter()"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div [align]="'end'">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    matTooltip="{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.BUTTON.TOOLTIP' | translate }}"
+                    (click)="goToNewSpringSource()"
+                >
+                    <mat-icon>waterfall_chart</mat-icon>
+                    {{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.BUTTON' | translate }}
+                </button>
+            </div>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="full_address">
+                <th mat-header-cell *matHeaderCellDef>full_address</th>
+                <td
+                    class="priority-4"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.ROW.ADDRESS' | translate }}"
+                >
+                    {{ element | SpringSourceDetail }}
+                </td>
+            </ng-container>
+
+            <tr
+                mat-row
+                class="table-row"
+                (click)="goToSpringSource(row)"
+                *matRowDef="let row; columns: displayedColumns"
+                [ngClass]="row === isSelected ? 'selected-row' : ''"
+            ></tr>
+        </table>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <mat-paginator [pageSize]="pageSide" showFirstLastButtons> </mat-paginator>
+    </mat-card-actions>
+</mat-card>

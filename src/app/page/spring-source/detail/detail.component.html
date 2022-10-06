@@ -1,0 +1,68 @@
+<div class="detail-page">
+    <div class="page-content">
+        <mat-card *ngIf="!loading">
+            <mat-card-content *ngIf="springSource">
+                <div class="spring-source-info">
+                    <h1>
+                        {{ springSource.geolocation | geolocation }}
+                        <mat-icon
+                            *ngIf="canLoad"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
+                            (click)="goToEditGeolocation()"
+                        >
+                            edit
+                        </mat-icon>
+                    </h1>
+                    <div class="spring-source-content-info">
+                        <app-address [geolocation]="springSource.geolocation"></app-address>
+                    </div>
+                    <div class="content-buttons-map">
+                        <div class="content-buttons-generics-map">
+                            <div *ngIf="canLoad" class="buttons-map">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeMap()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon>map</mat-icon>
+                                    {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-right">
+                    <div class="spring-source-map">
+                        <mat-button-toggle-group #group="matButtonToggleGroup">
+                            <mat-button-toggle
+                                (click)="mode = 'map'"
+                                matTooltip="{{ 'PAGE.SPRINGSOURCE.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
+                                matTooltipPosition="left"
+                            >
+                                <mat-icon>map</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle
+                                *ngIf="canLoadStreetView"
+                                (click)="mode = 'streetView'"
+                                matTooltip="{{ 'PAGE.SPRINGSOURCE.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
+                                matTooltipPosition="right"
+                            >
+                                <mat-icon>360</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                        <div *ngIf="showMap && configureMap">
+                            <div *ngIf="mode == 'map'; else showStreetView">
+                                <app-map [baseConfiguration]="configureMap"></app-map>
+                            </div>
+                            <ng-template #showStreetView>
+                                <app-street-view [configureView]="configureView"></app-street-view>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -22,6 +22,6 @@ export interface Coordinates {
 export enum MapIconType {
     HOUSE = '/assets/icons/house.svg',
     RESERVOIR = '/assets/icons/reservoir.svg',
-    WATER_SOURCE = '/assets/icons/watersource.svg',
+    SPRING_SOURCE = '/assets/icons/springsource.svg',
     WORK = '/assets/icons/wheelbarrow.svg',
 }

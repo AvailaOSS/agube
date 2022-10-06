@@ -1,47 +1,44 @@
-import { OnInit, Component } from '@angular/core';
-import { DwellingDetail } from '@availa/agube-rest-api/public-api';
+import { Component, OnInit } from '@angular/core';
+import { SpringSourceDetail } from '@availa/agube-rest-api';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
-import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { SpringSourceCacheService } from 'src/app/utils/cache/spring-source-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
-import { TableReloadService } from './table/table-reload.service';
 
 @Component({
-    selector: 'app-page-dwelling-manager',
+    selector: 'app-manager-spring-source',
     templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.scss'],
 })
 export class ManagerComponent implements OnInit {
+    public element: SpringSourceDetail | undefined;
+
     // map config parameters
     public configureMap: ConfigureMap | undefined;
-    private readonly mapId: string = 'manager_full_houses_map';
+    private readonly mapId: string = 'manager_full_water_sources_map';
     private readonly mapZoom: number = 14;
     private readonly mapHeight: string = '450px';
     private readonly mapWidth: string = '850px';
 
-    constructor(private svcTableReload: TableReloadService, private svcDwellingCache: DwellingCacheService) {}
+    constructor(private svcSpringSourceCache: SpringSourceCacheService) {}
 
     public ngOnInit(): void {
         this.loadMap();
     }
 
-    public waterMeterChanged(change: boolean) {
-        this.svcTableReload.emitReload(change);
-    }
-
     private loadMap() {
-        // get location from dwellings
-        this.svcDwellingCache.get().then((response) => {
-            // check if has dwellings, else ignore it
+        // get location from watersource
+        this.svcSpringSourceCache.get().then((response) => {
+            // check if has watersource, else ignore it
             if (response && response.length > 0) {
                 // get first result
-                var firstDwellingDetected: DwellingDetail = response[0];
-                // set location around the first dwelling
+                var firstSpringSourceDetected: SpringSourceDetail = response[0];
+                // set location around the first watersource
                 var buildConfigMap: ConfigureMap = {
                     id: this.mapId,
                     center: {
-                        lat: String(firstDwellingDetected.latitude!),
-                        lon: String(firstDwellingDetected.longitude!),
-                        type: MapIconType.HOUSE,
+                        lat: String(firstSpringSourceDetected.latitude!),
+                        lon: String(firstSpringSourceDetected.longitude!),
+                        type: MapIconType.SPRING_SOURCE,
                     },
                     zoom: this.mapZoom,
                     showMarker: true,
@@ -50,8 +47,8 @@ export class ManagerComponent implements OnInit {
                     dragging: true,
                     scrollWheelZoom: true,
                 };
-                // add others dwellings in the map
-                buildConfigMap.otherPoints = response.map((dwelling) => build(dwelling));
+                // add others spring source in the map
+                buildConfigMap.otherPoints = response.map((springSource) => build(springSource));
                 // replace the undefined config with built config
                 this.configureMap = buildConfigMap;
             }

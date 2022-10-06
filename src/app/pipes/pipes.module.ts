@@ -1,11 +1,12 @@
-import { UserDetailPipe } from './user-detail.pipe';
+import { CommonModule, SlicePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AddressPipe } from './address.pipe';
 import { DwellingDetailPipe } from './dwelling-detail.pipe';
 import { GeolocationPipe } from './geolocation.pipe';
-import { WaterMeterMeasurementPipe } from './water-meter-measurement.pipe';
 import { ReservoirDetailPipe } from './reservoir-detail.pipe';
-import { CommonModule, SlicePipe } from '@angular/common';
-import { AddressPipe } from './address.pipe';
+import { SpringSourceDetailPipe } from './spring-source-detail.pipe';
+import { UserDetailPipe } from './user-detail.pipe';
+import { WaterMeterMeasurementPipe } from './water-meter-measurement.pipe';
 
 @NgModule({
     imports: [CommonModule],
@@ -14,6 +15,7 @@ import { AddressPipe } from './address.pipe';
         GeolocationPipe,
         ReservoirDetailPipe,
         UserDetailPipe,
+        SpringSourceDetailPipe,
         WaterMeterMeasurementPipe,
         AddressPipe,
     ],
@@ -23,6 +25,7 @@ import { AddressPipe } from './address.pipe';
         AddressPipe,
         GeolocationPipe,
         ReservoirDetailPipe,
+        SpringSourceDetailPipe,
         UserDetailPipe,
         WaterMeterMeasurementPipe,
     ],
