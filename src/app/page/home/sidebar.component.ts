@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonConfig, UserDetail, UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
+import { CleanerCacheService } from 'src/app/utils/cache/cleaner-cache.service';
 import { PersonalInfoPersistantService } from '../config/client/personal-info/personal-info-persistant.service';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
@@ -34,7 +35,8 @@ export class SidebarComponent {
         protected readonly accountService: AccountService,
         protected overlayContainer: OverlayContainer,
         private svcUser: UserService,
-        private svcPersistantPersonal: PersonalInfoPersistantService
+        private svcPersistantPersonal: PersonalInfoPersistantService,
+        protected svcCleanerCache: CleanerCacheService
     ) {
         //FIXME: add pipe with first name and last name
         this.accountService.getUser().subscribe((userResponse) => {
@@ -83,6 +85,7 @@ export class SidebarComponent {
     }
 
     public closeSession() {
+        this.svcCleanerCache.clean();
         this.accountService.logout();
     }
 

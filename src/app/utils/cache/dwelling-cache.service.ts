@@ -1,7 +1,6 @@
 import { ICacheService } from './interface-cache.service';
 import { Injectable } from '@angular/core';
 import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
 
 @Injectable({
     providedIn: 'root',
@@ -9,7 +8,7 @@ import { AccountService } from '@availa/auth-fe';
 export class DwellingCacheService implements ICacheService<DwellingDetail> {
     cache: DwellingDetail[] = [];
 
-    constructor(private svcDwelling: DwellingService, private svcAccount: AccountService) {}
+    constructor(private svcDwelling: DwellingService) {}
 
     public get(): Promise<DwellingDetail[]> {
         var promise = new Promise<DwellingDetail[]>((resolve, reject) => {
