@@ -40,42 +40,6 @@
     </mat-card-header>
     <mat-card-content>
         <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="capacity">
-                <th mat-header-cell *matHeaderCellDef>capacity</th>
-                <td
-                    class="priority-1"
-                    mat-cell
-                    *matCellDef="let element"
-                    matTooltip="{{ 'PAGE.WATERSOURCE.CREATE.CAPACITY' | translate }}"
-                >
-                    {{ element.capacity | number: '2.' }} L
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="inlet_flow">
-                <th mat-header-cell *matHeaderCellDef>inlet_flow</th>
-                <td
-                    class="priority-2"
-                    mat-cell
-                    *matCellDef="let element"
-                    matTooltip="{{ 'PAGE.WATERSOURCE.CREATE.INLET_FLOW' | translate }}"
-                >
-                    {{ element.inlet_flow | number: '2.' }} m<sup>3</sup>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="outlet_flow">
-                <th mat-header-cell *matHeaderCellDef>outlet_flow</th>
-                <td
-                    class="priority-3"
-                    mat-cell
-                    *matCellDef="let element"
-                    matTooltip="{{ 'PAGE.WATERSOURCE.CREATE.OUTLET_FLOW' | translate }}"
-                >
-                    {{ element.outlet_flow | number: '2.' }} m<sup>3</sup>
-                </td>
-            </ng-container>
-
             <ng-container matColumnDef="full_address">
                 <th mat-header-cell *matHeaderCellDef>full_address</th>
                 <td

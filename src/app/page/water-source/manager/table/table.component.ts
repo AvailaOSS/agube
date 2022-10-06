@@ -16,7 +16,7 @@ import { TableReloadService } from './table-reload.service';
 })
 export class TableComponent implements OnInit, AfterViewInit {
     //fields to table
-    public displayedColumns: string[] = ['capacity', 'inlet_flow', 'outlet_flow', 'full_address'];
+    public displayedColumns: string[] = ['full_address'];
 
     //table data sources
     public dataSource: MatTableDataSource<ReservoirDetail> = new MatTableDataSource();

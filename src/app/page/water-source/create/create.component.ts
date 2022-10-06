@@ -17,8 +17,9 @@ import { MapIconType } from 'src/app/components/map/map/configure-map';
     styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent extends CreateAddress implements OnInit {
-    public reservoirForm: FormGroup | undefined;
+    public waterSourceForm: FormGroup | undefined;
     public code = new FormControl('');
+    // FIX: REMOVE THIS OPTIONS
     public capacity = new FormControl('', [Validators.required]);
     public inletFlow = new FormControl('', [Validators.required]);
     public outletFlow = new FormControl('', [Validators.required]);
@@ -30,14 +31,14 @@ export class CreateComponent extends CreateAddress implements OnInit {
     constructor(
         private router: Router,
         private svcNotification: NotificationService,
-        private svcReservoir: ReservoirService,
-        private svcReservoirCache: ReservoirCacheService,
+        private svcWaterSource: ReservoirService,
+        private svcWaterSourceCache: ReservoirCacheService,
         private svcAccount: AccountService,
         private formBuilder: FormBuilder,
         private googleAnalyticsService: GoogleAnalyticsService
     ) {
         super();
-        this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
+        this.googleAnalyticsService.pageView('create_waterSource', '/create_waterSource');
         this.configureMap.center.type = MapIconType.WATER_SOURCE;
         // configure address form
         this.addressInputForm = {
@@ -56,7 +57,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         // configure map height
         this.setMapResolution('220px', '500px', '1020px');
 
-        // get user Id to assign the reservoir as owner
+        // get user Id to assign the waterSource as owner
         this.svcAccount.getUser().subscribe((response) => {
             this.userId = response!.user_id;
         });
@@ -66,10 +67,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadCache();
     }
 
+    // Fix: remove this function!
     public override addressFormReceive(addressEmitter: AddressEmitter) {
         super.addressFormReceive(addressEmitter);
-        this.reservoirForm = this.formBuilder.group({
+        this.waterSourceForm = this.formBuilder.group({
             address: addressEmitter.addressFormGroup,
+
             water_meter: this.formBuilder.group({
                 code: this.code,
             }),
@@ -78,9 +81,16 @@ export class CreateComponent extends CreateAddress implements OnInit {
             outletFlow: this.outletFlow,
         });
     }
+    // public override addressFormReceive(addressEmitter: AddressEmitter) {
+    //     super.addressFormReceive(addressEmitter);
+    //     this.waterSourceForm = this.formBuilder.group({
+    //         address: addressEmitter.addressFormGroup
+
+    //     });
+    // }
 
     public exit() {
-        this.router.navigate(['manager/reservoirs']);
+        this.router.navigate(['manager/waterSources']);
     }
 
     public save() {
@@ -91,18 +101,15 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.resetCache();
                 this.resetForm();
                 this.loadingPost = false;
-                this.googleAnalyticsService.gtag('event', 'create_reservoir', {
+                this.googleAnalyticsService.gtag('event', 'create_water_source', {
                     manager_id: response?.user_id,
-                    reservoir_id: response?.id,
-                    capacity: response.capacity,
-                    outlet_flow: response.outlet_flow,
-                    inet_flow: response.inlet_flow,
+                    Water_source_id: response?.id
                 });
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
-                this.googleAnalyticsService.exception('error_reservoir_create', true);
+                this.googleAnalyticsService.exception('error_water_source_create', true);
             },
         });
     }
@@ -112,22 +119,19 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
         this.onSave()!.subscribe({
             next: (response) => {
-                this.svcReservoirCache.clean();
+                this.svcWaterSourceCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
-                this.googleAnalyticsService.gtag('event', 'create_reservoir_exit', {
+                this.googleAnalyticsService.gtag('event', 'create_waterSource_exit', {
                     manager_id: response?.user_id,
-                    reservoir_id: response?.id,
-                    capacity: response.capacity,
-                    outlet_flow: response.outlet_flow,
-                    inlet_flow: response.inlet_flow,
+                    waterSource_id: response?.id
                 });
                 this.exit();
             },
             error: (error) => {
                 this.svcNotification.warning({ message: error });
                 this.loadingPost = false;
-                this.googleAnalyticsService.exception('error_reservoir_create_exit', true);
+                this.googleAnalyticsService.exception('error_waterSource_create_exit', true);
             },
         });
     }
@@ -139,21 +143,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
                     return 'PAGE.WATERSOURCE.CREATE.WATER_METER_CODE.VALIDATION.REQUIRED';
                 }
                 return '';
-            case 'capacity':
-                if (this.capacity.hasError('required')) {
-                    return 'PAGE.WATERSOURCE.CREATE.CAPACITY.VALIDATION.REQUIRED';
-                }
-                return '';
-            case 'inletFlow':
-                if (this.inletFlow.hasError('required')) {
-                    return 'PAGE.WATERSOURCE.CREATE.INLET_FLOW.VALIDATION.REQUIRED';
-                }
-                return '';
-            case 'outletFlow':
-                if (this.outletFlow.hasError('required')) {
-                    return 'PAGE.WATERSOURCE.CREATE.OUTLET_FLOW.VALIDATION.REQUIRED';
-                }
-                return '';
             default:
                 return '';
         }
@@ -161,51 +150,49 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
     private resetForm() {
         this.code.setValue('');
-        this.capacity.setValue('');
-        this.outletFlow.setValue('');
-        this.inletFlow.setValue('');
     }
 
     private onSave() {
-        if (!this.reservoirForm || this.reservoirForm.invalid) {
+        if (!this.waterSourceForm || this.waterSourceForm.invalid) {
             return;
         }
 
-        let reservoir: ReservoirCreate;
+        let waterSource: ReservoirCreate;
         if (this.code.value.length === 0) {
-            reservoir = {
+            waterSource = {
                 geolocation: this.getGeolocation(),
-
                 user_id: this.userId,
+                // FIX WATERMETERCREATE
                 capacity: this.capacity.value,
                 inlet_flow: this.inletFlow.value,
                 outlet_flow: this.outletFlow.value,
             };
         } else {
-            reservoir = {
+            waterSource = {
                 geolocation: this.getGeolocation(),
                 water_meter: {
                     code: this.code.value,
                 },
                 user_id: this.userId,
+                // FIX WATERMETERCREATE
                 capacity: this.capacity.value,
                 inlet_flow: this.inletFlow.value,
                 outlet_flow: this.outletFlow.value,
             };
         }
-        return this.svcReservoir.createReservoir(reservoir);
+        return this.svcWaterSource.createReservoir(waterSource);
     }
 
     private loadCache() {
-        this.svcReservoirCache.get().then((response) => {
+        this.svcWaterSourceCache.get().then((response) => {
             if (response && response.length > 0) {
-                this.configureMap.otherPoints = response.map((reservoir) => build(reservoir));
+                this.configureMap.otherPoints = response.map((waterSource) => build(waterSource));
             }
         });
     }
 
     private resetCache() {
-        this.svcReservoirCache.clean();
+        this.svcWaterSourceCache.clean();
         this.loadCache();
     }
 }

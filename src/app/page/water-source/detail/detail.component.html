@@ -15,19 +15,9 @@
                     </h1>
                     <div class="water-source-content-info">
                         <app-address [geolocation]="waterSource.geolocation"></app-address>
-                        <app-water-source-resume [reservoirId]="waterSource.id"></app-water-source-resume>
-                        <!-- <div class="reservoir-resident">
-                            <app-owner [reservoirId]="reservoir.id"></app-owner>
-                        </div> -->
                     </div>
                     <div class="content-buttons-map">
-                        <app-management
-                            [manage]="waterSource"
-                            [waterMeterId]="waterMeterId"
-                            [type]="type"
-                            [load]="canLoad"
-                        >
-                        </app-management>
+
                         <div *ngIf="canLoad" class="buttons-map">
                             <button
                                 mat-raised-button
@@ -41,17 +31,7 @@
                             </button>
                         </div>
                     </div>
-                    <span *ngIf="waterMeter">
-                        <p>{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}</p>
-                        <h3>{{ waterMeter.code }}</h3>
-                        <app-water-meter-detail
-                            [reservoirId]="waterSourceId"
-                            [waterMeterId]="waterMeterId"
-                            [type]="type"
-                            [canAddReading]="true"
-                        >
-                        </app-water-meter-detail>
-                    </span>
+
                 </div>
                 <div class="water-source-map">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
