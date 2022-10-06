@@ -148,10 +148,23 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             end_datetime=month_end_datetime)
 
         # Compute consumption
+        from agube.utils import timedelta_in_days
         month_consumption = 0
         if measurement_list != []:
+            # measurement list in date desc order (from recent to old)
+            previous_measurement = measurement_list[0]
+            measurement_list.remove(previous_measurement)
             for measurement in measurement_list:
-                month_consumption += measurement.average_daily_flow
+
+                # check same watermeter
+                if previous_measurement.water_meter == measurement.water_meter:
+                    # days from most recent (previous) to next older (measurement)
+                    from_day = measurement.date if measurement.date > month_start_datetime else month_start_datetime
+                    elapsed_days = timedelta_in_days(previous_measurement.date - from_day)
+                    # month consumption += average consumption of most recent (previous) * elapsed days
+                    month_consumption += float(previous_measurement.average_daily_flow) * elapsed_days
+
+                previous_measurement = measurement
         return round(month_consumption)
 
     def get_max_month_consumption(self, date):
