@@ -32,7 +32,7 @@
                     matTooltip="{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.BUTTON.TOOLTIP' | translate }}"
                     (click)="goToNewWaterSource()"
                 >
-                    <mat-icon>water_drop</mat-icon>
+                    <mat-icon>waterfall_chart</mat-icon>
                     {{ 'PAGE.WATERSOURCE.MANAGER.TABLE.BUTTON' | translate }}
                 </button>
             </div>
@@ -48,7 +48,7 @@
                     *matCellDef="let element"
                     matTooltip="{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.ROW.ADDRESS' | translate }}"
                 >
-                    {{ element | reservoirDetail }}
+                    {{ element | WaterSourceDetail }}
                 </td>
             </ng-container>
 

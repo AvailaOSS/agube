@@ -1,3 +1,4 @@
+import { WaterSourceDetailPipe } from './water-source-detail.pipe';
 import { UserDetailPipe } from './user-detail.pipe';
 import { NgModule } from '@angular/core';
 import { DwellingDetailPipe } from './dwelling-detail.pipe';
@@ -14,6 +15,7 @@ import { AddressPipe } from './address.pipe';
         GeolocationPipe,
         ReservoirDetailPipe,
         UserDetailPipe,
+        WaterSourceDetailPipe,
         WaterMeterMeasurementPipe,
         AddressPipe,
     ],
@@ -23,6 +25,7 @@ import { AddressPipe } from './address.pipe';
         AddressPipe,
         GeolocationPipe,
         ReservoirDetailPipe,
+        WaterSourceDetailPipe,
         UserDetailPipe,
         WaterMeterMeasurementPipe,
     ],

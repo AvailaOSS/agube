@@ -1,3 +1,4 @@
+import { SpringSourceService } from '@availa/agube-rest-api';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +16,7 @@ import { MapModule } from 'src/app/components/map/map/map.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { WaterMeterModule } from '../../water-meter/water-meter.module';
 import { InfoComponent } from './info/info.component';
-import { ManagerReservoirRoutingModule } from './manager-routing.module';
+import { ManagerWaterSourceRoutingModule } from './manager-routing.module';
 import { ManagerComponent } from './manager.component';
 import { TableComponent } from './table/table.component';
 
@@ -23,7 +24,7 @@ import { TableComponent } from './table/table.component';
     declarations: [ManagerComponent, TableComponent, InfoComponent],
     imports: [
         CommonModule,
-        ManagerReservoirRoutingModule,
+        ManagerWaterSourceRoutingModule,
         MatCardModule,
         MatTableModule,
         MatButtonModule,
@@ -39,5 +40,8 @@ import { TableComponent } from './table/table.component';
         MatPaginatorModule,
         MapModule,
     ],
+    providers: [
+        SpringSourceService
+    ]
 })
-export class ManagerModule {}
+export class ManagerWaterSourceModule {}

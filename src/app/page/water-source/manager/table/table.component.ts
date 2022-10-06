@@ -3,10 +3,9 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ReservoirDetail } from '@availa/agube-rest-api';
-import { Detail } from 'src/app/page/reservoir/detail/detail';
-import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { SpringSource, SpringSourceDetail, SpringSourceService } from '@availa/agube-rest-api';
 import { goToWaterSource } from 'src/app/utils/redirections/redirector';
+import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
 
 @Component({
@@ -19,8 +18,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     public displayedColumns: string[] = ['full_address'];
 
     //table data sources
-    public dataSource: MatTableDataSource<ReservoirDetail> = new MatTableDataSource();
-    public isSelected: ReservoirDetail | undefined = undefined;
+    public dataSource: MatTableDataSource<SpringSourceDetail> = new MatTableDataSource();
+    public isSelected: SpringSourceDetail | undefined = undefined;
 
     // filter
     public filter = new FormControl('');
@@ -32,7 +31,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private svcTableReload: TableReloadService,
-        private svcWaterSource: ReservoirCacheService
+        private svcWaterSource: SpringSourceService
     ) {}
 
     public ngAfterViewInit() {
@@ -60,18 +59,19 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.dataSource.filter = '';
     }
 
-    public goToWaterSource(reservoir: ReservoirDetail) {
+    public goToWaterSource(waterSource: SpringSource) {
+        console.log(waterSource)
         const queryParams: Detail = {
-            reservoirId: reservoir.id!,
+            waterSourceId: waterSource.id!,
         };
         goToWaterSource(this.router, queryParams);
     }
 
     private loadWaterSources() {
-        this.svcWaterSource.get().then((response) => {
+        this.svcWaterSource.getSpringSources().subscribe((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
-            this.dataSource.filterPredicate = (data: ReservoirDetail, filter: string): boolean => {
+            this.dataSource.filterPredicate = (data: SpringSourceDetail, filter: string): boolean => {
                 const dataStr = Object.keys(data)
                     .reduce((currentTerm: string, key: string) => {
                         return currentTerm + (data as { [key: string]: any })[key] + '◬';

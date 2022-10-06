@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Coordinates, MapIconType } from 'src/app/components/map/map/configure-map';
 import { Detail as DwellingDetailData } from 'src/app/page/dwelling/detail/detail';
 import { Detail as ReservoirDetailData } from 'src/app/page/reservoir/detail/detail';
-
+import { Detail as WaterSourceDetailData } from 'src/app/page/water-source/detail/detail';
 export function goToDwelling(router: Router, queryParams: DwellingDetailData) {
     router.navigate(['/manager/home/manager/client/dwellings/detail'], {
         queryParams,
@@ -14,7 +14,7 @@ export function goToReservoir(router: Router, queryParams: ReservoirDetailData) 
         queryParams,
     });
 }
-export function goToWaterSource(router: Router, queryParams: ReservoirDetailData) {
+export function goToWaterSource(router: Router, queryParams: WaterSourceDetailData) {
     router.navigate(['/manager/home/watersources/detail'], {
         queryParams,
     });
