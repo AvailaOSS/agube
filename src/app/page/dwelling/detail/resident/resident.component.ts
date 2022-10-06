@@ -17,7 +17,7 @@ export class ResidentComponent implements OnInit {
     // Variable title page
     public title: PersonTitle = {
         title: 'GENERAL.TEXT.RESIDENT',
-        icon: 'escalator_warning',
+        icon: 'resident',
     };
 
     public userDetail: UserDetail | undefined;

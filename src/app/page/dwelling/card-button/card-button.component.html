@@ -16,12 +16,12 @@
             </div>
             <div class="resident" *ngIf="dwelling.is_resident">
                 <div class="icons">
-                    <mat-icon>escalator_warning</mat-icon>
+                    <mat-icon svgIcon="resident"></mat-icon>
                     <span>
                         {{ 'GENERAL.TEXT.RESIDENT' | translate }}
                     </span>
                     <div>
-                        <mat-icon>call</mat-icon>
+                        <mat-icon svgIcon="phone"></mat-icon>
                         {{ dwelling.resident_phone }}
                     </div>
                 </div>

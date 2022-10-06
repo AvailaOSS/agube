@@ -24,7 +24,7 @@
         color: $warning-palette-alternative;
       }
     }
-    @include icon.mat-icon($primary: $primary_accent, $accent: $primary_accent);
+    // @include icon.mat-icon($primary: $primary_accent, $accent: $primary_accent);
     .mat-line {
       color: $secondary_accent;
     }

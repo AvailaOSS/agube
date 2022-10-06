@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { TranslateService } from '@ngx-translate/core';
+import { Icon } from './utils/icons';
 import { Language } from './utils/language';
 
 @Component({
@@ -10,6 +13,81 @@ import { Language } from './utils/language';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+    public icons: Icon[] = [
+        {
+            name: 'person',
+            path: '/assets/icons/person.svg',
+        },
+        {
+            name: 'house',
+            path: '/assets/icons/house.svg',
+        },
+        {
+            name: 'reservoir',
+            path: '/assets/icons/reservoir.svg',
+        },
+        {
+            name: 'spring_source',
+            path: '/assets/icons/springsource.svg',
+        },
+        {
+            name: 'resident',
+            path: '/assets/icons/resident.svg',
+        },
+        {
+            name: 'settings',
+            path: '/assets/icons/settings.svg',
+        },
+        {
+            name: 'save',
+            path: '/assets/icons/save.svg',
+        },
+        {
+            name: 'add',
+            path: '/assets/icons/add.svg',
+        },
+        {
+            name: 'close',
+            path: '/assets/icons/close.svg',
+        },
+        {
+            name: 'edit',
+            path: '/assets/icons/edit.svg',
+        },
+        {
+            name: 'trash',
+            path: '/assets/icons/trash.svg',
+        },
+        {
+            name: 'star',
+            path: '/assets/icons/star.svg',
+        },
+        {
+            name: 'star_border',
+            path: '/assets/icons/star-border.svg',
+        },
+        {
+            name: 'map',
+            path: '/assets/icons/map.svg',
+        },
+        {
+            name: 'visibility',
+            path: '/assets/icons/visibility.svg',
+        },
+        {
+            name: 'alarm_add',
+            path: '/assets/icons/alarm_add.svg',
+        },
+        {
+            name: 'alarm_update',
+            path: '/assets/icons/alarm_update.svg',
+        },
+        {
+            name: 'phone',
+            path: '/assets/icons/phone.svg',
+        },
+    ];
+
     public languages: Language[] = [
         {
             code: 'ga',
@@ -30,7 +108,14 @@ export class AppComponent {
 
     public selectedLanguage: Language = this.languages[1];
 
-    constructor(private translate: TranslateService, private svcAccount: AccountService, private svcUser: UserService) {
+    constructor(
+        private translate: TranslateService,
+        private svcAccount: AccountService,
+        private svcUser: UserService,
+        protected matIconRegistry: MatIconRegistry,
+        protected domSanitizer: DomSanitizer
+    ) {
+        this.loadIcons(this.icons);
         this.selectLanguage(this.selectedLanguage);
         this.svcAccount.getUser().subscribe((userResponse) => {
             if (!userResponse) {
@@ -42,6 +127,12 @@ export class AppComponent {
                 this.selectLanguage(this.selectedLanguage);
             });
         });
+    }
+
+    private loadIcons(icons: Icon[]) {
+        icons.forEach((icon) =>
+            this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(icon.path))
+        );
     }
 
     public selectLanguage(language: Language) {

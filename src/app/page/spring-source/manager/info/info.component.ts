@@ -9,9 +9,9 @@ import { SpringSourceResume, SpringSourceService } from '@availa/agube-rest-api'
 export class InfoComponent implements OnInit {
     public springSourceResume: SpringSourceResume | undefined;
 
-    constructor(private svcSpringSource: SpringSourceService) { }
+    constructor(private svcSpringSource: SpringSourceService) {}
 
-   public ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcSpringSource.getSpringSourceResume().subscribe((response) => (this.springSourceResume = response));
     }
 }

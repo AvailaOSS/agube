@@ -44,10 +44,7 @@ $agube-fe-theme: mat.define-light-theme(
     )
 );
 
-@include icon.mat-icon(
-    $primary: mat.get-color-from-palette($agube-fe-primary, 700),
-    $accent: mat.get-color-from-palette($agube-fe-accent, 200)
-);
+@include icon.mat-icon();
 
 @include selection-list.mat-selection-list(
     $hover: mat.get-color-from-palette($agube-fe-accent, 50),

@@ -1,13 +1,10 @@
-@mixin mat-icon($primary, $accent) {
-  .mat-icon {
-    color: $primary;
-  }
-  .mat-raised-button {
+@mixin mat-icon() {
     .mat-icon {
-      color: $accent;
+        fill: none;
     }
-  }
-  .mat-icon-button .mat-icon {
-    color: $primary !important;
-  }
+    button {
+        .mat-icon {
+            fill: black;
+        }
+    }
 }
