@@ -1,5 +1,6 @@
 import calendar
 import datetime
+from decimal import Decimal
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -186,7 +187,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
             # diff = actual.release_date - last.release_date
             datetime_diff = manager_configuration.release_date - last_config_start_date
-            last_config_uptime_days = timedelta_in_days(datetime_diff)
+            last_config_uptime_days = Decimal(timedelta_in_days(datetime_diff))
 
             # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
             max_month_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
@@ -196,7 +197,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
         # calculate until end of month
         datetime_diff = month_end_datetime - last_iteration_config.release_date
-        last_config_uptime_days = timedelta_in_days(datetime_diff)
+        last_config_uptime_days = Decimal(timedelta_in_days(datetime_diff))
         # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
         max_month_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
 

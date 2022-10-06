@@ -118,12 +118,12 @@ class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'),
     def calculate_average_daily_flow(self):
         """Compute the diff with the previous measurement"""
         from agube.utils import timedelta_in_days
-        import decimal
+        from decimal import Decimal
 
         previous_measurement = self.water_meter.get_last_measurement(self.date - timedelta(minutes=1))
         if previous_measurement:
             #1 m3 == 1000 L
-            m3L = decimal.Decimal(1000)
+            m3L = 1000.0
             lapsed_days = timedelta_in_days(self.date - previous_measurement.date)
-            self.average_daily_flow = round(((self.measurement - previous_measurement.measurement) / lapsed_days) * m3L, 3)
+            self.average_daily_flow = Decimal(round(((float(self.measurement) - float(previous_measurement.measurement)) / lapsed_days) * m3L, 3))
         # else will put 0 as default
