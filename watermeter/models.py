@@ -24,23 +24,23 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
             self.release_date = timezone.now()
         super(WaterMeter, self).save(*args, **kwargs)
 
-    def add_measurement(self, measurement, date=timezone.now()):
-        # type: (WaterMeter, float, timezone) -> WaterMeterMeasurement
+    def add_measurement(self, measurement, measurement_date: datetime =timezone.now()):
+        # type: (WaterMeter, float, datetime) -> WaterMeterMeasurement
         """water meter add measurement
 
         Parameters
         ----------
-        measurement : str
+        measurement : float
             measurement read from the water meter
         date : datetime
             date of read measurement"""
         if self.discharge_date:
             raise WaterMeterDisabledError()
-        if dateparse.parse_datetime(date) > timezone.now():
+        if measurement_date > timezone.now():
             raise WaterMeterMeasurementInFutureError()
         return WaterMeterMeasurement.objects.create(water_meter=self,
                                                     measurement=measurement,
-                                                    date=date)
+                                                    date=measurement_date)
 
     def get_measurements_chunk(self, chunk=5, before_date=timezone.now()):
         # type: (int, timezone) -> list[WaterMeterMeasurement]
