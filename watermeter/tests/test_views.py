@@ -6,6 +6,7 @@ from rest_framework.test import APITestCase
 from geolocation.models import Geolocation
 from manager.models import Manager
 from watermeter.models import WaterMeter
+from watermeter.serializers import WaterMeterMeasurementSerializer
 
 
 class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
@@ -14,22 +15,26 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
     def setUp(self):
         self.simulate_auth()
         lion = WaterMeter.objects.create(code="lion")
-        lion.add_measurement(99.00, "2022-07-20 10:16:01+0000")
+        data = {
+            'measurement': '99.00',
+            'date': '2022-07-20 10:16:01+0000'
+        }
+        WaterMeterMeasurementSerializer(data=data).self_create(lion)
 
-    def test_get_getWaterMeterMeasures(self):
+    def test_get_getWaterMeterMeasurements(self):
         # prepare url
         lion = WaterMeter.objects.get(code="lion")
-        url = self.base_url + str(lion.id) + '/measure'
+        url = self.base_url + str(lion.id) + '/measurement'
 
         # assertion
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data.get('results')), 1)
 
         # assertion data with water_meter not in dwelling
-        measure = response.data[0]
+        measure = response.data.get('results')[0]
         self.assertEqual(float(measure['measurement']), 99.00)
-        self.assertEqual(float(measure['measurement_diff']), 0.00)
+        self.assertEqual(float(measure['average_daily_flow']), 0.00)
         self.assertEqual(float(measure['max_daily_consumption']), 0.00)
         self.assertEqual(measure['date'], "2022-07-20T10:16:01Z")
 
@@ -67,20 +72,20 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
 
         # now it must be linked with max_daily_consumption
         response = self.client.get(url, format='json')
-        measure = response.data[0]
+        measure = response.data.get('results')[0]
         self.assertEqual(float(measure['measurement']), 99.00)
-        self.assertEqual(float(measure['measurement_diff']), 0.00)
+        self.assertEqual(float(measure['average_daily_flow']), 0.00)
         self.assertEqual(float(measure['max_daily_consumption']), 1000.0)
         self.assertEqual(measure['date'], "2022-07-20T10:16:01Z")
 
 
-    def test_post_addWaterMeterMeasure(self):
+    def test_post_addWaterMeterMeasurement(self):
         """
         Ensure new measurement creation.
         """
         # prepare url
         lion = WaterMeter.objects.get(code="lion")
-        url = self.base_url + str(lion.id) + '/measure'
+        url = self.base_url + str(lion.id) + '/measurement'
 
         # expected data
         expected_measurement = 100.0
@@ -91,7 +96,7 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(lion.get_measurements()), 2)
         self.assertEqual(lion.get_last_measurement().measurement, expected_measurement)
-        self.assertEqual(lion.get_last_measurement().measurement_diff, 500.00)
+        self.assertEqual(float(lion.get_last_measurement().average_daily_flow), 333.916)
 
         # expected data
         expected_measurement = float(101.53)
@@ -102,4 +107,4 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(lion.get_measurements()), 3)
         self.assertEqual(float(lion.get_last_measurement().measurement), expected_measurement)
-        self.assertEqual(lion.get_last_measurement().measurement_diff, 219.00)
+        self.assertEqual(float(lion.get_last_measurement().average_daily_flow), 212.214)
