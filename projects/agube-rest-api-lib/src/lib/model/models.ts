@@ -29,3 +29,4 @@ export * from './reservoirCommentCreate';
 export * from './springSource';
 export * from './springSourceDetail';
 export * from './springSourceResume';
+export * from './springSourceCommentCreate';

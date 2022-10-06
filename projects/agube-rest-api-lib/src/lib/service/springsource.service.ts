@@ -24,6 +24,7 @@ import { SpringSourceDetail } from '../model/springSourceDetail';
 import { SpringSourceResume } from '../model/springSourceResume';
 import { Configuration } from '../configuration';
 import { AgubeRestConfigurationService } from '../configuration.service';
+import { SpringSourceCommentCreate } from '../model/springSourceCommentCreate';
 
 @Injectable()
 export class SpringSourceService {
@@ -117,6 +118,78 @@ export class SpringSourceService {
 
   /**
    *
+   * Create a new Comment for this SpringSource.
+   * @param data
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createSpringSourceComment(
+    data: SpringSourceCommentCreate,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<SpringSourceCommentCreate>;
+  public createSpringSourceComment(
+    data: SpringSourceCommentCreate,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<SpringSourceCommentCreate>>;
+  public createSpringSourceComment(
+    data: SpringSourceCommentCreate,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<SpringSourceCommentCreate>>;
+  public createSpringSourceComment(
+    data: SpringSourceCommentCreate,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (data === null || data === undefined) {
+      throw new Error(
+        'Required parameter data was null or undefined when calling createSpringSourceComment.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<SpringSourceCommentCreate>(
+      `${this.basePath}/springsource/comment`,
+      data,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
    * Get SpringSourceSerializer by id
    * @param id A unique integer value identifying this spring source.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -172,6 +245,72 @@ export class SpringSourceService {
 
     return this.httpClient.get<SpringSource>(
       `${this.basePath}/springsource/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   *
+   * Return the full list of comments for this SpringSource.
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getSpringSourceComments(
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Array<Comment>>;
+  public getSpringSourceComments(
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Array<Comment>>>;
+  public getSpringSourceComments(
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Array<Comment>>>;
+  public getSpringSourceComments(
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling getSpringSourceComments.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (Basic) required
+    if (this.configuration.username || this.configuration.password) {
+      headers = headers.set(
+        'Authorization',
+        'Basic ' +
+          btoa(this.configuration.username + ':' + this.configuration.password)
+      );
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Array<Comment>>(
+      `${this.basePath}/springsource/${encodeURIComponent(String(id))}/comment`,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

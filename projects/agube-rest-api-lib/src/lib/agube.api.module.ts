@@ -17,6 +17,7 @@ import { UserService } from './service/user.service';
 import { WaterMeterService } from './service/waterMeter.service';
 import { MeasurementService } from './service/measurement.service';
 import { CommentsService } from './service/comments.service';
+import { SpringSourceService } from './service/springsource.service';
 
 @NgModule({
   declarations: [],
@@ -34,7 +35,8 @@ import { CommentsService } from './service/comments.service';
     ResidentService,
     OwnerService,
     GeolocationService,
-    CommentsService
+    CommentsService,
+    SpringSourceService
   ],
 })
 export class AgubeApiModule {
