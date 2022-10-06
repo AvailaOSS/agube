@@ -1,0 +1,127 @@
+@import '../../../../assets/availa/sizes/page.scss';
+@import '../../../../assets/availa/sizes/margins.scss';
+
+.detail-page {
+    @include my-page($columns: 1);
+    margin-bottom: $margin-large;
+}
+
+@media only screen and (max-width: 1525px) {
+    .mat-card-content {
+        display: block;
+        justify-content: center !important;
+        .water-source-info {
+            width: 100% !important;
+        }
+        .water-source-map {
+            display: none;
+        }
+        .buttons-map {
+            display: flex !important;
+        }
+        .content-buttons-map {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .water-source-resident {
+            margin-left: 0px;
+            flex-direction: column;
+            display: flex;
+            height: 60%;
+        }
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .water-source-content-info {
+        .detail-info {
+            margin-left: 70px !important;
+
+        }
+    }
+    .water-source-resident {
+        margin-left: $margin-medium !important;
+        flex-direction: column;
+        display: flex;
+        height: 60%;
+    }
+}
+
+.page-content {
+    @include my-page-column($columnIndex: 1, $totalColumns: 1);
+    .mat-card {
+        height: 100%;
+    }
+    .mat-card-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        .water-source-info {
+            width: 62%;
+            margin-top: $margin-x-medium;
+            margin-left: $margin-x-medium;
+            mat-icon {
+                cursor: pointer;
+            }
+            .water-source-content-info {
+                margin-left: $margin-small;
+                display: flex;
+                height: auto;
+                .water-source-resident {
+                    margin-left: $margin-medium;
+                    flex-direction: column;
+                    display: flex;
+                    height: 60%;
+                }
+            }
+        }
+        .water-source-map {
+            width: 33%;
+            mat-button-toggle-group {
+                display: flex;
+                justify-content: center;
+                text-align: center;
+                border: none;
+            }
+        }
+    }
+    .mat-spinner {
+        top: 50%;
+        margin: 0 auto;
+    }
+}
+.content-buttons-map {
+    display: flex;
+}
+.buttons-map {
+    display: none;
+    button {
+        width: 215px;
+        margin-top: $margin-small;
+        margin-bottom: $margin-small;
+        div {
+            align-items: center;
+            display: flex;
+            mat-icon {
+                margin-right: $margin-x-small;
+            }
+        }
+    }
+}
+.buttons-management {
+    margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    button {
+        width: 32%;
+        margin-top: $margin-small;
+        div {
+            align-items: center;
+            display: flex;
+            mat-icon {
+                margin-right: $margin-x-small;
+            }
+        }
+    }
+}

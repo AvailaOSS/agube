@@ -1,0 +1,104 @@
+<mat-card class="table-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h2>{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.TITLE' | translate }}</h2>
+        </mat-card-title>
+        <div class="filter">
+            <div>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.FILTER' | translate }}</mat-label>
+                    <input
+                        matInput
+                        matTooltip="{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.FILTER.TOOLTIP' | translate }}"
+                        matTooltipPosition="right"
+                        (keyup)="applyFilter()"
+                        [formControl]="filter"
+                    />
+                    <button
+                        matSuffix
+                        mat-icon-button
+                        matTooltip="{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
+                        *ngIf="filter.value.length > 0"
+                        (click)="clearFilter()"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div [align]="'end'">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    matTooltip="{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.BUTTON.TOOLTIP' | translate }}"
+                    (click)="goToNewWaterSource()"
+                >
+                    <mat-icon>water_drop</mat-icon>
+                    {{ 'PAGE.WATERSOURCE.MANAGER.TABLE.BUTTON' | translate }}
+                </button>
+            </div>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="capacity">
+                <th mat-header-cell *matHeaderCellDef>capacity</th>
+                <td
+                    class="priority-1"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.WATERSOURCE.CREATE.CAPACITY' | translate }}"
+                >
+                    {{ element.capacity | number: '2.' }} L
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="inlet_flow">
+                <th mat-header-cell *matHeaderCellDef>inlet_flow</th>
+                <td
+                    class="priority-2"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.WATERSOURCE.CREATE.INLET_FLOW' | translate }}"
+                >
+                    {{ element.inlet_flow | number: '2.' }} m<sup>3</sup>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="outlet_flow">
+                <th mat-header-cell *matHeaderCellDef>outlet_flow</th>
+                <td
+                    class="priority-3"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.WATERSOURCE.CREATE.OUTLET_FLOW' | translate }}"
+                >
+                    {{ element.outlet_flow | number: '2.' }} m<sup>3</sup>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="full_address">
+                <th mat-header-cell *matHeaderCellDef>full_address</th>
+                <td
+                    class="priority-4"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.WATERSOURCE.MANAGER.TABLE.ROW.ADDRESS' | translate }}"
+                >
+                    {{ element | reservoirDetail }}
+                </td>
+            </ng-container>
+
+            <tr
+                mat-row
+                class="table-row"
+                (click)="goToWaterSource(row)"
+                *matRowDef="let row; columns: displayedColumns"
+                [ngClass]="row === isSelected ? 'selected-row' : ''"
+            ></tr>
+        </table>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <mat-paginator [pageSize]="pageSide" showFirstLastButtons> </mat-paginator>
+    </mat-card-actions>
+</mat-card>

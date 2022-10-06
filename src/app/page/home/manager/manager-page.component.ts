@@ -34,6 +34,11 @@ export class ManagerPageComponent extends SidebarComponent {
                 icon: 'water_drop',
             },
             {
+                navigationRoute: 'manager/home/watersources',
+                title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_WATER_SOURCES',
+                icon: 'waterfall_chart',
+            },
+            {
                 navigationRoute: 'manager/home/person/residents',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT',
                 icon: 'escalator_warning',

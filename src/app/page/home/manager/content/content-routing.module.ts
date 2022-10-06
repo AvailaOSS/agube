@@ -22,6 +22,10 @@ const routes: Routes = [
                 loadChildren: () => import('../../../reservoir/manager/manager.module').then((m) => m.ManagerModule),
             },
             {
+                path: 'watersources',
+                loadChildren: () => import('../../../water-source/manager/manager.module').then((m) => m.ManagerModule),
+            },
+            {
                 path: 'config',
                 loadChildren: () =>
                     import('../../../config/manager/manager-page.module').then((m) => m.ManagerPageModule),

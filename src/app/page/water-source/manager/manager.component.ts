@@ -5,7 +5,7 @@ import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.servi
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
 
 @Component({
-    selector: 'app-manager-reservoir',
+    selector: 'app-manager-water-source',
     templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.scss'],
 })
@@ -14,7 +14,7 @@ export class ManagerComponent implements OnInit {
 
     // map config parameters
     public configureMap: ConfigureMap | undefined;
-    private readonly mapId: string = 'manager_full_reservoir_map';
+    private readonly mapId: string = 'manager_full_water_sources_map';
     private readonly mapZoom: number = 14;
     private readonly mapHeight: string = '450px';
     private readonly mapWidth: string = '850px';
@@ -26,19 +26,19 @@ export class ManagerComponent implements OnInit {
     }
 
     private loadMap() {
-        // get location from reservoirs
+        // get location from watersource
         this.svcReservoirCache.get().then((response) => {
-            // check if has reservoirs, else ignore it
+            // check if has watersource, else ignore it
             if (response && response.length > 0) {
                 // get first result
                 var firstReservoirDetected: ReservoirDetail = response[0];
-                // set location around the first reservoir
+                // set location around the first watersource
                 var buildConfigMap: ConfigureMap = {
                     id: this.mapId,
                     center: {
                         lat: String(firstReservoirDetected.latitude!),
                         lon: String(firstReservoirDetected.longitude!),
-                        type: MapIconType.RESERVOIR,
+                        type: MapIconType.WATER_SOURCE,
                     },
                     zoom: this.mapZoom,
                     showMarker: true,
@@ -47,8 +47,8 @@ export class ManagerComponent implements OnInit {
                     dragging: true,
                     scrollWheelZoom: true,
                 };
-                // add others Reservoirs in the map
-                buildConfigMap.otherPoints = response.map((reservoir) => build(reservoir));
+                // add others watersource in the map
+                buildConfigMap.otherPoints = response.map((watersource) => build(watersource));
                 // replace the undefined config with built config
                 this.configureMap = buildConfigMap;
             }

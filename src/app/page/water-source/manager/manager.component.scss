@@ -1,0 +1,48 @@
+@import '../../../../assets/availa/sizes/page.scss';
+@import '../../../../assets/availa/sizes/margins.scss';
+
+.manager-water-source-page {
+    @media only screen and (max-width: 1240px) {
+        margin-bottom: 180px;
+        ::ng-deep #manager_full_water_source_map {
+            width: 100% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+    }
+    @media only screen and (min-width: 1240px) {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: 70px;
+        ::ng-deep .page-info {
+            min-width: 80%;
+            margin-left: 3%;
+        }
+        ::ng-deep #manager_full_water_source_map {
+            margin-left: 3%;
+            width: 100% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        margin-bottom: $margin-large;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        @include my-page();
+        margin-bottom: $margin-large;
+        ::ng-deep .page-info {
+            max-width: 50%;
+        }
+        ::ng-deep #manager_full_water_source_map {
+            width: 80% !important;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            margin-left: 3%;
+        }
+    }
+}
+
+.manager-water-source-page-table {
+    @include my-page-column();
+    margin-bottom: $margin-x-small;
+}
