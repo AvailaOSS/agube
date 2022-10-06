@@ -12,6 +12,7 @@ import { CommentConfig, CommentCreate, CommentType } from './type';
     providedIn: 'root',
 })
 export class CommentManager {
+
     constructor(private svcDwelling: DwellingService, private svcSpringSource: SpringSourceService) {}
 
     public create(meta: CommentCreate): Observable<DwellingCommentCreate | SpringSourceCommentCreate> {
@@ -23,7 +24,6 @@ export class CommentManager {
                 });
 
             case CommentType.SPRING_SOURCE:
-                console.log(meta);
                 return this.svcSpringSource.createSpringSourceComment({
                     spring_source_id: meta.id,
                     message: meta.message,
