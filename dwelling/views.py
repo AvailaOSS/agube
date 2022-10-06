@@ -109,9 +109,12 @@ class DwellingListView(APIView):
         for dwelling in dwelling_list:
 
             if do_filter_alert:
-                # Jump to next iteration if consumption is OK (< limit)
-                if dwelling.get_last_month_consumption(
-                ) < dwelling.get_last_max_month_consumption():
+                try:
+                    # Jump to next iteration if consumption is OK (< limit)
+                    if dwelling.get_last_month_consumption(
+                    ) < dwelling.get_max_last_month_consumption():
+                        continue
+                except DwellingWithoutWaterMeterError:
                     continue
 
             list_of_serialized.append(

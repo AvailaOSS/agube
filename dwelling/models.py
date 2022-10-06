@@ -221,7 +221,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         return self.get_month_consumption(now -
                                           datetime.timedelta(days=now.day))
 
-    def get_last_max_month_consumption(self):
+    def get_max_last_month_consumption(self):
         return self.get_max_month_consumption(timezone.now().date())
 
     def get_max_daily_consumption(self, date):
