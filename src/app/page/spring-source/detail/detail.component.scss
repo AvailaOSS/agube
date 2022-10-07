@@ -39,7 +39,6 @@
             .spring-source-content-info {
                 margin-left: $margin-small;
                 display: flex;
-                justify-content: center;
                 .spring-source-resident {
                     margin-left: $margin-medium;
                     flex-direction: column;
@@ -67,17 +66,7 @@
         margin: 0 auto;
     }
 }
-.content-detail {
-    width: auto;
-    height: auto;
-    border: 1px solid #b2e4fa;
-    margin: $margin-small;
-    border-radius: $margin-small;
-    text-align: center;
-    justify-content: center;
-    margin: $margin-small auto;
-    padding: $margin-small;
-}
+
 .content-buttons-map {
     display: block;
 }
