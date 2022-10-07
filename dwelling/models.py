@@ -142,6 +142,8 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
                 date.year, date.month,
                 calendar.monthrange(month_start_datetime.year,
                                     month_start_datetime.month)[1]))
+
+        # get measurements in the month
         measurement_list = get_watermeter_measurements_from_watermeters(
             watermeter_list,
             start_datetime=month_start_datetime,
@@ -155,16 +157,22 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             previous_measurement = measurement_list[0]
             measurement_list.remove(previous_measurement)
             for measurement in measurement_list:
-
+                
                 # check same watermeter
                 if previous_measurement.water_meter == measurement.water_meter:
+
                     # days from most recent (previous) to next older (measurement)
-                    from_day = measurement.date if measurement.date > month_start_datetime else month_start_datetime
+                    from_day = measurement.date
                     elapsed_days = timedelta_in_days(previous_measurement.date - from_day)
+
                     # month consumption += average consumption of most recent (previous) * elapsed days
                     month_consumption += float(previous_measurement.average_daily_flow) * elapsed_days
 
                 previous_measurement = measurement
+
+            # last measurement (oldest of the month), month consumption += average * days from month start
+            month_consumption += float(previous_measurement.average_daily_flow) * timedelta_in_days(previous_measurement.date - month_start_datetime)
+
         return round(month_consumption)
 
     def get_max_month_consumption(self, date):
