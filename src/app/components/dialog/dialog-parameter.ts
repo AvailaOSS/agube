@@ -5,4 +5,7 @@ export interface DialogParameters {
     dialogTitle: string;
     geolocation?: Geolocation;
     configureMap: ConfigureMap;
+    // possibility load Create Form or Edit Form  to dialog
+    create: boolean;
+    edit: boolean;
 }

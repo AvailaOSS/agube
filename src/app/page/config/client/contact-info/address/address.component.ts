@@ -43,6 +43,8 @@ export class AddressComponent extends CreateAddress {
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
             configureMap: this.configureMap,
+            create: true,
+            edit: false,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {

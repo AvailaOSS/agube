@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditModule } from '../map/edit/edit.module';
 import { MatCardModule } from '@angular/material/card';
+import { CreateModule } from '../map/create/create.module';
 
 @NgModule({
     declarations: [DialogComponent],
@@ -16,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
         MatTooltipModule,
         MatIconModule,
         EditModule,
+        CreateModule,
         MatButtonModule,
         MatCardModule,
     ],

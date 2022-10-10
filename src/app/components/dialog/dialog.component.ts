@@ -15,6 +15,10 @@ export class DialogComponent extends CreateAddress implements OnInit {
     public dialogTitle: string = '';
     public geolocation: Geolocation | undefined;
 
+    public loadEditForm: boolean = false;
+
+    public loadCreateForm: boolean = false;
+
     constructor(
         public dialogRef: MatDialogRef<DialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogParameters,
@@ -27,7 +31,8 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
     ngOnInit(): void {
         this.dialogTitle = this.data.dialogTitle;
-
+        this.loadCreateForm = this.data.create;
+        this.loadEditForm = this.data.edit;
         // set selectOptionFilter
         let config = this.data.configureMap;
         config.selectOptionFilter = this.data.configureMap.selectOptionFilter;

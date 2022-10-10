@@ -128,6 +128,8 @@ export class DetailComponent implements OnInit {
                 dragging: false,
                 selectOptionFilter: true,
             },
+            create: false,
+            edit: true,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -170,6 +172,8 @@ export class DetailComponent implements OnInit {
                 dragging: false,
                 selectOptionFilter: true,
             },
+            create: false,
+            edit: true,
         };
 
         this.dialog.open(DialogOnlyMapComponent, {
