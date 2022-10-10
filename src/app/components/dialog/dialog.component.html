@@ -1,19 +1,36 @@
 <h1 mat-dialog-title>{{ dialogTitle | translate }}</h1>
-<app-map-location-edit  *ngIf="loadEditForm" (addressForm)="addressFormReceive($event)" [baseConfiguration]="configureMap"
-    [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
+<app-map-location-edit
+    *ngIf="loadEditForm"
+    (addressForm)="addressFormReceive($event)"
+    [baseConfiguration]="configureMap"
+    [addressInputForm]="addressInputForm"
+    [resetForm]="resetChildForm"
+>
 </app-map-location-edit>
-<app-map-location-create *ngIf="loadCreateForm" (addressForm)="addressFormReceive($event)" [baseConfiguration]="configureMap"
-    [addressInputForm]="addressInputForm" [resetForm]="resetChildForm">
+<app-map-location-create
+    *ngIf="loadCreateForm"
+    (addressForm)="addressFormReceive($event)"
+    [baseConfiguration]="configureMap"
+    [addressInputForm]="addressInputForm"
+    [resetForm]="resetChildForm"
+>
 </app-map-location-create>
 <mat-card-actions [align]="'end'">
-    <button mat-raised-button
+    <button
+        mat-raised-button
         matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL.TOOLTIP' | translate }}"
-        (click)="closeDialog()" cdkFocusInitial>
+        (click)="closeDialog()"
+        cdkFocusInitial
+    >
         {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL' | translate }}
     </button>
-    <button mat-raised-button color="primary"
+    <button
+        mat-raised-button
+        color="primary"
         matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE.TOOLTIP' | translate }}"
-        [disabled]="addressEmitter?.addressFormGroup?.status === 'INVALID'" (click)="saveAddress()">
+        [disabled]="addressEmitter?.addressFormGroup?.status === 'INVALID'"
+        (click)="saveAddress()"
+    >
         <mat-icon svgIcon="save"></mat-icon>
         {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.SAVE' | translate }}
     </button>

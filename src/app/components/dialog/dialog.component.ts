@@ -11,12 +11,14 @@ import { DialogParameters } from './dialog-parameter';
     styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent extends CreateAddress implements OnInit {
+    // Send information to close dialog
     @Output() submitClicked: EventEmitter<Geolocation | undefined> = new EventEmitter<Geolocation | undefined>();
+    // Variables
     public dialogTitle: string = '';
     public geolocation: Geolocation | undefined;
 
+    // Variable load form
     public loadEditForm: boolean = false;
-
     public loadCreateForm: boolean = false;
 
     constructor(
@@ -26,10 +28,12 @@ export class DialogComponent extends CreateAddress implements OnInit {
         protected svcNotification: NotificationService
     ) {
         super();
+        // load geolocation
         this.geolocation = this.data.geolocation;
     }
 
     ngOnInit(): void {
+        // Initialize all data and load forms
         this.dialogTitle = this.data.dialogTitle;
         this.loadCreateForm = this.data.create;
         this.loadEditForm = this.data.edit;
@@ -38,6 +42,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
         config.selectOptionFilter = this.data.configureMap.selectOptionFilter;
         this.configureMap = config;
 
+        // Load geolocation
         if (this.geolocation) {
             this.addressInputForm.country?.setValue(this.geolocation.address.country);
             this.addressInputForm.state?.setValue(this.geolocation.address.state);
@@ -65,6 +70,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
         this.dialogRef.close();
     }
 
+    // Save Address and close dialog
     public saveAddress() {
         let geolocation: Geolocation = this.getGeolocation();
         if (this.geolocation) {
