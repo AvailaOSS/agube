@@ -60,9 +60,8 @@ Execute tests manually
 
 ```bash
 python manage.py migrate --settings=agube.settings-local
-python manage.py test agube/tests --settings=agube.settings-local
-python manage.py test watermeter/tests --settings=agube.settings-local
-python manage.py test watermeter.tests.test_utils --settings=agube.settings-local
+python manage.py test agube.tests --settings=agube.settings-local
+python manage.py test watermeter.tests --settings=agube.settings-local
 ```
 
 Execute tests with coverage statistics
