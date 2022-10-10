@@ -1,5 +1,6 @@
 @use '../../../../assets/availa/palette/colors.scss' as color;
 @import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/resolutions.scss';
 
 .water-meter {
     display: flex;
@@ -62,7 +63,7 @@
     }
 }
 
-@media only screen and (max-width: 1450px) {
+@media only screen and (max-width: $resolution-xs-medium) {
     .water-meter {
         display: flex;
     }

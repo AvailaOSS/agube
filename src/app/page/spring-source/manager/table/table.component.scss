@@ -1,4 +1,5 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
+@import '../../../../../assets/availa/sizes/resolutions.scss';
 
 .table-card {
     max-width: 100%;
@@ -51,7 +52,7 @@
         }
     }
 
-    @media only screen and (max-width: 1240px) {
+    @media only screen and (max-width: $resolution-xl-small) {
         .priority-2 {
             display: none;
         }

@@ -1,5 +1,5 @@
 @import '../../../assets/availa/sizes/margins.scss';
-
+@import '../../../assets/availa/sizes/resolutions.scss';
 .avatar {
     text-align: center;
     img {
@@ -62,7 +62,7 @@
     margin-left: -20px;
     display: none;
 }
-@media only screen and (max-width: 1132px) {
+@media only screen and (max-width: $resolution-l-small) {
     .page-content {
         padding: $margin-x-small;
     }

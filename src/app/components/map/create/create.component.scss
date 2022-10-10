@@ -1,5 +1,6 @@
 @use '../../../../assets/availa/palette/colors.scss' as color;
 @import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/resolutions.scss';
 
 .selector-geolocation-map {
     overflow: hidden;
@@ -11,11 +12,10 @@
         margin-top: $margin-x-medium;
         display: flex;
         flex-wrap: wrap;
-        // TODO:  @media only screen and (max-width: XXXXpx) set as enum in /assets/availa/sizes/resolutions.scss
-        @media only screen and (max-width: 1240px) {
+        @media only screen and (max-width: $resolution-small) {
             justify-content: space-between;
         }
-        @media only screen and (min-width: 1240px) {
+        @media only screen and (min-width: $resolution-small) {
             justify-content: end;
             mat-form-field {
                 margin-bottom: 15px;

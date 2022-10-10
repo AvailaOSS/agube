@@ -1,5 +1,6 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/resolutions.scss';
 
 @mixin dynamic-button {
     button {
@@ -148,7 +149,7 @@
     }
 }
 
-@media only screen and (min-width: 1879px) {
+@media only screen and (min-width: $resolution-medium-x) {
     .button-comments {
         display: flex !important;
         margin: 0 auto;
@@ -169,7 +170,7 @@
     }
 }
 
-@media only screen and (min-width: 2312px) {
+@media only screen and (min-width: $resolution-x-large) {
     .button-comments {
         display: none !important;
         margin: 0 auto;

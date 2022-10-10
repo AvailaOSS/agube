@@ -1,5 +1,5 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
-
+@import '../../../../../assets/availa/sizes/resolutions.scss';
 .table-card {
     max-width: 100%;
     height: 100%;
@@ -41,7 +41,7 @@
             }
         }
     }
-    @media only screen and (max-width: 749px) {
+    @media only screen and (max-width: $resolution-m-small) {
         .priority-1 {
             display: none;
         }
@@ -59,7 +59,7 @@
             width: 60% !important;
         }
     }
-    @media only screen and (max-width: 870px) {
+    @media only screen and (max-width: $resolution-s-small) {
         .priority-1 {
             display: none;
         }
@@ -84,7 +84,7 @@
         }
     }
 
-    @media only screen and (max-width: 1240px) {
+    @media only screen and (max-width: $resolution-xl-small) {
         .priority-1 {
             display: none;
         }

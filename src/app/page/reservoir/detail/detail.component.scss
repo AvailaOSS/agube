@@ -1,5 +1,6 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/resolutions.scss';
 
 @mixin dynamic-button {
     button {
@@ -107,7 +108,7 @@
     }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: $resolution-l-small) {
     .reservoir-content-info {
         .detail-info {
             margin-left: 70px !important;
@@ -126,7 +127,7 @@
     height: fit-content;
 }
 
-@media only screen and (max-width: 735px) {
+@media only screen and (max-width: $resolution-m-small) {
     .mat-card-content {
         .content-buttons-map {
             display: block !important;
@@ -157,7 +158,7 @@
     }
 }
 
-@media only screen and (min-width: 1879px) {
+@media only screen and (min-width: $resolution-medium-x) {
     .button-comments {
         display: flex !important;
     }
@@ -173,7 +174,7 @@
     }
 }
 
-@media only screen and (min-width: 2312px) {
+@media only screen and (min-width: $resolution-x-large) {
     .button-comments {
         display: none !important;
     }
@@ -190,7 +191,7 @@
     }
 }
 
-@media only screen and (max-width: 2312px) {
+@media only screen and (max-width: $resolution-x-large) {
     .button-comments {
         display: flex !important;
     }

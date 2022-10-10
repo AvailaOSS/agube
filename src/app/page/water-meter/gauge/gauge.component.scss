@@ -1,4 +1,5 @@
 @import '../../../../assets/availa/sizes/margins.scss';
+@import '../../../../assets/availa/sizes/resolutions.scss';
 
 .chart {
     display: block;
@@ -26,7 +27,7 @@
 }
 
 
-@media only screen and (max-width: 1450px) {
+@media only screen and (max-width: $resolution-xs-medium) {
     .chart {
         justify-content: center;
         display: flex;

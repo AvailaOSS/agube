@@ -1,7 +1,9 @@
 <div class="manager-spring-source-page">
     <div>
-        <app-info></app-info>
-        <app-map *ngIf="configureMap" [baseConfiguration]="configureMap"></app-map>
+        <app-table></app-table>
+        <div>
+            <app-info></app-info>
+            <app-map class="card-map" *ngIf="configureMap" [baseConfiguration]="configureMap"></app-map>
+        </div>
     </div>
-    <app-table class="manager-spring-source-page-table"></app-table>
 </div>

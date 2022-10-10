@@ -1,6 +1,6 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 @import '../../../../assets/availa/sizes/page.scss';
-
+@import '../../../../assets/availa/sizes/resolutions.scss';
 .create-reservoir-page {
     @include my-page(1);
 }
@@ -17,10 +17,10 @@
             display: flex;
             justify-content: end;
             margin-top: $margin-x-small;
-            @media only screen and (max-width: 1240px) {
+            @media only screen and (max-width: $resolution-xl-small) {
                 justify-content: space-between;
             }
-            @media only screen and (min-width: 1240px) {
+            @media only screen and (min-width: $resolution-xl-small) {
                 justify-content: end;
                 mat-form-field {
                     margin-left: $margin-x-small;

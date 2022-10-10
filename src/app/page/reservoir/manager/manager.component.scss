@@ -1,49 +1,29 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
-
+@import '../../../../assets/availa/sizes/resolutions.scss';
 .manager-reservoir-page {
-    @media only screen and (max-width: 1240px) {
-        margin-bottom: 180px;
-
-        ::ng-deep #manager_full_reservoir_map{
-            width: 100% !important;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-    }
-    @media only screen and (min-width: 1240px) {
-        display: flex;
-        flex-direction: row-reverse;
-        margin-bottom: 70px;
-        ::ng-deep .page-info {
-            min-width: 80%;
-            margin-left: 3%;
-        }
-        ::ng-deep #manager_full_reservoir_map {
-            margin-left: 3%;
-            width: 100% !important;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-        margin-bottom: $margin-large;
+    div {
+        display: grid;
+        gap: 1rem;
+        grid-gap: $margin-x-medium;
+        grid-auto-rows: 1;
+        grid-template-columns: repeat(auto-fit, minmax(650px, 2fr));
+        width: auto;
     }
 
-    @media only screen and (min-width: 1440px) {
-        @include my-page();
-        margin-bottom: $margin-large;
-        ::ng-deep .page-info {
-            max-width: 50%;
-        }
-        ::ng-deep #manager_full_reservoir_map {
-            width: 80% !important;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            margin-left: 3%;
-        }
-    }
+    margin-bottom: 50px;
 }
 
-.manager-reservoir-page-table {
-    @include my-page-column();
-    margin-bottom: $margin-x-small;
+::ng-deep #manager_full_reservoir_map {
+    width: 100% !important;
+}
+
+@media only screen and (max-width: $resolution-l-medium) {
+    .manager-reservoir-page {
+        div {
+            grid-row: 2 / -1;
+            display: inline-grid;
+            width: 100%;
+        }
+    }
 }
