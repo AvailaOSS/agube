@@ -1,19 +1,19 @@
 <div *ngIf="reservoir; else noReservoir">
     <div class="reservoir-info">
         <div>
-            <mat-icon>opacity</mat-icon>
+            <mat-icon svgIcon="capacity_reservoir"></mat-icon>
             <h4>{{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.CAPACITY' | translate }}</h4>
             {{ reservoir.capacity | number: '2.' }} L
         </div>
         <div>
-            <mat-icon>chevron_right</mat-icon>
+            <mat-icon svgIcon="next"></mat-icon>
             <h4>
                 {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.INLET_FLOW' | translate }}
             </h4>
             {{ reservoir.inlet_flow | number: '2.' }} m<sup>3</sup>
         </div>
         <div>
-            <mat-icon>chevron_left</mat-icon>
+            <mat-icon svgIcon="prev"  ></mat-icon>
             <h4>
                 {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.OUTLET_FLOW' | translate }}
             </h4>

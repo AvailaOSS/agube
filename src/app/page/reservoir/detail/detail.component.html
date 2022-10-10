@@ -7,10 +7,10 @@
                         {{ reservoir.geolocation | geolocation }}
                         <mat-icon
                             *ngIf="canLoad"
+                            svgIcon="edit"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
                             (click)="goToEditGeolocation()"
                         >
-                            edit
                         </mat-icon>
                     </h1>
                     <div class="reservoir-content-info">
@@ -37,7 +37,7 @@
                                     (click)="seeMap()"
                                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
                                 >
-                                    <mat-icon>map</mat-icon>
+                                    <mat-icon svgIcon="map"></mat-icon>
                                     {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                                 </button>
                             </div>
@@ -49,7 +49,7 @@
                                     (click)="seeComments()"
                                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
                                 >
-                                    <mat-icon>visibility</mat-icon>
+                                    <mat-icon svgIcon="visibility"></mat-icon>
                                     {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
                                 </button>
                             </div>
@@ -75,7 +75,7 @@
                                 matTooltip="{{ 'PAGE.RESERVOIR.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
                                 matTooltipPosition="left"
                             >
-                                <mat-icon>map</mat-icon>
+                                <mat-icon svgIcon="map"></mat-icon>
                             </mat-button-toggle>
                             <mat-button-toggle
                                 *ngIf="canLoadStreetView"

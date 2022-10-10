@@ -86,6 +86,18 @@ export class AppComponent {
             name: 'phone',
             path: '/assets/icons/phone.svg',
         },
+        {
+            name: 'capacity_reservoir',
+            path: '/assets/icons/capacity_reservoir.svg',
+        },
+        {
+            name: 'prev',
+            path: '/assets/icons/prev.svg',
+        },
+        {
+            name: 'next',
+            path: '/assets/icons/next.svg',
+        },
     ];
 
     public languages: Language[] = [
