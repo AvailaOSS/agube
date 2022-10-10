@@ -1,46 +1,28 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
 
+@import '../../../../assets/availa/sizes/resolutions.scss';
 .manager-dwelling-page {
-    @media only screen and (max-width: 1240px) {
-        margin-bottom: 180px;
-        ::ng-deep #manager_full_houses_map {
-            width: 100% !important;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-    }
-    @media only screen and (min-width: 1240px) {
-        display: flex;
-        flex-direction: row-reverse;
-        ::ng-deep .page-info {
-            min-width: 80%;
-            margin-left: 3%;
-        }
-        ::ng-deep #manager_full_houses_map {
-            margin-left: 3%;
-            width: 100% !important;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-        margin-bottom: $margin-large;
-    }
-    @media only screen and (min-width: 1440px) {
-        @include my-page();
-        margin-bottom: $margin-large;
-        ::ng-deep .page-info {
-            max-width: 50%;
-        }
-        ::ng-deep #manager_full_houses_map {
-            width: 80% !important;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            margin-left: 3%;
-        }
+    div {
+        display: grid;
+        gap: 3rem;
+        grid-gap: $margin-x-medium;
+        grid-auto-rows: 1;
+        grid-template-columns: repeat(auto-fit, minmax(650px, 2fr));
+        width: auto;
     }
 }
 
-.manager-dwelling-page-table {
-    @include my-page-column();
-    margin-bottom: $margin-x-small;
+::ng-deep #manager_full_houses_map {
+    width: 100% !important;
+}
+
+@media only screen and (max-width: $resolution-l-medium) {
+    .manager-dwelling-page {
+        div {
+            grid-row: 2 / -1;
+            display: inline-grid;
+            width: 100%;
+        }
+    }
 }

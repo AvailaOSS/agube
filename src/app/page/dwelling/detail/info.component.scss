@@ -1,5 +1,7 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
+@import '../../../../assets/availa/sizes/resolutions.scss';
+
 .detail-content-all {
     display: flex;
     width: 100%;
@@ -43,7 +45,7 @@
     margin-left: $margin-x-small;
 }
 
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: $resolution-l-small) {
     .detail-content-all {
         display: flex;
         width: 100%;

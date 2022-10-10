@@ -1,16 +1,16 @@
 @import '../../../../../assets/availa/sizes/page.scss';
 @import '../../../../../assets/availa/sizes/margins.scss';
-
+@import '../../../../../assets/availa/sizes/resolutions.scss';
 .detail-page {
-    @media only screen and (max-width: 1240px) {
+    @media only screen and (max-width: $resolution-xl-small) {
         height: 90%;
         width: 100%;
     }
-    @media only screen and (min-width: 1240px) {
+    @media only screen and (min-width: $resolution-xl-small) {
         height: 90%;
         width: 100%;
     }
-    @media only screen and (min-width: 1440px) {
+    @media only screen and (min-width: $resolution-xs-medium) {
         height: 90%;
         width: 100%;
     }

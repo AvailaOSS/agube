@@ -2,42 +2,12 @@
 @import '../../../../assets/availa/sizes/page.scss';
 
 .manager-page {
-    @media only screen and (min-width: 546px) {
-        @include my-page($columns: 1);
-        margin-bottom: $margin-large;
-        display: inline-table !important;
-        height: 88% !important;
-        max-height: 88% !important;
-        min-height: 88% !important;
-        width: 100%;
-    }
-    @media only screen and (min-width: 790px) {
-        @include my-page($columns: 1);
-        margin-bottom: $margin-large;
-        display: inline-table !important;
-        height: 88% !important;
-        max-height: 88% !important;
-        min-height: 88% !important;
-        width: 100%;
-    }
-    @media only screen and (min-width: 1240px) {
-        @include my-page($columns: 1);
-        margin-bottom: $margin-large;
-        display: inline-table !important;
-        height: 88% !important;
-        max-height: 88% !important;
-        min-height: 88% !important;
-        width: 50%;
-    }
-    @media only screen and (min-width: 1440px) {
-        @include my-page();
-        margin-bottom: $margin-large;
-        display: inline-table !important;
-        height: 88% !important;
-        max-height: 88% !important;
-        min-height: 88% !important;
-        width: 50%;
-    }
+    display: inline-table;
+    min-height: 88%;
+    height: 88%;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .manager-page-column {
@@ -48,7 +18,7 @@
         }
     }
 }
-.manager-content-contact-book{
+.manager-content-contact-book {
     margin-bottom: 30px !important;
 }
 

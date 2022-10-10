@@ -1,5 +1,6 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 @import '../../../../assets/availa/sizes/page.scss';
+@import '../../../../assets/availa/sizes/resolutions.scss';
 
 .create-person-page {
     @include my-page();
@@ -10,7 +11,7 @@
     @media only screen and (min-width: 790px) {
         @include my-page($columns: 1);
     }
-    @media only screen and (min-width: 1240px) {
+    @media only screen and (min-width: $resolution-xl-small) {
       @include my-page();
     }
 }
