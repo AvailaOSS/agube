@@ -19,6 +19,7 @@ export class EditComponent extends CreateAddress {
     @Input() public userId: number | undefined;
     @Input() public geolocation: EditableGeolocation | undefined;
 
+    public showMap: boolean = true;
     @Output() public updatedEvent: EventEmitter<UserGeolocation | undefined> = new EventEmitter<
         UserGeolocation | undefined
     >();
@@ -66,11 +67,13 @@ export class EditComponent extends CreateAddress {
             return;
         }
 
+        this.showMap = false;
+
         const geolocation = this.geolocation.geolocation.geolocation;
 
         let data: DialogParameters = {
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: this.geolocation.geolocation.geolocation,
+            geolocation: geolocation,
             configureMap: {
                 id: 'edit_map',
                 center: {
@@ -84,6 +87,8 @@ export class EditComponent extends CreateAddress {
                 dragging: false,
                 selectOptionFilter: true,
             },
+            create: false,
+            edit: true,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -94,6 +99,8 @@ export class EditComponent extends CreateAddress {
         dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
             if (result) {
                 this.updateAddress(result);
+            } else {
+                this.showMap = true;
             }
         });
     }
