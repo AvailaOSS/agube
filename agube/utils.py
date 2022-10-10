@@ -1,13 +1,14 @@
 from datetime import datetime, timedelta, date, time
+import pytz
 from typing import Tuple
-from django.utils import dateparse, timezone as django_timezone
+from django.utils import dateparse, timezone
 from agube.exceptions import DateFilterNoEndDateError, DateFilterBadFormatError, DateFilterStartGtEnd
-import decimal
 
 
-def is_24h_old_than_now(date):
-    # type: (date | datetime) -> bool
-    return (django_timezone.now() - date) > timedelta(hours=24)
+def is_24h_older_than_now(datetime):
+    # type: (datetime) -> bool
+    utc_tz = pytz.timezone('UTC')
+    return (datetime.now(utc_tz) - datetime.astimezone(utc_tz)) >= timedelta(hours=24)
 
 
 def parse_query_datetime(var) -> datetime:
@@ -37,7 +38,7 @@ def parse_query_date(var) -> date:
 def __date_to_datetime(var) -> datetime:
     # type: (date) -> datetime
     return datetime.combine(var, time(),
-                            django_timezone.get_current_timezone())
+                            timezone.get_current_timezone())
 
 
 def validate_query_date_filters(
