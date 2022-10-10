@@ -10,6 +10,8 @@
         grid-template-columns: repeat(auto-fit, minmax(650px, 2fr));
         width: auto;
     }
+
+    margin-bottom: 50px;
 }
 
 ::ng-deep #manager_full_reservoir_map {
