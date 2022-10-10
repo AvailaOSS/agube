@@ -1,3 +1,4 @@
+from email.policy import default
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,6 +12,7 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
                                       primary_key=True,
                                       on_delete=models.RESTRICT)
     dwelling_limit = models.PositiveIntegerField(default=5)
+    timezone = models.TextField(max_length=32, default='Europe/Madrid')
 
     class Meta:
         db_table = 'agube_manager_manager'
