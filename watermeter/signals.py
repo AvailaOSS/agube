@@ -7,7 +7,7 @@ from watermeter.send import MeasurementEditedEmailType, send_email_measurement, 
 from watermeter.models import WaterMeterMeasurement
 from dwelling.models import DwellingWaterMeter
 from resident.models import Resident
-from agube.utils import is_24h_old_than_now
+from agube.utils import is_24h_older_than_now
 
 
 @receiver(post_save, sender=WaterMeterMeasurement)
@@ -15,7 +15,7 @@ def measure_update(sender, created, instance, **kwargs):
     watermeter_measurement: WaterMeterMeasurement = WaterMeterMeasurement.objects.get(id=instance.id)
 
     # Check if measurement is last and recent (24h)
-    if watermeter_measurement != watermeter_measurement.water_meter.get_last_measurement() or is_24h_old_than_now(watermeter_measurement.date):
+    if watermeter_measurement != watermeter_measurement.water_meter.get_last_measurement() or is_24h_older_than_now(watermeter_measurement.date):
         return
 
     # Check if watermeter is from a Dwelling

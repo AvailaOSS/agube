@@ -5,7 +5,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 
 from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
-from agube.utils import is_24h_old_than_now
+from agube.utils import is_24h_older_than_now
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
@@ -106,7 +106,7 @@ class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'),
         """Before save the Measurement, compute the difference with the previous measurement"""
         if self.id:
             last_measurement = self.water_meter.get_last_measurement()
-            if last_measurement and is_24h_old_than_now(last_measurement.date):
+            if last_measurement and is_24h_older_than_now(last_measurement.date):
                 raise WaterMeterMeasurementAlreadyExpiredToUpdateError()
             if self.date > timezone.now():
                 raise WaterMeterMeasurementInFutureError()
