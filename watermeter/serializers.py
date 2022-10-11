@@ -60,21 +60,21 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
     def get_max_daily_consumption(self, obj):
         # the serializer can return model or dict
         if type(obj) is dict:
-            current_measure = WaterMeterMeasurement.objects.get(
+            measurement = WaterMeterMeasurement.objects.get(
                 id=obj.get('id'))
         elif type(obj) is WaterMeterMeasurement:
-            current_measure = obj
+            measurement = obj
         else:
             # if the serializer does not return nothing, ignore...
             return 0.0
 
         try:
             dwelling_water_meter = DwellingWaterMeter.objects.get(
-                water_meter=current_measure.water_meter)
+                water_meter=measurement.water_meter)
         except ObjectDoesNotExist:
             return 0.0
 
-        return dwelling_water_meter.dwelling.get_max_daily_consumption()
+        return dwelling_water_meter.dwelling.get_max_daily_consumption(measurement.date)
 
 
 class WaterMeterDetailSerializer(Serializer):

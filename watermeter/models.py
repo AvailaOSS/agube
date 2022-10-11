@@ -50,19 +50,19 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
                 water_meter=self,
                 date__lte=before_date).order_by('-date')[:chunk])
 
-    def get_measurements_between_dates(self, end_date, start_date=None):
+    def get_measurements_between_dates(self, until_date, from_date=None):
         # type: (date | datetime, date | datetime) -> list[WaterMeterMeasurement]
         """get list of water meter measurements between dates"""
-        if start_date is None:
+        if from_date is None:
             return list(
             WaterMeterMeasurement.objects.filter(
                 water_meter=self,
-                date__lt=end_date).order_by('-date'))
+                date__lt=until_date).order_by('-date'))
         return list(
             WaterMeterMeasurement.objects.filter(
                 water_meter=self,
-                date__gte=start_date,
-                date__lt=end_date).order_by('-date'))
+                date__gte=from_date,
+                date__lt=until_date).order_by('-date'))
 
     def get_measurements(self):
         # type: (WaterMeter) -> list[WaterMeterMeasurement]

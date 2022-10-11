@@ -7,7 +7,7 @@ from agube.exceptions import DateFilterNoEndDateError, DateFilterBadFormatError,
 
 def is_24h_older_than_now(datetime):
     # type: (datetime) -> bool
-    utc_tz = pytz.timezone('UTC')
+    utc_tz = pytz.utc
     return (datetime.now(utc_tz) -
             datetime.astimezone(utc_tz)) >= timedelta(hours=24)
 
@@ -63,29 +63,29 @@ def validate_query_date_filters(
         raise DateFilterNoEndDateError
 
     # Parse to datetime
-    start_datetime = parse_query_datetime(query_start_date, timezone)
-    end_datetime = parse_query_datetime(query_end_date, timezone)
+    from_datetime = parse_query_datetime(query_start_date, timezone)
+    until_datetime = parse_query_datetime(query_end_date, timezone)
 
     # If after parse is None, bad format
-    if (start_datetime is None
-            and query_start_date != None) or (end_datetime is None):
+    if (from_datetime is None
+            and query_start_date != None) or (until_datetime is None):
         raise DateFilterBadFormatError
 
-    return validate_datetime_filters(start_datetime, end_datetime)
+    return validate_datetime_filters(from_datetime, until_datetime)
 
 
 def validate_datetime_filters(
-        start_datetime: datetime,
-        end_datetime: datetime) -> Tuple[datetime, datetime]:
-    if end_datetime != None:
-        if start_datetime != None:
-            if start_datetime > end_datetime:
+        from_datetime: datetime,
+        until_datetime: datetime) -> Tuple[datetime, datetime]:
+    if until_datetime != None:
+        if from_datetime != None:
+            if from_datetime > until_datetime:
                 raise DateFilterStartGtEnd
     else:
-        if start_datetime != None:
+        if from_datetime != None:
             raise DateFilterNoEndDateError
 
-    return start_datetime, end_datetime
+    return from_datetime, until_datetime
 
 
 def timedelta_in_days(timedelta: timedelta):

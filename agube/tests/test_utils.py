@@ -9,7 +9,7 @@ from agube.exceptions import DateFilterNoEndDateError, DateFilterBadFormatError,
 
 
 class UtilsTestCase(TestCase):
-    utc_tz = pytz.timezone('UTC')
+    utc_tz = pytz.utc
     madrid_tz = pytz.timezone('Europe/Madrid')
 
     def test_is_24h_old_than_now(self):
@@ -62,10 +62,10 @@ class UtilsTestCase(TestCase):
         date_from_string = '2022-02-01'
         date_to_string = '2022-02-05'
 
-        start_datetime = datetime(2022, 2, 1)
-        end_datetime = datetime(2022, 2, 5)
+        from_datetime = datetime(2022, 2, 1)
+        until_datetime = datetime(2022, 2, 5)
 
-        expected_result = start_datetime, end_datetime
+        expected_result = from_datetime, until_datetime
 
         # from before to
         self.assertEqual(

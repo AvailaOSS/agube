@@ -136,42 +136,48 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             raise DwellingWithoutWaterMeterError()
         # Get measurement list filtered between dates
         timezone = self.manager.get_timezone()
-        month_start_datetime = parse_query_datetime(
-            datetime.date(date.year, date.month, 1),timezone)
-        month_days = calendar.monthrange(month_start_datetime.year,
-                                          month_start_datetime.month)[1]
-        month_end_datetime = month_start_datetime + datetime.timedelta(
+        from_datetime = parse_query_datetime(
+            datetime.date(date.year, date.month, 1), timezone)
+        month_days = calendar.monthrange(from_datetime.year,
+                                         from_datetime.month)[1]
+        until_datetime = from_datetime + datetime.timedelta(
             days=month_days)
 
         # get measurements in the month
         measurement_list = get_watermeter_measurements_from_watermeters(
             watermeter_list,
-            start_datetime=month_start_datetime,
-            end_datetime=month_end_datetime)
+            from_datetime=from_datetime,
+            until_datetime=until_datetime)
 
         # Compute consumption
         from agube.utils import timedelta_in_days
+        import pytz
         month_consumption = 0
         if measurement_list != []:
             # measurement list in date desc order (from recent to old)
             previous_measurement = measurement_list[0]
             measurement_list.remove(previous_measurement)
             for measurement in measurement_list:
-                
+
                 # check same watermeter
                 if previous_measurement.water_meter == measurement.water_meter:
 
                     # days from most recent (previous) to next older (measurement)
                     from_day = measurement.date
-                    elapsed_days = timedelta_in_days(previous_measurement.date - from_day)
+                    elapsed_days = timedelta_in_days(
+                        previous_measurement.date - from_day)
 
                     # month consumption += average consumption of most recent (previous) * elapsed days
-                    month_consumption += float(previous_measurement.average_daily_flow) * elapsed_days
+                    month_consumption += float(
+                        previous_measurement.average_daily_flow) * elapsed_days
 
                 previous_measurement = measurement
 
             # last measurement (oldest of the month), month consumption += average * days from month start
-            month_consumption += float(previous_measurement.average_daily_flow) * timedelta_in_days(previous_measurement.date - month_start_datetime)
+            month_consumption += float(
+                previous_measurement.average_daily_flow) * timedelta_in_days(
+                    previous_measurement.date -
+                    from_datetime.astimezone(pytz.utc))
 
         return round(month_consumption)
 
@@ -181,27 +187,27 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         from agube.utils import timedelta_in_days
 
         timezone = self.manager.get_timezone()
-        month_start_datetime = parse_query_datetime(
+        from_datetime = parse_query_datetime(
             datetime.date(date.year, date.month, 1), timezone)
-        month_days = calendar.monthrange(month_start_datetime.year,
-                                          month_start_datetime.month)
-        month_end_datetime = month_start_datetime + datetime.timedelta(
+        month_days = calendar.monthrange(from_datetime.year,
+                                         from_datetime.month)[1]
+        until_datetime = from_datetime + datetime.timedelta(
             days=month_days)
 
         # configuration at start of the month
-        first_config = self.manager.get_closest_config(month_start_datetime)
+        first_config = self.manager.get_closest_config(from_datetime)
         # configurations for the month
         month_configuration_list = ManagerConfiguration.objects.filter(
             manager=self.manager,
-            release_date__gte=month_start_datetime,
-            release_date__lt=month_end_datetime).order_by('release_date')
+            release_date__gte=from_datetime,
+            release_date__lt=until_datetime).order_by('release_date')
         if len(month_configuration_list) == 0:
             max_month_consumption = first_config.max_daily_consumption * month_days
             return max_month_consumption
 
         # calculate month max posible consumption (+= each config * uptime days)
         max_month_consumption = 0
-        last_config_start_date = month_start_datetime
+        last_config_start_date = from_datetime
 
         last_iteration_config = first_config
         for manager_configuration in month_configuration_list:
@@ -217,7 +223,7 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             last_iteration_config = manager_configuration
 
         # calculate until end of month
-        datetime_diff = month_end_datetime - last_iteration_config.release_date
+        datetime_diff = until_datetime - last_iteration_config.release_date
         last_config_uptime_days = Decimal(timedelta_in_days(datetime_diff))
         # Aggregated consumption += previous_config.max_daily_consumption * previous_config.uptime_days
         max_month_consumption += last_iteration_config.max_daily_consumption * last_config_uptime_days
@@ -230,7 +236,8 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
                                           datetime.timedelta(days=now.day))
 
     def get_max_last_month_consumption(self):
-        return self.get_max_month_consumption(self.manager.get_current_datetime().date())
+        return self.get_max_month_consumption(
+            self.manager.get_current_datetime().date())
 
     def get_max_daily_consumption(self, date):
         return self.manager.get_closest_config(date).max_daily_consumption
