@@ -112,7 +112,7 @@ class DwellingListView(APIView):
                 try:
                     # Jump to next iteration if consumption is OK (< limit)
                     if dwelling.get_last_month_consumption(
-                    ) < dwelling.get_max_last_month_consumption():
+                    ) < dwelling.get_last_month_max_consumption():
                         continue
                 except DwellingWithoutWaterMeterError:
                     continue
@@ -518,7 +518,7 @@ class DwellingMonthConsumption(APIView):
         except DwellingWithoutWaterMeterError as e:
             return Response({'status': e.message}, status=HTTP_404_NOT_FOUND)
 
-        max_month_consumption = dwelling.get_max_month_consumption(
+        max_month_consumption = dwelling.get_month_max_consumption(
             request_date)
         month_consumption_percentage = round(
             month_consumption * 100 /

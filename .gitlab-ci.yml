@@ -1,5 +1,5 @@
 variables:
-  RELEASE_VERSION: 1.14.6
+  RELEASE_VERSION: 1.14.7
 
 stages:
   - test
