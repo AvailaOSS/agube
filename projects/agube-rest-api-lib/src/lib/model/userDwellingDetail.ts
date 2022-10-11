@@ -18,7 +18,8 @@ export interface UserDwellingDetail {
   readonly resident_full_name?: string;
   readonly resident_phone?: string;
   readonly water_meter_code?: string;
-  readonly watermeter_last_month_consumption?: number;
+  readonly last_month_consumption?: number;
+  readonly last_month_max_consumption?: number;
   readonly latitude?: number;
   readonly longitude?: number;
   readonly is_owner?: boolean;
