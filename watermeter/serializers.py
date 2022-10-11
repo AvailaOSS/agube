@@ -74,8 +74,7 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
         except ObjectDoesNotExist:
             return 0.0
 
-        return dwelling_water_meter.dwelling.manager.get_closest_config(
-            current_measure.date).max_daily_consumption
+        return dwelling_water_meter.dwelling.get_max_daily_consumption()
 
 
 class WaterMeterDetailSerializer(Serializer):

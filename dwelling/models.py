@@ -135,13 +135,13 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         if watermeter_list == []:
             raise DwellingWithoutWaterMeterError()
         # Get measurement list filtered between dates
+        timezone = self.manager.get_timezone()
         month_start_datetime = parse_query_datetime(
-            datetime.date(date.year, date.month, 1))
-        month_end_datetime = parse_query_datetime(
-            datetime.date(
-                date.year, date.month,
-                calendar.monthrange(month_start_datetime.year,
-                                    month_start_datetime.month)[1]))
+            datetime.date(date.year, date.month, 1),timezone)
+        month_days = calendar.monthrange(month_start_datetime.year,
+                                          month_start_datetime.month)[1]
+        month_end_datetime = month_start_datetime + datetime.timedelta(
+            days=month_days)
 
         # get measurements in the month
         measurement_list = get_watermeter_measurements_from_watermeters(
@@ -180,11 +180,11 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         """calculate maximum posible consumption for the month of the given date"""
         from agube.utils import timedelta_in_days
 
+        timezone = self.manager.get_timezone()
         month_start_datetime = parse_query_datetime(
-            datetime.date(date.year, date.month, 1))
-        month_range = calendar.monthrange(month_start_datetime.year,
+            datetime.date(date.year, date.month, 1), timezone)
+        month_days = calendar.monthrange(month_start_datetime.year,
                                           month_start_datetime.month)
-        month_days = month_range[1]
         month_end_datetime = month_start_datetime + datetime.timedelta(
             days=month_days)
 
@@ -225,12 +225,12 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
         return round(max_month_consumption)
 
     def get_last_month_consumption(self):
-        now = timezone.now()
+        now = self.manager.get_current_datetime()
         return self.get_month_consumption(now -
                                           datetime.timedelta(days=now.day))
 
     def get_max_last_month_consumption(self):
-        return self.get_max_month_consumption(timezone.now().date())
+        return self.get_max_month_consumption(self.manager.get_current_datetime().date())
 
     def get_max_daily_consumption(self, date):
         return self.manager.get_closest_config(date).max_daily_consumption

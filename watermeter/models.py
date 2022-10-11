@@ -53,8 +53,6 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
     def get_measurements_between_dates(self, end_date, start_date=None):
         # type: (date | datetime, date | datetime) -> list[WaterMeterMeasurement]
         """get list of water meter measurements between dates"""
-        # end date as end of the day (lt)
-        end_date += timedelta(days=1)
         if start_date is None:
             return list(
             WaterMeterMeasurement.objects.filter(

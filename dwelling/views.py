@@ -429,21 +429,22 @@ class DwellingWaterMeterMeasurementsView(generics.GenericAPIView):
         """
         Return a pagination of dwelling water meter measurements between dates.
         """
-        # Validate date filters
-        try:
-            datetime_filters = validate_query_date_filters(
-                request.query_params.get('start_date'),
-                request.query_params.get('end_date'))
-        except (DateFilterBadFormatError, DateFilterNoEndDateError,
-                DateFilterStartGtEnd) as e:
-            return Response({'status': e.message}, status=HTTP_400_BAD_REQUEST)
-
         # Get Dwelling
         try:
             dwelling: Dwelling = Dwelling.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response({'status': 'cannot find dwelling'},
                             status=HTTP_404_NOT_FOUND)
+
+        # Validate date filters
+        try:
+            timezone = dwelling.manager.get_timezone()
+            datetime_filters = validate_query_date_filters(
+                request.query_params.get('start_date'),
+                request.query_params.get('end_date'), timezone)
+        except (DateFilterBadFormatError, DateFilterNoEndDateError,
+                DateFilterStartGtEnd) as e:
+            return Response({'status': e.message}, status=HTTP_400_BAD_REQUEST)
 
         # Get dwelling water meter historical
         watermeter_list = dwelling.get_historical_water_meter()
@@ -504,7 +505,7 @@ class DwellingMonthConsumption(APIView):
         request_query_date = request.query_params.get('date')
         request_date: datetime.date
         if request_query_date is None:
-            request_date = timezone.now().date()
+            request_date = dwelling.manager.get_current_datetime().date()
         else:
             request_date = parse_query_date(request_query_date)
             if request_date is None:

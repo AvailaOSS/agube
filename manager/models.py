@@ -93,6 +93,13 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         # type: (Manager) -> ManagerMessage
         return ManagerMessage.objects.filter(manager=self)
 
+    def get_timezone(self):
+        import pytz
+        return pytz.timezone(self.timezone)
+
+    def get_current_datetime(self):
+        return timezone.now().astimezone(self.get_timezone())
+
 
 class ManagerConfiguration(ExportModelOperationsMixin('ManagerConfiguration'),
                            models.Model):
