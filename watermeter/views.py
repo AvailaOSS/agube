@@ -69,9 +69,9 @@ class WaterMeterMeasurementView(GenericAPIView):
             measurement_list = watermeter.get_measurements()
         else:
             # Get measurements filtered between dates
-            start_datetime, end_datetime = datetime_filters
+            from_datetime, until_datetime = datetime_filters
             measurement_list = watermeter.get_measurements_between_dates(
-                start_date=start_datetime, end_date=end_datetime)
+                from_date=from_datetime, until_date=until_datetime)
 
         # Create result pagination
         queryset = measurement_list

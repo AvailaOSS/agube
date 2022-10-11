@@ -6,17 +6,17 @@ from watermeter.models import WaterMeter, WaterMeterMeasurement
 
 
 def get_watermeter_measurements_from_watermeters(watermeter_list,
-                                                 start_datetime=None,
-                                                 end_datetime=None):
+                                                 from_datetime=None,
+                                                 until_datetime=None):
     # type: (list[WaterMeter], datetime, datetime) -> list[WaterMeterMeasurement]
     measurement_list = []
 
     # Validate datetime filters
-    start_datetime, end_datetime = validate_datetime_filters(
-        start_datetime, end_datetime)
+    from_datetime, until_datetime = validate_datetime_filters(
+        from_datetime, until_datetime)
 
     do_filter = False
-    if end_datetime != None:
+    if until_datetime != None:
         do_filter = True
     # Note: Commented filter optimization
     # Cannot assure measurements registered while watermeter was operational (release - discharge)
@@ -26,10 +26,10 @@ def get_watermeter_measurements_from_watermeters(watermeter_list,
             # if watermeter.release_date > end_datetime:
             #     continue
             # if watermeter.discharge_date != None:
-            #     if watermeter.discharge_date < start_datetime:
+            #     if watermeter.discharge_date < from_datetime:
             #         continue
             measurement_list += watermeter.get_measurements_between_dates(
-                start_date=start_datetime, end_date=end_datetime)
+                from_date=from_datetime, until_date=until_datetime)
         else:
             measurement_list += watermeter.get_measurements()
 
