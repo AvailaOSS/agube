@@ -4,8 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DwellingDetail, DwellingService, ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
-import { differenceInDays } from 'date-fns';
+import { DwellingDetail, DwellingService, ManagerService } from '@availa/agube-rest-api';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { goToDwelling } from 'src/app/utils/redirections/redirector';
 import { Detail } from '../../detail/detail';
@@ -43,18 +42,8 @@ export class TableComponent implements OnInit, AfterViewInit {
         private router: Router,
         private svcDwelling: DwellingCacheService,
         private svcTableReload: TableReloadService,
-        private svcManager: ManagerService,
         private svcDwellingService: DwellingService
-    ) {
-        this.svcManager.getManagerConfiguration().subscribe((res) => {
-            let managerConfiguration: ManagerConfiguration = res;
-            let date = new Date();
-            let datePastMonth = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate());
-
-            let dateAccumulate = differenceInDays(date, datePastMonth);
-            this.managerConfigurationNumber = +managerConfiguration!.max_daily_consumption! * dateAccumulate;
-        });
-    }
+    ) {}
 
     public ngOnInit(): void {
         //reload dwellings
