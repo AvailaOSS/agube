@@ -100,14 +100,14 @@ class DwellingDetailSerializer(ModelSerializer):
     """
     Dwelling Detail ModelSerializer
     """
-    id = ReadOnlyField()
     city = SerializerMethodField()
     road = SerializerMethodField()
     number = SerializerMethodField()
     resident_full_name = SerializerMethodField()
     resident_phone = SerializerMethodField()
     water_meter_code = SerializerMethodField()
-    watermeter_last_month_consumption = SerializerMethodField()
+    last_month_consumption = SerializerMethodField()
+    last_month_max_consumption = SerializerMethodField()
     latitude = SerializerMethodField()
     longitude = SerializerMethodField()
 
@@ -116,7 +116,8 @@ class DwellingDetailSerializer(ModelSerializer):
         model = Dwelling
         fields = ('id', 'city', 'road', 'number', 'resident_full_name',
                   'resident_phone', 'water_meter_code',
-                  'watermeter_last_month_consumption', 'latitude', 'longitude')
+                  'last_month_consumption', 'last_month_max_consumption',
+                  'latitude', 'longitude')
 
     @staticmethod
     def __get_dwelling_obj(obj) -> Dwelling:
@@ -127,26 +128,21 @@ class DwellingDetailSerializer(ModelSerializer):
             return obj
 
     def get_city(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.geolocation.address.city
+        return self.__get_dwelling_obj(obj).geolocation.address.city
 
     def get_road(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.geolocation.address.road
+        return self.__get_dwelling_obj(obj).geolocation.address.road
 
     def get_number(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.geolocation.number
+        return self.__get_dwelling_obj(obj).geolocation.number
 
     def get_resident_full_name(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        resident = dwelling.get_current_resident()
+        resident = self.__get_dwelling_obj(obj).get_current_resident()
         return resident.user.get_full_name() if resident else ''
 
     def get_resident_phone(self, obj):
         from user.models import UserPhone
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        resident = dwelling.get_current_resident()
+        resident = self.__get_dwelling_obj(obj).get_current_resident()
         user_phone_number = ''
         if resident:
             try:
@@ -159,26 +155,25 @@ class DwellingDetailSerializer(ModelSerializer):
         return user_phone_number
 
     def get_water_meter_code(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        water_meter = dwelling.get_current_water_meter()
+        water_meter = self.__get_dwelling_obj(obj).get_current_water_meter()
         if not water_meter:
             return ''
         return water_meter.code
 
-    def get_watermeter_last_month_consumption(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
+    def get_last_month_consumption(self, obj):
         try:
-            return dwelling.get_last_month_consumption()
+            return self.__get_dwelling_obj(obj).get_last_month_consumption()
         except DwellingWithoutWaterMeterError:
             return ''
 
+    def get_last_month_max_consumption(self, obj):
+        return self.__get_dwelling_obj(obj).get_last_month_max_consumption()
+
     def get_latitude(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.geolocation.latitude
+        return self.__get_dwelling_obj(obj).geolocation.latitude
 
     def get_longitude(self, obj):
-        dwelling: Dwelling = self.__get_dwelling_obj(obj)
-        return dwelling.geolocation.longitude
+        return self.__get_dwelling_obj(obj).geolocation.longitude
 
 
 class DwellingMonthConsumptionSerializer(Serializer):
@@ -189,8 +184,7 @@ class DwellingMonthConsumptionSerializer(Serializer):
     date = DateField()
     month_consumption = IntegerField()
     max_month_consumption = IntegerField()
-    month_consumption_percentage = DecimalField(max_digits=5,
-                                                decimal_places=2)
+    month_consumption_percentage = DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         ref_name = 'DwellingMonthConsumption'
