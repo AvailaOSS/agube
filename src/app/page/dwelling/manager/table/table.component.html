@@ -104,25 +104,25 @@
                     <div class="container-consumption-data">
                         <mat-icon
                             *ngIf="
-                                element.watermeter_last_month_consumption > 0 &&
-                                +element.watermeter_last_month_consumption > +this.managerConfigurationNumber!
+                                element.last_month_consumption > 0 &&
+                                +element.last_month_consumption > element.last_month_max_consumption
                             "
                             class="overflow"
                             >trending_up</mat-icon
                         >
                         <mat-icon
                             *ngIf="
-                                element.watermeter_last_month_consumption > 0 &&
-                                +element.watermeter_last_month_consumption <= +this.managerConfigurationNumber!
+                                element.last_month_consumption > 0 &&
+                                +element.last_month_consumption <= element.last_month_max_consumption
                             "
                             class="no-overflow"
                             >trending_down</mat-icon
                         >
                         <span
                             class="container-consumption"
-                            *ngIf="element.watermeter_last_month_consumption > 0; else emptyDataSource"
+                            *ngIf="element.last_month_consumption > 0; else emptyDataSource"
                         >
-                            {{ element.watermeter_last_month_consumption }} L
+                            {{ element.last_month_consumption }} L
                         </span>
                         <ng-template #emptyDataSource>
                             <span class="color-data-empty">{{
