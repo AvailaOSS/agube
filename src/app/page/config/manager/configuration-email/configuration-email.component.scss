@@ -1,15 +1,24 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
+
 .form-content {
     width: 100%;
 }
 .container-form-configuration {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     margin-top: 30px;
 }
 .container-form-toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: end;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: end;
     margin-top: 4px;
     p {
         margin-right: 5px;
@@ -19,7 +28,11 @@
     }
 }
 .subtitle {
-    justify-content: end;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: end;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 .button-save-info {

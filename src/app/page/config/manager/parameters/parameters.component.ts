@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
 import { TranslateService } from '@ngx-translate/core';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { JoyrideService } from 'ngx-joyride';
-import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
+
 
 @Component({
     selector: 'app-parameters',
@@ -27,9 +26,7 @@ export class ParametersComponent implements OnInit {
         private readonly svcManager: ManagerService,
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
-        private googleAnalyticsService: GoogleAnalyticsService,
-        private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private googleAnalyticsService: GoogleAnalyticsService
     ) {
         this.parametersForm = this.formBuilder.group({
             hook_price: this.hook_price,
@@ -90,11 +87,7 @@ export class ParametersComponent implements OnInit {
         }
     }
 
-    // call function to joyride
-    public tour() {
-        let steps: string[] = ['ParamsConfigStep', 'EmailConfigStep','ContactConfigStep'];
-        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
-    }
+
 
     private responseManager(responseManger: ManagerConfiguration) {
         this.releaseDate =

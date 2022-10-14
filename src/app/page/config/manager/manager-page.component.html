@@ -1,5 +1,13 @@
 <div class="manager-page">
     <mat-card class="manager-page-column">
+        <sup>
+            <mat-icon
+                class="icon-tour"
+                (click)="tour()"
+                svgIcon="tour"
+                matTooltip="{{ 'PAGE.TOUR.ICON' | translate }}"
+            ></mat-icon>
+        </sup>
         <mat-card-content>
             <div>
                 <app-parameters
@@ -17,20 +25,20 @@
 
             <div class="manager-content-contact-book">
                 <lib-tag
-                [joyrideStep]="'ContactConfigStep'"
-                title="{{ 'PAGE.CONFIG.MANAGER.DEMO-TOUR.TITLE' | translate }}"
-                [stepContent]="ContactConfig"
+                    [joyrideStep]="'ContactConfigStep'"
+                    title="{{ 'PAGE.CONFIG.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                    [stepContent]="ContactConfig"
                 ></lib-tag>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
 <ng-template #ParamsConfig>
-    {{'PAGE.TOUR.PARAMS-CONFIG'|translate}}
+    {{ 'PAGE.TOUR.PARAMS-CONFIG' | translate }}
 </ng-template>
 <ng-template #EmailConfig>
-    {{'PAGE.TOUR.EMAIL-CONFIG'|translate}}
+    {{ 'PAGE.TOUR.EMAIL-CONFIG' | translate }}
 </ng-template>
 <ng-template #ContactConfig>
-    {{'PAGE.TOUR.CONTACT-CONFIG'|translate}}
- </ng-template>
+    {{ 'PAGE.TOUR.CONTACT-CONFIG' | translate }}
+</ng-template>
