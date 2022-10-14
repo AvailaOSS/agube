@@ -9,4 +9,5 @@ export class ManagerPageComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
+
 }

@@ -1,9 +1,19 @@
 <div class="manager-reservoir-page">
-    <div >
-        <app-table ></app-table>
-        <div >
+    <div>
+        <app-table></app-table>
+        <div>
             <app-info></app-info>
-            <app-map class="card-map" *ngIf="configureMap" [baseConfiguration]="configureMap"></app-map>
+            <app-map
+                title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
+                [stepContent]="ReservoirMap"
+                [joyrideStep]="'ReservoirMapStep'"
+                class="card-map"
+                *ngIf="configureMap"
+                [baseConfiguration]="configureMap"
+            ></app-map>
         </div>
     </div>
 </div>
+<ng-template #ReservoirMap>
+    {{ 'PAGE.TOUR.RESERVOIR-MAP' | translate }}
+</ng-template>

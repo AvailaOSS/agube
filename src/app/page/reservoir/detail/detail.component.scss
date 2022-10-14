@@ -65,9 +65,11 @@
         margin: 0 auto;
     }
 }
+
 .content-buttons-map {
     display: flex;
 }
+
 .buttons-map {
     display: none;
     button {
@@ -106,6 +108,11 @@
             }
         }
     }
+}
+
+.icon-tour {
+    cursor: pointer;
+    width: 20px;
 }
 
 @media only screen and (max-width: $resolution-l-small) {

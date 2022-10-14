@@ -111,6 +111,11 @@
     height: fit-content;
 }
 
+.icon-tour {
+    cursor: pointer;
+    width: 20px;
+  }
+
 @media only screen and (max-width: $resolution-x-small) {
     .mat-card-content {
         .content-buttons-map {

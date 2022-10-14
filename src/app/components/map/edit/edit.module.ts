@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MapModule } from '../map/map.module';
+import { JoyrideModule } from 'ngx-joyride';
 
 @NgModule({
     declarations: [EditComponent],
@@ -33,6 +34,7 @@ import { MapModule } from '../map/map.module';
         MapModule,
         MatAutocompleteModule,
         MatProgressSpinnerModule,
+        JoyrideModule
     ],
     exports: [EditComponent],
 })

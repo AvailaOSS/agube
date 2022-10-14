@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -65,6 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
+        JoyrideModule.forRoot()
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

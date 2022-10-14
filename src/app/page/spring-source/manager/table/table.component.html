@@ -1,7 +1,12 @@
 <mat-card class="table-card">
     <mat-card-header>
         <mat-card-title>
-            <h2>{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.TITLE' | translate }}</h2>
+            <h2>
+                {{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.TITLE' | translate }}
+                <sup>
+                    <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+                </sup>
+            </h2>
         </mat-card-title>
         <div class="filter">
             <div>
@@ -31,6 +36,9 @@
                     color="primary"
                     matTooltip="{{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.BUTTON.TOOLTIP' | translate }}"
                     (click)="goToNewSpringSource()"
+                    [joyrideStep]="'SpringSourceCreateStep'"
+                    [stepContent]="SpringSourceCreate"
+                    title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
                 >
                     <mat-icon svgIcon="spring_source"></mat-icon>
                     {{ 'PAGE.SPRINGSOURCE.MANAGER.TABLE.BUTTON' | translate }}
@@ -38,7 +46,11 @@
             </div>
         </div>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content
+        [joyrideStep]="'SpringSourceFilterStep'"
+        [stepContent]="SpringSourceTable"
+        title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+    >
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="full_address">
                 <th mat-header-cell *matHeaderCellDef>full_address</th>
@@ -66,3 +78,9 @@
         <mat-paginator [pageSize]="pageSide" showFirstLastButtons> </mat-paginator>
     </mat-card-actions>
 </mat-card>
+<ng-template #SpringSourceCreate>
+    {{ 'PAGE.TOUR.SPRINGSOURCE-CREATE' | translate }}
+</ng-template>
+<ng-template #SpringSourceTable>
+    {{ 'PAGE.TOUR.SPRINGSOURCE-TABLE' | translate }}
+</ng-template>

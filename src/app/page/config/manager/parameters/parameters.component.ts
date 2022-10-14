@@ -3,7 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
 import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
+import { TranslateService } from '@ngx-translate/core';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { JoyrideService } from 'ngx-joyride';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 
 @Component({
     selector: 'app-parameters',
@@ -25,6 +28,8 @@ export class ParametersComponent implements OnInit {
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
         private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         this.parametersForm = this.formBuilder.group({
             hook_price: this.hook_price,
@@ -32,18 +37,17 @@ export class ParametersComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-
+    public ngOnInit(): void {
         this.svcManager.getManagerConfiguration().subscribe({
             next: (response) => {
                 this.hook_price.setValue(response.hook_price);
                 this.max_daily_consumption.setValue(response.max_daily_consumption);
                 this.releaseDate = response.release_date === undefined ? undefined : new Date(response.release_date);
-            }
+            },
         });
     }
 
-    saveParameters() {
+    public saveParameters() {
         this.loadSave = true;
         let config: ManagerConfiguration = {
             hook_price: this.hook_price.value,
@@ -85,6 +89,13 @@ export class ParametersComponent implements OnInit {
                 return '';
         }
     }
+
+    // call function to joyride
+    public tour() {
+        let steps: string[] = ['ParamsConfigStep', 'EmailConfigStep','ContactConfigStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
     private responseManager(responseManger: ManagerConfiguration) {
         this.releaseDate =
             responseManger.release_date === undefined ? undefined : new Date(responseManger.release_date);

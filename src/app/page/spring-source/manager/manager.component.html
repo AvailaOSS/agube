@@ -3,7 +3,17 @@
         <app-table></app-table>
         <div>
             <app-info></app-info>
-            <app-map class="card-map" *ngIf="configureMap" [baseConfiguration]="configureMap"></app-map>
+            <app-map
+                title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="SpringSourceMap"
+                [joyrideStep]="'SpringSourceMapStep'"
+                class="card-map"
+                *ngIf="configureMap"
+                [baseConfiguration]="configureMap"
+            ></app-map>
         </div>
     </div>
 </div>
+<ng-template #SpringSourceMap>
+    {{ 'PAGE.TOUR.SPRINGSOURCE-MAP' | translate }}
+</ng-template>

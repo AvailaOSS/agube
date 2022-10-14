@@ -1,7 +1,7 @@
 @import '../../../../assets/availa/sizes/page.scss';
 @import '../../../../assets/availa/sizes/margins.scss';
-
 @import '../../../../assets/availa/sizes/resolutions.scss';
+
 .manager-dwelling-page {
     div {
         display: grid;
@@ -16,6 +16,11 @@
 
 ::ng-deep #manager_full_houses_map {
     width: 100% !important;
+}
+
+.container-frame-tour {
+    width: 270px;
+    height: 160px;
 }
 
 @media only screen and (max-width: $resolution-l-medium) {

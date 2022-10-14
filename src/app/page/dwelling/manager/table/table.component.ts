@@ -4,8 +4,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DwellingDetail, DwellingService, ManagerService } from '@availa/agube-rest-api';
+import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyrideService } from 'ngx-joyride';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { goToDwelling } from 'src/app/utils/redirections/redirector';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
@@ -42,7 +45,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         private router: Router,
         private svcDwelling: DwellingCacheService,
         private svcTableReload: TableReloadService,
-        private svcDwellingService: DwellingService
+        private svcDwellingService: DwellingService,
+        private readonly joyrideService: JoyrideService,
+        private readonly svcTranslate: TranslateService
     ) {}
 
     public ngOnInit(): void {
@@ -82,6 +87,26 @@ export class TableComponent implements OnInit, AfterViewInit {
         goToDwelling(this.router, queryParams);
     }
 
+    //filter option data table to exceeded measurement dwelling
+    public filterOptions(evt: MatSlideToggleChange) {
+        if (evt.checked) {
+            this.svcDwellingService.getDwellings(evt.checked).subscribe({
+                next: (response) => {
+                    this.dataSource = new MatTableDataSource(response);
+                    this.dataSource.paginator = this.paginator!;
+                },
+            });
+        } else {
+            this.loadDwellings();
+        }
+    }
+
+    // Function to launch joyride to start tour in Dwellings
+    public tour() {
+        // Send step to joyride
+        let steps: string[] = ['DwellingCreateStep', 'DwellingFilterStep', 'DwellingMapStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
     //private method , load dwelling
     private loadDwellings() {
         this.svcDwelling.clean();
@@ -106,19 +131,5 @@ export class TableComponent implements OnInit, AfterViewInit {
                 return dataStr.indexOf(transformedFilter) != -1;
             };
         });
-    }
-
-    //filter option data table to exceeded measurement dwelling
-    public filterOptions(evt: MatSlideToggleChange) {
-        if (evt.checked) {
-            this.svcDwellingService.getDwellings(evt.checked).subscribe({
-                next: (response) => {
-                    this.dataSource = new MatTableDataSource(response);
-                    this.dataSource.paginator = this.paginator!;
-                },
-            });
-        } else {
-            this.loadDwellings();
-        }
     }
 }

@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DwellingDetail } from '@availa/agube-rest-api/public-api';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
@@ -18,7 +18,12 @@ export class ManagerComponent implements OnInit {
     private readonly mapHeight: string = '450px';
     private readonly mapWidth: string = '850px';
 
-    constructor(private svcTableReload: TableReloadService, private svcDwellingCache: DwellingCacheService) {}
+    constructor(
+        private svcTableReload: TableReloadService,
+        private svcDwellingCache: DwellingCacheService,
+
+    ) {}
+
 
     public ngOnInit(): void {
         this.loadMap();
@@ -27,6 +32,7 @@ export class ManagerComponent implements OnInit {
     public waterMeterChanged(change: boolean) {
         this.svcTableReload.emitReload(change);
     }
+
 
     private loadMap() {
         // get location from dwellings

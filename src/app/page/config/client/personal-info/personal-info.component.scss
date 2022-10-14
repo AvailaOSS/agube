@@ -14,5 +14,9 @@ input[type='file']::-webkit-file-upload-button {
     cursor: pointer;
     margin-top: 1rem;
     margin-left: $margin-x-small;
+}
 
-  }
+.icon-tour {
+    cursor: pointer;
+    width: 20px;
+}

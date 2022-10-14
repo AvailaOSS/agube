@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { UploadImagesModule } from 'src/app/components/upload-images/upload-images.module';
 import { AddressModule } from './contact-info/address/address.module';
 import { PhonesModule } from './contact-info/phones/phones.module';
@@ -54,6 +55,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatSlideToggleModule,
         TranslateModule,
         UploadImagesModule,
+        JoyrideModule
     ],
     providers: [],
 })

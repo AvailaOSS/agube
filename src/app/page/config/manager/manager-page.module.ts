@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +40,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         ContactBookModule.forRoot({
             contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
         }),
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        JoyrideModule
     ]
 })
 export class ManagerPageModule {}

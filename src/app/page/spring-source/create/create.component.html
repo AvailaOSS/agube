@@ -2,7 +2,17 @@
     <mat-card class="create-spring-source-page-card">
         <mat-card-content>
             <div class="form">
-                <h1>{{ 'PAGE.SPRINGSOURCE.CREATE.TITLE' | translate }}</h1>
+                <h1>
+                    {{ 'PAGE.SPRINGSOURCE.CREATE.TITLE' | translate }}
+                    <sup>
+                        <mat-icon
+                            style="cursor: pointer; width: 20px"
+                            (click)="tour()"
+                            svgIcon="tour"
+                        >
+                        </mat-icon>
+                    </sup>
+                </h1>
                 <div class="form-content">
                     <app-map-location-create
                         (addressForm)="addressFormReceive($event)"

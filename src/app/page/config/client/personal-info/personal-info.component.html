@@ -1,5 +1,10 @@
+<sup class="email-info">
+    <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+</sup>
 <div class="form">
-    <h1>{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE' | translate }}</h1>
+    <h1>
+        {{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.TITLE' | translate }}
+    </h1>
     <div class="form-content">
         <mat-form-field appearance="fill">
             <mat-label>{{ 'GENERAL.TEXT.FIRST_NAME' | translate }} </mat-label>
@@ -20,9 +25,13 @@
     </div>
     <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
     <mat-card-actions [align]="'end'">
-        <button mat-raised-button color="primary"
-            matTooltip="{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP' | translate }}" (click)="updateUser()"
-            [disabled]="personalForm.invalid">
+        <button
+            mat-raised-button
+            color="primary"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.PERSONAL-INFO.BUTTON.TOOLTIP' | translate }}"
+            (click)="updateUser()"
+            [disabled]="personalForm.invalid"
+        >
             <div>
                 <mat-icon svgIcon="save"></mat-icon>
                 {{ 'GENERAL.BUTTON.SAVE' | translate }}

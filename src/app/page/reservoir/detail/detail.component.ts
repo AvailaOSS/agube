@@ -10,7 +10,9 @@ import {
     WaterMeter,
 } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
+import { TranslateService } from '@ngx-translate/core';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { JoyrideService } from 'ngx-joyride';
 import { ListComponent } from 'src/app/components/comment/list/list.component';
 import { CommentConfig, CommentType } from 'src/app/components/comment/type';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
@@ -20,6 +22,7 @@ import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-
 import { ConfigureView } from 'src/app/components/map/view/map-location';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { isStreetViewAvailable } from 'src/app/utils/cache/streetview-status';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { Type } from '../../water-meter/detail/type';
 import { WaterMeterPersistantService } from '../../water-meter/water-meter-persistant.service';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
@@ -68,7 +71,9 @@ export class DetailComponent implements OnInit {
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
@@ -209,6 +214,17 @@ export class DetailComponent implements OnInit {
         });
     }
 
+    // call function to joyride
+    public tour() {
+        let steps: string[] = [
+            'ReservoirInfoStep',
+            'ReservoirWaterMaterStep',
+            'ReservoirWaterMaterMeasurementStep',
+            'ReservoirMapDetailStep',
+        ];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
     // Clean and refresh water Meter
     private cleanRefreshWaterMeter() {
         this.svcPersistant.clear();
@@ -218,6 +234,7 @@ export class DetailComponent implements OnInit {
             this.waterMeterId = res?.id!;
         });
     }
+
     // Load reservoir in own method
     private loadReservoir(reservoirId: number) {
         this.svcReservoir.getReservoir(reservoirId).subscribe({

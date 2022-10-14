@@ -2,12 +2,10 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 
 .manager-residents-page {
-  display: grid;
+    display: grid;
     min-height: 88%;
-    height: 88%;
+    height: 58%;
     max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .manager-residents-page-table {

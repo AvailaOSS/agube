@@ -23,6 +23,7 @@ import { TableComponent } from './table/table.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MapModule } from 'src/app/components/map/map/map.module';
+import { JoyrideModule, JoyrideService } from 'ngx-joyride';
 
 @NgModule({
     declarations: [ManagerComponent, TableComponent, InfoComponent],
@@ -45,6 +46,7 @@ import { MapModule } from 'src/app/components/map/map/map.module';
         MatButtonToggleModule,
         MatSlideToggleModule,
         MapModule,
+        JoyrideModule,
     ],
     providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })

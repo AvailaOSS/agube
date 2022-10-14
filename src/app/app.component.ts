@@ -98,6 +98,10 @@ export class AppComponent {
             name: 'next',
             path: '/assets/icons/next.svg',
         },
+        {
+            name: 'tour',
+            path: '/assets/icons/tour.svg',
+        },
     ];
 
     public languages: Language[] = [

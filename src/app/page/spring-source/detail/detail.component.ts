@@ -23,6 +23,9 @@ import { Type } from '../../water-meter/detail/type';
 import { WaterMeterType } from '../../water-meter/water-meter-type.enum';
 import { Detail } from './detail';
 import { SpringSourceCacheService } from 'src/app/utils/cache/spring-source-cache.service';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyrideService } from 'ngx-joyride';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 
 @Component({
     selector: 'app-spring-source',
@@ -64,7 +67,9 @@ export class DetailComponent implements OnInit {
         public dialog: MatDialog,
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_water_source', '/detail_water_source');
@@ -197,6 +202,16 @@ export class DetailComponent implements OnInit {
             },
             error: (error) => this.svcNotification.warning({ message: error.error }),
         });
+    }
+    // call function to joyride
+    public tour() {
+        let steps: string[] = [
+            'SpringSourceInfoStep',
+            'SpringSourceWaterMaterStep',
+            'SpringSourceWaterMaterMeasurementStep',
+            'SpringSourceMapDetailStep',
+        ];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 
     // Load spring-source in own method

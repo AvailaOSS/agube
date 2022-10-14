@@ -5,10 +5,12 @@ import { DwellingCreate, DwellingService } from '@availa/agube-rest-api';
 import { NotificationService } from '@availa/notification';
 import { TranslateService } from '@ngx-translate/core';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { JoyrideService } from 'ngx-joyride';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 
 @Component({
     selector: 'app-page-dwelling-create',
@@ -28,7 +30,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcDwellingCache: DwellingCacheService,
         private formBuilder: FormBuilder,
         private googleAnalyticsService: GoogleAnalyticsService,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         super();
 
@@ -133,6 +136,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
             default:
                 return '';
         }
+    }
+
+    public tour() {
+        let steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
+
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 
     private resetForm() {

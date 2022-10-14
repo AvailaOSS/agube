@@ -4,7 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SpringSource, SpringSourceDetail } from '@availa/agube-rest-api';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyrideService } from 'ngx-joyride';
 import { SpringSourceCacheService } from 'src/app/utils/cache/spring-source-cache.service';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { goToSpringSource } from 'src/app/utils/redirections/redirector';
 import { Detail } from '../../detail/detail';
 import { TableReloadService } from './table-reload.service';
@@ -32,7 +35,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private svcTableReload: TableReloadService,
-        private svcSpringSourceCache: SpringSourceCacheService
+        private svcSpringSourceCache: SpringSourceCacheService,
+        private readonly joyrideService: JoyrideService,
+        private readonly svcTranslate: TranslateService
     ) {}
 
     public ngOnInit(): void {
@@ -70,6 +75,13 @@ export class TableComponent implements OnInit, AfterViewInit {
             springSourceId: springSource.id!,
         };
         goToSpringSource(this.router, queryParams);
+    }
+
+    // Function to launch joyride to start tour in SpringSources
+    public tour() {
+        // Send step to joyride
+        let steps: string[] = ['SpringSourceCreateStep', 'SpringSourceFilterStep', 'SpringSourceMapStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 
     // Load spring source

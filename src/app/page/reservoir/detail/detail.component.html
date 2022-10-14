@@ -12,8 +12,16 @@
                             (click)="goToEditGeolocation()"
                         >
                         </mat-icon>
+                        <sup>
+                            <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+                        </sup>
                     </h1>
-                    <div class="reservoir-content-info">
+                    <div
+                        class="reservoir-content-info"
+                        [joyrideStep]="'ReservoirInfoStep'"
+                        [stepContent]="ReservoirInfo"
+                        title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
+                    >
                         <app-address [geolocation]="reservoir.geolocation"></app-address>
                         <app-reservoir-resume [reservoirId]="reservoir.id"></app-reservoir-resume>
                         <!-- <div class="reservoir-resident">
@@ -27,6 +35,9 @@
                                 [waterMeterId]="waterMeterId"
                                 [type]="type"
                                 [load]="canLoad"
+                                [joyrideStep]="'ReservoirWaterMaterStep'"
+                                [stepContent]="ReservoirWaterMater"
+                                title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
                             >
                             </app-management>
                             <div *ngIf="canLoad" class="buttons-map">
@@ -63,6 +74,9 @@
                             [waterMeterId]="waterMeterId"
                             [type]="type"
                             [canAddReading]="true"
+                            [joyrideStep]="'ReservoirWaterMaterMeasurementStep'"
+                            [stepContent]="ReservoirWaterMaterMeasurement"
+                            title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
                         >
                         </app-water-meter-detail>
                     </span>
@@ -86,7 +100,12 @@
                                 <mat-icon>360</mat-icon>
                             </mat-button-toggle>
                         </mat-button-toggle-group>
-                        <div *ngIf="showMap && configureMap">
+                        <div
+                            *ngIf="showMap && configureMap"
+                            [joyrideStep]="'ReservoirMapDetailStep'"
+                            [stepContent]="ReservoirMapDetail"
+                            title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
+                        >
                             <div *ngIf="mode == 'map'; else showStreetView">
                                 <app-map [baseConfiguration]="configureMap"></app-map>
                             </div>
@@ -105,3 +124,15 @@
         </mat-card>
     </div>
 </div>
+<ng-template #ReservoirInfo>
+    {{ 'PAGE.TOUR.RESERVOIR-TABLE' | translate }}
+</ng-template>
+<ng-template #ReservoirWaterMater>
+    {{ 'PAGE.TOUR.RESERVOIR-WATER-METER' | translate }}
+</ng-template>
+<ng-template #ReservoirWaterMaterMeasurement>
+    {{ 'PAGE.TOUR.RESERVOIR-WATER-METER-MEASUREMENT' | translate }}
+</ng-template>
+<ng-template #ReservoirMapDetail>
+    {{ 'PAGE.TOUR.RESERVOIR-MAP-DETAIL' | translate }}
+</ng-template>

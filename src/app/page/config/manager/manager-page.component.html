@@ -2,14 +2,35 @@
     <mat-card class="manager-page-column">
         <mat-card-content>
             <div>
-                <app-parameters></app-parameters>
+                <app-parameters
+                    [joyrideStep]="'ParamsConfigStep'"
+                    title="{{ 'PAGE.CONFIG.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                    [stepContent]="ParamsConfig"
+                ></app-parameters>
             </div>
-            <app-configuration-email></app-configuration-email>
+            <app-configuration-email
+                [joyrideStep]="'EmailConfigStep'"
+                title="{{ 'PAGE.CONFIG.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="EmailConfig"
+            ></app-configuration-email>
             <mat-divider></mat-divider>
 
             <div class="manager-content-contact-book">
-                <lib-tag></lib-tag>
+                <lib-tag
+                [joyrideStep]="'ContactConfigStep'"
+                title="{{ 'PAGE.CONFIG.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="ContactConfig"
+                ></lib-tag>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
+<ng-template #ParamsConfig>
+    {{'PAGE.TOUR.PARAMS-CONFIG'|translate}}
+</ng-template>
+<ng-template #EmailConfig>
+    {{'PAGE.TOUR.EMAIL-CONFIG'|translate}}
+</ng-template>
+<ng-template #ContactConfig>
+    {{'PAGE.TOUR.CONTACT-CONFIG'|translate}}
+ </ng-template>
