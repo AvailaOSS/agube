@@ -19,6 +19,7 @@ export function JoyRideFunction(joyrideService: JoyrideService, svcTranslate: Tr
     joyrideService.startTour({
         steps,
         waitingTime: 250,
+        themeColor:'#7fd3f7',
         showPrevButton: true,
         stepDefaultPosition: 'left',
         showCounter: true,
