@@ -7,15 +7,26 @@
                         {{ springSource.geolocation | geolocation }}
                         <mat-icon
                             *ngIf="canLoad"
+                            svgIcon="edit"
                             matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
                             (click)="goToEditGeolocation()"
                         >
-                            edit
                         </mat-icon>
+                        <sup>
+                            <mat-icon
+                                style="cursor: pointer; width: 20px"
+                                (click)="tour()"
+                                svgIcon="tour"
+                            ></mat-icon>
+                        </sup>
                     </h1>
-                    <div class="spring-source-content-info">
-                            <app-address [geolocation]="springSource.geolocation"></app-address>
-
+                    <div
+                        class="spring-source-content-info"
+                        [joyrideStep]="'SpringSourceInfoStep'"
+                        [stepContent]="SpringSourceInfo"
+                        title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                    >
+                        <app-address [geolocation]="springSource.geolocation"></app-address>
                     </div>
                     <div class="content-buttons-map">
                         <div class="content-buttons-generics-map">
@@ -27,7 +38,7 @@
                                     (click)="seeMap()"
                                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
                                 >
-                                    <mat-icon>map</mat-icon>
+                                    <mat-icon svgIcon="map"></mat-icon>
                                     {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
                                 </button>
                             </div>
@@ -39,7 +50,7 @@
                                     (click)="seeComments()"
                                     matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
                                 >
-                                    <mat-icon>visibility</mat-icon>
+                                    <mat-icon svgIcon="visibility"></mat-icon>
                                     {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
                                 </button>
                             </div>
@@ -54,7 +65,7 @@
                                 matTooltip="{{ 'PAGE.SPRINGSOURCE.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
                                 matTooltipPosition="left"
                             >
-                                <mat-icon>map</mat-icon>
+                            <mat-icon svgIcon="map"></mat-icon>
                             </mat-button-toggle>
                             <mat-button-toggle
                                 *ngIf="canLoadStreetView"
@@ -65,7 +76,12 @@
                                 <mat-icon>360</mat-icon>
                             </mat-button-toggle>
                         </mat-button-toggle-group>
-                        <div *ngIf="showMap && configureMap">
+                        <div
+                            *ngIf="showMap && configureMap"
+                            [joyrideStep]="'SpringSourceMapDetailStep'"
+                            [stepContent]="SpringSourceMapDetail"
+                            title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                        >
                             <div *ngIf="mode == 'map'; else showStreetView">
                                 <app-map [baseConfiguration]="configureMap"></app-map>
                             </div>
@@ -84,3 +100,10 @@
         </mat-card>
     </div>
 </div>
+<ng-template #SpringSourceInfo>
+    {{'PAGE.TOUR.SPRINGSOURCE-INFO'|translate}}
+</ng-template>
+
+<ng-template #SpringSourceMapDetail>
+    {{'PAGE.TOUR.SPRINGSOURCE-MAP-DETAIL'|translate}}
+ </ng-template>

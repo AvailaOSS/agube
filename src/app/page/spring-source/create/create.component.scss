@@ -15,22 +15,34 @@
     .form-content {
         margin: $margin-x-small;
         .form-spring-source {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            justify-content: end;
+            -webkit-box-pack: end;
+                -ms-flex-pack: end;
+                    justify-content: end;
             margin-top: $margin-x-small;
             @media only screen and (max-width: $resolution-xl-small) {
-                justify-content: space-between;
+                -webkit-box-pack: justify;
+                    -ms-flex-pack: justify;
+                        justify-content: space-between;
             }
             @media only screen and (min-width: $resolution-xl-small) {
-                justify-content: end;
+                -webkit-box-pack: end;
+                    -ms-flex-pack: end;
+                        justify-content: end;
                 mat-form-field {
                     margin-left: $margin-x-small;
                 }
             }
         }
         mat-form-field {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            justify-content: end;
+            -webkit-box-pack: end;
+                -ms-flex-pack: end;
+                    justify-content: end;
             margin-bottom: $margin-x-small;
         }
     }
@@ -39,8 +51,12 @@
         button {
             div {
                 height: 100%;
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                align-items: center;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
                 mat-icon {
                     margin-right: $margin-x-small;
                 }

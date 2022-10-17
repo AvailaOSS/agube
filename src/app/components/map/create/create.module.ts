@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateComponent } from './create.component';
@@ -34,6 +35,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MapModule,
         MatAutocompleteModule,
         MatProgressSpinnerModule,
+        JoyrideModule
     ],
     exports: [CreateComponent],
     providers: [GeolocationPipe],

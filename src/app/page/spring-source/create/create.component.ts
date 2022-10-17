@@ -10,6 +10,9 @@ import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
 import { SpringSourceCacheService } from 'src/app/utils/cache/spring-source-cache.service';
+import { JoyrideService } from 'ngx-joyride';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 
 @Component({
     selector: 'app-page-spring-source-create',
@@ -30,7 +33,9 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcSpringSourceCache: SpringSourceCacheService,
         private svcAccount: AccountService,
         private formBuilder: FormBuilder,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         super();
         this.googleAnalyticsService.pageView('create_springSource', '/create_springSource');
@@ -83,6 +88,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
             next: (response) => {
                 // reset to load spring-sources
                 this.resetCache();
+                this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_spring_source', {
                     springSourceId: response?.id,
@@ -102,6 +108,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
         this.onSave()!.subscribe({
             next: (response) => {
+                this.svcSpringSourceCache.clean();
+                this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_spring_source_exit', {
                     springSourceId: response?.id,
@@ -114,6 +122,16 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.exception('error_spring_source_create_exit', true);
             },
         });
+    }
+
+    // Call joyRide to pass all variables and do the tour
+    public tour() {
+        let steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
+    private resetForm() {
+        this.code.setValue('');
     }
 
     private onSave() {
@@ -137,6 +155,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
     // reset
     private resetCache() {
+        this.svcSpringSourceCache.clean();
         this.loadCache();
     }
 }

@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +39,7 @@ import { TableComponent } from './table/table.component';
         TranslateModule,
         MatPaginatorModule,
         MapModule,
+        JoyrideModule
     ],
 })
 export class ManagerModule {}

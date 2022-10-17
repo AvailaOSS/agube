@@ -15,8 +15,12 @@
   .form-content {
     margin: $margin-x-small;
     mat-form-field{
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      justify-content: end;
+      -webkit-box-pack: end;
+          -ms-flex-pack: end;
+              justify-content: end;
     }
   }
   mat-card-actions {
@@ -24,12 +28,20 @@
     button {
       div {
         height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         mat-icon {
           margin-right: $margin-x-small;
         }
       }
     }
   }
+}
+.icon-tour {
+  cursor: pointer;
+  width: 20px;
 }

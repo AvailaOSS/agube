@@ -6,6 +6,9 @@ import { NotificationService } from '@availa/notification';
 import { PersonalInfo } from './personal-info';
 import { Observable } from 'rxjs';
 import { PersonalInfoPersistantService } from './personal-info-persistant.service';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyrideService } from 'ngx-joyride';
 
 @Component({
     selector: 'app-personal-info',
@@ -32,7 +35,9 @@ export class PersonalInfoComponent implements OnInit {
         private svcNotification: NotificationService,
         private svcAccount: AccountService,
         private svcUser: UserService,
-        private svcPersistantPersonal: PersonalInfoPersistantService
+        private svcPersistantPersonal: PersonalInfoPersistantService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         this.personalForm = this.formBuilder.group({
             email: this.email,
@@ -138,5 +143,10 @@ export class PersonalInfoComponent implements OnInit {
             default:
                 return '';
         }
+    }
+    // call function to joyride
+    public tour() {
+        let steps: string[] = ['PersonalInfoStep', 'ContactInfoStep', 'PersonalConfigStep', 'PasswordConfigStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 }

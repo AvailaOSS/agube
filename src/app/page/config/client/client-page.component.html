@@ -1,13 +1,41 @@
 <div class="client-config-page">
     <mat-card class="client-config-column">
         <mat-card-content>
-            <app-personal-info></app-personal-info>
+            <app-personal-info
+                [joyrideStep]="'PersonalInfoStep'"
+                title="{{ 'PAGE.CONFIG.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="PersonalInfoConfig"
+            ></app-personal-info>
             <mat-divider></mat-divider>
-            <app-contact-info></app-contact-info>
+            <app-contact-info
+                [joyrideStep]="'ContactInfoStep'"
+                title="{{ 'PAGE.CONFIG.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="ContactInfo"
+            ></app-contact-info>
             <mat-divider></mat-divider>
-            <app-personal-config></app-personal-config>
+            <app-personal-config
+                [joyrideStep]="'PersonalConfigStep'"
+                title="{{ 'PAGE.CONFIG.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="PersonalConfig"
+            ></app-personal-config>
             <mat-divider></mat-divider>
-            <app-password></app-password>
+            <app-password
+                [joyrideStep]="'PasswordConfigStep'"
+                title="{{ 'PAGE.CONFIG.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                [stepContent]="PasswordConfig"
+            ></app-password>
         </mat-card-content>
     </mat-card>
 </div>
+<ng-template #PersonalInfoConfig>
+    {{ 'PAGE.TOUR.PERSONAL-INFO-CONFIG' | translate }}
+</ng-template>
+<ng-template #ContactInfo>
+    {{ 'PAGE.TOUR.CONTACT-INFO' | translate }}
+</ng-template>
+<ng-template #PersonalConfig>
+    {{ 'PAGE.TOUR.PERSONAL-CONFIG' | translate }}
+</ng-template>
+<ng-template #PasswordConfig>
+    {{ 'PAGE.TOUR.PASSWORD-CONFIG' | translate }}
+</ng-template>

@@ -8,6 +8,14 @@
     max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    min-width: 50%;
+    width: 50%;
+    max-width: 50%;
+}
+
+.icon-tour {
+    cursor: pointer;
+    width: 20px;
 }
 
 .manager-page-column {
@@ -17,6 +25,13 @@
             margin: 0 0 -80px 0;
         }
     }
+    sup {
+        float: right;
+    }
+}
+.container-frame-tour {
+    width: 270px;
+    height: 160px;
 }
 .manager-content-contact-book {
     margin-bottom: 30px !important;

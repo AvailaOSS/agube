@@ -10,6 +10,9 @@ import { CreateAddress } from 'src/app/utils/address/create-address';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';
 import { MapIconType } from 'src/app/components/map/map/configure-map';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
+import { JoyrideService } from 'ngx-joyride';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-page-reservoir-create',
@@ -34,7 +37,9 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private svcReservoirCache: ReservoirCacheService,
         private svcAccount: AccountService,
         private formBuilder: FormBuilder,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         super();
         this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
@@ -159,6 +164,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
         }
     }
 
+    // Call joyRide to pass all variables and do the tour
+    public tour() {
+        let steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
     private resetForm() {
         this.code.setValue('');
         this.capacity.setValue('');
@@ -175,7 +186,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
         if (this.code.value.length === 0) {
             reservoir = {
                 geolocation: this.getGeolocation(),
-
                 user_id: this.userId,
                 capacity: this.capacity.value,
                 inlet_flow: this.inletFlow.value,
@@ -196,6 +206,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         return this.svcReservoir.createReservoir(reservoir);
     }
 
+    // load cache
     private loadCache() {
         this.svcReservoirCache.get().then((response) => {
             if (response && response.length > 0) {
@@ -204,6 +215,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
+    // reset
     private resetCache() {
         this.svcReservoirCache.clean();
         this.loadCache();

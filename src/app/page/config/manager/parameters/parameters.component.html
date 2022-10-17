@@ -1,5 +1,7 @@
 <div class="form">
-    <h1>{{ 'PAGE.CONFIG.MANAGER.TITLE' | translate }}</h1>
+    <h1>
+        {{ 'PAGE.CONFIG.MANAGER.TITLE' | translate }}
+    </h1>
     <h3>{{ 'PAGE.CONFIG.MANAGER.SUBTITLE' | translate }}</h3>
     <div class="form-content">
         <mat-form-field appearance="fill">
@@ -35,7 +37,7 @@
 
     <mat-card-actions [align]="'end'">
         <span mat-line class="button-save-info">
-            <mat-card-subtitle >
+            <mat-card-subtitle>
                 {{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION' | translate }} {{ releaseDate | date: 'longDate' }}
                 {{ releaseDate | date: 'shortTime' }}*
             </mat-card-subtitle>

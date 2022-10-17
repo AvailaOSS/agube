@@ -1,4 +1,7 @@
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyrideService } from 'ngx-joyride';
 
 @Component({
     selector: 'app-page-config-manager',
@@ -6,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./manager-page.component.scss'],
 })
 export class ManagerPageComponent implements OnInit {
-    constructor() {}
+    constructor(private svcTranslate: TranslateService, private readonly joyrideService: JoyrideService) {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void { }
+
+
+    // call function to joyride
+    public tour() {
+        let steps: string[] = ['ParamsConfigStep', 'EmailConfigStep', 'ContactConfigStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
 }

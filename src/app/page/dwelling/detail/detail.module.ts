@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,6 +46,7 @@ import { ResidentComponent } from './resident/resident.component';
         AddressModule,
         DialogOnlyMapModule,
         CommentModule,
+        JoyrideModule
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },

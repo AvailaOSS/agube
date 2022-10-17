@@ -1,7 +1,12 @@
 <mat-card class="table-card">
     <mat-card-header>
         <mat-card-title>
-            <h2>{{ 'PAGE.RESERVOIR.MANAGER.TABLE.TITLE' | translate }}</h2>
+            <h2>
+                {{ 'PAGE.RESERVOIR.MANAGER.TABLE.TITLE' | translate }}
+                <sup>
+                    <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+                </sup>
+            </h2>
         </mat-card-title>
         <div class="filter">
             <div>
@@ -31,6 +36,9 @@
                     color="primary"
                     matTooltip="{{ 'PAGE.RESERVOIR.MANAGER.TABLE.BUTTON.TOOLTIP' | translate }}"
                     (click)="goToNewReservoir()"
+                    [joyrideStep]="'ReservoirCreateStep'"
+                    [stepContent]="ReservoirCreate"
+                    title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
                 >
                     <mat-icon svgIcon="reservoir"></mat-icon>
                     {{ 'PAGE.RESERVOIR.MANAGER.TABLE.BUTTON' | translate }}
@@ -38,7 +46,11 @@
             </div>
         </div>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content
+        title="{{ 'PAGE.RESERVOIR.MANAGER.DEMO-TOUR.RESERVOIRS' | translate }}"
+        [joyrideStep]="'ReservoirFilterStep'"
+        [stepContent]="ReservoirTable"
+    >
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="capacity">
                 <th mat-header-cell *matHeaderCellDef>capacity</th>
@@ -102,3 +114,9 @@
         <mat-paginator [pageSize]="pageSide" showFirstLastButtons> </mat-paginator>
     </mat-card-actions>
 </mat-card>
+<ng-template #ReservoirCreate>
+    {{ 'PAGE.TOUR.RESERVOIR-CREATE' | translate }}
+</ng-template>
+<ng-template #ReservoirTable>
+    {{ 'PAGE.TOUR.RESERVOIR-TABLE' | translate }}
+</ng-template>

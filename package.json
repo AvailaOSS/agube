@@ -1,6 +1,6 @@
 {
     "name": "agube-fe",
-    "version": "1.21.3",
+    "version": "1.22.0",
     "scripts": {
         "ng": "ng",
         "config": "ts-node ./src/environments/set.env.prod.ts",
@@ -33,6 +33,7 @@
         "date-fns": "^2.28.0",
         "leaflet": "^1.8.0",
         "ngx-google-analytics": "^13.0.1",
+        "ngx-joyride": "^2.5.0",
         "ngx-translate-multi-http-loader": "^7.0.5",
         "rxjs": "~7.5.0",
         "tslib": "^2.3.0",

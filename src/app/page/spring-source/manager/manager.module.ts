@@ -1,3 +1,4 @@
+import { JoyrideModule } from 'ngx-joyride';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -37,6 +38,7 @@ import { TableComponent } from './table/table.component';
         TranslateModule,
         MatPaginatorModule,
         MapModule,
+        JoyrideModule
     ],
     providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })

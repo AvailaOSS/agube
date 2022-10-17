@@ -12,8 +12,16 @@
                             (click)="goToEditGeolocation()"
                         >
                         </mat-icon>
+                        <sup>
+                            <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+                        </sup>
                     </h1>
-                    <div class="dwelling-content-info">
+                    <div
+                        class="dwelling-content-info"
+                        [joyrideStep]="'DwellingInfoStep'"
+                        [stepContent]="DwellingInfo"
+                        title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                    >
                         <app-address [geolocation]="dwelling.geolocation"></app-address>
                         <div class="dwelling-resident">
                             <!-- <app-owner [dwellingId]="dwelling.id" [canLoad]="canLoad"></app-owner> -->
@@ -28,6 +36,9 @@
                                 [waterMeterId]="waterMeterId"
                                 [type]="type"
                                 [load]="canLoad"
+                                [joyrideStep]="'DwellingWaterMaterStep'"
+                                [stepContent]="DwellingWaterMater"
+                                title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
                             >
                             </app-management>
                             <div class="buttons-map">
@@ -62,6 +73,9 @@
                                 [dwellingId]="dwellingId"
                                 [type]="type"
                                 [canAddReading]="canLoad"
+                                [joyrideStep]="'DwellingWaterMaterMeasurementStep'"
+                                [stepContent]="DwellingWaterMaterMeasurement"
+                                title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
                             >
                             </app-gauge-measurement>
                         </div>
@@ -87,7 +101,12 @@
                             </mat-button-toggle>
                         </mat-button-toggle-group>
 
-                        <div *ngIf="showMap && configureMap">
+                        <div
+                            *ngIf="showMap && configureMap"
+                            [joyrideStep]="'DwellingMapDetailStep'"
+                            [stepContent]="DwellingMapDetail"
+                            title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                        >
                             <div *ngIf="mode == 'map'; else showStreetView">
                                 <app-map [baseConfiguration]="configureMap"></app-map>
                             </div>
@@ -103,3 +122,9 @@
         </mat-card>
     </div>
 </div>
+<ng-template #DwellingInfo> {{ 'PAGE.TOUR.DWELLING-INFO' | translate }} </ng-template>
+<ng-template #DwellingWaterMater>{{ 'PAGE.TOUR.DWELLING-WATER-METER' | translate }} </ng-template>
+<ng-template #DwellingWaterMaterMeasurement
+    >{{ 'PAGE.TOUR.DWELLING-WATER-METER-MEASUREMENT' | translate }}
+</ng-template>
+<ng-template #DwellingMapDetail>{{ 'PAGE.TOUR.DWELLING-MAP-DETAIL' | translate }}</ng-template>

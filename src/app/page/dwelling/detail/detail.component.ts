@@ -1,3 +1,4 @@
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,9 +9,10 @@ import {
     GeolocationService,
     ManagerService,
 } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
 import { NotificationService } from '@availa/notification';
+import { TranslateService } from '@ngx-translate/core';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { JoyrideService } from 'ngx-joyride';
 import { ListComponent } from 'src/app/components/comment/list/list.component';
 import { CommentConfig, CommentType } from 'src/app/components/comment/type';
 import { DialogOnlyMapComponent } from 'src/app/components/dialog-only-map/dialog-only-map.component';
@@ -67,7 +69,9 @@ export class DetailComponent implements OnInit {
         private svcGeolocation: GeolocationService,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
+        private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
@@ -130,7 +134,7 @@ export class DetailComponent implements OnInit {
                 selectOptionFilter: true,
             },
             edit: true,
-            create:false,
+            create: false,
         };
 
         this.dialog.open(DialogOnlyMapComponent, {
@@ -173,7 +177,7 @@ export class DetailComponent implements OnInit {
                 selectOptionFilter: true,
             },
             edit: true,
-            create:false
+            create: false,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -220,6 +224,17 @@ export class DetailComponent implements OnInit {
             },
         });
     }
+    // call function to joyride
+    public tour() {
+        let steps: string[] = [
+            'DwellingInfoStep',
+            'DwellingWaterMaterStep',
+            'DwellingWaterMaterMeasurementStep',
+            'DwellingMapDetailStep',
+        ];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
     // Clean and refresh water Meter
     private cleanRefreshWaterMeter() {
         this.svcPersistant.clear();

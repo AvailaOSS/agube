@@ -4,8 +4,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReservoirDetail } from '@availa/agube-rest-api';
+import { TranslateService } from '@ngx-translate/core';
+import { JoyrideService } from 'ngx-joyride';
 import { Detail } from 'src/app/page/reservoir/detail/detail';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
+import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { goToReservoir } from 'src/app/utils/redirections/redirector';
 import { TableReloadService } from './table-reload.service';
 
@@ -32,7 +35,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private svcTableReload: TableReloadService,
-        private svcReservoir: ReservoirCacheService
+        private svcReservoir: ReservoirCacheService,
+        private readonly joyrideService: JoyrideService,
+        private readonly svcTranslate: TranslateService
     ) {}
 
     public ngAfterViewInit() {
@@ -65,6 +70,13 @@ export class TableComponent implements OnInit, AfterViewInit {
             reservoirId: reservoir.id!,
         };
         goToReservoir(this.router, queryParams);
+    }
+
+    // Function to launch joyride to start tour in Reservoirs
+    public tour() {
+        // Send step to joyride
+        let steps: string[] = ['ReservoirCreateStep', 'ReservoirFilterStep', 'ReservoirMapStep'];
+        JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 
     private loadReservoirs() {

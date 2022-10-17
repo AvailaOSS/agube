@@ -22,6 +22,10 @@
                         </a>
                     </div>
 
+                    <ng-template #counter let-step="step" let-total="total">
+                        {{ step }} of {{ total }} steps
+                    </ng-template>
+
                     <p>{{ user | userDetail }}</p>
                     <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
                 </mat-card-content>
@@ -39,7 +43,7 @@
             <mat-divider></mat-divider>
             <mat-selection-list #shoes [multiple]="false">
                 <mat-list-option *ngFor="let page of pages" [value]="page" (click)="selectPage(page)">
-                    <mat-icon mat-list-icon svgIcon="{{page.icon}}"></mat-icon>
+                    <mat-icon mat-list-icon svgIcon="{{ page.icon }}"></mat-icon>
                     <div mat-line>{{ page.title | translate }}</div>
                 </mat-list-option>
             </mat-selection-list>

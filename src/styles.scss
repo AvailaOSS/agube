@@ -47,3 +47,10 @@ body {
 .mat-tooltip {
     font-size: 12px;
 }
+.backdrop-container{
+    .backdrop-content {
+         .joyride-backdrop {
+              display: none;
+         }
+    }
+}
