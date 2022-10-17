@@ -1,0 +1,62 @@
+<div class="create-spring-source-page">
+    <mat-card class="create-spring-source-page-card">
+        <mat-card-content>
+            <div class="form">
+                <h1>
+                    {{ 'PAGE.SPRINGSOURCE.CREATE.TITLE' | translate }}
+                    <sup>
+                        <mat-icon
+                            style="cursor: pointer; width: 20px"
+                            (click)="tour()"
+                            svgIcon="tour"
+                        >
+                        </mat-icon>
+                    </sup>
+                </h1>
+                <div class="form-content">
+                    <app-map-location-create
+                        (addressForm)="addressFormReceive($event)"
+                        [baseConfiguration]="configureMap"
+                        [addressInputForm]="addressInputForm"
+                        [resetForm]="resetChildForm"
+                    >
+                    </app-map-location-create>
+                </div>
+                <mat-progress-bar mode="indeterminate" *ngIf="loadingPost"></mat-progress-bar>
+                <mat-card-actions [align]="'end'" *ngIf="addressEmitter?.userHasMapClicked">
+                    <button
+                        mat-button
+                        matTooltip="{{ 'PAGE.DWELLING.CREATE.BUTTON.CLOSE.TOOLTIP' | translate }}"
+                        (click)="exit()"
+                    >
+                        {{ 'GENERAL.BUTTON.EXIT_WITHOUT_SAVING' | translate }}
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        matTooltip="{{ 'PAGE.SPRINGSOURCE.CREATE.BUTTON.SAVE.TOOLTIP' | translate }}"
+                        (click)="save()"
+                        [disabled]="!this.springSourceForm || this.springSourceForm.invalid"
+                    >
+                        <div>
+                            <mat-icon svgIcon="save"></mat-icon>
+                            {{ 'PAGE.SPRINGSOURCE.CREATE.BUTTON.SAVE.TEXT' | translate }}
+                        </div>
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        matTooltip="{{ 'PAGE.SPRINGSOURCE.CREATE.BUTTON.SAVE.SAVE_EXIT.TOOLTIP' | translate }}"
+                        (click)="saveAndExit()"
+                        [disabled]="!this.springSourceForm || this.springSourceForm.invalid"
+                    >
+                        <div>
+                            <mat-icon>exit_to_app</mat-icon>
+                            {{ 'PAGE.SPRINGSOURCE.CREATE.BUTTON.SAVE.SAVE_AND_EXIT' | translate }}
+                        </div>
+                    </button>
+                </mat-card-actions>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

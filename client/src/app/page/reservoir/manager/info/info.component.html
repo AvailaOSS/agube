@@ -1,0 +1,13 @@
+<div class="page-info">
+    <mat-card class="info-card" *ngIf="reservoirResume">
+        <div class="row">
+            <div class="row-info">
+                {{ 'PAGE.RESERVOIR.MANAGER.INFO.RESERVOIRS' | translate }}
+                <span class="number">
+                    <mat-icon svgIcon="reservoir"></mat-icon>
+                    <h2>{{ reservoirResume?.total_reservoirs | json }}</h2>
+                </span>
+            </div>
+        </div>
+    </mat-card>
+</div>

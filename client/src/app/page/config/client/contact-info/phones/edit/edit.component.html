@@ -1,0 +1,47 @@
+<span *ngIf="phone && phone.isEditable; else noEditablePhone">
+    <div class="editable-form">
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.PHONE' | translate }}</mat-label>
+            <input matInput placeholder="{{ phone!.phone.phone }}" [formControl]="newPhone"
+                (keydown.enter)="updatePhone()" />
+            <mat-error *ngIf="newPhone.invalid">{{ errorValidator('newPhone') | translate }}</mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.CLOSE' | translate }}"
+                (click)="openEditablePhoneForm()">
+                <mat-icon svgIcon="close"></mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.SAVE' | translate }}" (click)="updatePhone()"
+                [disabled]="this.newPhone.invalid">
+                <mat-icon svgIcon="save"></mat-icon>
+            </button>
+        </div>
+    </div>
+</span>
+
+<ng-template #noEditablePhone>
+    <div class="edited-form">
+        <h4>{{ phone!.phone.phone }}</h4>
+        <span mat-subheader class="is-principal">{{ phone!.phone.main ? 'Principal' : '' }}</span>
+    </div>
+    <div>
+        <button mat-icon-button *ngIf="phone!.phone.main; else notMainPhone"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.FAVORITE' | translate }}"
+            (click)="setPhoneAsMain(phone!.phone.main)">
+            <mat-icon svgIcon="star"></mat-icon>
+        </button>
+        <ng-template #notMainPhone>
+            <button mat-icon-button
+                matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.EDIT.BUTTON.FAVORITE' | translate }}"
+                (click)="setPhoneAsMain(!phone!.phone.main)">
+                <mat-icon svgIcon="star_border"></mat-icon>
+            </button>
+        </ng-template>
+        <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}" (click)="openEditablePhoneForm()">
+            <mat-icon svgIcon="edit"></mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.DELETE' | translate }}" (click)="deletePhone()">
+            <mat-icon svgIcon="trash"></mat-icon>
+        </button>
+    </div>
+</ng-template>

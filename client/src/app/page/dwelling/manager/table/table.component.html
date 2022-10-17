@@ -1,0 +1,165 @@
+<mat-card class="table-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h2>
+                {{ 'PAGE.DWELLING.MANAGER.TABLE.TITLE' | translate }}
+                <sup>
+                    <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+                </sup>
+            </h2>
+        </mat-card-title>
+        <div class="filter">
+            <div>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER' | translate }}</mat-label>
+                    <input
+                        matInput
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER.TOOLTIP' | translate }}"
+                        matTooltipPosition="right"
+                        (keyup)="applyFilter()"
+                        [formControl]="filter"
+                    />
+                    <button
+                        matSuffix
+                        mat-icon-button
+                        matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.FILTER.BUTTON.TOOLTIP' | translate }}"
+                        *ngIf="filter.value.length > 0"
+                        (click)="clearFilter()"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div [align]="'end'">
+                <mat-slide-toggle
+                    matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.TOGGLE.DWELLING_FILTER_TOOLTIP' | translate }}"
+                    (change)="filterOptions($event)"
+                    >{{ 'PAGE.DWELLING.MANAGER.TABLE.TOGGLE.DWELLING_FILTER' | translate }}</mat-slide-toggle
+                >
+                <button
+                    [joyrideStep]="'DwellingCreateStep'"
+                    mat-raised-button
+                    color="primary"
+                    matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.BUTTON.NEW_DWELLING.TOOLTIP' | translate }}"
+                    (click)="goToNewDwelling()"
+                    [stepContent]="DwellingCreate"
+                    title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                >
+                    <mat-icon svgIcon="house"></mat-icon>
+                    {{ 'PAGE.DWELLING.MANAGER.TABLE.BUTTON.NEW_DWELLING' | translate }}
+                </button>
+            </div>
+        </div>
+    </mat-card-header>
+    <mat-card-content
+        title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+        [joyrideStep]="'DwellingFilterStep'"
+        [stepContent]="DwellingTable"
+    >
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="water_meter_code">
+                <th mat-header-cell *matHeaderCellDef>water_meter_code</th>
+                <td
+                    class="priority-1"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.DWELLING.CREATE.CODE_COUNTER' | translate }}"
+                >
+                    {{ element.water_meter_code }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="full_address">
+                <th mat-header-cell *matHeaderCellDef>full_address</th>
+                <td
+                    class="priority-2"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.DWELLING.MANAGER.TABLE.ROW.ADDRESS' | translate }}"
+                >
+                    {{ element | dwellingDetail }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="resident_first_name">
+                <th mat-header-cell *matHeaderCellDef>resident_first_name</th>
+                <td
+                    class="priority-3"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'GENERAL.TEXT.RESIDENT' | translate }}"
+                >
+                    {{ element.resident_full_name | titlecase }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="resident_phone">
+                <th mat-header-cell *matHeaderCellDef>resident_phone</th>
+                <td
+                    class="priority-4"
+                    mat-cell
+                    *matCellDef="let element"
+                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.PHONE_NUMBER' | translate }}"
+                >
+                    {{ element.resident_phone }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="water_meter">
+                <th mat-header-cell *matHeaderCellDef>water_meter</th>
+                <td
+                    class="priority-5"
+                    mat-cell
+                    *matCellDef="let element; let i = index"
+                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION' | translate }}"
+                >
+                    <div class="container-consumption-data">
+                        <mat-icon
+                            *ngIf="
+                                element.last_month_consumption > 0 &&
+                                +element.last_month_consumption > element.last_month_max_consumption
+                            "
+                            class="overflow"
+                            >trending_up</mat-icon
+                        >
+                        <mat-icon
+                            *ngIf="
+                                element.last_month_consumption > 0 &&
+                                +element.last_month_consumption <= element.last_month_max_consumption
+                            "
+                            class="no-overflow"
+                            >trending_down</mat-icon
+                        >
+                        <span
+                            class="container-consumption"
+                            *ngIf="element.last_month_consumption > 0; else emptyDataSource"
+                        >
+                            {{ element.last_month_consumption }} L
+                        </span>
+                        <ng-template #emptyDataSource>
+                            <span class="color-data-empty">{{
+                                'PAGE.DWELLING.DETAIL.RESIDENT.MONTH_CONSUMPTION_NO_DATA' | translate
+                            }}</span>
+                        </ng-template>
+                    </div>
+                </td>
+            </ng-container>
+            <tr
+                mat-row
+                class="table-row"
+                (click)="goToDwelling(row)"
+                *matRowDef="let row; columns: displayedColumns"
+                [ngClass]="row === isSelected ? 'selected-row' : ''"
+            ></tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-paginator [pageSize]="pageSize" showFirstLastButtons> </mat-paginator>
+    </mat-card-actions>
+</mat-card>
+<ng-template #DwellingCreate>
+    {{ 'PAGE.TOUR.DWELLING-CREATE' | translate }}
+</ng-template>
+<ng-template #DwellingTable>
+    {{ 'PAGE.TOUR.DWELLING-TABLE' | translate }}
+</ng-template>

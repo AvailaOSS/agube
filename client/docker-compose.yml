@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  # Frontend service
+  agube-env-fe:
+    container_name: test-fe
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: Agube
+        GOOGLE_MAPS_API_KEY:
+        GOOGLE_ANALYTICS_ID:
+        AUTH_BACKEND_API_URL: http://localhost:8000
+        SUBSCRIPTION_BACKEND_API_URL: http://localhost:8001
+        CONTACT_BOOK_BACKEND_API_URL: http://localhost:8002
+        AGUBE_BACKEND_API_URL: http://localhost:8003
+    command: nginx -g 'daemon off;'
+    ports:
+      - 8080:8080

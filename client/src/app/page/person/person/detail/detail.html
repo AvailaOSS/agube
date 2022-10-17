@@ -1,0 +1,43 @@
+<div class="detail-page">
+    <div class="page-content">
+        <mat-card *ngIf="person">
+            <mat-card-content>
+                <h1>{{'PAGE.PERSON.PERSON.DETAIL.TITLE'|translate}} {{title! |translate}}</h1>
+                <div class="resident-dwelling">
+                    <div class="resident">
+                        <div class="avatar" *ngIf="profilePhoto">
+                            <img [src]="profilePhoto" />
+                        </div>
+                        <h1>{{ person.user | userDetail | titlecase }}</h1>
+                        <h3>{{'PAGE.PERSON.PERSON.DETAIL.EMAIL'|translate}}</h3>
+                        <div class="resident-info">
+                            <div class="resident-data-info">
+                                <h4>{{ person.user.email }}</h4>
+                            </div>
+                        </div>
+                        <h3>{{'PAGE.PERSON.PERSON.DETAIL.PHONE'|translate}}</h3>
+                        <div class="resident-info" *ngIf="person.user.phones">
+                            <div class="resident-data-info" *ngFor="let phone of person.user.phones">
+                                <span>
+                                    <h4>{{ phone.phone_number }}</h4>
+                                </span>
+                            </div>
+                        </div>
+                        <h3>{{'PAGE.PERSON.PERSON.DETAIL.ADDRESS'|translate}}</h3>
+                        <div class="resident-info" *ngIf="person.user.geolocation">
+                            <div class="resident-data-info" *ngFor="let geolocation of person.user.geolocation">
+                                <app-address [geolocation]="geolocation"></app-address>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dwellings">
+                        <span *ngFor="let dwelling of dwellings">
+                            <app-card-button class="card-dwelling" [dwelling]="dwelling" [dwellingPath]="dwellingPath">
+                            </app-card-button>
+                        </span>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

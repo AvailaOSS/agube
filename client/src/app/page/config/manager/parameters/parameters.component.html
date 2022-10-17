@@ -1,0 +1,58 @@
+<div class="form">
+    <h1>
+        {{ 'PAGE.CONFIG.MANAGER.TITLE' | translate }}
+    </h1>
+    <h3>{{ 'PAGE.CONFIG.MANAGER.SUBTITLE' | translate }}</h3>
+    <div class="form-content">
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'PAGE.CONFIG.MANAGER.FORM.HOOK_PRICE' | translate }}</mat-label>
+            <input
+                class="form-right-align"
+                matInput
+                placeholder="1000.50"
+                [formControl]="hook_price"
+                autofocus
+                (keydown.enter)="saveParameters()"
+            />
+            <span matSuffix>€&nbsp;</span>
+            <mat-error *ngIf="hook_price.invalid">{{ errorValidator('hook_price') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'PAGE.CONFIG.MANAGER.FORM.MAX_DAILY_CONSUMPTION' | translate }}</mat-label>
+            <input
+                class="form-right-align"
+                matInput
+                placeholder="1000"
+                [formControl]="max_daily_consumption"
+                (keydown.enter)="saveParameters()"
+            />
+            <span matSuffix>L&nbsp;</span>
+            <mat-error *ngIf="max_daily_consumption.invalid"
+                >{{ errorValidator('max_daily_consumption') | translate }}
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
+
+    <mat-card-actions [align]="'end'">
+        <span mat-line class="button-save-info">
+            <mat-card-subtitle>
+                {{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.DESCRIPTION' | translate }} {{ releaseDate | date: 'longDate' }}
+                {{ releaseDate | date: 'shortTime' }}*
+            </mat-card-subtitle>
+        </span>
+        <button
+            mat-raised-button
+            color="primary"
+            matTooltip="{{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP' | translate }}"
+            (click)="saveParameters()"
+            [disabled]="parametersForm.invalid || loadSave"
+        >
+            <div>
+                <mat-icon svgIcon="save"></mat-icon>
+                {{ 'GENERAL.BUTTON.SAVE' | translate }}
+            </div>
+        </button>
+    </mat-card-actions>
+</div>

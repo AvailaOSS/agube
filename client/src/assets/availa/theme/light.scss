@@ -1,0 +1,120 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+// palette and colors
+@use '../palette/primary' as primary;
+@use '../palette/accent' as accent;
+@use '../palette/warning' as warning;
+
+// use generic margins
+@use '../sizes/margins' as margins;
+
+// forward components
+@use 'components/table' as table;
+@use 'components/sidebar' as sidebar;
+@use 'components/card' as card;
+@use 'components/button' as button;
+@use 'components/snack-bar' as snack-bar;
+@use 'components/scrollbar' as scrollbar;
+@use 'components/contacts' as availa-contacts;
+@use 'components/selection-list' as selection-list;
+@use 'components/icon' as icon;
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$agube-fe-primary: mat.define-palette(primary.$primary-palette, 700);
+$agube-fe-accent: mat.define-palette(accent.$accent-palette, 100);
+$agube-fe-warn: mat.define-palette(warning.$warning-palette, 800);
+$agube-fe-success: mat.define-palette(primary.$primary-palette, success);
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$agube-fe-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $agube-fe-primary,
+            accent: $agube-fe-accent,
+            warn: $agube-fe-warn,
+        ),
+    )
+);
+
+@include icon.mat-icon();
+
+@include selection-list.mat-selection-list(
+    $hover: mat.get-color-from-palette($agube-fe-accent, 50),
+    $active: mat.get-color-from-palette($agube-fe-accent, 100),
+    $clicked: mat.get-color-from-palette($agube-fe-primary, 600),
+    $noClickedFontColor: mat.get-color-from-palette($agube-fe-primary, 500),
+    $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
+);
+
+@include table.mat-table(
+    $hover: mat.get-color-from-palette($agube-fe-accent, 50),
+    $active: mat.get-color-from-palette($agube-fe-accent, 100),
+    $clicked: mat.get-color-from-palette($agube-fe-primary, 600),
+    $noClickedFontColor: mat.get-color-from-palette($agube-fe-primary, 500),
+    $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
+);
+
+@include sidebar.mat-sidebar(
+    $primary: mat.get-color-from-palette($agube-fe-primary, 700),
+    $primary_accent: mat.get-color-from-palette($agube-fe-accent, 100),
+    $secondary_accent: mat.get-color-from-palette($agube-fe-accent, 50),
+    $primary-alternative: mat.get-color-from-palette($agube-fe-primary, 800),
+    $warning-palette-alternative: mat.get-color-from-palette($agube-fe-warn, 800)
+);
+
+@include card.mat-card($primary: mat.get-color-from-palette($agube-fe-primary, 700));
+
+@include button.mat-button();
+
+@include snack-bar.mat-snack-bar-success(
+    $background-color: mat.get-color-from-palette($agube-fe-success, success),
+    $color: mat.get-color-from-palette($agube-fe-primary, 900)
+);
+
+@include snack-bar.mat-snack-bar-info(
+    $background-color: mat.get-color-from-palette($agube-fe-accent, 100),
+    $color: mat.get-color-from-palette($agube-fe-primary, 700)
+);
+
+@include snack-bar.mat-snack-bar-warning(
+    $background-color: mat.get-color-from-palette($agube-fe-warn, 600),
+    $color: mat.get-color-from-palette($agube-fe-primary, 700)
+);
+
+@include scrollbar.scrollbar(
+    $color: mat.get-color-from-palette($agube-fe-accent, 100),
+    $radius: margins.$margin-small,
+    $size: 5px
+);
+
+@include availa-contacts.availa-contacts(
+    $hover: mat.get-color-from-palette($agube-fe-accent, 50),
+    $active: mat.get-color-from-palette($agube-fe-accent, 100),
+    $color: mat.get-color-from-palette($agube-fe-primary, 500)
+);
+
+.mat-dialog-actions {
+    float: right;
+}
+
+h1,
+h2,
+h4 {
+    color: mat.get-color-from-palette($agube-fe-primary, 600);
+}
+
+h3 {
+    color: #558da6 !important;
+    margin-left: 10px;
+}
+.color-blocked-tag {
+    background-color: mat.get-color-from-palette($agube-fe-warn, 600) !important;
+}

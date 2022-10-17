@@ -1,0 +1,48 @@
+<div class="form">
+    <h1>{{ 'PAGE.CONFIG.CLIENT.CONFIGURE-MODE.TITLE' | translate }}</h1>
+    <div class="form-content">
+        <div class="theme-button">
+            <h4>{{ 'PAGE.CONFIG.CLIENT.CONFIGURE-MODE.MODE.TITLE' | translate }}</h4>
+            <mat-icon matTooltip="{{ 'APP.THEME.LIGHT' | translate }}" color="warn">light_mode</mat-icon>
+            <mat-slide-toggle [formControl]="toggleControl" matTooltip="{{ 'APP.THEME.CHANGE' | translate }}">
+            </mat-slide-toggle>
+            <mat-icon matTooltip="{{ 'APP.THEME.DARK' | translate }}">dark_mode</mat-icon>
+        </div>
+        <div class="flag-button">
+            <h4>{{ 'PAGE.CONFIG.CLIENT.CONFIGURE-MODE.LANGUAGE.TITLE' | translate }}</h4>
+            <button
+                mat-icon-button
+                matTooltip="{{ 'APP.CHANGE_LANGUAGE' | translate }}"
+                [matMenuTriggerFor]="beforeMenu"
+            >
+                <img width="50px" src="{{ selectedLanguage!.flagLink }}" />
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button
+                    mat-menu-item
+                    matTooltip="{{ language.description | translate }}"
+                    matTooltipPosition="left"
+                    class="lenguage-image-button"
+                    *ngFor="let language of languages"
+                >
+                    <img width="50px" src="{{ language.flagLink }}" (click)="selectLenguaje(language)" />
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+    <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
+    <mat-card-actions [align]="'end'">
+        <button
+            mat-raised-button
+            color="primary"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONFIGURE-MODE.BUTTON.TOOLTIP' | translate }}"
+            (click)="updateConfig()"
+        >
+            <div>
+                <mat-icon svgIcon="save"></mat-icon>
+                {{ 'GENERAL.BUTTON.SAVE' | translate }}
+            </div>
+        </button>
+    </mat-card-actions>
+</div>

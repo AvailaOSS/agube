@@ -1,0 +1,9 @@
+@mixin mat-card($primary) {
+  .mat-card {
+    box-shadow: 0 0 0 0 transparent !important;
+
+    .mat-card-title {
+      color: $primary;
+    }
+  }
+}

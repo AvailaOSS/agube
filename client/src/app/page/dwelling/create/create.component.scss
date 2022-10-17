@@ -1,0 +1,47 @@
+@import "../../../../assets/availa/sizes/margins.scss";
+@import "../../../../assets/availa/sizes/page.scss";
+
+.create-dwelling-page {
+  @include my-page(1);
+}
+
+.create-dwelling-page-card {
+  @include my-page-column(1, 1);
+
+}
+
+.form {
+  padding: 0 $margin-x-medium;
+  .form-content {
+    margin: $margin-x-small;
+    mat-form-field{
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: end;
+          -ms-flex-pack: end;
+              justify-content: end;
+    }
+  }
+  mat-card-actions {
+    margin-right: $margin-x-small;
+    button {
+      div {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        mat-icon {
+          margin-right: $margin-x-small;
+        }
+      }
+    }
+  }
+}
+.icon-tour {
+  cursor: pointer;
+  width: 20px;
+}

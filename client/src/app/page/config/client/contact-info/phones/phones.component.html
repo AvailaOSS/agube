@@ -1,0 +1,31 @@
+<mat-list>
+    <div class="edit-phones-header">
+        <h3>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.TITLE' | translate }}</h3>
+        <mat-icon svgIcon="{{ canAddPhone ? 'close' : 'add' }}" matTooltipPosition="right"
+            matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.BUTTON.ADD' | translate }}"
+            (click)="openClosePhoneForm()"></mat-icon>
+    </div>
+    <span *ngIf="canAddPhone" class="add-phone">
+        <div class="editable-form">
+            <!-- <div class="phone-form"> -->
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM' | translate }}</mat-label>
+                <input matInput placeholder="555555555" [formControl]="newPhone" (keydown.enter)="savePhone()" />
+                <mat-error *ngIf="newPhone.invalid">{{ errorValidator('newPhone') | translate }}</mat-error>
+            </mat-form-field>
+            <!-- </div> -->
+            <div class="phone-buttons">
+                <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.SAVE' | translate }}" matTooltipPosition="above"
+                    (click)="savePhone()" *ngIf="!this.newPhone.invalid">
+                    <mat-icon svgIcon="save"></mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    </span>
+    <div *ngFor="let phone of phones" class="list-phones">
+        <app-phone-editable (event)="refreshPhones($event)" (deleteEvent)="phoneDeleted($event)" class="phone"
+            [phone]="phone" [userId]="userId"></app-phone-editable>
+        <mat-divider></mat-divider>
+    </div>
+</mat-list>

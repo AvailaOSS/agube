@@ -1,0 +1,68 @@
+<mat-drawer-container class="sidebar">
+    <mat-drawer mode="side" opened>
+        <div class="sidebar-content">
+            <div class="title-logo">
+                <img width="70px" height="70px" src="../../../Availa_logo_isotipo.svg" />
+            </div>
+            <mat-card class="mat-elevation-z0 title-w100">
+                <mat-card-title>
+                    <h1>
+                        <a href="{{ home }}">AGUBE</a>
+                    </h1>
+                </mat-card-title>
+                <mat-card-content *ngIf="user">
+                    <div class="avatar" *ngIf="profilePhoto">
+                        <a href="{{ profile }}">
+                            <img [src]="profilePhoto" />
+                        </a>
+                    </div>
+                    <div class="avatar-icon" *ngIf="!profilePhoto">
+                        <a href="{{ profile }}">
+                            <mat-icon> account_circle </mat-icon>
+                        </a>
+                    </div>
+
+                    <ng-template #counter let-step="step" let-total="total">
+                        {{ step }} of {{ total }} steps
+                    </ng-template>
+
+                    <p>{{ user | userDetail }}</p>
+                    <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-stroked-button color="warn" (click)="closeSession()">
+                        {{ 'PAGE.HOME.SIDEBAR.BUTTON.CLOSE' | translate }}
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+            <mat-card-actions class="close-w100">
+                <button mat-stroked-button (click)="closeSession()">
+                    <mat-icon color="warn">logout</mat-icon>
+                </button>
+            </mat-card-actions>
+            <mat-divider></mat-divider>
+            <mat-selection-list #shoes [multiple]="false">
+                <mat-list-option *ngFor="let page of pages" [value]="page" (click)="selectPage(page)">
+                    <mat-icon mat-list-icon svgIcon="{{ page.icon }}"></mat-icon>
+                    <div mat-line>{{ page.title | translate }}</div>
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content class="page-content">
+        <div class="theme-button">
+            <div class="theme-slider">
+                <marquee
+                    >Esto es una versión Beta! Si te encuentras con cualquier error por favor comunícanoslo en
+                    <strong> agube.developers@gmail.com </strong> con el asunto
+                    <em> "Atención al Cliente" </em></marquee
+                >
+            </div>
+            <mat-icon matTooltip="{{ 'APP.THEME.LIGHT' | translate }}" color="warn">light_mode</mat-icon>
+            <mat-slide-toggle [formControl]="toggleControl" matTooltip="{{ 'APP.THEME.CHANGE' | translate }}">
+            </mat-slide-toggle>
+            <mat-icon matTooltip="{{ 'APP.THEME.DARK' | translate }}">dark_mode</mat-icon>
+        </div>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

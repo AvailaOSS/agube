@@ -1,0 +1,39 @@
+<div class="form">
+    <div class="container-form-configuration">
+        <h3>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE' | translate }}</h3>
+        <div class="container-form-toggle">
+            <p>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE_ACTIVE' | translate }}</p>
+            <mat-slide-toggle
+                matTooltip="{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.TITLE_ACTIVE' | translate }}"
+                [(ngModel)]="checked"
+                name="adjuntar al final del correo"
+            >
+            </mat-slide-toggle>
+        </div>
+    </div>
+    <div class="form-content">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>{{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.SUBTITLE' | translate }}</mat-label>
+            <textarea matInput cdkTextareaAutosize [formControl]="message" autofocus></textarea>
+            <mat-error *ngIf="message.invalid">{{ errorValidator('message') | translate }}</mat-error>
+        </mat-form-field>
+        <mat-card-subtitle class="subtitle">
+            {{ 'PAGE.CONFIG.MANAGER.NOTIFICATION.MESSAGE' | translate }}
+        </mat-card-subtitle>
+    </div>
+    <mat-progress-bar *ngIf="loadSave" mode="indeterminate"></mat-progress-bar>
+    <mat-card-actions [align]="'end'">
+        <button
+            mat-raised-button
+            color="primary"
+            matTooltip="{{ 'PAGE.CONFIG.MANAGER.FORM.BUTTON.TOOLTIP_ACTIVE' | translate }}"
+            (click)="saveNotification()"
+            [disabled]="message.invalid || loadSave"
+        >
+            <div>
+                <mat-icon svgIcon="save"></mat-icon>
+                {{ 'GENERAL.BUTTON.SAVE' | translate }}
+            </div>
+        </button>
+    </mat-card-actions>
+</div>

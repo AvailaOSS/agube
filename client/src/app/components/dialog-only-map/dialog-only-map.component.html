@@ -1,0 +1,8 @@
+<app-map [baseConfiguration]="configureMap"></app-map>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button
+        matTooltip="{{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL.TOOLTIP' | translate }}"
+        (click)="closeDialog()" cdkFocusInitial>
+        {{ 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.CANCEL' | translate }}
+    </button>
+</div>

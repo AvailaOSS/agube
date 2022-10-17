@@ -1,0 +1,38 @@
+import { NotificationService } from '@availa/notification';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ManagerService } from '@availa/agube-rest-api';
+import { DetailComponent } from '../detail/detail.component';
+import { WaterMeterPersistantService } from '../water-meter-persistant.service';
+import { WaterMeterManager } from '../water-meter.manager';
+import { GetPropertiesService } from '../detail/get-propierties.service';
+
+@Component({
+    selector: 'app-gauge-measurement',
+    templateUrl: './gauge-measurement.component.html',
+    styleUrls: ['./gauge-measurement.component.scss'],
+})
+export class GaugeMeasurementComponent extends DetailComponent implements OnInit {
+    public maxDailyConsumption: number | undefined;
+
+    constructor(
+        protected override svcWaterMeterManager: WaterMeterManager,
+        public override dialog: MatDialog,
+        protected override svcWaterMeterPersistance: WaterMeterPersistantService,
+        protected svcManager: ManagerService,
+        public override propertiesServices: GetPropertiesService,
+        public override svcNotification: NotificationService
+    ) {
+        super(svcWaterMeterManager, dialog, svcWaterMeterPersistance, propertiesServices, svcNotification);
+    }
+
+    override ngOnInit(): void {
+        this.svcManager
+            .getManagerConfiguration()
+            .subscribe((response) => (this.maxDailyConsumption = +response.max_daily_consumption));
+        this.svcWaterMeterPersistance.get().subscribe((res) => {
+            super.ngOnInit();
+            super.waterMeterId = res?.id;
+        });
+    }
+}

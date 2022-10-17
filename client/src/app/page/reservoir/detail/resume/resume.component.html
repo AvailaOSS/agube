@@ -1,0 +1,27 @@
+<div *ngIf="reservoir; else noReservoir">
+    <div class="reservoir-info">
+        <div>
+            <mat-icon svgIcon="capacity_reservoir"></mat-icon>
+            <h4>{{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.CAPACITY' | translate }}</h4>
+            {{ reservoir.capacity | number: '2.' }} L
+        </div>
+        <div>
+            <mat-icon svgIcon="next"></mat-icon>
+            <h4>
+                {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.INLET_FLOW' | translate }}
+            </h4>
+            {{ reservoir.inlet_flow | number: '2.' }} m<sup>3</sup>
+        </div>
+        <div>
+            <mat-icon svgIcon="prev"  ></mat-icon>
+            <h4>
+                {{ 'PAGE.RESERVOIR.MANAGER.MANAGEMENT.OUTLET_FLOW' | translate }}
+            </h4>
+
+            {{ reservoir.outlet_flow | number: '2.' }} m<sup>3</sup>
+        </div>
+    </div>
+</div>
+<ng-template #noReservoir>
+    <h2>Sin Datos</h2>
+</ng-template>

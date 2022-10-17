@@ -1,0 +1,19 @@
+<div class="manager-dwelling-page">
+    <div>
+        <app-table> </app-table>
+        <div>
+            <app-info></app-info>
+            <app-map
+                [joyrideStep]="'DwellingMapStep'"
+                [stepContent]="DwellingMap"
+                title="{{ 'PAGE.DWELLING.CLIENT.DEMO-TOUR.TITLE' | translate }}"
+                class="card-map"
+                *ngIf="configureMap"
+                [baseConfiguration]="configureMap"
+            ></app-map>
+        </div>
+    </div>
+</div>
+<ng-template #DwellingMap>
+    {{ 'PAGE.TOUR.DWELLING-MAP' | translate }}
+</ng-template>

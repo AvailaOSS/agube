@@ -1,0 +1,38 @@
+<div class="detail-info" *ngIf="geolocation">
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.COORDINATES' | translate }}</h4>
+        {{ geolocation | geolocation: 'geolocation' }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.COUNTRY' | translate }}</h4>
+        {{ geolocation.address.country }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.STATE' | translate }}</h4>
+        {{ geolocation.address.state }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.PROVINCE' | translate }}</h4>
+        {{ geolocation.address.province }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY' | translate }}</h4>
+        {{ geolocation.address.city }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.VILLAGE' | translate }}</h4>
+        {{ geolocation.address.village }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.MUNICIPALITY' | translate }}</h4>
+        {{ geolocation.address.municipality }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.CITY_DISTRICT' | translate }}</h4>
+        {{ geolocation.address.city_district }}
+    </span>
+    <span>
+        <h4>{{ 'PAGE.DWELLING.DETAIL.ADDRESS.POSTAL_CODE' | translate }}</h4>
+        {{ geolocation.address.postcode }}
+    </span>
+</div>

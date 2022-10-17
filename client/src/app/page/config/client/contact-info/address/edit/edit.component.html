@@ -1,0 +1,12 @@
+<div class="edited-form">
+    <h4>{{ geolocation!.geolocation.geolocation | geolocation | slice: 0:65 }}</h4>
+    <span mat-subheader class="is-principal">{{ geolocation!.geolocation.main ? 'Principal' : '' }}</span>
+</div>
+<div class="edited-buttons">
+    <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.EDIT' | translate }}" (click)="openEditableAddressForm()">
+        <mat-icon svgIcon="edit"></mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="{{ 'GENERAL.BUTTON.DELETE' | translate }}" (click)="deleteAddress()">
+        <mat-icon svgIcon="trash"></mat-icon>
+    </button>
+</div>

@@ -1,0 +1,13 @@
+<div class="page-info">
+    <mat-card class="info-card" *ngIf="springSourceResume">
+        <div class="row">
+            <div class="row-info">
+                {{ 'PAGE.SPRINGSOURCE.MANAGER.INFO.SPRINGSOURCES' | translate }}
+                <span class="number">
+                    <mat-icon svgIcon="spring_source"></mat-icon>
+                    <h2>{{ springSourceResume?.total_spring_sources || 'Sin datos' }}</h2>
+                </span>
+            </div>
+        </div>
+    </mat-card>
+</div>

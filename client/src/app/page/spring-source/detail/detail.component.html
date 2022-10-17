@@ -1,0 +1,109 @@
+<div class="detail-page">
+    <div class="page-content">
+        <mat-card *ngIf="!loading">
+            <mat-card-content *ngIf="springSource">
+                <div class="spring-source-info">
+                    <h1>
+                        {{ springSource.geolocation | geolocation }}
+                        <mat-icon
+                            *ngIf="canLoad"
+                            svgIcon="edit"
+                            matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.TITLE.EDIT.TOOLTIP' | translate }}"
+                            (click)="goToEditGeolocation()"
+                        >
+                        </mat-icon>
+                        <sup>
+                            <mat-icon
+                                style="cursor: pointer; width: 20px"
+                                (click)="tour()"
+                                svgIcon="tour"
+                            ></mat-icon>
+                        </sup>
+                    </h1>
+                    <div
+                        class="spring-source-content-info"
+                        [joyrideStep]="'SpringSourceInfoStep'"
+                        [stepContent]="SpringSourceInfo"
+                        title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                    >
+                        <app-address [geolocation]="springSource.geolocation"></app-address>
+                    </div>
+                    <div class="content-buttons-map">
+                        <div class="content-buttons-generics-map">
+                            <div *ngIf="canLoad" class="buttons-map">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeMap()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon svgIcon="map"></mat-icon>
+                                    {{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TEXT' | translate }}
+                                </button>
+                            </div>
+                            <div class="button-comments">
+                                <button
+                                    mat-raised-button
+                                    [color]="'primary'"
+                                    matTooltip="Ver mapa"
+                                    (click)="seeComments()"
+                                    matTooltip="{{ 'PAGE.DWELLING.DETAIL.BUTTON.MAP.DIALOG.TOOLTIP' | translate }}"
+                                >
+                                    <mat-icon svgIcon="visibility"></mat-icon>
+                                    {{ 'COMPONENTS.COMMENT.TITLE' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-right">
+                    <div class="spring-source-map">
+                        <mat-button-toggle-group #group="matButtonToggleGroup">
+                            <mat-button-toggle
+                                (click)="mode = 'map'"
+                                matTooltip="{{ 'PAGE.SPRINGSOURCE.DETAIL.BUTTON.MAP.TOOLTIP' | translate }}"
+                                matTooltipPosition="left"
+                            >
+                            <mat-icon svgIcon="map"></mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle
+                                *ngIf="canLoadStreetView"
+                                (click)="mode = 'streetView'"
+                                matTooltip="{{ 'PAGE.SPRINGSOURCE.DETAIL.BUTTON.STREET_VIEW.TOOLTIP' | translate }}"
+                                matTooltipPosition="right"
+                            >
+                                <mat-icon>360</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                        <div
+                            *ngIf="showMap && configureMap"
+                            [joyrideStep]="'SpringSourceMapDetailStep'"
+                            [stepContent]="SpringSourceMapDetail"
+                            title="{{ 'PAGE.SPRINGSOURCE.MANAGER.DEMO-TOUR.TITLE' | translate }}"
+                        >
+                            <div *ngIf="mode == 'map'; else showStreetView">
+                                <app-map [baseConfiguration]="configureMap"></app-map>
+                            </div>
+                            <ng-template #showStreetView>
+                                <app-street-view [configureView]="configureView"></app-street-view>
+                            </ng-template>
+                        </div>
+                        <app-comment-list
+                            *ngIf="canLoad"
+                            class="comments-list"
+                            [config]="configCommentComponent"
+                        ></app-comment-list>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<ng-template #SpringSourceInfo>
+    {{'PAGE.TOUR.SPRINGSOURCE-INFO'|translate}}
+</ng-template>
+
+<ng-template #SpringSourceMapDetail>
+    {{'PAGE.TOUR.SPRINGSOURCE-MAP-DETAIL'|translate}}
+ </ng-template>
