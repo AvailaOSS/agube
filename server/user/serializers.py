@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from dwelling.assemblers import create_user_geolocation
-from geolocation.serializers import GeolocationSerializer
-from phone.serializers import PhoneSerializer
 from rest_framework.fields import BooleanField, CharField, ReadOnlyField
 from rest_framework.serializers import ModelSerializer, Serializer
+
+from dwelling.assemblers import create_user_geolocation
+from geolocation.serializers import GeolocationSerializer
 from person.models import PersonConfig
+from phone.serializers import PhoneSerializer
 from user.models import UserGeolocation, UserPhone
 
 

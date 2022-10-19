@@ -1,4 +1,4 @@
-import { DwellingDetail, ReservoirDetail, SpringSourceDetail } from '@availa/agube-rest-api';
+import { DwellingDetail, ReservoirDetail, SpringSourceDetail } from '@availaoss/agube-rest-api';
 
 // The function isReservoirDetail is a user defined type guard
 // the return type: 'object is ReservoirDetail' is a type predicate,

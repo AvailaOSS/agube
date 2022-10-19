@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DwellingService, UserCreate } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { DwellingService, UserCreate } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { ChangeComponent } from '../change.component';
 
 @Component({

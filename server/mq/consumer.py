@@ -1,8 +1,9 @@
 import asyncio
+import traceback
 from aio_pika import connect, ExchangeType
 from aio_pika.abc import AbstractIncomingMessage
 from asgiref.sync import sync_to_async
-import traceback
+
 
 class MqConsumer():
 

@@ -1,6 +1,7 @@
+from rest_framework.fields import BooleanField
+
 from dwelling.models import Dwelling
 from dwelling.serializers import DwellingDetailSerializer, SerializerMethodField
-from rest_framework.fields import BooleanField
 
 
 class UserDwellingDetailSerializer(DwellingDetailSerializer):

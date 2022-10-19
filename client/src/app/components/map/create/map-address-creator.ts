@@ -1,6 +1,6 @@
 import { SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Address } from '@availa/agube-rest-api';
+import { Address } from '@availaoss/agube-rest-api';
 import { Observable } from 'rxjs';
 import { ConfigureMap } from '../map/configure-map';
 import { LocationResponse } from '../map/location-response';

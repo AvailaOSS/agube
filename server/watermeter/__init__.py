@@ -1,1 +1,1 @@
-default_app_config="watermeter.apps.WatermeterConfig"
+default_app_config = "watermeter.apps.WatermeterConfig"

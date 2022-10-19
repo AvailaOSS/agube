@@ -7,9 +7,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgubeApiModule } from '@availa/agube-rest-api';
-import { AuthModule, AuthRoute } from '@availa/auth-fe';
-import { SubscriptionModule, SubscriptionRoute } from '@availa/subscription-fe';
+import { AgubeApiModule } from '@availaoss/agube-rest-api';
+import { AuthModule } from './page/auth/auth.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
@@ -22,8 +21,6 @@ import { ErrorInterceptor } from './utils/error.interceptor';
 export function HttpLoaderFactory(http: HttpClient) {
     return new MultiTranslateHttpLoader(http, [
         { prefix: '../assets/i18n/', suffix: '.json' },
-        { prefix: './src/assets/auth/', suffix: '.json' },
-        { prefix: './src/assets/contact-book/', suffix: '.json' },
     ]);
 }
 
@@ -34,18 +31,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        SubscriptionModule.forRoot({
-            loginUrl: AuthRoute.ENABLE_ACCOUNT,
-            subscriptionRestconfig: {
-                basePath: environment.subscriptionBackendUrl,
-            },
-        }),
         AuthModule.forRoot({
             authRestconfig: {
-                basePath: environment.authBackendUrl,
+                basePath: environment.agubeBackendUrl,
             },
             afterLoginSuccessUrl: SidebarRoute.MANAGER,
-            createAccountUrl: SubscriptionRoute.SUBSCRIPTION,
+            createAccountUrl: '',
         }),
         AgubeApiModule.forRoot({
             basePath: environment.agubeBackendUrl,

@@ -1,6 +1,6 @@
-import { DwellingResume, DwellingService } from '@availa/agube-rest-api';
+import { DwellingResume, DwellingService } from '@availaoss/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '@availa/auth-fe';
+import { AccountService } from 'src/app/page/auth/login/service/account.service';
 
 @Component({
     selector: 'app-info',

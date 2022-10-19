@@ -1,16 +1,16 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from address.models import Address
 from address.serializers import AddressSerializer
-from manager.models import Manager
-from person.models import Person
-from user.models import UserGeolocation
 from dwelling.models import Dwelling
-from reservoir.models import Reservoir, ReservoirOwner
-from rest_framework.response import Response
+from manager.models import Manager
 from manager.permissions import IsManagerAuthenticated
+from person.models import Person
+from reservoir.models import Reservoir, ReservoirOwner
+from user.models import UserGeolocation
 
 
 class AddressListView(generics.ListAPIView):

@@ -1,0 +1,54 @@
+<div class="enable-form">
+  <mat-card class="enable-account-card">
+    <mat-card-title>{{'ENABLE_ACCOUNT.TITLE'|translate}}</mat-card-title>
+    <mat-card-subtitle>{{'ENABLE_ACCOUNT.SUBTITLE'|translate}}</mat-card-subtitle>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'ENABLE_ACCOUNT.CODE_ACTIVATE.TEXT'|translate}}</mat-label>
+        <input matInput placeholder="St4rk" [formControl]="activationCode" autofocus>
+        <mat-error *ngIf="activationCode.invalid">{{errorValidator('activationCode')|translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'ENABLE_ACCOUNT.USERNAME.TEXT'|translate}}</mat-label>
+        <input matInput placeholder="ironman" [formControl]="username">
+        <mat-error *ngIf="username.invalid">{{errorValidator('username') |translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'ENABLE_ACCOUNT.PASSWORD.TEXT'|translate}}</mat-label>
+        <input matInput placeholder="mark_85" [formControl]="password" [type]="hidePassword ? 'password' : 'text'"
+          (keydown)="enableConfirmPassword($event)">
+        <mat-error *ngIf="password.invalid">{{errorValidator('password') |translate}}</mat-error>
+        <button *ngIf="!isEdge" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'ENABLE_ACCOUNT.CONFIRM_PASSWORD.TEXT'|translate}}</mat-label>
+        <input matInput [formControl]="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'"
+          (keydown)="doActivation()">
+        <button *ngIf="!isEdge" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="confirmPassword.invalid">{{errorValidator('confirmPassword') |translate}}</mat-error>
+        <mat-error *ngIf="confirmPassword.invalid">{{errorValidator('passwordNoMatch') |translate}}</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <mat-card-actions>
+      <button matTooltip="{{'ENABLE_ACCOUNT.BUTTONS.BACK.TOOLTIP'|translate}}" mat-button color="primary"
+        (click)="goLogin()">
+        {{'ENABLE_ACCOUNT.BUTTONS.BACK.TEXT'|translate}}
+      </button>
+      <button matTooltip="{{'ENABLE_ACCOUNT.BUTTONS.ACTIVATE.TOOLTIP'|translate}}" mat-raised-button color="primary"
+        (click)="doActivation()" [disabled]="activationForm.invalid">
+        <div>
+          <mat-icon>task_alt</mat-icon>
+          {{'ENABLE_ACCOUNT.BUTTONS.ACTIVATE.TEXT'|translate}}
+        </div>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

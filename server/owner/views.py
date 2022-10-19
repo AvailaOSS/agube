@@ -1,11 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
+from manager.permissions import IsManagerAuthenticated
 from owner.models import Owner
 from owner.serializers import OwnerDetailSerializer, OwnerSerializer
 

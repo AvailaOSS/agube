@@ -1,8 +1,8 @@
-import { ManagerMessage } from '@availa/agube-rest-api/lib/model/managerMessage';
+import { ManagerMessage } from '@availaoss/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ManagerService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { ManagerService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

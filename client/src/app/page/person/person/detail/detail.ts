@@ -7,8 +7,8 @@ import {
     UserDwellingDetail,
     UserPhone,
     UserService,
-} from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+} from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { ConfigureView } from 'src/app/components/map/view/map-location';

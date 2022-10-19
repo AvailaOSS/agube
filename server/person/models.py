@@ -1,9 +1,9 @@
-from weakref import proxy
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django_prometheus.models import ExportModelOperationsMixin
+from weakref import proxy
+
 from manager.models import Manager
 
 

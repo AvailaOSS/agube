@@ -1,8 +1,8 @@
 import { Component, HostListener, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MeasurementService, WaterMeterMeasurement } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { MeasurementService, WaterMeterMeasurement } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { getHours, getMinutes } from 'date-fns';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { MeasureDialog } from '../measure-dialog/measure-dialog';

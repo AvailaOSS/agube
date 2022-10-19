@@ -1,4 +1,4 @@
-import { DwellingDetail, ReservoirDetail, SpringSourceDetail } from '@availa/agube-rest-api';
+import { DwellingDetail, ReservoirDetail, SpringSourceDetail } from '@availaoss/agube-rest-api';
 import { Coordinates, MapIconType } from 'src/app/components/map/map/configure-map';
 import { isDwellingDetail, isReservoirDetail, isSpringSourceDetail } from '../models/model-detector';
 

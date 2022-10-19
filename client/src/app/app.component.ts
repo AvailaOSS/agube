@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { UserService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
+import { UserService } from '@availaoss/agube-rest-api';
 import { TranslateService } from '@ngx-translate/core';
+import { AccountService as AuthAccountService } from 'src/app/page/auth/login/service/account.service';
 import { Icon } from './utils/icons';
 import { Language } from './utils/language';
 
@@ -126,7 +126,7 @@ export class AppComponent {
 
     constructor(
         private translate: TranslateService,
-        private svcAccount: AccountService,
+        private svcAccount: AuthAccountService,
         private svcUser: UserService,
         protected matIconRegistry: MatIconRegistry,
         protected domSanitizer: DomSanitizer

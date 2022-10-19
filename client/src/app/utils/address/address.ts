@@ -1,4 +1,4 @@
-import { Geolocation } from '@availa/agube-rest-api';
+import { Geolocation } from '@availaoss/agube-rest-api';
 import { getOptionalValue } from '../form';
 import { AddressEmitter } from './address-emitter';
 

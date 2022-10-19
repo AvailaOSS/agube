@@ -1,27 +1,62 @@
-# AgubeRestApi
+# Api
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
-## Development server
+## This is an Angular Library based on Swagger
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Learn about [Swagger](https://swagger.io)
 
-## Code scaffolding
+2. Run [server](/server/README.md) __as dev mode__ 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. Navigate to [localhost](http://localhost:8003/swagger.json) and copy all
 
-## Build
+4. Go to [Swagger Editor](https://editor.swagger.io)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+5. Toolbar menu, Generate Client > typescript-angular
 
-## Running unit tests
+6. Extract the download and copy your changes inside [api](/api/projects/agube-rest-api-lib/src/lib/) folder
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- New __Models__ must be declared in [models.ts](/api/projects/agube-rest-api-lib/src/lib/model/models.ts)
 
-## Running end-to-end tests
+    📑 ___NOTE__: __typescript-angular Generator__ does not respect the __snake_case___
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- For New __Services__ :
+    1. The __constructor__ must be overridden with the following code:
+    ```typescript
+        protected basePath = '';
+        public defaultHeaders = new HttpHeaders();
+        public configuration = new Configuration();
 
-## Further help
+        constructor(
+            protected httpClient: HttpClient,
+            private svcConfig: AgubeRestConfigurationService,
+            @Optional() configuration: Configuration
+        ) {
+            if (configuration) {
+                this.configuration = configuration;
+                this.basePath = configuration.basePath || this.basePath;
+            }
+            this.basePath = this.svcConfig.getBasePath();
+        }
+    ```
+    2. Must be declared in
+        - [api.ts](/api/projects/agube-rest-api-lib/src/lib/service/api.ts)
+        - [agube.api.module.ts](/api/projects/agube-rest-api-lib/src/lib/agube.api.module.ts) as __Provider__ in providers: [...]
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+7. Edit api version in
+    - [package.json](/api/package.json)
+    - [package-lock.json](/api/package-lock.json)
+    - [api package.json](/api/projects/agube-rest-api-lib/package.json)
+
+    📑 ___NOTE__: Use Semantic Versioning Specification -> [Semver](https://semver.org/lang/es/)
+
+# Publish 🌍
+
+Create your own [gitlab token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+```bash
+npm config set @availaoss:registry https://npm.pkg.github.com
+npm login --scope=@availaoss --registry=https://npm.pkg.github.com/
+npm config set registry https://npm.pkg.github.com
+npm run package-publish
+```

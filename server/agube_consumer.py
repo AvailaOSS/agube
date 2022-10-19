@@ -1,10 +1,10 @@
+import django
 from enum import Enum
-from mq.consumer import MqConsumer
-
+from os import environ
 # Set the project environment for this file
 from sys import path
-from os import environ
-import django
+
+from mq.consumer import MqConsumer
 
 path.append('agube.settings.py')
 environ.setdefault('DJANGO_SETTINGS_MODULE', 'agube.settings')
@@ -39,7 +39,7 @@ def on_message(routing_key: str, message_body: bytes):
 
     switch = {
         RoutingKeys.NEW_SUBSCRIPTION.value:
-        new_user_published(message_body.decode(message_encoding))
+            new_user_published(message_body.decode(message_encoding))
     }
     switch.get(routing_key)
 

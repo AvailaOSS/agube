@@ -1,27 +1,27 @@
-from enum import Enum
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.utils.crypto import get_random_string
-from geolocation.models import Geolocation
-from owner.models import Owner
-from user.models import UserGeolocation, UserPhone
-from manager.models import Manager
-from person.models import Person
-from phone.models import Phone
-from phone.serializers import PhoneSerializer
+from enum import Enum
 
-from resident.models import Resident
 from dwelling.send import (EmailType, publish_user_created,
                            send_user_creation_email)
+from geolocation.models import Geolocation
+from manager.models import Manager
+from owner.models import Owner
+from person.models import Person
 from person.models import PersonConfig
+from phone.models import Phone
+from phone.serializers import PhoneSerializer
+from resident.models import Resident
+from user.models import UserGeolocation, UserPhone
 
 
 # FIXME: the user methods must be moved to login app
 class PersonTag(Enum):
     OWNER = "Propietario"
     RESIDENT = "Residente"
+
 
 # FIXME: pass model objects not validated_data
 def create_phone(user: User, validated_data, main: bool):
@@ -61,7 +61,7 @@ def create_user(tag: PersonTag, validated_data,
 
         # Create User
         user: User = User.objects.create(username=activation_code,
-                                        **validated_data)
+                                         **validated_data)
         user.is_active = False
         user.save()
 

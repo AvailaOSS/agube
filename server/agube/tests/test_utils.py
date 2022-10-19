@@ -1,11 +1,11 @@
+import pytz
+from datetime import datetime, timedelta, date
 from django.test import TestCase
 from django.utils import timezone
 
-from datetime import datetime, timedelta, date
-import pytz
-
-from agube.utils import is_24h_older_than_now, parse_query_date, parse_query_datetime, validate_datetime_filters, validate_query_date_filters
 from agube.exceptions import DateFilterNoEndDateError, DateFilterBadFormatError, DateFilterStartGtEnd
+from agube.utils import is_24h_older_than_now, parse_query_date, parse_query_datetime, validate_datetime_filters, \
+    validate_query_date_filters
 
 
 class UtilsTestCase(TestCase):
@@ -58,7 +58,6 @@ class UtilsTestCase(TestCase):
         self.assertEqual(parse_query_date(date_string), date_obj, True)
 
     def test_validate_date_filters(self):
-
         date_from_string = '2022-02-01'
         date_to_string = '2022-02-05'
 
@@ -78,6 +77,6 @@ class UtilsTestCase(TestCase):
 
         with self.assertRaises(DateFilterStartGtEnd):
             validate_query_date_filters(date_to_string, date_from_string)
-            
+
         with self.assertRaises(DateFilterNoEndDateError):
             validate_query_date_filters(date_to_string, None)

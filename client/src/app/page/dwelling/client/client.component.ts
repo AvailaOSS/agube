@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ManagerService, UserDwellingDetail, UserService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
-import { User } from '@availa/auth-fe/lib/login/models/user';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
+import { ManagerService, UserDwellingDetail, UserService } from '@availaoss/agube-rest-api';
+import { User } from '../../auth/login/models/user';
+import { AccountService } from '../../auth/login/service/account.service';
 
 @Component({
     selector: 'app-page-dwelling-client',

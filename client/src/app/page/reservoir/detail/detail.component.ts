@@ -8,8 +8,8 @@ import {
     ReservoirCreate,
     ReservoirService,
     WaterMeter,
-} from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+} from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { JoyrideService } from 'ngx-joyride';

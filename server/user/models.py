@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django_prometheus.models import ExportModelOperationsMixin
+
 from geolocation.models import Geolocation
 from phone.models import Phone
 

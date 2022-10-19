@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthRoute } from '@availa/auth-fe';
+import { AuthRoute } from './page/auth/auth-route';
 import { ManagerGuard } from './providers/manager.guard';
 import { UserGuard } from './providers/user.guard';
 

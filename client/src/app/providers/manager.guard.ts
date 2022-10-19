@@ -1,15 +1,15 @@
-import { AccountService } from '@availa/auth-fe';
 import { SidebarRoute } from './../page/home/sidebar-route';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router, UrlTree } from '@angular/router';
-import { ManagerService } from '@availa/agube-rest-api';
+import { ManagerService } from '@availaoss/agube-rest-api';
 import { Observable } from 'rxjs';
+import { AccountService } from '../page/auth/login/service/account.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ManagerGuard implements CanActivate, CanLoad {
-    constructor(private router: Router, private svcManager: ManagerService, private svcAccount : AccountService) {}
+    constructor(private router: Router, private svcManager: ManagerService, private svcAccount: AccountService) {}
 
     canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         return this.canLoad();

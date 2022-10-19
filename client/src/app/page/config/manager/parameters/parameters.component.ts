@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ManagerConfiguration, ManagerService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
-import { TranslateService } from '@ngx-translate/core';
+import { ManagerConfiguration, ManagerService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
-import { JoyrideService } from 'ngx-joyride';
-
 
 @Component({
     selector: 'app-parameters',

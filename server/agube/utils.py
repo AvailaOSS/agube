@@ -1,7 +1,8 @@
-from datetime import datetime, timedelta, date, time
 import pytz
-from typing import Tuple
+from datetime import datetime, timedelta, date, time
 from django.utils import dateparse
+from typing import Tuple
+
 from agube.exceptions import DateFilterNoEndDateError, DateFilterBadFormatError, DateFilterStartGtEnd
 
 
@@ -55,7 +56,6 @@ def validate_query_date_filters(
         query_start_date: str,
         query_end_date: str,
         timezone: pytz.BaseTzInfo = None) -> Tuple[datetime, datetime]:
-
     if (query_start_date is None) and (query_end_date is None):
         return None
 
@@ -68,7 +68,7 @@ def validate_query_date_filters(
 
     # If after parse is None, bad format
     if (from_datetime is None
-            and query_start_date != None) or (until_datetime is None):
+        and query_start_date != None) or (until_datetime is None):
         raise DateFilterBadFormatError
 
     return validate_datetime_filters(from_datetime, until_datetime)

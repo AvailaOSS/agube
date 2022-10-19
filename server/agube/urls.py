@@ -1,22 +1,25 @@
-from address.urls import urlpatterns as urls_address
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+
+from address.urls import urlpatterns as urls_address
+from agubeauth.urls import urlpatterns as url_auth
+from comment.urls import urlpatterns as urls_comments
 from dwelling.urls import urlpatterns as urls_dwelling
-from user.urls import urlpatterns as urls_user
-from resident.urls import urlpatterns as urls_resident
-from owner.urls import urlpatterns as urls_owner
+from geolocation.urls import urlpatterns as urls_geolocation
 from manager.urls import urlpatterns as urls_manager
+from owner.urls import urlpatterns as urls_owner
 from phone.urls import urlpatterns as urls_phone
 from reservoir.urls import urlpatterns as urls_reservoir
-from rest_framework import permissions
-from watermeter.urls import urlpatterns as urls_water_meter, urlpatternsMeasurement
-from geolocation.urls import urlpatterns as urls_geolocation
-from comment.urls import urlpatterns as urls_comments
+from resident.urls import urlpatterns as urls_resident
 from springsource.urls import urlpatterns as urls_springsource
+from user.urls import urlpatterns as urls_user
+from watermeter.urls import urlpatterns as urls_water_meter, urlpatternsMeasurement
 
 current_version = 'v1.0.0'
 module_name = 'agube'
@@ -37,6 +40,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', include('django_prometheus.urls')),
+    path(base_url + 'token/auth', obtain_jwt_token),
+    path(base_url + 'token/refresh', refresh_jwt_token),
+    path(base_url + 'auth', include(url_auth)),
     path(base_url + 'address', include(urls_address)),
     path(base_url + 'dwelling', include(urls_dwelling)),
     path(base_url + 'reservoir', include(urls_reservoir)),
@@ -58,5 +64,6 @@ if settings.DEBUG:
     urlpatterns.append(path('api-auth/', include('rest_framework.urls')))
     urlpatterns.append(
         re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'))
-    urlpatterns.append(re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'))
+    urlpatterns.append(
+        re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'))
     urlpatterns.append(path('', RedirectView.as_view(url='swagger', permanent=False), name='api-root'))

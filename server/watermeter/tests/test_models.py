@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.utils import dateparse
+
 from watermeter.models import WaterMeter
+
 
 class WaterMeterMeasurementTestCase(TestCase):
 

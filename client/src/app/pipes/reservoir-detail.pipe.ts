@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ReservoirDetail } from '@availa/agube-rest-api';
+import { ReservoirDetail } from '@availaoss/agube-rest-api';
 
 @Pipe({
     name: 'reservoirDetail',

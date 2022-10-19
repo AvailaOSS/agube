@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WaterMeter } from '@availa/agube-rest-api';
+import { WaterMeter } from '@availaoss/agube-rest-api';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

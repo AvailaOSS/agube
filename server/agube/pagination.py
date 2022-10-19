@@ -1,9 +1,8 @@
 from collections import OrderedDict
+from drf_yasg import openapi
+from drf_yasg.inspectors import PaginatorInspector
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-
-from drf_yasg.inspectors import PaginatorInspector
-from drf_yasg import openapi
 
 
 class CustomPagination(PageNumberPagination):

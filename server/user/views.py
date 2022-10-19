@@ -1,23 +1,23 @@
 import mimetypes
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
-from dwelling.models import Dwelling
-from owner.models import Owner
-from person.models import Person, PersonConfig
-from person.serializers import PersonPhotoSerializer
-from person.renders import JPEGRenderer, PNGRenderer
-from phone.models import Phone
-from resident.models import Resident
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework.views import APIView
 
+from dwelling.models import Dwelling
+from owner.models import Owner
+from person.models import Person, PersonConfig
+from person.renders import JPEGRenderer, PNGRenderer
+from person.serializers import PersonPhotoSerializer
+from phone.models import Phone
+from resident.models import Resident
 from user.assemblers import (get_all_user_geolocation_serialized,
                              get_all_user_phones_serialized)
+from user.exceptions import UserGeolocationError, UserGeolocationMainUpdateError, UserGeolocationMainDeleteError
 from user.models import (UserGeolocation, UserPhone,
                          update_geolocation_to_not_main,
                          update_phone_to_not_main)
@@ -27,7 +27,6 @@ from user.serializers import (PersonConfigSerializer, UserDetailSerializer,
                               UserGeolocationSerializer,
                               UserPhoneUpdateSerializer)
 from user.serializers_external import UserDwellingDetailSerializer
-from user.exceptions import UserGeolocationError, UserGeolocationMainUpdateError, UserGeolocationMainDeleteError
 
 TAG_USER = 'user'
 

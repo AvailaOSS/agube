@@ -3,8 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.fields import ReadOnlyField, DateField, IntegerField, DecimalField
 from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
 
-from dwelling.exceptions import DwellingWithoutWaterMeterError
 from comment.models import Comment
+from dwelling.exceptions import DwellingWithoutWaterMeterError
 from dwelling.exceptions import UserManagerRequiredError
 from dwelling.models import DwellingComment, Dwelling
 from geolocation.serializers import GeolocationSerializer
@@ -201,7 +201,7 @@ class DwellingCommentCreateSerializer(ModelSerializer):
     def to_representation(self, obj):
         return {
             'dwelling_id':
-            DwellingComment.objects.get(comment=obj.id).dwelling.id,
+                DwellingComment.objects.get(comment=obj.id).dwelling.id,
             'message': obj.message,
         }
 

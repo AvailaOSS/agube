@@ -13,7 +13,7 @@ import {
 import { FormBuilder } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
-import { Address, AddressService } from '@availa/agube-rest-api';
+import { Address, AddressService } from '@availaoss/agube-rest-api';
 import * as L from 'leaflet';
 import { Observable } from 'rxjs';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';

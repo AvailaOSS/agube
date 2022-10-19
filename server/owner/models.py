@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
+
 from dwelling.models import Dwelling
 from manager.models import Manager
 

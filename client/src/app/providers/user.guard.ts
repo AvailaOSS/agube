@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-    ActivatedRouteSnapshot,
-    CanActivate,
-    CanLoad,
-    Route,
-    Router,
-    RouterStateSnapshot,
-    UrlSegment,
-    UrlTree,
-} from '@angular/router';
-import { AccountService } from '@availa/auth-fe';
+import { CanActivate, CanLoad, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AccountService } from '../page/auth/login/service/account.service';
 
 @Injectable({
     providedIn: 'root',

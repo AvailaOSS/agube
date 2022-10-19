@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ReservoirDetail } from '@availa/agube-rest-api';
+import { ReservoirDetail } from '@availaoss/agube-rest-api';
 import { TranslateService } from '@ngx-translate/core';
 import { JoyrideService } from 'ngx-joyride';
 import { Detail } from 'src/app/page/reservoir/detail/detail';

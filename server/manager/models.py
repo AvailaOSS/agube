@@ -1,10 +1,10 @@
-from email.policy import default
 from django.contrib.auth.models import User
-from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
-from django.db.models import Q
+from email.policy import default
 
 
 class Manager(ExportModelOperationsMixin('Manager'), models.Model):
@@ -27,7 +27,7 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
             __default_hook_price = 100
             self.create_configuration(__default_max_daily_consumption,
                                       __default_hook_price)
-                                      
+
             # create manager message
             ManagerMessage.objects.get_or_create(manager=self)
 
@@ -38,7 +38,7 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         # check if last configuration is the same
         current_configuration = self.get_current_configuration()
         if current_configuration.compare(hook_price, max_daily_consumption):
-                return current_configuration
+            return current_configuration
 
         # discharge old configurations
         for configuration in ManagerConfiguration.objects.filter(
