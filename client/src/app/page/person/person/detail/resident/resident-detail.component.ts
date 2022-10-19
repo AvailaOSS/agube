@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DwellingService, ResidentService, UserService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { DwellingService, ResidentService, UserService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Detail } from '../detail';
 

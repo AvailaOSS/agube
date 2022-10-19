@@ -1,8 +1,9 @@
+from rest_framework import status
+from rest_framework.test import APITestCase
+
 from address.models import Address
 from agube.tests.utils import AuthTestSimulator
 from dwelling.models import Dwelling, DwellingWaterMeter
-from rest_framework import status
-from rest_framework.test import APITestCase
 from geolocation.models import Geolocation
 from manager.models import Manager
 from watermeter.models import WaterMeter
@@ -10,7 +11,7 @@ from watermeter.serializers import WaterMeterMeasurementSerializer
 
 
 class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
-    base_url = AuthTestSimulator.base_url +'/water-meter/'
+    base_url = AuthTestSimulator.base_url + '/water-meter/'
 
     def setUp(self):
         self.simulate_auth()
@@ -51,7 +52,7 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
             village='village',
             road='road',
         )[0]
-        geolocation= Geolocation.objects.create(
+        geolocation = Geolocation.objects.create(
             address=address,
             latitude=5.5,
             longitude=5.5,
@@ -78,7 +79,6 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
         self.assertEqual(float(measure['max_daily_consumption']), 1000.0)
         self.assertEqual(measure['date'], "2022-07-20T10:16:01Z")
 
-
     def test_post_addWaterMeterMeasurement(self):
         """
         Ensure new measurement creation.
@@ -89,7 +89,7 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
 
         # expected data
         expected_measurement = 100.0
-        data = { "measurement": expected_measurement, "date": "2022-07-23T10:08:28.828Z" }
+        data = {"measurement": expected_measurement, "date": "2022-07-23T10:08:28.828Z"}
 
         # assertion
         response = self.client.post(url, data, format='json')
@@ -100,7 +100,7 @@ class WaterMeterMeasurementViewTestCase(AuthTestSimulator, APITestCase):
 
         # expected data
         expected_measurement = float(101.53)
-        data = { "measurement": expected_measurement, "date": "2022-07-30T15:10:27.828Z" }
+        data = {"measurement": expected_measurement, "date": "2022-07-30T15:10:27.828Z"}
 
         # assertion
         response = self.client.post(url, data, format='json')

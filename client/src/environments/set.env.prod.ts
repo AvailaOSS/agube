@@ -3,6 +3,7 @@ const { argv } = require('yargs');
 
 const targetPath = `./src/environments/environment.prod.ts`;
 
+const env_MODE = argv.MODE;
 const env_APP_NAME = argv.APP_NAME;
 const env_GOOGLE_MAPS_API_KEY = argv.GOOGLE_MAPS_API_KEY;
 const env_GOOGLE_ANALYTICS_ID = argv.GOOGLE_ANALYTICS_ID;
@@ -20,25 +21,10 @@ if (!env_GOOGLE_ANALYTICS_ID) {
 
 var environmentFileContent = '';
 
-if (env_APP_NAME === 'Agube-dev') {
+if (env_MODE === 'dev') {
     // FOR SNAPSHOT
-    const env_AUTH_BACKEND_API_URL = argv.AUTH_BACKEND_API_URL;
-    const env_SUBSCRIPTION_BACKEND_API_URL = argv.SUBSCRIPTION_BACKEND_API_URL;
-    const env_CONTACT_BOOK_BACKEND_API_URL = argv.CONTACT_BOOK_BACKEND_API_URL;
     const env_AGUBE_BACKEND_API_URL = argv.AGUBE_BACKEND_API_URL;
 
-    if (!env_AUTH_BACKEND_API_URL) {
-        console.error('AUTH_BACKEND_API_URL environment variable is needed');
-        process.exit(-1);
-    }
-    if (!env_SUBSCRIPTION_BACKEND_API_URL) {
-        console.error('SUBSCRIPTION_BACKEND_API_URL environment variable is needed');
-        process.exit(-1);
-    }
-    if (!env_CONTACT_BOOK_BACKEND_API_URL) {
-        console.error('CONTACT_BOOK_BACKEND_API_URL environment variable is needed');
-        process.exit(-1);
-    }
     if (!env_AGUBE_BACKEND_API_URL) {
         console.error('AGUBE_BACKEND_API_URL environment variable is needed');
         process.exit(-1);
@@ -46,16 +32,13 @@ if (env_APP_NAME === 'Agube-dev') {
 
     environmentFileContent = `
     export const environment = {
-       production: true,
+       production: false,
        appName: "${env_APP_NAME}",
        googleMapsApiKey: "${env_GOOGLE_MAPS_API_KEY}",
        googleAnalyticsId: "${env_GOOGLE_ANALYTICS_ID}",
-       authBackendUrl:"${env_AUTH_BACKEND_API_URL}/api/v1.0.0/auth",
-       subscriptionBackendUrl: "${env_SUBSCRIPTION_BACKEND_API_URL}/api/v1.0.0/subscription",
-       contactBookBackendUrl: "${env_CONTACT_BOOK_BACKEND_API_URL}/api/v1.0.0/contact-book",
        agubeBackendUrl: "${env_AGUBE_BACKEND_API_URL}/api/v1.0.0/agube",
     };`;
-} else {
+} else if (env_MODE === 'prod') {
     // FOR RELEASE CANDIDATE AND RELEASE
     environmentFileContent = `
     export const environment = {
@@ -63,11 +46,11 @@ if (env_APP_NAME === 'Agube-dev') {
        appName: "${env_APP_NAME}",
        googleMapsApiKey: "${env_GOOGLE_MAPS_API_KEY}",
        googleAnalyticsId: "${env_GOOGLE_ANALYTICS_ID}",
-       authBackendUrl:"/api/v1.0.0/auth",
-       subscriptionBackendUrl: "/api/v1.0.0/subscription",
-       contactBookBackendUrl: "/api/v1.0.0/contact-book",
        agubeBackendUrl: "/api/v1.0.0/agube",
     };`;
+} else {
+    console.error('MODE must be "dev" or "prod"');
+    process.exit(-1);
 }
 
 // write the content to the respective file

@@ -10,10 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ContactBookModule } from '@availa/contact-book-fe';
-import { NotificationModule } from '@availa/notification';
+import { NotificationModule } from 'src/app/components/notification/notification.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { environment } from 'src/environments/environment';
 import { ManagerPageRoutingModule } from './manager-page-routing.module';
 import { ManagerPageComponent } from './manager-page.component';
 import { ParametersComponent } from './parameters/parameters.component';
@@ -37,9 +35,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         MatProgressBarModule,
         TranslateModule,
         MatAutocompleteModule,
-        ContactBookModule.forRoot({
-            contactBookRestconfig: { basePath: environment.contactBookBackendUrl },
-        }),
         MatSlideToggleModule,
         JoyrideModule
     ]

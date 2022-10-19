@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservoirResume, ReservoirService } from '@availa/agube-rest-api';
+import { ReservoirResume, ReservoirService } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-info',

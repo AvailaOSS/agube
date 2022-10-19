@@ -1,7 +1,7 @@
-from rest_framework.serializers import ModelSerializer, ImageField
-from person.models import Person, PersonConfig
-
 from drf_yasg import openapi
+from rest_framework.serializers import ModelSerializer, ImageField
+
+from person.models import Person, PersonConfig
 
 
 class PersonConfigSerializer(ModelSerializer):
@@ -16,16 +16,15 @@ class PersonConfigSerializer(ModelSerializer):
 
 
 class PersonPhotoFieldSerializer(ImageField):
-
     class Meta:
         swagger_schema_fields = {
             "type": openapi.TYPE_OBJECT,
             "title": "PersonPhoto",
             "properties": {
                 "photo":
-                openapi.Schema(description="Image file",
-                               type=openapi.TYPE_STRING,
-                               format=openapi.FORMAT_BINARY),
+                    openapi.Schema(description="Image file",
+                                   type=openapi.TYPE_STRING,
+                                   format=openapi.FORMAT_BINARY),
             },
             "required": ["photo"]
         }

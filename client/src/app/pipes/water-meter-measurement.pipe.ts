@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { WaterMeterMeasurement } from '@availa/agube-rest-api';
+import { WaterMeterMeasurement } from '@availaoss/agube-rest-api';
 
 @Pipe({
     name: 'waterMeterMeasurement',

@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DwellingService, DwellingCreate, UserCreate } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { DwellingService, DwellingCreate, UserCreate } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { map, Observable, startWith } from 'rxjs';
 

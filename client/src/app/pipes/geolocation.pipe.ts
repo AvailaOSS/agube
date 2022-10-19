@@ -1,6 +1,6 @@
 import { SlicePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Geolocation } from '@availa/agube-rest-api';
+import { Geolocation } from '@availaoss/agube-rest-api';
 import { AddressPipe } from './address.pipe';
 
 @Pipe({

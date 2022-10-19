@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AddressService } from '@availa/agube-rest-api';
+import { AddressService } from '@availaoss/agube-rest-api';
 import { CreateComponent } from '../create/create.component';
 
 @Component({

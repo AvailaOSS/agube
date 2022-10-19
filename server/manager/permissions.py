@@ -1,5 +1,6 @@
-from manager.models import Manager
 from rest_framework.permissions import IsAuthenticated
+
+from manager.models import Manager
 
 
 class IsManagerAuthenticated(IsAuthenticated):

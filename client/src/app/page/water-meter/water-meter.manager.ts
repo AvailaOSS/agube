@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DwellingService, ReservoirService, WaterMeter, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
+import { DwellingService, ReservoirService, WaterMeter, WaterMeterWithMeasurements } from '@availaoss/agube-rest-api';
 import { Observable } from 'rxjs';
 import { DateFilter, formatDate } from 'src/app/utils/date/date-filter';
 import { WaterMeterType } from './water-meter-type.enum';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { AccountService } from '@availa/auth-fe';
+import { AuthService }from '@availaoss/agube-rest-api';
 import { Observable } from 'rxjs';
 
 @Injectable({

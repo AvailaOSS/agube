@@ -134,17 +134,17 @@ class DwellingCreateView(generics.CreateAPIView):
             # TODO: make openapi.Schema(type=openapi.TYPE_OBJECT,properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}) generic for all errors
             # TODO: create a Serializer for Errors
             HTTP_404_NOT_FOUND:
-            openapi.Schema(type=openapi.TYPE_OBJECT,
-                           properties={
-                               'status':
-                               openapi.Schema(type=openapi.TYPE_STRING)
-                           }),
+                openapi.Schema(type=openapi.TYPE_OBJECT,
+                               properties={
+                                   'status':
+                                       openapi.Schema(type=openapi.TYPE_STRING)
+                               }),
             HTTP_403_FORBIDDEN:
-            openapi.Schema(type=openapi.TYPE_OBJECT,
-                           properties={
-                               'status':
-                               openapi.Schema(type=openapi.TYPE_STRING)
-                           }),
+                openapi.Schema(type=openapi.TYPE_OBJECT,
+                               properties={
+                                   'status':
+                                       openapi.Schema(type=openapi.TYPE_STRING)
+                               }),
         })
     def post(self, request, *args, **kwargs):
         try:
@@ -527,16 +527,16 @@ class DwellingMonthConsumption(APIView):
         # Build response
         response_data = {
             'id':
-            dwelling.id,
+                dwelling.id,
             'date':
-            str(request_date),
+                str(request_date),
             'month_consumption':
-            month_consumption,
+                month_consumption,
             'max_month_consumption':
-            max_month_consumption,
+                max_month_consumption,
             'month_consumption_percentage':
-            month_consumption_percentage
-            if month_consumption_percentage < 1000 else '999.99'
+                month_consumption_percentage
+                if month_consumption_percentage < 1000 else '999.99'
         }
         response_serializer = DwellingMonthConsumptionSerializer(
             data=response_data)

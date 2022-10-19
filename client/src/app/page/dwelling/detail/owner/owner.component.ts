@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { UserService, DwellingService } from '@availa/agube-rest-api';
+import { UserService, DwellingService } from '@availaoss/agube-rest-api';
 import { ResidentComponent } from '../resident/resident.component';
 
 @Component({

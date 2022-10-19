@@ -7,7 +7,7 @@ import {
     ReservoirService,
     SpringSourceCommentCreate,
     SpringSourceService,
-} from '@availa/agube-rest-api';
+} from '@availaoss/agube-rest-api';
 import { Observable } from 'rxjs';
 import { CommentConfig, CommentCreate, CommentType } from './type';
 

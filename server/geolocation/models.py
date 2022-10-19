@@ -1,6 +1,7 @@
-from address.models import Address
 from django.db import models
 from django_prometheus.models import ExportModelOperationsMixin
+
+from address.models import Address
 
 
 class Geolocation(ExportModelOperationsMixin('Geolocation'), models.Model):

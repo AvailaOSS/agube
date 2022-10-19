@@ -1,12 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Owner, OwnerService } from '@availa/agube-rest-api';
+import { Owner, OwnerService } from '@availaoss/agube-rest-api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PersonTable } from '../../table';
 import { GeolocationPipe } from 'src/app/pipes/geolocation.pipe';
 import { ITableOwner } from './table-owner';
-import { AccountService } from '@availa/auth-fe';
 
 @Component({
     selector: 'app-table-owner',
@@ -21,7 +20,6 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
         protected svcOwner: OwnerService,
         protected override router: Router,
         protected override route: ActivatedRoute,
-        private svcAccount: AccountService
     ) {
         super(router, route);
         this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';

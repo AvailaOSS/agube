@@ -15,6 +15,7 @@ class UserGeolocationMainUpdateError(Exception):
         self.message = "Cannot update main User Geolocation"
         super().__init__(self.message)
 
+
 class UserGeolocationMainDeleteError(Exception):
     """Exception raised when main User Geolocation cannot be deleted.
     """

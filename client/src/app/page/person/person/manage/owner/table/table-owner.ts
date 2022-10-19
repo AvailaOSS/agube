@@ -1,4 +1,4 @@
-import { OwnerDetail } from '@availa/agube-rest-api';
+import { OwnerDetail } from '@availaoss/agube-rest-api';
 
 export interface ITableOwner extends OwnerDetail {
     address?: string;

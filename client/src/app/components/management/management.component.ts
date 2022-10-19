@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DwellingCreate, ReservoirCreate } from '@availa/agube-rest-api';
+import { DwellingCreate, ReservoirCreate } from '@availaoss/agube-rest-api';
 import { WaterMeterDialogData } from 'src/app/page/water-meter/dialog/dialog-data';
 import { WaterMeterDialogComponent } from 'src/app/page/water-meter/dialog/dialog.component';
 import { WaterMeterPersistantService } from 'src/app/page/water-meter/water-meter-persistant.service';

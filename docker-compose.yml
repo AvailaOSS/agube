@@ -1,0 +1,84 @@
+services:
+  # Root services
+  ## Root: DB
+  db:
+    hostname: db
+    container_name: postgres-db
+    image: postgres:13
+    ports:
+      - 5432:5432
+    volumes:
+      - type: volume
+        source: agube-db-data
+        target: /var/lib/postgresql/data
+    env_file:
+      - docker/.env.db
+    networks:
+      - backend
+
+  # Backend services
+  ## BE: agube
+  agube-be:
+    hostname: agube-be
+    container_name: agube-be
+    build:
+      context: ./server
+      dockerfile: /Dockerfile
+    # build: server/agube-be
+    command: python3 manage.py runserver 0:8000
+    ports:
+      - 8000:8000
+      - 5555:5555
+    volumes:
+      - type: volume
+        source: agube-data
+        target: /mnt/availa-agube/data
+      - ./server:/availa-agube
+    environment: &be-envs-email
+      - DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY
+      - EMAIL_HOST=$DEV_SMTP_SERVER
+      - EMAIL_PORT=587
+      - EMAIL_HOST_USER=$DEV_USER_MAIL
+      - EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD
+    env_file: &be-env-file
+      - docker/.env.be
+    depends_on: &be-dependencies
+      - db
+    networks: &be-networks
+      - backend
+      - api
+
+  # Frontend services
+  ## FE: agube
+  agube-fe:
+    hostname: agube-fe
+    container_name: agube-fe
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+      args:
+        GITHUB_AUTH_TOKEN: $GITHUB_AUTH_TOKEN
+        MODE: "dev" # Prod mode does not read the env AGUBE_BACKEND_API_URL
+        APP_NAME: "Agube"
+        GOOGLE_MAPS_API_KEY: ""
+        GOOGLE_ANALYTICS_ID: ""
+        AGUBE_BACKEND_API_URL: "http://localhost:8000" # Needed for "dev" mode
+    command: nginx -g 'daemon off;'
+    ports:
+      - 8080:8080
+    depends_on:
+      - agube-be
+    networks:
+      - api
+
+volumes:
+  agube-db-data:
+    external: true
+  agube-data:
+    external: true
+
+networks:
+  backend:
+    driver: bridge
+  api:
+    driver: bridge

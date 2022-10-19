@@ -1,4 +1,4 @@
-import { UserGeolocation } from '@availa/agube-rest-api';
+import { UserGeolocation } from '@availaoss/agube-rest-api';
 
 export interface EditableGeolocation {
     geolocation: UserGeolocation;

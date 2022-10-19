@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SpringSource, SpringSourceService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
-import { NotificationService } from '@availa/notification';
+import { SpringSource, SpringSourceService } from '@availaoss/agube-rest-api';
+import { AccountService } from '../../auth/login/service/account.service';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { MapIconType } from 'src/app/components/map/map/configure-map';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';

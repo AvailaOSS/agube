@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('dwelling', '0004_moved_owner_to_his_own_module'),
     ]

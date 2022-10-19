@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Resident, ResidentService } from '@availa/agube-rest-api';
+import { Resident, ResidentService } from '@availaoss/agube-rest-api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PersonTable } from '../../table';
 import { ITableResident } from './table-resident';
 import { GeolocationPipe } from 'src/app/pipes/geolocation.pipe';
-import { AccountService } from '@availa/auth-fe';
 
 @Component({
     selector: 'app-table-resident',
@@ -21,7 +20,6 @@ export class TableResidentComponent extends PersonTable implements OnInit {
         protected svcResident: ResidentService,
         protected override router: Router,
         protected override route: ActivatedRoute,
-        private svcAccount: AccountService
     ) {
         super(router, route);
         this.title = 'PAGE.RESIDENTS.MANAGER.TABLE.TITLE';

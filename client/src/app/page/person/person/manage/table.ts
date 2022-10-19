@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Owner, Resident } from '@availa/agube-rest-api';
+import { Owner, Resident } from '@availaoss/agube-rest-api';
 import { ITableOwner } from './owner/table/table-owner';
 import { ITableResident } from './resident/table/table-resident';
 

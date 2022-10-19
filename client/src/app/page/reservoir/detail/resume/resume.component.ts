@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
+import { ReservoirService, ReservoirCreate } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-reservoir-resume',

@@ -1,11 +1,11 @@
-from geolocation.serializers import GeolocationSerializer
 from rest_framework.fields import CharField, ReadOnlyField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, Serializer
+
+from geolocation.serializers import GeolocationSerializer
+from resident.models import Resident
 from user.models import UserPhone
 from user.serializers import UserCreateSerializer
-
-from resident.models import Resident
 
 
 class ResidentDetailSerializer(Serializer):
@@ -39,18 +39,18 @@ class ResidentDetailSerializer(Serializer):
     def to_representation(self, instance: Resident):
         data = {
             'id':
-            instance.id,
+                instance.id,
             'first_name':
-            instance.user.first_name,
+                instance.user.first_name,
             'last_name':
-            instance.user.last_name,
+                instance.user.last_name,
             'email':
-            instance.user.email,
+                instance.user.email,
             'phone':
-            UserPhone.objects.get(user=instance.user,
-                                  main=True).phone.phone_number,
+                UserPhone.objects.get(user=instance.user,
+                                      main=True).phone.phone_number,
             'geolocation':
-            GeolocationSerializer(instance.dwelling.geolocation).data,
+                GeolocationSerializer(instance.dwelling.geolocation).data,
         }
         return data
 

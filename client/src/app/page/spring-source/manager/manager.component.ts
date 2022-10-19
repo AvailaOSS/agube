@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SpringSourceDetail } from '@availa/agube-rest-api';
+import { SpringSourceDetail } from '@availaoss/agube-rest-api';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { SpringSourceCacheService } from 'src/app/utils/cache/spring-source-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';

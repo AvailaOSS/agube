@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CreateRoutingModule } from './create-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { NotificationModule } from '@availa/notification';
+import { NotificationModule } from 'src/app/components/notification/notification.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';

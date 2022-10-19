@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DwellingDetail, DwellingService } from '@availa/agube-rest-api';
+import { DwellingDetail, DwellingService } from '@availaoss/agube-rest-api';
 import { TranslateService } from '@ngx-translate/core';
 import { JoyrideService } from 'ngx-joyride';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';

@@ -14,7 +14,6 @@ import json
 import os
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -66,19 +65,20 @@ INSTALLED_APPS = [
     # Monitoring
     'django_prometheus',
     # Apps
-    'user',
-    'manager',
     'address',
-    'phone',
-    'watermeter',
-    'dwelling',
-    'reservoir',
-    'geolocation',
-    'person',
-    'owner',
-    'resident',
+    'agubeauth',
     'comment',
+    'dwelling',
+    'geolocation',
+    'manager',
+    'owner',
+    'person',
+    'phone',
+    'reservoir',
+    'resident',
     'springsource',
+    'user',
+    'watermeter',
 ]
 
 MIDDLEWARE = [
@@ -152,7 +152,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -174,6 +173,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = '/mnt/availa-agube/data/media'
 MEDIA_URL = '/media/'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -186,8 +187,8 @@ REST_FRAMEWORK = {
 }
 
 SWAGGER_SETTINGS = {
-    'LOGIN_URL' : 'rest_framework:login',
-    'LOGOUT_URL' : 'rest_framework:logout'
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout'
 }
 
 # TODO: Remove this in the future, it only should be work in auth project

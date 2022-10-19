@@ -1,5 +1,6 @@
 @import '../../../assets/availa/sizes/margins.scss';
 @import '../../../assets/availa/sizes/resolutions.scss';
+
 .avatar {
     text-align: center;
     img {
@@ -8,11 +9,13 @@
         width: 150px;
     }
 }
+
 .avatar-icon {
     mat-icon {
         transform: scale(2);
     }
 }
+
 .sidebar {
     width: 100%;
     height: 100%;
@@ -51,17 +54,17 @@
             margin: 0 $margin-x-small 0 $margin-x-small;
         }
     }
-    .theme-slider {
-        color: orange;
-    }
 }
+
 .close-w100 {
     display: none !important;
 }
+
 .title-logo {
     margin-left: -20px;
     display: none;
 }
+
 @media only screen and (max-width: $resolution-l-small) {
     .page-content {
         padding: $margin-x-small;

@@ -1,4 +1,4 @@
-import { WaterMeter, WaterMeterWithMeasurements } from '@availa/agube-rest-api';
+import { WaterMeter, WaterMeterWithMeasurements } from '@availaoss/agube-rest-api';
 
 export interface WaterMeterGauge {
     waterMeter: WaterMeter;

@@ -8,10 +8,7 @@ export const environment = {
     googleMapsApiKey: '',
     googleAnalyticsId: '',
     // set your dev host server here
-    authBackendUrl: 'http://localhost:8000/api/v1.0.0/auth',
-    subscriptionBackendUrl: 'http://localhost:8001/api/v1.0.0/subscription',
-    contactBookBackendUrl: 'http://localhost:8002/api/v1.0.0/contact-book',
-    agubeBackendUrl: 'http://localhost:8003/api/v1.0.0/agube',
+    agubeBackendUrl: 'http://localhost:8000/api/v1.0.0/agube',
 };
 
 /*

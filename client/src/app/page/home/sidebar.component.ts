@@ -2,14 +2,13 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PersonConfig, UserDetail, UserService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
-import { JoyrideService } from 'ngx-joyride';
+import { PersonConfig, UserDetail, UserService } from '@availaoss/agube-rest-api';
 import { CleanerCacheService } from 'src/app/utils/cache/cleaner-cache.service';
+import { AccountService } from '../auth/login/service/account.service';
 import { PersonalInfoPersistantService } from '../config/client/personal-info/personal-info-persistant.service';
 import { SidebarConfig } from './sidebar-config';
 import { ThemeMode } from './theme-mode';
-import { TranslateService } from '@ngx-translate/core';
+
 @Component({
     selector: 'app-sidebar',
     template: `<ng-template></ng-template>`,

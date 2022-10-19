@@ -1,14 +1,14 @@
-import { AccountService } from '@availa/auth-fe';
-import { UserService, Phone } from '@availa/agube-rest-api';
+import { UserService, Phone } from '@availaoss/agube-rest-api';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NotificationService } from '@availa/notification';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { PersonalInfo } from './personal-info';
 import { Observable } from 'rxjs';
 import { PersonalInfoPersistantService } from './personal-info-persistant.service';
 import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { TranslateService } from '@ngx-translate/core';
 import { JoyrideService } from 'ngx-joyride';
+import { AccountService } from 'src/app/page/auth/login/service/account.service';
 
 @Component({
     selector: 'app-personal-info',

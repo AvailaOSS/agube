@@ -1,16 +1,16 @@
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView
 from rest_framework.status import HTTP_404_NOT_FOUND
+from rest_framework.views import APIView
 
 from manager.models import Manager, ManagerConfiguration, ManagerMessage
 from manager.permissions import IsManagerAuthenticated
-from person.models import Person
 from manager.serializers import (ManagerConfigurationSerializer,
                                  ManagerMessageSerializer, ManagerSerializer,
                                  UserIsManagerSerializer)
+from person.models import Person
 
 TAG_MANAGER = 'manager'
 
