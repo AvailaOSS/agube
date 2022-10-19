@@ -51,6 +51,7 @@ That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
 <table>
   <tbody>
     <tr>
+      <td align="center"><a href="http://www.availa.eu"><img src="https://avatars.githubusercontent.com/u/115986710?v=4?s=100" width="100px;" alt="Santiago Bolás Lago"/><br /><sub><b>Santiago Bolás Lago</b></sub></a><br /><a href="#projectManagement-Zumito93" title="Project Management">📆</a> <a href="https://github.com/AvailaOSS/agube/commits?author=Zumito93" title="Code">💻</a></td>
       <td align="center"><a href="http://www.availa.eu"><img src="https://avatars.githubusercontent.com/u/750404?v=4?s=100" width="100px;" alt="Germán  Martín Garisto Viso"/><br /><sub><b>Germán  Martín Garisto Viso</b></sub></a><br /><a href="#projectManagement-German14" title="Project Management">📆</a> <a href="https://github.com/AvailaOSS/agube/commits?author=German14" title="Code">💻</a></td>
     </tr>
   </tbody>

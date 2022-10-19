@@ -7,6 +7,16 @@
   "imageSize": 100,
   "contributors": [
     {
+      "login": "Zumito93",
+      "name": "Santiago Bolás Lago",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115986710?v=4",
+      "profile": "http://www.availa.eu",
+      "contributions": [
+        "projectManagement",
+        "code"
+      ]
+    },
+    {
       "login": "German14",
       "name": "Germán  Martín Garisto Viso",
       "avatar_url": "https://avatars.githubusercontent.com/u/750404?v=4",
