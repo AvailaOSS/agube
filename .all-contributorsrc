@@ -7,6 +7,25 @@
   "imageSize": 100,
   "contributors": [
     {
+      "login": "Fran-Abril",
+      "name": "Fran J. Abril Álvarez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10210729?v=4",
+      "profile": "https://www.linkedin.com/in/fran-abril-a8424419a/",
+      "contributions": [
+        "projectManagement",
+        "code",
+        "design",
+        "bug",
+        "business",
+        "doc",
+        "ideas",
+        "infra",
+        "maintenance",
+        "research",
+        "review"
+      ]
+    },
+    {
       "login": "Zumito93",
       "name": "Santiago Bolás Lago",
       "avatar_url": "https://avatars.githubusercontent.com/u/115986710?v=4",
