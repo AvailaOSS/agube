@@ -1,9 +1,22 @@
 {
   "projectName": "agube",
   "projectOwner": "AvailaOSS",
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 100,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "Zumito93",
+      "name": "Santiago Bolás Lago",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115986710?v=4",
+      "profile": "http://www.availa.eu",
+      "contributions": [
+        "projectManagement",
+        "code"
+      ]
+    }
+  ],
   "repoType": "github",
   "contributorsPerLine": 7,
   "repoHost": "https://github.com",
