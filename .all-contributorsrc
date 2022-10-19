@@ -1,9 +1,22 @@
 {
   "projectName": "agube",
   "projectOwner": "AvailaOSS",
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 100,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "Fran-Abril",
+      "name": "Fran",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10210729?v=4",
+      "profile": "https://www.linkedin.com/in/fran-abril-a8424419a/",
+      "contributions": [
+        "projectManagement",
+        "code"
+      ]
+    }
+  ],
   "repoType": "github",
   "contributorsPerLine": 7,
   "repoHost": "https://github.com",
