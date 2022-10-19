@@ -34,17 +34,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/Availa_logo_isotipo.svg",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/@availa/auth-fe/assets/i18n/",
-                "output": "./src/assets/auth/"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@availa/contact-book-fe/assets/i18n/",
-                "output": "./src/assets/contact-book/"
-              }
+              "src/assets"
             ],
             "styles": [
               "./node_modules/leaflet/dist/leaflet.css",

@@ -1,10 +1,10 @@
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from validate_email import validate_email
-from dwelling.exceptions import InvalidEmailError, EmailValidationError
-from django.conf import settings
 
-from django.contrib.auth.models import User
+from dwelling.exceptions import InvalidEmailError, EmailValidationError
 
 
 def send_email_modification_email(user: User, old_email, new_email):
@@ -26,7 +26,7 @@ def send_email_modification_email(user: User, old_email, new_email):
         'email_contact': settings.EMAIL_HOST_USER,
     }
     old_content = old_template.render(old_context)
-    #new
+    # new
     new_template = get_template(NEW_EMAIL_TEMPLATE)
     new_context = {
         'app_name': app_name,
@@ -43,7 +43,7 @@ def send_email_modification_email(user: User, old_email, new_email):
                                        str(settings.EMAIL_HOST_USER),
                                        [old_email])
     old_email.attach_alternative(old_content, 'text/html')
-    #new
+    # new
     new_email = EmailMultiAlternatives(affair, description,
                                        str(settings.EMAIL_HOST_USER),
                                        [new_email])

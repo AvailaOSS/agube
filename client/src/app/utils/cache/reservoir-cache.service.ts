@@ -1,6 +1,6 @@
 import { ICacheService } from './interface-cache.service';
 import { Injectable } from '@angular/core';
-import { ReservoirDetail, ReservoirService } from '@availa/agube-rest-api';
+import { ReservoirDetail, ReservoirService } from '@availaoss/agube-rest-api';
 
 @Injectable({
     providedIn: 'root',

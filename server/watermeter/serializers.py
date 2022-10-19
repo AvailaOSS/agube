@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
-from dwelling.models import DwellingWaterMeter
 from rest_framework.fields import ReadOnlyField
 from rest_framework.serializers import (ModelSerializer, Serializer,
                                         SerializerMethodField)
 
+from dwelling.models import DwellingWaterMeter
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 
 
@@ -47,7 +47,7 @@ class WaterMeterMeasurementSerializer(ModelSerializer):
 
     def create(self, watermeter: WaterMeter, validated_data):
         from django.utils import timezone
-        
+
         measurement = validated_data.pop('measurement')
         measurement_date = validated_data.pop('date') if 'date' in validated_data else timezone.now()
         # Add Water Meter

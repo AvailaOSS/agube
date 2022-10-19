@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UserCreate, UserDetail } from '@availa/agube-rest-api';
+import { UserCreate, UserDetail } from '@availaoss/agube-rest-api';
 
 @Pipe({
     name: 'userDetail',

@@ -1,13 +1,13 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.exceptions import ObjectDoesNotExist
-from manager.models import ManagerConfiguration
 
-from watermeter.send import MeasurementEditedEmailType, send_email_measurement, MeasurementEmailType
-from watermeter.models import WaterMeterMeasurement
-from dwelling.models import DwellingWaterMeter
-from resident.models import Resident
 from agube.utils import is_24h_older_than_now
+from dwelling.models import DwellingWaterMeter
+from manager.models import ManagerConfiguration
+from resident.models import Resident
+from watermeter.models import WaterMeterMeasurement
+from watermeter.send import MeasurementEditedEmailType, send_email_measurement, MeasurementEmailType
 
 
 @receiver(post_save, sender=WaterMeterMeasurement)
@@ -15,7 +15,8 @@ def measure_update(sender, created, instance, **kwargs):
     watermeter_measurement: WaterMeterMeasurement = WaterMeterMeasurement.objects.get(id=instance.id)
 
     # Check if measurement is last and recent (24h)
-    if watermeter_measurement != watermeter_measurement.water_meter.get_last_measurement() or is_24h_older_than_now(watermeter_measurement.date):
+    if watermeter_measurement != watermeter_measurement.water_meter.get_last_measurement() or is_24h_older_than_now(
+            watermeter_measurement.date):
         return
 
     # Check if watermeter is from a Dwelling
@@ -31,7 +32,8 @@ def measure_update(sender, created, instance, **kwargs):
     if (resident == None):
         return
 
-    manager_configuration: ManagerConfiguration = dwelling_water_meter.dwelling.manager.get_closest_config(watermeter_measurement.date)
+    manager_configuration: ManagerConfiguration = dwelling_water_meter.dwelling.manager.get_closest_config(
+        watermeter_measurement.date)
 
     if created:
         # Select template
@@ -48,6 +50,6 @@ def measure_update(sender, created, instance, **kwargs):
 
     # Send measurement notification email
     send_email_measurement(user=resident.user,
-                            watermeter_measurement=watermeter_measurement,
-                            manager_configuration=manager_configuration,
-                            email_template=email_template)
+                           watermeter_measurement=watermeter_measurement,
+                           manager_configuration=manager_configuration,
+                           email_template=email_template)

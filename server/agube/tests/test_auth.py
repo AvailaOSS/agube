@@ -1,7 +1,8 @@
-from agube.tests.utils import AuthTestSimulator
 from django.test import TestCase
 from rest_framework import status
 from rest_framework_jwt import utils
+
+from agube.tests.utils import AuthTestSimulator
 
 
 class AuthTestCase(AuthTestSimulator, TestCase):

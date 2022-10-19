@@ -23,7 +23,7 @@ class ManagerSerializer(ModelSerializer):
     class Meta:
         ref_name = 'Manager'
         model = Manager
-        fields = ('user_id', )
+        fields = ('user_id',)
 
 
 class ManagerConfigurationSerializer(ModelSerializer):
@@ -47,8 +47,8 @@ class ManagerConfigurationSerializer(ModelSerializer):
         self.is_valid(True)
         return self.create(manager, self.validated_data)
 
-class ManagerMessageSerializer(ModelSerializer):
 
+class ManagerMessageSerializer(ModelSerializer):
     class Meta:
         ref_name = 'ManagerMessage'
         model = ManagerMessage

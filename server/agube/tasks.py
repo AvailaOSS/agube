@@ -1,12 +1,13 @@
 import json
-
 from django.contrib.auth.models import User
 from django.db import transaction
+
 from manager.models import Manager
 from person.models import Person
 from person.models import PersonConfig
 from phone.models import Phone
 from user.models import UserPhone
+
 
 def new_user_published(data):
     # TODO: check json is valid
@@ -21,4 +22,4 @@ def new_user_published(data):
         manager = Manager.objects.create(user=user)
         # Important: create Person after create User
         person = Person.objects.create(manager=manager, user=user)
-        PersonConfig.objects.create(person=person, mode='dark', lang='es')
+        PersonConfig.objects.create(person=person, mode='light', lang='es')

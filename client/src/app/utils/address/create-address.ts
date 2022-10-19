@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { Geolocation } from '@availa/agube-rest-api';
+import { Geolocation } from '@availaoss/agube-rest-api';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { InputForm } from 'src/app/components/map/create/input-form';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';

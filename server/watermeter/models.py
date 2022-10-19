@@ -1,11 +1,11 @@
+from datetime import date, datetime, timedelta
 from django.db import models
 from django.utils import dateparse, timezone
-from datetime import date, datetime, timedelta
 from django_prometheus.models import ExportModelOperationsMixin
 
+from agube.utils import is_24h_older_than_now
 from watermeter.exceptions import (WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
                                    WaterMeterMeasurementInFutureError)
-from agube.utils import is_24h_older_than_now
 
 
 class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
@@ -24,7 +24,7 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
             self.release_date = timezone.now()
         super(WaterMeter, self).save(*args, **kwargs)
 
-    def add_measurement(self, measurement, measurement_date: datetime =timezone.now()):
+    def add_measurement(self, measurement, measurement_date: datetime = timezone.now()):
         # type: (WaterMeter, float, datetime) -> WaterMeterMeasurement
         """water meter add measurement
 
@@ -55,9 +55,9 @@ class WaterMeter(ExportModelOperationsMixin('WaterMeter'), models.Model):
         """get list of water meter measurements between dates"""
         if from_date is None:
             return list(
-            WaterMeterMeasurement.objects.filter(
-                water_meter=self,
-                date__lt=until_date).order_by('-date'))
+                WaterMeterMeasurement.objects.filter(
+                    water_meter=self,
+                    date__lt=until_date).order_by('-date'))
         return list(
             WaterMeterMeasurement.objects.filter(
                 water_meter=self,
@@ -98,7 +98,8 @@ class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'),
         db_table = 'agube_watermeter_water_meter_measurement'
 
     def __str__(self):
-        return str(self.id) + " " + str(self.measurement) + " " + str(self.average_daily_flow) + " " + str(self.date) + " " + str(self.water_meter.id)
+        return str(self.id) + " " + str(self.measurement) + " " + str(self.average_daily_flow) + " " + str(
+            self.date) + " " + str(self.water_meter.id)
 
     def save(self, *args, **kwargs):
         """Before save the Measurement, compute the difference with the previous measurement"""
@@ -120,8 +121,9 @@ class WaterMeterMeasurement(ExportModelOperationsMixin('WaterMeterMeasurement'),
 
         previous_measurement = self.water_meter.get_last_measurement(self.date - timedelta(minutes=1))
         if previous_measurement:
-            #1 m3 == 1000 L
+            # 1 m3 == 1000 L
             m3L = 1000.0
             lapsed_days = timedelta_in_days(self.date - previous_measurement.date)
-            self.average_daily_flow = Decimal(round(((float(self.measurement) - float(previous_measurement.measurement)) / lapsed_days) * m3L, 3))
+            self.average_daily_flow = Decimal(
+                round(((float(self.measurement) - float(previous_measurement.measurement)) / lapsed_days) * m3L, 3))
         # else will put 0 as default

@@ -1,13 +1,13 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserGeolocation, UserService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { UserGeolocation, UserService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { EditableGeolocation } from './editable-geolocation';
 import { DialogComponent } from '../../../../../../components/dialog/dialog.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
-import { Geolocation } from '@availa/agube-rest-api';
+import { Geolocation } from '@availaoss/agube-rest-api';
 import { MapIconType } from 'src/app/components/map/map/configure-map';
 
 @Component({

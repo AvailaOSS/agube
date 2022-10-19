@@ -18,12 +18,18 @@ import { WaterMeterService } from './service/waterMeter.service';
 import { MeasurementService } from './service/measurement.service';
 import { CommentsService } from './service/comments.service';
 import { SpringSourceService } from './service/springsource.service';
+import { AuthUserService } from './service/authuser.service';
+import { TokenService } from './service/token.service';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [],
   imports: [],
   exports: [],
   providers: [
+    AuthService,
+    TokenService,
+    AuthUserService,
     AddressService,
     DwellingService,
     ManagerService,
@@ -36,7 +42,7 @@ import { SpringSourceService } from './service/springsource.service';
     OwnerService,
     GeolocationService,
     CommentsService,
-    SpringSourceService
+    SpringSourceService,
   ],
 })
 export class AgubeApiModule {

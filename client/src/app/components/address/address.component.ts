@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Geolocation } from '@availa/agube-rest-api';
+import { Geolocation } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-address',

@@ -1,14 +1,14 @@
-from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-
-from rest_framework.views import APIView
+from django.shortcuts import render
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
-from drf_yasg.utils import swagger_auto_schema
+from rest_framework.views import APIView
 
 from geolocation.models import Geolocation
-from geolocation.serializers import GeolocationSerializer
 from geolocation.permissions import IsManagerOfGeolocation
+from geolocation.serializers import GeolocationSerializer
+
 
 class GeolocationView(APIView):
     permission_classes = [IsManagerOfGeolocation]

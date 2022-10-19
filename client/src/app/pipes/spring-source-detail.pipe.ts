@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SpringSourceDetail } from '@availa/agube-rest-api';
+import { SpringSourceDetail } from '@availaoss/agube-rest-api';
 
 @Pipe({
     name: 'SpringSourceDetail',

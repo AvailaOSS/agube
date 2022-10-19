@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDwellingDetail } from '@availa/agube-rest-api';
+import { UserDwellingDetail } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-card-button',

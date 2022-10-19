@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservoirDetail } from '@availa/agube-rest-api';
+import { ReservoirDetail } from '@availaoss/agube-rest-api';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';

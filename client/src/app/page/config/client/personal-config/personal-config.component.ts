@@ -2,14 +2,14 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { UserService } from '@availa/agube-rest-api';
-import { PersonConfig } from '@availa/agube-rest-api/lib/model/personConfig';
-import { AccountService } from '@availa/auth-fe';
+import { UserService } from '@availaoss/agube-rest-api';
+import { PersonConfig } from '@availaoss/agube-rest-api';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeMode } from 'src/app/page/home/theme-mode';
 import { Language } from 'src/app/utils/language';
 import { ConfigureMode } from './personal-config';
-import { NotificationService } from '@availa/notification';
+import { NotificationService } from 'src/app/components/notification/notification.service';
+import { AccountService } from 'src/app/page/auth/login/service/account.service';
 
 @Component({
     selector: 'app-personal-config',

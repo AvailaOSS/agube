@@ -3,9 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { WaterMeterMeasurement } from '@availa/agube-rest-api';
-import { WaterMeterMeasurementsPagination } from '@availa/agube-rest-api/lib/model/waterMeterMeasurementsPagination';
-import { NotificationService } from '@availa/notification';
+import { WaterMeterMeasurement } from '@availaoss/agube-rest-api';
+import { WaterMeterMeasurementsPagination } from '@availaoss/agube-rest-api';
 import { differenceInDays, differenceInHours, differenceInMinutes, parseISO } from 'date-fns';
 import { dateValidator } from 'src/app/utils/date/date-filter';
 import { WaterMeterGauge } from '../gauge/water-meter-gauge';
@@ -63,7 +62,6 @@ export class DetailComponent implements OnInit {
         public dialog: MatDialog,
         protected svcWaterMeterPersistance: WaterMeterPersistantService,
         public propertiesServices: GetPropertiesService,
-        public svcNotification: NotificationService
     ) {
         this.initializeDates();
     }

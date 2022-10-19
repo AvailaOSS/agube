@@ -2,8 +2,8 @@ import { ReservoirCacheService } from './../../../utils/cache/reservoir-cache.se
 import { Component, HostListener, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { WaterMeter } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { WaterMeter } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterType } from '../water-meter-type.enum';

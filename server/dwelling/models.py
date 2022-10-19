@@ -6,14 +6,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
 from django_prometheus.models import ExportModelOperationsMixin
-from agube.utils import parse_query_datetime
 
+from agube.utils import parse_query_datetime
 from comment.models import Comment
+from dwelling.exceptions import DwellingWithoutWaterMeterError, OwnerAlreadyIsResidentError
 from geolocation.models import Geolocation
 from manager.models import Manager, ManagerConfiguration
 from watermeter.models import WaterMeter
-
-from dwelling.exceptions import DwellingWithoutWaterMeterError, OwnerAlreadyIsResidentError
 from watermeter.utils import get_watermeter_measurements_from_watermeters
 
 
@@ -160,7 +159,6 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
                 # check same watermeter
                 if previous_measurement.water_meter == measurement.water_meter:
-
                     # days from most recent (previous) to next older (measurement)
                     from_day = measurement.date
                     elapsed_days = timedelta_in_days(
@@ -175,8 +173,8 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
             # last measurement (oldest of the month), month consumption += average * days from month start
             month_consumption += float(
                 previous_measurement.average_daily_flow) * timedelta_in_days(
-                    previous_measurement.date -
-                    from_datetime.astimezone(pytz.utc))
+                previous_measurement.date -
+                from_datetime.astimezone(pytz.utc))
 
         return round(month_consumption)
 
@@ -209,7 +207,6 @@ class Dwelling(ExportModelOperationsMixin('Dwelling'), models.Model):
 
         last_iteration_config = first_config
         for manager_configuration in month_configuration_list:
-
             # diff = actual.release_date - last.release_date
             datetime_diff = manager_configuration.release_date - last_config_start_date
             last_config_uptime_days = Decimal(timedelta_in_days(datetime_diff))

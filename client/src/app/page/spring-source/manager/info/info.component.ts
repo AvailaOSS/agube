@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SpringSourceResume, SpringSourceService } from '@availa/agube-rest-api';
+import { SpringSourceResume, SpringSourceService } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-info',

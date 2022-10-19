@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
-from geolocation.models import Geolocation
 from address.serializers import AddressSerializer
+from geolocation.models import Geolocation
 
 
 class GeolocationSerializer(ModelSerializer):

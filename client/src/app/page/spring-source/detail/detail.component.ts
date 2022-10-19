@@ -8,8 +8,8 @@ import {
     SpringSource,
     SpringSourceService,
     WaterMeter,
-} from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+} from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { ListComponent } from 'src/app/components/comment/list/list.component';
 import { CommentConfig, CommentType } from 'src/app/components/comment/type';

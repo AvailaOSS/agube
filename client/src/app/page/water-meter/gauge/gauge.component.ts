@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { DwellingService } from '@availa/agube-rest-api';
-import { DwellingMonthConsumption } from '@availa/agube-rest-api/lib/model/dwellingMonthConsumption';
+import { DwellingService } from '@availaoss/agube-rest-api';
+import { DwellingMonthConsumption } from '@availaoss/agube-rest-api';
 import { Configuration } from 'src/app/components/chart/chart-configure';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterGauge } from './water-meter-gauge';

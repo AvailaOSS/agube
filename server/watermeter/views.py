@@ -1,21 +1,20 @@
-from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.generics import GenericAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
-from rest_framework.generics import GenericAPIView, UpdateAPIView
 
-from drf_yasg import openapi
 from agube.exceptions import DateFilterBadFormatError, DateFilterNoEndDateError, DateFilterStartGtEnd
+from agube.pagination import CustomPagination, CustomPaginationInspector
 from agube.utils import validate_query_date_filters
-
 from manager.permissions import IsManagerAuthenticated
 from watermeter.exceptions import (
     WaterMeterDisabledError, WaterMeterMeasurementAlreadyExpiredToUpdateError,
     WaterMeterMeasurementInFutureError)
 from watermeter.models import WaterMeter, WaterMeterMeasurement
 from watermeter.serializers import WaterMeterMeasurementSerializer
-from agube.pagination import CustomPagination, CustomPaginationInspector
 
 TAG_WATER_METER = 'water-meter'
 TAG_MEASUREMENT = 'measurement'

@@ -2,9 +2,8 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReservoirService, ReservoirCreate } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
-import { AccountService } from '@availa/auth-fe';
+import { ReservoirService, ReservoirCreate } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { AddressEmitter } from 'src/app/utils/address/address-emitter';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { ReservoirCacheService } from 'src/app/utils/cache/reservoir-cache.service';
@@ -13,6 +12,7 @@ import { MapIconType } from 'src/app/components/map/map/configure-map';
 import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 import { JoyrideService } from 'ngx-joyride';
 import { TranslateService } from '@ngx-translate/core';
+import { AccountService } from '../../auth/login/service/account.service';
 
 @Component({
     selector: 'app-page-reservoir-create',

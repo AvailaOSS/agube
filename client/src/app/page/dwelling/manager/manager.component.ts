@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DwellingDetail } from '@availa/agube-rest-api/public-api';
+import { DwellingDetail } from '@availaoss/agube-rest-api';
 import { ConfigureMap, MapIconType } from 'src/app/components/map/map/configure-map';
 import { DwellingCacheService } from 'src/app/utils/cache/dwelling-cache.service';
 import { build } from 'src/app/utils/coordinates/coordinates-builder';

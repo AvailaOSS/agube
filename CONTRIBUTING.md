@@ -1,0 +1,1 @@
+Read the contributing docs [here!](https://github.com/AvailaOSS/.github/blob/main/CONTRIBUTING.md).

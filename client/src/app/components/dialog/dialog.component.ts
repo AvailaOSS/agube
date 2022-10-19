@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Geolocation, UserService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { Geolocation, UserService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { CreateAddress } from 'src/app/utils/address/create-address';
 import { DialogParameters } from './dialog-parameter';
 

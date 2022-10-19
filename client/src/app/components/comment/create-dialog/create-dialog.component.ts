@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NotificationService } from '@availa/notification';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { CommentManager } from '../comment.manager';
 import { CommentConfig } from '../type';
 

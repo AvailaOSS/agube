@@ -1,7 +1,7 @@
-import { NotificationService } from '@availa/notification';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ManagerService } from '@availa/agube-rest-api';
+import { ManagerService } from '@availaoss/agube-rest-api';
 import { DetailComponent } from '../detail/detail.component';
 import { WaterMeterPersistantService } from '../water-meter-persistant.service';
 import { WaterMeterManager } from '../water-meter.manager';
@@ -21,9 +21,9 @@ export class GaugeMeasurementComponent extends DetailComponent implements OnInit
         protected override svcWaterMeterPersistance: WaterMeterPersistantService,
         protected svcManager: ManagerService,
         public override propertiesServices: GetPropertiesService,
-        public override svcNotification: NotificationService
+        public svcNotification: NotificationService
     ) {
-        super(svcWaterMeterManager, dialog, svcWaterMeterPersistance, propertiesServices, svcNotification);
+        super(svcWaterMeterManager, dialog, svcWaterMeterPersistance, propertiesServices);
     }
 
     override ngOnInit(): void {

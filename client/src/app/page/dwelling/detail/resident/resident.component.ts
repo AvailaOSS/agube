@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, UserDetail, DwellingService } from '@availa/agube-rest-api';
+import { UserService, UserDetail, DwellingService } from '@availaoss/agube-rest-api';
 import { ChangeData } from 'src/app/page/person/change/change-data';
 import { PersonTitle } from './person-title';
 

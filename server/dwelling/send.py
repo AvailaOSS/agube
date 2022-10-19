@@ -1,14 +1,13 @@
-from enum import Enum
-
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
-from manager.models import Manager
-from person.models import Person
+from enum import Enum
 from validate_email import validate_email
 
 from dwelling.exceptions import InvalidEmailError, EmailValidationError
+from manager.models import Manager
+from person.models import Person
 
 
 class EmailType(Enum):
@@ -64,9 +63,9 @@ def publish_user_created(tag,
     # publish when email of user is updated
     # contactbook.celery.new_user_published
     payload = '{"id":"' + str(manager.user_id) + \
-        '","full_name":"' + user.first_name + " " + user.last_name + \
-        '","extra_info":"","email":"' + user.email + \
-        '","phone_number":"' + phone_number + '", "tag":"' + tag.value + '"}'
+              '","full_name":"' + user.first_name + " " + user.last_name + \
+              '","extra_info":"","email":"' + user.email + \
+              '","phone_number":"' + phone_number + '", "tag":"' + tag.value + '"}'
     from mq.publisher import MqPublisher
 
     publisher = MqPublisher(settings.MQ_BROKER_URL, settings.MQ_EXCHANGE)

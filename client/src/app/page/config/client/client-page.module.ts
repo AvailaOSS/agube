@@ -15,7 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { NotificationModule } from '@availa/notification';
+import { NotificationModule } from 'src/app/components/notification/notification.module';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PasswordComponent } from './password/password.component';

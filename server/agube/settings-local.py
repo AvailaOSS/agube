@@ -57,19 +57,20 @@ INSTALLED_APPS = [
     # Swagger
     'drf_yasg',
     # Apps
-    'user',
-    'manager',
     'address',
-    'phone',
-    'watermeter',
-    'dwelling',
-    'reservoir',
-    'geolocation',
-    'person',
-    'owner',
-    'resident',
+    'agubeauth',
     'comment',
+    'dwelling',
+    'geolocation',
+    'manager',
+    'owner',
+    'person',
+    'phone',
+    'reservoir',
+    'resident',
     'springsource',
+    'user',
+    'watermeter',
 ]
 
 MIDDLEWARE = [
@@ -121,19 +122,19 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+            'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+            'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+            'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -154,6 +155,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

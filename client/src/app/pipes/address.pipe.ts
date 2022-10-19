@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Address } from '@availa/agube-rest-api';
+import { Address } from '@availaoss/agube-rest-api';
 
 @Pipe({
     name: 'address',

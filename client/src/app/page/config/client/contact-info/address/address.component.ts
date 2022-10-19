@@ -1,13 +1,13 @@
-import { NotificationService } from '@availa/notification';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { Component } from '@angular/core';
-import { UserService, UserGeolocation } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
+import { UserService, UserGeolocation } from '@availaoss/agube-rest-api';
 import { CreateAddress } from '../../../../../utils/address/create-address';
 import { EditableGeolocation } from './edit/editable-geolocation';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../../../components/dialog/dialog.component';
 import { DialogParameters } from 'src/app/components/dialog/dialog-parameter';
-import { Geolocation } from '@availa/agube-rest-api';
+import { Geolocation } from '@availaoss/agube-rest-api';
+import { AccountService } from 'src/app/page/auth/login/service/account.service';
 
 @Component({
     selector: 'app-address',

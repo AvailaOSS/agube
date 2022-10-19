@@ -1,7 +1,7 @@
 from drf_yasg.utils import swagger_auto_schema
-from manager.permissions import IsManagerAuthenticated
 from rest_framework import generics
 
+from manager.permissions import IsManagerAuthenticated
 from phone.models import Phone
 from phone.serializers import PhoneSerializer
 

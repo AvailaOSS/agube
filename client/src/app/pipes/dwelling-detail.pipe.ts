@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DwellingDetail, UserDwellingDetail } from '@availa/agube-rest-api';
+import { DwellingDetail, UserDwellingDetail } from '@availaoss/agube-rest-api';
 
 @Pipe({
     name: 'dwellingDetail',

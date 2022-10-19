@@ -1,4 +1,7 @@
-import os, sys, signal
+import os
+import signal
+import sys
+
 
 def main():
     from supervisor.childutils import listener
@@ -12,6 +15,7 @@ def main():
 
     # terminate main process
     os.kill(1, signal.SIGTERM)
+
 
 if __name__ == '__main__':
     main()

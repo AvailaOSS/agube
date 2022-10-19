@@ -1,4 +1,4 @@
-import { UserPhone } from '@availa/agube-rest-api';
+import { UserPhone } from '@availaoss/agube-rest-api';
 
 export interface EditablePhone {
     phone: UserPhone;

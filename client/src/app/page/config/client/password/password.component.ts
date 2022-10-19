@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ChangePassword, UserService } from '@availa/auth-rest-api';
-import { NotificationService } from '@availa/notification';
+import { ChangePassword, AuthUserService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { isEdge } from 'src/app/utils/edge-detector';
 import { passwordMatches } from './password-validator';
@@ -31,7 +31,7 @@ export class PasswordComponent {
     constructor(
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
-        private svcUser: UserService,
+        private svcUser: AuthUserService,
         private svcTranslate: TranslateService
     ) {
         this.passwordForm = this.formBuilder.group({

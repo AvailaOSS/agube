@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommentsService } from '@availa/agube-rest-api';
-import { NotificationService } from '@availa/notification';
+import { CommentsService } from '@availaoss/agube-rest-api';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { CommentManager } from '../comment.manager';
 import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 import { CommentCreate } from '../type';

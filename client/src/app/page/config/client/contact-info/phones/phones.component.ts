@@ -1,9 +1,9 @@
-import { NotificationService } from '@availa/notification';
+import { NotificationService } from 'src/app/components/notification/notification.service';
 import { Component } from '@angular/core';
-import { UserPhone, UserService } from '@availa/agube-rest-api';
-import { AccountService } from '@availa/auth-fe';
+import { UserPhone, UserService } from '@availaoss/agube-rest-api';
 import { EditablePhone } from './edit/editable-phone';
 import { FormControl, Validators } from '@angular/forms';
+import { AccountService } from 'src/app/page/auth/login/service/account.service';
 
 @Component({
     selector: 'app-phones',
