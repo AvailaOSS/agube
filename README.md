@@ -48,6 +48,13 @@ That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="http://www.availa.eu"><img src="https://avatars.githubusercontent.com/u/750404?v=4?s=100" width="100px;" alt="Germán  Martín Garisto Viso"/><br /><sub><b>Germán  Martín Garisto Viso</b></sub></a><br /><a href="#projectManagement-German14" title="Project Management">📆</a> <a href="https://github.com/AvailaOSS/agube/commits?author=German14" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
