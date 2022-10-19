@@ -13,6 +13,15 @@
     "lint": "ng lint"
   },
   "private": false,
+  "author": {
+    "name": "Francisco José Abril Álvarez",
+    "email": "ffrannabril@gmail.com"
+  },
+  "contributors": [
+    {"name": "Germán Garisto Viso", "email": "germangaristo1989@gmail.com"},
+    {"name": "Santiago Bolás Lago", "email": "sbl93.it@gmail.com"}
+  ],
+  "license": "Apache License Version 2.0",
   "dependencies": {
     "@angular/animations": "~13.2.0",
     "@angular/common": "~13.2.0",

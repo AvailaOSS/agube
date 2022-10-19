@@ -53,3 +53,7 @@ That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## LICENSE
+
+[Apache License Version 2.0](LICENSE.md)

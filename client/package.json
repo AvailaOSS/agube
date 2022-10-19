@@ -10,7 +10,15 @@
         "test": "ng test",
         "prettier:write": "prettier --config .prettierrc --write \"src/**/*.{ts,css}\""
     },
-    "private": true,
+    "private": false,
+    "author": {
+        "name": "Francisco José Abril Álvarez",
+        "email": "ffrannabril@gmail.com"
+    },
+    "contributors": [
+        {"name": "Germán Garisto Viso", "email": "germangaristo1989@gmail.com"},
+        {"name": "Santiago Bolás Lago", "email": "sbl93.it@gmail.com"}
+    ],
     "dependencies": {
         "@angular/animations": "~13.2.0",
         "@angular/cdk": "^13.3.1",
