@@ -51,7 +51,7 @@ That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://www.linkedin.com/in/fran-abril-a8424419a/"><img src="https://avatars.githubusercontent.com/u/10210729?v=4?s=100" width="100px;" alt="Fran"/><br /><sub><b>Fran</b></sub></a><br /><a href="#projectManagement-Fran-Abril" title="Project Management">📆</a> <a href="https://github.com/AvailaOSS/agube/commits?author=Fran-Abril" title="Code">💻</a></td>
+      <td align="center"><a href="https://www.linkedin.com/in/fran-abril-a8424419a/"><img src="https://avatars.githubusercontent.com/u/10210729?v=4?s=100" width="100px;" alt="Fran"/><br /><sub><b>Fran</b></sub></a><br /><a href="#projectManagement-Fran-Abril" title="Project Management">📆</a> <a href="https://github.com/AvailaOSS/agube/commits?author=Fran-Abril" title="Code">💻</a> <a href="#design-Fran-Abril" title="Design">🎨</a> <a href="https://github.com/AvailaOSS/agube/issues?q=author%3AFran-Abril" title="Bug reports">🐛</a> <a href="#business-Fran-Abril" title="Business development">💼</a> <a href="https://github.com/AvailaOSS/agube/commits?author=Fran-Abril" title="Documentation">📖</a> <a href="#ideas-Fran-Abril" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-Fran-Abril" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-Fran-Abril" title="Maintenance">🚧</a> <a href="#research-Fran-Abril" title="Research">🔬</a> <a href="https://github.com/AvailaOSS/agube/pulls?q=is%3Apr+reviewed-by%3AFran-Abril" title="Reviewed Pull Requests">👀</a></td>
     </tr>
   </tbody>
 </table>
