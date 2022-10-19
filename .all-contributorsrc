@@ -8,7 +8,7 @@
   "contributors": [
     {
       "login": "Fran-Abril",
-      "name": "Fran",
+      "name": "Fran J. Abril Álvarez",
       "avatar_url": "https://avatars.githubusercontent.com/u/10210729?v=4",
       "profile": "https://www.linkedin.com/in/fran-abril-a8424419a/",
       "contributions": [
@@ -23,6 +23,26 @@
         "maintenance",
         "research",
         "review"
+      ]
+    },
+    {
+      "login": "Zumito93",
+      "name": "Santiago Bolás Lago",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115986710?v=4",
+      "profile": "http://www.availa.eu",
+      "contributions": [
+        "projectManagement",
+        "code"
+      ]
+    },
+    {
+      "login": "German14",
+      "name": "Germán  Martín Garisto Viso",
+      "avatar_url": "https://avatars.githubusercontent.com/u/750404?v=4",
+      "profile": "http://www.availa.eu",
+      "contributions": [
+        "projectManagement",
+        "code"
       ]
     }
   ],
