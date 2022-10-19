@@ -13,7 +13,16 @@
       "profile": "https://www.linkedin.com/in/fran-abril-a8424419a/",
       "contributions": [
         "projectManagement",
-        "code"
+        "code",
+        "design",
+        "bug",
+        "business",
+        "doc",
+        "ideas",
+        "infra",
+        "maintenance",
+        "research",
+        "review"
       ]
     }
   ],
