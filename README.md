@@ -48,6 +48,13 @@ That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://www.linkedin.com/in/fran-abril-a8424419a/"><img src="https://avatars.githubusercontent.com/u/10210729?v=4?s=100" width="100px;" alt="Fran"/><br /><sub><b>Fran</b></sub></a><br /><a href="#projectManagement-Fran-Abril" title="Project Management">📆</a> <a href="https://github.com/AvailaOSS/agube/commits?author=Fran-Abril" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
