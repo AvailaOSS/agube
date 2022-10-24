@@ -1,4 +1,4 @@
-asgiref==3.3.1
+asgiref==3.5.2
 atomicwrites==1.4.0
 attrs==20.3.0
 certifi==2020.12.5
@@ -8,7 +8,7 @@ colorama==0.4.4
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==5.4
-Django==3.1.5
+Django==3.2.16
 django-cors-headers==3.6.0
 django-health-check==3.16.5
 django-prometheus==2.2.0
@@ -36,11 +36,11 @@ pyparsing==2.4.7
 pytest==6.2.2
 pytest-cov==2.11.1
 pytest-django==4.1.0
-pytz==2022.1
+pytz==2022.5
 requests==2.26.0
 ruamel.yaml==0.16.12
 ruamel.yaml.clib==0.2.6
-sqlparse==0.4.1
+sqlparse==0.4.3
 supervisor==4.2.4
 toml==0.10.2
 uritemplate==3.0.1
