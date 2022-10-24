@@ -1,17 +1,17 @@
 <div class="create-spring-source-page">
     <mat-card class="create-spring-source-page-card">
+        <sup>
+            <mat-icon
+                class="icon-tour"
+                (click)="tour()"
+                svgIcon="tour"
+            >
+            </mat-icon>
+        </sup>
         <mat-card-content>
             <div class="form">
                 <h1>
                     {{ 'PAGE.SPRINGSOURCE.CREATE.TITLE' | translate }}
-                    <sup>
-                        <mat-icon
-                            style="cursor: pointer; width: 20px"
-                            (click)="tour()"
-                            svgIcon="tour"
-                        >
-                        </mat-icon>
-                    </sup>
                 </h1>
                 <div class="form-content">
                     <app-map-location-create
