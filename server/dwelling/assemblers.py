@@ -4,7 +4,7 @@ from django.db import transaction
 from django.utils.crypto import get_random_string
 from enum import Enum
 
-from dwelling.send import (EmailType, publish_user_created,
+from dwelling.send import (EmailType,
                            send_user_creation_email)
 from geolocation.models import Geolocation
 from manager.models import Manager
@@ -96,8 +96,6 @@ def create_user(tag: PersonTag, validated_data,
         else:
             email_type = EmailType.RESIDENT_EMAIL
 
-        # publish that user was created
-        transaction.on_commit(lambda: publish_user_created(tag, manager, user, firstPhone))
         # send email to user created
         transaction.on_commit(lambda: send_user_creation_email(user, email_type))
 
