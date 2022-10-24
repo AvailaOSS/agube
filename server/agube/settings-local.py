@@ -27,10 +27,6 @@ DEBUG = True
 PUBLIC_APP_NAME = 'Agube'
 PUBLIC_APP_URL = 'http://localhost:8000'
 
-# MQ BROKER
-MQ_BROKER_URL = ''
-MQ_EXCHANGE = ''
-
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

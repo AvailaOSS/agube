@@ -52,21 +52,3 @@ def send_user_creation_email(user: User, email_type: EmailType):
                                    str(settings.EMAIL_HOST_USER), [user_email])
     email.attach_alternative(content, 'text/html')
     email.send()
-
-
-def publish_user_created(tag,
-                         manager: Manager,
-                         user: User,
-                         phone_number: str = ''):
-    # FIXME: publish when user is disabled
-    # publish when phone of user is updated
-    # publish when email of user is updated
-    # contactbook.celery.new_user_published
-    payload = '{"id":"' + str(manager.user_id) + \
-              '","full_name":"' + user.first_name + " " + user.last_name + \
-              '","extra_info":"","email":"' + user.email + \
-              '","phone_number":"' + phone_number + '", "tag":"' + tag.value + '"}'
-    from mq.publisher import MqPublisher
-
-    publisher = MqPublisher(settings.MQ_BROKER_URL, settings.MQ_EXCHANGE)
-    publisher.publish('agube.new-user', bytes(payload, 'utf-8'))
