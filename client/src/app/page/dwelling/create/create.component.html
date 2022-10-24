@@ -1,12 +1,12 @@
 <div class="create-dwelling-page">
     <mat-card class="create-dwelling-page-card">
+        <sup>
+            <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+        </sup>
         <mat-card-content>
             <div class="form">
                 <h1>
                     {{ 'PAGE.DWELLING.CREATE.TITLE' | translate }}
-                    <sup>
-                        <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
-                    </sup>
                 </h1>
                 <div class="form-content">
                     <app-map-location-create
