@@ -61,7 +61,6 @@
         button {
             width: 60% !important;
         }
-
     }
 
     @media only screen and (max-width: $resolution-s-small) {
@@ -144,4 +143,5 @@
 .icon-tour {
     cursor: pointer;
     width: 20px;
+    float: right;
 }

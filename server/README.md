@@ -4,9 +4,9 @@
 
 📑 ___NOTE1__: In local mode you do not need a database because we will use 💿 __sqlite3___
 
-📑 ___NOTE2__: In local mode we need run __agube.settings-local__ always_
+📑 ___NOTE2__: In local mode we need to always run __agube.settings-local___
 
-Let's start, create your dev environment
+Let's start, create your dev environment (python 3.8.x^)
 
 ```bash
 cd server
@@ -39,20 +39,15 @@ Run server
 python manage.py runserver --settings agube.settings-local
 ```
 
-Create a Manager
+Create a Manager (password input will prompt)
 
 ```bash
-python manage.py createsuperuser --settings agube.settings-local
-
-python.exe .\manage.py shell --settings agube.settings-local
->>> from django.contrib.auth.models import User 
->>> user = User.objects.get(id='YOUR_ID_HERE')
->>> from agube.tasks import new_user_published
->>> payload = '{"id":"' + str(user.id) + '","full_name":"' + user.username + " " + user.last_name + '","extra_info":"availa","email":"' + user.email + '","phone_number":"123456789"}'
->>> new_user_published(payload)
+python manage.py createmanager <username> <email> <first_name> <last_name> <phone_number> --settings=agube.settings-local
 ```
 
 That's all 🥳, ensure that works -> [localhost](http://localhost:8000/swagger)
+
+You must log in ("Django Login") with manager credentials in order to make requests
 
 ## ✅ Tests
 

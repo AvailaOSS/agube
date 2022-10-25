@@ -10,6 +10,12 @@
     @include my-page-column(1, 1);
 }
 
+.icon-tour {
+    cursor: pointer;
+    width: 20px;
+    float: right;
+}
+
 .form {
     padding: $margin-x-medium;
     .form-content {
@@ -19,18 +25,18 @@
             display: -ms-flexbox;
             display: flex;
             -webkit-box-pack: end;
-                -ms-flex-pack: end;
-                    justify-content: end;
+            -ms-flex-pack: end;
+            justify-content: end;
             margin-top: $margin-x-small;
             @media only screen and (max-width: $resolution-xl-small) {
                 -webkit-box-pack: justify;
-                    -ms-flex-pack: justify;
-                        justify-content: space-between;
+                -ms-flex-pack: justify;
+                justify-content: space-between;
             }
             @media only screen and (min-width: $resolution-xl-small) {
                 -webkit-box-pack: end;
-                    -ms-flex-pack: end;
-                        justify-content: end;
+                -ms-flex-pack: end;
+                justify-content: end;
                 mat-form-field {
                     margin-left: $margin-x-small;
                 }
@@ -41,8 +47,8 @@
             display: -ms-flexbox;
             display: flex;
             -webkit-box-pack: end;
-                -ms-flex-pack: end;
-                    justify-content: end;
+            -ms-flex-pack: end;
+            justify-content: end;
             margin-bottom: $margin-x-small;
         }
     }
@@ -55,8 +61,8 @@
                 display: -ms-flexbox;
                 display: flex;
                 -webkit-box-align: center;
-                    -ms-flex-align: center;
-                        align-items: center;
+                -ms-flex-align: center;
+                align-items: center;
                 mat-icon {
                     margin-right: $margin-x-small;
                 }

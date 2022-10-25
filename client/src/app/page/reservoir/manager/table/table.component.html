@@ -1,11 +1,11 @@
 <mat-card class="table-card">
+    <sup>
+        <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
+    </sup>
     <mat-card-header>
         <mat-card-title>
             <h2>
                 {{ 'PAGE.RESERVOIR.MANAGER.TABLE.TITLE' | translate }}
-                <sup>
-                    <mat-icon class="icon-tour" (click)="tour()" svgIcon="tour" matTooltip="{{'PAGE.TOUR.ICON'|translate}}"></mat-icon>
-                </sup>
             </h2>
         </mat-card-title>
         <div class="filter">
