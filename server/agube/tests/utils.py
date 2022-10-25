@@ -3,14 +3,12 @@ from django.urls import path
 from rest_framework.test import APIClient
 from rest_framework_jwt.views import obtain_jwt_token
 
-from agube.tasks import new_user_published
+from agube.tasks import create_manager
 
 
 def create_super_user():
     admin = User.objects.create_superuser('admin', 'admin@test.com', 'admin')
-    payload = '{"id":"' + str(
-        admin.id) + '","full_name":"' + admin.username + " " + admin.username + '","extra_info":"admin", "email":"' + admin.email + '","phone_number":"123456789"}'
-    new_user_published(payload)
+    create_manager(admin, '123456789')
     return admin
 
 
