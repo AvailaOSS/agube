@@ -14,7 +14,6 @@ def create_super_user():
 
 class AuthTestSimulator():
     base_url = '/api/v1.0.0/agube'
-    token = ''
 
     def simulate_auth(self) -> None:
         # enable token/auth for testing
