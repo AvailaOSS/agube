@@ -27,6 +27,7 @@ Prepare docker
 
 ```bash
 docker volume create --name agube-db-data
+docker volume create --name agube-data
 ```
 
 Run docker
