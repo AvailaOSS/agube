@@ -13,7 +13,12 @@
 
 name: Codacy Analysis CLI
 
-on: ["push"]
+on:
+  push:
+    branches: [ "develop", main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "develop" ]
 
 permissions:
   contents: read
