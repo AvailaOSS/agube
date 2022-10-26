@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ChangePassword, AuthUserService } from '@availaoss/agube-rest-api';
+import { ChangePassword, AuthService } from '@availaoss/agube-rest-api';
 import { NotificationService } from 'src/app/components/notification/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { isEdge } from 'src/app/utils/edge-detector';
@@ -31,7 +31,7 @@ export class PasswordComponent {
     constructor(
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
-        private svcUser: AuthUserService,
+        private svcAuth: AuthService,
         private svcTranslate: TranslateService
     ) {
         this.passwordForm = this.formBuilder.group({
@@ -62,7 +62,7 @@ export class PasswordComponent {
             confirm_password: this.confirmPassword.value,
             username: this.username.value,
         };
-        this.svcUser.changePassword(pass).subscribe({
+        this.svcAuth.changePassword(pass).subscribe({
             next: () => {
                 this.username.setValue('');
                 this.password.setValue('');

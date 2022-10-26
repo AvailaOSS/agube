@@ -2,8 +2,6 @@ export * from './auth.service';
 import { AuthService } from './auth.service';
 export * from './token.service';
 import { TokenService } from './token.service';
-export * from './authuser.service';
-import { AuthUserService } from './authuser.service';
 export * from './address.service';
 import { AddressService } from './address.service';
 export * from './dwelling.service';
@@ -33,7 +31,6 @@ import { SpringSourceService } from './springsource.service';
 export const APIS = [
   AuthService,
   TokenService,
-  AuthUserService,
   AddressService,
   DwellingService,
   ManagerService,

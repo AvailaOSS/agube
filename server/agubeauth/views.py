@@ -7,9 +7,10 @@ from rest_framework.response import Response
 from rest_framework.status import (HTTP_200_OK, HTTP_204_NO_CONTENT,
                                    HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST)
 from rest_framework.views import APIView
-
+from django.utils.crypto import get_random_string
 from agubeauth.exceptions import UsernameValidationError
 from agubeauth.models import validate
+from agubeauth.send import send_reset_password_email
 from agubeauth.serializers import EnableAccountSerializer, ChangePasswordSerializer, ResetPasswordSerializer
 
 TAG_AUTH = 'auth'
@@ -31,7 +32,7 @@ class EnableAccountView(APIView):
     )
     def put(self, request):
         activation_code = request.data['activation_code']
-        username = request.data['username'].lower().strip()
+        username = request.data['username']
         password = request.data['password']
         confirm_password = request.data['confirm_password']
 
@@ -70,7 +71,7 @@ class ChangePasswordView(APIView):
         tags=[TAG_AUTH],
     )
     def put(self, request):
-        username = request.data['username'].lower().strip()
+        username = request.data['username']
         password = request.data['password']
         confirm_password = request.data['confirm_password']
         if confirm_password != password or password is None:
@@ -110,7 +111,7 @@ class ResetPasswordView(APIView):
         tags=[TAG_AUTH],
     )
     def put(self, request):
-        email = request.data['email'].lower().strip()
+        email = request.data['email']
 
         try:
             user: User = User.objects.get(username=email)
