@@ -1,52 +1,71 @@
 <div class="login-form">
-  <mat-card class="login-card">
-    <mat-card-title>{{ "LOGIN.TITLE" | translate }}</mat-card-title>
-    <mat-card-subtitle>{{ "LOGIN.SUBTITLE" | translate }}!</mat-card-subtitle>
-    <mat-card-content>
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "LOGIN.USERNAME.TEXT" | translate }}</mat-label>
-        <input matInput placeholder="ironman" [formControl]="username" autofocus />
-        <mat-error *ngIf="username.invalid">
-          {{ errorValidator("username") | translate }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "LOGIN.PASSWORD.TEXT" | translate }}</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="mark_85" [formControl]="password"
-          (keydown.enter)="doLogin()" />
-        <button *ngIf="!isEdge" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-          <mat-icon>
-            {{ hidePassword ? "visibility_off" : "visibility" }}
-          </mat-icon>
-        </button>
-        <mat-error *ngIf="password.invalid">
-          {{ errorValidator("password") | translate }}
-        </mat-error>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <button matTooltipPosition="left" matTooltip="{{ 'LOGIN.BUTTONS.REGISTRY.TOOLTIP' | translate }}" mat-button
-        color="primary" (click)="createAccount()">
-        {{ "LOGIN.BUTTONS.REGISTRY.TEXT" | translate }}
-      </button>
-      <button matTooltipPosition="right" matTooltip="{{ 'LOGIN.BUTTONS.ENTRY.TOOLTIP' | translate }}" mat-raised-button
-        color="primary" (click)="doLogin()" [disabled]="loginForm.invalid">
-        <mat-icon>login</mat-icon>
-        {{ "LOGIN.BUTTONS.ENTRY.TEXT" | translate }}
-      </button>
-      <div>
-        <a href="../enable-account" matTooltipPosition="right"
-          matTooltip="{{ 'LOGIN.BUTTONS.ACTIVE_ACCOUNT.TOOLTIP' | translate }}">
-          {{ "LOGIN.BUTTONS.ACTIVE_ACCOUNT.TEXT" | translate }}
-        </a>
-        <br>
-        <a href="../reset-password" matTooltipPosition="right"
-          matTooltip="{{ 'LOGIN.BUTTONS.RESET_PASSWORD.TEXT' | translate }}">
-          {{ "LOGIN.BUTTONS.RESET_PASSWORD.TEXT" | translate }}
-        </a>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card class="login-card">
+        <mat-card-title>{{ 'LOGIN.TITLE' | translate }}</mat-card-title>
+        <mat-card-subtitle>{{ 'LOGIN.SUBTITLE' | translate }}!</mat-card-subtitle>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'LOGIN.USERNAME.TEXT' | translate }}</mat-label>
+                <input matInput placeholder="ironman" [formControl]="username" autofocus />
+                <mat-error *ngIf="username.invalid">
+                    {{ errorValidator('username') | translate }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'LOGIN.PASSWORD.TEXT' | translate }}</mat-label>
+                <input
+                    matInput
+                    [type]="hidePassword ? 'password' : 'text'"
+                    placeholder="mark_85"
+                    [formControl]="password"
+                    (keydown.enter)="doLogin()"
+                />
+                <button
+                    *ngIf="!isEdge"
+                    mat-icon-button
+                    matSuffix
+                    (click)="hidePassword = !hidePassword"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hidePassword"
+                >
+                    <mat-icon>
+                        {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                    </mat-icon>
+                </button>
+                <mat-error *ngIf="password.invalid">
+                    {{ errorValidator('password') | translate }}
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+       º     <button
+                matTooltipPosition="right"
+                matTooltip="{{ 'LOGIN.BUTTONS.ENTRY.TOOLTIP' | translate }}"
+                mat-raised-button
+                color="primary"
+                (click)="doLogin()"
+                [disabled]="loginForm.invalid"
+            >
+                <mat-icon>login</mat-icon>
+                {{ 'LOGIN.BUTTONS.ENTRY.TEXT' | translate }}
+            </button>
+            <div>
+                <a
+                    href="../enable-account"
+                    matTooltipPosition="right"
+                    matTooltip="{{ 'LOGIN.BUTTONS.ACTIVE_ACCOUNT.TOOLTIP' | translate }}"
+                >
+                    {{ 'LOGIN.BUTTONS.ACTIVE_ACCOUNT.TEXT' | translate }}
+                </a>
+                <br />
+                <a
+                    href="../reset-password"
+                    matTooltipPosition="right"
+                    matTooltip="{{ 'LOGIN.BUTTONS.RESET_PASSWORD.TEXT' | translate }}"
+                >
+                    {{ 'LOGIN.BUTTONS.RESET_PASSWORD.TEXT' | translate }}
+                </a>
+            </div>
+        </mat-card-actions>
+    </mat-card>
 </div>
