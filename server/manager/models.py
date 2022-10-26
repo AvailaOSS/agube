@@ -21,7 +21,7 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
         """save the Manager and create default config"""
         super(Manager, self).save(*args, **kwargs)
 
-        if self.pk is None:
+        if self.get_current_configuration() is None:
             # create default config
             __default_max_daily_consumption = 100
             __default_hook_price = 100
@@ -37,8 +37,9 @@ class Manager(ExportModelOperationsMixin('Manager'), models.Model):
 
         # check if last configuration is the same
         current_configuration = self.get_current_configuration()
-        if current_configuration.compare(hook_price, max_daily_consumption):
-            return current_configuration
+        if current_configuration:
+            if current_configuration.compare(hook_price, max_daily_consumption):
+                return current_configuration
 
         # discharge old configurations
         for configuration in ManagerConfiguration.objects.filter(
