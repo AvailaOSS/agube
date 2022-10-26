@@ -3,6 +3,7 @@
 [![App](https://img.shields.io/badge/App-Agube-lightgreen.svg)](https://www.agube.availa.eu)
 [![WEB](https://img.shields.io/badge/Web-Availa-lightblue.svg)](https://www.availa.eu)
 [![LinkedIN](https://img.shields.io/badge/LinkedIn-Availa-blue.svg)](https://www.linkedin.com/company/team-availa)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/855a8e18df374aa3b65c206ecda5c077)](https://www.codacy.com/gh/AvailaOSS/agube/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AvailaOSS/agube&amp;utm_campaign=Badge_Grade)
 
 ### Run 🚀
 
@@ -27,6 +28,7 @@ Prepare docker
 
 ```bash
 docker volume create --name agube-db-data
+docker volume create --name agube-data
 ```
 
 Run docker
