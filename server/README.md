@@ -39,7 +39,7 @@ Run server
 python manage.py runserver --settings agube.settings-local
 ```
 
-Create a Manager (password input will prompt)
+Create a Manager account (password input will prompt)
 
 ```bash
 python manage.py createmanager <username> <email> <first_name> <last_name> <phone_number> --settings=agube.settings-local

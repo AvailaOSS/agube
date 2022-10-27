@@ -5,36 +5,56 @@
 [![LinkedIN](https://img.shields.io/badge/LinkedIn-Availa-blue.svg)](https://www.linkedin.com/company/team-availa)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/855a8e18df374aa3b65c206ecda5c077)](https://www.codacy.com/gh/AvailaOSS/agube/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AvailaOSS/agube&amp;utm_campaign=Badge_Grade)
 
-### Run 🚀
+## Run 🚀
 
-Create a [Github token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to get access in [GitHub Package Registry](https://npm.pkg.github.com)
+Create a [Github token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to get read access to [GitHub Package Registry](https://npm.pkg.github.com)
 
-Prepare your environments variables
+### Prepare your environment variables
 
-```bash
-# Frontend
-- GITHUB_AUTH_TOKEN: $GITHUB_AUTH_TOKEN # Required to download libraries
-- GOOGLE_MAPS_API_KEY: "" # Optional, only if you want enable this feature
-- GOOGLE_ANALYTICS_ID: "" # Optional, only if you want enable this feature
+Frontend:
 
-# Backend
-- DJANGO_SECRET_KEY=$DEV_DJANGO_SECRET_KEY # Django secret key https://djecrety.ir generate and copy here!
-- EMAIL_HOST=$DEV_SMTP_SERVER # The server needs send emails from SMTP Server
-- EMAIL_HOST_USER=$DEV_USER_MAIL # SMTP Server needs User
-- EMAIL_HOST_PASSWORD=$DEV_USER_MAIL_PASSWORD # SMTP Server needs password
-```
+| CONTAINER ENV            | HOST ENV                         | Description                          |
+|--------------------------|----------------------------------|--------------------------------------|
+| GITHUB_AUTH_TOKEN        | GITHUB_AUTH_TOKEN                | GitHub package registry token (read) |
+| GOOGLE_MAPS_API_KEY      | Optional, set to enable feature  | Google Maps API Key                  |
+| GOOGLE_ANALYTICS_ID      | Optional, set to enable feature  | Google Analytics ID                  |
 
-Prepare docker
+Backend:
+
+| CONTAINER ENV            | HOST ENV                         | Description                          |
+|--------------------------|----------------------------------|--------------------------------------|
+| DJANGO_SECRET_KEY        | DEV_DJANGO_SECRET_KEY            | Django secret key                    |
+| EMAIL_HOST               | DEV_SMTP_SERVER                  | SMTP service host (default port 587) |
+| EMAIL_HOST_USER          | DEV_USER_MAIL                    | Email sender account                 |
+| EMAIL_HOST_PASSWORD      | DEV_USER_MAIL_PASSWORD           | Email sender account password        |
+
+📑 ___NOTE___ _You can generate Django secret keys [here](https://djecrety.ir/)_
+
+📑 ___NOTE___ _If you do not have / need to use a SMTP service you can output the email in the console by adding_ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' _in_ [server/agube/settings.py](server/agube/settings.py) _(email user and pasword are ignored)_
+
+### Prepare docker
 
 ```bash
 docker volume create --name agube-db-data
 docker volume create --name agube-data
 ```
 
-Run docker
+### Run docker
 
 ```bash
 docker compose up
+```
+
+### Generate DB (in new terminal)
+
+```bash
+docker exec -it agube-be python3 manage.py migrate
+```
+
+### Create a Manager account (password input will prompt)
+
+```bash
+python manage.py createmanager <username> <email> <first_name> <last_name> <phone_number> --settings=agube.settings-local
 ```
 
 That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
