@@ -1,26 +1,26 @@
 @import '../assets/availa/sizes/margins.scss';
 
 .language-selector {
-  position: absolute;
-  top: 0.7%;
-  right: 2%;
-  z-index: 9999;
-  img {
-    width: $margin-x-medium;
-  }
+    position: absolute;
+    top: 0.7%;
+    right: 2%;
+    z-index: 9999;
+    img {
+        width: $margin-x-medium;
+    }
 }
 
 .lenguage-image-button {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  img {
-    width: 50px;
-    height: 33px;
-    margin-top: $margin-x-small;
-  }
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    img {
+        width: 50px;
+        height: 33px;
+        margin-top: $margin-x-small;
+    }
 }
 
 ::ng-deep.mat-menu-panel {
-  min-width: 80px !important;
+    min-width: 80px !important;
 }

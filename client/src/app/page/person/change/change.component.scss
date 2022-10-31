@@ -12,7 +12,7 @@
         @include my-page($columns: 1);
     }
     @media only screen and (min-width: $resolution-xl-small) {
-      @include my-page();
+        @include my-page();
     }
 }
 

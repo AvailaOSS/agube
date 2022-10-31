@@ -1,20 +1,20 @@
 .login-card {
-  display: table-caption;
-  text-align: center;
-  width: 300px;
+    display: table-caption;
+    text-align: center;
+    width: 300px;
 }
 
 .login-form {
-  display: flex;
-  justify-content: center;
-  mat-card-content {
-    display: inline-grid;
-  }
-  mat-card-actions {
-    display: block;
-    div {
-      padding: 10px;
-      font-family: 'ubuntu'
+    display: flex;
+    justify-content: center;
+    mat-card-content {
+        display: inline-grid;
     }
-  }
+    mat-card-actions {
+        display: block;
+        div {
+            padding: 10px;
+            font-family: 'ubuntu';
+        }
+    }
 }

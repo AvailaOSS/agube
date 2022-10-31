@@ -1,52 +1,52 @@
-@import "../../../../../../assets/availa/sizes/margins.scss";
+@import '../../../../../../assets/availa/sizes/margins.scss';
 
 mat-list {
-  mat-divider {
-    position: inherit;
-    margin: 0 auto;
-    width: 100%;
-  }
+    mat-divider {
+        position: inherit;
+        margin: 0 auto;
+        width: 100%;
+    }
 }
 
 .edit-phones-header {
-  display: flex;
-  align-items: center;
-  padding-left: $margin-x-small;
-  mat-icon {
-    cursor: pointer;
-    margin-left: $margin-small;
-  }
+    display: flex;
+    align-items: center;
+    padding-left: $margin-x-small;
+    mat-icon {
+        cursor: pointer;
+        margin-left: $margin-small;
+    }
 }
 
 .editable-form {
-  display: flex;
-  margin-left: $margin-x-medium;
-  .phone-form {
-    width: 100%;
-    mat-form-field {
-      margin: $margin-small;
-    }
-  }
-  .phone-buttons {
     display: flex;
-  }
+    margin-left: $margin-x-medium;
+    .phone-form {
+        width: 100%;
+        mat-form-field {
+            margin: $margin-small;
+        }
+    }
+    .phone-buttons {
+        display: flex;
+    }
 }
 
 .add-phone {
-  mat-divider {
-    position: inherit;
-    margin: 0 auto;
-    width: 45%;
-  }
+    mat-divider {
+        position: inherit;
+        margin: 0 auto;
+        width: 45%;
+    }
 }
 
 .phone {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .list-phones {
-  padding-left: $margin-x-medium;
-  padding-right: $margin-x-medium;
+    padding-left: $margin-x-medium;
+    padding-right: $margin-x-medium;
 }

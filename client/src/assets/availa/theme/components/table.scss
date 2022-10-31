@@ -1,33 +1,27 @@
-@mixin mat-table(
-  $hover: red,
-  $active: green,
-  $clicked: blue,
-  $noClickedFontColor: black,
-  $clickedFontColor: black
-) {
-  table {
-    width: 100%;
+@mixin mat-table($hover: red, $active: green, $clicked: blue, $noClickedFontColor: black, $clickedFontColor: black) {
+    table {
+        width: 100%;
 
-    tr.table-row:hover {
-      background: $hover;
-      cursor: pointer;
-      td {
-        color: $noClickedFontColor;
-      }
-    }
+        tr.table-row:hover {
+            background: $hover;
+            cursor: pointer;
+            td {
+                color: $noClickedFontColor;
+            }
+        }
 
-    tr.table-row:active {
-      background: $active;
-      td {
-        color: $noClickedFontColor;
-      }
-    }
+        tr.table-row:active {
+            background: $active;
+            td {
+                color: $noClickedFontColor;
+            }
+        }
 
-    .selected-row {
-      background: $clicked;
-      td {
-        color: $clickedFontColor;
-      }
+        .selected-row {
+            background: $clicked;
+            td {
+                color: $clickedFontColor;
+            }
+        }
     }
-  }
 }

@@ -4,7 +4,6 @@
     grid-template-columns: repeat($columns, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
-
 }
 
 @mixin my-page-column($columnIndex: 1, $totalColumns: 2) {

@@ -8,8 +8,8 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     margin-top: 30px;
 }
 .container-form-toggle {
@@ -17,8 +17,8 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: end;
+    -ms-flex-pack: end;
+    justify-content: end;
     margin-top: 4px;
     p {
         margin-right: 5px;
@@ -29,8 +29,8 @@
 }
 .subtitle {
     -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: end;
+    -ms-flex-pack: end;
+    justify-content: end;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

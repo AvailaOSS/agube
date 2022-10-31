@@ -1,35 +1,29 @@
-@use "icon";
-@mixin mat-sidebar(
-  $primary,
-  $primary_accent,
-  $secondary_accent,
-  $primary-alternative,
-  $warning-palette-alternative
-) {
-  .mat-drawer {
-    background-color: $primary !important;
-    color: $primary_accent;
-    border: solid 0px transparent !important;
-    .mat-card {
-      background-color: $primary;
-      h1,
-      p {
+@use 'icon';
+@mixin mat-sidebar($primary, $primary_accent, $secondary_accent, $primary-alternative, $warning-palette-alternative) {
+    .mat-drawer {
+        background-color: $primary !important;
         color: $primary_accent;
-      }
-      .mat-card-subtitle {
-        color: $secondary_accent;
-      }
-      .mat-stroked-button {
-        background-color: $primary-alternative;
-        color: $warning-palette-alternative;
-      }
+        border: solid 0px transparent !important;
+        .mat-card {
+            background-color: $primary;
+            h1,
+            p {
+                color: $primary_accent;
+            }
+            .mat-card-subtitle {
+                color: $secondary_accent;
+            }
+            .mat-stroked-button {
+                background-color: $primary-alternative;
+                color: $warning-palette-alternative;
+            }
+        }
+        // @include icon.mat-icon($primary: $primary_accent, $accent: $primary_accent);
+        .mat-line {
+            color: $secondary_accent;
+        }
+        .mat-divider {
+            border-top-color: $primary_accent;
+        }
     }
-    // @include icon.mat-icon($primary: $primary_accent, $accent: $primary_accent);
-    .mat-line {
-      color: $secondary_accent;
-    }
-    .mat-divider {
-      border-top-color: $primary_accent;
-    }
-  }
 }

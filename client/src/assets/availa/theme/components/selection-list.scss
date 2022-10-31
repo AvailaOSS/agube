@@ -1,18 +1,18 @@
 @mixin mat-selection-list(
-  $hover: red,
-  $active: green,
-  $clicked: blue,
-  $noClickedFontColor: black,
-  $clickedFontColor: black
+    $hover: red,
+    $active: green,
+    $clicked: blue,
+    $noClickedFontColor: black,
+    $clickedFontColor: black
 ) {
-  mat-selection-list {
-    .mat-list-single-selected-option:hover {
-      background: $active;
-      color: $clickedFontColor;
+    mat-selection-list {
+        .mat-list-single-selected-option:hover {
+            background: $active;
+            color: $clickedFontColor;
+        }
     }
-  }
-  mat-selection-list .mat-list-single-selected-option {
-    background: $clicked !important;
-    color: $clickedFontColor !important;
-  }
+    mat-selection-list .mat-list-single-selected-option {
+        background: $clicked !important;
+        color: $clickedFontColor !important;
+    }
 }
