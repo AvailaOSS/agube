@@ -7,8 +7,8 @@ import { WaterMeterGauge } from './water-meter-gauge';
 
 @Component({
     selector: 'app-water-meter-gauge',
-    templateUrl: './gauge.component.html',
     styleUrls: ['./gauge.component.scss'],
+    templateUrl: './gauge.component.html',
 })
 export class GaugeComponent implements OnChanges {
     @Input() public maxDailyConsumption: number | undefined;

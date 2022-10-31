@@ -6,8 +6,8 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-parameters',
-    templateUrl: './parameters.component.html',
     styleUrls: ['./parameters.component.scss', '../manager-page.component.scss'],
+    templateUrl: './parameters.component.html',
 })
 export class ParametersComponent implements OnInit {
     public loadSave: boolean = false;

@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
     selector: 'app-upload-images',
-    templateUrl: './upload-images.component.html',
     styleUrls: ['./upload-images.component.scss'],
+    templateUrl: './upload-images.component.html',
 })
 export class UploadImagesComponent {
     @Output() public sendFile: EventEmitter<File> = new EventEmitter();

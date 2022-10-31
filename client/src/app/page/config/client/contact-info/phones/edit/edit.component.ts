@@ -7,8 +7,8 @@ import { EditablePhone } from './editable-phone';
 
 @Component({
     selector: 'app-phone-editable',
-    templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
+    templateUrl: './edit.component.html',
 })
 export class EditComponent {
     @Input() public userId: number | undefined;

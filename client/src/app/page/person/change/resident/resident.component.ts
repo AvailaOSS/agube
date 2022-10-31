@@ -9,8 +9,8 @@ import { ChangeComponent } from '../change.component';
 
 @Component({
     selector: 'app-change-resident',
-    templateUrl: '../change.component.html',
     styleUrls: ['../change.component.scss'],
+    templateUrl: '../change.component.html',
 })
 export class ResidentComponent extends ChangeComponent {
     constructor(

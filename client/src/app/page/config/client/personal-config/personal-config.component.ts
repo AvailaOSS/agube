@@ -13,8 +13,8 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
 
 @Component({
     selector: 'app-personal-config',
-    templateUrl: './personal-config.component.html',
     styleUrls: ['../client-page.component.scss'],
+    templateUrl: './personal-config.component.html',
 })
 export class PersonalConfigComponent implements OnInit {
     public loadSave: boolean = false;

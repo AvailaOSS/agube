@@ -6,8 +6,8 @@ import { AccountService } from '../../auth/login/service/account.service';
 
 @Component({
     selector: 'app-page-dwelling-client',
-    templateUrl: './client.component.html',
     styleUrls: ['./client.component.scss'],
+    templateUrl: './client.component.html',
 })
 export class ClientComponent implements OnInit {
     public dwellings: UserDwellingDetail[];

@@ -9,8 +9,8 @@ import { ITableOwner } from './table-owner';
 
 @Component({
     selector: 'app-table-owner',
-    templateUrl: '../../table.html',
     styleUrls: ['../../table.scss'],
+    templateUrl: '../../table.html',
 })
 export class TableOwnerComponent extends PersonTable implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;

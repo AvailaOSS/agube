@@ -5,8 +5,8 @@ import { JoyrideService } from 'ngx-joyride';
 
 @Component({
     selector: 'app-page-config-manager',
-    templateUrl: './manager-page.component.html',
     styleUrls: ['./manager-page.component.scss'],
+    templateUrl: './manager-page.component.html',
 })
 export class ManagerPageComponent implements OnInit {
     constructor(private svcTranslate: TranslateService, private readonly joyrideService: JoyrideService) {}

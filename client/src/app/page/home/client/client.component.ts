@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-page-home-client',
-    templateUrl: '../sidebar.component.html',
     styleUrls: ['../sidebar.component.scss'],
+    templateUrl: '../sidebar.component.html',
 })
 export class ClientComponent extends SidebarComponent {
     public override home: string = 'client/dwellings';

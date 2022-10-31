@@ -3,8 +3,8 @@ import { ManageComponent } from '../manage';
 
 @Component({
     selector: 'app-page-manage-resident',
-    templateUrl: './manager.component.html',
     styleUrls: ['../manage.scss'],
+    templateUrl: './manager.component.html',
 })
 export class ManagerResidentComponent extends ManageComponent {
     constructor() {

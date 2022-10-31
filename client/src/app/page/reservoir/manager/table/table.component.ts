@@ -14,8 +14,8 @@ import { TableReloadService } from './table-reload.service';
 
 @Component({
     selector: 'app-table',
-    templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
+    templateUrl: './table.component.html',
 })
 export class TableComponent implements OnInit, AfterViewInit {
     //fields to table

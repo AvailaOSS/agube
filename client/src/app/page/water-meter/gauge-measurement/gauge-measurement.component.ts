@@ -9,8 +9,8 @@ import { GetPropertiesService } from '../detail/get-propierties.service';
 
 @Component({
     selector: 'app-gauge-measurement',
-    templateUrl: './gauge-measurement.component.html',
     styleUrls: ['./gauge-measurement.component.scss'],
+    templateUrl: './gauge-measurement.component.html',
 })
 export class GaugeMeasurementComponent extends DetailComponent implements OnInit {
     public maxDailyConsumption: number | undefined;

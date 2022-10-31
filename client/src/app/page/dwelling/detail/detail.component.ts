@@ -29,8 +29,8 @@ import { Detail } from './detail';
 
 @Component({
     selector: 'app-page-dwelling-detail',
-    templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
+    templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
     public dwellingId: number | undefined;

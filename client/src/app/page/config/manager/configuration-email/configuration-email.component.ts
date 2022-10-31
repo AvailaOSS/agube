@@ -7,8 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-configuration-email',
-    templateUrl: './configuration-email.component.html',
     styleUrls: ['./configuration-email.component.scss', '../manager-page.component.scss'],
+    templateUrl: './configuration-email.component.html',
 })
 export class ConfigurationEmailComponent implements OnInit {
     public loadSave: boolean = false;

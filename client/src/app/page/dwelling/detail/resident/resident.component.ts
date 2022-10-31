@@ -6,8 +6,8 @@ import { PersonTitle } from './person-title';
 
 @Component({
     selector: 'app-resident',
-    templateUrl: './resident.component.html',
     styleUrls: ['../info.component.scss'],
+    templateUrl: './resident.component.html',
 })
 export class ResidentComponent implements OnInit {
     // Variables

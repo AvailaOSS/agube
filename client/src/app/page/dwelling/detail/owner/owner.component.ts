@@ -5,8 +5,8 @@ import { ResidentComponent } from '../resident/resident.component';
 
 @Component({
     selector: 'app-owner',
-    templateUrl: '../resident/resident.component.html',
     styleUrls: ['../info.component.scss'],
+    templateUrl: '../resident/resident.component.html',
 })
 export class OwnerComponent extends ResidentComponent implements OnInit {
     override textOwnerButton: string = '';

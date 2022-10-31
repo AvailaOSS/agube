@@ -5,7 +5,6 @@ import { DialogParameters } from '../dialog/dialog-parameter';
 @Component({
     selector: 'app-dialog-only-map',
     templateUrl: './dialog-only-map.component.html',
-    styleUrls: [],
 })
 export class DialogOnlyMapComponent implements OnInit {
     @Output() submitClicked: EventEmitter<Geolocation | undefined> = new EventEmitter<Geolocation | undefined>();

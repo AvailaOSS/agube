@@ -4,8 +4,8 @@ import { UserDwellingDetail } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-card-button',
-    templateUrl: './card-button.component.html',
     styleUrls: ['./card-button.component.scss'],
+    templateUrl: './card-button.component.html',
 })
 export class CardButtonComponent {
     @Input() public dwelling: UserDwellingDetail | undefined;

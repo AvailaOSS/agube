@@ -9,8 +9,8 @@ import { map, Observable, startWith } from 'rxjs';
 
 @Component({
     selector: 'app-change',
-    templateUrl: './change.component.html',
     styleUrls: ['./change.component.scss'],
+    templateUrl: './change.component.html',
 })
 export class ChangeComponent implements OnInit {
     public title: string = '';

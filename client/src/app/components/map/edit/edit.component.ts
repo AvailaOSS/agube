@@ -7,8 +7,8 @@ import { CreateComponent } from '../create/create.component';
 
 @Component({
     selector: 'app-map-location-edit',
-    templateUrl: '../create/create.component.html',
     styleUrls: ['../create/create.component.scss'],
+    templateUrl: '../create/create.component.html',
 })
 export class EditComponent extends CreateComponent implements OnInit {
     override userHasFiltered = true;

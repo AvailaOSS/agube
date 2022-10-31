@@ -8,8 +8,8 @@ import { passwordMatches } from './password-validator';
 
 @Component({
     selector: 'app-password',
-    templateUrl: './password.component.html',
     styleUrls: ['../client-page.component.scss', './password.component.scss'],
+    templateUrl: './password.component.html',
 })
 export class PasswordComponent {
     public loadSave: boolean = false;

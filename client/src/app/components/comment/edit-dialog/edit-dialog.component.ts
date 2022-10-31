@@ -8,8 +8,8 @@ import { CommentCreate } from '../type';
 
 @Component({
   selector: 'app-edit-comment-dialog',
-  templateUrl: '../create-dialog/create-dialog.component.html',
   styleUrls: ['../create-dialog/create-dialog.component.scss'],
+  templateUrl: '../create-dialog/create-dialog.component.html',
 })
 export class EditDialogComponent extends CreateDialogComponent {
   constructor(

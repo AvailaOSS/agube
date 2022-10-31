@@ -11,8 +11,8 @@ import { ThemeMode } from './theme-mode';
 
 @Component({
     selector: 'app-sidebar',
-    template: `<ng-template></ng-template>`,
     styleUrls: ['./sidebar.component.scss'],
+    template: `<ng-template></ng-template>`,
 })
 export class SidebarComponent {
     public pages: SidebarConfig[] = [];

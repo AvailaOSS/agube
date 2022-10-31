@@ -12,8 +12,8 @@ import { WaterMeterDialogData } from './dialog-data';
 
 @Component({
     selector: 'app-water-meter-dialog',
-    templateUrl: './dialog.component.html',
     styleUrls: ['./dialog.component.scss'],
+    templateUrl: './dialog.component.html',
 })
 export class WaterMeterDialogComponent {
     public id: number = -1;

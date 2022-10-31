@@ -3,8 +3,8 @@ import { SpringSourceResume, SpringSourceService } from '@availaoss/agube-rest-a
 
 @Component({
     selector: 'app-info',
-    templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
+    templateUrl: './info.component.html',
 })
 export class InfoComponent implements OnInit {
     public springSourceResume: SpringSourceResume | undefined;

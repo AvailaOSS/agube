@@ -3,8 +3,8 @@ import { SidebarComponent } from '../sidebar.component';
 
 @Component({
     selector: 'app-page-home-manager',
-    templateUrl: '../sidebar.component.html',
     styleUrls: ['../sidebar.component.scss'],
+    templateUrl: '../sidebar.component.html',
 })
 export class ManagerPageComponent extends SidebarComponent {
     public override home: string = 'manager/home/dwellings';
