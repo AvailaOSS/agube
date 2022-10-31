@@ -2,57 +2,57 @@
 @import '../../../../assets/availa/sizes/page.scss';
 
 .client-config-page {
-    display: inline-table;
-    min-height: 88%;
-    height: 88%;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 50%;
-    min-width: 50%;
-    max-width: 50%;
+  display: inline-table;
+  min-height: 88%;
+  height: 88%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 50%;
+  min-width: 50%;
+  max-width: 50%;
 }
 .client-config-column {
-    @include my-page-column();
-    margin-bottom: $margin-x-small;
+  @include my-page-column();
+  margin-bottom: $margin-x-small;
 }
 
 .form {
-    padding: $margin-x-medium;
-    .form-content {
-        display: inline-grid;
-        .theme-button {
-            margin-left: $margin-x-medium;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            mat-icon {
-                margin: 0 $margin-x-small 0 $margin-x-small;
-            }
-        }
-        .flag-button {
-            margin-left: $margin-x-medium;
-            display: flex;
-            align-items: center;
-            margin-right: $margin-x-small;
-            h4 {
-                margin-right: $margin-small;
-            }
-        }
-        mat-form-field {
-            margin: $margin-x-small;
-        }
+  padding: $margin-x-medium;
+  .form-content {
+    display: inline-grid;
+    .theme-button {
+      margin-left: $margin-x-medium;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      mat-icon {
+        margin: 0 $margin-x-small 0 $margin-x-small;
+      }
     }
-    mat-card-actions {
-        button {
-            div {
-                height: 100%;
-                display: flex;
-                align-items: center;
-                mat-icon {
-                    margin-right: $margin-x-small;
-                }
-            }
-        }
+    .flag-button {
+      margin-left: $margin-x-medium;
+      display: flex;
+      align-items: center;
+      margin-right: $margin-x-small;
+      h4 {
+        margin-right: $margin-small;
+      }
     }
+    mat-form-field {
+      margin: $margin-x-small;
+    }
+  }
+  mat-card-actions {
+    button {
+      div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        mat-icon {
+          margin-right: $margin-x-small;
+        }
+      }
+    }
+  }
 }

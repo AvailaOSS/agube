@@ -1,71 +1,70 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 @import '../../../../../assets/availa/sizes/resolutions.scss';
 .table-card {
-    max-width: 100%;
-    height: 100%;
-    max-height: 100%;
-    mat-card-header {
-        display: block;
-        mat-card-title {
-            margin: $margin-x-medium 0 0 0;
-            h2 {
-                margin: 0;
-            }
-        }
-        .filter {
-            margin-left: $margin-x-medium;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            div {
-                mat-form-field {
-                    width: auto;
-                }
-            }
-        }
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  mat-card-header {
+    display: block;
+    mat-card-title {
+      margin: $margin-x-medium 0 0 0;
+      h2 {
+        margin: 0;
+      }
     }
-    @media only screen and (max-width: $resolution-m-small) {
-        .priority-1 {
-            display: none;
+    .filter {
+      margin-left: $margin-x-medium;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      div {
+        mat-form-field {
+          width: auto;
         }
-        .priority-2 {
-            display: none;
-        }
-        .priority-3 {
-            display: none;
-        }
-        .priority-4 {
-            display: none;
-        }
+      }
     }
-    @media only screen and (max-width: $resolution-xl-small) {
-        .priority-1 {
-            display: none;
-        }
-        .priority-2 {
-            display: none;
-        }
+  }
+  @media only screen and (max-width: $resolution-m-small) {
+    .priority-1 {
+      display: none;
     }
-    @media only screen and (max-width: $resolution-xs-medium) {
-        .priority-4 {
-            display: none;
-        }
+    .priority-2 {
+      display: none;
     }
-    @media only screen and (max-width: $resolution-m-medium) {
-        .priority-1 {
-            display: none;
-        }
-
+    .priority-3 {
+      display: none;
     }
-    @media only screen and (max-width: $resolution-l-medium) {
-        .priority-1 {
-            display: none;
-        }
-        .priority-2 {
-            display: none;
-        }
+    .priority-4 {
+      display: none;
     }
-    mat-card-content {
-        margin: 0px $margin-x-medium $margin-x-medium $margin-x-medium;
+  }
+  @media only screen and (max-width: $resolution-xl-small) {
+    .priority-1 {
+      display: none;
     }
+    .priority-2 {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: $resolution-xs-medium) {
+    .priority-4 {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: $resolution-m-medium) {
+    .priority-1 {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: $resolution-l-medium) {
+    .priority-1 {
+      display: none;
+    }
+    .priority-2 {
+      display: none;
+    }
+  }
+  mat-card-content {
+    margin: 0px $margin-x-medium $margin-x-medium $margin-x-medium;
+  }
 }

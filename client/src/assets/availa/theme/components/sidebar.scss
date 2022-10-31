@@ -1,11 +1,5 @@
-@use "icon";
-@mixin mat-sidebar(
-  $primary,
-  $primary_accent,
-  $secondary_accent,
-  $primary-alternative,
-  $warning-palette-alternative
-) {
+@use 'icon';
+@mixin mat-sidebar($primary, $primary_accent, $secondary_accent, $primary-alternative, $warning-palette-alternative) {
   .mat-drawer {
     background-color: $primary !important;
     color: $primary_accent;

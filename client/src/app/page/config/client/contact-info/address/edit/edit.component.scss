@@ -1,16 +1,16 @@
 @import '../../../../../../../assets/availa/sizes/margins.scss';
 
 .edited-form {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
 
-    .is-principal {
-        margin-left: $margin-small;
-    }
+  .is-principal {
+    margin-left: $margin-small;
+  }
 }
 .edited-buttons {
-    width: 20%;
-    display: flex;
-    margin-top: $margin-small;
+  width: 20%;
+  display: flex;
+  margin-top: $margin-small;
 }

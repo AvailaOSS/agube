@@ -3,208 +3,208 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 @mixin dynamic-button {
-    button {
-        width: 215px;
-        margin-top: $margin-small;
-        margin-bottom: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
-        }
+  button {
+    width: 215px;
+    margin-top: $margin-small;
+    margin-bottom: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
     }
+  }
 }
 
 .detail-page {
-    @include my-page($columns: 1);
+  @include my-page($columns: 1);
 }
 
 .page-content {
-    @include my-page-column($columnIndex: 1, $totalColumns: 1);
-    .mat-card {
-        height: 100%;
-    }
-    .mat-card-content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 100%;
-        .dwelling-info {
-            width: 55%;
-            margin-top: $margin-x-medium;
-            margin-left: $margin-x-medium;
-            mat-icon {
-                cursor: pointer;
-            }
-            .dwelling-content-info {
-                margin-left: $margin-small;
-                display: flex;
-                .dwelling-resident {
-                    margin-left: $margin-medium;
-                    flex-direction: column;
-                    display: flex;
-                    height: 60%;
-                }
-            }
-        }
-        .column-right {
-            width: 35%;
-            height: 1%;
-            margin-right: $margin-x-medium;
-            .dwelling-map {
-                mat-button-toggle-group {
-                    display: flex;
-                    justify-content: center;
-                    text-align: center;
-                    border: none;
-                }
-            }
-        }
-    }
-    .mat-spinner {
-        top: 50%;
-        margin: 0 auto;
-    }
-}
-
-.content-buttons-map {
-    display: block;
-}
-
-.buttons-map {
-    display: none;
-    @include dynamic-button;
-}
-
-.button-comments {
-    display: none;
-    margin-left: $margin-x-small;
-    @include dynamic-button;
-}
-
-.buttons-management {
-    margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+  @include my-page-column($columnIndex: 1, $totalColumns: 1);
+  .mat-card {
+    height: 100%;
+  }
+  .mat-card-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    button {
-        width: 32%;
-        margin-top: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
+    width: 100%;
+    .dwelling-info {
+      width: 55%;
+      margin-top: $margin-x-medium;
+      margin-left: $margin-x-medium;
+      mat-icon {
+        cursor: pointer;
+      }
+      .dwelling-content-info {
+        margin-left: $margin-small;
+        display: flex;
+        .dwelling-resident {
+          margin-left: $margin-medium;
+          flex-direction: column;
+          display: flex;
+          height: 60%;
         }
+      }
     }
+    .column-right {
+      width: 35%;
+      height: 1%;
+      margin-right: $margin-x-medium;
+      .dwelling-map {
+        mat-button-toggle-group {
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          border: none;
+        }
+      }
+    }
+  }
+  .mat-spinner {
+    top: 50%;
+    margin: 0 auto;
+  }
+}
+
+.content-buttons-map {
+  display: block;
+}
+
+.buttons-map {
+  display: none;
+  @include dynamic-button;
+}
+
+.button-comments {
+  display: none;
+  margin-left: $margin-x-small;
+  @include dynamic-button;
+}
+
+.buttons-management {
+  margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  button {
+    width: 32%;
+    margin-top: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
+    }
+  }
 }
 
 .custom-dialog-container .mat-dialog-container {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .content-buttons-generics-map {
-    display: flex;
-    height: fit-content;
+  display: flex;
+  height: fit-content;
 }
 
 .icon-tour {
-    cursor: pointer;
-    width: 20px;
-  }
+  cursor: pointer;
+  width: 20px;
+}
 
 @media only screen and (max-width: $resolution-x-small) {
-    .mat-card-content {
-        .content-buttons-map {
-            display: block !important;
-        }
+  .mat-card-content {
+    .content-buttons-map {
+      display: block !important;
     }
-    .buttons-map {
-        margin-left: 74px !important;
-    }
+  }
+  .buttons-map {
+    margin-left: 74px !important;
+  }
 }
 
 @media only screen and (max-width: $resolution-x-medium) {
-    .mat-card-content {
-        display: block;
-        .dwelling-info {
-            width: 100% !important;
-        }
-        .dwelling-map {
-            display: none;
-        }
-        .buttons-map {
-            display: flex !important;
-            margin-left: $margin-x-small;
-        }
-        .content-buttons-map {
-            display: block;
-            justify-content: center;
-        }
-        .dwelling-resident {
-            margin-left: 0px !important;
-            flex-direction: column;
-            display: flex;
-            height: 60%;
-        }
+  .mat-card-content {
+    display: block;
+    .dwelling-info {
+      width: 100% !important;
     }
+    .dwelling-map {
+      display: none;
+    }
+    .buttons-map {
+      display: flex !important;
+      margin-left: $margin-x-small;
+    }
+    .content-buttons-map {
+      display: block;
+      justify-content: center;
+    }
+    .dwelling-resident {
+      margin-left: 0px !important;
+      flex-direction: column;
+      display: flex;
+      height: 60%;
+    }
+  }
 }
 
 @media only screen and (min-width: $resolution-medium) {
-    .button-comments {
-        display: flex !important;
-    }
-    .comments-list {
-        display: none;
-    }
+  .button-comments {
+    display: flex !important;
+  }
+  .comments-list {
+    display: none;
+  }
 
-    .dwelling-info {
-        width: 45% !important;
-    }
-    .column-right {
-        width: 30% !important;
-    }
-    .position-gauge {
-        display: flex !important;
-        height: fit-content;
-    }
+  .dwelling-info {
+    width: 45% !important;
+  }
+  .column-right {
+    width: 30% !important;
+  }
+  .position-gauge {
+    display: flex !important;
+    height: fit-content;
+  }
 }
 
 @media only screen and (min-width: $resolution-x-large) {
-    .button-comments {
-        display: none !important;
-    }
-    .comments-list {
-        display: inline-block;
-        width: auto !important;
-        margin-top: $margin-small;
-    }
-    .dwelling-info {
-        width: 35% !important;
-    }
-    .column-right {
-        width: 45% !important;
-    }
+  .button-comments {
+    display: none !important;
+  }
+  .comments-list {
+    display: inline-block;
+    width: auto !important;
+    margin-top: $margin-small;
+  }
+  .dwelling-info {
+    width: 35% !important;
+  }
+  .column-right {
+    width: 45% !important;
+  }
 }
 
 @media only screen and (max-width: $resolution-x-large) {
-    .button-comments {
-        display: flex !important;
-    }
-    .comments-list {
-        display: none;
-    }
+  .button-comments {
+    display: flex !important;
+  }
+  .comments-list {
+    display: none;
+  }
 
-    .dwelling-info {
-        width: 51% !important;
-    }
-    .column-right {
-        width: 40% !important;
-    }
-    .position-gauge {
-        display: flex !important;
-    }
+  .dwelling-info {
+    width: 51% !important;
+  }
+  .column-right {
+    width: 40% !important;
+  }
+  .position-gauge {
+    display: flex !important;
+  }
 }

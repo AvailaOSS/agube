@@ -1,10 +1,4 @@
-@mixin mat-table(
-  $hover: red,
-  $active: green,
-  $clicked: blue,
-  $noClickedFontColor: black,
-  $clickedFontColor: black
-) {
+@mixin mat-table($hover: red, $active: green, $clicked: blue, $noClickedFontColor: black, $clickedFontColor: black) {
   table {
     width: 100%;
 

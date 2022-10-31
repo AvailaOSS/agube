@@ -3,70 +3,70 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 .create-reservoir-page {
-    @include my-page(1);
+  @include my-page(1);
 }
 
 .create-reservoir-page-card {
-    @include my-page-column(1, 1);
+  @include my-page-column(1, 1);
 }
 
 .form {
-    padding: $margin-x-medium;
-    .form-content {
-        margin: $margin-x-small;
-        .form-reservoir {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-pack: end;
-                -ms-flex-pack: end;
-                    justify-content: end;
-            margin-top: $margin-x-small;
-            @media only screen and (max-width: $resolution-xl-small) {
-                -webkit-box-pack: justify;
-                    -ms-flex-pack: justify;
-                        justify-content: space-between;
-            }
-            @media only screen and (min-width: $resolution-xl-small) {
-                -webkit-box-pack: end;
-                    -ms-flex-pack: end;
-                        justify-content: end;
-                mat-form-field {
-                    margin-left: $margin-x-small;
-                }
-            }
-        }
+  padding: $margin-x-medium;
+  .form-content {
+    margin: $margin-x-small;
+    .form-reservoir {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: end;
+      margin-top: $margin-x-small;
+      @media only screen and (max-width: $resolution-xl-small) {
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+      }
+      @media only screen and (min-width: $resolution-xl-small) {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: end;
         mat-form-field {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-pack: end;
-                -ms-flex-pack: end;
-                    justify-content: end;
-            margin-bottom: $margin-x-small;
+          margin-left: $margin-x-small;
         }
+      }
     }
-    mat-card-actions {
-        margin-right: $margin-x-small;
-        button {
-            div {
-                height: 100%;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-align: center;
-                    -ms-flex-align: center;
-                        align-items: center;
-                mat-icon {
-                    margin-right: $margin-x-small;
-                }
-            }
+    mat-form-field {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: end;
+      margin-bottom: $margin-x-small;
+    }
+  }
+  mat-card-actions {
+    margin-right: $margin-x-small;
+    button {
+      div {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        mat-icon {
+          margin-right: $margin-x-small;
         }
+      }
     }
+  }
 }
 
 .icon-tour {
-    cursor: pointer;
-    width: 20px;
-    float: right;
-  }
+  cursor: pointer;
+  width: 20px;
+  float: right;
+}

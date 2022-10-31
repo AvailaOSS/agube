@@ -19,38 +19,38 @@
 @include mat.all-component-themes($agube-fe-theme);
 
 .dark {
-    @import 'assets/availa/theme/dark';
-    @include angular-material-theme($my-dark-theme);
+  @import 'assets/availa/theme/dark';
+  @include angular-material-theme($my-dark-theme);
 }
 
 /* You can add global styles to this file, and also import other style files */
 
 * {
-    font-family: 'Ubuntu';
+  font-family: 'Ubuntu';
 }
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .cdk-overlay-pane {
-    overflow: auto;
+  overflow: auto;
 }
 .contact-book-button {
-    position: sticky;
-    bottom: 1% !important;
-    left: 95%;
+  position: sticky;
+  bottom: 1% !important;
+  left: 95%;
 }
 .mat-tooltip {
-    font-size: 12px;
+  font-size: 12px;
 }
-.backdrop-container{
-    .backdrop-content {
-         .joyride-backdrop {
-              display: none;
-         }
+.backdrop-container {
+  .backdrop-content {
+    .joyride-backdrop {
+      display: none;
     }
+  }
 }

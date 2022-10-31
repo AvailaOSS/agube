@@ -3,33 +3,33 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 .manager-spring-source-page {
-    div {
-        display: grid;
-        gap: .5rem;
-        grid-gap: $margin-x-medium;
-        grid-auto-rows: 1;
-        grid-template-columns: repeat(auto-fit, minmax(650px, 2fr));
-        width: auto;
-    }
+  div {
+    display: grid;
+    gap: 0.5rem;
+    grid-gap: $margin-x-medium;
+    grid-auto-rows: 1;
+    grid-template-columns: repeat(auto-fit, minmax(650px, 2fr));
+    width: auto;
+  }
 
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 ::ng-deep #manager_full_water_sources_map {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 .container-frame-tour {
-    width: 270px;
-    height: 160px;
+  width: 270px;
+  height: 160px;
 }
 
 @media only screen and (max-width: $resolution-l-medium) {
-    .manager-spring-source-page {
-        div {
-            grid-row: 2 / -1;
-            display: inline-grid;
-            width: 100%;
-        }
+  .manager-spring-source-page {
+    div {
+      grid-row: 2 / -1;
+      display: inline-grid;
+      width: 100%;
     }
+  }
 }

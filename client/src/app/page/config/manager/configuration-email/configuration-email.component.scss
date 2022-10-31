@@ -1,49 +1,49 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 
 .form-content {
-    width: 100%;
+  width: 100%;
 }
 .container-form-configuration {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 .container-form-toggle {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: end;
-    margin-top: 4px;
-    p {
-        margin-right: 5px;
-    }
-    mat-slide-toggle {
-        margin-top: 12px;
-    }
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: end;
+  margin-top: 4px;
+  p {
+    margin-right: 5px;
+  }
+  mat-slide-toggle {
+    margin-top: 12px;
+  }
 }
 .subtitle {
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: end;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: end;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .button-save-info {
-    margin-right: $margin-small;
-    display: table;
-    span {
-        display: table-cell;
-        vertical-align: middle;
-    }
+  margin-right: $margin-small;
+  display: table;
+  span {
+    display: table-cell;
+    vertical-align: middle;
+  }
 }
 button {
-    width: auto;
-    max-width: 120px;
+  width: auto;
+  max-width: 120px;
 }

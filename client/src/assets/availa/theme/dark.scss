@@ -37,39 +37,39 @@ $agube-fe-success: mat.define-palette(primary.$primary-palette, success);
 // theming systems such as "color" or "typography".
 
 $my-dark-theme: mat.define-dark-theme(
-    (
-        color: (
-            primary: $agube-fe-accent,
-            accent: $agube-fe-primary,
-            warn: $agube-fe-warn,
-        ),
-    )
+  (
+    color: (
+      primary: $agube-fe-accent,
+      accent: $agube-fe-primary,
+      warn: $agube-fe-warn,
+    ),
+  )
 );
 
 @include icon.mat-icon();
 
 @include selection-list.mat-selection-list(
-    $hover: mat.get-color-from-palette($agube-fe-primary, 500),
-    $active: mat.get-color-from-palette($agube-fe-primary, 400),
-    $clicked: mat.get-color-from-palette($agube-fe-primary, 700),
-    $noClickedFontColor: mat.get-color-from-palette($agube-fe-accent, 200),
-    $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
+  $hover: mat.get-color-from-palette($agube-fe-primary, 500),
+  $active: mat.get-color-from-palette($agube-fe-primary, 400),
+  $clicked: mat.get-color-from-palette($agube-fe-primary, 700),
+  $noClickedFontColor: mat.get-color-from-palette($agube-fe-accent, 200),
+  $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
 );
 
 @include table.mat-table(
-    $hover: mat.get-color-from-palette($agube-fe-primary, 500),
-    $active: mat.get-color-from-palette($agube-fe-primary, 400),
-    $clicked: mat.get-color-from-palette($agube-fe-primary, 700),
-    $noClickedFontColor: mat.get-color-from-palette($agube-fe-accent, 200),
-    $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
+  $hover: mat.get-color-from-palette($agube-fe-primary, 500),
+  $active: mat.get-color-from-palette($agube-fe-primary, 400),
+  $clicked: mat.get-color-from-palette($agube-fe-primary, 700),
+  $noClickedFontColor: mat.get-color-from-palette($agube-fe-accent, 200),
+  $clickedFontColor: mat.get-color-from-palette($agube-fe-accent, 100)
 );
 
 @include sidebar.mat-sidebar(
-    $primary: mat.get-color-from-palette($agube-fe-primary, 700),
-    $primary_accent: mat.get-color-from-palette($agube-fe-accent, 100),
-    $secondary_accent: mat.get-color-from-palette($agube-fe-accent, 50),
-    $primary-alternative: mat.get-color-from-palette($agube-fe-primary, 800),
-    $warning-palette-alternative: mat.get-color-from-palette($agube-fe-warn, 800)
+  $primary: mat.get-color-from-palette($agube-fe-primary, 700),
+  $primary_accent: mat.get-color-from-palette($agube-fe-accent, 100),
+  $secondary_accent: mat.get-color-from-palette($agube-fe-accent, 50),
+  $primary-alternative: mat.get-color-from-palette($agube-fe-primary, 800),
+  $warning-palette-alternative: mat.get-color-from-palette($agube-fe-warn, 800)
 );
 
 @include card.mat-card($primary: mat.get-color-from-palette($agube-fe-primary, 700));
@@ -79,46 +79,46 @@ $my-dark-theme: mat.define-dark-theme(
 @include button.mat-toggle-button($color: mat.get-color-from-palette($agube-fe-accent, 200));
 
 @include snack-bar.mat-snack-bar-success(
-    $background-color: mat.get-color-from-palette($agube-fe-success, success),
-    $color: mat.get-color-from-palette($agube-fe-primary, 900)
+  $background-color: mat.get-color-from-palette($agube-fe-success, success),
+  $color: mat.get-color-from-palette($agube-fe-primary, 900)
 );
 
 @include snack-bar.mat-snack-bar-info(
-    $background-color: mat.get-color-from-palette($agube-fe-accent, 100),
-    $color: mat.get-color-from-palette($agube-fe-primary, 700)
+  $background-color: mat.get-color-from-palette($agube-fe-accent, 100),
+  $color: mat.get-color-from-palette($agube-fe-primary, 700)
 );
 
 @include snack-bar.mat-snack-bar-warning(
-    $background-color: mat.get-color-from-palette($agube-fe-warn, 600),
-    $color: mat.get-color-from-palette($agube-fe-primary, 700)
+  $background-color: mat.get-color-from-palette($agube-fe-warn, 600),
+  $color: mat.get-color-from-palette($agube-fe-primary, 700)
 );
 
 @include scrollbar.scrollbar(
-    $color: mat.get-color-from-palette($agube-fe-accent, 100),
-    $radius: margins.$margin-small,
-    $size: 5px
+  $color: mat.get-color-from-palette($agube-fe-accent, 100),
+  $radius: margins.$margin-small,
+  $size: 5px
 );
 
 @include availa-contacts.availa-contacts(
-    $hover: mat.get-color-from-palette($agube-fe-primary, 500),
-    $active: mat.get-color-from-palette($agube-fe-primary, 400),
-    $color: mat.get-color-from-palette($agube-fe-accent, 200)
+  $hover: mat.get-color-from-palette($agube-fe-primary, 500),
+  $active: mat.get-color-from-palette($agube-fe-primary, 400),
+  $color: mat.get-color-from-palette($agube-fe-accent, 200)
 );
 
 .mat-dialog-actions {
-    float: right;
+  float: right;
 }
 
 h1,
 h2,
 h4 {
-    color: mat.get-color-from-palette($agube-fe-accent, 200) !important;
+  color: mat.get-color-from-palette($agube-fe-accent, 200) !important;
 }
 h3 {
-    color: #b5d2df !important;
-    margin-left: 10px;
+  color: #b5d2df !important;
+  margin-left: 10px;
 }
 
 .color-blocked-tag {
-    background-color: mat.get-color-from-palette($agube-fe-warn, 900) !important;
+  background-color: mat.get-color-from-palette($agube-fe-warn, 900) !important;
 }

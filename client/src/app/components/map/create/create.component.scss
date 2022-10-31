@@ -3,73 +3,73 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 .selector-geolocation-map {
-    overflow: hidden;
-    .filter {
-        margin-top: $margin-x-small;
-        width: 60%;
+  overflow: hidden;
+  .filter {
+    margin-top: $margin-x-small;
+    width: 60%;
+  }
+  .address-form {
+    margin-top: $margin-x-medium;
+    display: flex;
+    flex-wrap: wrap;
+    @media only screen and (max-width: $resolution-small) {
+      justify-content: space-between;
     }
-    .address-form {
-        margin-top: $margin-x-medium;
-        display: flex;
-        flex-wrap: wrap;
-        @media only screen and (max-width: $resolution-small) {
-            justify-content: space-between;
-        }
-        @media only screen and (min-width: $resolution-small) {
-            justify-content: end;
-            mat-form-field {
-                margin-bottom: 15px;
-                margin-left: $margin-x-small;
-            }
-        }
+    @media only screen and (min-width: $resolution-small) {
+      justify-content: end;
+      mat-form-field {
+        margin-bottom: 15px;
+        margin-left: $margin-x-small;
+      }
     }
+  }
 }
 
 .fullMap {
-    width: 100%;
-    h3 {
-        display: flex;
-        justify-content: center;
-    }
+  width: 100%;
+  h3 {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .filter-results {
+  display: flex;
+  h3 {
     display: flex;
-    h3 {
-        display: flex;
-        justify-content: center;
-    }
-    .filter-selection {
-        margin-right: 15px;
-        min-width: 50%;
-        width: 100%;
-        height: 220px;
-        mat-selection-list {
-            overflow: auto;
-            width: 100%;
-            height: 100%;
-            mat-list-option {
-                div {
-                    display: flex;
-                    align-items: center;
-                }
-            }
+    justify-content: center;
+  }
+  .filter-selection {
+    margin-right: 15px;
+    min-width: 50%;
+    width: 100%;
+    height: 220px;
+    mat-selection-list {
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+      mat-list-option {
+        div {
+          display: flex;
+          align-items: center;
         }
+      }
     }
-    .map {
-        display: flex;
-        justify-content: center;
-        .map-spinner {
-            position: absolute;
-            z-index: 9999;
-            margin: 10em;
-        }
-        .leftleat-map {
-            border: 1px solid color.$light-primary-text;
-            border-radius: 5px;
-        }
+  }
+  .map {
+    display: flex;
+    justify-content: center;
+    .map-spinner {
+      position: absolute;
+      z-index: 9999;
+      margin: 10em;
     }
-    div {
-        width: 100%;
+    .leftleat-map {
+      border: 1px solid color.$light-primary-text;
+      border-radius: 5px;
     }
+  }
+  div {
+    width: 100%;
+  }
 }

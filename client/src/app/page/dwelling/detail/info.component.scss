@@ -3,88 +3,88 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 .detail-content-all {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .detail-info {
+    margin-bottom: $margin-small;
+    margin-left: $margin-small;
+    width: 56%;
+    span {
+      display: flex;
+      margin: $margin-x-small 0 0 0;
+      h4 {
+        margin: 0 $margin-x-small 0 $margin-x-small;
+      }
+    }
+    h2 {
+      margin: 0 0 0 0;
+    }
+  }
+
+  button {
+    margin-left: $margin-x-small;
+    height: 40px;
+    margin-top: $margin-small;
+    min-width: 187px;
+    text-align: center;
+    max-width: 180px;
+    text-align: center;
+    div {
+      display: inline-flex;
+      text-align: center;
+      mat-icon {
+        padding-top: 5px;
+      }
+    }
+  }
+}
+.no-user {
+  width: 100%;
+  margin-left: $margin-x-small;
+}
+
+@media only screen and (max-width: $resolution-l-small) {
+  .detail-content-all {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
     .detail-info {
-        margin-bottom: $margin-small;
-        margin-left: $margin-small;
-        width: 56%;
-        span {
-            display: flex;
-            margin: $margin-x-small 0 0 0;
-            h4 {
-                margin: 0 $margin-x-small 0 $margin-x-small;
-            }
-        }
-        h2 {
-            margin: 0 0 0 0;
-        }
-    }
-
-    button {
-        margin-left: $margin-x-small;
-        height: 40px;
-        margin-top: $margin-small;
-        min-width: 187px;
-        text-align: center;
-        max-width: 180px;
-        text-align: center;
-        div {
-            display: inline-flex;
-            text-align: center;
-            mat-icon {
-                padding-top: 5px;
-            }
-        }
-    }
-}
-.no-user {
-    width: 100%;
-    margin-left: $margin-x-small;
-}
-
-@media only screen and (max-width: $resolution-l-small) {
-    .detail-content-all {
+      margin-bottom: $margin-small;
+      margin-left: $margin-medium !important;
+      span {
         display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        .detail-info {
-            margin-bottom: $margin-small;
-            margin-left: $margin-medium !important;
-            span {
-                display: flex;
-                align-items: center;
-                margin: $margin-x-small 0 0 0;
-                h3 {
-                    margin: 0 0 0 $margin-x-small;
-                }
-            }
-            h2 {
-                margin: 5px 0 0 0;
-            }
+        align-items: center;
+        margin: $margin-x-small 0 0 0;
+        h3 {
+          margin: 0 0 0 $margin-x-small;
         }
-        button {
-            margin-left: $margin-medium;
-            height: 40px;
-            margin-top: $margin-small;
-            min-width: 187px;
-            text-align: center;
-            max-width: 180px;
-            text-align: center;
-            div {
-                display: inline-flex;
-                text-align: center;
-                mat-icon {
-                    padding-top: 5px;
-                }
-            }
+      }
+      h2 {
+        margin: 5px 0 0 0;
+      }
+    }
+    button {
+      margin-left: $margin-medium;
+      height: 40px;
+      margin-top: $margin-small;
+      min-width: 187px;
+      text-align: center;
+      max-width: 180px;
+      text-align: center;
+      div {
+        display: inline-flex;
+        text-align: center;
+        mat-icon {
+          padding-top: 5px;
         }
+      }
     }
-    .no-user {
-        width: 100%;
-        margin-left: $margin-medium;
-    }
+  }
+  .no-user {
+    width: 100%;
+    margin-left: $margin-medium;
+  }
 }

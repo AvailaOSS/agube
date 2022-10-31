@@ -3,44 +3,44 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 .create-person-page {
-    @include my-page();
+  @include my-page();
 
-    @media only screen and (min-width: 546px) {
-        @include my-page($columns: 1);
-    }
-    @media only screen and (min-width: 790px) {
-        @include my-page($columns: 1);
-    }
-    @media only screen and (min-width: $resolution-xl-small) {
-      @include my-page();
-    }
+  @media only screen and (min-width: 546px) {
+    @include my-page($columns: 1);
+  }
+  @media only screen and (min-width: 790px) {
+    @include my-page($columns: 1);
+  }
+  @media only screen and (min-width: $resolution-xl-small) {
+    @include my-page();
+  }
 }
 
 .create-person-page-card {
-    @include my-page-column();
+  @include my-page-column();
 }
 
 .form {
-    padding: $margin-x-medium;
-    .form-content {
-        display: inline-grid;
-        mat-form-field {
-            margin: $margin-x-small;
+  padding: $margin-x-medium;
+  .form-content {
+    display: inline-grid;
+    mat-form-field {
+      margin: $margin-x-small;
+    }
+  }
+  .save-info {
+    float: right;
+  }
+  mat-card-actions {
+    button {
+      div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        mat-icon {
+          margin-right: $margin-x-small;
         }
+      }
     }
-    .save-info {
-        float: right;
-    }
-    mat-card-actions {
-        button {
-            div {
-                height: 100%;
-                display: flex;
-                align-items: center;
-                mat-icon {
-                    margin-right: $margin-x-small;
-                }
-            }
-        }
-    }
+  }
 }

@@ -2,21 +2,21 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 
 .email-info {
-    float: right;
+  float: right;
 }
 
 input[type='file']::-webkit-file-upload-button {
-    background-color: color.$light-primary-text;
-    color: black;
-    padding: 0.5rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    margin-left: $margin-x-small;
+  background-color: color.$light-primary-text;
+  color: black;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-left: $margin-x-small;
 }
 
 .icon-tour {
-    cursor: pointer;
-    width: 20px;
+  cursor: pointer;
+  width: 20px;
 }

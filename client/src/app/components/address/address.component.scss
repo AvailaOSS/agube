@@ -1,22 +1,22 @@
 @import '../../../assets/availa/sizes/margins.scss';
 
 .detail-info {
-    margin-bottom: $margin-small;
-    span {
-        display: flex;
-        align-items: center;
-        margin: $margin-x-small 0 0 0;
-        h4 {
-            margin: 0 $margin-x-small 0 $margin-x-small;
-        }
+  margin-bottom: $margin-small;
+  span {
+    display: flex;
+    align-items: center;
+    margin: $margin-x-small 0 0 0;
+    h4 {
+      margin: 0 $margin-x-small 0 $margin-x-small;
     }
-    h2 {
-        margin: 5px 0 0 0;
-    }
+  }
+  h2 {
+    margin: 5px 0 0 0;
+  }
 }
 
 @media only screen and (max-width: 1090px) {
-    .detail-info {
-        margin-left: $margin-medium !important;
-    }
+  .detail-info {
+    margin-left: $margin-medium !important;
+  }
 }

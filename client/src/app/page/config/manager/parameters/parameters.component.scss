@@ -1,21 +1,20 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 
 .button-save-info {
-    margin-right: $margin-small;
-    display: table;
+  margin-right: $margin-small;
+  display: table;
 
-    span {
-        display: table-cell;
-        vertical-align: middle;
-    }
+  span {
+    display: table-cell;
+    vertical-align: middle;
+  }
 }
 
 button {
-    width: auto;
-    max-width: 120px;
+  width: auto;
+  max-width: 120px;
 }
 
 .form-right-align {
-    text-align: right;
+  text-align: right;
 }
-

@@ -2,57 +2,57 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 .water-meter {
+  display: flex;
+  width: 96%;
+  margin-top: $margin-small;
+  margin-left: $margin-x-medium;
+  .detail {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: $resolution-s-large) {
+  .water-meter {
+    display: flex;
+    width: 100%;
+    margin-top: $margin-small;
+    margin-left: $margin-x-medium;
+    .detail {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: $resolution-s-large) {
+  .water-meter {
     display: flex;
     width: 96%;
     margin-top: $margin-small;
     margin-left: $margin-x-medium;
     .detail {
-        width: 100%;
+      width: 100%;
     }
-}
-
-@media only screen and (min-width: $resolution-s-large) {
-    .water-meter {
-        display: flex;
-        width: 100%;
-        margin-top: $margin-small;
-        margin-left: $margin-x-medium;
-        .detail {
-            width: 100%;
-        }
-    }
-}
-
-@media only screen and (max-width: $resolution-s-large) {
-    .water-meter {
-        display: flex;
-        width: 96%;
-        margin-top: $margin-small;
-        margin-left: $margin-x-medium;
-        .detail {
-            width: 100%;
-        }
-    }
+  }
 }
 
 @media only screen and (max-width: $resolution-xs-medium) {
-    .water-meter {
-        display: block !important;
-        .detail {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+  .water-meter {
+    display: block !important;
+    .detail {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
+  }
 }
 
 @media only screen and (max-width: 939px) {
-    .water-meter {
-        display: block !important;
-        .detail {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+  .water-meter {
+    display: block !important;
+    .detail {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
+  }
 }

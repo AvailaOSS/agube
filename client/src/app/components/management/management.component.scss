@@ -1,29 +1,29 @@
 @import '../../../assets/availa/sizes/margins.scss';
 
 .buttons-management {
-    display: flex;
-    button {
-        width: 215px;
-        margin-top: $margin-small;
-        margin-bottom: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
-        }
+  display: flex;
+  button {
+    width: 215px;
+    margin-top: $margin-small;
+    margin-bottom: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
     }
+  }
 }
 
 @media only screen and (max-width: 939px) {
-    .buttons-management {
-        margin-left: 74px !important;
-    }
+  .buttons-management {
+    margin-left: 74px !important;
+  }
 }
 
 @media only screen and (max-width: 1077px) {
-    .buttons-management {
-        margin-left: 74px !important;
-    }
+  .buttons-management {
+    margin-left: 74px !important;
+  }
 }
