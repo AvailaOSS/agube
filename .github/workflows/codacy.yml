@@ -18,12 +18,11 @@ on:
     branches: [ "main", "develop" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   codacy-analysis-cli:
     name: Codacy Analysis CLI
-    if: github.base_ref == 'refs/heads/main'
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
