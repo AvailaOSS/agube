@@ -80,7 +80,7 @@ export class PhonesComponent {
         }
     }
 
-    public phoneDeleted(phoneId: number | undefined) {
+    public phoneDeleted(phoneId: number | undefined): void {
         if (!phoneId) {
             return;
         }

@@ -182,7 +182,7 @@ export class WaterMeterService {
       );
     }
 
-    let queryParameters = new HttpParams({
+    let queryParameters: HttpParams = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
     });
     if (page !== undefined && page !== null) {
