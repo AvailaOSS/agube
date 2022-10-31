@@ -12,4 +12,4 @@ DATABASE_USERNAME=developer
 DATABASE_PASSWORD=developer
 
 PUBLIC_APP_NAME=Agube
-PUBLIC_APP_URL=http://agube.availa.eu
+PUBLIC_APP_URL=http://localhost:8080
