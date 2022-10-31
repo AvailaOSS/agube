@@ -7,8 +7,8 @@ import { LocationResponse } from './location-response';
 
 @Component({
     selector: 'app-map',
-    templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss'],
+    templateUrl: './map.component.html',
 })
 export class MapComponent implements AfterViewInit {
     @Input() public baseConfiguration!: ConfigureMap;

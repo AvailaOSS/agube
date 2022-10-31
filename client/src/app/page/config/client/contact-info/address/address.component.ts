@@ -11,8 +11,8 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
 
 @Component({
     selector: 'app-address',
-    templateUrl: './address.component.html',
     styleUrls: ['./address.component.scss'],
+    templateUrl: './address.component.html',
 })
 export class AddressComponent extends CreateAddress {
     public userId: number = -1;

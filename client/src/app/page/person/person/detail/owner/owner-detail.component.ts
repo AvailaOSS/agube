@@ -7,8 +7,8 @@ import { Detail } from '../detail';
 
 @Component({
     selector: 'app-detail-owner',
-    templateUrl: '../detail.html',
     styleUrls: ['../detail.scss'],
+    templateUrl: '../detail.html',
 })
 export class OwnerDetailComponent extends Detail implements OnInit {
     public title: string | undefined;

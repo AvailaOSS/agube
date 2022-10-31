@@ -4,8 +4,8 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-owner',
-    templateUrl: 'owner.component.html',
     styleUrls: ['../info.component.scss'],
+    templateUrl: 'owner.component.html',
 })
 export class OwnerComponent implements OnInit {
     public title = {

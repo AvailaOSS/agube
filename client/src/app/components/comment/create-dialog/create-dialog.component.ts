@@ -7,8 +7,8 @@ import { CommentConfig } from '../type';
 
 @Component({
     selector: 'app-create-comment-dialog',
-    templateUrl: './create-dialog.component.html',
     styleUrls: ['./create-dialog.component.scss'],
+    templateUrl: './create-dialog.component.html',
 })
 export class CreateDialogComponent {
     // textarea variable in form

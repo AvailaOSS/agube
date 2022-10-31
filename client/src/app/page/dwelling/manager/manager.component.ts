@@ -7,8 +7,8 @@ import { TableReloadService } from './table/table-reload.service';
 
 @Component({
     selector: 'app-page-dwelling-manager',
-    templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.scss'],
+    templateUrl: './manager.component.html',
 })
 export class ManagerComponent implements OnInit {
     // map config parameters

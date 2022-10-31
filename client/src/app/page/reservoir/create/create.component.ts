@@ -16,8 +16,8 @@ import { AccountService } from '../../auth/login/service/account.service';
 
 @Component({
     selector: 'app-page-reservoir-create',
-    templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
+    templateUrl: './create.component.html',
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     public reservoirForm: FormGroup | undefined;

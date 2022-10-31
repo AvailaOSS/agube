@@ -9,8 +9,8 @@ import { CommentConfig, CommentCreate } from '../type';
 
 @Component({
     selector: 'app-comment-list',
-    templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss'],
+    templateUrl: './list.component.html',
 })
 export class ListComponent implements OnInit {
     @Input() public config: CommentConfig | undefined;

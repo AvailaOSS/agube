@@ -12,8 +12,8 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
 
 @Component({
     selector: 'app-personal-info',
-    templateUrl: './personal-info.component.html',
     styleUrls: ['./personal-info.component.scss', '../client-page.component.scss'],
+    templateUrl: './personal-info.component.html',
 })
 export class PersonalInfoComponent implements OnInit {
     public loadSave: boolean = false;

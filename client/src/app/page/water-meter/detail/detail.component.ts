@@ -19,8 +19,8 @@ import { Type } from './type';
 
 @Component({
     selector: 'app-water-meter-detail',
-    templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
+    templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
     // inputs

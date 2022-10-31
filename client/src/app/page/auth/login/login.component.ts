@@ -7,8 +7,8 @@ import { AccountService } from './service/account.service';
 
 @Component({
     selector: 'lib-login',
-    templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    templateUrl: './login.component.html',
 })
 export class LoginComponent {
     public hidePassword: boolean = true;

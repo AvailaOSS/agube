@@ -9,8 +9,8 @@ import { ChangeComponent } from '../change.component';
 
 @Component({
     selector: 'app-change-owner',
-    templateUrl: '../change.component.html',
     styleUrls: ['../change.component.scss'],
+    templateUrl: '../change.component.html',
 })
 export class OwnerComponent extends ChangeComponent {
     constructor(

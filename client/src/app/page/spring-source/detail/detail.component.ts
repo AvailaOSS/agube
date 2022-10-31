@@ -29,8 +29,8 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 
 @Component({
     selector: 'app-spring-source',
-    templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
+    templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
     // variables

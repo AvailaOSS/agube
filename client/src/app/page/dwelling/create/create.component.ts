@@ -14,8 +14,8 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 
 @Component({
     selector: 'app-page-dwelling-create',
-    templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
+    templateUrl: './create.component.html',
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     public dwellingForm: FormGroup | undefined;

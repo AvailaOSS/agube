@@ -7,8 +7,8 @@ import { DialogParameters } from './dialog-parameter';
 
 @Component({
     selector: 'app-dialog',
-    templateUrl: './dialog.component.html',
     styleUrls: ['./dialog.component.scss'],
+    templateUrl: './dialog.component.html',
 })
 export class DialogComponent extends CreateAddress implements OnInit {
     // Send information to close dialog

@@ -12,8 +12,8 @@ import { MapIconType } from 'src/app/components/map/map/configure-map';
 
 @Component({
     selector: 'app-address-editable',
-    templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
+    templateUrl: './edit.component.html',
 })
 export class EditComponent extends CreateAddress {
     @Input() public userId: number | undefined;

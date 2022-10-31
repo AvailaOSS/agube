@@ -6,8 +6,8 @@ import { build } from 'src/app/utils/coordinates/coordinates-builder';
 
 @Component({
     selector: 'app-manager-reservoir',
-    templateUrl: './manager.component.html',
     styleUrls: ['./manager.component.scss'],
+    templateUrl: './manager.component.html',
 })
 export class ManagerComponent implements OnInit {
     public element: ReservoirDetail | undefined;

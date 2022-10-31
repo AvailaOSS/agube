@@ -7,8 +7,8 @@ import { WaterMeterPersistantService } from 'src/app/page/water-meter/water-mete
 import { Type } from '../../page/water-meter/detail/type';
 @Component({
     selector: 'app-management',
-    templateUrl: './management.component.html',
     styleUrls: ['./management.component.scss'],
+    templateUrl: './management.component.html',
 })
 export class ManagementComponent implements OnInit {
     @Input() public manage: DwellingCreate | ReservoirCreate | undefined;

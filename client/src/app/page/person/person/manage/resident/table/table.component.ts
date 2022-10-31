@@ -9,8 +9,8 @@ import { GeolocationPipe } from 'src/app/pipes/geolocation.pipe';
 
 @Component({
     selector: 'app-table-resident',
-    templateUrl: '../../table.html',
     styleUrls: ['../../table.scss'],
+    templateUrl: '../../table.html',
 })
 export class TableResidentComponent extends PersonTable implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;

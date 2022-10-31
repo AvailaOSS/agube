@@ -31,8 +31,8 @@ import {
 
 @Component({
     selector: 'app-map-location-create',
-    templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
+    templateUrl: './create.component.html',
 })
 export class CreateComponent extends MapComponent implements MapAddressCreator, AfterViewInit, OnInit, OnChanges {
     // -------------------------- MapAddressCreator vars -------------------------- //

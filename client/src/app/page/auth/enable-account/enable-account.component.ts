@@ -9,8 +9,8 @@ import { passwordMatches } from './password-validator';
 
 @Component({
     selector: 'lib-enable-account',
-    templateUrl: './enable-account.component.html',
     styleUrls: ['./enable-account.component.scss'],
+    templateUrl: './enable-account.component.html',
 })
 export class EnableAccountComponent {
     public hidePassword: boolean = true;

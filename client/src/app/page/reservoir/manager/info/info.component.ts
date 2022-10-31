@@ -3,8 +3,8 @@ import { ReservoirResume, ReservoirService } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-info',
-    templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
+    templateUrl: './info.component.html',
 })
 export class InfoComponent implements OnInit {
     public reservoirResume: ReservoirResume | undefined;

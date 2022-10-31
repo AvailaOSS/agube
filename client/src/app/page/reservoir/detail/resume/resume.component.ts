@@ -3,8 +3,8 @@ import { ReservoirService, ReservoirCreate } from '@availaoss/agube-rest-api';
 
 @Component({
     selector: 'app-reservoir-resume',
-    templateUrl: './resume.component.html',
     styleUrls: ['./resume.component.scss'],
+    templateUrl: './resume.component.html',
 })
 export class ResumeComponent implements OnChanges {
     @Input() public reservoirId: number | undefined;
