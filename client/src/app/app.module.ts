@@ -19,9 +19,7 @@ import { SidebarRoute } from './page/home/sidebar-route';
 import { ErrorInterceptor } from './utils/error.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new MultiTranslateHttpLoader(http, [
-        { prefix: '../assets/i18n/', suffix: '.json' },
-    ]);
+    return new MultiTranslateHttpLoader(http, [{ prefix: '../assets/i18n/', suffix: '.json' }]);
 }
 
 @NgModule({
@@ -57,11 +55,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
-        JoyrideModule.forRoot()
+        JoyrideModule.forRoot(),
     ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    ],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -22,7 +22,7 @@ export class ManagerComponent implements OnInit {
     constructor(private svcSpringSourceCache: SpringSourceCacheService) {}
 
     public ngOnInit(): void {
-        this.svcSpringSourceCache.clean()
+        this.svcSpringSourceCache.clean();
         this.loadMap();
     }
 

@@ -38,7 +38,7 @@ import { TableComponent } from './table/table.component';
         TranslateModule,
         MatPaginatorModule,
         MapModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     providers: [TableReloadService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })

@@ -35,7 +35,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MapModule,
         MatAutocompleteModule,
         MatProgressSpinnerModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     exports: [CreateComponent],
     providers: [GeolocationPipe],

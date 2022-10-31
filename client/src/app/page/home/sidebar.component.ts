@@ -84,7 +84,6 @@ export class SidebarComponent {
         this.router.navigate([select.navigationRoute]);
     }
 
-
     public closeSession() {
         this.svcCleanerCache.clean();
         this.accountService.logout();

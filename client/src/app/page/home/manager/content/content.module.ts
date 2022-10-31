@@ -7,11 +7,6 @@ import { UploadImagesModule } from 'src/app/components/upload-images/upload-imag
 
 @NgModule({
     declarations: [ContentComponent],
-    imports: [
-        CommonModule,
-        HomeManagerPageRoutingModule,
-        TranslateModule,
-        UploadImagesModule,
-    ],
+    imports: [CommonModule, HomeManagerPageRoutingModule, TranslateModule, UploadImagesModule],
 })
 export class ContentModule {}

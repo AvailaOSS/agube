@@ -24,7 +24,13 @@ import { GaugeMeasurementComponent } from './gauge-measurement/gauge-measurement
 import { MeasureEditDialogComponent } from './detail/measure-edit-dialog/measure-edit-dialog.component';
 
 @NgModule({
-    declarations: [DetailComponent, MeasureDialogComponent, WaterMeterDialogComponent, GaugeMeasurementComponent, MeasureEditDialogComponent],
+    declarations: [
+        DetailComponent,
+        MeasureDialogComponent,
+        WaterMeterDialogComponent,
+        GaugeMeasurementComponent,
+        MeasureEditDialogComponent,
+    ],
     imports: [
         CommonModule,
         WaterMeterRoutingModule,

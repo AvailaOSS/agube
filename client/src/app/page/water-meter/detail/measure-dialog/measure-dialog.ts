@@ -13,13 +13,13 @@ export class MeasureDialog {
     public hoursList = this.range(24);
     public minutesList = this.range(60);
 
-    public save(): void { }
+    public save(): void {}
 
-    public checkTime() { }
+    public checkTime() {}
 
-    public setTime(time: number, type: string) { }
+    public setTime(time: number, type: string) {}
 
-    public close(reload: boolean): void { }
+    public close(reload: boolean): void {}
 
     public saveAndClose() {
         this.save();

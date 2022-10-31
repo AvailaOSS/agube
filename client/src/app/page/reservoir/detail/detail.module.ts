@@ -42,7 +42,7 @@ import { ResumeComponent } from './resume/resume.component';
         AddressModule,
         DialogOnlyMapModule,
         CommentModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },

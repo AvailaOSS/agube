@@ -1,10 +1,8 @@
 import { TranslateService } from '@ngx-translate/core';
 import { JoyrideService } from 'ngx-joyride';
 
-
 // function to add joyride to component to call
 export function JoyRideFunction(joyrideService: JoyrideService, svcTranslate: TranslateService, steps: string[]) {
-
     let done: string = '';
     let prev: string = '';
     let next: string = '';
@@ -19,7 +17,7 @@ export function JoyRideFunction(joyrideService: JoyrideService, svcTranslate: Tr
     joyrideService.startTour({
         steps,
         waitingTime: 250,
-        themeColor:'#7fd3f7',
+        themeColor: '#7fd3f7',
         showPrevButton: true,
         stepDefaultPosition: 'left',
         showCounter: true,

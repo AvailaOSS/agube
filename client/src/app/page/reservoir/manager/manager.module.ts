@@ -39,7 +39,7 @@ import { TableComponent } from './table/table.component';
         TranslateModule,
         MatPaginatorModule,
         MapModule,
-        JoyrideModule
+        JoyrideModule,
     ],
 })
 export class ManagerModule {}
