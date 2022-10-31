@@ -83,7 +83,7 @@ export class DetailComponent implements OnInit {
         this.loading = true;
         this.reservoir = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
-            let par = params as Detail;
+            const par = params as Detail;
             this.reservoirId = par.reservoirId;
             this.configCommentComponent = {
                 id: this.reservoirId!,
@@ -231,7 +231,7 @@ export class DetailComponent implements OnInit {
         // Persistant to send waterMeterID
         this.svcPersistant.get().subscribe((res) => {
             this.waterMeter = res;
-            this.waterMeterId = res?.id!;
+            this.waterMeterId = res?.id;
         });
     }
 

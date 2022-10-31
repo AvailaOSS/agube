@@ -32,7 +32,7 @@ export class AddressService {
   constructor(
     protected httpClient: HttpClient,
     private svcConfig: AgubeRestConfigurationService,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -75,7 +75,7 @@ export class AddressService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {

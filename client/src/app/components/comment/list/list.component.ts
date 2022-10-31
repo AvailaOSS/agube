@@ -38,9 +38,9 @@ export class ListComponent implements OnInit {
 
     public createComment() {
         const dialogRef = this.dialog.open(CreateDialogComponent, {
+            data: this.config,
             hasBackdrop: true,
             width: '500px',
-            data: this.config,
         });
 
         dialogRef.afterClosed().subscribe((reload) => {

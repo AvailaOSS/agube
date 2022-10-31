@@ -52,7 +52,7 @@ export class ResidentService {
   public getResident(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Resident>;
   public getResident(
     id: number,

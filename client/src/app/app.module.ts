@@ -40,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             basePath: environment.agubeBackendUrl,
         }),
         TranslateModule.forRoot({
+            isolate: true,
             loader: [
                 {
                     provide: TranslateLoader,
@@ -47,7 +48,6 @@ export function HttpLoaderFactory(http: HttpClient) {
                     deps: [HttpClient],
                 },
             ],
-            isolate: true,
         }),
         NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId),
         NgxGoogleAnalyticsRouterModule,
