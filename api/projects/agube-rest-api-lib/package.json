@@ -1,6 +1,6 @@
 {
   "name": "@availaoss/agube-rest-api",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "publishConfig": {
     "@availaoss:registry": "https://npm.pkg.github.com"
   },

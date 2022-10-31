@@ -16,8 +16,14 @@
         "email": "ffrannabril@gmail.com"
     },
     "contributors": [
-        {"name": "Germán Garisto Viso", "email": "germangaristo1989@gmail.com"},
-        {"name": "Santiago Bolás Lago", "email": "sbl93.it@gmail.com"}
+        {
+            "name": "Germán Garisto Viso",
+            "email": "germangaristo1989@gmail.com"
+        },
+        {
+            "name": "Santiago Bolás Lago",
+            "email": "sbl93.it@gmail.com"
+        }
     ],
     "dependencies": {
         "@angular/animations": "~13.2.0",
@@ -31,7 +37,7 @@
         "@angular/platform-browser": "~13.2.0",
         "@angular/platform-browser-dynamic": "~13.2.0",
         "@angular/router": "~13.2.0",
-        "@availaoss/agube-rest-api": "^5.0.0",
+        "@availaoss/agube-rest-api": "^5.0.1",
         "@ngx-translate/core": "^14.0.0",
         "@ngx-translate/http-loader": "^7.0.0",
         "date-fns": "^2.28.0",

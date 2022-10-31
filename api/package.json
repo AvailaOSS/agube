@@ -1,13 +1,13 @@
 {
   "name": "agube-rest-api",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build agube-rest-api-lib",
     "npm_pack": "cd dist/agube-rest-api-lib && npm pack",
     "package": "npm run build && npm run npm_pack",
-    "publish": "npm publish dist/agube-rest-api-lib/availaoss-agube-rest-api-5.0.0.tgz",
+    "publish": "npm publish dist/agube-rest-api-lib/availaoss-agube-rest-api-5.0.1.tgz",
     "package-publish": "npm run package && npm run publish",
     "test": "ng test",
     "lint": "ng lint"

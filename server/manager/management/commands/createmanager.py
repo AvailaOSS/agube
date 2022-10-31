@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.contrib.auth.password_validation import validate_password
+from django.db import transaction
 
 from agube.tasks import create_manager
 from getpass import getpass
@@ -48,15 +49,16 @@ class Command(BaseCommand):
                 return
 
         # Create user
-        user = User.objects.create(username=options['username'],
-                                   email=options['email'],
-                                   first_name=options['first_name'],
-                                   last_name=options['last_name'])
-        user.set_password(password2)
-        user.save()
+        with transaction.atomic():
+            user = User.objects.create(username=options['username'],
+                                    email=options['email'],
+                                    first_name=options['first_name'],
+                                    last_name=options['last_name'])
+            user.set_password(password2)
+            user.save()
 
-        # Create manager from user
-        create_manager(user, options['phone_number'])
+            # Create manager from user
+            create_manager(user, options['phone_number'])
 
         self.stdout.write(
             self.style.SUCCESS('Succesfully created manager "%s"' %
