@@ -55,7 +55,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatSlideToggleModule,
         TranslateModule,
         UploadImagesModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     providers: [],
 })

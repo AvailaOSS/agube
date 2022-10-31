@@ -3,6 +3,6 @@ import { WaterMeter, WaterMeterWithMeasurements } from '@availaoss/agube-rest-ap
 export interface WaterMeterGauge {
     waterMeter: WaterMeter;
     dwellingId?: number;
-    reservoirId?:string;
+    reservoirId?: string;
     waterMeterWithMeasure: WaterMeterWithMeasurements;
 }

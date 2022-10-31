@@ -61,7 +61,7 @@ export class DetailComponent implements OnInit {
         protected svcWaterMeterManager: WaterMeterManager,
         public dialog: MatDialog,
         protected svcWaterMeterPersistance: WaterMeterPersistantService,
-        public propertiesServices: GetPropertiesService,
+        public propertiesServices: GetPropertiesService
     ) {
         this.initializeDates();
     }

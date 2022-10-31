@@ -60,7 +60,7 @@ export class TableResidentComponent extends PersonTable implements OnInit {
 
                     return dataStr.indexOf(transformedFilter) != -1;
                 };
-            }
+            },
         });
     }
 }

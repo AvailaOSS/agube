@@ -46,7 +46,7 @@ import { ResidentComponent } from './resident/resident.component';
         AddressModule,
         DialogOnlyMapModule,
         CommentModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },

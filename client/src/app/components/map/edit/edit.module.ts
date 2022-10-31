@@ -34,7 +34,7 @@ import { JoyrideModule } from 'ngx-joyride';
         MapModule,
         MatAutocompleteModule,
         MatProgressSpinnerModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     exports: [EditComponent],
 })

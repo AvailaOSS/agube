@@ -4,14 +4,14 @@ import { Data } from './configuration';
 import { NotificationService } from './notification.service';
 
 @Component({
-  selector: 'lib-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: [],
+    selector: 'lib-notification',
+    templateUrl: './notification.component.html',
+    styleUrls: [],
 })
 export class NotificationComponent {
-  message: String = '';
+    message: String = '';
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: Data) {
-    this.message = data.message;
-  }
+    constructor(@Inject(MAT_SNACK_BAR_DATA) public data: Data) {
+        this.message = data.message;
+    }
 }

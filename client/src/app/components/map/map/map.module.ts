@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [MapComponent],
-    imports: [CommonModule, TranslateModule, MatTooltipModule,JoyrideModule],
+    imports: [CommonModule, TranslateModule, MatTooltipModule, JoyrideModule],
     exports: [MapComponent],
 })
 export class MapModule {}

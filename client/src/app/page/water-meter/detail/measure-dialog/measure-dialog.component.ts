@@ -76,7 +76,7 @@ export class MeasureDialogComponent extends MeasureDialog {
                 });
                 break;
             default:
-                console.debug('set time "hour" or "min" instead of ', time)
+                console.debug('set time "hour" or "min" instead of ', time);
                 return;
         }
 
@@ -112,8 +112,8 @@ export class MeasureDialogComponent extends MeasureDialog {
                 error: (error) => {
                     this.disabled = false;
                     this.loadingPost = false;
-                    this.svcNotification.warning({message: error.error.status}),
-                    this.googleAnalyticsService.exception('error_water_meter_measure', true);
+                    this.svcNotification.warning({ message: error.error.status }),
+                        this.googleAnalyticsService.exception('error_water_meter_measure', true);
                 },
             });
     }

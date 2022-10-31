@@ -23,7 +23,8 @@ const routes: Routes = [
             },
             {
                 path: 'springsources',
-                loadChildren: () => import('../../../spring-source/manager/manager.module').then((m) => m.ManagerSpringSourceModule),
+                loadChildren: () =>
+                    import('../../../spring-source/manager/manager.module').then((m) => m.ManagerSpringSourceModule),
             },
             {
                 path: 'config',

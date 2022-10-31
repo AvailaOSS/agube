@@ -19,7 +19,6 @@ export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDet
         }
     }
 
-
     let coordinates: Coordinates = {
         id: +object.id!,
         lat: String(object.latitude),
@@ -33,12 +32,9 @@ export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDet
 function getMapIconType(object: DwellingDetail | ReservoirDetail | SpringSourceDetail): MapIconType {
     if (isReservoirDetail(object)) {
         return MapIconType.RESERVOIR;
-    }
-    else if (isDwellingDetail(object)) {
+    } else if (isDwellingDetail(object)) {
         return MapIconType.HOUSE;
-    }
-    else {
+    } else {
         return MapIconType.SPRING_SOURCE;
     }
-
 }

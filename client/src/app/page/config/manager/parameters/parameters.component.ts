@@ -84,8 +84,6 @@ export class ParametersComponent implements OnInit {
         }
     }
 
-
-
     private responseManager(responseManger: ManagerConfiguration) {
         this.releaseDate =
             responseManger.release_date === undefined ? undefined : new Date(responseManger.release_date);

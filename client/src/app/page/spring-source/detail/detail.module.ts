@@ -40,7 +40,7 @@ import { DetailComponent } from './detail.component';
         AddressModule,
         DialogOnlyMapModule,
         CommentModule,
-        JoyrideModule
+        JoyrideModule,
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },

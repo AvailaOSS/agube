@@ -16,7 +16,7 @@ import { ManagerPageRoutingModule } from './manager-page-routing.module';
 import { ManagerPageComponent } from './manager-page.component';
 import { ParametersComponent } from './parameters/parameters.component';
 import { ConfigurationEmailComponent } from './configuration-email/configuration-email.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
     declarations: [ManagerPageComponent, ParametersComponent, ConfigurationEmailComponent],
@@ -36,7 +36,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         TranslateModule,
         MatAutocompleteModule,
         MatSlideToggleModule,
-        JoyrideModule
-    ]
+        JoyrideModule,
+    ],
 })
 export class ManagerPageModule {}

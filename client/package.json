@@ -8,7 +8,7 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "prettier:write": "prettier --config .prettierrc --write \"src/**/*.scss\""
+        "prettier:write": "prettier --config .prettierrc --write \"src/**/*.ts\""
 
     },
     "private": false,

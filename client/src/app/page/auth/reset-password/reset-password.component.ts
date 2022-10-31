@@ -15,11 +15,7 @@ export class ResetPasswordComponent {
 
     public loading = false;
 
-    constructor(
-        private svcAuth: AuthService,
-        private svcNotification: NotificationService,
-        private router: Router
-    ) {}
+    constructor(private svcAuth: AuthService, private svcNotification: NotificationService, private router: Router) {}
 
     public goLogin() {
         this.router.navigate([AuthRoute.LOGIN]);

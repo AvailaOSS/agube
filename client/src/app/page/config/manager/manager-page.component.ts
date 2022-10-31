@@ -11,8 +11,7 @@ import { JoyrideService } from 'ngx-joyride';
 export class ManagerPageComponent implements OnInit {
     constructor(private svcTranslate: TranslateService, private readonly joyrideService: JoyrideService) {}
 
-    public ngOnInit(): void { }
-
+    public ngOnInit(): void {}
 
     // call function to joyride
     public tour() {
