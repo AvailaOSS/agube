@@ -1,17 +1,17 @@
 @mixin availa-contacts($hover, $active, $color) {
-    .contact-table {
-        tr.contact-row:hover {
-            background: $hover !important;
-            td {
-                color: $color !important;
-            }
-        }
-
-        tr.contact-row:active {
-            background: $active !important;
-            td {
-                color: $color !important;
-            }
-        }
+  .contact-table {
+    tr.contact-row:hover {
+      background: $hover !important;
+      td {
+        color: $color !important;
+      }
     }
+
+    tr.contact-row:active {
+      background: $active !important;
+      td {
+        color: $color !important;
+      }
+    }
+  }
 }

@@ -1,19 +1,19 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 @import '../../../../../assets/availa/sizes/resolutions.scss';
 .reservoir-info {
-    margin: $margin-x-small;
-    div {
-        display: flex;
-        align-items: center;
-        margin-bottom: $margin-small;
-        h4 {
-            margin: 0 $margin-x-small 0 $margin-x-small;
-        }
+  margin: $margin-x-small;
+  div {
+    display: flex;
+    align-items: center;
+    margin-bottom: $margin-small;
+    h4 {
+      margin: 0 $margin-x-small 0 $margin-x-small;
     }
+  }
 }
 
 @media only screen and (max-width: $resolution-l-small) {
-    .reservoir-info {
-        margin-left: $margin-medium !important;
-    }
+  .reservoir-info {
+    margin-left: $margin-medium !important;
+  }
 }

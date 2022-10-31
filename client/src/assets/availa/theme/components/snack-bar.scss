@@ -1,22 +1,22 @@
 @mixin mat-snack-bar($background-color, $color) {
-    background-color: $background-color !important;
-    color: $color !important;
+  background-color: $background-color !important;
+  color: $color !important;
 }
 
 @mixin mat-snack-bar-success($background-color, $color) {
-    .success {
-        @include mat-snack-bar($background-color, $color);
-    }
+  .success {
+    @include mat-snack-bar($background-color, $color);
+  }
 }
 
 @mixin mat-snack-bar-info($background-color, $color) {
-    .info {
-        @include mat-snack-bar($background-color, $color);
-    }
+  .info {
+    @include mat-snack-bar($background-color, $color);
+  }
 }
 
 @mixin mat-snack-bar-warning($background-color, $color) {
-    .warning {
-        @include mat-snack-bar($background-color, $color);
-    }
+  .warning {
+    @include mat-snack-bar($background-color, $color);
+  }
 }

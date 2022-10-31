@@ -1,29 +1,29 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
 .select-dwelling {
-    padding: 0px;
-    margin-top: $margin-small;
+  padding: 0px;
+  margin-top: $margin-small;
 }
 
 .mat-card {
-    .mat-card-content {
-        margin-bottom: $margin-small;
+  .mat-card-content {
+    margin-bottom: $margin-small;
+    margin-top: $margin-small;
+    text-align: center;
+    .resident {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      .icons {
+        display: flex;
+        margin: 0 auto;
         margin-top: $margin-small;
-        text-align: center;
-        .resident {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            .icons {
-                display: flex;
-                margin: 0 auto;
-                margin-top: $margin-small;
-            }
-            .mat-icon {
-                vertical-align: middle;
-                justify-content: space-between;
-                margin-left: $margin-x-small;
-            }
-        }
+      }
+      .mat-icon {
+        vertical-align: middle;
+        justify-content: space-between;
+        margin-left: $margin-x-small;
+      }
     }
+  }
 }

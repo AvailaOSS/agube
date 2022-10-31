@@ -2,17 +2,17 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 
 .manager-residents-page {
-    display: grid;
-    min-height: 88%;
-    height: 58%;
-    max-height: 100%;
+  display: grid;
+  min-height: 88%;
+  height: 58%;
+  max-height: 100%;
 }
 
 .manager-residents-page-table {
-    @include my-page-column();
+  @include my-page-column();
 
-    margin-bottom: $margin-x-small;
+  margin-bottom: $margin-x-small;
 }
 .manager-residents-page-card {
-    @include my-page-column($columnIndex: 1, $totalColumns: 2);
+  @include my-page-column($columnIndex: 1, $totalColumns: 2);
 }

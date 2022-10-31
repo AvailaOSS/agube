@@ -1,32 +1,32 @@
 @import '../../../../../../assets/availa/sizes/margins.scss';
 
 mat-list {
-    margin-top: $margin-x-medium;
-    margin-bottom: $margin-x-medium;
-    mat-divider {
-        position: inherit;
-        margin: 0 auto;
-        width: 100%;
-    }
+  margin-top: $margin-x-medium;
+  margin-bottom: $margin-x-medium;
+  mat-divider {
+    position: inherit;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
 .edit-address-header {
-    display: flex;
-    align-items: center;
-    padding-left: $margin-x-small;
-    mat-icon {
-        cursor: pointer;
-        margin-left: $margin-small;
-    }
+  display: flex;
+  align-items: center;
+  padding-left: $margin-x-small;
+  mat-icon {
+    cursor: pointer;
+    margin-left: $margin-small;
+  }
 }
 
 .address {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .list-address {
-    padding-left: $margin-x-medium;
-    padding-right: $margin-x-medium;
+  padding-left: $margin-x-medium;
+  padding-right: $margin-x-medium;
 }

@@ -1,24 +1,24 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 .title {
-    text-align: center;
-    margin-top: $margin-large;
+  text-align: center;
+  margin-top: $margin-large;
 }
 
 .dwelling-detail {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    margin-top: $margin-large;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: $margin-large;
 }
 
 .no-dwelling {
-    text-align: center;
-    margin-bottom: $margin-medium;
-    .no-dwelling-text {
-        opacity: 0.7 !important;
-        .alert-no-dwelling {
-            font-size: 500px;
-            display: contents;
-        }
+  text-align: center;
+  margin-bottom: $margin-medium;
+  .no-dwelling-text {
+    opacity: 0.7 !important;
+    .alert-no-dwelling {
+      font-size: 500px;
+      display: contents;
     }
+  }
 }

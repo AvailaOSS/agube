@@ -3,213 +3,213 @@
 @import '../../../../assets/availa/sizes/resolutions.scss';
 
 @mixin dynamic-button {
-    button {
-        width: 215px;
-        margin-top: $margin-small;
-        margin-bottom: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
-        }
+  button {
+    width: 215px;
+    margin-top: $margin-small;
+    margin-bottom: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
     }
+  }
 }
 
 .detail-page {
-    @include my-page($columns: 1);
+  @include my-page($columns: 1);
 }
 
 .page-content {
-    @include my-page-column($columnIndex: 1, $totalColumns: 1);
-    .mat-card {
-        height: 100%;
-    }
-    .mat-card-content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 100%;
-        .reservoir-info {
-            width: 62%;
-            margin-top: $margin-x-medium;
-            margin-left: $margin-x-medium;
-            mat-icon {
-                cursor: pointer;
-            }
-            .reservoir-content-info {
-                margin-left: $margin-small;
-                display: flex;
-                height: auto;
-                .reservoir-resident {
-                    margin-left: $margin-medium;
-                    flex-direction: column;
-                    display: flex;
-                    height: 60%;
-                }
-            }
-        }
-        .reservoir-map {
-            margin-right: $margin-x-medium;
-            mat-button-toggle-group {
-                display: flex;
-                justify-content: center;
-                text-align: center;
-                border: none;
-            }
-        }
-    }
-    .mat-spinner {
-        top: 50%;
-        margin: 0 auto;
-    }
-}
-
-.content-buttons-map {
-    display: flex;
-}
-
-.buttons-map {
-    display: none;
-    button {
-        width: 215px;
-        margin-top: $margin-small;
-        margin-bottom: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
-        }
-    }
-}
-
-.button-comments {
-    display: none;
-    margin-left: $margin-x-small;
-    @include dynamic-button;
-}
-
-.buttons-management {
-    margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+  @include my-page-column($columnIndex: 1, $totalColumns: 1);
+  .mat-card {
+    height: 100%;
+  }
+  .mat-card-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    button {
-        width: 32%;
-        margin-top: $margin-small;
-        div {
-            align-items: center;
-            display: flex;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
+    width: 100%;
+    .reservoir-info {
+      width: 62%;
+      margin-top: $margin-x-medium;
+      margin-left: $margin-x-medium;
+      mat-icon {
+        cursor: pointer;
+      }
+      .reservoir-content-info {
+        margin-left: $margin-small;
+        display: flex;
+        height: auto;
+        .reservoir-resident {
+          margin-left: $margin-medium;
+          flex-direction: column;
+          display: flex;
+          height: 60%;
         }
+      }
     }
+    .reservoir-map {
+      margin-right: $margin-x-medium;
+      mat-button-toggle-group {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        border: none;
+      }
+    }
+  }
+  .mat-spinner {
+    top: 50%;
+    margin: 0 auto;
+  }
+}
+
+.content-buttons-map {
+  display: flex;
+}
+
+.buttons-map {
+  display: none;
+  button {
+    width: 215px;
+    margin-top: $margin-small;
+    margin-bottom: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
+    }
+  }
+}
+
+.button-comments {
+  display: none;
+  margin-left: $margin-x-small;
+  @include dynamic-button;
+}
+
+.buttons-management {
+  margin: $margin-x-medium $margin-x-medium 0 $margin-x-medium;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  button {
+    width: 32%;
+    margin-top: $margin-small;
+    div {
+      align-items: center;
+      display: flex;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
+    }
+  }
 }
 
 .icon-tour {
-    cursor: pointer;
-    width: 20px;
+  cursor: pointer;
+  width: 20px;
 }
 
 @media only screen and (max-width: $resolution-l-small) {
-    .reservoir-content-info {
-        .detail-info {
-            margin-left: 70px !important;
-        }
+  .reservoir-content-info {
+    .detail-info {
+      margin-left: 70px !important;
     }
-    .reservoir-resident {
-        margin-left: $margin-medium !important;
-        flex-direction: column;
-        display: flex;
-        height: 60%;
-    }
+  }
+  .reservoir-resident {
+    margin-left: $margin-medium !important;
+    flex-direction: column;
+    display: flex;
+    height: 60%;
+  }
 }
 
 .content-buttons-generics-map {
-    display: flex;
-    height: fit-content;
+  display: flex;
+  height: fit-content;
 }
 
 @media only screen and (max-width: $resolution-m-small) {
-    .mat-card-content {
-        .content-buttons-map {
-            display: block !important;
-        }
+  .mat-card-content {
+    .content-buttons-map {
+      display: block !important;
     }
-    .buttons-map {
-        margin-left: 74px !important;
-    }
+  }
+  .buttons-map {
+    margin-left: 74px !important;
+  }
 }
 
 @media only screen and (max-width: 1660px) {
-    .mat-card-content {
-        display: block;
-        .reservoir-info {
-            width: 100% !important;
-        }
-        .reservoir-map {
-            display: none;
-        }
-        .buttons-map {
-            display: flex !important;
-            margin-left: $margin-x-small;
-        }
-        .content-buttons-map {
-            display: block;
-            justify-content: center;
-        }
+  .mat-card-content {
+    display: block;
+    .reservoir-info {
+      width: 100% !important;
     }
+    .reservoir-map {
+      display: none;
+    }
+    .buttons-map {
+      display: flex !important;
+      margin-left: $margin-x-small;
+    }
+    .content-buttons-map {
+      display: block;
+      justify-content: center;
+    }
+  }
 }
 
 @media only screen and (min-width: $resolution-medium-x) {
-    .button-comments {
-        display: flex !important;
-    }
-    .comments-list {
-        display: none;
-    }
+  .button-comments {
+    display: flex !important;
+  }
+  .comments-list {
+    display: none;
+  }
 
-    .reservoir-info {
-        width: 45% !important;
-    }
-    .column-right {
-        width: 30% !important;
-    }
+  .reservoir-info {
+    width: 45% !important;
+  }
+  .column-right {
+    width: 30% !important;
+  }
 }
 
 @media only screen and (min-width: $resolution-x-large) {
-    .button-comments {
-        display: none !important;
-    }
-    .comments-list {
-        display: inline-block;
-        width: auto !important;
-        margin-top: $margin-small;
-    }
-    .reservoir-info {
-        width: 35% !important;
-    }
-    .column-right {
-        width: 45% !important;
-    }
+  .button-comments {
+    display: none !important;
+  }
+  .comments-list {
+    display: inline-block;
+    width: auto !important;
+    margin-top: $margin-small;
+  }
+  .reservoir-info {
+    width: 35% !important;
+  }
+  .column-right {
+    width: 45% !important;
+  }
 }
 
 @media only screen and (max-width: $resolution-x-large) {
-    .button-comments {
-        display: flex !important;
-    }
-    .comments-list {
-        display: none;
-    }
+  .button-comments {
+    display: flex !important;
+  }
+  .comments-list {
+    display: none;
+  }
 
-    .reservoir-info {
-        width: 51% !important;
-    }
-    .column-right {
-        width: 40% !important;
-    }
+  .reservoir-info {
+    width: 51% !important;
+  }
+  .column-right {
+    width: 40% !important;
+  }
 }

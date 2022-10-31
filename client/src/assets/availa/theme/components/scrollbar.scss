@@ -1,12 +1,12 @@
 @mixin scrollbar($color, $radius, $size) {
-    /* width */
-    ::-webkit-scrollbar {
-        width: $size;
-    }
+  /* width */
+  ::-webkit-scrollbar {
+    width: $size;
+  }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: $color;
-        border-radius: $radius;
-    }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $color;
+    border-radius: $radius;
+  }
 }

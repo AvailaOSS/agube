@@ -1,10 +1,10 @@
 @mixin mat-icon() {
+  .mat-icon {
+    fill: none !important;
+  }
+  button {
     .mat-icon {
-        fill: none !important;
+      fill: black;
     }
-    button {
-        .mat-icon {
-            fill: black;
-        }
-    }
+  }
 }

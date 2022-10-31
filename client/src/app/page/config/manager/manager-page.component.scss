@@ -2,65 +2,65 @@
 @import '../../../../assets/availa/sizes/page.scss';
 
 .manager-page {
-    display: inline-table;
-    min-height: 88%;
-    height: 88%;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    min-width: 50%;
-    width: 50%;
-    max-width: 50%;
+  display: inline-table;
+  min-height: 88%;
+  height: 88%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 50%;
+  width: 50%;
+  max-width: 50%;
 }
 
 .icon-tour {
-    cursor: pointer;
-    width: 20px;
+  cursor: pointer;
+  width: 20px;
 }
 
 .manager-page-column {
-    @include my-page-column();
-    mat-card-content {
-        div {
-            margin: 0 0 -80px 0;
-        }
+  @include my-page-column();
+  mat-card-content {
+    div {
+      margin: 0 0 -80px 0;
     }
-    sup {
-        float: right;
-    }
+  }
+  sup {
+    float: right;
+  }
 }
 .container-frame-tour {
-    width: 270px;
-    height: 160px;
+  width: 270px;
+  height: 160px;
 }
 .manager-content-contact-book {
-    margin-bottom: 30px !important;
+  margin-bottom: 30px !important;
 }
 
 .form {
-    padding: $margin-x-medium;
-    .form-content {
-        display: inline-grid;
-        mat-form-field {
-            margin: $margin-x-small;
-        }
+  padding: $margin-x-medium;
+  .form-content {
+    display: inline-grid;
+    mat-form-field {
+      margin: $margin-x-small;
     }
-    mat-card-actions {
-        button {
-            div {
-                height: 100%;
-                display: flex;
-                align-items: center;
-                min-width: 150px;
-                mat-icon {
-                    margin-right: $margin-x-small;
-                }
-            }
+  }
+  mat-card-actions {
+    button {
+      div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        min-width: 150px;
+        mat-icon {
+          margin-right: $margin-x-small;
         }
+      }
     }
+  }
 }
 mat-card-content {
-    div {
-        margin-top: $margin-x-medium;
-    }
+  div {
+    margin-top: $margin-x-medium;
+  }
 }

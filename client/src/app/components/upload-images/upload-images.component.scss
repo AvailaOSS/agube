@@ -1,18 +1,18 @@
 @import '../../../assets/availa/sizes/margins.scss';
 
 img {
-    margin-left: $margin-small;
+  margin-left: $margin-small;
 }
 
 mat-card-actions {
-    button {
-        div {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            mat-icon {
-                margin-right: $margin-x-small;
-            }
-        }
+  button {
+    div {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      mat-icon {
+        margin-right: $margin-x-small;
+      }
     }
+  }
 }

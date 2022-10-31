@@ -1,16 +1,16 @@
 @import '../../../../assets/availa/sizes/margins.scss';
 
 .detail-info {
-    margin-bottom: $margin-small;
-    span {
-        display: flex;
-        align-items: center;
-        margin: $margin-x-small 0 0 0;
-        h3 {
-            margin: 0 0 0 $margin-x-small;
-        }
+  margin-bottom: $margin-small;
+  span {
+    display: flex;
+    align-items: center;
+    margin: $margin-x-small 0 0 0;
+    h3 {
+      margin: 0 0 0 $margin-x-small;
     }
-    h2 {
-        margin: 5px 0 0 0;
-    }
+  }
+  h2 {
+    margin: 5px 0 0 0;
+  }
 }

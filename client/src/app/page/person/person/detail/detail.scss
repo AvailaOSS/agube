@@ -2,101 +2,101 @@
 @import '../../../../../assets/availa/sizes/margins.scss';
 @import '../../../../../assets/availa/sizes/resolutions.scss';
 .detail-page {
-    @media only screen and (max-width: $resolution-xl-small) {
-        height: 90%;
-        width: 100%;
-    }
-    @media only screen and (min-width: $resolution-xl-small) {
-        height: 90%;
-        width: 100%;
-    }
-    @media only screen and (min-width: $resolution-xs-medium) {
-        height: 90%;
-        width: 100%;
-    }
+  @media only screen and (max-width: $resolution-xl-small) {
+    height: 90%;
+    width: 100%;
+  }
+  @media only screen and (min-width: $resolution-xl-small) {
+    height: 90%;
+    width: 100%;
+  }
+  @media only screen and (min-width: $resolution-xs-medium) {
+    height: 90%;
+    width: 100%;
+  }
 }
 
 .page-content {
-    margin-bottom: 0px !important;
-    .mat-card {
-        height: 100%;
+  margin-bottom: 0px !important;
+  .mat-card {
+    height: 100%;
+  }
+  .avatar {
+    margin-left: $margin-x-medium;
+    img {
+      border-radius: 50%;
+      height: $margin-large;
+      width: $margin-large;
     }
-    .avatar {
-        margin-left: $margin-x-medium;
-        img {
-            border-radius: 50%;
-            height: $margin-large;
-            width: $margin-large;
-        }
+  }
+  mat-card-content {
+    margin-top: $margin-x-medium;
+    h1 {
+      margin-left: $margin-small;
     }
-    mat-card-content {
-        margin-top: $margin-x-medium;
-        h1 {
-            margin-left: $margin-small;
-        }
-        h3 {
-            margin: 0px;
-            margin-left: $margin-small;
-        }
-        .resident-dwelling {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 180px;
-            .resident {
-                margin-left: $margin-small;
-                .resident-info {
-                    flex-wrap: wrap;
-                    margin-left: $margin-small;
-                }
-                .resident-data-info {
-                    margin-left: $margin-small;
-                }
-            }
-
-            @media only screen and (max-width: 980px) {
-                .resident-dwelling {
-                    display: flex !important;
-                    flex-wrap: wrap !important;
-                    margin-bottom: 70% !important;
-                }
-                .dwellings {
-                    margin-top: $margin-x-medium;
-                    height: 10px;
-                    flex-grow: 1;
-                    width: 95% !important;
-                    .card-dwelling {
-                        margin-left: $margin-x-small;
-                    }
-                }
-            }
-
-            .dwellings {
-                margin-top: $margin-x-medium;
-                height: 10px;
-                flex-grow: 1;
-                width: 33%;
-                .card-dwelling {
-                    margin-left: $margin-x-small;
-                }
-            }
-        }
+    h3 {
+      margin: 0px;
+      margin-left: $margin-small;
     }
-}
-@media only screen and (max-width: 1150px) {
     .resident-dwelling {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        margin-bottom: 100% !important;
-        height: 100%;
-    }
-    .dwellings {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 180px;
+      .resident {
+        margin-left: $margin-small;
+        .resident-info {
+          flex-wrap: wrap;
+          margin-left: $margin-small;
+        }
+        .resident-data-info {
+          margin-left: $margin-small;
+        }
+      }
+
+      @media only screen and (max-width: 980px) {
+        .resident-dwelling {
+          display: flex !important;
+          flex-wrap: wrap !important;
+          margin-bottom: 70% !important;
+        }
+        .dwellings {
+          margin-top: $margin-x-medium;
+          height: 10px;
+          flex-grow: 1;
+          width: 95% !important;
+          .card-dwelling {
+            margin-left: $margin-x-small;
+          }
+        }
+      }
+
+      .dwellings {
         margin-top: $margin-x-medium;
-        margin-left: $margin-large;
         height: 10px;
         flex-grow: 1;
-        width: 95% !important;
+        width: 33%;
         .card-dwelling {
-            margin-left: $margin-x-small;
+          margin-left: $margin-x-small;
         }
+      }
     }
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .resident-dwelling {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 100% !important;
+    height: 100%;
+  }
+  .dwellings {
+    margin-top: $margin-x-medium;
+    margin-left: $margin-large;
+    height: 10px;
+    flex-grow: 1;
+    width: 95% !important;
+    .card-dwelling {
+      margin-left: $margin-x-small;
+    }
+  }
 }
