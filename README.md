@@ -54,7 +54,7 @@ docker exec -it agube-be python3 manage.py migrate
 ### Create a Manager account (password input will prompt)
 
 ```bash
-python manage.py createmanager <username> <email> <first_name> <last_name> <phone_number> --settings=agube.settings-local
+python manage.py createmanager <username> <email> <first_name> <last_name> <phone_number>
 ```
 
 That's all 🥳, ensure that works -> [localhost](http://localhost:8080)
