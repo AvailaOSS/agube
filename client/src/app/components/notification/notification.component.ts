@@ -6,7 +6,7 @@ import { NotificationService } from './notification.service';
 @Component({
   selector: 'lib-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss'],
+  styleUrls: [],
 })
 export class NotificationComponent {
   message: String = '';
