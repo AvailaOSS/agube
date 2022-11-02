@@ -128,7 +128,7 @@ export class OwnerService {
   ): Observable<HttpEvent<Array<OwnerDetail>>>;
   public getOwners(
     observe: any = 'body',
-    reportProgress = false,
+    reportProgress: boolean = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

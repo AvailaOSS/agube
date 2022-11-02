@@ -42,6 +42,14 @@ export class DetailComponent implements OnInit {
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
+
+    public reservoirId: number | undefined;
+    public reservoir: ReservoirCreate | undefined;
+
+    public showMap: boolean = true;
+    public type: Type | undefined = undefined;
+    public loading: boolean = false;
+
     // map config
     public mode: string = 'map';
     private readonly mapType: MapIconType = MapIconType.RESERVOIR;
@@ -51,13 +59,6 @@ export class DetailComponent implements OnInit {
     private mapId: string = 'detail_map';
     public waterMeterId: number | undefined;
     public waterMeter: WaterMeter | undefined;
-
-    public reservoirId: number | undefined;
-    public reservoir: ReservoirCreate | undefined;
-
-    public showMap: boolean = true;
-    public type: Type | undefined = undefined;
-    public loading: boolean = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
