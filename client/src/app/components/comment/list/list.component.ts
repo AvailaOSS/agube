@@ -52,10 +52,10 @@ export class ListComponent implements OnInit {
 
     public updateComment(comment: Comment) {
         const data: CommentCreate = {
-            id: comment.id,
             created: comment.created,
-            type: this.config!.type,
+            id: comment.id,
             message: comment.message,
+            type: this.config!.type,
         };
 
         const dialogRef = this.dialog.open(EditDialogComponent, {

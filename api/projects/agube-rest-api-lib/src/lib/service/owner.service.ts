@@ -153,10 +153,10 @@ export class OwnerService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Array<OwnerDetail>>(`${this.basePath}/owner`, {
-      withCredentials: this.configuration.withCredentials,
       headers: headers,
       observe: observe,
       reportProgress: reportProgress,
+      withCredentials: this.configuration.withCredentials,
     });
   }
 }

@@ -132,17 +132,17 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
                 }
 
                 this.globalMapConfig = {
-                    id: this.baseConfiguration!.id,
                     center: {
                         lat: e.latlng.lat,
                         lon: e.latlng.lng,
                         type: conf.center.type,
                     },
-                    zoom: this.zoom,
-                    showMarker: true,
-                    height: conf.height,
                     dragging: conf.dragging,
+                    height: conf.height,
+                    id: this.baseConfiguration!.id,
                     otherPoints: conf.otherPoints,
+                    showMarker: true,
+                    zoom: this.zoom,
                 };
 
                 if (marker) {
@@ -332,8 +332,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             addressFormGroup: this.formBuilder.group({
                 city: this.form!.city,
                 city_district: this.form!.city_district,
-                cp: this.form!.cp,
                 country: this.form!.country,
+                cp: this.form!.cp,
                 flat: this.form!.flat,
                 filter: this.form!.filter,
                 gate: this.form!.gate,

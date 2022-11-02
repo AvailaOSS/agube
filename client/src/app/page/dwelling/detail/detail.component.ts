@@ -127,8 +127,8 @@ export class DetailComponent implements OnInit {
                 dragging: false,
                 height: '500px',
                 id: 'detail_map_dialog',
-                showMarker: true,
                 selectOptionFilter: true,
+                showMarker: true,
                 zoom: geolocation.zoom,
             },
             create: false,
@@ -161,16 +161,15 @@ export class DetailComponent implements OnInit {
         const geolocation = this.dwelling.geolocation;
 
         let data: DialogParameters = {
-            geolocation: geolocation,
             configureMap: {
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                id: 'edit_address_map',
                 dragging: false,
                 height: '300px',
+                id: 'edit_address_map',
                 selectOptionFilter: true,
                 showMarker: true,
                 zoom: geolocation.zoom,
@@ -178,11 +177,12 @@ export class DetailComponent implements OnInit {
             create: false,
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             edit: true,
+            geolocation: geolocation,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
@@ -214,9 +214,9 @@ export class DetailComponent implements OnInit {
                     flat: response?.flat,
                     gate: response?.gate,
                     horizontal_degree: response?.horizontal_degree,
-                    number: response?.number,
                     latitude: response.latitude,
                     longitude: response.longitude,
+                    number: response?.number,
                     street: response.address?.road,
                     vertical_degree: response?.vertical_degree,
                     zoom: response.zoom,

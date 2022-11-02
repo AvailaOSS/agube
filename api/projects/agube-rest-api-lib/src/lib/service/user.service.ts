@@ -219,10 +219,10 @@ export class UserService {
       `${this.basePath}/user/${encodeURIComponent(String(id))}/phone`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

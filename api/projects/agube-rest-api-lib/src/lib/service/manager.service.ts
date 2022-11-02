@@ -143,10 +143,10 @@ export class ManagerService {
     return this.httpClient.get<ManagerConfiguration>(
       `${this.basePath}/manager/configuration`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

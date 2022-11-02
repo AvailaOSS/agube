@@ -61,8 +61,8 @@ export class EditComponent {
             return;
         }
         let phoneUser: UserPhone = {
-            phone: this.phone.phone.phone,
             main: value,
+            phone: this.phone.phone.phone,
         };
         this.svcUser.updateUserPhone(this.userId!, this.phone.phone.phone_id!, phoneUser).subscribe({
             error: (error) =>
