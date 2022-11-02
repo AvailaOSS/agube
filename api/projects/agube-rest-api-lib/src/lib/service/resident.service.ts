@@ -128,7 +128,7 @@ export class ResidentService {
   ): Observable<HttpEvent<Array<ResidentDetail>>>;
   public getResidents(
     observe: any = 'body',
-    reportProgress = false,
+    reportProgress: boolean = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

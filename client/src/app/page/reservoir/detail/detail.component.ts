@@ -34,11 +34,11 @@ import { Detail } from './detail';
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-    public canLoad = true;
+    public canLoad: boolean = true;
     public configCommentComponent: CommentConfig | undefined;
 
     // map
-    public canLoadStreetView = false;
+    public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
@@ -55,9 +55,9 @@ export class DetailComponent implements OnInit {
     public reservoirId: number | undefined;
     public reservoir: ReservoirCreate | undefined;
 
-    public showMap = true;
+    public showMap: boolean = true;
     public type: Type | undefined = undefined;
-    public loading = false;
+    public loading: boolean = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -71,7 +71,7 @@ export class DetailComponent implements OnInit {
         private svcNotification: NotificationService,
         private svcPersistant: WaterMeterPersistantService,
         private svcReservoir: ReservoirService,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
