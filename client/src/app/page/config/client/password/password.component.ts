@@ -58,8 +58,8 @@ export class PasswordComponent {
         }
         this.loadSave = true;
         let pass: ChangePassword = {
-            password: this.password.value,
             confirm_password: this.confirmPassword.value,
+            password: this.password.value,
             username: this.username.value,
         };
         this.svcAuth.changePassword(pass).subscribe({

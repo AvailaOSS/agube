@@ -4,7 +4,6 @@ import { ContentComponent } from './content.component';
 
 const routes: Routes = [
     {
-        component: ContentComponent,
         children: [
             {
                 path: '',
@@ -43,6 +42,7 @@ const routes: Routes = [
                 path: 'client/config',
             },
         ],
+        component: ContentComponent,
         path: '',
     },
 ];

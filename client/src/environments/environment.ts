@@ -5,8 +5,8 @@
 export const environment = {
     agubeBackendUrl: 'http://localhost:8000/api/v1.0.0/agube',
     appName: 'Agube-Dev',
-    googleMapsApiKey: '',
     googleAnalyticsId: '',
+    googleMapsApiKey: '',
     // set your dev host server here
     production: false,
 };

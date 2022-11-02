@@ -9,13 +9,13 @@ const routes: Routes = [
         redirectTo: 'home',
     },
     {
-        component: ManagerPageComponent,
         children: [
             {
                 loadChildren: () => import('./content/content.module').then((m) => m.ContentModule),
                 path: 'home',
             },
         ],
+        component: ManagerPageComponent,
         path: '',
     },
 ];

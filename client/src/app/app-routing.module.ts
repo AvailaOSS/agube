@@ -11,14 +11,14 @@ const routes: Routes = [
         redirectTo: AuthRoute.LOGIN,
     },
     {
-        canLoad: [UserGuard, ManagerGuard],
         canActivate: [UserGuard, ManagerGuard],
+        canLoad: [UserGuard, ManagerGuard],
         loadChildren: () => import('./page/home/manager/manager-page.module').then((m) => m.ManagerPageModule),
         path: 'manager',
     },
     {
-        canLoad: [UserGuard],
         canActivate: [UserGuard],
+        canLoad: [UserGuard],
         loadChildren: () => import('./page/home/client/client.module').then((m) => m.ClientModule),
         path: 'client',
     },

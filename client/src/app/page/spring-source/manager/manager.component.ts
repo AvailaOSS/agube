@@ -43,8 +43,8 @@ export class ManagerComponent implements OnInit {
                     dragging: true,
                     height: this.mapHeight,
                     id: this.mapId,
-                    showMarker: true,
                     scrollWheelZoom: true,
+                    showMarker: true,
                     width: this.mapWidth,
                     zoom: this.mapZoom,
                 };

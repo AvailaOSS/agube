@@ -54,11 +54,11 @@ export class AccountService {
                 token: localStorage.getItem(this.cookieName)!,
             })
             .subscribe({
-                next: (v) => this.saveToken(v),
                 error: (e) => {
                     this.logout();
                     this.error('Logout, error in refresh token');
                 },
+                next: (v) => this.saveToken(v),
             });
     }
 

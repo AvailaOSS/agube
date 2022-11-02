@@ -193,10 +193,10 @@ export class TokenService {
       `${this.basePath}/token/refresh`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

@@ -155,10 +155,10 @@ export class ResidentService {
     return this.httpClient.get<Array<ResidentDetail>>(
       `${this.basePath}/resident`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

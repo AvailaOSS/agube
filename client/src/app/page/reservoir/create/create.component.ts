@@ -188,8 +188,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 capacity: this.capacity.value,
                 geolocation: this.getGeolocation(),
                 inlet_flow: this.inletFlow.value,
-                user_id: this.userId,
                 outlet_flow: this.outletFlow.value,
+                user_id: this.userId,
             };
         } else {
             reservoir = {

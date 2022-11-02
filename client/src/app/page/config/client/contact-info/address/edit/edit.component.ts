@@ -47,10 +47,6 @@ export class EditComponent extends CreateAddress {
         this.svcUser
             .updateUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!, userAddress)
             .subscribe({
-                next: (response) => {
-                    this.updatedEvent.next(response);
-                    this.geolocation!.isEditable = !this.geolocation!.isEditable;
-                },
                 error: (error) => {
                     let message: string = JSON.stringify(error.error);
 
@@ -58,6 +54,10 @@ export class EditComponent extends CreateAddress {
                         .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ERROR')
                         .subscribe((response) => (message = response));
                     this.svcNotification.warning({ message });
+                },
+                next: (response) => {
+                    this.updatedEvent.next(response);
+                    this.geolocation!.isEditable = !this.geolocation!.isEditable;
                 },
             });
     }
@@ -81,8 +81,8 @@ export class EditComponent extends CreateAddress {
                 dragging: false,
                 height: '350px',
                 id: 'edit_map',
-                showMarker: true,
                 selectOptionFilter: true,
+                showMarker: true,
                 zoom: geolocation.zoom,
             },
             create: false,

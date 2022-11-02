@@ -173,8 +173,8 @@ export class DetailComponent implements OnInit {
                 showMarker: true,
                 zoom: geolocation.zoom,
             },
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             edit: true,
             geolocation: geolocation,
         };
