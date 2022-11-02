@@ -25,18 +25,18 @@ export class AccountService {
     public login(username: string, password: string, redirectTo: string): void {
         this.serviceAuth
             .tokenAuthCreate({
-                username,
                 password,
+                username,
             })
             .subscribe({
+                error: (e) => {
+                    this.error('Usuario o contraseña incorrecto');
+                },
                 next: (v) => {
                     this.saveToken(v);
                     // parent project will be redirect for me
                     // FIXME: do not router.navigate here, return success and redirect out of here
                     this.router.navigate([redirectTo]);
-                },
-                error: (e) => {
-                    this.error('Usuario o contraseña incorrecto');
                 },
             });
     }

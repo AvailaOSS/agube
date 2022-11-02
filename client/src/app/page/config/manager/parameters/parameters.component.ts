@@ -48,6 +48,10 @@ export class ParametersComponent implements OnInit {
             max_daily_consumption: this.max_daily_consumption.value,
         };
         this.svcManager.updateManagerConfiguration(config).subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error }, 8);
+                this.loadSave = false;
+            },
             next: (response) => {
                 setTimeout(() => {
                     this.responseManager(response);
@@ -59,10 +63,6 @@ export class ParametersComponent implements OnInit {
                         release_date: response?.release_date,
                     });
                 }, ParametersComponent.seconds);
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error }, 8);
-                this.loadSave = false;
             },
         });
     }

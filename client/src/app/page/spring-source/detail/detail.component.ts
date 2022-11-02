@@ -103,9 +103,9 @@ export class DetailComponent implements OnInit {
     // Comments in dialog
     public seeComments() {
         this.dialog.open(ListComponent, {
+            data: this.configCommentComponent,
             hasBackdrop: true,
             panelClass: ['custom-dialog-container'],
-            data: this.configCommentComponent,
         });
     }
 
@@ -118,28 +118,28 @@ export class DetailComponent implements OnInit {
         const geolocation = this.springSource.geolocation;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
             configureMap: {
-                id: this.mapId,
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '300px',
                 dragging: false,
+                height: '300px',
+                id: this.mapId,
                 selectOptionFilter: true,
+                showMarker: true,
+                zoom: geolocation.zoom,
             },
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             edit: true,
+            geolocation: geolocation,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
@@ -158,32 +158,30 @@ export class DetailComponent implements OnInit {
         }
 
         this.showMap = true;
-
         const geolocation = this.springSource.geolocation;
-
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
             configureMap: {
-                id: 'detail_map_dialog',
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '500px',
                 dragging: false,
+                height: '500px',
+                id: 'detail_map_dialog',
                 selectOptionFilter: true,
+                showMarker: true,
+                zoom: geolocation.zoom,
             },
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             create: false,
             edit: true,
+            geolocation: geolocation,
         };
 
         this.dialog.open(DialogOnlyMapComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
     }
 
@@ -194,13 +192,13 @@ export class DetailComponent implements OnInit {
         }
 
         this.svcGeolocation.updateGeolocation(result.id!, result).subscribe({
+            error: (error) => this.svcNotification.warning({ message: error.error }),
             next: (response) => {
                 this.springSource!.geolocation = response;
                 this.svcSpringSourceCache.clean();
                 this.configureMaps(response);
                 this.showMap = true;
             },
-            error: (error) => this.svcNotification.warning({ message: error.error }),
         });
     }
     // call function to joyride
@@ -229,24 +227,24 @@ export class DetailComponent implements OnInit {
     // Configure Map
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
-            id: 'detail_map',
             center: {
                 lat: geolocation.latitude,
                 lon: geolocation.longitude,
                 type: this.mapType,
             },
-            zoom: geolocation.zoom,
-            showMarker: true,
-            height: this.mapHeight,
             dragging: false,
+            height: this.mapHeight,
+            id: 'detail_map',
+            showMarker: true,
+            zoom: geolocation.zoom,
         };
         this.configureView = {
+            height: this.mapHeight,
+            horizontalDegree: this.mapStreetViewPositionDegree,
             latitude: +geolocation.latitude,
             longitude: +geolocation.longitude,
-            zoom: this.mapZoomDefault,
-            horizontalDegree: this.mapStreetViewPositionDegree,
             verticalDegree: this.mapStreetViewPositionDegree,
-            height: this.mapHeight,
+            zoom: this.mapZoomDefault,
         };
     }
 }

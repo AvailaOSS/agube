@@ -7,25 +7,25 @@ import { UserGuard } from './providers/user.guard';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: AuthRoute.LOGIN,
         pathMatch: 'full',
+        redirectTo: AuthRoute.LOGIN,
     },
     {
-        path: 'manager',
         canLoad: [UserGuard, ManagerGuard],
         canActivate: [UserGuard, ManagerGuard],
         loadChildren: () => import('./page/home/manager/manager-page.module').then((m) => m.ManagerPageModule),
+        path: 'manager',
     },
     {
-        path: 'client',
         canLoad: [UserGuard],
         canActivate: [UserGuard],
         loadChildren: () => import('./page/home/client/client.module').then((m) => m.ClientModule),
+        path: 'client',
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
+    imports: [RouterModule.forRoot(routes)],
 })
 export class AppRoutingModule {}

@@ -35,18 +35,18 @@ export class ManagerComponent implements OnInit {
                 var firstSpringSourceDetected: SpringSourceDetail = response[0];
                 // set location around the first watersource
                 var buildConfigMap: ConfigureMap = {
-                    id: this.mapId,
                     center: {
                         lat: String(firstSpringSourceDetected.latitude!),
                         lon: String(firstSpringSourceDetected.longitude!),
                         type: MapIconType.SPRING_SOURCE,
                     },
-                    zoom: this.mapZoom,
-                    showMarker: true,
-                    height: this.mapHeight,
-                    width: this.mapWidth,
                     dragging: true,
+                    height: this.mapHeight,
+                    id: this.mapId,
+                    showMarker: true,
                     scrollWheelZoom: true,
+                    width: this.mapWidth,
+                    zoom: this.mapZoom,
                 };
                 // add others spring source in the map
                 buildConfigMap.otherPoints = response.map((springSource) => build(springSource));

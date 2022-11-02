@@ -41,19 +41,19 @@ export function mapAddressFormBuilder(addressInputForm: InputForm): MapAddressFo
         throw new Error('inputForm is necessary for this component');
     }
     var form: MapAddressForm = {
-        filter: new FormControl('', Validators.required),
-        country: addressInputForm.country,
-        state: addressInputForm.state,
-        province: addressInputForm.province,
         city: addressInputForm.city,
-        village: addressInputForm.village,
-        municipality: addressInputForm.municipality,
         city_district: addressInputForm.city_district,
+        country: addressInputForm.country,
         cp: addressInputForm.cp,
-        street: addressInputForm.street,
-        number: addressInputForm.number,
+        filter: new FormControl('', Validators.required),
         flat: addressInputForm.flat,
         gate: addressInputForm.gate,
+        municipality: addressInputForm.municipality,
+        number: addressInputForm.number,
+        province: addressInputForm.province,
+        state: addressInputForm.state,
+        street: addressInputForm.street,
+        village: addressInputForm.village,
         reset() {
             this.number!.setValue('');
             this.flat!.setValue('');
@@ -69,15 +69,15 @@ export function mapAddressFormBuilder(addressInputForm: InputForm): MapAddressFo
 
 export function fillMissingAddressFields(form: MapAddressForm, location: LocationResponse): void {
     // fill all fields
-    form.country.setValue(location.address.country);
-    form.state.setValue(location.address.state);
-    form.province.setValue(location.address.province);
     form.city.setValue(location.address.city);
-    form.village?.setValue(location.address.village);
-    form.municipality.setValue(location.address.municipality);
     form.city_district.setValue(location.address.city_district);
+    form.country.setValue(location.address.country);
     form.cp.setValue(location.address.postcode);
+    form.municipality.setValue(location.address.municipality);
+    form.province.setValue(location.address.province);
+    form.state.setValue(location.address.state);
     form.street?.setValue(location.address.road);
+    form.village?.setValue(location.address.village);
     var street = location.address.road;
 
     if (!street) {

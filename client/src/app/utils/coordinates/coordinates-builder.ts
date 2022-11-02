@@ -20,10 +20,10 @@ export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDet
     }
 
     let coordinates: Coordinates = {
+        description: object.road + suffix,
         id: +object.id!,
         lat: String(object.latitude),
         lon: String(object.longitude),
-        description: object.road + suffix,
         type: getMapIconType(object),
     };
     return coordinates;

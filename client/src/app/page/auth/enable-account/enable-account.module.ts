@@ -15,21 +15,21 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
     declarations: [EnableAccountComponent],
+    exports: [EnableAccountComponent],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
         FormsModule,
-        MatFormFieldModule,
-        MatCardModule,
         MatButtonModule,
-        MatInputModule,
-        NotificationModule,
+        MatCardModule,
         MatDividerModule,
+        MatFormFieldModule,
         MatIconModule,
+        MatInputModule,
         MatTooltipModule,
-        TranslateModule,
         MatProgressBarModule,
+        NotificationModule,
+        ReactiveFormsModule,
+        TranslateModule,
     ],
-    exports: [EnableAccountComponent],
 })
 export class EnableAccountModule {}

@@ -9,35 +9,35 @@ import { ResolutionType } from '../screen/type';
 
 export class CreateAddress {
     public addressInputForm: InputForm = {
-        country: new FormControl('', Validators.required),
-        state: new FormControl('', Validators.required),
-        province: new FormControl('', Validators.required),
         city: new FormControl('', Validators.required),
-        village: new FormControl(''),
-        municipality: new FormControl('', Validators.required),
         city_district: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
         cp: new FormControl('', Validators.required),
-        street: new FormControl('', Validators.required),
-        number: new FormControl('', Validators.required),
         flat: new FormControl(''),
         gate: new FormControl(''),
+        municipality: new FormControl('', Validators.required),
+        number: new FormControl('', Validators.required),
+        province: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        street: new FormControl('', Validators.required),
+        village: new FormControl(''),
     };
 
     public resetChildForm: boolean = false;
 
     // Map configuration for select Address
     public configureMap: ConfigureMap = {
-        id: 'create_map',
         center: {
             lat: '39.92666',
             lon: '-2.33976',
             type: MapIconType.HOUSE,
         },
-        zoom: 6,
-        showMarker: false,
-        height: '450px',
         dragging: false,
+        height: '450px',
+        id: 'create_map',
         selectOptionFilter: false,
+        showMarker: false,
+        zoom: 6,
     };
 
     public addressEmitter: AddressEmitter | undefined;

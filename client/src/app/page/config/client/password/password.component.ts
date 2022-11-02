@@ -35,9 +35,9 @@ export class PasswordComponent {
         private svcTranslate: TranslateService
     ) {
         this.passwordForm = this.formBuilder.group({
-            username: this.username,
-            password: this.password,
             confirmPassword: this.confirmPassword,
+            password: this.password,
+            username: this.username,
         });
         this.confirmPassword.disable();
     }
@@ -63,18 +63,6 @@ export class PasswordComponent {
             username: this.username.value,
         };
         this.svcAuth.changePassword(pass).subscribe({
-            next: () => {
-                this.username.setValue('');
-                this.password.setValue('');
-                this.confirmPassword.setValue('');
-                this.loadSave = false;
-                let message = JSON.stringify('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK');
-                this.svcTranslate
-                    .get('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK')
-                    .subscribe((response) => (message = response));
-
-                this.svcNotification.success({ message: message });
-            },
             error: (error) => {
                 let message = JSON.stringify(error.error);
 
@@ -86,6 +74,18 @@ export class PasswordComponent {
                 this.svcNotification.warning({ message: message });
 
                 this.loadSave = false;
+            },
+            next: () => {
+                this.username.setValue('');
+                this.password.setValue('');
+                this.confirmPassword.setValue('');
+                this.loadSave = false;
+                let message = JSON.stringify('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK');
+                this.svcTranslate
+                    .get('PAGE.CONFIG.CLIENT.PASSWORD.FORM.OK')
+                    .subscribe((response) => (message = response));
+
+                this.svcNotification.success({ message: message });
             },
         });
     }

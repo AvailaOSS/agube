@@ -18,24 +18,24 @@ import { JoyrideModule } from 'ngx-joyride';
 
 @NgModule({
     declarations: [EditComponent],
+    exports: [EditComponent],
     imports: [
         CommonModule,
         GoogleMapsModule,
         HttpClientModule,
-        PipesModule,
+        FormsModule,
+        JoyrideModule,
+        MapModule,
+        MatAutocompleteModule,
+        MatButtonModule,
         MatListModule,
         MatIconModule,
         MatInputModule,
-        MatButtonModule,
-        FormsModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        PipesModule,
         ReactiveFormsModule,
         TranslateModule,
-        MatTooltipModule,
-        MapModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
-        JoyrideModule,
     ],
-    exports: [EditComponent],
 })
 export class EditModule {}

@@ -41,12 +41,12 @@ export class CreateDialogComponent {
         this.managerComment
             .create({
                 id: this.data.id,
-                type: this.data.type,
                 message: this.message.value,
+                type: this.data.type,
             })
             .subscribe({
-                next: () => this.close(true),
                 error: (error) => this.svcNotification.warning({ message: error.error.status }),
+                next: () => this.close(true),
             });
     }
 

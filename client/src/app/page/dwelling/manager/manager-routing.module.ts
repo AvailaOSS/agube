@@ -5,17 +5,17 @@ import { ManagerComponent } from './manager.component';
 const routes: Routes = [
     { path: '', component: ManagerComponent },
     {
-        path: 'create',
         loadChildren: () => import('../create/create.module').then((m) => m.CreateModule),
+        path: 'create',
     },
     {
-        path: 'person',
         loadChildren: () => import('../../person/change/change.module').then((m) => m.ChangeModule),
+        path: 'person',
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
 })
 export class ManagerRoutingModule {}

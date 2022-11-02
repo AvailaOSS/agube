@@ -38,9 +38,9 @@ export class EnableAccountComponent {
     ) {
         this.activationForm = this.formBuilder.group({
             activationCode: this.activationCode,
-            username: this.username,
-            password: this.password,
             confirmPassword: this.confirmPassword,
+            password: this.password,
+            username: this.username,
         });
         this.confirmPassword.disable();
     }
@@ -66,17 +66,17 @@ export class EnableAccountComponent {
         this.svcAuth
             .enableAccount({
                 activation_code: this.activationForm.value.activationCode,
-                username: this.activationForm.value.username,
-                password: this.activationForm.value.password,
                 confirm_password: this.activationForm.value.confirmPassword,
+                password: this.activationForm.value.password,
+                username: this.activationForm.value.username,
             })
             .subscribe({
-                next: () => {
-                    this.router.navigate([AuthRoute.LOGIN]);
-                    this.loading = false;
-                },
                 error: (e) => {
                     this.svcNotification.warning({ message: e.error }, 8);
+                    this.loading = false;
+                },
+                next: () => {
+                    this.router.navigate([AuthRoute.LOGIN]);
                     this.loading = false;
                 },
             });

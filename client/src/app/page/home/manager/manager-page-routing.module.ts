@@ -5,11 +5,10 @@ import { ManagerPageComponent } from './manager-page.component';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
         pathMatch: 'prefix',
+        redirectTo: 'home',
     },
     {
-        path: '',
         component: ManagerPageComponent,
         children: [
             {
@@ -17,11 +16,12 @@ const routes: Routes = [
                 path: 'home',
             },
         ],
+        path: '',
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
 })
 export class ManagerPageRoutingModule {}

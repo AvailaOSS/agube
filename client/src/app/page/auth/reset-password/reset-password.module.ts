@@ -15,21 +15,21 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
     declarations: [ResetPasswordComponent],
+    exports: [ResetPasswordComponent],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
         FormsModule,
-        MatFormFieldModule,
-        MatCardModule,
         MatButtonModule,
-        MatInputModule,
-        NotificationModule,
+        MatCardModule,
+        MatFormFieldModule,
         MatDividerModule,
         MatIconModule,
-        MatTooltipModule,
-        TranslateModule,
+        MatInputModule,
         MatProgressBarModule,
+        MatTooltipModule,
+        NotificationModule,
+        ReactiveFormsModule,
+        TranslateModule,
     ],
-    exports: [ResetPasswordComponent],
 })
 export class ResetPasswordModule {}

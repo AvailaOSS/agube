@@ -82,39 +82,39 @@ export class Detail {
         }
 
         this.svcUser.getDwellingDetail(this.person.user.id!).subscribe({
+            error: (error) =>
+                this.svcNotification.warning({
+                    message: error.error,
+                }),
             next: (response) => {
                 if (!response.length) {
                     return;
                 }
                 this.dwellings = response;
             },
-            error: (error) =>
-                this.svcNotification.warning({
-                    message: error.error,
-                }),
         });
     }
 
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
-            id: this.mapId,
             center: {
                 lat: geolocation.latitude,
                 lon: geolocation.longitude,
                 type: MapIconType.HOUSE,
             },
-            zoom: geolocation.zoom,
-            showMarker: true,
-            height: this.mapHeight,
             dragging: false,
+            height: this.mapHeight,
+            id: this.mapId,
+            showMarker: true,
+            zoom: geolocation.zoom,
         };
         this.configureView = {
+            height: this.mapHeight,
+            horizontalDegree: this.mapStreetViewPositionDegree,
             latitude: +geolocation.latitude,
             longitude: +geolocation.longitude,
-            zoom: this.mapZoomDefault,
-            horizontalDegree: this.mapStreetViewPositionDegree,
             verticalDegree: this.mapStreetViewPositionDegree,
-            height: this.mapHeight,
+            zoom: this.mapZoomDefault,
         };
     }
 }

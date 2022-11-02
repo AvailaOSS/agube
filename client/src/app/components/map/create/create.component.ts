@@ -274,38 +274,38 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
         // reset the map to new location
         this.initializeMap({
-            id: this.baseConfiguration!.id,
             center: {
                 lat: lat,
                 lon: lon,
                 type: this.baseConfiguration!.center.type,
             },
-            zoom: MapComponent.zoom,
-            showMarker: true,
-            height: this.baseConfiguration!.height,
             dragging: this.baseConfiguration!.dragging,
+            height: this.baseConfiguration!.height,
+            id: this.baseConfiguration!.id,
             otherPoints: this.baseConfiguration?.otherPoints,
+            showMarker: true,
+            zoom: MapComponent.zoom,
         });
 
         // emit the address
         this.addressForm.emit({
-            userHasMapClicked: this.userHasMapClicked,
             addressFormGroup: this.formBuilder.group({
-                filter: this.form!.filter,
-                country: this.form!.country,
-                state: this.form!.state,
-                province: this.form!.province,
                 city: this.form!.city,
-                village: this.form!.village,
-                municipality: this.form!.municipality,
                 city_district: this.form!.city_district,
+                country: this.form!.country,
                 cp: this.form!.cp,
-                street: this.form!.street,
-                number: this.form!.number,
+                filter: this.form!.filter,
                 flat: this.form!.flat,
                 gate: this.form!.gate,
+                municipality: this.form!.municipality,
+                number: this.form!.number,
+                province: this.form!.province,
+                state: this.form!.state,
+                street: this.form!.street,
+                village: this.form!.village,
             }),
             location: this.selectedStreetCandidate,
+            userHasMapClicked: this.userHasMapClicked,
         });
     }
 
@@ -329,23 +329,23 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         this.userHasMapClicked = false;
         this.form!.clearFilter();
         this.addressForm.emit({
-            userHasMapClicked: this.userHasMapClicked,
             addressFormGroup: this.formBuilder.group({
-                filter: this.form!.filter,
-                country: this.form!.country,
-                state: this.form!.state,
-                province: this.form!.province,
                 city: this.form!.city,
-                village: this.form!.village,
-                municipality: this.form!.municipality,
                 city_district: this.form!.city_district,
                 cp: this.form!.cp,
-                street: this.form!.street,
-                number: this.form!.number,
+                country: this.form!.country,
                 flat: this.form!.flat,
+                filter: this.form!.filter,
                 gate: this.form!.gate,
+                municipality: this.form!.municipality,
+                number: this.form!.number,
+                province: this.form!.province,
+                state: this.form!.state,
+                street: this.form!.street,
+                village: this.form!.village,
             }),
             location: this.selectedStreetCandidate!,
+            userHasMapClicked: this.userHasMapClicked,
         });
     }
 

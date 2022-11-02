@@ -31,25 +31,25 @@ export class ResidentDetailComponent extends Detail implements OnInit {
         this.title = 'PAGE.PERSON.PERSON.DETAIL.TITLE-RESIDENT';
 
         this.svcResident.getResident(this.personId).subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error.error });
+                this.googleAnalyticsService.exception('error_view_resident', false);
+            },
             next: (resident) => {
                 this.person = resident;
                 this.getDwellingAndConfigureMap();
                 this.getDwellingDetails();
                 this.getUserPhoto(resident.user.id!);
                 this.googleAnalyticsService.gtag('event', 'view_resident', {
-                    dwelling_id: resident?.dwelling_id,
                     discharge_date: resident.discharge_date,
-                    release_date: resident?.release_date,
+                    dwelling_id: resident?.dwelling_id,
                     email: resident.user?.email,
                     first_name: resident.user?.first_name,
                     geolocation: resident.user?.geolocation,
                     last_name: resident.user?.last_name,
                     phones: resident.user.phones,
+                    release_date: resident?.release_date,
                 });
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error.error });
-                this.googleAnalyticsService.exception('error_view_resident', false);
             },
         });
     }

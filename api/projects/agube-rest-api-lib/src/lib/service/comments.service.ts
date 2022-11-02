@@ -99,10 +99,10 @@ export class CommentsService {
     return this.httpClient.delete<any>(
       `${this.basePath}/comments/comment/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

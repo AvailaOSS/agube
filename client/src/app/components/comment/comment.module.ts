@@ -18,21 +18,21 @@ import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     declarations: [ListComponent, CreateDialogComponent, EditDialogComponent],
-    imports: [
-        TranslateModule,
-        CommonModule,
-        MatListModule,
-        MatCardModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatButtonModule,
-        NotificationModule,
-        MatProgressSpinnerModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-    ],
     exports: [ListComponent],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        NotificationModule,
+        ReactiveFormsModule,
+        TranslateModule,
+    ],
 })
 export class CommentModule {}

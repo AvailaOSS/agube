@@ -40,11 +40,6 @@ export class EditComponent {
         this.phone.phone.phone = this.newPhone.value;
 
         this.svcUser.updateUserPhone(this.userId!, this.phone.phone.phone_id!, this.phone.phone).subscribe({
-            next: (response) => {
-                this.event.next(this.phone!.phone);
-                this.phone!.isEditable = !this.phone!.isEditable;
-                this.phone!.phone.main = true;
-            },
             error: (error) => {
                 let message: string = JSON.stringify(error.error);
 
@@ -52,6 +47,11 @@ export class EditComponent {
                     .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ERROR')
                     .subscribe((response) => (message = response));
                 this.svcNotification.warning({ message });
+            },
+            next: (response) => {
+                this.event.next(this.phone!.phone);
+                this.phone!.isEditable = !this.phone!.isEditable;
+                this.phone!.phone.main = true;
             },
         });
     }
@@ -65,14 +65,14 @@ export class EditComponent {
             main: value,
         };
         this.svcUser.updateUserPhone(this.userId!, this.phone.phone.phone_id!, phoneUser).subscribe({
-            next: (response: any) => {
-                this.phone!.phone.main = response.main;
-                this.event.next(this.phone!.phone);
-            },
             error: (error) =>
                 this.svcNotification.warning({
                     message: error,
                 }),
+            next: (response: any) => {
+                this.phone!.phone.main = response.main;
+                this.event.next(this.phone!.phone);
+            },
         });
     }
 
@@ -90,9 +90,6 @@ export class EditComponent {
         }
 
         this.svcUser.deleteUserPhone(this.userId!, this.phone.phone.phone_id!).subscribe({
-            next: (response) => {
-                this.deleteEvent.next(this.phone!.phone.phone_id);
-            },
             error: (error) => {
                 let message: string = JSON.stringify(error.error);
 
@@ -100,6 +97,9 @@ export class EditComponent {
                     .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.ERROR')
                     .subscribe((response) => (message = response));
                 this.svcNotification.warning({ message });
+            },
+            next: (response) => {
+                this.deleteEvent.next(this.phone!.phone.phone_id);
             },
         });
     }

@@ -32,9 +32,9 @@ export class MeasureDialogComponent extends MeasureDialog {
     ) {
         super();
         this.measureForm = this.formBuilder.group({
-            measurement: this.measurement,
             date: this.date,
             hour: this.hour,
+            measurement: this.measurement,
             minutes: this.minutes,
         });
         this.waterMeterId = data.waterMeterId;

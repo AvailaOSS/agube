@@ -8,7 +8,7 @@ import { DialogOnlyMapComponent } from './dialog-only-map.component';
 
 @NgModule({
     declarations: [DialogOnlyMapComponent],
-    imports: [CommonModule, MapModule, MatButtonModule, TranslateModule, MatTooltipModule],
     exports: [DialogOnlyMapComponent],
+    imports: [CommonModule, MapModule, MatButtonModule, MatTooltipModule, TranslateModule],
 })
 export class DialogOnlyMapModule {}

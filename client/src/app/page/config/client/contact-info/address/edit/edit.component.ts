@@ -72,28 +72,28 @@ export class EditComponent extends CreateAddress {
         const geolocation = this.geolocation.geolocation.geolocation;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
             configureMap: {
-                id: 'edit_map',
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
                     type: MapIconType.HOUSE,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '350px',
                 dragging: false,
+                height: '350px',
+                id: 'edit_map',
+                showMarker: true,
                 selectOptionFilter: true,
+                zoom: geolocation.zoom,
             },
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             edit: true,
+            geolocation: geolocation,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
@@ -110,9 +110,6 @@ export class EditComponent extends CreateAddress {
             return;
         }
         this.svcUser.deleteUserGeolocation(this.geolocation.geolocation.geolocation.id!, this.userId!).subscribe({
-            next: (response) => {
-                this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
-            },
             error: (error) => {
                 let message: string = JSON.stringify(error.error);
 
@@ -120,6 +117,9 @@ export class EditComponent extends CreateAddress {
                     .get('PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.FORM.ERROR')
                     .subscribe((response) => (message = response));
                 this.svcNotification.warning({ message });
+            },
+            next: (response) => {
+                this.deleteEvent.next(this.geolocation!.geolocation.geolocation.id);
             },
         });
     }

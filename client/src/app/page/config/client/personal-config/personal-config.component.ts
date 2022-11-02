@@ -71,10 +71,10 @@ export class PersonalConfigComponent implements OnInit {
     }
 
     public selectLenguaje(language: Language) {
-        this.selectedLanguage = language;
         this.googleAnalyticsService.gtag('event', 'language', {
             lang: language.code,
         });
+        this.selectedLanguage = language;
     }
 
     public updateConfig() {
@@ -86,24 +86,16 @@ export class PersonalConfigComponent implements OnInit {
         }
 
         let configureMode: ConfigureMode = {
-            mode: selected,
             language: this.selectedLanguage!.code,
+            mode: selected,
         };
 
         this.svcUser
             .updateConfig(this.userId!, {
-                mode: configureMode.mode,
                 lang: configureMode.language,
+                mode: configureMode.mode,
             })
             .subscribe({
-                next: (response) => {
-                    this.setControlToggle(response);
-                    this.googleAnalyticsService.gtag('event', 'theme_type', {
-                        lang: response.lang,
-                        mode: response.mode,
-                    });
-                    window.location.reload();
-                },
                 error: (error) => {
                     let message = JSON.stringify(error.error);
 
@@ -113,6 +105,14 @@ export class PersonalConfigComponent implements OnInit {
                             .subscribe((response) => (message = response));
                     }
                     this.svcNotification.warning({ message: message });
+                },
+                next: (response) => {
+                    this.setControlToggle(response);
+                    this.googleAnalyticsService.gtag('event', 'theme_type', {
+                        lang: response.lang,
+                        mode: response.mode,
+                    });
+                    window.location.reload();
                 },
             });
     }

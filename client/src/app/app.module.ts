@@ -23,16 +23,17 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
+    bootstrap: [AppComponent],
     declarations: [AppComponent],
     imports: [
         AgubeApiModule.forRoot({
             basePath: environment.agubeBackendUrl,
         }),
         AuthModule.forRoot({
+            afterLoginSuccessUrl: SidebarRoute.MANAGER,
             authRestconfig: {
                 basePath: environment.agubeBackendUrl,
             },
-            afterLoginSuccessUrl: SidebarRoute.MANAGER,
             createAccountUrl: '',
         }),
         AppRoutingModule,
@@ -57,7 +58,6 @@ export function HttpLoaderFactory(http: HttpClient) {
             ],
         }),
     ],
-    bootstrap: [AppComponent],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class AppModule {}

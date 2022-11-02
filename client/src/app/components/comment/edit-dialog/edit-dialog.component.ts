@@ -34,16 +34,16 @@ export class EditDialogComponent extends CreateDialogComponent {
 
         this.svcComment
             .updateComment(this.data.id, {
+                created: this.data.created!,
                 id: this.data.id,
                 message: this.message.value,
-                created: this.data.created!,
             })
             .subscribe({
-                next: (value) => this.close(true),
                 error: (error) =>
                     this.svcNotification.warning({
                         message: error.error.status ? error.error.status : error.error.detail,
                     }),
+                next: (value) => this.close(true),
             });
     }
 }

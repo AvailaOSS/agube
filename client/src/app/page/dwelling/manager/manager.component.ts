@@ -37,18 +37,18 @@ export class ManagerComponent implements OnInit {
                 var firstDwellingDetected: DwellingDetail = response[0];
                 // set location around the first dwelling
                 var buildConfigMap: ConfigureMap = {
-                    id: this.mapId,
                     center: {
                         lat: String(firstDwellingDetected.latitude!),
                         lon: String(firstDwellingDetected.longitude!),
                         type: MapIconType.HOUSE,
                     },
-                    zoom: this.mapZoom,
-                    showMarker: true,
-                    height: this.mapHeight,
-                    width: this.mapWidth,
                     dragging: true,
+                    height: this.mapHeight,
+                    id: this.mapId,
+                    showMarker: true,
                     scrollWheelZoom: true,
+                    width: this.mapWidth,
+                    zoom: this.mapZoom,
                 };
                 // add others dwellings in the map
                 buildConfigMap.otherPoints = response.map((dwelling) => build(dwelling));

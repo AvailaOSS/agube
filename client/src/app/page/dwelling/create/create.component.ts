@@ -60,29 +60,29 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error });
+                this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_dwelling_create', true);
+            },
             next: (response) => {
                 this.resetCache();
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_dwelling', {
-                    manager_id: response.id,
-                    water_meter: response.water_meter,
-                    street: response.geolocation.address?.road,
                     city: response.geolocation.address.city,
-                    latitude: response.geolocation.latitude,
-                    longitude: response.geolocation.longitude,
-                    zoom: response.geolocation.zoom,
-                    horizontal_degree: response.geolocation.horizontal_degree,
-                    vertical_degree: response.geolocation.vertical_degree,
-                    number: response.geolocation.number,
                     flat: response.geolocation.flat,
                     gate: response.geolocation.gate,
+                    horizontal_degree: response.geolocation.horizontal_degree,
+                    latitude: response.geolocation.latitude,
+                    longitude: response.geolocation.longitude,
+                    manager_id: response.id,
+                    number: response.geolocation.number,
+                    street: response.geolocation.address?.road,
+                    vertical_degree: response.geolocation.vertical_degree,
+                    water_meter: response.water_meter,
+                    zoom: response.geolocation.zoom,
                 });
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error });
-                this.loadingPost = false;
-                this.googleAnalyticsService.exception('error_dwelling_create', true);
             },
         });
     }
@@ -96,18 +96,18 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_dwelling_exit', {
-                    manager_id: response?.id,
-                    water_meter: response.water_meter,
-                    street: response.geolocation.address?.road,
                     city: response.geolocation.address.city,
-                    latitude: response.geolocation.latitude,
-                    longitude: response.geolocation.longitude,
-                    zoom: response.geolocation.zoom,
-                    horizontal_degree: response.geolocation?.horizontal_degree,
-                    vertical_degree: response.geolocation?.vertical_degree,
-                    number: response.geolocation?.number,
                     flat: response.geolocation?.flat,
                     gate: response.geolocation?.gate,
+                    horizontal_degree: response.geolocation?.horizontal_degree,
+                    latitude: response.geolocation.latitude,
+                    longitude: response.geolocation.longitude,
+                    manager_id: response?.id,
+                    number: response.geolocation?.number,
+                    street: response.geolocation.address?.road,
+                    vertical_degree: response.geolocation?.vertical_degree,
+                    water_meter: response.water_meter,
+                    zoom: response.geolocation.zoom,
                 });
                 this.exit();
             },

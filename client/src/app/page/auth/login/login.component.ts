@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthConfiguration } from '../auth.configuration';
 import { isEdge } from '../edge-detector';
 import { AccountService } from './service/account.service';
@@ -23,11 +23,10 @@ export class LoginComponent {
         private accountService: AccountService,
         private authService: AuthConfiguration,
         private router: Router,
-        private route: ActivatedRoute
     ) {
         this.loginForm = this.formBuilder.group({
-            username: this.username,
             password: this.password,
+            username: this.username,
         });
     }
 

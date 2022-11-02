@@ -46,16 +46,16 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.configureMap.center.type = MapIconType.RESERVOIR;
         // configure address form
         this.addressInputForm = {
-            country: new FormControl('', Validators.required),
-            state: new FormControl('', Validators.required),
-            province: new FormControl('', Validators.required),
             city: new FormControl('', Validators.required),
-            village: new FormControl(''),
-            municipality: new FormControl('', Validators.required),
             city_district: new FormControl('', Validators.required),
+            country: new FormControl('', Validators.required),
             cp: new FormControl('', Validators.required),
-            street: new FormControl(''),
+            municipality: new FormControl('', Validators.required),
             number: new FormControl(''),
+            province: new FormControl('', Validators.required),
+            state: new FormControl('', Validators.required),
+            street: new FormControl(''),
+            village: new FormControl(''),
         };
 
         // configure map height
@@ -75,12 +75,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
         super.addressFormReceive(addressEmitter);
         this.reservoirForm = this.formBuilder.group({
             address: addressEmitter.addressFormGroup,
-            water_meter: this.formBuilder.group({
-                code: this.code,
-            }),
             capacity: this.capacity,
             inletFlow: this.inletFlow,
             outletFlow: this.outletFlow,
+            water_meter: this.formBuilder.group({
+                code: this.code,
+            }),
         });
     }
 
@@ -92,22 +92,22 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error });
+                this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_reservoir_create', true);
+            },
             next: (response) => {
                 this.resetCache();
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_reservoir', {
-                    manager_id: response?.user_id,
-                    reservoir_id: response?.id,
                     capacity: response.capacity,
+                    inlet_flow: response.inlet_flow,
+                    manager_id: response?.user_id,
                     outlet_flow: response.outlet_flow,
-                    inet_flow: response.inlet_flow,
+                    reservoir_id: response?.id,
                 });
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error });
-                this.loadingPost = false;
-                this.googleAnalyticsService.exception('error_reservoir_create', true);
             },
         });
     }
@@ -116,23 +116,23 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error });
+                this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_reservoir_create_exit', true);
+            },
             next: (response) => {
                 this.svcReservoirCache.clean();
                 this.resetForm();
                 this.loadingPost = false;
                 this.googleAnalyticsService.gtag('event', 'create_reservoir_exit', {
-                    manager_id: response?.user_id,
-                    reservoir_id: response?.id,
                     capacity: response.capacity,
-                    outlet_flow: response.outlet_flow,
                     inlet_flow: response.inlet_flow,
+                    manager_id: response?.user_id,
+                    outlet_flow: response.outlet_flow,
+                    reservoir_id: response?.id,
                 });
                 this.exit();
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error });
-                this.loadingPost = false;
-                this.googleAnalyticsService.exception('error_reservoir_create_exit', true);
             },
         });
     }
@@ -171,8 +171,8 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     private resetForm() {
-        this.code.setValue('');
         this.capacity.setValue('');
+        this.code.setValue('');
         this.outletFlow.setValue('');
         this.inletFlow.setValue('');
     }
@@ -185,22 +185,22 @@ export class CreateComponent extends CreateAddress implements OnInit {
         let reservoir: ReservoirCreate;
         if (this.code.value.length === 0) {
             reservoir = {
-                geolocation: this.getGeolocation(),
-                user_id: this.userId,
                 capacity: this.capacity.value,
+                geolocation: this.getGeolocation(),
                 inlet_flow: this.inletFlow.value,
+                user_id: this.userId,
                 outlet_flow: this.outletFlow.value,
             };
         } else {
             reservoir = {
+                capacity: this.capacity.value,
                 geolocation: this.getGeolocation(),
+                inlet_flow: this.inletFlow.value,
+                outlet_flow: this.outletFlow.value,
+                user_id: this.userId,
                 water_meter: {
                     code: this.code.value,
                 },
-                user_id: this.userId,
-                capacity: this.capacity.value,
-                inlet_flow: this.inletFlow.value,
-                outlet_flow: this.outletFlow.value,
             };
         }
         return this.svcReservoir.createReservoir(reservoir);

@@ -118,36 +118,36 @@ export class DetailComponent implements OnInit {
         const geolocation = this.dwelling.geolocation;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
             configureMap: {
-                id: 'detail_map_dialog',
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '500px',
                 dragging: false,
+                height: '500px',
+                id: 'detail_map_dialog',
+                showMarker: true,
                 selectOptionFilter: true,
+                zoom: geolocation.zoom,
             },
-            edit: true,
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            edit: true,
+            geolocation: geolocation,
         };
 
         this.dialog.open(DialogOnlyMapComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
     }
 
     public seeComments() {
         this.dialog.open(ListComponent, {
+            data: this.configCommentComponent,
             hasBackdrop: true,
             panelClass: ['custom-dialog-container'],
-            data: this.configCommentComponent,
         });
     }
 
@@ -161,23 +161,23 @@ export class DetailComponent implements OnInit {
         const geolocation = this.dwelling.geolocation;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             geolocation: geolocation,
             configureMap: {
-                id: 'edit_address_map',
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '300px',
+                id: 'edit_address_map',
                 dragging: false,
+                height: '300px',
                 selectOptionFilter: true,
+                showMarker: true,
+                zoom: geolocation.zoom,
             },
-            edit: true,
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            edit: true,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -200,6 +200,10 @@ export class DetailComponent implements OnInit {
         }
 
         this.svcGeolocation.updateGeolocation(result.id!, result).subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error.error });
+                this.googleAnalyticsService.exception('error_address_update', true);
+            },
             next: (response) => {
                 this.dwelling!.geolocation = response;
                 this.configureMaps(response);
@@ -207,20 +211,16 @@ export class DetailComponent implements OnInit {
                 this.showMap = true;
                 this.googleAnalyticsService.gtag('event', 'update_address', {
                     city: response.address.city,
-                    street: response.address?.road,
-                    latitude: response.latitude,
-                    longitude: response.longitude,
-                    zoom: response.zoom,
-                    horizontal_degree: response?.horizontal_degree,
-                    vertical_degree: response?.vertical_degree,
-                    number: response?.number,
                     flat: response?.flat,
                     gate: response?.gate,
+                    horizontal_degree: response?.horizontal_degree,
+                    number: response?.number,
+                    latitude: response.latitude,
+                    longitude: response.longitude,
+                    street: response.address?.road,
+                    vertical_degree: response?.vertical_degree,
+                    zoom: response.zoom,
                 });
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error.error });
-                this.googleAnalyticsService.exception('error_address_update', true);
             },
         });
     }
@@ -246,13 +246,13 @@ export class DetailComponent implements OnInit {
     // Load dwelling in own method
     private loadDwelling(dwellingId: number) {
         this.svcDwelling.getDwelling(dwellingId).subscribe({
+            error: (error) => (this.loading = false),
             next: (dwelling) => {
                 this.dwelling = dwelling;
                 let geolocation = this.dwelling.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
             },
-            error: (error) => (this.loading = false),
         });
     }
     // Load water meter in own method
@@ -267,24 +267,24 @@ export class DetailComponent implements OnInit {
     // Configure Map to show in dwelling detail
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
-            id: this.mapId,
             center: {
                 lat: geolocation.latitude,
                 lon: geolocation.longitude,
                 type: this.mapType,
             },
-            zoom: geolocation.zoom,
-            showMarker: true,
-            height: this.mapHeight,
             dragging: false,
+            height: this.mapHeight,
+            id: this.mapId,
+            showMarker: true,
+            zoom: geolocation.zoom,
         };
         this.configureView = {
+            height: this.mapHeight,
+            horizontalDegree: this.mapStreetViewPositionDegree,
             latitude: +geolocation.latitude,
             longitude: +geolocation.longitude,
-            zoom: this.mapZoomDefault,
-            horizontalDegree: this.mapStreetViewPositionDegree,
             verticalDegree: this.mapStreetViewPositionDegree,
-            height: this.mapHeight,
+            zoom: this.mapZoomDefault,
         };
     }
 }

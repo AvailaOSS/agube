@@ -118,10 +118,10 @@ export class MeasurementService {
       `${this.basePath}/measurement/${encodeURIComponent(String(id))}`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

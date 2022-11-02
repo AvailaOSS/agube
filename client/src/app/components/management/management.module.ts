@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [ManagementComponent],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, TranslateModule],
     exports: [ManagementComponent],
+    imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, TranslateModule],
 })
 export class ManagementModule {}

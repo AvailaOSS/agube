@@ -31,10 +31,10 @@ export class ManagementComponent implements OnInit {
             type: this.type?.type!,
         };
         this.dialog.open(WaterMeterDialogComponent, {
+            data,
+            disableClose: true,
             hasBackdrop: true,
             width: '600px',
-            disableClose: true,
-            data,
         });
         this.dialog.afterAllClosed.subscribe(() => {
             this.svcPersistant.get().subscribe((response) => {

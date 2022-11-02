@@ -6,7 +6,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
     declarations: [AddressComponent],
-    imports: [CommonModule, TranslateModule, PipesModule],
     exports: [AddressComponent],
+    imports: [CommonModule, TranslateModule, PipesModule],
 })
 export class AddressModule {}

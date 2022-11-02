@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [GaugeComponent],
-    imports: [CommonModule, ChartModule, TranslateModule],
     exports: [GaugeComponent],
+    imports: [CommonModule, ChartModule, TranslateModule],
 })
 export class GaugeModule {}
