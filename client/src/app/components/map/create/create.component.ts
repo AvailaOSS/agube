@@ -274,11 +274,11 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
         // reset the map to new location
         this.initializeMap({
-            id: this.baseConfiguration.id,
+            id: this.baseConfiguration!.id,
             center: {
                 lat: lat,
                 lon: lon,
-                type: this.baseConfiguration.center.type,
+                type: this.baseConfiguration!.center.type,
             },
             zoom: MapComponent.zoom,
             showMarker: true,

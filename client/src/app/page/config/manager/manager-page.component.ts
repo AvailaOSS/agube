@@ -15,7 +15,7 @@ export class ManagerPageComponent implements OnInit {
 
     // call function to joyride
     public tour() {
-        let steps: string[] = ['ParamsConfigStep', 'EmailConfigStep', 'ContactConfigStep'];
+        const steps: string[] = ['ParamsConfigStep', 'EmailConfigStep', 'ContactConfigStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 }

@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class ClientComponent extends SidebarComponent {
     public override home: string = 'client/dwellings';
     public override profile: string = 'client/config';
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.pages = [
             {
                 navigationRoute: this.profile,

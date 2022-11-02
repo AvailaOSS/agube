@@ -51,17 +51,17 @@ export class ListComponent implements OnInit {
     }
 
     public updateComment(comment: Comment) {
-        let data: CommentCreate = {
+        const data: CommentCreate = {
             id: comment.id,
             type: this.config!.type,
-            message: comment.message,
             created: comment.created,
+            message: comment.message,
         };
 
         const dialogRef = this.dialog.open(EditDialogComponent, {
+            data,
             hasBackdrop: true,
             width: '500px',
-            data,
         });
 
         dialogRef.afterClosed().subscribe((reload) => {
@@ -73,24 +73,24 @@ export class ListComponent implements OnInit {
 
     public deleteComment(comment: Comment) {
         this.svcComments.deleteComment(comment.id).subscribe({
+            error: (error) => this.svcNotification.warning({ message: error.error.status }),
             next: (value) => {
                 const index = this.comments.indexOf(comment, 0);
                 if (index > -1) {
                     this.comments.splice(index, 1);
                 }
             },
-            error: (error) => this.svcNotification.warning({ message: error.error.status }),
         });
     }
 
     private loadComments() {
         this.loadingComments = true;
         this.managerComment.load(this.config!).subscribe({
+            error: (error) => (this.loadingComments = false),
             next: (comments) => {
                 this.comments = comments;
                 this.loadingComments = false;
             },
-            error: (error) => (this.loadingComments = false),
         });
     }
 }

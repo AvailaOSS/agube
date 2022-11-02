@@ -75,7 +75,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     // Function to launch joyride to start tour in Reservoirs
     public tour() {
         // Send step to joyride
-        let steps: string[] = ['ReservoirCreateStep', 'ReservoirFilterStep', 'ReservoirMapStep'];
+        const steps: string[] = ['ReservoirCreateStep', 'ReservoirFilterStep', 'ReservoirMapStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 

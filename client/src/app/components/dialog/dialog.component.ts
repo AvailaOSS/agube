@@ -32,7 +32,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
         this.geolocation = this.data.geolocation;
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         // Initialize all data and load forms
         this.dialogTitle = this.data.dialogTitle;
         this.loadCreateForm = this.data.create;
@@ -44,18 +44,18 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
         // Load geolocation
         if (this.geolocation) {
-            this.addressInputForm.country?.setValue(this.geolocation.address.country);
-            this.addressInputForm.state?.setValue(this.geolocation.address.state);
-            this.addressInputForm.province?.setValue(this.geolocation.address.province);
             this.addressInputForm.city?.setValue(this.geolocation.address.city);
-            this.addressInputForm.village?.setValue(this.geolocation.address.village);
-            this.addressInputForm.municipality?.setValue(this.geolocation.address.municipality);
             this.addressInputForm.city_district?.setValue(this.geolocation.address.city_district);
+            this.addressInputForm.country?.setValue(this.geolocation.address.country);
             this.addressInputForm.cp?.setValue(this.geolocation.address.postcode);
-            this.addressInputForm.street?.setValue(this.geolocation.address.road);
-            this.addressInputForm.number?.setValue(this.geolocation.number);
             this.addressInputForm.flat?.setValue(this.geolocation.flat);
             this.addressInputForm.gate?.setValue(this.geolocation.gate);
+            this.addressInputForm.municipality?.setValue(this.geolocation.address.municipality);
+            this.addressInputForm.number?.setValue(this.geolocation.number);
+            this.addressInputForm.province?.setValue(this.geolocation.address.province);
+            this.addressInputForm.state?.setValue(this.geolocation.address.state);
+            this.addressInputForm.street?.setValue(this.geolocation.address.road);
+            this.addressInputForm.village?.setValue(this.geolocation.address.village);
         }
 
         this.dialogRef.keydownEvents().subscribe((event) => {
@@ -72,7 +72,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
 
     // Save Address and close dialog
     public saveAddress() {
-        let geolocation: Geolocation = this.getGeolocation();
+        const geolocation: Geolocation = this.getGeolocation();
         if (this.geolocation) {
             geolocation.id = this.geolocation.id;
         }

@@ -5,12 +5,12 @@ import { ResidentComponent } from './resident/resident.component';
 
 const routes: Routes = [
     {
-        path: 'resident',
         component: ResidentComponent,
+        path: 'resident',
     },
     {
-        path: 'owner',
         component: OwnerComponent,
+        path: 'owner',
     },
 ];
 

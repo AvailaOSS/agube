@@ -80,7 +80,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     // Function to launch joyride to start tour in SpringSources
     public tour() {
         // Send step to joyride
-        let steps: string[] = ['SpringSourceCreateStep', 'SpringSourceFilterStep', 'SpringSourceMapStep'];
+        const steps: string[] = ['SpringSourceCreateStep', 'SpringSourceFilterStep', 'SpringSourceMapStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 

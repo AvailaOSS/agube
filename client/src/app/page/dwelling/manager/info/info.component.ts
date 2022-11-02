@@ -12,14 +12,14 @@ export class InfoComponent implements OnInit {
 
     constructor(private svcDwelling: DwellingService, private svcAccount: AccountService) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcDwelling.getResume().subscribe({
-            next: (response) => (this.dwellingResume = response),
             error: (error) => {
                 if (error.status === 401) {
                     this.svcAccount.logout();
                 }
             },
+            next: (response) => (this.dwellingResume = response),
         });
     }
 }

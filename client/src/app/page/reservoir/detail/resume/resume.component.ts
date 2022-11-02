@@ -12,17 +12,17 @@ export class ResumeComponent implements OnChanges {
 
     constructor(private svcReservoir: ReservoirService) {}
 
-    ngOnChanges(): void {
+    public ngOnChanges(): void {
         if (!this.reservoirId) {
             return;
         }
 
         this.svcReservoir.getReservoir(this.reservoirId).subscribe({
-            next: (response) => {
-                this.reservoir = response;
-            },
             error: () => {
                 this.reservoir = undefined;
+            },
+            next: (response) => {
+                this.reservoir = response;
             },
         });
     }

@@ -16,8 +16,8 @@ export class ResidentComponent implements OnInit {
 
     // Variable title page
     public title: PersonTitle = {
-        title: 'GENERAL.TEXT.RESIDENT',
         icon: 'resident',
+        title: 'GENERAL.TEXT.RESIDENT',
     };
 
     public userDetail: UserDetail | undefined;
@@ -29,13 +29,18 @@ export class ResidentComponent implements OnInit {
 
     constructor(protected svcUser: UserService, protected svcDwelling: DwellingService, protected router: Router) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (!this.dwellingId) {
             return;
         }
 
         // Get current resident
         this.svcDwelling.getCurrentResident(this.dwellingId).subscribe({
+            error: () => {
+                // Configure translate string to add or no resident
+                this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.ADD_RESIDENT';
+                this.textNoResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.NO_RESIDENT';
+            },
             next: (responseOwner) => {
                 this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.CHANGE_RESIDENT';
                 if (!responseOwner.user.id) {
@@ -43,15 +48,10 @@ export class ResidentComponent implements OnInit {
                 }
                 this.getUser(responseOwner.user.id);
             },
-            error: () => {
-                // Configure translate string to add or no resident
-                this.textResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.ADD_RESIDENT';
-                this.textNoResidentButton = 'PAGE.DWELLING.DETAIL.MANAGEMENT.BUTTON.NO_RESIDENT';
-            },
         });
     }
 
-    public getUser(userId: number) {
+    public getUser(userId: number): void {
         this.svcUser.getUserDetail(userId).subscribe((response) => {
             this.userDetail = response;
         });

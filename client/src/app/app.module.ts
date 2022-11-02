@@ -25,10 +25,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     declarations: [AppComponent],
     imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
+        AgubeApiModule.forRoot({
+            basePath: environment.agubeBackendUrl,
+        }),
         AuthModule.forRoot({
             authRestconfig: {
                 basePath: environment.agubeBackendUrl,
@@ -36,28 +35,29 @@ export function HttpLoaderFactory(http: HttpClient) {
             afterLoginSuccessUrl: SidebarRoute.MANAGER,
             createAccountUrl: '',
         }),
-        AgubeApiModule.forRoot({
-            basePath: environment.agubeBackendUrl,
-        }),
-        TranslateModule.forRoot({
-            isolate: true,
-            loader: [
-                {
-                    provide: TranslateLoader,
-                    useFactory: HttpLoaderFactory,
-                    deps: [HttpClient],
-                },
-            ],
-        }),
-        NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId),
-        NgxGoogleAnalyticsRouterModule,
+        AppRoutingModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        JoyrideModule.forRoot(),
         MatTooltipModule,
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
-        JoyrideModule.forRoot(),
+        NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId),
+        NgxGoogleAnalyticsRouterModule,
+        TranslateModule.forRoot({
+            isolate: true,
+            loader: [
+                {
+                    deps: [HttpClient],
+                    provide: TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                },
+            ],
+        }),
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
     bootstrap: [AppComponent],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
 })
 export class AppModule {}

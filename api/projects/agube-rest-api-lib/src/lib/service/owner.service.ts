@@ -52,22 +52,22 @@ export class OwnerService {
   public getOwner(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Owner>;
   public getOwner(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Owner>>;
   public getOwner(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Owner>>;
   public getOwner(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -82,7 +82,7 @@ export class OwnerService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password),
       );
     }
 
@@ -116,19 +116,19 @@ export class OwnerService {
    */
   public getOwners(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<OwnerDetail>>;
   public getOwners(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<OwnerDetail>>>;
   public getOwners(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<OwnerDetail>>>;
   public getOwners(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -137,12 +137,12 @@ export class OwnerService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password),
       );
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {

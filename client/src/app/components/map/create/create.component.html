@@ -61,7 +61,7 @@
                 <div class="map">
                     <mat-spinner *ngIf="loadingMap" class="map-spinner"></mat-spinner>
                     <div
-                        id="{{ baseConfiguration.id }}"
+                        id="{{ baseConfiguration!.id! }}"
                         class="leftleat-map"
                         [ngStyle]="{ height: baseConfiguration!.height }"
                         matTooltip="{{ 'COMPONENTS.MAP.CREATE.MAP.TOOLTIP' | translate }}"

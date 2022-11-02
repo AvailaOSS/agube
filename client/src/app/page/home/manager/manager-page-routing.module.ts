@@ -13,8 +13,8 @@ const routes: Routes = [
         component: ManagerPageComponent,
         children: [
             {
-                path: 'home',
                 loadChildren: () => import('./content/content.module').then((m) => m.ContentModule),
+                path: 'home',
             },
         ],
     },

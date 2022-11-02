@@ -104,7 +104,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     // Function to launch joyride to start tour in Dwellings
     public tour() {
         // Send step to joyride
-        let steps: string[] = ['DwellingCreateStep', 'DwellingFilterStep', 'DwellingMapStep'];
+        const steps: string[] = ['DwellingCreateStep', 'DwellingFilterStep', 'DwellingMapStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
     //private method , load dwelling
