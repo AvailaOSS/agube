@@ -100,10 +100,10 @@ export class OwnerService {
     return this.httpClient.get<Owner>(
       `${this.basePath}/owner/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

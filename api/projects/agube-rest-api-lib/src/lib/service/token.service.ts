@@ -119,10 +119,10 @@ export class TokenService {
       `${this.basePath}/token/auth`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

@@ -89,10 +89,10 @@ export class ManagerService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Manager>(`${this.basePath}/manager/by-user`, {
-      withCredentials: this.configuration.withCredentials,
       headers: headers,
       observe: observe,
       reportProgress: reportProgress,
+      withCredentials: this.configuration.withCredentials,
     });
   }
 

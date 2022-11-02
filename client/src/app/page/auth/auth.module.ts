@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 
 @NgModule({
     declarations: [],
+    exports: [],
     imports: [
         AuthRoutingModule,
         AgubeApiModule.forRoot({
@@ -23,7 +24,6 @@ import { environment } from 'src/environments/environment';
             isolate: true,
         }),
     ],
-    exports: [],
     providers: [AccountService, AuthConfiguration],
 })
 export class AuthModule {

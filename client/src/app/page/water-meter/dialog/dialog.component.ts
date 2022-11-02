@@ -61,11 +61,11 @@ export class WaterMeterDialogComponent {
                 this.type
             )
             .subscribe({
+                error: (error: any) => this.svcNotification.warning({ message: error }),
                 next: (response: WaterMeter) => {
                     this.svcPersistantWaterMeter.emit(response);
                     this.close();
                 },
-                error: (error: any) => this.svcNotification.warning({ message: error }),
             });
     }
 

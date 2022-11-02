@@ -100,10 +100,10 @@ export class ResidentService {
     return this.httpClient.get<Resident>(
       `${this.basePath}/resident/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

@@ -34,15 +34,15 @@ export class MeasureEditDialogComponent extends MeasureDialog {
     ) {
         super();
         this.measureForm = this.formBuilder.group({
-            measurement: this.measurement,
             date: this.date,
             hour: this.hour,
+            measurement: this.measurement,
             minutes: this.minutes,
         });
         this.currentMeasurement = data.currentMeasurement;
-        this.measurement.setValue(data.currentMeasurement.measurement);
         this.date.setValue(data.currentMeasurement.date);
         this.hour.setValue(String(getHours(new Date(data.currentMeasurement.date!))));
+        this.measurement.setValue(data.currentMeasurement.measurement);
         this.minutes.setValue(String(getMinutes(new Date(data.currentMeasurement.date!))));
     }
 
@@ -60,26 +60,26 @@ export class MeasureEditDialogComponent extends MeasureDialog {
         };
 
         this.svcMeasurement.updateMeasurement(this.currentMeasurement?.id!, newMeasure).subscribe({
-            next: (response) => {
-                this.close(true);
-                this.googleAnalyticsService.gtag('event', 'update_measure', {
-                    old: this.currentMeasurement,
-                    new: newMeasure,
-                });
-            },
             error: (error) => {
                 this.disabled = false;
                 this.loadingPost = false;
                 this.svcNotification.warning({ message: error.error.status }),
                     this.googleAnalyticsService.exception('error_update_water_meter_measure', true);
             },
+            next: (response) => {
+                this.close(true);
+                this.googleAnalyticsService.gtag('event', 'update_measure', {
+                    new: newMeasure,
+                    old: this.currentMeasurement,
+                });
+            },
         });
     }
 
     public override close(reload: boolean): void {
+        this.dialogRef.close(reload);
         this.disabled = false;
         this.loadingPost = false;
-        this.dialogRef.close(reload);
     }
 
     @HostListener('window:keyup.esc') public onKeyUp() {

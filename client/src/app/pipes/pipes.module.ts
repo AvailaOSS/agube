@@ -9,25 +9,25 @@ import { UserDetailPipe } from './user-detail.pipe';
 import { WaterMeterMeasurementPipe } from './water-meter-measurement.pipe';
 
 @NgModule({
-    imports: [CommonModule],
     declarations: [
+        AddressPipe,
         DwellingDetailPipe,
         GeolocationPipe,
         ReservoirDetailPipe,
-        UserDetailPipe,
         SpringSourceDetailPipe,
+        UserDetailPipe,
         WaterMeterMeasurementPipe,
-        AddressPipe,
     ],
-    providers: [SlicePipe, AddressPipe, GeolocationPipe],
     exports: [
-        DwellingDetailPipe,
         AddressPipe,
+        DwellingDetailPipe,
         GeolocationPipe,
         ReservoirDetailPipe,
         SpringSourceDetailPipe,
         UserDetailPipe,
         WaterMeterMeasurementPipe,
     ],
+    imports: [CommonModule],
+    providers: [SlicePipe, AddressPipe, GeolocationPipe],
 })
 export class PipesModule {}

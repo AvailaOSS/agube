@@ -128,10 +128,10 @@ export class DwellingService {
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

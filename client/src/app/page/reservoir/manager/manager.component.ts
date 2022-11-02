@@ -34,18 +34,18 @@ export class ManagerComponent implements OnInit {
                 const firstReservoirDetected: ReservoirDetail = response[0];
                 // set location around the first reservoir
                 const buildConfigMap: ConfigureMap = {
-                    id: this.mapId,
                     center: {
                         lat: String(firstReservoirDetected.latitude!),
                         lon: String(firstReservoirDetected.longitude!),
                         type: MapIconType.RESERVOIR,
                     },
-                    zoom: this.mapZoom,
-                    showMarker: true,
-                    height: this.mapHeight,
-                    width: this.mapWidth,
                     dragging: true,
+                    height: this.mapHeight,
+                    id: this.mapId,
+                    showMarker: true,
                     scrollWheelZoom: true,
+                    width: this.mapWidth,
+                    zoom: this.mapZoom,
                 };
                 // add others Reservoirs in the map
                 buildConfigMap.otherPoints = response.map((reservoir) => build(reservoir));

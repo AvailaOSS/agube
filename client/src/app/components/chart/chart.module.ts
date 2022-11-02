@@ -5,7 +5,7 @@ import { GaugeComponent } from './gauge/gauge.component';
 
 @NgModule({
     declarations: [ChartComponent, GaugeComponent],
-    imports: [CommonModule],
     exports: [GaugeComponent],
+    imports: [CommonModule],
 })
 export class ChartModule {}

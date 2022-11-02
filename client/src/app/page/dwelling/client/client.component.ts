@@ -32,12 +32,12 @@ export class ClientComponent implements OnInit {
 
     ngOnInit(): void {
         this.svcManger.userIsManager().subscribe({
-            next: (response) => (this.userIsManager = response.is_manager),
             error: (error) => {
                 if (error.status === 401) {
                     this.svcAccount.logout();
                 }
             },
+            next: (response) => (this.userIsManager = response.is_manager),
         });
         this.svcAccount.getUser().subscribe((user) => {
             this.user = user;
@@ -47,6 +47,7 @@ export class ClientComponent implements OnInit {
             }
 
             this.svcUser.getDwellingDetail(user!.user_id).subscribe({
+                error: (error) => (this.loading = false),
                 next: (response) => {
                     if (!response.length) {
                         this.loading = false;
@@ -55,7 +56,6 @@ export class ClientComponent implements OnInit {
                     }
                     this.dwellings = response;
                 },
-                error: (error) => (this.loading = false),
             });
         });
     }

@@ -41,15 +41,15 @@ export class AddressComponent extends CreateAddress {
         this.canAddAddress = true;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
             configureMap: this.configureMap,
             create: true,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
             edit: false,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
@@ -66,10 +66,10 @@ export class AddressComponent extends CreateAddress {
         };
 
         this.svcUser.addUserGeolocation(this.userId, userAddress).subscribe({
+            error: (error) => this.svcNotification.warning({ message: error }),
             next: (response) => {
                 this.geolocationList.push({ geolocation: response, isEditable: false });
             },
-            error: (error) => this.svcNotification.warning({ message: error }),
         });
     }
 

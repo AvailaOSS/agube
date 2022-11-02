@@ -42,16 +42,16 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.configureMap.center.type = MapIconType.SPRING_SOURCE;
         // configure address form
         this.addressInputForm = {
-            country: new FormControl('', Validators.required),
-            state: new FormControl('', Validators.required),
-            province: new FormControl('', Validators.required),
             city: new FormControl('', Validators.required),
-            village: new FormControl(''),
-            municipality: new FormControl('', Validators.required),
             city_district: new FormControl('', Validators.required),
+            country: new FormControl('', Validators.required),
             cp: new FormControl('', Validators.required),
-            street: new FormControl(''),
+            municipality: new FormControl('', Validators.required),
             number: new FormControl(''),
+            province: new FormControl('', Validators.required),
+            state: new FormControl('', Validators.required),
+            street: new FormControl(''),
+            village: new FormControl(''),
         };
 
         // configure map height and width
@@ -85,6 +85,11 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error });
+                this.loadingPost = false;
+                this.googleAnalyticsService.exception('error_spring_source_create', true);
+            },
             next: (response) => {
                 // reset to load spring-sources
                 this.resetCache();
@@ -93,11 +98,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
                 this.googleAnalyticsService.gtag('event', 'create_spring_source', {
                     springSourceId: response?.id,
                 });
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error });
-                this.loadingPost = false;
-                this.googleAnalyticsService.exception('error_spring_source_create', true);
             },
         });
     }

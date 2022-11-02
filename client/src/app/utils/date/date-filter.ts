@@ -2,8 +2,8 @@ import { FormControl } from '@angular/forms';
 import { format } from 'date-fns';
 
 export interface DateFilter {
-    dateStart: Date;
     dateEnd: Date;
+    dateStart: Date;
 }
 
 export function formatDate(date: any): string {
@@ -14,8 +14,8 @@ export function dateValidator(dateStart: FormControl, dateEnd: FormControl): Dat
     const start = new Date('2022-01-01');
 
     let validated: DateFilter = {
-        dateStart: start,
         dateEnd: new Date(),
+        dateStart: start,
     };
 
     if (dateStart !== null && dateStart.value !== null) {

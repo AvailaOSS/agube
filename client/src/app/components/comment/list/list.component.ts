@@ -53,8 +53,8 @@ export class ListComponent implements OnInit {
     public updateComment(comment: Comment) {
         const data: CommentCreate = {
             id: comment.id,
-            type: this.config!.type,
             created: comment.created,
+            type: this.config!.type,
             message: comment.message,
         };
 

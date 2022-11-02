@@ -4,51 +4,51 @@ import { ContentComponent } from './content.component';
 
 const routes: Routes = [
     {
-        path: '',
         component: ContentComponent,
         children: [
             {
                 path: '',
-                redirectTo: 'dwellings',
                 pathMatch: 'prefix',
+                redirectTo: 'dwellings',
             },
             {
-                path: 'dwellings',
                 loadChildren: () =>
                     import('../../../dwelling/manager/manager.module').then((m) => m.ManagerDwellingModule),
+                path: 'dwellings',
             },
             {
-                path: 'reservoirs',
                 loadChildren: () => import('../../../reservoir/manager/manager.module').then((m) => m.ManagerModule),
+                path: 'reservoirs',
             },
             {
-                path: 'springsources',
                 loadChildren: () =>
                     import('../../../spring-source/manager/manager.module').then((m) => m.ManagerSpringSourceModule),
+                path: 'springsources',
             },
             {
-                path: 'config',
                 loadChildren: () =>
                     import('../../../config/manager/manager-page.module').then((m) => m.ManagerPageModule),
+                path: 'config',
             },
             {
-                path: 'person',
                 loadChildren: () => import('../../../person/person/manage/manage.module').then((m) => m.ManageModule),
+                path: 'person',
             },
             {
-                path: 'manager/client/dwellings',
                 loadChildren: () => import('../../../dwelling/client/client.module').then((m) => m.ClientModule),
+                path: 'manager/client/dwellings',
             },
             {
-                path: 'client/config',
                 loadChildren: () => import('../../../config/client/client-page.module').then((m) => m.ClientPageModule),
+                path: 'client/config',
             },
         ],
+        path: '',
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
 })
 export class HomeManagerPageRoutingModule {}

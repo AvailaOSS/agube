@@ -15,20 +15,20 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [LoginComponent],
+    exports: [LoginComponent],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
         FormsModule,
         MatFormFieldModule,
-        MatCardModule,
         MatButtonModule,
-        MatInputModule,
+        MatCardModule,
         MatDividerModule,
         MatIconModule,
+        MatInputModule,
         MatTooltipModule,
+        ReactiveFormsModule,
         TranslateModule,
     ],
-    exports: [LoginComponent],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

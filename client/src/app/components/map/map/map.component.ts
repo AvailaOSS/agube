@@ -44,9 +44,9 @@ export class MapComponent implements AfterViewInit {
         this.map = L.map(conf.id, {
             center: [+conf.center.lat, +conf.center.lon],
             doubleClickZoom: false,
-            zoom: conf.zoom,
             dragging: conf.dragging,
             scrollWheelZoom: conf.scrollWheelZoom,
+            zoom: conf.zoom,
         });
 
         const tiles = L.tileLayer(this.mapViewUrl, {
@@ -67,8 +67,8 @@ export class MapComponent implements AfterViewInit {
 
     protected setMarker(point: Coordinates) {
         var myIcon = L.icon({
-            iconUrl: point.type,
             iconSize: [30, 30],
+            iconUrl: point.type,
         });
 
         let marker = L.marker([+point.lat, +point.lon], { icon: myIcon }).addTo(this.map);

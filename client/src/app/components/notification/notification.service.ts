@@ -14,24 +14,24 @@ export class NotificationService {
 
     public success(data: Data, durationInSeconds: number = this.defaultDuration) {
         this.notify({
-            durationInSeconds,
             data,
+            durationInSeconds,
             panelClass: AlertType.Success,
         });
     }
 
     public info(data: Data, durationInSeconds: number = this.defaultDuration) {
         this.notify({
-            durationInSeconds,
             data,
+            durationInSeconds,
             panelClass: AlertType.Info,
         });
     }
 
     public warning(data: Data, durationInSeconds: number = this.defaultDuration) {
         this.notify({
-            durationInSeconds,
             data,
+            durationInSeconds,
             panelClass: AlertType.Warning,
         });
     }
@@ -39,9 +39,9 @@ export class NotificationService {
     public notify(config: Configuration) {
         let data: Data = config.data;
         this._snackBar.openFromComponent(NotificationComponent, {
+            data,
             duration: config.durationInSeconds * 1000,
             panelClass: config.panelClass,
-            data,
         });
     }
 }

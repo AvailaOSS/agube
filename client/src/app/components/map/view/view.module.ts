@@ -6,7 +6,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
     declarations: [StreetViewComponent],
-    imports: [CommonModule, GoogleMapsModule, HttpClientJsonpModule],
     exports: [StreetViewComponent],
+    imports: [CommonModule, GoogleMapsModule, HttpClientJsonpModule],
 })
 export class StreetViewModule {}

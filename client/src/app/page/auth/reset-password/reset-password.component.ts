@@ -34,13 +34,13 @@ export class ResetPasswordComponent {
         };
 
         this.svcAuth.resetPassword(resetPassword).subscribe({
-            next: () => {
-                this.loading = false;
-                this.router.navigate([AuthRoute.LOGIN]);
-            },
             error: (e) => {
                 this.loading = false;
                 this.svcNotification.warning({ message: e.error });
+            },
+            next: () => {
+                this.loading = false;
+                this.router.navigate([AuthRoute.LOGIN]);
             },
         });
     }

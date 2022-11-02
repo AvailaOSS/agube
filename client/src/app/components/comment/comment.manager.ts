@@ -32,14 +32,14 @@ export class CommentManager {
                 });
             case CommentType.RESERVOIR:
                 return this.svcReservoir.createReservoirComment({
-                    reservoir_id: meta.id,
                     message: meta.message,
+                    reservoir_id: meta.id,
                 });
 
             case CommentType.SPRING_SOURCE:
                 return this.svcSpringSource.createSpringSourceComment({
-                    spring_source_id: meta.id,
                     message: meta.message,
+                    spring_source_id: meta.id,
                 });
             default:
                 throw new Error('Type provided ' + meta.type + ' is not valid for this operation');

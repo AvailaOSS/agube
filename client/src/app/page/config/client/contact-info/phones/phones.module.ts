@@ -13,18 +13,18 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [PhonesComponent, EditComponent],
+    exports: [PhonesComponent, EditComponent],
     imports: [
         CommonModule,
+        FormsModule,
         MatButtonModule,
         MatIconModule,
-        NotificationModule,
-        FormsModule,
-        ReactiveFormsModule,
         MatInputModule,
         MatListModule,
         MatTooltipModule,
+        NotificationModule,
+        ReactiveFormsModule,
         TranslateModule,
     ],
-    exports: [PhonesComponent, EditComponent],
 })
 export class PhonesModule {}

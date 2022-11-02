@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService, ReservoirService, UserDetail } from '@availaoss/agube-rest-api';
-import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
     selector: 'app-owner',
@@ -9,15 +8,15 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 })
 export class OwnerComponent implements OnInit {
     public title = {
-        title: 'GENERAL.TEXT.OWNER',
         icon: 'hail',
+        title: 'GENERAL.TEXT.OWNER',
     };
     public userDetail: UserDetail | undefined;
     @Input() public reservoirId: number | undefined;
 
     constructor(protected svcUser: UserService, protected svcReservoir: ReservoirService) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (!this.reservoirId) {
             return;
         }

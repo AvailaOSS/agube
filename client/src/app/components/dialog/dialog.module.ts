@@ -11,16 +11,16 @@ import { CreateModule } from '../map/create/create.module';
 
 @NgModule({
     declarations: [DialogComponent],
+    exports: [DialogComponent],
     imports: [
         CommonModule,
-        TranslateModule,
+        CreateModule,
+        EditModule,
+        MatButtonModule,
         MatTooltipModule,
         MatIconModule,
-        EditModule,
-        CreateModule,
-        MatButtonModule,
         MatCardModule,
+        TranslateModule,
     ],
-    exports: [DialogComponent],
 })
 export class DialogModule {}

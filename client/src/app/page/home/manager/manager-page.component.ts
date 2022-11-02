@@ -13,9 +13,9 @@ export class ManagerPageComponent extends SidebarComponent {
     public ngOnInit(): void {
         this.pages = [
             {
+                icon: 'person',
                 navigationRoute: this.profile,
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
-                icon: 'person',
             },
             // {
             //     navigationRoute: 'manager/home/manager/client/dwellings',
@@ -24,24 +24,24 @@ export class ManagerPageComponent extends SidebarComponent {
 
             // },
             {
+                icon: 'house',
                 navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_DWELLINGS',
-                icon: 'house',
             },
             {
+                icon: 'reservoir',
                 navigationRoute: 'manager/home/reservoirs',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESERVOIRS',
-                icon: 'reservoir',
             },
             {
+                icon: 'spring_source',
                 navigationRoute: 'manager/home/springsources',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_WATER_SOURCES',
-                icon: 'spring_source',
             },
             {
+                icon: 'resident',
                 navigationRoute: 'manager/home/person/residents',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_RESIDENT',
-                icon: 'resident',
             },
             // {
             //     navigationRoute: 'manager/home/person/owners',
@@ -49,9 +49,9 @@ export class ManagerPageComponent extends SidebarComponent {
             //     icon: 'hail',
             // },
             {
+                icon: 'settings',
                 navigationRoute: 'manager/home/config',
                 title: 'PAGE.HOME.SIDEBAR.MANAGER.ROUTE.PAGE_CONFIGURATION',
-                icon: 'settings',
             },
         ];
     }

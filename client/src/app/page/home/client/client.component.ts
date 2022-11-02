@@ -12,14 +12,14 @@ export class ClientComponent extends SidebarComponent {
     public ngOnInit(): void {
         this.pages = [
             {
+                icon: 'person',
                 navigationRoute: this.profile,
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_PROFILE',
-                icon: 'person',
             },
             {
+                icon: 'store',
                 navigationRoute: this.home,
                 title: 'PAGE.HOME.SIDEBAR.CLIENT.ROUTE.PAGE_MY_DWELLING',
-                icon: 'store',
             },
         ];
     }

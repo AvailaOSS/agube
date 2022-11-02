@@ -46,10 +46,6 @@ export class ConfigurationEmailComponent implements OnInit {
             message: this.message.value,
         };
         this.svcManager.updateManagerMessage(data).subscribe({
-            next: () => {
-                this.loadSave = false;
-                this.ngOnInit();
-            },
             error: (error) => {
                 this.loadSave = false;
                 let message = JSON.stringify(error.error);
@@ -60,6 +56,10 @@ export class ConfigurationEmailComponent implements OnInit {
                         .subscribe((response) => (message = response));
                 }
                 this.svcNotification.warning({ message: message });
+            },
+            next: () => {
+                this.loadSave = false;
+                this.ngOnInit();
             },
         });
     }

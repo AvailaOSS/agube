@@ -87,10 +87,10 @@ export class PhoneService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Array<Phone>>(`${this.basePath}/phone`, {
-      withCredentials: this.configuration.withCredentials,
       headers: headers,
       observe: observe,
       reportProgress: reportProgress,
+      withCredentials: this.configuration.withCredentials,
     });
   }
 }

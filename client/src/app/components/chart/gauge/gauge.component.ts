@@ -4,8 +4,8 @@ import { Type } from '../chart-configure';
 
 @Component({
     selector: 'app-gauge',
-    templateUrl: '../chart.component.html',
     styleUrls: ['../chart.component.scss'],
+    templateUrl: '../chart.component.html',
 })
 export class GaugeComponent extends ChartComponent implements OnChanges {
     protected override type: Type = Type.gauge;

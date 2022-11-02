@@ -17,23 +17,23 @@ import { NotificationModule } from 'src/app/components/notification/notification
 
 @NgModule({
     declarations: [CreateComponent],
+    exports: [CreateComponent],
     imports: [
         CommonModule,
         CreateRoutingModule,
-        MatCardModule,
-        MatButtonModule,
         FormsModule,
-        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatCardModule,
         MatInputModule,
-        NotificationModule,
         MatIconModule,
         MatProgressBarModule,
         MatTooltipModule,
+        NotificationModule,
+        PipesModule,
+        ReactiveFormsModule,
         StreetViewCreateModule,
         TranslateModule,
-        PipesModule,
-        MatAutocompleteModule,
     ],
-    exports: [CreateComponent],
 })
 export class CreateModule {}

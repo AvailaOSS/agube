@@ -11,16 +11,16 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [CardButtonComponent],
+    exports: [CardButtonComponent],
     imports: [
         CommonModule,
+        MatButtonModule,
         MatCardModule,
         MatDividerModule,
         MatIconModule,
+        MatTooltipModule,
         PipesModule,
         TranslateModule,
-        MatTooltipModule,
-        MatButtonModule,
     ],
-    exports: [CardButtonComponent],
 })
 export class CardButtonModule {}

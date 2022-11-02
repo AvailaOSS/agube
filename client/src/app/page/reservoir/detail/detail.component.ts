@@ -30,8 +30,8 @@ import { Detail } from './detail';
 
 @Component({
     selector: 'app-reservoir',
-    templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
+    templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
     public canLoad: boolean = true;
@@ -41,7 +41,6 @@ export class DetailComponent implements OnInit {
     public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
-
 
     public reservoirId: number | undefined;
     public reservoir: ReservoirCreate | undefined;
@@ -72,7 +71,7 @@ export class DetailComponent implements OnInit {
         private svcNotification: NotificationService,
         private svcPersistant: WaterMeterPersistantService,
         private svcReservoir: ReservoirService,
-        private svcTranslate: TranslateService,
+        private svcTranslate: TranslateService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
@@ -121,10 +120,7 @@ export class DetailComponent implements OnInit {
         const geolocation = this.reservoir.geolocation;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
             configureMap: {
-                id: 'detail_map_dialog',
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
@@ -132,12 +128,15 @@ export class DetailComponent implements OnInit {
                 },
                 dragging: false,
                 height: '500px',
+                id: 'detail_map_dialog',
                 selectOptionFilter: true,
                 showMarker: true,
                 zoom: geolocation.zoom,
             },
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             edit: true,
+            geolocation: geolocation,
         };
 
         this.dialog.open(DialogOnlyMapComponent, {
@@ -164,10 +163,7 @@ export class DetailComponent implements OnInit {
         const geolocation = this.reservoir.geolocation;
 
         let data: DialogParameters = {
-            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
-            geolocation: geolocation,
             configureMap: {
-                id: this.mapId,
                 center: {
                     lat: geolocation.latitude,
                     lon: geolocation.longitude,
@@ -175,12 +171,15 @@ export class DetailComponent implements OnInit {
                 },
                 dragging: false,
                 height: '300px',
+                id: this.mapId,
                 selectOptionFilter: true,
                 showMarker: true,
                 zoom: geolocation.zoom,
             },
             create: false,
+            dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
             edit: true,
+            geolocation: geolocation,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -203,13 +202,13 @@ export class DetailComponent implements OnInit {
         }
 
         this.svcGeolocation.updateGeolocation(result.id!, result).subscribe({
+            error: (error) => this.svcNotification.warning({ message: error.error }),
             next: (response) => {
                 this.reservoir!.geolocation = response;
                 this.configureMaps(response);
                 this.svcCacheReservoir.clean();
                 this.showMap = true;
             },
-            error: (error) => this.svcNotification.warning({ message: error.error }),
         });
     }
 
@@ -258,7 +257,6 @@ export class DetailComponent implements OnInit {
 
     private configureMaps(geolocation: Geolocation) {
         this.configureMap = {
-            id: 'detail_map',
             center: {
                 lat: geolocation.latitude,
                 lon: geolocation.longitude,
@@ -266,6 +264,7 @@ export class DetailComponent implements OnInit {
             },
             dragging: false,
             height: this.mapHeight,
+            id: 'detail_map',
             showMarker: true,
             zoom: geolocation.zoom,
         };

@@ -86,10 +86,10 @@ export class AddressService {
     const consumes: string[] = ['application/json'];
 
     return this.httpClient.get<Array<Address>>(`${this.basePath}/address`, {
-      withCredentials: this.configuration.withCredentials,
       headers: headers,
       observe: observe,
       reportProgress: reportProgress,
+      withCredentials: this.configuration.withCredentials,
     });
   }
 }

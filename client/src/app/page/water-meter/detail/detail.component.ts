@@ -98,10 +98,10 @@ export class DetailComponent implements OnInit {
         };
 
         const dialogRef = this.dialog.open(MeasureEditDialogComponent, {
+            data,
+            disableClose: true,
             hasBackdrop: true,
             width: '600px',
-            disableClose: true,
-            data,
         });
 
         dialogRef.afterClosed().subscribe((reload) => {
@@ -127,15 +127,15 @@ export class DetailComponent implements OnInit {
             return;
         }
         let data: MeasureDialogData = {
-            waterMeterId: this.waterMeterId,
             lastMeasurement: this.dataSource.data[0],
+            waterMeterId: this.waterMeterId,
         };
 
         const dialogRef = this.dialog.open(MeasureDialogComponent, {
+            data,
+            disableClose: true,
             hasBackdrop: true,
             width: '600px',
-            disableClose: true,
-            data,
         });
 
         dialogRef.afterClosed().subscribe((reload) => {
@@ -221,26 +221,26 @@ export class DetailComponent implements OnInit {
         let validDate = dateValidator(this.dateStart, this.dateEnd);
 
         this.svcWaterMeterManager.getPaginated(this.type?.id!, this.pageSize, validDate, this.type?.type).subscribe({
+            error: (error: any) => {
+                this.dataSource = new MatTableDataSource();
+                this.dataSource.paginator = this.paginator!;
+                this.isFirstDateValid = false;
+            },
             next: (response: WaterMeterMeasurementsPagination) => {
                 if (!response || response.results.length <= 0) {
-                    this.isFirstDateValid = true;
                     this.dataSource = new MatTableDataSource();
+                    this.isFirstDateValid = true;
                     return;
                 }
 
-                this.previous = response.links!.previous!;
-                this.next = response.links!.next!;
-                this.page = response.num_pages;
-                this.pageIndex = 1;
-                this.isFirstDateValid = true;
                 this.dataSource = new MatTableDataSource(response.results);
                 this.dataSource.paginator = this.paginator!;
                 this.getWaterMeter(response.results);
-            },
-            error: (error: any) => {
-                this.isFirstDateValid = false;
-                this.dataSource = new MatTableDataSource();
-                this.dataSource.paginator = this.paginator!;
+                this.isFirstDateValid = true;
+                this.next = response.links!.next!;
+                this.page = response.num_pages;
+                this.pageIndex = 1;
+                this.previous = response.links!.previous!;
             },
         });
     }
@@ -255,9 +255,9 @@ export class DetailComponent implements OnInit {
     private getWaterMeter(measures: WaterMeterMeasurement[]) {
         this.svcWaterMeterPersistance.get().subscribe((waterMeter) => {
             this.waterMeter = {
-                waterMeter: waterMeter!,
                 dwellingId: this.dwellingId,
                 reservoirId: String(this.reservoirId) || undefined,
+                waterMeter: waterMeter!,
                 waterMeterWithMeasure: {
                     measures: measures,
                 },

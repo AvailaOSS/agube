@@ -33,9 +33,9 @@ export class ResidentComponent extends ChangeComponent {
     private onSave() {
         this.loadingPost = true;
         let user: UserCreate = {
+            email: this.email.value,
             first_name: this.first_name.value.toLowerCase().trim(),
             last_name: this.last_name.value.toLowerCase().trim(),
-            email: this.email.value,
             phones: [{ phone_number: this.phone_number.value }],
         };
         return this.svcDwelling.changeCurrentResident(this.dwellingId, { user });
@@ -44,14 +44,14 @@ export class ResidentComponent extends ChangeComponent {
     override saveAndExit() {
         super.save();
         this.onSave().subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error });
+                this.loadingPost = false;
+            },
             next: (response) => {
                 this.resetForm();
                 this.loadingPost = false;
                 this.exit();
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error });
-                this.loadingPost = false;
             },
         });
     }

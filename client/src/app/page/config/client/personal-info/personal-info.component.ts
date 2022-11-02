@@ -53,11 +53,11 @@ export class PersonalInfoComponent implements OnInit {
             }
             this.userId = userResponse!.user_id;
             this.svcUser.getUserDetail(userResponse!.user_id).subscribe((response) => {
-                this.originalEmail = response.email!;
                 this.email.setValue(response.email);
                 this.first_name.setValue(response.first_name);
                 this.last_name.setValue(response.last_name);
                 this.main_phone = response.main_phone;
+                this.originalEmail = response.email!;
             });
         });
     }
@@ -83,28 +83,28 @@ export class PersonalInfoComponent implements OnInit {
 
         this.svcUser
             .updateUserDetail(this.userId!, {
-                main_phone: this.main_phone!,
                 email: personalInfo.email,
                 first_name: personalInfo.first_name,
                 last_name: personalInfo.last_name,
+                main_phone: this.main_phone!,
             })
             .subscribe({
-                next: (response) => {
-                    setTimeout(() => {
-                        this.loadSave = false;
-                        this.email.setValue(response.email);
-                        this.first_name.setValue(response.first_name);
-                        this.last_name.setValue(response.last_name);
-                        this.main_phone = response.main_phone;
-                    }, 1500);
-
-                    this.svcPersistantPersonal.emit(true);
-                },
                 error: (error) => {
                     this.loadSave = false;
                     this.svcNotification.warning({
                         message: error + personalInfo,
                     });
+                },
+                next: (response) => {
+                    setTimeout(() => {
+                        this.email.setValue(response.email);
+                        this.first_name.setValue(response.first_name);
+                        this.last_name.setValue(response.last_name);
+                        this.loadSave = false;
+                        this.main_phone = response.main_phone;
+                    }, 1500);
+
+                    this.svcPersistantPersonal.emit(true);
                 },
             });
 

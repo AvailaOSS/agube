@@ -3,12 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
+    agubeBackendUrl: 'http://localhost:8000/api/v1.0.0/agube',
     appName: 'Agube-Dev',
     googleMapsApiKey: '',
     googleAnalyticsId: '',
     // set your dev host server here
-    agubeBackendUrl: 'http://localhost:8000/api/v1.0.0/agube',
+    production: false,
 };
 
 /*

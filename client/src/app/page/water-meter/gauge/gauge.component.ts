@@ -16,17 +16,17 @@ export class GaugeComponent implements OnChanges {
 
     public measurement: DwellingMonthConsumption | undefined;
     public configureChart: Configuration = {
+        data: ['', 0],
         id: 'water_meter_gauge',
         options: {
-            width: 500,
             height: 200,
+            minorTicks: 10,
             redFrom: 90,
             redTo: 100,
             yellowFrom: 70,
             yellowTo: 90,
-            minorTicks: 10,
+            width: 500,
         },
-        data: ['', 0],
     };
 
     constructor(private svcDwellingService: DwellingService, private svcPersistance: WaterMeterPersistantService) {}
@@ -44,17 +44,17 @@ export class GaugeComponent implements OnChanges {
         let total = measurement.month_consumption_percentage;
 
         this.configureChart = {
+            data: [this.waterMeter!.waterMeter.code, total || 0],
             id: 'water_meter_gauge',
             options: {
-                width: 500,
                 height: 200,
+                minorTicks: 10,
                 redFrom: 90,
                 redTo: 100,
                 yellowFrom: 70,
                 yellowTo: 90,
-                minorTicks: 10,
+                width: 500,
             },
-            data: [this.waterMeter!.waterMeter.code, total || 0],
         };
     }
 }
