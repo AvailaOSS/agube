@@ -40,7 +40,7 @@ export function mapAddressFormBuilder(addressInputForm: InputForm): MapAddressFo
     if (!addressInputForm) {
         throw new Error('inputForm is necessary for this component');
     }
-    var form: MapAddressForm = {
+    const form: MapAddressForm = {
         city: addressInputForm.city,
         city_district: addressInputForm.city_district,
         country: addressInputForm.country,
@@ -78,7 +78,7 @@ export function fillMissingAddressFields(form: MapAddressForm, location: Locatio
     form.state.setValue(location.address.state);
     form.street?.setValue(location.address.road);
     form.village?.setValue(location.address.village);
-    var street = location.address.road;
+    const street = location.address.road;
 
     if (!street) {
         form.street?.setValue(location.address.landuse);

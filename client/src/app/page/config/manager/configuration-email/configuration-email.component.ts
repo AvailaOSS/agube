@@ -41,7 +41,7 @@ export class ConfigurationEmailComponent implements OnInit {
 
     public saveNotification() {
         this.loadSave = true;
-        let data: ManagerMessage = {
+        const data: ManagerMessage = {
             is_active: this.checked,
             message: this.message.value,
         };

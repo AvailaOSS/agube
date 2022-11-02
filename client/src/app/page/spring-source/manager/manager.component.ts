@@ -34,7 +34,7 @@ export class ManagerComponent implements OnInit {
                 // get first result
                 var firstSpringSourceDetected: SpringSourceDetail = response[0];
                 // set location around the first watersource
-                var buildConfigMap: ConfigureMap = {
+                const buildConfigMap: ConfigureMap = {
                     center: {
                         lat: String(firstSpringSourceDetected.latitude!),
                         lon: String(firstSpringSourceDetected.longitude!),

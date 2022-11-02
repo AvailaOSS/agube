@@ -38,7 +38,7 @@ export class DialogComponent extends CreateAddress implements OnInit {
         this.loadCreateForm = this.data.create;
         this.loadEditForm = this.data.edit;
         // set selectOptionFilter
-        let config = this.data.configureMap;
+        const config = this.data.configureMap;
         config.selectOptionFilter = this.data.configureMap.selectOptionFilter;
         this.configureMap = config;
 

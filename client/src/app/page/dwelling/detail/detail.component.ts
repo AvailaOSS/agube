@@ -81,7 +81,7 @@ export class DetailComponent implements OnInit {
         this.loading = true;
         this.dwelling = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
-            let par = params as Detail;
+            const par = params as Detail;
             this.dwellingId = par.dwellingId;
             this.configCommentComponent = {
                 id: this.dwellingId!,
@@ -117,7 +117,7 @@ export class DetailComponent implements OnInit {
 
         const geolocation = this.dwelling.geolocation;
 
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: {
                 center: {
                     lat: geolocation.latitude,
@@ -249,7 +249,7 @@ export class DetailComponent implements OnInit {
             error: (error) => (this.loading = false),
             next: (dwelling) => {
                 this.dwelling = dwelling;
-                let geolocation = this.dwelling.geolocation;
+                const geolocation = this.dwelling.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
             },

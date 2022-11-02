@@ -14,13 +14,13 @@ export function isReservoirDetail(
 export function isDwellingDetail(
     object: DwellingDetail | ReservoirDetail | SpringSourceDetail
 ): object is DwellingDetail {
-    let obj = object as DwellingDetail;
+    const obj = object as DwellingDetail;
     return obj.resident_full_name !== undefined && obj.resident_phone !== undefined;
 }
 export function isSpringSourceDetail(
     object: DwellingDetail | ReservoirDetail | SpringSourceDetail
 ): object is SpringSourceDetail {
-    let obj = object as SpringSourceDetail;
+    const obj = object as SpringSourceDetail;
     return obj.number !== undefined;
     // TS now knows that objects within this if statement are always type SpringSourceDetail
     // This is because the type guard isSpringSourceDetail narrowed down the type to SpringSourceDetail

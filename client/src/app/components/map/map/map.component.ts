@@ -66,12 +66,12 @@ export class MapComponent implements AfterViewInit {
     }
 
     protected setMarker(point: Coordinates) {
-        var myIcon = L.icon({
+        const myIcon = L.icon({
             iconSize: [30, 30],
             iconUrl: point.type,
         });
 
-        let marker = L.marker([+point.lat, +point.lon], { icon: myIcon }).addTo(this.map);
+        const marker = L.marker([+point.lat, +point.lon], { icon: myIcon }).addTo(this.map);
 
         marker.on('click', () => redirector(this.router, point));
 

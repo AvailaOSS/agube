@@ -11,7 +11,7 @@ export class ReservoirCacheService implements ICacheService<ReservoirDetail> {
     constructor(private svcReservoir: ReservoirService) {}
 
     public get(): Promise<ReservoirDetail[]> {
-        var promise = new Promise<ReservoirDetail[]>((resolve, reject) => {
+        const promise = new Promise<ReservoirDetail[]>((resolve, reject) => {
             if (this.cache.length > 0) {
                 console.debug('reservoirs from cache');
                 resolve(this.cache);

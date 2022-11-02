@@ -36,8 +36,8 @@ export class TableResidentComponent extends PersonTable implements OnInit {
     public override loadPersons() {
         this.svcResident.getResidents().subscribe({
             next: (response) => {
-                let list = response.map((p) => {
-                    let obj: ITableResident = p;
+                const list = response.map((p) => {
+                    const obj: ITableResident = p;
                     obj.address = this.geolocationPipe.transform(p.geolocation!, 'short');
                     return obj;
                 });

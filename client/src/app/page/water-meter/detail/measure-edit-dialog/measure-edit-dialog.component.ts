@@ -54,7 +54,7 @@ export class MeasureEditDialogComponent extends MeasureDialog {
         this.disabled = true;
         this.loadingPost = true;
 
-        let newMeasure = {
+        const newMeasure = {
             id: this.currentMeasurement?.id!,
             measurement: this.measurement.value,
         };

@@ -36,8 +36,8 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
     public override loadPersons() {
         this.svcOwner.getOwners().subscribe({
             next: (response) => {
-                let list = response.map((p) => {
-                    let obj: ITableOwner = p;
+                const list = response.map((p) => {
+                    const obj: ITableOwner = p;
                     obj.address = this.geolocationPipe.transform(p.geolocation!, 'short');
                     return obj;
                 });

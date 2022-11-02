@@ -97,7 +97,7 @@ export class ChangeComponent implements OnInit {
                 }
                 return '';
             case 'phone_number':
-                let invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
+                const invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
                 if (this.phone_number.hasError('required')) {
                     return 'PAGE.DWELLING.MANAGER.PERSON.CHANGE.EMAIL.VALIDATION.REQUIRED';
                 }

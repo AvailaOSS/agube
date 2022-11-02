@@ -36,7 +36,7 @@ export class ManagerComponent implements OnInit {
                 // get first result
                 var firstDwellingDetected: DwellingDetail = response[0];
                 // set location around the first dwelling
-                var buildConfigMap: ConfigureMap = {
+                const buildConfigMap: ConfigureMap = {
                     center: {
                         lat: String(firstDwellingDetected.latitude!),
                         lon: String(firstDwellingDetected.longitude!),

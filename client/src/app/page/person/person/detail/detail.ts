@@ -47,7 +47,7 @@ export class Detail {
         this.dwellings = [];
         this.dwellingPath = '/manager/home/manager/client/dwellings/detail';
         this.activatedRoute.params.subscribe((params) => {
-            let par = params as IDetail;
+            const par = params as IDetail;
             this.personId = par.personId;
         });
         this.googleAnalyticsService.event('event', 'view_person');

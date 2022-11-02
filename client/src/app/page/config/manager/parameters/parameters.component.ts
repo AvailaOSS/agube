@@ -43,7 +43,7 @@ export class ParametersComponent implements OnInit {
 
     public saveParameters() {
         this.loadSave = true;
-        let config: ManagerConfiguration = {
+        const config: ManagerConfiguration = {
             hook_price: this.hook_price.value,
             max_daily_consumption: this.max_daily_consumption.value,
         };

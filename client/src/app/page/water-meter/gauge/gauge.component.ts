@@ -41,7 +41,7 @@ export class GaugeComponent implements OnChanges {
     }
 
     private computeAverage(measurement: DwellingMonthConsumption) {
-        let total = measurement.month_consumption_percentage;
+        const total = measurement.month_consumption_percentage;
 
         this.configureChart = {
             data: [this.waterMeter!.waterMeter.code, total || 0],

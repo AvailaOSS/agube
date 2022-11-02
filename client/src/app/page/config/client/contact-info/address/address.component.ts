@@ -40,7 +40,7 @@ export class AddressComponent extends CreateAddress {
     public openCloseAddressForm() {
         this.canAddAddress = true;
 
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: this.configureMap,
             create: true,
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.ADD-DIALOG.TITLE',
@@ -60,7 +60,7 @@ export class AddressComponent extends CreateAddress {
     }
 
     public saveAddress(result: Geolocation) {
-        let userAddress: UserGeolocation = {
+        const userAddress: UserGeolocation = {
             geolocation: result,
             main: false,
         };

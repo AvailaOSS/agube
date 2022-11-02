@@ -25,10 +25,10 @@ export class ChartComponent implements OnChanges {
 
         google.charts.setOnLoadCallback(() => {
             // Initialize with received data
-            let data = google.visualization.arrayToDataTable([this.header, this.config.data]);
+            const data = google.visualization.arrayToDataTable([this.header, this.config.data]);
 
             // Instantiate and draw our chart, passing in some options.
-            let chart = new google.visualization.Gauge(document.getElementById(this.config.id));
+            const chart = new google.visualization.Gauge(document.getElementById(this.config.id));
 
             chart.draw(data, this.config.options);
         });

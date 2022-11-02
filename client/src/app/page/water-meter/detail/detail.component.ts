@@ -72,7 +72,7 @@ export class DetailComponent implements OnInit {
     }
 
     public computeDaysApart(measurement: WaterMeterMeasurement, index: number): number {
-        let previousMeasurement = this.dataSource.data[index + 1];
+        const previousMeasurement = this.dataSource.data[index + 1];
 
         if (!previousMeasurement) {
             return 0;
@@ -81,7 +81,7 @@ export class DetailComponent implements OnInit {
         let current = new Date(measurement.date!);
         let previous = new Date(previousMeasurement.date!);
 
-        let diff = differenceInDays(current, previous);
+        const diff = differenceInDays(current, previous);
         if (diff <= 0) {
             return Math.round((differenceInMinutes(current, previous) / 60 / 24) * 100) / 100;
         }
@@ -93,7 +93,7 @@ export class DetailComponent implements OnInit {
     }
 
     public openEditMeasureDialog() {
-        let data: MeasureEditDialogData = {
+        const data: MeasureEditDialogData = {
             currentMeasurement: this.dataSource.data[0],
         };
 
@@ -126,7 +126,7 @@ export class DetailComponent implements OnInit {
         if (!this.waterMeterId) {
             return;
         }
-        let data: MeasureDialogData = {
+        const data: MeasureDialogData = {
             lastMeasurement: this.dataSource.data[0],
             waterMeterId: this.waterMeterId,
         };
@@ -218,7 +218,7 @@ export class DetailComponent implements OnInit {
             return;
         }
 
-        let validDate = dateValidator(this.dateStart, this.dateEnd);
+        const validDate = dateValidator(this.dateStart, this.dateEnd);
 
         this.svcWaterMeterManager.getPaginated(this.type?.id!, this.pageSize, validDate, this.type?.type).subscribe({
             error: (error: any) => {
@@ -246,7 +246,7 @@ export class DetailComponent implements OnInit {
     }
 
     private initializeDates() {
-        let dates = dateValidator(this.dateStart, this.dateEnd);
+        const dates = dateValidator(this.dateStart, this.dateEnd);
         this.dateStart.setValue('');
         this.dateEnd.setValue(dates.dateEnd);
         this.isFirstDateValid = true;
