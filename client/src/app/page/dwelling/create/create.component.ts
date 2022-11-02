@@ -139,7 +139,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     public tour() {
-        let steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
+        const steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
 
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }

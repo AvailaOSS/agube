@@ -31,25 +31,25 @@ export class OwnerDetailComponent extends Detail implements OnInit {
 
         this.title = 'PAGE.PERSON.PERSON.DETAIL.TITLE-OWNER';
         this.svcOwner.getOwner(this.personId).subscribe({
+            error: (error) => {
+                this.svcNotification.warning({ message: error.error });
+                this.googleAnalyticsService.exception('error_view_owner', false);
+            },
             next: (owner) => {
                 this.person = owner;
                 this.getDwellingAndConfigureMap();
                 this.getDwellingDetails();
                 this.getUserPhoto(owner.user.id!);
                 this.googleAnalyticsService.gtag('event', 'view_owner', {
-                    dwelling_id: owner?.dwelling_id,
                     discharge_date: owner.discharge_date,
-                    release_date: owner?.release_date,
+                    dwelling_id: owner?.dwelling_id,
                     email: owner.user?.email,
                     first_name: owner.user?.first_name,
                     geolocation: owner.user?.geolocation,
                     last_name: owner.user?.last_name,
                     phones: owner.user.phones,
+                    release_date: owner?.release_date,
                 });
-            },
-            error: (error) => {
-                this.svcNotification.warning({ message: error.error });
-                this.googleAnalyticsService.exception('error_view_owner', false);
             },
         });
     }

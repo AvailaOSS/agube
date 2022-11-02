@@ -205,7 +205,7 @@ export class DetailComponent implements OnInit {
     }
     // call function to joyride
     public tour() {
-        let steps: string[] = [
+        const steps: string[] = [
             'SpringSourceInfoStep',
             'SpringSourceWaterMaterStep',
             'SpringSourceWaterMaterMeasurementStep',

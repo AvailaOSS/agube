@@ -31,9 +31,9 @@ export class ManagerComponent implements OnInit {
             // check if has reservoirs, else ignore it
             if (response && response.length > 0) {
                 // get first result
-                var firstReservoirDetected: ReservoirDetail = response[0];
+                const firstReservoirDetected: ReservoirDetail = response[0];
                 // set location around the first reservoir
-                var buildConfigMap: ConfigureMap = {
+                const buildConfigMap: ConfigureMap = {
                     id: this.mapId,
                     center: {
                         lat: String(firstReservoirDetected.latitude!),

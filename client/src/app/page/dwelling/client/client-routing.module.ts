@@ -5,8 +5,8 @@ import { ClientComponent } from './client.component';
 const routes: Routes = [
     { path: '', component: ClientComponent },
     {
-        path: 'detail',
         loadChildren: () => import('../detail/detail.module').then((m) => m.DetailModule),
+        path: 'detail',
     },
 ];
 

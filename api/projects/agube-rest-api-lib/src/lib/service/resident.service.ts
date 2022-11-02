@@ -57,17 +57,17 @@ export class ResidentService {
   public getResident(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Resident>>;
   public getResident(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Resident>>;
   public getResident(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -116,19 +116,19 @@ export class ResidentService {
    */
   public getResidents(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<ResidentDetail>>;
   public getResidents(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<ResidentDetail>>>;
   public getResidents(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<ResidentDetail>>>;
   public getResidents(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -142,7 +142,7 @@ export class ResidentService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {

@@ -19,7 +19,7 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
         private geolocationPipe: GeolocationPipe,
         protected svcOwner: OwnerService,
         protected override router: Router,
-        protected override route: ActivatedRoute,
+        protected override route: ActivatedRoute
     ) {
         super(router, route);
         this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';

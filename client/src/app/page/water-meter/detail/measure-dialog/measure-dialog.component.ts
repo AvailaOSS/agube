@@ -44,7 +44,7 @@ export class MeasureDialogComponent extends MeasureDialog {
     }
 
     public override checkTime() {
-        let date = set(this.date.value, {
+        const date = set(this.date.value, {
             hours: this.hour.value,
             minutes: this.minutes.value,
         });
@@ -97,24 +97,24 @@ export class MeasureDialogComponent extends MeasureDialog {
         this.disabled = true;
         this.loadingPost = true;
 
-        let date = set(this.date.value, {
+        const date = set(this.date.value, {
             hours: this.hour.value,
             minutes: this.minutes.value,
         });
 
         this.svcWaterMeter
             .addWaterMeterMeasurement(this.waterMeterId, {
-                measurement: this.measurement.value,
                 date: date,
+                measurement: this.measurement.value,
             })
             .subscribe({
-                next: (response) => this.close(true),
                 error: (error) => {
                     this.disabled = false;
                     this.loadingPost = false;
                     this.svcNotification.warning({ message: error.error.status }),
                         this.googleAnalyticsService.exception('error_water_meter_measure', true);
                 },
+                next: (response) => this.close(true),
             });
     }
 

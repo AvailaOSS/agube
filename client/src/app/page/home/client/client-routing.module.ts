@@ -4,28 +4,28 @@ import { ClientComponent } from './client.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: ClientComponent,
         children: [
             {
                 path: '',
-                redirectTo: 'dwellings',
                 pathMatch: 'prefix',
+                redirectTo: 'dwellings',
             },
             {
-                path: 'dwellings',
                 loadChildren: () => import('../../dwelling/client/client.module').then((m) => m.ClientModule),
+                path: 'dwellings',
             },
             {
-                path: 'config',
                 loadChildren: () => import('../../config/client/client-page.module').then((m) => m.ClientPageModule),
+                path: 'config',
             },
         ],
+        component: ClientComponent,
+        path: '',
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
 })
 export class ClientRoutingModule {}

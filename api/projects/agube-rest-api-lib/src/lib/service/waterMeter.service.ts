@@ -95,7 +95,7 @@ export class WaterMeterService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password),
       );
     }
 
@@ -147,7 +147,7 @@ export class WaterMeterService {
     startDate?: string,
     endDate?: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeterMeasurementsPagination>;
   public getWaterMeterMeasurements(
     id: number,
@@ -156,7 +156,7 @@ export class WaterMeterService {
     startDate?: string,
     endDate?: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getWaterMeterMeasurements(
     id: number,
@@ -165,7 +165,7 @@ export class WaterMeterService {
     startDate?: string,
     endDate?: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getWaterMeterMeasurements(
     id: number,
@@ -174,7 +174,7 @@ export class WaterMeterService {
     startDate?: string,
     endDate?: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -225,11 +225,11 @@ export class WaterMeterService {
         String(id)
       )}/measurement`,
       {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        params: queryParameters,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

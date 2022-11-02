@@ -166,7 +166,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
 
     // Call joyRide to pass all variables and do the tour
     public tour() {
-        let steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
+        const steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 

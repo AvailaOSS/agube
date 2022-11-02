@@ -5,7 +5,7 @@ import { DwellingDetail, UserDwellingDetail } from '@availaoss/agube-rest-api';
     name: 'dwellingDetail',
 })
 export class DwellingDetailPipe implements PipeTransform {
-    transform(dwellingDetail: DwellingDetail | UserDwellingDetail): string {
+    public transform(dwellingDetail: DwellingDetail | UserDwellingDetail): string {
         return dwellingDetail.road + ', ' + dwellingDetail.number + ', ' + dwellingDetail.city;
     }
 }

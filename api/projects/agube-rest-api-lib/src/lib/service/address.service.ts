@@ -49,19 +49,19 @@ export class AddressService {
    */
   public getAddress(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<Address>>;
   public getAddress(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<Address>>>;
   public getAddress(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<Address>>>;
   public getAddress(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

@@ -49,12 +49,12 @@ export class PhonesComponent {
         let newPhone = { main: false, phone: this.newPhone.value };
 
         this.svcUser.addUserPhone(this.userId, newPhone).subscribe({
+            error: (error) => this.svcNotification.warning({ message: error }),
             next: (response) => {
                 this.phones.push({ phone: response, isEditable: false });
                 this.canAddPhone = !this.canAddPhone;
                 this.newPhone.setValue('');
             },
-            error: (error) => this.svcNotification.warning({ message: error }),
         });
     }
 
@@ -98,15 +98,15 @@ export class PhonesComponent {
 
     private getPhones(userId: number) {
         this.svcUser.getUserPhone(userId).subscribe({
-            next: (phones) => {
-                this.phones = phones.map((phone) => {
-                    return { phone: phone, isEditable: false };
-                });
-            },
             error: (error) => {
                 if (error.status === 401) {
                     this.svcAccount.logout();
                 }
+            },
+            next: (phones) => {
+                this.phones = phones.map((phone) => {
+                    return { phone: phone, isEditable: false };
+                });
             },
         });
     }
@@ -114,7 +114,7 @@ export class PhonesComponent {
     public errorValidator(entity: string) {
         switch (entity) {
             case 'newPhone':
-                let invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
+                const invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
                 if (this.newPhone.hasError('required')) {
                     return 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED';
                 }

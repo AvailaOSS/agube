@@ -7,16 +7,16 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
     {
-        path: AuthRoute.LOGIN,
         component: LoginComponent,
+        path: AuthRoute.LOGIN,
     },
     {
-        path: AuthRoute.ENABLE_ACCOUNT,
         component: EnableAccountComponent,
+        path: AuthRoute.ENABLE_ACCOUNT,
     },
     {
-        path: AuthRoute.RESET_PASSWORD,
         component: ResetPasswordComponent,
+        path: AuthRoute.RESET_PASSWORD,
     },
 ];
 

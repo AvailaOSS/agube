@@ -34,11 +34,11 @@ import { Detail } from './detail';
     styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-    public reservoirId: number | undefined;
-    public reservoir: ReservoirCreate | undefined;
+    public canLoad = true;
+    public configCommentComponent: CommentConfig | undefined;
 
     // map
-    public canLoadStreetView: boolean = false;
+    public canLoadStreetView = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
@@ -52,28 +52,26 @@ export class DetailComponent implements OnInit {
     public waterMeterId: number | undefined;
     public waterMeter: WaterMeter | undefined;
 
+    public reservoirId: number | undefined;
+    public reservoir: ReservoirCreate | undefined;
+
+    public showMap = true;
     public type: Type | undefined = undefined;
-
-    public showMap: boolean = true;
-
-    public configCommentComponent: CommentConfig | undefined;
-
-    public loading: boolean = false;
-    public canLoad: boolean = true;
+    public loading = false;
 
     constructor(
-        private router: Router,
         private activatedRoute: ActivatedRoute,
-        private svcReservoir: ReservoirService,
-        private svcCacheReservoir: ReservoirCacheService,
-        private svcManager: ManagerService,
-        private svcPersistant: WaterMeterPersistantService,
         public dialog: MatDialog,
-        private svcGeolocation: GeolocationService,
-        private svcNotification: NotificationService,
         private googleAnalyticsService: GoogleAnalyticsService,
-        private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
+        private router: Router,
+        private svcCacheReservoir: ReservoirCacheService,
+        private svcGeolocation: GeolocationService,
+        private svcManager: ManagerService,
+        private svcNotification: NotificationService,
+        private svcPersistant: WaterMeterPersistantService,
+        private svcReservoir: ReservoirService,
+        private svcTranslate: TranslateService
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
@@ -131,27 +129,27 @@ export class DetailComponent implements OnInit {
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '500px',
                 dragging: false,
+                height: '500px',
                 selectOptionFilter: true,
+                showMarker: true,
+                zoom: geolocation.zoom,
             },
             create: false,
             edit: true,
         };
 
         this.dialog.open(DialogOnlyMapComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
     }
 
     public seeComments() {
         this.dialog.open(ListComponent, {
+            data: this.configCommentComponent,
             hasBackdrop: true,
             panelClass: ['custom-dialog-container'],
-            data: this.configCommentComponent,
         });
     }
 
@@ -174,19 +172,19 @@ export class DetailComponent implements OnInit {
                     lon: geolocation.longitude,
                     type: this.mapType,
                 },
-                zoom: geolocation.zoom,
-                showMarker: true,
-                height: '300px',
                 dragging: false,
+                height: '300px',
                 selectOptionFilter: true,
+                showMarker: true,
+                zoom: geolocation.zoom,
             },
-            edit: true,
             create: false,
+            edit: true,
         };
 
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: '100%',
             data,
+            width: '100%',
         });
 
         dialogRef.componentInstance.submitClicked.subscribe((result: Geolocation | undefined) => {
@@ -216,7 +214,7 @@ export class DetailComponent implements OnInit {
 
     // call function to joyride
     public tour() {
-        let steps: string[] = [
+        const steps: string[] = [
             'ReservoirInfoStep',
             'ReservoirWaterMaterStep',
             'ReservoirWaterMaterMeasurementStep',
@@ -236,7 +234,7 @@ export class DetailComponent implements OnInit {
     }
 
     // Load reservoir in own method
-    private loadReservoir(reservoirId: number) {
+    private loadReservoir(reservoirId: number): void {
         this.svcReservoir.getReservoir(reservoirId).subscribe({
             next: (reservoir) => {
                 this.reservoir = reservoir;
@@ -265,18 +263,18 @@ export class DetailComponent implements OnInit {
                 lon: geolocation.longitude,
                 type: this.mapType,
             },
-            zoom: geolocation.zoom,
-            showMarker: true,
-            height: this.mapHeight,
             dragging: false,
+            height: this.mapHeight,
+            showMarker: true,
+            zoom: geolocation.zoom,
         };
         this.configureView = {
+            height: this.mapHeight,
+            horizontalDegree: this.mapStreetViewPositionDegree,
             latitude: +geolocation.latitude,
             longitude: +geolocation.longitude,
-            zoom: this.mapZoomDefault,
-            horizontalDegree: this.mapStreetViewPositionDegree,
             verticalDegree: this.mapStreetViewPositionDegree,
-            height: this.mapHeight,
+            zoom: this.mapZoomDefault,
         };
     }
 }

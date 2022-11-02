@@ -146,7 +146,7 @@ export class PersonalInfoComponent implements OnInit {
     }
     // call function to joyride
     public tour() {
-        let steps: string[] = ['PersonalInfoStep', 'ContactInfoStep', 'PersonalConfigStep', 'PasswordConfigStep'];
+        const steps: string[] = ['PersonalInfoStep', 'ContactInfoStep', 'PersonalConfigStep', 'PasswordConfigStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 }

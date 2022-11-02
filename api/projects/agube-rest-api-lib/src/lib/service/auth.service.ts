@@ -227,7 +227,7 @@ export class AuthService {
       headers = headers.set(
         'Authorization',
         'Basic ' +
-          btoa(this.configuration.username + ':' + this.configuration.password)
+          btoa(this.configuration.username + ':' + this.configuration.password),
       );
     }
 

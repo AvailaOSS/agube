@@ -17,23 +17,23 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     declarations: [CreateComponent],
+    exports: [CreateComponent],
     imports: [
         CommonModule,
         CreateRoutingModule,
-        MatCardModule,
-        MatButtonModule,
         FormsModule,
-        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatCardModule,
         MatInputModule,
-        NotificationModule,
         MatIconModule,
         MatProgressBarModule,
         MatTooltipModule,
+        NotificationModule,
+        ReactiveFormsModule,
         StreetViewCreateModule,
         TranslateModule,
         PipesModule,
-        MatAutocompleteModule,
     ],
-    exports: [CreateComponent],
 })
 export class CreateModule {}

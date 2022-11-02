@@ -11,7 +11,7 @@ import { LocationResponse } from './location-response';
     templateUrl: './map.component.html',
 })
 export class MapComponent implements AfterViewInit {
-    @Input() public baseConfiguration!: ConfigureMap;
+    @Input() public baseConfiguration!: any;
 
     public selectedStreetCandidate: LocationResponse | undefined;
 
