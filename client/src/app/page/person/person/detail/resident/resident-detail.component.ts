@@ -42,10 +42,10 @@ export class ResidentDetailComponent extends Detail implements OnInit {
                 this.getUserPhoto(resident.user.id!);
                 this.googleAnalyticsService.gtag('event', 'view_resident', {
                     discharge_date: resident.discharge_date,
+                    dwelling_id: resident?.dwelling_id,
                     email: resident.user?.email,
                     first_name: resident.user?.first_name,
                     geolocation: resident.user?.geolocation,
-                    dwelling_id: resident?.dwelling_id,
                     last_name: resident.user?.last_name,
                     phones: resident.user.phones,
                     release_date: resident?.release_date,

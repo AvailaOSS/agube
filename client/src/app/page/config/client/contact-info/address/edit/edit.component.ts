@@ -86,8 +86,8 @@ export class EditComponent extends CreateAddress {
                 zoom: geolocation.zoom,
             },
             create: false,
-            edit: true,
             dialogTitle: 'PAGE.CONFIG.CLIENT.CONTACT-INFO.ADDRESS.EDIT-DIALOG.TITLE',
+            edit: true,
             geolocation: geolocation,
         };
 

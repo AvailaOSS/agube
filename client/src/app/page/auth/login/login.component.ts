@@ -22,7 +22,7 @@ export class LoginComponent {
         private formBuilder: FormBuilder,
         private accountService: AccountService,
         private authService: AuthConfiguration,
-        private router: Router
+        private router: Router,
     ) {
         this.loginForm = this.formBuilder.group({
             password: this.password,

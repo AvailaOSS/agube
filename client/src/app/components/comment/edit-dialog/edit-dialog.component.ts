@@ -35,8 +35,8 @@ export class EditDialogComponent extends CreateDialogComponent {
         this.svcComment
             .updateComment(this.data.id, {
                 created: this.data.created!,
-                message: this.message.value,
                 id: this.data.id,
+                message: this.message.value,
             })
             .subscribe({
                 error: (error) =>

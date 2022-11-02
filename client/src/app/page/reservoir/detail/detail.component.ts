@@ -71,7 +71,7 @@ export class DetailComponent implements OnInit {
         private svcNotification: NotificationService,
         private svcPersistant: WaterMeterPersistantService,
         private svcReservoir: ReservoirService,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_reservoir', '/detail_reservoir');
