@@ -11,7 +11,7 @@ export class SpringSourceCacheService implements ICacheService<SpringSourceDetai
     constructor(private svcSpringSource: SpringSourceService) {}
 
     public get(): Promise<SpringSourceDetail[]> {
-        var promise = new Promise<SpringSourceDetail[]>((resolve) => {
+        const promise = new Promise<SpringSourceDetail[]>((resolve) => {
             if (this.cache.length > 0) {
                 console.debug('SpringSources from cache');
                 resolve(this.cache);

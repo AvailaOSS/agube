@@ -85,7 +85,7 @@ export class PersonalConfigComponent implements OnInit {
             selected = this.darkClassName;
         }
 
-        let configureMode: ConfigureMode = {
+        const configureMode: ConfigureMode = {
             language: this.selectedLanguage!.code,
             mode: selected,
         };

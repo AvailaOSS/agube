@@ -172,10 +172,10 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     public resetFormIfHasChanged(formName: string, changes: SimpleChanges): void {
         // if parent says reset form then reset
-        let current = changes[formName].currentValue;
-        let previous = changes[formName].previousValue;
-        let hasValues = current && previous !== undefined;
-        let areDifferent = current !== previous;
+        const current = changes[formName].currentValue;
+        const previous = changes[formName].previousValue;
+        const hasValues = current && previous !== undefined;
+        const areDifferent = current !== previous;
 
         if (hasValues && areDifferent) {
             this.form!.reset();

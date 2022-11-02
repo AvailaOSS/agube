@@ -29,7 +29,7 @@ export class ResetPasswordComponent {
 
         this.loading = true;
 
-        let resetPassword: ResetPassword = {
+        const resetPassword: ResetPassword = {
             email: this.email.value,
         };
 

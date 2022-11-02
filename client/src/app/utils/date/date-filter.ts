@@ -13,7 +13,7 @@ export function formatDate(date: any): string {
 export function dateValidator(dateStart: FormControl, dateEnd: FormControl): DateFilter {
     const start = new Date('2022-01-01');
 
-    let validated: DateFilter = {
+    const validated: DateFilter = {
         dateEnd: new Date(),
         dateStart: start,
     };

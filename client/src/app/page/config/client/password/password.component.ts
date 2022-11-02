@@ -57,7 +57,7 @@ export class PasswordComponent {
             return;
         }
         this.loadSave = true;
-        let pass: ChangePassword = {
+        const pass: ChangePassword = {
             confirm_password: this.confirmPassword.value,
             password: this.password.value,
             username: this.username.value,

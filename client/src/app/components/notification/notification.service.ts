@@ -37,7 +37,7 @@ export class NotificationService {
     }
 
     public notify(config: Configuration) {
-        let data: Data = config.data;
+        const data: Data = config.data;
         this._snackBar.openFromComponent(NotificationComponent, {
             data,
             duration: config.durationInSeconds * 1000,

@@ -60,7 +60,7 @@ export class EditComponent {
         if (!this.phone) {
             return;
         }
-        let phoneUser: UserPhone = {
+        const phoneUser: UserPhone = {
             main: value,
             phone: this.phone.phone.phone,
         };
@@ -107,7 +107,7 @@ export class EditComponent {
     public errorValidator(entity: string) {
         switch (entity) {
             case 'newPhone':
-                let invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
+                const invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';
 
                 if (this.newPhone.hasError('required')) {
                     return 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.REQUIRED';

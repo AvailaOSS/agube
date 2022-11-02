@@ -10,7 +10,7 @@ export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDet
     }
 
     if (isDwellingDetail(object)) {
-        let dwelling = object as DwellingDetail;
+        const dwelling = object as DwellingDetail;
         if (dwelling.resident_full_name) {
             suffix += '<br>' + dwelling.resident_full_name;
         }
@@ -19,7 +19,7 @@ export function build(object: DwellingDetail | ReservoirDetail | SpringSourceDet
         }
     }
 
-    let coordinates: Coordinates = {
+    const coordinates: Coordinates = {
         description: object.road + suffix,
         id: +object.id!,
         lat: String(object.latitude),

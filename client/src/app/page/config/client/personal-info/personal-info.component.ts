@@ -73,7 +73,7 @@ export class PersonalInfoComponent implements OnInit {
     public updateUser() {
         this.loadSave = true;
 
-        let personalInfo: PersonalInfo = {
+        const personalInfo: PersonalInfo = {
             email: this.email.value,
             first_name: this.first_name.value.trim().toLowerCase(),
             last_name: this.last_name.value.trim().toLowerCase(),

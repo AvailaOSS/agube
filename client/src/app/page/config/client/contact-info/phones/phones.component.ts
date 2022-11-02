@@ -46,7 +46,7 @@ export class PhonesComponent {
             return;
         }
 
-        let newPhone = { main: false, phone: this.newPhone.value };
+        const newPhone = { main: false, phone: this.newPhone.value };
 
         this.svcUser.addUserPhone(this.userId, newPhone).subscribe({
             error: (error) => this.svcNotification.warning({ message: error }),

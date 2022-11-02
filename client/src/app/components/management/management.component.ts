@@ -26,7 +26,7 @@ export class ManagementComponent implements OnInit {
     }
 
     public openChangeWaterMeter() {
-        let data: WaterMeterDialogData = {
+        const data: WaterMeterDialogData = {
             id: this.manage?.id!,
             type: this.type?.type!,
         };

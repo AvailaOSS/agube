@@ -64,7 +64,7 @@ export class CreateAddress {
      * @param FourK '1020px'
      */
     protected setMapResolution(fullHd: string, twoK: string, fourK: string) {
-        let view: ResolutionType = detect();
+        const view: ResolutionType = detect();
         switch (view) {
             case ResolutionType.FULL_HD:
                 this.configureMap.height = fullHd;

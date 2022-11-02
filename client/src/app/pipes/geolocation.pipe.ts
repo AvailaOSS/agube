@@ -39,7 +39,7 @@ export class GeolocationPipe implements PipeTransform {
             );
         }
 
-        let append =
+        const append =
             this.address.fillEmpty(geolocation.number) +
             this.address.fillEmpty(geolocation.flat) +
             this.address.fillEmpty(geolocation.gate);

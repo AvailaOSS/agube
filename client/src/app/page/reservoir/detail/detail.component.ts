@@ -119,7 +119,7 @@ export class DetailComponent implements OnInit {
 
         const geolocation = this.reservoir.geolocation;
 
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: {
                 center: {
                     lat: geolocation.latitude,
@@ -238,7 +238,7 @@ export class DetailComponent implements OnInit {
         this.svcReservoir.getReservoir(reservoirId).subscribe({
             next: (reservoir) => {
                 this.reservoir = reservoir;
-                let geolocation = this.reservoir.geolocation;
+                const geolocation = this.reservoir.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
             },

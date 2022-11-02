@@ -79,7 +79,7 @@ export class DetailComponent implements OnInit {
         this.loading = true;
         this.springSource = undefined;
         this.activatedRoute.queryParams.subscribe((params) => {
-            let par = params as Detail;
+            const par = params as Detail;
             this.springSourceId = par.springSourceId;
             this.configCommentComponent = {
                 id: this.springSourceId!,
@@ -117,7 +117,7 @@ export class DetailComponent implements OnInit {
         this.showMap = false;
         const geolocation = this.springSource.geolocation;
 
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: {
                 center: {
                     lat: geolocation.latitude,
@@ -217,7 +217,7 @@ export class DetailComponent implements OnInit {
         this.svcSpringSource.getSpringSource(springSourceId).subscribe({
             next: (springSource) => {
                 this.springSource = springSource;
-                let geolocation = this.springSource.geolocation;
+                const geolocation = this.springSource.geolocation;
                 this.configureMaps(geolocation);
                 this.loading = false;
             },

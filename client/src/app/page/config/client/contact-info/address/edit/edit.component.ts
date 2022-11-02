@@ -39,7 +39,7 @@ export class EditComponent extends CreateAddress {
             return;
         }
 
-        let userAddress: UserGeolocation = {
+        const userAddress: UserGeolocation = {
             geolocation: result,
             main: false,
         };
@@ -71,7 +71,7 @@ export class EditComponent extends CreateAddress {
 
         const geolocation = this.geolocation.geolocation.geolocation;
 
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: {
                 center: {
                     lat: geolocation.latitude,

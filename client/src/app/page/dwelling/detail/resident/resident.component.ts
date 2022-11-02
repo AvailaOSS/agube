@@ -58,7 +58,7 @@ export class ResidentComponent implements OnInit {
     }
 
     public goToChangeResident() {
-        let queryParams: ChangeData = {
+        const queryParams: ChangeData = {
             dwellingId: this.dwellingId!,
         };
         this.router.navigate(['manager/dwellings/person/resident'], {

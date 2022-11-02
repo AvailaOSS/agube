@@ -138,7 +138,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         if (!this.springSourceForm || this.springSourceForm.invalid) {
             return;
         }
-        let springSource: SpringSource = {
+        const springSource: SpringSource = {
             geolocation: this.getGeolocation(),
         };
 
