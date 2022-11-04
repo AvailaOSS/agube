@@ -25,7 +25,7 @@ export class TableOwnerComponent extends PersonTable implements OnInit {
         this.title = 'PAGE.OWNERS.MANAGER.TABLE.TITLE';
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.loadPersons();
     }
 

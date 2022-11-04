@@ -33,31 +33,33 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
     templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
-    // variables
-    public springSourceId: number | undefined;
-    public springSource: SpringSource | undefined;
 
     // map
     public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
+
+    public configCommentComponent: CommentConfig | undefined;
+    public canLoad: boolean = false;
+    public loading: boolean = false;
+    public showMap: boolean = true;
+
+    // variables
+    public springSourceId: number | undefined;
+    public springSource: SpringSource | undefined;
+
+    public type: Type | undefined = undefined;
+
     // map config
     public mode: string = 'map';
-    private readonly mapType: MapIconType = MapIconType.SPRING_SOURCE;
+    public waterMeter: WaterMeter | undefined;
+    public waterMeterId: number | undefined;
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '500px';
     private mapId: string = 'detail_map';
-    public waterMeterId: number | undefined;
-    public waterMeter: WaterMeter | undefined;
-
-    public type: Type | undefined = undefined;
-
-    public showMap: boolean = true;
-    public loading: boolean = false;
-    public canLoad: boolean = false;
-    public configCommentComponent: CommentConfig | undefined;
+    private readonly mapType: MapIconType = MapIconType.SPRING_SOURCE;
 
     constructor(
         private activatedRoute: ActivatedRoute,

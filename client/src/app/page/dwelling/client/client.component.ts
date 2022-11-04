@@ -10,6 +10,7 @@ import { AccountService } from '../../auth/login/service/account.service';
     templateUrl: './client.component.html',
 })
 export class ClientComponent implements OnInit {
+
     public dwellings: UserDwellingDetail[];
     public user: User | undefined;
     public loading: boolean = false;
@@ -30,7 +31,7 @@ export class ClientComponent implements OnInit {
         this.dwellingPath = this.router.url + ClientComponent.UrlStringClient;
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcManger.userIsManager().subscribe({
             error: (error) => {
                 if (error.status === 401) {

@@ -15,30 +15,18 @@ import { ChangeComponent } from '../change.component';
 export class ResidentComponent extends ChangeComponent {
     constructor(
         location: Location,
-        router: Router,
         route: ActivatedRoute,
         formBuilder: FormBuilder,
         svcNotification: NotificationService,
         svcDwelling: DwellingService
     ) {
-        super(location, router, route, formBuilder, svcNotification, svcDwelling);
+        super(location, route, formBuilder, svcNotification, svcDwelling);
         this.title = 'GENERAL.TEXT.RESIDENT';
     }
 
     override ngOnInit() {
         super.ngOnInit();
         this.loadCurrentResident();
-    }
-
-    private onSave() {
-        this.loadingPost = true;
-        const user: UserCreate = {
-            email: this.email.value,
-            first_name: this.first_name.value.toLowerCase().trim(),
-            last_name: this.last_name.value.toLowerCase().trim(),
-            phones: [{ phone_number: this.phone_number.value }],
-        };
-        return this.svcDwelling.changeCurrentResident(this.dwellingId, { user });
     }
 
     override saveAndExit() {
@@ -54,6 +42,17 @@ export class ResidentComponent extends ChangeComponent {
                 this.exit();
             },
         });
+    }
+
+    private onSave() {
+        this.loadingPost = true;
+        const user: UserCreate = {
+            email: this.email.value,
+            first_name: this.first_name.value.toLowerCase().trim(),
+            last_name: this.last_name.value.toLowerCase().trim(),
+            phones: [{ phone_number: this.phone_number.value }],
+        };
+        return this.svcDwelling.changeCurrentResident(this.dwellingId, { user });
     }
 
     private loadCurrentResident() {

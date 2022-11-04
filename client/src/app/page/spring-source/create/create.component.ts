@@ -67,14 +67,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadCache();
     }
 
-    // Override Address form receive
-    public override addressFormReceive(addressEmitter: AddressEmitter) {
-        super.addressFormReceive(addressEmitter);
-        this.springSourceForm = this.formBuilder.group({
-            address: addressEmitter.addressFormGroup,
-        });
-    }
-
     // Go to table spring source
     public exit() {
         this.router.navigate(['manager/springsources']);
@@ -128,6 +120,14 @@ export class CreateComponent extends CreateAddress implements OnInit {
     public tour() {
         const steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
+    // Override Address form receive
+      public override addressFormReceive(addressEmitter: AddressEmitter) {
+        super.addressFormReceive(addressEmitter);
+        this.springSourceForm = this.formBuilder.group({
+            address: addressEmitter.addressFormGroup,
+        });
     }
 
     private resetForm() {

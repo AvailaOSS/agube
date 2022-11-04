@@ -15,31 +15,18 @@ import { ChangeComponent } from '../change.component';
 export class OwnerComponent extends ChangeComponent {
     constructor(
         location: Location,
-        router: Router,
         route: ActivatedRoute,
         formBuilder: FormBuilder,
         svcNotification: NotificationService,
         svcDwelling: DwellingService
     ) {
-        super(location, router, route, formBuilder, svcNotification, svcDwelling);
+        super(location, route, formBuilder, svcNotification, svcDwelling);
         this.title = 'GENERAL.TEXT.OWNER';
     }
 
     override ngOnInit() {
         super.ngOnInit();
         this.loadCurrentOwner();
-    }
-
-    private onSave() {
-        this.loadingPost = true;
-        const user: UserCreate = {
-            email: this.email.value,
-            first_name: this.first_name.value.toLowerCase().trim(),
-            geolocation: [this.dwelling!.geolocation],
-            last_name: this.last_name.value.toLowerCase().trim(),
-            phones: [{ phone_number: this.phone_number.value }],
-        };
-        return this.svcDwelling.changeCurrentOwner(this.dwellingId, { user });
     }
 
     override saveAndExit() {
@@ -60,4 +47,17 @@ export class OwnerComponent extends ChangeComponent {
     private loadCurrentOwner() {
         this.svcDwelling.getCurrentOwner(this.dwellingId).subscribe((response) => (this.currentPerson = response.user));
     }
+
+    private onSave() {
+        this.loadingPost = true;
+        const user: UserCreate = {
+            email: this.email.value,
+            first_name: this.first_name.value.toLowerCase().trim(),
+            geolocation: [this.dwelling!.geolocation],
+            last_name: this.last_name.value.toLowerCase().trim(),
+            phones: [{ phone_number: this.phone_number.value }],
+        };
+        return this.svcDwelling.changeCurrentOwner(this.dwellingId, { user });
+    }
+
 }

@@ -57,11 +57,11 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     // -------------------------- Private Class vars -------------------------- //
     // You can override this url for use other maps
-    private zoom: number = MapComponent.zoom;
-    private readonly waitToMapReload: number = 1000;
     private static readonly mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
     private static readonly mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
     private static readonly mapSearchUrlSuffix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
+    private readonly waitToMapReload: number = 1000;
+    private zoom: number = MapComponent.zoom;
 
     // -------------------------- Angular Lifecycle -------------------------- //
 
@@ -86,89 +86,11 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         this.loadAddressAlreadyCreatedAndDrawMap();
     }
 
-    override ngAfterViewInit(): void {
+    public override ngAfterViewInit(): void {
         // do not execute ngAfterViewInit here
     }
 
-    // -------------------------- End Angular Lifecycle -------------------------- //
-    // -------------------------- Override Extends MapComponent -------------------------- //
 
-    protected override initializeMap(conf: ConfigureMap): void {
-        this.loadingMap = true;
-
-        setTimeout(() => {
-            if (this.map) {
-                this.map.remove();
-            }
-
-            this.zoom = conf.zoom;
-            this.map = L.map(this.baseConfiguration!.id, {
-                center: [+conf.center.lat, +conf.center.lon],
-                doubleClickZoom: false,
-                zoom: this.zoom,
-            });
-
-            const tiles = L.tileLayer(this.mapViewUrl, {
-                maxZoom: MapComponent.zoomMax,
-                minZoom: MapComponent.zoomMin,
-            });
-
-            tiles.addTo(this.map);
-
-            let marker: L.Marker | undefined = undefined;
-            if (conf.showMarker && (this.userHasMapClicked || this.automaticMode)) {
-                marker = this.setMarker(conf.center);
-            }
-
-            if (conf.otherPoints) {
-                conf.otherPoints.forEach((point) => this.setMarker(point));
-            }
-
-            this.loadingMap = false;
-
-            this.map.on('click', (e: MapEvent) => {
-                if (e.sourceTarget._animateToZoom) {
-                    this.zoom = e.sourceTarget._animateToZoom;
-                }
-
-                this.globalMapConfig = {
-                    center: {
-                        lat: e.latlng.lat,
-                        lon: e.latlng.lng,
-                        type: conf.center.type,
-                    },
-                    dragging: conf.dragging,
-                    height: conf.height,
-                    id: this.baseConfiguration!.id,
-                    otherPoints: conf.otherPoints,
-                    showMarker: true,
-                    zoom: this.zoom,
-                };
-
-                if (marker) {
-                    this.map.removeLayer(marker);
-                }
-
-                // duplicated command, it already running in putLocationInMap
-                // this.initializeMap(this.globalMapConfig);
-
-                this.searchLocationByCoordinate(
-                    Number(this.globalMapConfig.center.lat),
-                    Number(this.globalMapConfig.center.lon)
-                ).subscribe((response: LocationResponse) => {
-                    this.putLocationInMap(response, this.globalMapConfig);
-                    if (this.selectedStreetCandidate) {
-                        this.selectedStreetCandidate.zoom = this.zoom;
-                    }
-                });
-
-                this.userHasMapClicked = true;
-            });
-        }, this.waitToMapReload);
-    }
-
-    // -------------------------- End Override Extends MapComponent -------------------------- //
-    // -------------------------- Class Methods by Interface MapAddressCreator -------------------------- //
 
     public resetFormIfHasChanged(formName: string, changes: SimpleChanges): void {
         // if parent says reset form then reset
@@ -434,6 +356,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         }
     }
 
+
     private loadAddressExamplesFromResponse(response: LocationResponse[]) {
         if (!response.length) {
             // if no response, do nothing
@@ -447,4 +370,86 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         this.putLocationInMap(response[0]);
         this.loadingExamples = false;
     }
+
+     // -------------------------- End Angular Lifecycle -------------------------- //
+    // -------------------------- Override Extends MapComponent -------------------------- //
+
+    protected override initializeMap(conf: ConfigureMap): void {
+        this.loadingMap = true;
+
+        setTimeout(() => {
+            if (this.map) {
+                this.map.remove();
+            }
+
+            this.zoom = conf.zoom;
+            this.map = L.map(this.baseConfiguration!.id, {
+                center: [+conf.center.lat, +conf.center.lon],
+                doubleClickZoom: false,
+                zoom: this.zoom,
+            });
+
+            const tiles = L.tileLayer(this.mapViewUrl, {
+                maxZoom: MapComponent.zoomMax,
+                minZoom: MapComponent.zoomMin,
+            });
+
+            tiles.addTo(this.map);
+
+            let marker: L.Marker | undefined = undefined;
+            if (conf.showMarker && (this.userHasMapClicked || this.automaticMode)) {
+                marker = this.setMarker(conf.center);
+            }
+
+            if (conf.otherPoints) {
+                conf.otherPoints.forEach((point) => this.setMarker(point));
+            }
+
+            this.loadingMap = false;
+
+            this.map.on('click', (e: MapEvent) => {
+                if (e.sourceTarget._animateToZoom) {
+                    this.zoom = e.sourceTarget._animateToZoom;
+                }
+
+                this.globalMapConfig = {
+                    center: {
+                        lat: e.latlng.lat,
+                        lon: e.latlng.lng,
+                        type: conf.center.type,
+                    },
+                    dragging: conf.dragging,
+                    height: conf.height,
+                    id: this.baseConfiguration!.id,
+                    otherPoints: conf.otherPoints,
+                    showMarker: true,
+                    zoom: this.zoom,
+                };
+
+                if (marker) {
+                    this.map.removeLayer(marker);
+                }
+
+                // duplicated command, it already running in putLocationInMap
+                // this.initializeMap(this.globalMapConfig);
+
+                this.searchLocationByCoordinate(
+                    Number(this.globalMapConfig.center.lat),
+                    Number(this.globalMapConfig.center.lon)
+                ).subscribe((response: LocationResponse) => {
+                    this.putLocationInMap(response, this.globalMapConfig);
+                    if (this.selectedStreetCandidate) {
+                        this.selectedStreetCandidate.zoom = this.zoom;
+                    }
+                });
+
+                this.userHasMapClicked = true;
+            });
+        }, this.waitToMapReload);
+    }
+
+    // -------------------------- End Override Extends MapComponent -------------------------- //
+    // -------------------------- Class Methods by Interface MapAddressCreator -------------------------- //
+
+
 }
