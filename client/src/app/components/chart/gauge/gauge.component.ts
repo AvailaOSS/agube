@@ -8,14 +8,14 @@ import { Type } from '../chart-configure';
     templateUrl: '../chart.component.html',
 })
 export class GaugeComponent extends ChartComponent implements OnChanges {
-    protected override type: Type = Type.gauge;
     protected override header = ['Label', 'Value'];
+    protected override type: Type = Type.gauge;
 
     constructor() {
         super();
     }
 
-    override ngOnChanges(): void {
+    public override ngOnChanges(): void {
         super.ngOnChanges();
     }
 }

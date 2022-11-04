@@ -200,7 +200,7 @@ export class UserService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
@@ -1182,7 +1182,7 @@ export class UserService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['image/jpeg', 'image/png'];
+    const httpHeaderAccepts: string[] = ['image/jpeg', 'image/png'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
