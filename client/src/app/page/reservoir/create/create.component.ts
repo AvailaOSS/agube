@@ -71,19 +71,6 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadCache();
     }
 
-    public override addressFormReceive(addressEmitter: AddressEmitter) {
-        super.addressFormReceive(addressEmitter);
-        this.reservoirForm = this.formBuilder.group({
-            address: addressEmitter.addressFormGroup,
-            capacity: this.capacity,
-            inletFlow: this.inletFlow,
-            outletFlow: this.outletFlow,
-            water_meter: this.formBuilder.group({
-                code: this.code,
-            }),
-        });
-    }
-
     public exit() {
         this.router.navigate(['manager/reservoirs']);
     }
@@ -168,6 +155,19 @@ export class CreateComponent extends CreateAddress implements OnInit {
     public tour() {
         const steps: string[] = ['GenericFilterCreateStep', 'GenericMapCreateStep', 'GenericFormCreateStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
+    }
+
+    public override addressFormReceive(addressEmitter: AddressEmitter) {
+        super.addressFormReceive(addressEmitter);
+        this.reservoirForm = this.formBuilder.group({
+            address: addressEmitter.addressFormGroup,
+            capacity: this.capacity,
+            inletFlow: this.inletFlow,
+            outletFlow: this.outletFlow,
+            water_meter: this.formBuilder.group({
+                code: this.code,
+            }),
+        });
     }
 
     private resetForm() {

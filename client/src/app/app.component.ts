@@ -13,6 +13,7 @@ import { Language } from './utils/language';
     templateUrl: './app.component.html',
 })
 export class AppComponent {
+
     public icons: Icon[] = [
         {
             name: 'person',
@@ -145,15 +146,16 @@ export class AppComponent {
         });
     }
 
+    public selectLanguage(language: Language) {
+        this.selectedLanguage = language;
+        this.translate.setDefaultLang(language.code);
+        this.translate.use(language.code);
+    }
+
     private loadIcons(icons: Icon[]) {
         icons.forEach((icon) =>
             this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(icon.path))
         );
     }
 
-    public selectLanguage(language: Language) {
-        this.selectedLanguage = language;
-        this.translate.setDefaultLang(language.code);
-        this.translate.use(language.code);
-    }
 }

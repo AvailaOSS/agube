@@ -40,24 +40,20 @@ export class DetailComponent implements OnInit {
     public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
+    public type: Type | undefined = undefined;
+    public showMap: boolean = true;
+    public loading: boolean = false;
+    public configCommentComponent: CommentConfig | undefined;
+    public canLoad: boolean = false;
 
     // map config
     public mode: string = 'map';
-    private readonly mapType: MapIconType = MapIconType.HOUSE;
+    public waterMeterId: number | undefined;
     private mapZoomDefault: number = 15;
     private mapStreetViewPositionDegree: number = 0;
     private mapHeight: string = '380px';
     private mapId: string = 'detail_map';
-    public waterMeterId: number | undefined;
-
-    public type: Type | undefined = undefined;
-
-    public showMap: boolean = true;
-
-    public loading: boolean = false;
-    public configCommentComponent: CommentConfig | undefined;
-
-    public canLoad: boolean = false;
+    private readonly mapType: MapIconType = MapIconType.HOUSE;
 
     constructor(
         private router: Router,

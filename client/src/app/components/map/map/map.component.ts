@@ -15,22 +15,22 @@ export class MapComponent implements AfterViewInit {
 
     public selectedStreetCandidate: LocationResponse | undefined;
 
-    protected map: any;
 
     public static readonly zoom: number = 18;
     public static readonly zoomMax: number = 19;
     public static readonly zoomMin: number = 4;
-
-    protected mapViewUrl: string = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
 
     // circle
     protected static readonly circleColor = '#7fd3f7';
     protected static readonly circleOpacity = 0.5;
     protected static readonly circleRadius = 10;
 
+    protected map: any;
+    protected mapViewUrl: string = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
+
     constructor(protected router: Router) {}
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         if (!this.baseConfiguration) {
             throw new Error('Configure Map before call');
         }

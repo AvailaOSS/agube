@@ -13,6 +13,7 @@ import { map, Observable, startWith } from 'rxjs';
     templateUrl: './change.component.html',
 })
 export class ChangeComponent implements OnInit {
+
     public title: string = '';
     public typePerson = { typePerson: this.title };
     public personForm: FormGroup;
@@ -35,7 +36,6 @@ export class ChangeComponent implements OnInit {
 
     constructor(
         private location: Location,
-        private router: Router,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         public svcNotification: NotificationService,
