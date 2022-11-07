@@ -55,8 +55,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Create your own [gitlab token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 ```bash
-npm config set @availaoss:registry https://npm.pkg.github.com
-npm login --scope=@availaoss --registry=https://npm.pkg.github.com/
-npm config set registry https://npm.pkg.github.com
-npm run package-publish
+npm config set @availaoss:registry https://npm.pkg.github.com/
+npm config set //npm.pkg.github.com/:_authToken $GITHUB_AUTH_TOKEN
+```
+or
+```bash
+echo @availaoss:registry=https://npm.pkg.github.com >> .npmrc
 ```
