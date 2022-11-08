@@ -247,10 +247,10 @@ export class SpringSourceService {
     return this.httpClient.get<SpringSource>(
       `${this.basePath}/springsource/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
