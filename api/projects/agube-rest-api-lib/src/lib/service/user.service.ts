@@ -377,10 +377,10 @@ export class UserService {
         String(id)
       )}/phone/${encodeURIComponent(String(phoneId))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -443,10 +443,10 @@ export class UserService {
     return this.httpClient.get<PersonConfig>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/config`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -509,10 +509,10 @@ export class UserService {
     return this.httpClient.get<Array<UserDwellingDetail>>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/dwelling`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -575,10 +575,10 @@ export class UserService {
     return this.httpClient.get<UserDetail>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -641,10 +641,10 @@ export class UserService {
     return this.httpClient.get<Array<UserGeolocation>>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/geolocation`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -707,10 +707,10 @@ export class UserService {
     return this.httpClient.get<Array<UserPhone>>(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/phone`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -790,10 +790,10 @@ export class UserService {
       `${this.basePath}/user/${encodeURIComponent(Number(id))}/config/update`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -873,10 +873,10 @@ export class UserService {
       `${this.basePath}/user/${encodeURIComponent(String(id))}/update`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -969,10 +969,10 @@ export class UserService {
       )}/geolocation/${encodeURIComponent(String(geolocationId))}`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1065,10 +1065,10 @@ export class UserService {
       )}/phone/${encodeURIComponent(String(phoneId))}`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1128,11 +1128,11 @@ export class UserService {
     return this.httpClient.get(
       `${this.basePath}/user/${encodeURIComponent(String(id))}/photo`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
-        responseType: 'blob',
         reportProgress: reportProgress,
+        responseType: 'blob',
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1216,11 +1216,11 @@ export class UserService {
       `${this.basePath}/user/photo`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         responseType: 'blob',
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

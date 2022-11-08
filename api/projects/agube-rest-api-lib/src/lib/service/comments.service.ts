@@ -331,10 +331,10 @@ export class CommentsService {
       `${this.basePath}/comments/comment/${encodeURIComponent(String(id))}`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

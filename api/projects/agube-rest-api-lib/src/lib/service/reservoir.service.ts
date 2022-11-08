@@ -338,10 +338,10 @@ export class ReservoirService {
     return this.httpClient.get<Owner>(
       `${this.basePath}/reservoir/${encodeURIComponent(String(id))}/owner`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -406,10 +406,10 @@ export class ReservoirService {
         String(id)
       )}/water-meter`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -474,10 +474,10 @@ export class ReservoirService {
         String(id)
       )}/water-meter/historical`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -540,10 +540,10 @@ export class ReservoirService {
     return this.httpClient.get<ReservoirCreate>(
       `${this.basePath}/reservoir/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -606,10 +606,10 @@ export class ReservoirService {
     return this.httpClient.get<Array<Comment>>(
       `${this.basePath}/reservoir/${encodeURIComponent(String(id))}/comment`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -685,10 +685,10 @@ export class ReservoirService {
         String(id)
       )}/water-meter/${encodeURIComponent(String(chunk))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -740,10 +740,10 @@ export class ReservoirService {
     return this.httpClient.get<Array<ReservoirDetail>>(
       `${this.basePath}/reservoir`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -795,10 +795,10 @@ export class ReservoirService {
     return this.httpClient.get<ReservoirResume>(
       `${this.basePath}/reservoir/resume`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -899,11 +899,11 @@ export class ReservoirService {
         String(id)
       )}/water-meter/measurements`,
       {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        params: queryParameters,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

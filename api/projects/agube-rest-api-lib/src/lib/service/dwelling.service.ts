@@ -366,10 +366,10 @@ export class DwellingService {
       `${this.basePath}/dwelling/create`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -438,10 +438,10 @@ export class DwellingService {
       `${this.basePath}/dwelling/comment`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -504,10 +504,10 @@ export class DwellingService {
     return this.httpClient.get<WaterMeter>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/water-meter`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -572,10 +572,10 @@ export class DwellingService {
         String(id)
       )}/water-meter/historical`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -638,10 +638,10 @@ export class DwellingService {
     return this.httpClient.get<Owner>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/owner`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -704,10 +704,10 @@ export class DwellingService {
     return this.httpClient.get<Resident>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -783,10 +783,10 @@ export class DwellingService {
         String(id)
       )}/water-meter/${encodeURIComponent(String(chunk))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -849,10 +849,10 @@ export class DwellingService {
     return this.httpClient.get<DwellingCreate>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -916,11 +916,11 @@ export class DwellingService {
     return this.httpClient.get<Array<DwellingDetail>>(
       `${this.basePath}/dwelling`,
       {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        params: queryParameters,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -972,10 +972,10 @@ export class DwellingService {
     return this.httpClient.get<DwellingResume>(
       `${this.basePath}/dwelling/resume`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1041,10 +1041,10 @@ export class DwellingService {
       )}/owner-as-resident`,
       null,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1145,11 +1145,11 @@ export class DwellingService {
         String(id)
       )}/water-meter/measurements/`,
       {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        params: queryParameters,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1212,10 +1212,10 @@ export class DwellingService {
     return this.httpClient.get<Array<Comment>>(
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/comment`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -1292,11 +1292,11 @@ export class DwellingService {
         String(id)
       )}/month-consumption/`,
       {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
+        params: queryParameters,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

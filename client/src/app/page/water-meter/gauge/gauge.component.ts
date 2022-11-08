@@ -23,9 +23,9 @@ export class GaugeComponent implements OnChanges {
             minorTicks: 10,
             redFrom: 90,
             redTo: 100,
+            width: 500,
             yellowFrom: 70,
             yellowTo: 90,
-            width: 500,
         },
     };
 
@@ -51,9 +51,9 @@ export class GaugeComponent implements OnChanges {
                 minorTicks: 10,
                 redFrom: 90,
                 redTo: 100,
+                width: 500,
                 yellowFrom: 70,
                 yellowTo: 90,
-                width: 500,
             },
         };
     }
