@@ -294,10 +294,10 @@ export class DwellingService {
       `${this.basePath}/dwelling/${encodeURIComponent(String(id))}/resident`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

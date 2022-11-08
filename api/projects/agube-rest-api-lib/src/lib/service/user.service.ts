@@ -298,10 +298,10 @@ export class UserService {
         String(id)
       )}/geolocation/${encodeURIComponent(String(geolocationId))}`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
