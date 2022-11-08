@@ -42,17 +42,17 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     // -------------------------- Public Class vars -------------------------- //
     @Input() public addressInputForm!: InputForm;
-    @Input() public resetForm: boolean = false;
+    @Input() public resetForm = false;
 
     @ViewChild(MatSelectionList) public addressExampleSelector: MatSelectionList | undefined;
 
     @Output() public addressForm: EventEmitter<AddressEmitter> = new EventEmitter<AddressEmitter>();
 
-    public userHasFiltered: boolean = false;
-    public userHasMapClicked: boolean = false;
-    public automaticMode: boolean = false;
-    public loadingExamples: boolean = false;
-    public loadingMap: boolean = false;
+    public userHasFiltered = false;
+    public userHasMapClicked = false;
+    public automaticMode = false;
+    public loadingExamples = false;
+    public loadingMap = false;
     public globalMapConfig: ConfigureMap | undefined;
 
     // -------------------------- Private Class vars -------------------------- //
@@ -60,8 +60,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
     private static readonly mapSearchCoordinatesUrlPrefix: string = `https://nominatim.openstreetmap.org/reverse?`;
     private static readonly mapSearchUrlPrefix: string = `https://nominatim.openstreetmap.org/search.php?q=`;
     private static readonly mapSearchUrlSuffix: string = `&polygon_geojson=1&limit=7&format=jsonv2&addressdetails=1`;
-    private readonly waitToMapReload: number = 1000;
-    private zoom: number = MapComponent.zoom;
+    private readonly waitToMapReload = 1000;
+    private zoom = MapComponent.zoom;
 
     // -------------------------- Angular Lifecycle -------------------------- //
 
@@ -110,8 +110,8 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
             this.addressAlreadyCreated = response;
             // if has some address set as selected option in filter
             if (this.baseConfiguration && this.baseConfiguration.selectOptionFilter === true) {
-                const lat: number = Number(this.baseConfiguration!.center.lat);
-                const lon: number = Number(this.baseConfiguration!.center.lon);
+                const lat = Number(this.baseConfiguration!.center.lat);
+                const lon = Number(this.baseConfiguration!.center.lon);
                 // go to the location configured
                 this.searchLocationByCoordinate(lat, lon).subscribe((response: LocationResponse) => {
                     // ensure that lat and lon is the user settled
@@ -158,7 +158,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         let lat: string = location.lat;
         let lon: string = location.lon;
 
-        let zoom: number = location.zoom;
+        let zoom = location.zoom;
         if (!location.zoom) {
             zoom = MapComponent.zoom;
             location.zoom = MapComponent.zoom;

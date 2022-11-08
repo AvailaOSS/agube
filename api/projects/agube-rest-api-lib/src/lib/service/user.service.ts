@@ -91,7 +91,7 @@ export class UserService {
     id: number,
     data: UserGeolocation,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -174,7 +174,7 @@ export class UserService {
     id: number,
     data: UserPhone,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -257,7 +257,7 @@ export class UserService {
     geolocationId: number,
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (geolocationId === null || geolocationId === undefined) {
       throw new Error(
@@ -336,7 +336,7 @@ export class UserService {
     id: number,
     phoneId: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -410,7 +410,7 @@ export class UserService {
   public getConfig(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -476,7 +476,7 @@ export class UserService {
   public getDwellingDetail(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -542,7 +542,7 @@ export class UserService {
   public getUserDetail(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -608,7 +608,7 @@ export class UserService {
   public getUserGeolocation(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -674,7 +674,7 @@ export class UserService {
   public getUserPhone(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -745,7 +745,7 @@ export class UserService {
     id: number,
     data: PersonConfig,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -828,7 +828,7 @@ export class UserService {
     id: number,
     data: UserDetail,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -916,7 +916,7 @@ export class UserService {
     id: number,
     data: UserGeolocation,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (geolocationId === null || geolocationId === undefined) {
       throw new Error(
@@ -1012,7 +1012,7 @@ export class UserService {
     phoneId: number,
     data: UserPhone,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -1098,7 +1098,7 @@ export class UserService {
   public getUserPhoto(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -1162,7 +1162,7 @@ export class UserService {
   public setUserPhoto(
     photo: Blob,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (photo === null || photo === undefined) {
       throw new Error(
@@ -1218,8 +1218,8 @@ export class UserService {
       {
         headers: headers,
         observe: observe,
-        responseType: 'blob',
         reportProgress: reportProgress,
+        responseType: 'blob',
         withCredentials: this.configuration.withCredentials,
       }
     );

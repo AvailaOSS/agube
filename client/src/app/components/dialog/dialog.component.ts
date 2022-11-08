@@ -18,8 +18,8 @@ export class DialogComponent extends CreateAddress implements OnInit {
     public geolocation: Geolocation | undefined;
 
     // Variable load form
-    public loadEditForm: boolean = false;
-    public loadCreateForm: boolean = false;
+    public loadEditForm = false;
+    public loadCreateForm = false;
 
     constructor(
         public dialogRef: MatDialogRef<DialogComponent>,

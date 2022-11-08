@@ -36,7 +36,7 @@ export class DetailComponent implements OnInit {
     // pagination
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     public pages = ['5', '10', '15'];
-    public pageSize: number = +this.pages[0];
+    public pageSize = +this.pages[0];
     public page: number | undefined;
     public pageIndex: number | undefined = 1;
 
@@ -48,14 +48,14 @@ export class DetailComponent implements OnInit {
     // dates
     public dateStart = new FormControl();
     public dateEnd = new FormControl();
-    public isFirstDateValid: boolean = true;
+    public isFirstDateValid = true;
 
     // others ?
     public next: string = '';
     public previous: string = '';
     public properties: any;
 
-    private readonly measureAllowEdit: number = 24;
+    private readonly measureAllowEdit = 24;
 
     constructor(
         protected svcWaterMeterManager: WaterMeterManager,

@@ -16,7 +16,7 @@ import { WaterMeterDialogData } from './dialog-data';
     templateUrl: './dialog.component.html',
 })
 export class WaterMeterDialogComponent {
-    public id: number = -1;
+    public id = -1;
     public type: WaterMeterType = WaterMeterType.UNKNOWN;
     public waterMeterForm: FormGroup;
     public code = new FormControl('', [Validators.required]);

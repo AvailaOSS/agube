@@ -14,7 +14,7 @@ import { CommentConfig, CommentCreate } from '../type';
 })
 export class ListComponent implements OnInit {
     @Input() public config: CommentConfig | undefined;
-    public loadingComments: boolean = false;
+    public loadingComments = false;
     public comments: Comment[] = [];
 
     constructor(

@@ -70,7 +70,7 @@ export class SpringSourceService {
   public createSpringSource(
     data: SpringSource,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -142,7 +142,7 @@ export class SpringSourceService {
   public createSpringSourceComment(
     data: SpringSourceCommentCreate,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -214,7 +214,7 @@ export class SpringSourceService {
   public getSpringSource(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -280,7 +280,7 @@ export class SpringSourceService {
   public getSpringSourceComments(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -341,7 +341,7 @@ export class SpringSourceService {
   ): Observable<HttpEvent<SpringSourceResume>>;
   public getSpringSourceResume(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -396,7 +396,7 @@ export class SpringSourceService {
   ): Observable<HttpEvent<Array<SpringSourceDetail>>>;
   public getSpringSources(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

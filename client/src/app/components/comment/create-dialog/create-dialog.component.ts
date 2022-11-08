@@ -15,9 +15,9 @@ export class CreateDialogComponent {
     public message = new FormControl('', [Validators.required]);
 
     // verification  textarea length
-    public messageLength: Number = 0;
+    public messageLength = 0;
     public loadMessageLength = false;
-    public allowedMessageLength: Number = 58;
+    public allowedMessageLength = 58;
 
     constructor(
         protected managerComment: CommentManager,

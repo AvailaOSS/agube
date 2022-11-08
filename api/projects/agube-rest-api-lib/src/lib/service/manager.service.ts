@@ -64,7 +64,7 @@ export class ManagerService {
   ): Observable<HttpEvent<Manager>>;
   public getManagerByUser(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -116,7 +116,7 @@ export class ManagerService {
   ): Observable<HttpEvent<ManagerConfiguration>>;
   public getManagerConfiguration(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -176,7 +176,7 @@ export class ManagerService {
   public updateManagerConfiguration(
     data: ManagerConfiguration,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -243,7 +243,7 @@ export class ManagerService {
   ): Observable<HttpEvent<UserIsManager>>;
   public userIsManager(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -298,7 +298,7 @@ export class ManagerService {
   ): Observable<HttpEvent<ManagerMessage>>;
   public getManagerMessage(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -358,7 +358,7 @@ export class ManagerService {
   public updateManagerMessage(
     data: ManagerMessage,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(

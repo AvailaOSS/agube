@@ -78,7 +78,7 @@ export class TokenService {
   public tokenAuthCreate(
     data: JSONWebToken,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -152,7 +152,7 @@ export class TokenService {
   public tokenRefreshCreate(
     data: RefreshJSONWebToken,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(

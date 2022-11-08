@@ -21,7 +21,7 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     // Variables public
-    @Input() public userId: number = -1;
+    @Input() public userId = -1;
     public springSourceForm: FormGroup | undefined;
     public code = new FormControl('');
     public loadingPost = false;

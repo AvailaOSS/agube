@@ -67,7 +67,7 @@ export class OwnerService {
   public getOwner(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false,
+    reportProgress = false,
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -128,7 +128,7 @@ export class OwnerService {
   ): Observable<HttpEvent<Array<OwnerDetail>>>;
   public getOwners(
     observe: any = 'body',
-    reportProgress: boolean = false,
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

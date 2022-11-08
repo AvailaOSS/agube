@@ -66,7 +66,7 @@ export class GeolocationService {
   public getGeolocation(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -137,7 +137,7 @@ export class GeolocationService {
     id: number,
     data: Geolocation,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(

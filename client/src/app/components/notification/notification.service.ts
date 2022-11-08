@@ -12,7 +12,7 @@ export class NotificationService {
 
     constructor(private _snackBar: MatSnackBar) {}
 
-    public success(data: Data, durationInSeconds: number = this.defaultDuration) {
+    public success(data: Data, durationInSeconds = this.defaultDuration) {
         this.notify({
             data,
             durationInSeconds,
@@ -20,7 +20,7 @@ export class NotificationService {
         });
     }
 
-    public info(data: Data, durationInSeconds: number = this.defaultDuration) {
+    public info(data: Data, durationInSeconds = this.defaultDuration) {
         this.notify({
             data,
             durationInSeconds,
@@ -28,7 +28,7 @@ export class NotificationService {
         });
     }
 
-    public warning(data: Data, durationInSeconds: number = this.defaultDuration) {
+    public warning(data: Data, durationInSeconds = this.defaultDuration) {
         this.notify({
             data,
             durationInSeconds,

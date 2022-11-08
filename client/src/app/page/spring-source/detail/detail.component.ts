@@ -35,15 +35,15 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 export class DetailComponent implements OnInit {
 
     // map
-    public canLoadStreetView: boolean = false;
+    public canLoadStreetView = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
 
     public configCommentComponent: CommentConfig | undefined;
-    public canLoad: boolean = false;
-    public loading: boolean = false;
-    public showMap: boolean = true;
+    public canLoad = false;
+    public loading = false;
+    public showMap = true;
 
     // variables
     public springSourceId: number | undefined;
@@ -55,8 +55,8 @@ export class DetailComponent implements OnInit {
     public mode: string = 'map';
     public waterMeter: WaterMeter | undefined;
     public waterMeterId: number | undefined;
-    private mapZoomDefault: number = 15;
-    private mapStreetViewPositionDegree: number = 0;
+    private mapZoomDefault = 15;
+    private mapStreetViewPositionDegree = 0;
     private mapHeight: string = '500px';
     private mapId: string = 'detail_map';
     private readonly mapType: MapIconType = MapIconType.SPRING_SOURCE;

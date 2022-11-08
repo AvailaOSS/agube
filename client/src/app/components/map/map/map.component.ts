@@ -16,9 +16,9 @@ export class MapComponent implements AfterViewInit {
     public selectedStreetCandidate: LocationResponse | undefined;
 
 
-    public static readonly zoom: number = 18;
-    public static readonly zoomMax: number = 19;
-    public static readonly zoomMin: number = 4;
+    public static readonly zoom = 18;
+    public static readonly zoomMax = 19;
+    public static readonly zoomMin = 4;
 
     // circle
     protected static readonly circleColor = '#7fd3f7';
@@ -26,7 +26,7 @@ export class MapComponent implements AfterViewInit {
     protected static readonly circleRadius = 10;
 
     protected map: any;
-    protected mapViewUrl: string = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
+    protected mapViewUrl = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}';
 
     constructor(protected router: Router) {}
 

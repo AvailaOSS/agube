@@ -15,7 +15,7 @@ import { MeasureDialog } from './measure-dialog';
     templateUrl: './measure-dialog.component.html',
 })
 export class MeasureDialogComponent extends MeasureDialog {
-    public waterMeterId: number = -1;
+    public waterMeterId = -1;
     public measureForm: FormGroup;
     public override measurement = new FormControl('', [Validators.required]);
     public override date = new FormControl(new Date(), [Validators.required, noFutureDate]);

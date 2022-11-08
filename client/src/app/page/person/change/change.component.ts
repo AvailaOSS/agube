@@ -30,7 +30,7 @@ export class ChangeComponent implements OnInit {
     public dwelling: DwellingCreate | undefined;
     public currentPerson: UserCreate | undefined;
 
-    public dwellingId: number = -1;
+    public dwellingId = -1;
 
     public loadingPost = false;
 

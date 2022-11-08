@@ -13,8 +13,8 @@ import { passwordMatches } from './password-validator';
     templateUrl: './enable-account.component.html',
 })
 export class EnableAccountComponent {
-    public hidePassword: boolean = true;
-    public hideConfirmPassword: boolean = true;
+    public hidePassword = true;
+    public hideConfirmPassword = true;
     public activationForm: FormGroup;
     public activationCode = new FormControl('', [Validators.required]);
     public username = new FormControl('', [Validators.required]);

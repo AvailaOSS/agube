@@ -81,7 +81,7 @@ export class ReservoirService {
     id: number,
     data: WaterMeter,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -161,7 +161,7 @@ export class ReservoirService {
   public createReservoir(
     data: ReservoirCreate,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -233,7 +233,7 @@ export class ReservoirService {
   public createReservoirComment(
     data: ReservoirCommentCreate,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -305,7 +305,7 @@ export class ReservoirService {
   public getCurrentReservoirOwner(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -371,7 +371,7 @@ export class ReservoirService {
   public getCurrentReservoirWaterMeter(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -439,7 +439,7 @@ export class ReservoirService {
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -507,7 +507,7 @@ export class ReservoirService {
   public getReservoir(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -573,7 +573,7 @@ export class ReservoirService {
   public getReservoirComments(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -644,7 +644,7 @@ export class ReservoirService {
     chunk: number,
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (chunk === null || chunk === undefined) {
       throw new Error(
@@ -713,7 +713,7 @@ export class ReservoirService {
   ): Observable<HttpEvent<Array<ReservoirDetail>>>;
   public getReservoirs(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -768,7 +768,7 @@ export class ReservoirService {
   ): Observable<HttpEvent<ReservoirResume>>;
   public getResume(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -848,7 +848,7 @@ export class ReservoirService {
     startDate?: string,
     endDate?: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(

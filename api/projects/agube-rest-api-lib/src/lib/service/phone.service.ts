@@ -61,7 +61,7 @@ export class PhoneService {
   ): Observable<HttpEvent<Array<Phone>>>;
   public getPhones(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

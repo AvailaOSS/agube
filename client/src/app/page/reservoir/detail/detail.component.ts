@@ -34,26 +34,26 @@ import { Detail } from './detail';
     templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
-    public canLoad: boolean = true;
+    public canLoad = true;
     public configCommentComponent: CommentConfig | undefined;
 
     // map
-    public canLoadStreetView: boolean = false;
+    public canLoadStreetView = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
 
     public reservoirId: number | undefined;
     public reservoir: ReservoirCreate | undefined;
 
-    public showMap: boolean = true;
+    public showMap = true;
     public type: Type | undefined = undefined;
-    public loading: boolean = false;
+    public loading = false;
 
     // map config
     public mode: string = 'map';
     private readonly mapType: MapIconType = MapIconType.RESERVOIR;
-    private mapZoomDefault: number = 15;
-    private mapStreetViewPositionDegree: number = 0;
+    private mapZoomDefault = 15;
+    private mapStreetViewPositionDegree = 0;
     private mapHeight: string = '500px';
     private mapId: string = 'detail_map';
     public waterMeterId: number | undefined;

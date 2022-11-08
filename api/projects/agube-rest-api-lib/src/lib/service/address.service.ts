@@ -61,7 +61,7 @@ export class AddressService {
   ): Observable<HttpEvent<Array<Address>>>;
   public getAddress(
     observe: any = 'body',
-    reportProgress: boolean = false,
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

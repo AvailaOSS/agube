@@ -67,7 +67,7 @@ export class ResidentService {
   public getResident(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false,
+    reportProgress = false,
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -128,7 +128,7 @@ export class ResidentService {
   ): Observable<HttpEvent<Array<ResidentDetail>>>;
   public getResidents(
     observe: any = 'body',
-    reportProgress: boolean = false,
+    reportProgress = false,
   ): Observable<any> {
     let headers = this.defaultHeaders;
 

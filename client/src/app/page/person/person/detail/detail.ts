@@ -30,8 +30,8 @@ export class Detail {
     // map config
     public mode: string = 'map';
     private mapId = 'detail_map';
-    private mapZoomDefault: number = 15;
-    private mapStreetViewPositionDegree: number = 0;
+    private mapZoomDefault = 15;
+    private mapStreetViewPositionDegree = 0;
     private mapHeight: string = '500px';
 
     constructor(

@@ -43,7 +43,7 @@ export class TableResidentComponent extends PersonTable implements OnInit {
                 });
                 this.dataSource = new MatTableDataSource(list);
                 this.dataSource.paginator = this.paginator!;
-                this.dataSource.filterPredicate = (data: ITableResident, filter: string): boolean => {
+                this.dataSource.filterPredicate = (data: ITableResident, filter: string) => {
                     const dataStr = Object.keys(data)
                         .reduce((currentTerm: string, key: string) => {
                             return currentTerm + (data as { [key: string]: any })[key] + '◬';

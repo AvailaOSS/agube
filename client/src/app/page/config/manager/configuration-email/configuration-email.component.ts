@@ -11,9 +11,9 @@ import { TranslateService } from '@ngx-translate/core';
     templateUrl: './configuration-email.component.html',
 })
 export class ConfigurationEmailComponent implements OnInit {
-    public loadSave: boolean = false;
+    public loadSave = false;
     public message = new FormControl('', [Validators.required]);
-    public checked: boolean = false;
+    public checked = false;
 
     constructor(
         private svcManager: ManagerService,

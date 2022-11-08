@@ -15,11 +15,11 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
     templateUrl: './address.component.html',
 })
 export class AddressComponent extends CreateAddress {
-    public userId: number = -1;
+    public userId = -1;
 
     public geolocationList: EditableGeolocation[] = [];
 
-    public canAddAddress: boolean = false;
+    public canAddAddress = false;
 
     constructor(
         protected svcNotification: NotificationService,

@@ -83,7 +83,7 @@ export class DwellingService {
     id: number,
     data: WaterMeter,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -166,7 +166,7 @@ export class DwellingService {
     id: number,
     data: Owner,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -249,7 +249,7 @@ export class DwellingService {
     id: number,
     data: Resident,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -327,7 +327,7 @@ export class DwellingService {
   public createDwelling(
     data: DwellingCreate,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -399,7 +399,7 @@ export class DwellingService {
   public createDwellingComment(
     data: DwellingCommentCreate,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -471,7 +471,7 @@ export class DwellingService {
   public getCurrentDwellingWaterMeter(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -537,7 +537,7 @@ export class DwellingService {
   public getCurrentDwellingWaterMeterHistorical(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -605,7 +605,7 @@ export class DwellingService {
   public getCurrentOwner(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -671,7 +671,7 @@ export class DwellingService {
   public getCurrentResident(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -742,7 +742,7 @@ export class DwellingService {
     chunk: number,
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (chunk === null || chunk === undefined) {
       throw new Error(
@@ -816,7 +816,7 @@ export class DwellingService {
   public getDwelling(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -882,7 +882,7 @@ export class DwellingService {
   public getDwellings(
     inAlert?: boolean,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let queryParameters = new HttpParams({
       encoder: new CustomHttpUrlEncodingCodec(),
@@ -945,7 +945,7 @@ export class DwellingService {
   ): Observable<HttpEvent<DwellingResume>>;
   public getResume(
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     let headers = this.defaultHeaders;
 
@@ -1005,7 +1005,7 @@ export class DwellingService {
   public setOwnerAsResident(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -1094,7 +1094,7 @@ export class DwellingService {
     startDate?: string,
     endDate?: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -1179,7 +1179,7 @@ export class DwellingService {
   public getDwellingComments(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -1250,7 +1250,7 @@ export class DwellingService {
     id: number,
     date?: string,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(

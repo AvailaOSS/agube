@@ -10,14 +10,14 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
     templateUrl: './parameters.component.html',
 })
 export class ParametersComponent implements OnInit {
-    public loadSave: boolean = false;
+    public loadSave = false;
     public parametersForm: FormGroup;
     public hook_price = new FormControl('', [Validators.required]);
     public max_daily_consumption = new FormControl('', [Validators.required]);
 
     public releaseDate: Date | undefined = undefined;
 
-    private static seconds: number = 1000;
+    private static seconds = 1000;
 
     constructor(
         private readonly svcManager: ManagerService,

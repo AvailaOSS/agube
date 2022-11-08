@@ -13,8 +13,8 @@ export class ClientComponent implements OnInit {
 
     public dwellings: UserDwellingDetail[];
     public user: User | undefined;
-    public loading: boolean = false;
-    public userIsManager: boolean = false;
+    public loading = false;
+    public userIsManager = false;
 
     public dwellingPath: string = '';
 

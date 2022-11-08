@@ -12,7 +12,7 @@ import { passwordMatches } from './password-validator';
     templateUrl: './password.component.html',
 })
 export class PasswordComponent {
-    public loadSave: boolean = false;
+    public loadSave = false;
     public passwordForm: FormGroup;
     public username = new FormControl('', [Validators.required]);
     public password = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
@@ -24,8 +24,8 @@ export class PasswordComponent {
     ]);
 
     public releaseDate: Date | undefined = undefined;
-    public hidePassword: boolean = true;
-    public hideConfirmPassword: boolean = true;
+    public hidePassword = true;
+    public hideConfirmPassword = true;
     public isEdge = isEdge();
 
     constructor(

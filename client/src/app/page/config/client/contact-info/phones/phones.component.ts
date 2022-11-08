@@ -11,9 +11,9 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
     templateUrl: './phones.component.html',
 })
 export class PhonesComponent {
-    public userId: number = -1;
+    public userId = -1;
     public phones: EditablePhone[] = [];
-    public canAddPhone: boolean = false;
+    public canAddPhone = false;
     public newPhone = new FormControl('', [
         Validators.required,
         Validators.pattern('[- +()0-9]+'),

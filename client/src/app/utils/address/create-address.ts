@@ -23,7 +23,7 @@ export class CreateAddress {
         village: new FormControl(''),
     };
 
-    public resetChildForm: boolean = false;
+    public resetChildForm = false;
 
     // Map configuration for select Address
     public configureMap: ConfigureMap = {

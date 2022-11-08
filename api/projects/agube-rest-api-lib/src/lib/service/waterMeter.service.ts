@@ -74,7 +74,7 @@ export class WaterMeterService {
     id: number,
     data: WaterMeterMeasurement,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(

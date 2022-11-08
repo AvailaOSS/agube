@@ -14,7 +14,7 @@ export class ManagerComponent implements OnInit {
     // map config parameters
     public configureMap: ConfigureMap | undefined;
     private readonly mapId: string = 'manager_full_houses_map';
-    private readonly mapZoom: number = 14;
+    private readonly mapZoom = 14;
     private readonly mapHeight: string = '450px';
     private readonly mapWidth: string = '850px';
 

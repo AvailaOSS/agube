@@ -26,7 +26,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     public inletFlow = new FormControl('', [Validators.required]);
     public outletFlow = new FormControl('', [Validators.required]);
 
-    @Input() public userId: number = -1;
+    @Input() public userId = -1;
 
     public loadingPost = false;
 

@@ -11,7 +11,7 @@ import { AccountService } from './service/account.service';
     templateUrl: './login.component.html',
 })
 export class LoginComponent {
-    public hidePassword: boolean = true;
+    public hidePassword = true;
     public loginForm: FormGroup;
     public username = new FormControl('', Validators.compose([Validators.required]));
     public password = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);

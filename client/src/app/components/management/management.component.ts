@@ -14,8 +14,8 @@ export class ManagementComponent implements OnInit {
     @Input() public manage: DwellingCreate | ReservoirCreate | undefined;
     @Input() public waterMeterId: number | undefined;
     @Input() public type: Type | undefined;
-    @Input() public load: boolean = false;
-    @Input() public reservoir?: boolean = false;
+    @Input() public load = false;
+    @Input() public reservoir? = false;
 
     constructor(private dialog: MatDialog, private svcPersistant: WaterMeterPersistantService) {}
 

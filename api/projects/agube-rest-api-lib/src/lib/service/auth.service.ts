@@ -68,7 +68,7 @@ export class AuthService {
   public changePassword(
     data: ChangePassword,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -140,7 +140,7 @@ export class AuthService {
   public enableAccount(
     data: EnableAccount,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(
@@ -212,7 +212,7 @@ export class AuthService {
   public resetPassword(
     data: ResetPassword,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress = false
   ): Observable<any> {
     if (data === null || data === undefined) {
       throw new Error(

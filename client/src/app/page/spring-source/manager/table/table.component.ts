@@ -29,7 +29,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     public filter = new FormControl('');
 
     // pagination
-    public pageSide: number = 12;
+    public pageSide = 12;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
@@ -91,7 +91,7 @@ export class TableComponent implements OnInit, AfterViewInit {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
             // Ignore accents in filters
-            this.dataSource.filterPredicate = (data: SpringSourceDetail, filter: string): boolean => {
+            this.dataSource.filterPredicate = (data: SpringSourceDetail, filter: string) => {
                 const dataStr = Object.keys(data)
                     .reduce((currentTerm: string, key: string) => {
                         return currentTerm + (data as { [key: string]: any })[key] + '◬';

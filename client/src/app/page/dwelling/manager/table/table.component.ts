@@ -113,7 +113,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.svcDwelling.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;
-            this.dataSource.filterPredicate = (data: DwellingDetail, filter: string): boolean => {
+            this.dataSource.filterPredicate = (data: DwellingDetail, filter: string) => {
                 const dataStr = Object.keys(data)
                     .reduce((currentTerm: string, key: string) => {
                         return currentTerm + (data as { [key: string]: any })[key] + '◬';

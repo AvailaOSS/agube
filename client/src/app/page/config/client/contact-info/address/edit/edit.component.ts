@@ -19,7 +19,7 @@ export class EditComponent extends CreateAddress {
     @Input() public userId: number | undefined;
     @Input() public geolocation: EditableGeolocation | undefined;
 
-    public showMap: boolean = true;
+    public showMap = true;
     @Output() public updatedEvent: EventEmitter<UserGeolocation | undefined> = new EventEmitter<
         UserGeolocation | undefined
     >();

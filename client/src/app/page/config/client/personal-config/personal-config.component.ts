@@ -17,7 +17,7 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
     templateUrl: './personal-config.component.html',
 })
 export class PersonalConfigComponent implements OnInit {
-    public loadSave: boolean = false;
+    public loadSave = false;
     public releaseDate: Date | undefined = undefined;
     public toggleControl = new FormControl(false);
     public selectedLanguage: Language | undefined;
