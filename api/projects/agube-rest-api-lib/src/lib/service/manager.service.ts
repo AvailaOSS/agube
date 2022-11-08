@@ -270,10 +270,10 @@ export class ManagerService {
     return this.httpClient.get<UserIsManager>(
       `${this.basePath}/manager/is-manager`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -325,10 +325,10 @@ export class ManagerService {
     return this.httpClient.get<ManagerMessage>(
       `${this.basePath}/manager/message`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -397,10 +397,10 @@ export class ManagerService {
       `${this.basePath}/manager/message`,
       data,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }

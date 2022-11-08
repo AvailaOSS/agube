@@ -313,10 +313,10 @@ export class SpringSourceService {
     return this.httpClient.get<Array<Comment>>(
       `${this.basePath}/springsource/${encodeURIComponent(String(id))}/comment`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -368,10 +368,10 @@ export class SpringSourceService {
     return this.httpClient.get<SpringSourceResume>(
       `${this.basePath}/springsource/resume`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
@@ -423,10 +423,10 @@ export class SpringSourceService {
     return this.httpClient.get<Array<SpringSourceDetail>>(
       `${this.basePath}/springsource`,
       {
-        withCredentials: this.configuration.withCredentials,
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
+        withCredentials: this.configuration.withCredentials,
       }
     );
   }
