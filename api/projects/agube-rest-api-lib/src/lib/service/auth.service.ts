@@ -53,17 +53,17 @@ export class AuthService {
   public changePassword(
     data: ChangePassword,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public changePassword(
     data: ChangePassword,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public changePassword(
     data: ChangePassword,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public changePassword(
     data: ChangePassword,
@@ -125,17 +125,17 @@ export class AuthService {
   public enableAccount(
     data: EnableAccount,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public enableAccount(
     data: EnableAccount,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public enableAccount(
     data: EnableAccount,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public enableAccount(
     data: EnableAccount,
@@ -197,17 +197,17 @@ export class AuthService {
   public resetPassword(
     data: ResetPassword,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public resetPassword(
     data: ResetPassword,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public resetPassword(
     data: ResetPassword,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public resetPassword(
     data: ResetPassword,

@@ -65,19 +65,19 @@ export class DwellingService {
     id: number,
     data: WaterMeter,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeter>;
   public changeCurrentDwellingWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeter>>;
   public changeCurrentDwellingWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeter>>;
   public changeCurrentDwellingWaterMeter(
     id: number,
@@ -148,19 +148,19 @@ export class DwellingService {
     id: number,
     data: Owner,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Owner>;
   public changeCurrentOwner(
     id: number,
     data: Owner,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Owner>>;
   public changeCurrentOwner(
     id: number,
     data: Owner,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Owner>>;
   public changeCurrentOwner(
     id: number,
@@ -231,19 +231,19 @@ export class DwellingService {
     id: number,
     data: Resident,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Resident>;
   public changeCurrentResident(
     id: number,
     data: Resident,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Resident>>;
   public changeCurrentResident(
     id: number,
     data: Resident,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Resident>>;
   public changeCurrentResident(
     id: number,
@@ -312,17 +312,17 @@ export class DwellingService {
   public createDwelling(
     data: DwellingCreate,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<DwellingCreate>;
   public createDwelling(
     data: DwellingCreate,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<DwellingCreate>>;
   public createDwelling(
     data: DwellingCreate,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<DwellingCreate>>;
   public createDwelling(
     data: DwellingCreate,
@@ -384,17 +384,17 @@ export class DwellingService {
   public createDwellingComment(
     data: DwellingCommentCreate,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<DwellingCommentCreate>;
   public createDwellingComment(
     data: DwellingCommentCreate,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<DwellingCommentCreate>>;
   public createDwellingComment(
     data: DwellingCommentCreate,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<DwellingCommentCreate>>;
   public createDwellingComment(
     data: DwellingCommentCreate,
@@ -456,17 +456,17 @@ export class DwellingService {
   public getCurrentDwellingWaterMeter(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeter>;
   public getCurrentDwellingWaterMeter(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeter>>;
   public getCurrentDwellingWaterMeter(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeter>>;
   public getCurrentDwellingWaterMeter(
     id: number,
@@ -522,17 +522,17 @@ export class DwellingService {
   public getCurrentDwellingWaterMeterHistorical(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<WaterMeterWithMeasurements>>;
   public getCurrentDwellingWaterMeterHistorical(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<WaterMeterWithMeasurements>>>;
   public getCurrentDwellingWaterMeterHistorical(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<WaterMeterWithMeasurements>>>;
   public getCurrentDwellingWaterMeterHistorical(
     id: number,
@@ -590,17 +590,17 @@ export class DwellingService {
   public getCurrentOwner(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Owner>;
   public getCurrentOwner(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Owner>>;
   public getCurrentOwner(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Owner>>;
   public getCurrentOwner(
     id: number,
@@ -656,17 +656,17 @@ export class DwellingService {
   public getCurrentResident(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Resident>;
   public getCurrentResident(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Resident>>;
   public getCurrentResident(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Resident>>;
   public getCurrentResident(
     id: number,
@@ -724,19 +724,19 @@ export class DwellingService {
     chunk: number,
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeterWithMeasurements>;
   public getCurrentWaterMeterMeasuresChunk(
     chunk: number,
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeterWithMeasurements>>;
   public getCurrentWaterMeterMeasuresChunk(
     chunk: number,
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeterWithMeasurements>>;
   public getCurrentWaterMeterMeasuresChunk(
     chunk: number,
@@ -801,17 +801,17 @@ export class DwellingService {
   public getDwelling(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<DwellingCreate>;
   public getDwelling(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<DwellingCreate>>;
   public getDwelling(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<DwellingCreate>>;
   public getDwelling(
     id: number,
@@ -867,17 +867,17 @@ export class DwellingService {
   public getDwellings(
     inAlert?: boolean,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<DwellingDetail>>;
   public getDwellings(
     inAlert?: boolean,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<DwellingDetail>>>;
   public getDwellings(
     inAlert?: boolean,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<DwellingDetail>>>;
   public getDwellings(
     inAlert?: boolean,
@@ -933,15 +933,15 @@ export class DwellingService {
    */
   public getResume(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<DwellingResume>;
   public getResume(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<DwellingResume>>;
   public getResume(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<DwellingResume>>;
   public getResume(
     observe: any = 'body',
@@ -990,17 +990,17 @@ export class DwellingService {
   public setOwnerAsResident(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Resident>;
   public setOwnerAsResident(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Resident>>;
   public setOwnerAsResident(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Resident>>;
   public setOwnerAsResident(
     id: number,
@@ -1067,7 +1067,7 @@ export class DwellingService {
     startDate?: string,
     endDate?: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeterMeasurementsPagination>;
   public getDwellingWaterMeterMeasurements(
     id: number,
@@ -1076,7 +1076,7 @@ export class DwellingService {
     startDate?: string,
     endDate?: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getDwellingWaterMeterMeasurements(
     id: number,
@@ -1085,7 +1085,7 @@ export class DwellingService {
     startDate?: string,
     endDate?: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getDwellingWaterMeterMeasurements(
     id: number,
@@ -1164,17 +1164,17 @@ export class DwellingService {
   public getDwellingComments(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<Comment>>;
   public getDwellingComments(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<Comment>>>;
   public getDwellingComments(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<Comment>>>;
   public getDwellingComments(
     id: number,
@@ -1232,19 +1232,19 @@ export class DwellingService {
     id: number,
     date?: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<DwellingMonthConsumption>;
   public getDwellingMonthConsumption(
     id: number,
     date?: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<DwellingMonthConsumption>>;
   public getDwellingMonthConsumption(
     id: number,
     date?: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<DwellingMonthConsumption>>;
   public getDwellingMonthConsumption(
     id: number,

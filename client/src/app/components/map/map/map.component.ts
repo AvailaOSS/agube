@@ -15,7 +15,6 @@ export class MapComponent implements AfterViewInit {
 
     public selectedStreetCandidate: LocationResponse | undefined;
 
-
     public static readonly zoom: number = 18;
     public static readonly zoomMax: number = 19;
     public static readonly zoomMin: number = 4;

@@ -63,19 +63,19 @@ export class ReservoirService {
     id: number,
     data: WaterMeter,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeter>;
   public changeCurrentReservoirWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeter>>;
   public changeCurrentReservoirWaterMeter(
     id: number,
     data: WaterMeter,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeter>>;
   public changeCurrentReservoirWaterMeter(
     id: number,
@@ -146,17 +146,17 @@ export class ReservoirService {
   public createReservoir(
     data: ReservoirCreate,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ReservoirCreate>;
   public createReservoir(
     data: ReservoirCreate,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ReservoirCreate>>;
   public createReservoir(
     data: ReservoirCreate,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ReservoirCreate>>;
   public createReservoir(
     data: ReservoirCreate,
@@ -218,17 +218,17 @@ export class ReservoirService {
   public createReservoirComment(
     data: ReservoirCommentCreate,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ReservoirCommentCreate>;
   public createReservoirComment(
     data: ReservoirCommentCreate,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ReservoirCommentCreate>>;
   public createReservoirComment(
     data: ReservoirCommentCreate,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ReservoirCommentCreate>>;
   public createReservoirComment(
     data: ReservoirCommentCreate,
@@ -290,17 +290,17 @@ export class ReservoirService {
   public getCurrentReservoirOwner(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Owner>;
   public getCurrentReservoirOwner(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Owner>>;
   public getCurrentReservoirOwner(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Owner>>;
   public getCurrentReservoirOwner(
     id: number,
@@ -356,17 +356,17 @@ export class ReservoirService {
   public getCurrentReservoirWaterMeter(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeter>;
   public getCurrentReservoirWaterMeter(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeter>>;
   public getCurrentReservoirWaterMeter(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeter>>;
   public getCurrentReservoirWaterMeter(
     id: number,
@@ -424,17 +424,17 @@ export class ReservoirService {
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<WaterMeterWithMeasurements>>;
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<WaterMeterWithMeasurements>>>;
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<WaterMeterWithMeasurements>>>;
   public getCurrentReservoirWaterMeterHistorical(
     id: number,
@@ -492,17 +492,17 @@ export class ReservoirService {
   public getReservoir(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ReservoirCreate>;
   public getReservoir(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ReservoirCreate>>;
   public getReservoir(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ReservoirCreate>>;
   public getReservoir(
     id: number,
@@ -558,17 +558,17 @@ export class ReservoirService {
   public getReservoirComments(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<Comment>>;
   public getReservoirComments(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<Comment>>>;
   public getReservoirComments(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<Comment>>>;
   public getReservoirComments(
     id: number,
@@ -626,19 +626,19 @@ export class ReservoirService {
     chunk: number,
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeterWithMeasurements>;
   public getReservoirCurrentWaterMeterMeasuresChunk(
     chunk: number,
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeterWithMeasurements>>;
   public getReservoirCurrentWaterMeterMeasuresChunk(
     chunk: number,
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeterWithMeasurements>>;
   public getReservoirCurrentWaterMeterMeasuresChunk(
     chunk: number,
@@ -701,15 +701,15 @@ export class ReservoirService {
    */
   public getReservoirs(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<ReservoirDetail>>;
   public getReservoirs(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<ReservoirDetail>>>;
   public getReservoirs(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<ReservoirDetail>>>;
   public getReservoirs(
     observe: any = 'body',
@@ -756,15 +756,15 @@ export class ReservoirService {
    */
   public getResume(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ReservoirResume>;
   public getResume(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ReservoirResume>>;
   public getResume(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ReservoirResume>>;
   public getResume(
     observe: any = 'body',
@@ -821,7 +821,7 @@ export class ReservoirService {
     startDate?: string,
     endDate?: string,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeterMeasurementsPagination>;
   public getReservoirWaterMeterMeasurements(
     id: number,
@@ -830,7 +830,7 @@ export class ReservoirService {
     startDate?: string,
     endDate?: string,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeterMeasurementsPagination>>;
   public getReservoirWaterMeterMeasurements(
     id: number,
@@ -839,7 +839,7 @@ export class ReservoirService {
     startDate?: string,
     endDate?: string,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeterMeasurementsPagination>>;
   public getReservoirWaterMeterMeasurements(
     id: number,

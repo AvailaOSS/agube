@@ -63,17 +63,17 @@ export class TokenService {
   public tokenAuthCreate(
     data: JSONWebToken,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<JSONWebToken>;
   public tokenAuthCreate(
     data: JSONWebToken,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<JSONWebToken>>;
   public tokenAuthCreate(
     data: JSONWebToken,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<JSONWebToken>>;
   public tokenAuthCreate(
     data: JSONWebToken,
@@ -137,17 +137,17 @@ export class TokenService {
   public tokenRefreshCreate(
     data: RefreshJSONWebToken,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<RefreshJSONWebToken>;
   public tokenRefreshCreate(
     data: RefreshJSONWebToken,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<RefreshJSONWebToken>>;
   public tokenRefreshCreate(
     data: RefreshJSONWebToken,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<RefreshJSONWebToken>>;
   public tokenRefreshCreate(
     data: RefreshJSONWebToken,
