@@ -1,3 +1,4 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { JoyrideModule } from 'ngx-joyride';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,7 @@ import { DetailComponent } from './detail.component';
         MatButtonModule,
         PipesModule,
         MapModule,
+        MatAutocompleteModule,
         MatButtonToggleModule,
         MatIconModule,
         MatTooltipModule,
