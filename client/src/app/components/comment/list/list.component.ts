@@ -50,7 +50,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    public updateComment(comment: Comment) {
+    public updateComment(comment: Comment): void {
         const data: CommentCreate = {
             created: comment.created,
             id: comment.id,
@@ -71,7 +71,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    public deleteComment(comment: Comment) {
+    public deleteComment(comment: Comment): void {
         this.svcComments.deleteComment(comment.id).subscribe({
             error: (error) => this.svcNotification.warning({ message: error.error.status }),
             next: (value) => {
@@ -83,7 +83,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    private loadComments() {
+    private loadComments(): void {
         this.loadingComments = true;
         this.managerComment.load(this.config!).subscribe({
             error: (error) => (this.loadingComments = false),

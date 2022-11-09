@@ -26,7 +26,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     public isSelected: ReservoirDetail | undefined = undefined;
 
     // filter
-    public filter = new FormControl('');
+    public filter: FormControl = new FormControl('');
 
     // pagination
     public pageSide: number = 12;
@@ -40,7 +40,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         private readonly svcTranslate: TranslateService
     ) {}
 
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         this.loadReservoirs();
     }
 
@@ -52,20 +52,20 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
 
-    public goToNewReservoir() {
+    public goToNewReservoir(): void {
         this.router.navigate(['manager/reservoirs/create']);
     }
 
-    public applyFilter() {
+    public applyFilter(): void {
         this.dataSource.filter = this.filter.value.trim().toLowerCase();
     }
 
-    public clearFilter() {
+    public clearFilter(): void {
         this.filter.setValue('');
         this.dataSource.filter = '';
     }
 
-    public goToReservoir(reservoir: ReservoirDetail) {
+    public goToReservoir(reservoir: ReservoirDetail): void {
         const queryParams: Detail = {
             reservoirId: reservoir.id!,
         };
@@ -73,13 +73,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     // Function to launch joyride to start tour in Reservoirs
-    public tour() {
+    public tour(): void {
         // Send step to joyride
         const steps: string[] = ['ReservoirCreateStep', 'ReservoirFilterStep', 'ReservoirMapStep'];
         JoyRideFunction(this.joyrideService, this.svcTranslate, steps);
     }
 
-    private loadReservoirs() {
+    private loadReservoirs(): void {
         this.svcReservoir.get().then((response) => {
             this.dataSource = new MatTableDataSource(response);
             this.dataSource.paginator = this.paginator!;

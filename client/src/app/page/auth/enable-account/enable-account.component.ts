@@ -16,10 +16,10 @@ export class EnableAccountComponent {
     public hidePassword: boolean = true;
     public hideConfirmPassword: boolean = true;
     public activationForm: FormGroup;
-    public activationCode = new FormControl('', [Validators.required]);
-    public username = new FormControl('', [Validators.required]);
-    public password = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
-    public confirmPassword = new FormControl({ value: '', disabled: true }, [
+    public activationCode: FormControl  = new FormControl('', [Validators.required]);
+    public username: FormControl  = new FormControl('', [Validators.required]);
+    public password: FormControl  = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
+    public confirmPassword: FormControl = new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(16),

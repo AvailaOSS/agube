@@ -65,13 +65,13 @@ export class DialogComponent extends CreateAddress implements OnInit {
         });
     }
 
-    public closeDialog() {
+    public closeDialog(): void {
         this.submitClicked.emit(undefined);
         this.dialogRef.close();
     }
 
     // Save Address and close dialog
-    public saveAddress() {
+    public saveAddress(): void {
         const geolocation: Geolocation = this.getGeolocation();
         if (this.geolocation) {
             geolocation.id = this.geolocation.id;

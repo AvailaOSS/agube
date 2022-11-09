@@ -29,8 +29,8 @@ import { Comment } from './../model/comment';
 
 @Injectable()
 export class SpringSourceService {
-  protected basePath = '';
-  public defaultHeaders = new HttpHeaders();
+  protected basePath: string = '';
+  public defaultHeaders: HttpHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
   constructor(

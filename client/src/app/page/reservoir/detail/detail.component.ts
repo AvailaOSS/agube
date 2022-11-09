@@ -106,7 +106,7 @@ export class DetailComponent implements OnInit {
         this.loadWaterMeter(this.reservoirId);
     }
 
-    public goToNewReservoir() {
+    public goToNewReservoir(): void {
         this.router.navigate(['manager/reservoirs/create']);
     }
 

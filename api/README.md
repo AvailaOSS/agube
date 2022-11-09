@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 1. Learn about [Swagger](https://swagger.io)
 
-2. Run [server](/server/README.md) __as dev mode__ 
+2. Run [server](/server/README.md) __as dev mode__
 
 3. Navigate to [localhost](http://localhost:8003/swagger.json) and copy all
 
@@ -23,8 +23,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - For New __Services__ :
     1. The __constructor__ must be overridden with the following code:
     ```typescript
-        protected basePath = '';
-        public defaultHeaders = new HttpHeaders();
+        protected basePath: string = '';
+        public defaultHeaders: HttpHeaders = new HttpHeaders();
         public configuration = new Configuration();
 
         constructor(

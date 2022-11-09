@@ -14,7 +14,7 @@ export class PhonesComponent {
     public userId: number = -1;
     public phones: EditablePhone[] = [];
     public canAddPhone: boolean = false;
-    public newPhone = new FormControl('', [
+    public newPhone : FormControl = new FormControl('', [
         Validators.required,
         Validators.pattern('[- +()0-9]+'),
         Validators.minLength(9),
@@ -96,7 +96,7 @@ export class PhonesComponent {
         }
     }
 
-    private getPhones(userId: number) {
+    private getPhones(userId: number): void {
         this.svcUser.getUserPhone(userId).subscribe({
             error: (error) => {
                 if (error.status === 401) {

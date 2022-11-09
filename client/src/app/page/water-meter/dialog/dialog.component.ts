@@ -19,7 +19,7 @@ export class WaterMeterDialogComponent {
     public id: number = -1;
     public type: WaterMeterType = WaterMeterType.UNKNOWN;
     public waterMeterForm: FormGroup;
-    public code = new FormControl('', [Validators.required]);
+    public code: FormControl = new FormControl('', [Validators.required]);
 
     public currentCode: string = '';
 

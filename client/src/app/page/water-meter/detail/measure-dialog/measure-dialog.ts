@@ -4,10 +4,10 @@ import { noFutureDate } from './no-future-date';
 export class MeasureDialog {
     public disabled: boolean = false;
     public loadingPost: boolean = false;
-    public measurement = new FormControl('', [Validators.required]);
-    public date = new FormControl(new Date(), [Validators.required, noFutureDate]);
-    public hour = new FormControl('', [Validators.required]);
-    public minutes = new FormControl('', [Validators.required]);
+    public measurement: FormControl = new FormControl('', [Validators.required]);
+    public date: FormControl = new FormControl(new Date(), [Validators.required, noFutureDate]);
+    public hour: FormControl = new FormControl('', [Validators.required]);
+    public minutes: FormControl = new FormControl('', [Validators.required]);
 
     // range for mat-select
     public hoursList = this.range(24);

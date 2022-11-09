@@ -17,10 +17,10 @@ import { MeasureDialog } from './measure-dialog';
 export class MeasureDialogComponent extends MeasureDialog {
     public waterMeterId: number = -1;
     public measureForm: FormGroup;
-    public override measurement = new FormControl('', [Validators.required]);
-    public override date = new FormControl(new Date(), [Validators.required, noFutureDate]);
-    public override hour = new FormControl('', [Validators.required]);
-    public override minutes = new FormControl('', [Validators.required]);
+    public override measurement: FormControl = new FormControl('', [Validators.required]);
+    public override date: FormControl = new FormControl(new Date(), [Validators.required, noFutureDate]);
+    public override hour: FormControl = new FormControl('', [Validators.required]);
+    public override minutes: FormControl = new FormControl('', [Validators.required]);
 
     constructor(
         private formBuilder: FormBuilder,

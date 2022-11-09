@@ -11,7 +11,7 @@ import { AuthRoute } from '../auth-route';
     templateUrl: './reset-password.component.html',
 })
 export class ResetPasswordComponent {
-    public email = new FormControl('', [Validators.required]);
+    public email : FormControl = new FormControl('', [Validators.required]);
 
     public loading = false;
 

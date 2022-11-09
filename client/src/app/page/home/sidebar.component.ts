@@ -20,7 +20,7 @@ export class SidebarComponent {
     public profile: string = '';
     public user: UserDetail | undefined;
 
-    public toggleControl = new FormControl(false);
+    public toggleControl: FormControl = new FormControl(false);
 
     public profilePhoto: any;
     private lightClassName: ThemeMode = ThemeMode.light;

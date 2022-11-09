@@ -43,11 +43,11 @@ export class DetailComponent implements OnInit {
     // table
     public displayedColumns: string[] = ['measurement', 'date', 'daysApart', 'measurement_diff'];
     public dataSource: MatTableDataSource<WaterMeterMeasurement> = new MatTableDataSource<WaterMeterMeasurement>();
-    public filter = new FormControl('');
+    public filter: FormControl = new FormControl('');
 
     // dates
-    public dateStart = new FormControl();
-    public dateEnd = new FormControl();
+    public dateStart: FormControl = new FormControl();
+    public dateEnd: FormControl = new FormControl();
     public isFirstDateValid: boolean = true;
 
     // others ?
