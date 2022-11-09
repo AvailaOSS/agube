@@ -78,8 +78,8 @@ export class DetailComponent implements OnInit {
             return 0;
         }
 
-        let current = new Date(measurement.date!);
-        let previous = new Date(previousMeasurement.date!);
+        const current = new Date(measurement.date!);
+        const previous = new Date(previousMeasurement.date!);
 
         const diff = differenceInDays(current, previous);
         if (diff <= 0) {

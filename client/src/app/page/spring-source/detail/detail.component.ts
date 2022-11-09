@@ -161,7 +161,7 @@ export class DetailComponent implements OnInit {
 
         this.showMap = true;
         const geolocation = this.springSource.geolocation;
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: {
                 center: {
                     lat: geolocation.latitude,
