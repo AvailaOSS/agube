@@ -14,7 +14,7 @@ export class PersonTable {
 
     public isSelected: Resident | undefined = undefined;
 
-    public filter = new FormControl('');
+    public filter: FormControl = new FormControl('');
 
     constructor(protected router: Router, protected route: ActivatedRoute) {}
 

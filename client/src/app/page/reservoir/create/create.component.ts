@@ -21,10 +21,10 @@ import { AccountService } from '../../auth/login/service/account.service';
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     public reservoirForm: FormGroup | undefined;
-    public code = new FormControl('');
-    public capacity = new FormControl('', [Validators.required]);
-    public inletFlow = new FormControl('', [Validators.required]);
-    public outletFlow = new FormControl('', [Validators.required]);
+    public code: FormControl = new FormControl('');
+    public capacity: FormControl = new FormControl('', [Validators.required]);
+    public inletFlow: FormControl = new FormControl('', [Validators.required]);
+    public outletFlow: FormControl = new FormControl('', [Validators.required]);
 
     @Input() public userId: number = -1;
 

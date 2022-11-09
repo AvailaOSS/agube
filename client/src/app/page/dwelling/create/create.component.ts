@@ -19,7 +19,7 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
 })
 export class CreateComponent extends CreateAddress implements OnInit {
     public dwellingForm: FormGroup | undefined;
-    public code = new FormControl('');
+    public code: FormControl = new FormControl('');
 
     public loadingPost = false;
 

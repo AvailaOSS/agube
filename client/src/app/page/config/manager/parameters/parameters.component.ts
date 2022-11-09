@@ -12,8 +12,8 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 export class ParametersComponent implements OnInit {
     public loadSave: boolean = false;
     public parametersForm: FormGroup;
-    public hook_price = new FormControl('', [Validators.required]);
-    public max_daily_consumption = new FormControl('', [Validators.required]);
+    public hook_price: FormControl = new FormControl('', [Validators.required]);
+    public max_daily_consumption: FormControl = new FormControl('', [Validators.required]);
 
     public releaseDate: Date | undefined = undefined;
 

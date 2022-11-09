@@ -14,9 +14,9 @@ import { passwordMatches } from './password-validator';
 export class PasswordComponent {
     public loadSave: boolean = false;
     public passwordForm: FormGroup;
-    public username = new FormControl('', [Validators.required]);
-    public password = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
-    public confirmPassword = new FormControl({ value: '', disabled: true }, [
+    public username : FormControl = new FormControl('', [Validators.required]);
+    public password : FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
+    public confirmPassword : FormControl = new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(16),

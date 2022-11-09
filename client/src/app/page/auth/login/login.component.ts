@@ -13,8 +13,8 @@ import { AccountService } from './service/account.service';
 export class LoginComponent {
     public hidePassword: boolean = true;
     public loginForm: FormGroup;
-    public username = new FormControl('', Validators.compose([Validators.required]));
-    public password = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
+    public username: FormControl = new FormControl('', Validators.compose([Validators.required]));
+    public password: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
 
     public isEdge = isEdge();
 

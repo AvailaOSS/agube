@@ -19,10 +19,10 @@ export class MeasureEditDialogComponent extends MeasureDialog {
     override disabled = false;
     public currentMeasurement: WaterMeterMeasurement | undefined;
     public measureForm: FormGroup;
-    public override measurement = new FormControl('', [Validators.required]);
-    public override date = new FormControl({ value: new Date(), disabled: true }, [Validators.required, noFutureDate]);
-    public override hour = new FormControl({ value: '', disabled: true }, [Validators.required]);
-    public override minutes = new FormControl({ value: '', disabled: true }, [Validators.required]);
+    public override measurement: FormControl = new FormControl('', [Validators.required]);
+    public override date: FormControl = new FormControl({ value: new Date(), disabled: true }, [Validators.required, noFutureDate]);
+    public override hour: FormControl = new FormControl({ value: '', disabled: true }, [Validators.required]);
+    public override minutes: FormControl = new FormControl({ value: '', disabled: true }, [Validators.required]);
 
     constructor(
         private formBuilder: FormBuilder,

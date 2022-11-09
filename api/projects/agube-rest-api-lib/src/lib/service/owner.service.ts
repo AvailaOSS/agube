@@ -26,8 +26,8 @@ import { OwnerDetail } from '../model/ownerDetail';
 
 @Injectable()
 export class OwnerService {
-  protected basePath = '';
-  public defaultHeaders = new HttpHeaders();
+  protected basePath: string = '';
+  public defaultHeaders: HttpHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
   constructor(

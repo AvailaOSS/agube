@@ -26,7 +26,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     public isSelected: SpringSourceDetail | undefined = undefined;
 
     // filter
-    public filter = new FormControl('');
+    public filter: FormControl = new FormControl('');
 
     // pagination
     public pageSide: number = 12;

@@ -23,7 +23,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
     // Variables public
     @Input() public userId: number = -1;
     public springSourceForm: FormGroup | undefined;
-    public code = new FormControl('');
+    public code: FormControl = new FormControl('');
     public loadingPost = false;
 
     constructor(

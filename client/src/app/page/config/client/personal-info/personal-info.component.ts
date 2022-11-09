@@ -18,9 +18,9 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
 export class PersonalInfoComponent implements OnInit {
     public loadSave: boolean = false;
     public personalForm: FormGroup;
-    public email = new FormControl('', [Validators.required, Validators.email]);
-    public first_name = new FormControl('', [Validators.required]);
-    public last_name = new FormControl('', [Validators.required]);
+    public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+    public first_name: FormControl = new FormControl('', [Validators.required]);
+    public last_name: FormControl = new FormControl('', [Validators.required]);
     public main_phone: Phone | undefined;
     public userId: number | undefined;
     public releaseDate: Date | undefined = undefined;

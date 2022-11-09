@@ -19,7 +19,7 @@ import { AccountService } from 'src/app/page/auth/login/service/account.service'
 export class PersonalConfigComponent implements OnInit {
     public loadSave: boolean = false;
     public releaseDate: Date | undefined = undefined;
-    public toggleControl = new FormControl(false);
+    public toggleControl: FormControl = new FormControl(false);
     public selectedLanguage: Language | undefined;
     public languages: Language[] = [
         {

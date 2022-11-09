@@ -27,7 +27,7 @@ import { AgubeRestConfigurationService } from '../configuration.service';
 
 @Injectable()
 export class AuthService {
-  protected basePath = '';
+  protected basePath: string = '';
   public defaultHeaders: HttpHeaders = new HttpHeaders();
   public configuration = new Configuration();
 

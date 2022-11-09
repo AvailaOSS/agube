@@ -12,7 +12,7 @@ import { CommentConfig } from '../type';
 })
 export class CreateDialogComponent {
     // textarea variable in form
-    public message = new FormControl('', [Validators.required]);
+    public message: FormControl  = new FormControl('', [Validators.required]);
 
     // verification  textarea length
     public messageLength: Number = 0;

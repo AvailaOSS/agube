@@ -16,10 +16,10 @@ export class ChangeComponent implements OnInit {
     public title: string = '';
     public typePerson = { typePerson: this.title };
     public personForm: FormGroup;
-    public first_name = new FormControl('', [Validators.required]);
-    public last_name = new FormControl('', [Validators.required]);
-    public email = new FormControl('', [Validators.required, Validators.email]);
-    public phone_number = new FormControl('', [
+    public first_name: FormControl = new FormControl('', [Validators.required]);
+    public last_name: FormControl = new FormControl('', [Validators.required]);
+    public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+    public phone_number: FormControl = new FormControl('', [
         Validators.required,
         Validators.pattern('[- +()0-9]+'),
         Validators.minLength(9),

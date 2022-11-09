@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ConfigurationEmailComponent implements OnInit {
     public loadSave: boolean = false;
-    public message = new FormControl('', [Validators.required]);
+    public message: FormControl = new FormControl('', [Validators.required]);
     public checked: boolean = false;
 
     constructor(

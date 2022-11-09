@@ -33,7 +33,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     public isSelected: DwellingDetail | undefined = undefined;
 
     // filter
-    public filter = new FormControl('');
+    public filter: FormControl = new FormControl('');
 
     // pagination
     public pageSize = 12;
