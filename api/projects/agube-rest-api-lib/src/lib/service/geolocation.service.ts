@@ -51,17 +51,17 @@ export class GeolocationService {
   public getGeolocation(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Geolocation>;
   public getGeolocation(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Geolocation>>;
   public getGeolocation(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Geolocation>>;
   public getGeolocation(
     id: number,
@@ -119,19 +119,19 @@ export class GeolocationService {
     id: number,
     data: Geolocation,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Geolocation>;
   public updateGeolocation(
     id: number,
     data: Geolocation,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Geolocation>>;
   public updateGeolocation(
     id: number,
     data: Geolocation,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Geolocation>>;
   public updateGeolocation(
     id: number,

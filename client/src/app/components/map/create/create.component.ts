@@ -90,8 +90,6 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         // do not execute ngAfterViewInit here
     }
 
-
-
     public resetFormIfHasChanged(formName: string, changes: SimpleChanges): void {
         // if parent says reset form then reset
         const current = changes[formName].currentValue;
@@ -356,7 +354,6 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         }
     }
 
-
     private loadAddressExamplesFromResponse(response: LocationResponse[]) {
         if (!response.length) {
             // if no response, do nothing
@@ -371,7 +368,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         this.loadingExamples = false;
     }
 
-     // -------------------------- End Angular Lifecycle -------------------------- //
+    // -------------------------- End Angular Lifecycle -------------------------- //
     // -------------------------- Override Extends MapComponent -------------------------- //
 
     protected override initializeMap(conf: ConfigureMap): void {
@@ -450,6 +447,4 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
 
     // -------------------------- End Override Extends MapComponent -------------------------- //
     // -------------------------- Class Methods by Interface MapAddressCreator -------------------------- //
-
-
 }

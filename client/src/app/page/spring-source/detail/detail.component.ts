@@ -33,12 +33,10 @@ import { JoyRideFunction } from 'src/app/utils/joyride/joyride';
     templateUrl: './detail.component.html',
 })
 export class DetailComponent implements OnInit {
-
     // map
     public canLoadStreetView: boolean = false;
     public configureView: ConfigureView | undefined;
     public configureMap: ConfigureMap | undefined;
-
 
     public configCommentComponent: CommentConfig | undefined;
     public canLoad: boolean = false;

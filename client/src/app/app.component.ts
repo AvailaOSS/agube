@@ -13,7 +13,6 @@ import { Language } from './utils/language';
     templateUrl: './app.component.html',
 })
 export class AppComponent {
-
     public icons: Icon[] = [
         {
             name: 'person',
@@ -157,5 +156,4 @@ export class AppComponent {
             this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(icon.path))
         );
     }
-
 }

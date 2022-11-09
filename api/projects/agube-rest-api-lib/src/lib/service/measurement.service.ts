@@ -53,19 +53,19 @@ export class MeasurementService {
     id: number,
     data: WaterMeterMeasurement,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<WaterMeterMeasurement>;
   public updateMeasurement(
     id: number,
     data: WaterMeterMeasurement,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<WaterMeterMeasurement>>;
   public updateMeasurement(
     id: number,
     data: WaterMeterMeasurement,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<WaterMeterMeasurement>>;
   public updateMeasurement(
     id: number,

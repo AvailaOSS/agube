@@ -59,5 +59,4 @@ export class OwnerComponent extends ChangeComponent {
         };
         return this.svcDwelling.changeCurrentOwner(this.dwellingId, { user });
     }
-
 }

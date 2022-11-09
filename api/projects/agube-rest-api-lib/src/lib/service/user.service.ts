@@ -73,19 +73,19 @@ export class UserService {
     id: number,
     data: UserGeolocation,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserGeolocation>;
   public addUserGeolocation(
     id: number,
     data: UserGeolocation,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserGeolocation>>;
   public addUserGeolocation(
     id: number,
     data: UserGeolocation,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserGeolocation>>;
   public addUserGeolocation(
     id: number,
@@ -156,19 +156,19 @@ export class UserService {
     id: number,
     data: UserPhone,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserPhone>;
   public addUserPhone(
     id: number,
     data: UserPhone,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserPhone>>;
   public addUserPhone(
     id: number,
     data: UserPhone,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserPhone>>;
   public addUserPhone(
     id: number,
@@ -239,19 +239,19 @@ export class UserService {
     geolocationId: number,
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public deleteUserGeolocation(
     geolocationId: number,
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public deleteUserGeolocation(
     geolocationId: number,
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public deleteUserGeolocation(
     geolocationId: number,
@@ -318,19 +318,19 @@ export class UserService {
     id: number,
     phoneId: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public deleteUserPhone(
     id: number,
     phoneId: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public deleteUserPhone(
     id: number,
     phoneId: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public deleteUserPhone(
     id: number,
@@ -395,17 +395,17 @@ export class UserService {
   public getConfig(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<PersonConfig>;
   public getConfig(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<PersonConfig>>;
   public getConfig(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<PersonConfig>>;
   public getConfig(
     id: number,
@@ -461,17 +461,17 @@ export class UserService {
   public getDwellingDetail(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<UserDwellingDetail>>;
   public getDwellingDetail(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<UserDwellingDetail>>>;
   public getDwellingDetail(
     id: number,
@@ -527,17 +527,17 @@ export class UserService {
   public getUserDetail(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserDetail>;
   public getUserDetail(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserDetail>>;
   public getUserDetail(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserDetail>>;
   public getUserDetail(
     id: number,
@@ -593,17 +593,17 @@ export class UserService {
   public getUserGeolocation(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<UserGeolocation>>;
   public getUserGeolocation(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<UserGeolocation>>>;
   public getUserGeolocation(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<UserGeolocation>>>;
   public getUserGeolocation(
     id: number,
@@ -659,17 +659,17 @@ export class UserService {
   public getUserPhone(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<UserPhone>>;
   public getUserPhone(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<UserPhone>>>;
   public getUserPhone(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<UserPhone>>>;
   public getUserPhone(
     id: number,
@@ -727,19 +727,19 @@ export class UserService {
     id: number,
     data: PersonConfig,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<PersonConfig>;
   public updateConfig(
     id: number,
     data: PersonConfig,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<PersonConfig>>;
   public updateConfig(
     id: number,
     data: PersonConfig,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<PersonConfig>>;
   public updateConfig(
     id: number,
@@ -810,19 +810,19 @@ export class UserService {
     id: number,
     data: UserDetail,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserDetail>;
   public updateUserDetail(
     id: number,
     data: UserDetail,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserDetail>>;
   public updateUserDetail(
     id: number,
     data: UserDetail,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserDetail>>;
   public updateUserDetail(
     id: number,
@@ -895,21 +895,21 @@ export class UserService {
     id: number,
     data: UserGeolocation,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserGeolocation>;
   public updateUserGeolocation(
     geolocationId: number,
     id: number,
     data: UserGeolocation,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserGeolocation>>;
   public updateUserGeolocation(
     geolocationId: number,
     id: number,
     data: UserGeolocation,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserGeolocation>>;
   public updateUserGeolocation(
     geolocationId: number,
@@ -991,21 +991,21 @@ export class UserService {
     phoneId: number,
     data: UserPhone,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<UserPhone>>;
   public updateUserPhone(
     id: number,
     phoneId: number,
     data: UserPhone,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<UserPhone>>>;
   public updateUserPhone(
     id: number,
     phoneId: number,
     data: UserPhone,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<UserPhone>>>;
   public updateUserPhone(
     id: number,
@@ -1083,17 +1083,17 @@ export class UserService {
   public getUserPhoto(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public getUserPhoto(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public getUserPhoto(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public getUserPhoto(
     id: number,
@@ -1147,17 +1147,17 @@ export class UserService {
   public setUserPhoto(
     photo: Blob,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public setUserPhoto(
     photo: Blob,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public setUserPhoto(
     photo: Blob,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public setUserPhoto(
     photo: Blob,

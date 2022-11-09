@@ -10,7 +10,6 @@ import { AccountService } from '../../auth/login/service/account.service';
     templateUrl: './client.component.html',
 })
 export class ClientComponent implements OnInit {
-
     public dwellings: UserDwellingDetail[];
     public user: User | undefined;
     public loading: boolean = false;

@@ -49,15 +49,15 @@ export class PhoneService {
    */
   public getPhones(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<Phone>>;
   public getPhones(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<Phone>>>;
   public getPhones(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<Phone>>>;
   public getPhones(
     observe: any = 'body',

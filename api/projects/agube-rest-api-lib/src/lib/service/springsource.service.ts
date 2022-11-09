@@ -55,17 +55,17 @@ export class SpringSourceService {
   public createSpringSource(
     data: SpringSource,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<SpringSource>;
   public createSpringSource(
     data: SpringSource,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<SpringSource>>;
   public createSpringSource(
     data: SpringSource,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<SpringSource>>;
   public createSpringSource(
     data: SpringSource,
@@ -127,17 +127,17 @@ export class SpringSourceService {
   public createSpringSourceComment(
     data: SpringSourceCommentCreate,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<SpringSourceCommentCreate>;
   public createSpringSourceComment(
     data: SpringSourceCommentCreate,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<SpringSourceCommentCreate>>;
   public createSpringSourceComment(
     data: SpringSourceCommentCreate,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<SpringSourceCommentCreate>>;
   public createSpringSourceComment(
     data: SpringSourceCommentCreate,
@@ -199,17 +199,17 @@ export class SpringSourceService {
   public getSpringSource(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<SpringSource>;
   public getSpringSource(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<SpringSource>>;
   public getSpringSource(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<SpringSource>>;
   public getSpringSource(
     id: number,
@@ -265,17 +265,17 @@ export class SpringSourceService {
   public getSpringSourceComments(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<Comment>>;
   public getSpringSourceComments(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<Comment>>>;
   public getSpringSourceComments(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<Comment>>>;
   public getSpringSourceComments(
     id: number,
@@ -329,15 +329,15 @@ export class SpringSourceService {
    */
   public getSpringSourceResume(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<SpringSourceResume>;
   public getSpringSourceResume(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<SpringSourceResume>>;
   public getSpringSourceResume(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<SpringSourceResume>>;
   public getSpringSourceResume(
     observe: any = 'body',
@@ -384,15 +384,15 @@ export class SpringSourceService {
    */
   public getSpringSources(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Array<SpringSourceDetail>>;
   public getSpringSources(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Array<SpringSourceDetail>>>;
   public getSpringSources(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Array<SpringSourceDetail>>>;
   public getSpringSources(
     observe: any = 'body',

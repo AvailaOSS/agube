@@ -8,7 +8,6 @@ import { Type } from '../chart-configure';
     templateUrl: '../chart.component.html',
 })
 export class GaugeComponent extends ChartComponent implements OnChanges {
-
     public override ngOnChanges(): void {
         super.ngOnChanges();
     }
@@ -19,5 +18,4 @@ export class GaugeComponent extends ChartComponent implements OnChanges {
     constructor() {
         super();
     }
-
 }

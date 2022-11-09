@@ -52,15 +52,15 @@ export class ManagerService {
    */
   public getManagerByUser(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Manager>;
   public getManagerByUser(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Manager>>;
   public getManagerByUser(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Manager>>;
   public getManagerByUser(
     observe: any = 'body',
@@ -104,15 +104,15 @@ export class ManagerService {
    */
   public getManagerConfiguration(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ManagerConfiguration>;
   public getManagerConfiguration(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ManagerConfiguration>>;
   public getManagerConfiguration(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ManagerConfiguration>>;
   public getManagerConfiguration(
     observe: any = 'body',
@@ -161,17 +161,17 @@ export class ManagerService {
   public updateManagerConfiguration(
     data: ManagerConfiguration,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ManagerConfiguration>;
   public updateManagerConfiguration(
     data: ManagerConfiguration,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ManagerConfiguration>>;
   public updateManagerConfiguration(
     data: ManagerConfiguration,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ManagerConfiguration>>;
   public updateManagerConfiguration(
     data: ManagerConfiguration,
@@ -231,15 +231,15 @@ export class ManagerService {
    */
   public userIsManager(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserIsManager>;
   public userIsManager(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserIsManager>>;
   public userIsManager(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserIsManager>>;
   public userIsManager(
     observe: any = 'body',
@@ -286,15 +286,15 @@ export class ManagerService {
    */
   public getManagerMessage(
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ManagerMessage>;
   public getManagerMessage(
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ManagerMessage>>;
   public getManagerMessage(
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ManagerMessage>>;
   public getManagerMessage(
     observe: any = 'body',
@@ -343,17 +343,17 @@ export class ManagerService {
   public updateManagerMessage(
     data: ManagerMessage,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<ManagerMessage>;
   public updateManagerMessage(
     data: ManagerMessage,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<ManagerMessage>>;
   public updateManagerMessage(
     data: ManagerMessage,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<ManagerMessage>>;
   public updateManagerMessage(
     data: ManagerMessage,

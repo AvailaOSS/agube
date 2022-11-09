@@ -51,17 +51,17 @@ export class CommentsService {
   public deleteComment(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<any>;
   public deleteComment(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<any>>;
   public deleteComment(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<any>>;
   public deleteComment(
     id: number,
@@ -117,17 +117,17 @@ export class CommentsService {
   public getComment(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Comment>;
   public getComment(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Comment>>;
   public getComment(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Comment>>;
   public getComment(
     id: number,
@@ -185,19 +185,19 @@ export class CommentsService {
     id: number,
     data: Comment,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Comment>;
   public patchComment(
     id: number,
     data: Comment,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Comment>>;
   public patchComment(
     id: number,
     data: Comment,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Comment>>;
   public patchComment(
     id: number,
@@ -268,19 +268,19 @@ export class CommentsService {
     id: number,
     data: Comment,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<Comment>;
   public updateComment(
     id: number,
     data: Comment,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<Comment>>;
   public updateComment(
     id: number,
     data: Comment,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<Comment>>;
   public updateComment(
     id: number,
