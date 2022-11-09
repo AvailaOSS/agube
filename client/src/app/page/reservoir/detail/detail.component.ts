@@ -162,7 +162,7 @@ export class DetailComponent implements OnInit {
 
         const geolocation = this.reservoir.geolocation;
 
-        let data: DialogParameters = {
+        const data: DialogParameters = {
             configureMap: {
                 center: {
                     lat: geolocation.latitude,
