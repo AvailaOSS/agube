@@ -25,7 +25,7 @@ import { RefreshJSONWebToken } from '../model/refreshJSONWebToken';
 export class TokenService {
   protected basePath: string = '';
   public defaultHeaders: HttpHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration = new Configuration();
 
   constructor(
     protected httpClient: HttpClient,

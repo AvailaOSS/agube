@@ -49,7 +49,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         });
     }
 
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         this.loadSpringSources();
     }
 

@@ -26,7 +26,7 @@ export class StreetViewComponent implements OnInit, AfterViewInit {
         }
     }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         this.configureStreetView();
     }
 

@@ -28,7 +28,7 @@ export class ManagerComponent implements OnInit {
         this.svcTableReload.emitReload(change);
     }
 
-    private loadMap() {
+    private loadMap(): void {
         // get location from dwellings
         this.svcDwellingCache.get().then((response) => {
             // check if has dwellings, else ignore it
