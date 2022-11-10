@@ -31,18 +31,18 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private formBuilder: FormBuilder,
         private googleAnalyticsService: GoogleAnalyticsService,
         private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
     ) {
         super();
 
         this.googleAnalyticsService.pageView('/create_dwelling', 'create_dwelling');
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.loadCache();
     }
 
-    public override addressFormReceive(addressEmitter: AddressEmitter) {
+    public override addressFormReceive(addressEmitter: AddressEmitter): void {
         super.addressFormReceive(addressEmitter);
         this.dwellingForm = this.formBuilder.group({
             address: addressEmitter.addressFormGroup,
@@ -52,11 +52,11 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
-    public exit() {
+    public exit(): void {
         this.router.navigate(['manager/dwellings']);
     }
 
-    public save() {
+    public save(): void {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
@@ -87,7 +87,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
-    public saveAndExit() {
+    public saveAndExit(): void {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
@@ -126,7 +126,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'code':
                 if (this.code.hasError('required')) {

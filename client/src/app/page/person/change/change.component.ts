@@ -58,23 +58,23 @@ export class ChangeComponent implements OnInit {
         this.svcDwelling.getDwelling(this.dwellingId).subscribe((response) => (this.dwelling = response));
     }
 
-    public save() {
+    public save(): void {
         if (this.personForm.invalid) {
             return;
         }
     }
 
-    public exit() {
+    public exit(): void {
         this.location.back();
     }
 
-    public saveAndExit() {
+    public saveAndExit(): void {
         this.save();
 
         this.exit();
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'first_name':
                 if (this.first_name.hasError('required')) {

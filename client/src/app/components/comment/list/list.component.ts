@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
         private managerComment: CommentManager,
         private svcNotification: NotificationService,
         public dialog: MatDialog,
-        @Inject(MAT_DIALOG_DATA) public data: CommentConfig
+        @Inject(MAT_DIALOG_DATA) public data: CommentConfig,
     ) {
         if (this.config === undefined && data) {
             this.config = data;

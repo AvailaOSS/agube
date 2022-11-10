@@ -69,7 +69,7 @@ export class DetailComponent implements OnInit {
         private svcNotification: NotificationService,
         private googleAnalyticsService: GoogleAnalyticsService,
         private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_water_source', '/detail_water_source');
@@ -101,7 +101,7 @@ export class DetailComponent implements OnInit {
     }
 
     // Comments in dialog
-    public seeComments() {
+    public seeComments(): void{
         this.dialog.open(ListComponent, {
             data: this.configCommentComponent,
             hasBackdrop: true,
@@ -110,7 +110,7 @@ export class DetailComponent implements OnInit {
     }
 
     // Edit geolocation with dialog
-    public goToEditGeolocation() {
+    public goToEditGeolocation(): void {
         if (!this.springSource) {
             return;
         }
@@ -152,7 +152,7 @@ export class DetailComponent implements OnInit {
     }
 
     // dialog map to see map in little screen
-    public seeMap() {
+    public seeMap(): void {
         if (!this.springSource) {
             return;
         }

@@ -110,7 +110,7 @@ export class DetailComponent implements OnInit {
         this.router.navigate(['manager/reservoirs/create']);
     }
 
-    public seeMap() {
+    public seeMap(): void {
         if (!this.reservoir) {
             return;
         }
@@ -145,7 +145,7 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public seeComments() {
+    public seeComments(): void{
         this.dialog.open(ListComponent, {
             data: this.configCommentComponent,
             hasBackdrop: true,
@@ -153,7 +153,7 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public goToEditGeolocation() {
+    public goToEditGeolocation(): void {
         if (!this.reservoir) {
             return;
         }

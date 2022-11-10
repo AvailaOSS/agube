@@ -35,7 +35,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private formBuilder: FormBuilder,
         private googleAnalyticsService: GoogleAnalyticsService,
         private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
     ) {
         super();
         this.googleAnalyticsService.pageView('create_springSource', '/create_springSource');
@@ -68,12 +68,12 @@ export class CreateComponent extends CreateAddress implements OnInit {
     }
 
     // Go to table spring source
-    public exit() {
+    public exit(): void {
         this.router.navigate(['manager/springsources']);
     }
 
     // Save
-    public save() {
+    public save(): void {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({

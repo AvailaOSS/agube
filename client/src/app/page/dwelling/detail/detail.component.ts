@@ -67,7 +67,7 @@ export class DetailComponent implements OnInit {
         public dialog: MatDialog,
         private googleAnalyticsService: GoogleAnalyticsService,
         private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
     ) {
         this.canLoadStreetView = isStreetViewAvailable();
         this.googleAnalyticsService.pageView('view_dwelling', '/detail_dwelling');
@@ -104,7 +104,7 @@ export class DetailComponent implements OnInit {
         this.router.navigate(['manager/dwellings/create']);
     }
 
-    public seeMap() {
+    public seeMap(): void {
         if (!this.dwelling) {
             return;
         }
@@ -139,7 +139,7 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public seeComments() {
+    public seeComments(): void{
         this.dialog.open(ListComponent, {
             data: this.configCommentComponent,
             hasBackdrop: true,
@@ -147,7 +147,7 @@ export class DetailComponent implements OnInit {
         });
     }
 
-    public goToEditGeolocation() {
+    public goToEditGeolocation(): void {
         if (!this.dwelling) {
             return;
         }

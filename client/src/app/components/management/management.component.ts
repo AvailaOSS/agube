@@ -19,7 +19,7 @@ export class ManagementComponent implements OnInit {
 
     constructor(private dialog: MatDialog, private svcPersistant: WaterMeterPersistantService) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (!this.manage?.id) {
             return;
         }

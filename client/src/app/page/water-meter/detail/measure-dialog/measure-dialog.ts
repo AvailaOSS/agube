@@ -26,7 +26,7 @@ export class MeasureDialog {
         this.close(true);
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'measurement':
                 if (this.measurement.hasError('required')) {

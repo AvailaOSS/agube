@@ -56,7 +56,7 @@ export class CreateDialogComponent {
     }
 
     // validator if have any error in textarea
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'message':
                 if (this.message.hasError('required')) {

@@ -30,7 +30,7 @@ export class TokenService {
   constructor(
     protected httpClient: HttpClient,
     private config: AgubeRestConfigurationService,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;

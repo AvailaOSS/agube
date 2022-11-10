@@ -20,7 +20,7 @@ export class StreetViewComponent implements OnInit, AfterViewInit {
         this.apiLoaded = this.loadGoogleMapsApi();
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (!this.configureView) {
             throw new Error('This component needs location object');
         }

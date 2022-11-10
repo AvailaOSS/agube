@@ -29,7 +29,7 @@ export class EditComponent extends CreateAddress {
         protected svcNotification: NotificationService,
         protected svcUser: UserService,
         public dialog: MatDialog,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
     ) {
         super();
     }

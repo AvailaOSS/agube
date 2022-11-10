@@ -39,7 +39,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         private formBuilder: FormBuilder,
         private googleAnalyticsService: GoogleAnalyticsService,
         private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
     ) {
         super();
         this.googleAnalyticsService.pageView('create_reservoir', '/create_reservoir');
@@ -71,11 +71,11 @@ export class CreateComponent extends CreateAddress implements OnInit {
         this.loadCache();
     }
 
-    public exit() {
+    public exit(): void {
         this.router.navigate(['manager/reservoirs']);
     }
 
-    public save() {
+    public save(): void {
         this.loadingPost = true;
 
         this.onSave()!.subscribe({
@@ -124,7 +124,7 @@ export class CreateComponent extends CreateAddress implements OnInit {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'code':
                 if (this.code.hasError('required')) {

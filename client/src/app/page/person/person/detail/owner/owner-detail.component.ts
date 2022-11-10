@@ -24,7 +24,7 @@ export class OwnerDetailComponent extends Detail implements OnInit {
         super(router, activatedRoute, svcDwelling, svcUser, svcNotification, googleAnalyticsService);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (!this.personId) {
             return;
         }

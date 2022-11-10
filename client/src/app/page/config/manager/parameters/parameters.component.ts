@@ -23,7 +23,7 @@ export class ParametersComponent implements OnInit {
         private readonly svcManager: ManagerService,
         private formBuilder: FormBuilder,
         private svcNotification: NotificationService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
     ) {
         this.parametersForm = this.formBuilder.group({
             hook_price: this.hook_price,
@@ -67,7 +67,7 @@ export class ParametersComponent implements OnInit {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'hook_price':
                 if (this.hook_price.hasError('required')) {

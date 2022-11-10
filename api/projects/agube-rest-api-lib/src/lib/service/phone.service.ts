@@ -32,7 +32,7 @@ export class PhoneService {
   constructor(
     protected httpClient: HttpClient,
     private svcConfig: AgubeRestConfigurationService,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;

@@ -30,9 +30,9 @@ export class PasswordComponent {
 
     constructor(
         private formBuilder: FormBuilder,
-    private svcNotification: NotificationService,
+        private svcNotification: NotificationService,
         private svcAuth: AuthService,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
     ) {
         this.passwordForm = this.formBuilder.group({
             confirmPassword: this.confirmPassword,
@@ -90,7 +90,7 @@ export class PasswordComponent {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'username':
                 if (this.username.hasError('required')) {
