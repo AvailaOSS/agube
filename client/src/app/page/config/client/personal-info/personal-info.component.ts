@@ -37,7 +37,7 @@ export class PersonalInfoComponent implements OnInit {
         private svcUser: UserService,
         private svcPersistantPersonal: PersonalInfoPersistantService,
         private svcTranslate: TranslateService,
-        private readonly joyrideService: JoyrideService
+        private readonly joyrideService: JoyrideService,
     ) {
         this.personalForm = this.formBuilder.group({
             email: this.email,
@@ -120,7 +120,7 @@ export class PersonalInfoComponent implements OnInit {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'first_name':
                 if (this.first_name.hasError('required')) {

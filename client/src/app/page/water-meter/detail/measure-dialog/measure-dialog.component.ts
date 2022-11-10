@@ -28,7 +28,7 @@ export class MeasureDialogComponent extends MeasureDialog {
         public dialogRef: MatDialogRef<MeasureDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private data: MeasureDialogData,
         private svcNotification: NotificationService,
-        private googleAnalyticsService: GoogleAnalyticsService
+        private googleAnalyticsService: GoogleAnalyticsService,
     ) {
         super();
         this.measureForm = this.formBuilder.group({

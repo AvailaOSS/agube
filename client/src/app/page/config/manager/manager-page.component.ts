@@ -9,7 +9,8 @@ import { JoyrideService } from 'ngx-joyride';
     templateUrl: './manager-page.component.html',
 })
 export class ManagerPageComponent implements OnInit {
-    constructor(private svcTranslate: TranslateService, private readonly joyrideService: JoyrideService) {}
+    constructor(private svcTranslate: TranslateService,
+        private readonly joyrideService: JoyrideService,) { }
 
     public ngOnInit(): void {}
 

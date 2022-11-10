@@ -27,7 +27,7 @@ export class EditComponent {
     constructor(
     private svcNotification: NotificationService,
         private svcUser: UserService,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
     ) {
         //TODO: COMPLETE THIS COMPONENT
     }
@@ -104,7 +104,7 @@ export class EditComponent {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'newPhone':
                 const invalidPattern = 'PAGE.CONFIG.CLIENT.CONTACT-INFO.PHONE.FORM.VALIDATION.PATTERN';

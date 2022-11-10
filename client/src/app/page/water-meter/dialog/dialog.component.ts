@@ -87,7 +87,7 @@ export class WaterMeterDialogComponent {
         this.close();
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'code':
                 if (this.code.hasError('required')) {

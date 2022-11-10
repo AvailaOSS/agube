@@ -279,7 +279,7 @@ export class CreateComponent extends MapComponent implements MapAddressCreator, 
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'filter':
                 if (this.form!.filter && this.form!.filter.hasError('required')) {

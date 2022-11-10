@@ -18,7 +18,7 @@ export class EditComponent extends CreateComponent implements OnInit {
         protected override router: Router,
         protected override http: HttpClient,
         protected override formBuilder: FormBuilder,
-        protected override svcAddress: AddressService
+        protected override svcAddress: AddressService,
     ) {
         super(router, http, formBuilder, svcAddress);
         this.form = undefined;

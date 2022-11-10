@@ -18,10 +18,10 @@ export class ConfigurationEmailComponent implements OnInit {
     constructor(
         private svcManager: ManagerService,
         private svcNotification: NotificationService,
-        private svcTranslate: TranslateService
+        private svcTranslate: TranslateService,
     ) {}
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'message':
                 if (this.message.hasError('required')) {

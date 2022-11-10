@@ -16,7 +16,7 @@ export class DialogOnlyMapComponent implements OnInit {
         public dialogRef: MatDialogRef<DialogOnlyMapComponent>
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.configureMap = this.data.configureMap;
     }
 

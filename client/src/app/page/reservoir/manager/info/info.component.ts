@@ -10,7 +10,7 @@ export class InfoComponent implements OnInit {
     public reservoirResume: ReservoirResume | undefined;
 
     constructor(private svcReservoir: ReservoirService) {}
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcReservoir.getResume().subscribe((response) => (this.reservoirResume = response));
     }
 }

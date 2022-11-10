@@ -55,7 +55,7 @@ export class PersonalConfigComponent implements OnInit {
         this.selectedLanguage = this.languages.filter((lang) => lang.code === this.translate.currentLang)[0];
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.svcAccount.getUser().subscribe((userResponse) => {
             if (!userResponse) {
                 return;

@@ -30,7 +30,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
         constructor(
             protected httpClient: HttpClient,
             private svcConfig: AgubeRestConfigurationService,
-            @Optional() configuration: Configuration
+            @Optional() configuration: Configuration,
         ) {
             if (configuration) {
                 this.configuration = configuration;
