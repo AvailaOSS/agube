@@ -14,9 +14,9 @@ import { passwordMatches } from './password-validator';
 export class PasswordComponent {
     public loadSave: boolean = false;
     public passwordForm: FormGroup;
-    public username : FormControl = new FormControl('', [Validators.required]);
-    public password : FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
-    public confirmPassword : FormControl = new FormControl({ value: '', disabled: true }, [
+    public username: FormControl = new FormControl('', [Validators.required]);
+    public password: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
+    public confirmPassword: FormControl = new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(16),
@@ -26,11 +26,11 @@ export class PasswordComponent {
     public releaseDate: Date | undefined = undefined;
     public hidePassword: boolean = true;
     public hideConfirmPassword: boolean = true;
-    public isEdge = isEdge();
+    public isEdge: boolean = isEdge();
 
     constructor(
         private formBuilder: FormBuilder,
-        private svcNotification: NotificationService,
+    private svcNotification: NotificationService,
         private svcAuth: AuthService,
         private svcTranslate: TranslateService
     ) {

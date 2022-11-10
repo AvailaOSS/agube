@@ -11,17 +11,19 @@ import { AuthRoute } from '../auth-route';
     templateUrl: './reset-password.component.html',
 })
 export class ResetPasswordComponent {
-    public email : FormControl = new FormControl('', [Validators.required]);
+    public email: FormControl = new FormControl('', [Validators.required]);
 
-    public loading = false;
+    public loading: boolean = false;
 
-    constructor(private svcAuth: AuthService, private svcNotification: NotificationService, private router: Router) {}
+    constructor(private svcAuth: AuthService,
+        private svcNotification: NotificationService,
+        private router: Router) { }
 
-    public goLogin() {
+    public goLogin(): void {
         this.router.navigate([AuthRoute.LOGIN]);
     }
 
-    public doResetPassword() {
+    public doResetPassword(): void {
         // stop here if form is invalid
         if (this.email.invalid) {
             return;
@@ -45,7 +47,7 @@ export class ResetPasswordComponent {
         });
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'email':
                 if (this.email.hasError('required')) {

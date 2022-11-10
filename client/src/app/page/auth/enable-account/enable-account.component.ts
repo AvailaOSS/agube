@@ -16,9 +16,9 @@ export class EnableAccountComponent {
     public hidePassword: boolean = true;
     public hideConfirmPassword: boolean = true;
     public activationForm: FormGroup;
-    public activationCode: FormControl  = new FormControl('', [Validators.required]);
-    public username: FormControl  = new FormControl('', [Validators.required]);
-    public password: FormControl  = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
+    public activationCode: FormControl = new FormControl('', [Validators.required]);
+    public username: FormControl = new FormControl('', [Validators.required]);
+    public password: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
     public confirmPassword: FormControl = new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(5),
@@ -26,15 +26,15 @@ export class EnableAccountComponent {
         passwordMatches(this.password),
     ]);
 
-    public loading = false;
+    public loading: boolean = false;
 
-    public isEdge = isEdge();
+    public isEdge: boolean = isEdge();
 
     constructor(
         private formBuilder: FormBuilder,
         private svcAuth: AuthService,
         private router: Router,
-        private svcNotification: NotificationService
+        private svcNotification: NotificationService,
     ) {
         this.activationForm = this.formBuilder.group({
             activationCode: this.activationCode,
@@ -45,7 +45,7 @@ export class EnableAccountComponent {
         this.confirmPassword.disable();
     }
 
-    public enableConfirmPassword(event: KeyboardEvent) {
+    public enableConfirmPassword(event: KeyboardEvent): void {
         this.password.valueChanges.subscribe((c) => {
             if (this.password.errors) {
                 this.confirmPassword.disable();
@@ -82,11 +82,11 @@ export class EnableAccountComponent {
             });
     }
 
-    public goLogin() {
+    public goLogin(): void {
         this.router.navigate([AuthRoute.LOGIN]);
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'activationCode':
                 if (this.activationCode.hasError('required')) {

@@ -50,7 +50,7 @@ export class PersonalConfigComponent implements OnInit {
         private translate: TranslateService,
         private googleAnalyticsService: GoogleAnalyticsService,
         private svcTranslate: TranslateService,
-        private svcNotification: NotificationService
+        private svcNotification: NotificationService,
     ) {
         this.selectedLanguage = this.languages.filter((lang) => lang.code === this.translate.currentLang)[0];
     }
