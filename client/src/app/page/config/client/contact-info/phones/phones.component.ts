@@ -14,7 +14,7 @@ export class PhonesComponent {
     public userId: number = -1;
     public phones: EditablePhone[] = [];
     public canAddPhone: boolean = false;
-    public newPhone : FormControl = new FormControl('', [
+    public newPhone: FormControl = new FormControl('', [
         Validators.required,
         Validators.pattern('[- +()0-9]+'),
         Validators.minLength(9),
@@ -24,7 +24,7 @@ export class PhonesComponent {
     constructor(
         private svcAccount: AccountService,
         private svcUser: UserService,
-        private svcNotification: NotificationService
+        private svcNotification: NotificationService,
     ) {
         this.svcAccount.getUser().subscribe((response) => {
             if (!response) {

@@ -16,7 +16,7 @@ export class LoginComponent {
     public username: FormControl = new FormControl('', Validators.compose([Validators.required]));
     public password: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]);
 
-    public isEdge = isEdge();
+    public isEdge: boolean = isEdge();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,15 +39,15 @@ export class LoginComponent {
         this.accountService.login(
             this.loginForm.value.username,
             this.loginForm.value.password,
-            this.authService.afterLoginSuccessUrl
+            this.authService.afterLoginSuccessUrl,
         );
     }
 
-    public createAccount() {
+    public createAccount(): void {
         this.router.navigate([this.authService.createAccountUrl]);
     }
 
-    public errorValidator(entity: string) {
+    public errorValidator(entity: string): string {
         switch (entity) {
             case 'username':
                 if (this.username.hasError('required')) {

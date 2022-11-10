@@ -17,7 +17,7 @@ export class EditComponent {
     @Output() public event: EventEmitter<UserPhone | undefined> = new EventEmitter<UserPhone | undefined>();
     @Output() public deleteEvent: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
 
-    public newPhone : FormControl = new FormControl('', [
+    public newPhone: FormControl = new FormControl('', [
         Validators.required,
         Validators.pattern('[- +()0-9]+'),
         Validators.minLength(9),
@@ -25,7 +25,7 @@ export class EditComponent {
     ]);
 
     constructor(
-        private svcNotification: NotificationService,
+    private svcNotification: NotificationService,
         private svcUser: UserService,
         private svcTranslate: TranslateService
     ) {
