@@ -26,7 +26,7 @@ export class ManagerComponent implements OnInit {
         this.loadMap();
     }
 
-    private loadMap() {
+    private loadMap(): void {
         // get location from watersource
         this.svcSpringSourceCache.get().then((response) => {
             // check if has watersource, else ignore it

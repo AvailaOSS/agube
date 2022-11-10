@@ -17,11 +17,11 @@ export class MeasureDialog {
 
     public checkTime() {}
 
-    public setTime(time: number, type: string) {}
+    public setTime(time: number, type: string): void {}
 
     public close(reload: boolean): void {}
 
-    public saveAndClose() {
+    public saveAndClose(): void {
         this.save();
         this.close(true);
     }

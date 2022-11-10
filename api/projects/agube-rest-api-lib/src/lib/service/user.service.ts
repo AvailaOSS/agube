@@ -33,7 +33,7 @@ import { CustomHttpUrlEncodingCodec } from '../encoder';
 export class UserService {
   protected basePath: string = '';
   public defaultHeaders: HttpHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration = new Configuration();
 
   constructor(
     protected httpClient: HttpClient,
@@ -1218,8 +1218,8 @@ export class UserService {
       {
         headers: headers,
         observe: observe,
-        responseType: 'blob',
         reportProgress: reportProgress,
+        responseType: 'blob',
         withCredentials: this.configuration.withCredentials,
       }
     );

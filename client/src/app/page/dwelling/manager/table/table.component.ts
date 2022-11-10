@@ -64,7 +64,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     //go to create dwelling
-    public goToNewDwelling() {
+    public goToNewDwelling(): void {
         this.router.navigate(['manager/dwellings/create']);
     }
 

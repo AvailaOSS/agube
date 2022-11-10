@@ -60,7 +60,7 @@ export class ClientComponent implements OnInit {
         });
     }
 
-    public goToNewDwelling() {
+    public goToNewDwelling(): Promise<boolean> {
         return this.router.navigate(['manager/home/dwellings/create']);
     }
 }

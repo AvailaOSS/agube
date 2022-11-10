@@ -25,7 +25,7 @@ export class ManagerComponent implements OnInit {
         this.loadMap();
     }
 
-    private loadMap() {
+    private loadMap(): void {
         // get location from reservoirs
         this.svcReservoirCache.get().then((response) => {
             // check if has reservoirs, else ignore it

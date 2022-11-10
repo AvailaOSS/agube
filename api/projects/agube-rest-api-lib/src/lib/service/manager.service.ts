@@ -30,7 +30,7 @@ import { UserIsManager } from '../model/userIsManager';
 export class ManagerService {
   protected basePath: string = '';
   public defaultHeaders: HttpHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration = new Configuration();
 
   constructor(
     protected httpClient: HttpClient,

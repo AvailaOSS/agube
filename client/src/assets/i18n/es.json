@@ -367,6 +367,7 @@
     "PAGE.TOUR.DWELLING-TABLE": "Aquí se ven todas las viviendas registradas en tu comunidad, se muestran el código del contador de agua, la dirección de la vivienda , el residente y los litros consumidos el mes anterior.",
     "PAGE.TOUR.DWELLING-INFO": " Aquí se visualizan los datos de la vivienda con su residente",
     "PAGE.TOUR.DWELLING-WATER-METER": " Aquí se puede agregar o cambiar un contador",
+    "PAGE.TOUR.DWELLING-MAP-DETAIL": "Aquí puedes ver la localización de la casa y las observaciones",
     "PAGE.TOUR.DWELLING-WATER-METER-MEASUREMENT": " Aqui se ve el consumo actual de la vivienda este mes y todas las lecturas",
     "PAGE.TOUR.GENERIC-FILTER-CREATE": "Busca la calle de tu comunidad y aparecerá un mapa para que selecciones",
     "PAGE.TOUR.GENERIC-MAP-CREATE": "Marca la posición en el mapa y aparecerá un formulario con los datos de la calle seleccionada",

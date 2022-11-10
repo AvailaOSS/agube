@@ -27,7 +27,7 @@ import { Address } from '../model/address';
 export class AddressService {
   protected basePath: string = '';
   public defaultHeaders: HttpHeaders = new HttpHeaders();
-  public configuration = new Configuration();
+  public configuration: Configuration = new Configuration();
 
   constructor(
     protected httpClient: HttpClient,

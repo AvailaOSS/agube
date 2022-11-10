@@ -100,7 +100,7 @@ export class DetailComponent implements OnInit {
         this.loadWaterMeter(this.dwellingId);
     }
 
-    public goToNewDwelling() {
+    public goToNewDwelling(): void {
         this.router.navigate(['manager/dwellings/create']);
     }
 

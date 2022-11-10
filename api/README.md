@@ -25,7 +25,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     ```typescript
         protected basePath: string = '';
         public defaultHeaders: HttpHeaders = new HttpHeaders();
-        public configuration = new Configuration();
+        public configuration: Configuration = new Configuration();
 
         constructor(
             protected httpClient: HttpClient,
