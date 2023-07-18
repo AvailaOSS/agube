@@ -1,20 +1,61 @@
+@use '../../../../assets/availa/palette/colors.scss' as color;
+
 .login-card {
   display: table-caption;
   text-align: center;
   width: 300px;
+  height: fit-content;
+  padding: 25px;
+
+  mat-card-title, mat-card-subtitle {
+    color: #005698;
+    font-weight: bold;
+  }
+
+  mat-card-title {
+    font-size: 28px;
+  }
+
+  mat-card-subtitle {
+    font-size: 20px;
+  }
+
+  mat-label {
+    color: #005698;
+  }
 }
 
 .login-form {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: color.$dark-primary-text;
   mat-card-content {
     display: inline-grid;
   }
   mat-card-actions {
     display: block;
     div {
+      display: flex;
+      justify-content: space-around;
       padding: 10px;
       font-family: 'ubuntu';
+      a {
+        text-decoration: none;
+        padding: 8px;
+      }
+    }
+    
+    button, a{
+      background-color: #005698;
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
     }
   }
+}
+
+input::placeholder {
+  color: #005698;
 }
