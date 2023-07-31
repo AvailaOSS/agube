@@ -31,12 +31,13 @@ PUBLIC_APP_URL = os.environ.get("PUBLIC_APP_URL")
 
 # Email
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True  # TODO: check if it should be disabled
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(" ")
 
 # Application definition
 
@@ -191,5 +192,5 @@ SWAGGER_SETTINGS = {
 JWT_AUTH = {
     'JWT_ALGORITHM': 'HS256',
     'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=int(os.environ.get("JWT_EXPIRATION_SECONDS"))),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=int(os.environ.get("JWT_EXPIRATION_SECONDS", 3600))),
 }
