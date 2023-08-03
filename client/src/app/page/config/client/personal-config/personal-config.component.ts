@@ -35,7 +35,7 @@ export class PersonalConfigComponent implements OnInit {
         {
             code: 'en',
             description: 'LENGUAGE.ENGLISH',
-            flagLink: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
+            flagLink: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg',
         },
     ];
 
